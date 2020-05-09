@@ -9,7 +9,7 @@ namespace UnbiddenMod.Code.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stardust Ultimus");
-            Tooltip.SetDefault("A sword forged from the pure essence of the Cosmos");
+            Tooltip.SetDefault("\"A sword forged from the pure essence of the Cosmos\"");
         }
 
         public override void SetDefaults()
@@ -17,7 +17,6 @@ namespace UnbiddenMod.Code.Items
             item.CloneDefaults(ItemID.WoodenSword);
             item.width = 20;
             item.height = 20;
-            item.maxStack = 999;
             item.value = 100000;
             item.rare = 12;
             item.useTime = 13;
@@ -25,7 +24,7 @@ namespace UnbiddenMod.Code.Items
             item.melee = true;
             item.autoReuse = true;
             item.useTurn = true;
-            item.shoot = true;
+            // item.shoot = true; // Commenting this until we have a projectile to shoot
             // Set other item.X values here
         }
 
@@ -38,10 +37,9 @@ namespace UnbiddenMod.Code.Items
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        public override void Shoort()
+        public override bool Shoot()
         {
-
-            
+            return true;
         }
     }
 }

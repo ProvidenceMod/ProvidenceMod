@@ -107,7 +107,7 @@ namespace UnbiddenMod.Code.NPCs
     // Random name generator when the NPC arrives
     public override string TownNPCName()
     {
-      switch (Math.rand.Next(4)) {
+      switch (Main.rand.Next(4)) {
         case 1:
           return "Jenova";
         case 2:

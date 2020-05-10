@@ -35,7 +35,7 @@ namespace UnbiddenMod.Code.Projectiles
         projectile.rotation += 0.4f * (float)projectile.direction;
         projectile.ai[0] += 1f;
         
-        Dust.NewDust(player.position, player.width, player.height, mod.DustType("StarBlastDust"));
+        Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"));
         if (projectile.soundDelay == 0)
             {
             	projectile.soundDelay = 8;

@@ -104,9 +104,19 @@ namespace UnbiddenMod.Code.NPCs
       return score >= (right - left) * (bottom - top) / 2;
     }
 
+    // Random name generator when the NPC arrives
     public override string TownNPCName()
     {
-      return "Solar Cultist";
+      switch (Math.rand.Next(4)) {
+        case 1:
+          return "Jenova";
+        case 2:
+          return "Tel'slara";
+        case 3:
+          return "Hoshinko";
+        default:
+          return "Sighard";
+      }
     }
 
     public override void FindFrame(int frameHeight)

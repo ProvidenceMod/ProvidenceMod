@@ -53,10 +53,17 @@ namespace UnbiddenMod.Code.Items
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
         }
-        public override bool Shoot()
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            return true;
-
+            int spread = 10;
+            float spreadMult = 0.2f;
+            for(int i = 0 ; i < 5 ; i++)
+            {
+                float vX = speedX +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
+                float vY = speedY +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
+                Projectile.NewProjectile(position.X, position.Y, vX, vY, type, damage, knockBack, Main.myPlayer);
+            }
+            return false;
         }
     }
 }

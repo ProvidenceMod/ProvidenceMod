@@ -1,6 +1,8 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
+using System;
+using Microsoft.Xna.Framework;
 
 namespace UnbiddenMod.Code.Items
 {
@@ -24,22 +26,37 @@ namespace UnbiddenMod.Code.Items
             item.melee = true;
             item.autoReuse = true;
             item.useTurn = true;
+            item.shoot = mod.ProjectileType("StarBlast");
             // item.shoot = true; // Commenting this until we have a projectile to shoot
-            // Set other item.X values here
+        }
+
+        public bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            int spread = 10;
+            float spreadMult = 0.2f;
+            for(i = 0 ; i < 5 ; i++)
+            {
+                float vX = speedX +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
+                float vY = speedY +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
+                Projectile.NewProjectile(position.X, position.Y, vX, vY, type, damage, knockBack, Main.myPlayer);
+            }
+            return false;
         }
 
         public override void AddRecipes()
         {
             // Recipes here. See Basic Recipe Guide
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.DirtBlock, 10);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.AddIngredient(ItemID.DirtBlock, 10); //Adds ingredients
+            recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
+            recipe.SetResult(this); //Sets the result of this recipe to this item
+            recipe.AddRecipe(); //Adds the recipe to the mod
         }
         public override bool Shoot()
         {
             return true;
+
         }
     }
 }

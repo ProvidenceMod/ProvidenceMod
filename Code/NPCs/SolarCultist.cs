@@ -12,11 +12,9 @@ namespace UnbiddenMod.Code.NPCs
   [AutoloadHead]
   public class SolarCultist : ModNPC
   {
-    public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist.png";
-
     public override bool Autoload(ref string name)
     {
-      name = "Solar Cultist";
+      name = "SolarCultist";
       return mod.Properties.Autoload;
     }
 
@@ -55,7 +53,7 @@ namespace UnbiddenMod.Code.NPCs
       int num = npc.life > 0 ? 1 : 5;
       for (int k = 0; k < num; k++)
       {
-        Dust.NewDust(npc.position, npc.width, npc.height, DustType<UnbiddenMod.Code.Dusts.StarBlastDust>());
+        Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("StarBlastDust"));
       }
     }
 
@@ -71,7 +69,7 @@ namespace UnbiddenMod.Code.NPCs
 
         foreach (Item item in player.inventory)
         {
-          if (item.type == ItemType<ExampleItem>() || item.type == ItemType<Items.Placeable.ExampleBlock>())
+          if (item.type == 3539);
           {
             return true;
           }
@@ -184,47 +182,7 @@ namespace UnbiddenMod.Code.NPCs
 
     public override void SetupShop(Chest shop, ref int nextSlot)
     {
-      shop.item[nextSlot].SetDefaults(ItemType<UnbiddenMod.Code.Items.StardustUltimus>());
-    }
-
-    // Make this Town NPC teleport to the King and/or Queen statue when triggered.
-    public override bool CanGoToStatue(bool toKingStatue)
-    {
-      return true;
-    }
-
-    // Make something happen when the npc teleports to a statue. Since this method only runs server side, any visual effects like dusts or gores have to be synced across all clients manually.
-    public override void OnGoToStatue(bool toKingStatue)
-    {
-      if (Main.netMode == NetmodeID.Server)
-      {
-        ModPacket packet = mod.GetPacket();
-        packet.Write((byte)ExampleModMessageType.ExampleTeleportToStatue);
-        packet.Write((byte)npc.whoAmI);
-        packet.Send();
-      }
-      else
-      {
-        StatueTeleport();
-      }
-    }
-
-    // Create a square of pixels around the NPC on teleport.
-    public void StatueTeleport()
-    {
-      for (int i = 0; i < 30; i++)
-      {
-        Vector2 position = Main.rand.NextVector2Square(-20, 21);
-        if (Math.Abs(position.X) > Math.Abs(position.Y))
-        {
-          position.X = Math.Sign(position.X) * 20;
-        }
-        else
-        {
-          position.Y = Math.Sign(position.Y) * 20;
-        }
-        Dust.NewDustPerfect(npc.Center + position, DustType<Pixel>(), Vector2.Zero).noGravity = true;
-      }
+      shop.item[nextSlot].SetDefaults(mod.ItemType("StardustUltimus"));
     }
 
     public override void TownNPCAttackStrength(ref int damage, ref float knockback)
@@ -241,7 +199,7 @@ namespace UnbiddenMod.Code.NPCs
 
     public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
     {
-      projType = ProjectileType<UnbiddenMod.Code.Projectiles.StarBlast>();
+      projType = mod.ProjectileType("StarBlast");
       attackDelay = 1;
     }
   }

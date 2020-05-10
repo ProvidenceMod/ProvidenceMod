@@ -30,7 +30,7 @@ namespace UnbiddenMod.Code.Items
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 
-        public bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int spread = 10;
             float spreadMult = 0.2f;

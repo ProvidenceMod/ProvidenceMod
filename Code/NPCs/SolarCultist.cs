@@ -195,82 +195,7 @@ namespace UnbiddenMod.Code.NPCs
 
     public override void SetupShop(Chest shop, ref int nextSlot)
     {
-      shop.item[nextSlot].SetDefaults(ItemType<ExampleItem>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<EquipMaterial>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<BossItem>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<Items.Placeable.ExampleWorkbench>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<Items.Placeable.ExampleChair>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<Items.Placeable.ExampleDoor>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<Items.Placeable.ExampleBed>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<Items.Placeable.ExampleChest>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<ExamplePickaxe>());
-      nextSlot++;
-      shop.item[nextSlot].SetDefaults(ItemType<ExampleHamaxe>());
-      nextSlot++;
-      if (Main.LocalPlayer.HasBuff(BuffID.Lifeforce))
-      {
-        shop.item[nextSlot].SetDefaults(ItemType<ExampleHealingPotion>());
-        nextSlot++;
-      }
-      if (Main.LocalPlayer.GetModPlayer<ExamplePlayer>().ZoneExample && !GetInstance<ExampleConfigServer>().DisableExampleWings)
-      {
-        shop.item[nextSlot].SetDefaults(ItemType<ExampleWings>());
-        nextSlot++;
-      }
-      if (Main.moonPhase < 2)
-      {
-        shop.item[nextSlot].SetDefaults(ItemType<ExampleSword>());
-        nextSlot++;
-      }
-      else if (Main.moonPhase < 4)
-      {
-        shop.item[nextSlot].SetDefaults(ItemType<ExampleGun>());
-        nextSlot++;
-        shop.item[nextSlot].SetDefaults(ItemType<Items.Weapons.ExampleBullet>());
-        nextSlot++;
-      }
-      else if (Main.moonPhase < 6)
-      {
-        shop.item[nextSlot].SetDefaults(ItemType<ExampleStaff>());
-        nextSlot++;
-      }
-      else
-      {
-      }
-      // Here is an example of how your npc can sell items from other mods.
-      var modSummonersAssociation = ModLoader.GetMod("SummonersAssociation");
-      if (modSummonersAssociation != null)
-      {
-        shop.item[nextSlot].SetDefaults(modSummonersAssociation.ItemType("BloodTalisman"));
-        nextSlot++;
-      }
-
-      if (!Main.LocalPlayer.GetModPlayer<ExamplePlayer>().examplePersonGiftReceived && GetInstance<ExampleConfigServer>().ExamplePersonFreeGiftList != null)
-      {
-        foreach (var item in GetInstance<ExampleConfigServer>().ExamplePersonFreeGiftList)
-        {
-          if (item.IsUnloaded)
-            continue;
-          shop.item[nextSlot].SetDefaults(item.Type);
-          shop.item[nextSlot].shopCustomPrice = 0;
-          shop.item[nextSlot].GetGlobalItem<ExampleInstancedGlobalItem>().examplePersonFreeGift = true;
-          nextSlot++;
-          // TODO: Have tModLoader handle index issues.
-        }
-      }
-    }
-
-    public override void NPCLoot()
-    {
-      Item.NewItem(npc.getRect(), ItemType<Items.Armor.ExampleCostume>());
+      shop.item[nextSlot].SetDefaults(ItemType<UnbiddenMod.Code.Items.StardustUltimus>());
     }
 
     // Make this Town NPC teleport to the King and/or Queen statue when triggered.
@@ -327,14 +252,8 @@ namespace UnbiddenMod.Code.NPCs
 
     public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
     {
-      projType = ProjectileType<SparklingBall>();
+      projType = ProjectileType<UnbiddenMod.Code.Projectiles.StarBlast>();
       attackDelay = 1;
-    }
-
-    public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
-    {
-      multiplier = 12f;
-      randomOffset = 2f;
     }
   }
 }

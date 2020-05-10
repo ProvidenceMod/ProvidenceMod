@@ -19,7 +19,7 @@ namespace UnbiddenMod.Code.Items
             item.CloneDefaults(ItemID.WoodenSword);
             item.width = 20;
             item.height = 20;
-            item.value = 100000;
+            item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
             item.useTime = 13;
             item.scale = 1.5f;

@@ -1,3 +1,6 @@
+/*
+ * TODO: FIX THE PROJECTILE
+ */
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

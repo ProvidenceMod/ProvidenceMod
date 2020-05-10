@@ -4,8 +4,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.NPC;
-using Terraria.Player;
+using static Terraria.NPC;
+using static Terraria.Player;
 using static Terraria.ModLoader.ModContent;
 
 namespace UnbiddenMod.Code.NPCs

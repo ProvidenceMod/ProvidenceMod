@@ -34,7 +34,7 @@ namespace UnbiddenMod.Code.Items
         {
             int spread = 10;
             float spreadMult = 0.2f;
-            for(i = 0 ; i < 5 ; i++)
+            for(int i = 0 ; i < 5 ; i++)
             {
                 float vX = speedX +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
                 float vY = speedY +(float)Main.rand.Next(-spread,spread+1) * spreadMult;

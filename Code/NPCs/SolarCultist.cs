@@ -172,7 +172,6 @@ namespace UnbiddenMod.Code.NPCs
     public override void SetChatButtons(ref string button, ref string button2)
     {
       button = Language.GetTextValue("LegacyInterface.28");
-      button2 = "Shop";
     }
 
     public override void OnChatButtonClicked(bool firstButton, ref bool shop)

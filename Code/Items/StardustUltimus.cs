@@ -18,6 +18,7 @@ namespace UnbiddenMod.Code.Items
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.WoodenSword);
+            item.damage = 150;
             item.width = 20;
             item.height = 20;
             item.value = Item.buyPrice(0, 10, 0, 0);

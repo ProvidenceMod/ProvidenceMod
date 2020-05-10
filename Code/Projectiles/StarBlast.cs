@@ -25,7 +25,9 @@ namespace UnbiddenMod.Code.Projectiles
       projectile.ranged = true;
       projectile.tileCollide = false;
       projectile.ignoreWater = true;
+      projectile.gravity = false;
       aiType = 0;
+      
     }
 
     public override void AI()

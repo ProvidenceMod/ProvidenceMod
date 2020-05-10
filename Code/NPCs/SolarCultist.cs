@@ -169,16 +169,6 @@ namespace UnbiddenMod.Code.NPCs
     {
       if (firstButton)
       {
-        // We want 3 different functionalities for chat buttons, so we use HasItem to change button 1 between a shop and upgrade action.
-        if (Main.LocalPlayer.HasItem(ItemID.HiveBackpack))
-        {
-          Main.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-          Main.npcChatText = $"I upgraded your {Lang.GetItemNameValue(ItemID.HiveBackpack)} to a {Lang.GetItemNameValue(ItemType<Items.Accessories.WaspNest>())}";
-          int hiveBackpackItemIndex = Main.LocalPlayer.FindItem(ItemID.HiveBackpack);
-          Main.LocalPlayer.inventory[hiveBackpackItemIndex].TurnToAir();
-          Main.LocalPlayer.QuickSpawnItem(ItemType<Items.Accessories.WaspNest>());
-          return;
-        }
         shop = true;
       }
       else
@@ -188,7 +178,6 @@ namespace UnbiddenMod.Code.NPCs
         // remove the chat window...
         Main.npcChatText = "";
         // and start an instance of our UIState.
-        GetInstance<ExampleMod>().ExamplePersonUserInterface.SetState(new UI.ExamplePersonUI());
         // Note that even though we remove the chat window, Main.LocalPlayer.talkNPC will still be set correctly and we are still technically chatting with the npc.
       }
     }

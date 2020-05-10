@@ -11,7 +11,7 @@ namespace UnbiddenMod.Code.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stardust Ultimus");
-            Tooltip.SetDefault("A sword forged from the pure essence of the Cosmos");
+            Tooltip.SetDefault("\"A sword forged from the pure essence of the Cosmos\"");
         }
 
         public override void SetDefaults()
@@ -19,7 +19,6 @@ namespace UnbiddenMod.Code.Items
             item.CloneDefaults(ItemID.WoodenSword);
             item.width = 20;
             item.height = 20;
-            item.maxStack = 999;
             item.value = 100000;
             item.rare = 12;
             item.useTime = 13;
@@ -28,7 +27,7 @@ namespace UnbiddenMod.Code.Items
             item.autoReuse = true;
             item.useTurn = true;
             item.shoot = mod.ProjectileType("StarBlast");
-            // Set other item.X values here
+            // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 
         public bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -48,10 +47,16 @@ namespace UnbiddenMod.Code.Items
         {
             // Recipes here. See Basic Recipe Guide
             ModRecipe recipe = new ModRecipe(mod);
+
             recipe.AddIngredient(ItemID.DirtBlock, 10); //Adds ingredients
             recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
+        }
+        public override bool Shoot()
+        {
+            return true;
+
         }
     }
 }

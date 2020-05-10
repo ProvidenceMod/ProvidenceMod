@@ -14,6 +14,9 @@ namespace UnbiddenMod.Code.NPCs
   [AutoloadHead]
   public class SolarCultist : ModNPC
   {
+
+    public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist";
+
     public override bool Autoload(ref string name)
     {
       name = "SolarCultist";
@@ -31,7 +34,6 @@ namespace UnbiddenMod.Code.NPCs
       NPCID.Sets.AttackType[npc.type] = 0;
       NPCID.Sets.AttackTime[npc.type] = 90;
       NPCID.Sets.AttackAverageChance[npc.type] = 30;
-      NPCID.Sets.HatOffsetY[npc.type] = 4;
     }
 
     public override void SetDefaults()

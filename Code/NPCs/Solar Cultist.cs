@@ -14,10 +14,9 @@ namespace UnbiddenMod.Code.NPCs
   [AutoloadHead]
   public class SolarCultist : ModNPC
   {
-    
     public override bool Autoload(ref string name)
     {
-      name = "Solar Cultist";
+      name = "SolarCultist";
       return mod.Properties.Autoload;
     }
 
@@ -72,7 +71,7 @@ namespace UnbiddenMod.Code.NPCs
 
         foreach (Item item in player.inventory)
         {
-          if (item.type == item.type == 3539)
+          if (item.type == 3539);
           {
             return true;
           }

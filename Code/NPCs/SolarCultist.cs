@@ -160,9 +160,7 @@ namespace UnbiddenMod.Code.NPCs
     public override void SetChatButtons(ref string button, ref string button2)
     {
       button = Language.GetTextValue("LegacyInterface.28");
-      button2 = "Awesomeify";
-      if (Main.LocalPlayer.HasItem(ItemID.HiveBackpack))
-        button = "Upgrade " + Lang.GetItemNameValue(ItemID.HiveBackpack);
+      button2 = "Shop";
     }
 
     public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -182,27 +180,37 @@ namespace UnbiddenMod.Code.NPCs
       }
     }
 
+    // Setting up shop for when the "Shop" button is clicked
     public override void SetupShop(Chest shop, ref int nextSlot)
     {
       shop.item[nextSlot].SetDefaults(mod.ItemType("StardustUltimus"));
     }
 
+    // Gives them a way to defend themselves: How hard they hit
     public override void TownNPCAttackStrength(ref int damage, ref float knockback)
     {
       damage = 20;
       knockback = 4f;
     }
 
+    // Gives them a way to defend themselves: The cooldown between attacks
     public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
     {
       cooldown = 30;
       randExtraCooldown = 30;
     }
 
+    // Gives them a way to defend themselves: The projectile itself
     public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
     {
       projType = mod.ProjectileType("StarBlast");
       attackDelay = 1;
     }
+    
+    // So he can actually throw the projectile instead of letting it spawn and fall through the floor
+    public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
+			multiplier = 12f;
+			randomOffset = 2f;
+		}
   }
 }

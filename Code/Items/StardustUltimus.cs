@@ -37,6 +37,8 @@ namespace UnbiddenMod.Code.Items
             float spreadMult = 0.2f;
             for(i = 0 ; i < 5 ; i++)
             {
+                float vX = speedX +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
+                float vY = speedY +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
                 Projectile.NewProjectile(position.X, position.Y, vX, vY, type, damage, knockBack, Main.myPlayer);
             }
             return false;

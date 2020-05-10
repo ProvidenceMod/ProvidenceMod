@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Lighting;
 using Terraria.ModLoader;
 
 namespace UnbiddenMod.Code.Dusts

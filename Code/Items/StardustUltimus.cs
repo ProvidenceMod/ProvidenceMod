@@ -19,7 +19,7 @@ namespace UnbiddenMod.Code.Items
             item.CloneDefaults(ItemID.WoodenSword);
             item.width = 20;
             item.height = 20;
-            item.value = 100000;
+            item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
             item.useTime = 13;
             item.scale = 1.5f;
@@ -52,11 +52,6 @@ namespace UnbiddenMod.Code.Items
             recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
-        }
-        public override bool Shoot()
-        {
-            return true;
-
         }
     }
 }

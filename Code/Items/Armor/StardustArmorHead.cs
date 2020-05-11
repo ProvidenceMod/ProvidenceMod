@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using UnbiddenMod.Code.Items.Armor;
 
 namespace UnbiddenMod.Code.Items.Armor
 {

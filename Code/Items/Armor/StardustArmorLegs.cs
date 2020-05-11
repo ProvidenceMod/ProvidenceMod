@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Code.Items.Armor;
 
@@ -31,7 +32,6 @@ namespace UnbiddenMod.Code.Items.Armor
 		public override void AddRecipes() {
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.DirtBlock, 1);
-			recipe.AddTile(ItemID.Workbench, 1);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

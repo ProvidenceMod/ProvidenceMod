@@ -21,7 +21,7 @@ namespace UnbiddenMod.Code.Items.Armor
 		}
 
 		public override void UpdateEquip(Player player) {
-			player.buffImmune[BuffID.MoonBite] = true;
+			player.buffImmune[BuffID.MoonLeech] = true;
 			player.statManaMax2 += 40;
 			player.maxMinions++;
 			player.maxMinions++;
@@ -30,7 +30,6 @@ namespace UnbiddenMod.Code.Items.Armor
 		public override void AddRecipes() {
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.DirtBlock, 1);
-			recipe.AddTile(TileID.Workbench, 1);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

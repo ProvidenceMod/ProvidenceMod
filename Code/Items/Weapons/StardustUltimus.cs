@@ -5,7 +5,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace UnbiddenMod.Code.Items
+namespace UnbiddenMod.Code.Items.Weapons
 {
     public class StardustUltimus : ModItem
     {

@@ -11,7 +11,7 @@ namespace UnbiddenMod.Code.Items.Armor.CosmicArmor
 	{
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
-			DisplayName.SetDefault("Cosmic Breastplate");
+			DisplayName.SetDefault("Cosmic Cuirass");
 			Tooltip.SetDefault("\"The power of the cosmos protects you.\"\n+40 Mana, +2 Max Minions");
 		}
 

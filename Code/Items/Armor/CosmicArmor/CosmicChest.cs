@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Code.Items.Armor.CosmicArmor.Sprites;
+using UnbiddenMod.Code.Items.Armor.CosmicArmor;
 
 namespace UnbiddenMod.Code.Items.Armor.CosmicArmor
 {

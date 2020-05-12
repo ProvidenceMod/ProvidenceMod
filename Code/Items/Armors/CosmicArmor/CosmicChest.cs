@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Code.Items.Armors.Assets;
+using UnbiddenMod.Code.Items.Armors.CosmicArmor.Assets;
 
 namespace UnbiddenMod.Code.Items.Armors.CosmicArmor
 {

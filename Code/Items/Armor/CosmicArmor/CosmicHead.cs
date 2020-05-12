@@ -10,7 +10,7 @@ namespace UnbiddenMod.Code.Items.Armor.CosmicArmor
 	public class CosmicHead : ModItem
 	{
 		public override void SetStaticDefaults() {
-      DisplayName.SetDefault("Stardust Helmet");
+      DisplayName.SetDefault("Cosmic Helmet");
 			Tooltip.SetDefault("\"The power of the cosmos enlightens you.\"\n+20 Mana, +1 Max Minion");
 		}
 

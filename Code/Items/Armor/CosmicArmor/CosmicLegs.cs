@@ -10,7 +10,7 @@ namespace UnbiddenMod.Code.Items.Armor.CosmicArmor
 	public class CosmicLegs : ModItem
 	{
 		public override void SetStaticDefaults() {
-      DisplayName.SetDefault("Stardust Leggings");
+      DisplayName.SetDefault("Cosmic Leggings");
 			Tooltip.SetDefault("\"The power of the cosmos emboldens you.\"\n+10% movement speed\n+20 mana, +1 Max Minions");
 		}
 

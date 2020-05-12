@@ -2,8 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Code.Items.Armors;
-using UnbiddenMod.Code.Items.Armors.CosmicArmor.Assets;
+using UnbiddenMod.Code.Items.Armor.CosmicArmor;
 
 namespace UnbiddenMod.Code.Items.Armors.CosmicArmor
 {
@@ -11,7 +10,7 @@ namespace UnbiddenMod.Code.Items.Armors.CosmicArmor
 	public class CosmicLegs : ModItem
 	{
 		public override void SetStaticDefaults() {
-      DisplayName.SetDefault("Cosmic Leggings");
+      DisplayName.SetDefault("Cosmic Greaves");
 			Tooltip.SetDefault("\"The power of the cosmos emboldens you.\"\n+10% movement speed\n+20 mana, +1 Max Minions");
 		}
 

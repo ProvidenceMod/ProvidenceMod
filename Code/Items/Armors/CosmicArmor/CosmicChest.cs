@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Code.Items.Armors.CosmicArmor.Assets;
+using UnbiddenMod.Code.Items.Armor.CosmicArmor;
 
 namespace UnbiddenMod.Code.Items.Armors.CosmicArmor
 {
@@ -11,7 +11,7 @@ namespace UnbiddenMod.Code.Items.Armors.CosmicArmor
 	{
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
-			DisplayName.SetDefault("Cosmic Breastplate");
+			DisplayName.SetDefault("Cosmic Cuirass");
 			Tooltip.SetDefault("\"The power of the cosmos protects you.\"\n+40 Mana, +2 Max Minions");
 		}
 

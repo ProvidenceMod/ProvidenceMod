@@ -3,10 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Code.Items.Armor
+namespace UnbiddenMod.Code.Items.Armor.CosmicArmor
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class StardustArmorChest : ModItem
+	public class CosmicChest : ModItem
 	{
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();

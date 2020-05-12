@@ -4,10 +4,10 @@ using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Code.Items.Armor;
 
-namespace UnbiddenMod.Code.Items.Armor
+namespace UnbiddenMod.Code.Items.Armor.CosmicArmor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class StardustArmorHead : ModItem
+	public class CosmicHead : ModItem
 	{
 		public override void SetStaticDefaults() {
       DisplayName.SetDefault("Stardust Helmet");

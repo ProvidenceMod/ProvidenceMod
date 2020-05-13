@@ -1,31 +1,22 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UnbiddenMod.Code.Dusts;
 
-namespace UnbiddenMod.Code.Projectiles
-{
-  public class StarBlast : ModProjectile
-  {
+namespace UnbiddenMod.Code.Projectiles {
+  public class VampireKnife : ModProjectile {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Star Blast");
+      DisplayName.SetDefault("Vampire Knife");
     }
 
     public override void SetDefaults()
     {
-      projectile.arrow = true;
-      projectile.width = 10;
-      projectile.height = 10;
-      projectile.aiStyle = 1;
-      projectile.friendly = true;
-      projectile.ranged = true;
-      projectile.tileCollide = false;
+      projectile.CloneDefaults(ProjectileID.VampireKnife);
       projectile.ignoreWater = true;
-      aiType = 0;
-
     }
 
+    
+    // Making the AI so it'll home in on enemies
     public override void AI()
     {
         Player player = Main.player[projectile.owner];
@@ -33,7 +24,6 @@ namespace UnbiddenMod.Code.Projectiles
         projectile.rotation += 0.4f * (float)projectile.direction;
         projectile.ai[0] += 1f;
         
-        Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"));
         if (projectile.soundDelay == 0)
             {
             	projectile.soundDelay = 8;
@@ -65,6 +55,25 @@ namespace UnbiddenMod.Code.Projectiles
         }
       }
     }
-    // Additional hooks/methods here.
+    // This will allow them to bounce off of surfaces a set amount of times
+    // This also would reduce the amount of NPCs it can hit, but that's neither here nor there
+    public override bool OnTileCollide(Vector2 oldVelocity) {
+			//If collide with tile, reduce the penetrate.
+      projectile.penetrate--;
+			if (projectile.penetrate <= 0) {
+				projectile.Kill();
+			}
+			else {
+				Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+				Main.PlaySound(SoundID.Item10, projectile.position);
+				if (projectile.velocity.X != oldVelocity.X) {
+					projectile.velocity.X = -oldVelocity.X;
+				}
+				if (projectile.velocity.Y != oldVelocity.Y) {
+					projectile.velocity.Y = -oldVelocity.Y;
+				}
+			}
+			return false;
+		}
   }
 }

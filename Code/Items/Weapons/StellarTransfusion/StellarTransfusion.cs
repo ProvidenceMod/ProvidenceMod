@@ -1,43 +1,40 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 using Terraria;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace UnbiddenMod.Code.Items.Weapons
+namespace UnbiddenMod.Code.Items.Weapons.StellarTransfusion
 {
-    public class StardustUltimus : ModItem
+    public class StellarTransfusion : ModItem
     {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stardust Ultimus");
-            Tooltip.SetDefault("\"A sword forged from the pure essence of the Cosmos\"");
+            DisplayName.SetDefault("Stellar Transfusion");
+            Tooltip.SetDefault("Throw knives that steal health\nKnives bounce off walls and penetrate one (1) target");
         }
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.WoodenSword);
-            item.damage = 150;
-            item.width = 20;
-            item.height = 20;
+            item.CloneDefaults(ItemID.VampireKnives);
+
+            item.damage = 60;
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
-            item.useTime = 13;
-            item.scale = 1.5f;
-            item.melee = true;
             item.autoReuse = true;
             item.useTurn = true;
-            item.shoot = mod.ProjectileType("StarBlast");
-            // item.shoot = true; // Commenting this until we have a projectile to shoot
+            item.shoot = ModProjectile<VampireKnife>();
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int spread = 10;
             float spreadMult = 0.2f;
-            for(int i = 0 ; i < 5 ; i++)
+            int numOfKnives = Main.rand.Next(7) + 6; // Determines how many knives to shoot (6-12 range)
+            for(int i = 0; i < numOfKnives; i++)
             {
                 float vX = speedX +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
                 float vY = speedY +(float)Main.rand.Next(-spread,spread+1) * spreadMult;

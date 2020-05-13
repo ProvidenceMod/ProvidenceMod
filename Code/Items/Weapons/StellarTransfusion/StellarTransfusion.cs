@@ -1,5 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using UnbiddenMod.Code.Projectiles;
 using static Terraria.ModLoader.ModContent;
 using Terraria;
 using System;
@@ -26,7 +27,7 @@ namespace UnbiddenMod.Code.Items.Weapons.StellarTransfusion
             item.rare = 12;
             item.autoReuse = true;
             item.useTurn = true;
-            item.shoot = ModProjectile<VampireKnife>();
+            item.shoot = ProjectileType<VampireKnifeClone>();
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

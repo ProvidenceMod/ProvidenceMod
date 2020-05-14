@@ -39,8 +39,12 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
             float spreadMult = 0.2f;
             for(int i = 0 ; i < 5 ; i++)
             {
-                float vX = speedX +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
-                float vY = speedY +(float)Main.rand.Next(-spread,spread+1) * spreadMult;
+                float width = Screen.PrimaryScreen.WorkingArea.Width;
+                float height = Screen.PrimaryScreen.WorkingArea.Height;
+                float centerX = width / 2;
+                float centerY = height / 2;
+                float vX = Main.mouseX - centerX;
+                float vY = Main.mouseY - centerY;
                 Projectile.NewProjectile(position.X, position.Y, vX, vY, type, damage, knockBack, Main.myPlayer);
             }
             return false;

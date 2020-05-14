@@ -27,7 +27,8 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
             item.useTime = 13;
-            item.scale = 1.5f;
+            item.useAnimation = 13;
+            item.scale = 1.0f;
             item.melee = true;
             item.autoReuse = true;
             item.useTurn = true;

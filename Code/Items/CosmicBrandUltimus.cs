@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace UnbiddenMod.Code.Items
+namespace UnbiddenMod.Code.Items.Weapons
 {
     public class CosmicBrandUltimus : ModItem
     {

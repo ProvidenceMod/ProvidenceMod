@@ -4,6 +4,8 @@ using Terraria;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
 {

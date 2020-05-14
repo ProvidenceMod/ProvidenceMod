@@ -1,6 +1,3 @@
-/*
- * TODO: FIX THE PROJECTILE
- */
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,6 +23,7 @@ namespace UnbiddenMod.Code.Projectiles
       projectile.tileCollide = false;
       projectile.ignoreWater = true;
       aiType = 0;
+
     }
 
     public override void AI()

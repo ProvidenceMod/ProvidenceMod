@@ -67,9 +67,10 @@ namespace UnbiddenMod.Code.Projectiles
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) 
     {
       Player player = Main.player[projectile.owner];
-      int healingAmount = damage/30; //decrease the value 30 to increase heal, increase value to decrease. Or you can just replace damage/x with a set value to heal, instead of making it based on damage.
-      player.statLife +=healingAmount;
+      int healingAmount = damage / 30; //decrease the value 30 to increase heal, increase value to decrease. Or you can just replace damage/x with a set value to heal, instead of making it based on damage.
+      player.statLife += healingAmount;
       player.HealEffect(healingAmount, true);
+      projectile.Kill();
     }
   }
 }

@@ -11,7 +11,7 @@ namespace UnbiddenMod.Code.Items.Armors.CosmicArmor
 	{
 		public override void SetStaticDefaults() {
       DisplayName.SetDefault("Cosmic Greaves");
-			Tooltip.SetDefault("\"The power of the cosmos emboldens you.\"\n+10% movement speed\n+20 mana, +1 Max Minions");
+			Tooltip.SetDefault("\"The power of the cosmos emboldens you.\"\n+50% movement speed\n+20 mana, +1 Max Minions");
 		}
 
 		public override void SetDefaults() {
@@ -21,7 +21,7 @@ namespace UnbiddenMod.Code.Items.Armors.CosmicArmor
 		}
 
 		public override void UpdateEquip(Player player) {
-			player.moveSpeed += 0.1f;
+			player.moveSpeed *= 1.5f;
       player.buffImmune[BuffID.Frozen] = true;
       player.buffImmune[BuffID.Burning] = true;
       player.buffImmune[BuffID.Stoned] = true;

@@ -52,7 +52,7 @@ namespace UnbiddenMod.Code.Projectiles
           float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
         //f, in this scenario, is a measurement of Pixel Distance
-        if (distance < 400f && !target.friendly && target.active)
+        if (distance < 80f && !target.friendly && target.active)
           {
             distance = 3f / distance;
             shootToY *= distance * 5;

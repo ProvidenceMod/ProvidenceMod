@@ -27,6 +27,19 @@ namespace UnbiddenMod.Code.Items.Consumables.IchorFromBeyond
           return !player.ichor && player.statLifeMax >= 500;
         }
 
+        public override bool UseItem(Player player)
+        {
+          if (player.statLifeMax >= 500 && player.statLifeMax < 1000) {
+            player.statLifeMax2 += 20;
+            player.statLife += 20;
+            player.HealEffect(20, true);
+            player.GetModPlayer<UnbiddenPlayer>().ichor = true;
+            player.GetModPlayer<UnbiddenPlayer>().ichorCount++;
+            return true;
+          } else {
+            return false;
+          }
+        }
         public override void AddRecipes()
         {
             // Recipes here. See Basic Recipe Guide2

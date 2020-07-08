@@ -15,14 +15,16 @@ namespace UnbiddenMod.Code.Projectiles
     public override void SetDefaults()
     {
       projectile.arrow = true;
-      projectile.width = 10;
-      projectile.height = 10;
+      projectile.width = 16;
+      projectile.height = 16;
       projectile.aiStyle = 1;
       projectile.friendly = true;
-      projectile.ranged = true;
+      projectile.melee = true;
       projectile.tileCollide = false;
       projectile.ignoreWater = true;
       aiType = 0;
+      projectile.timeLeft = 300;
+
 
     }
 
@@ -71,6 +73,11 @@ namespace UnbiddenMod.Code.Projectiles
       player.statLife += healingAmount;
       player.HealEffect(healingAmount, true);
       projectile.Kill();
+    }
+
+    public override void Kill(int timeLeft)
+    {
+
     }
   }
 }

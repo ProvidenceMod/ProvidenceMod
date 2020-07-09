@@ -40,7 +40,7 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
         {
             int spread = 10;
             float spreadMult = 0.2f;
-            for(int i = 0 ; i < 5 ; i++)
+            for(int i = 0 ; i < 1 ; i++)
             {
                 float width = Screen.PrimaryScreen.WorkingArea.Width;
                 float height = Screen.PrimaryScreen.WorkingArea.Height;

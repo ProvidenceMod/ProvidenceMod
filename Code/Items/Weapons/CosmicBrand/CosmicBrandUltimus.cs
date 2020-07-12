@@ -33,25 +33,23 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
             item.autoReuse = true;
             item.useTurn = true;
             item.shoot = mod.ProjectileType("StarBlast");
+            item.shootSpeed = 16f;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            int spread = 10;
-            float spreadMult = 0.2f;
-            for(int i = 0 ; i < 1 ; i++)
-            {
-                float width = Screen.PrimaryScreen.WorkingArea.Width;
-                float height = Screen.PrimaryScreen.WorkingArea.Height;
-                float centerX = width / 2;
-                float centerY = height / 2;
-                float vX = Main.mouseX - centerX;
-                float vY = Main.mouseY - centerY;
-                Projectile.NewProjectile(position.X, position.Y, vX, vY, type, damage, knockBack, Main.myPlayer);
-            }
-            return false;
-        }
+    public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+    {
+      int numberProjectiles = 1; // 4 or 5 shots
+      for (int i = 0; i < numberProjectiles; i++)
+      {
+        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
+        // If you want to randomize the speed to stagger the projectiles
+        float scale = 1f - (Main.rand.NextFloat() * .1f);
+        perturbedSpeed = perturbedSpeed * scale;
+        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+      }
+      return false; // return false because we don't want tModContent to shoot projectile
+    }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {

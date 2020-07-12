@@ -2,28 +2,29 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using System;
+using Terraria.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
+namespace UnbiddenMod.Code.Items.Weapons.EightGodsBlade
 {
-    public class CosmicBrandUltimus : ModItem
+    public class EightGodsBlade : ModItem
     {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Brand Ultimus");
-            Tooltip.SetDefault("\"A sword forged from the pure essence of the Cosmos\"");
+            DisplayName.SetDefault("Eight-God Blade");
+            Tooltip.SetDefault("\"This sword was made from the tears of the eight fallen angels.\"");
         }
 
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.WoodenSword);
-            item.damage = 150;
-            item.width = 20;
-            item.height = 20;
+            item.damage = 8000;
+            item.width = 90;
+            item.height = 90;
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
             item.useTime = 13;
@@ -40,15 +41,13 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
         {
             int spread = 10;
             float spreadMult = 0.2f;
-            for(int i = 0 ; i < 1 ; i++)
+            for(int i = 0 ; i < 3 ; i++)
             {
-                float width = Screen.PrimaryScreen.WorkingArea.Width;
-                float height = Screen.PrimaryScreen.WorkingArea.Height;
-                float centerX = width / 2;
-                float centerY = height / 2;
-                float vX = Main.mouseX - centerX;
-                float vY = Main.mouseY - centerY;
-                Projectile.NewProjectile(position.X, position.Y, vX, vY, type, damage, knockBack, Main.myPlayer);
+				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(1)); // 30 degree spread.
+				// If you want to randomize the speed to stagger the projectiles
+				// float scale = 1f - (Main.rand.NextFloat() * .3f);
+				// perturbedSpeed = perturbedSpeed * scale; 
+				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
             return false;
         }

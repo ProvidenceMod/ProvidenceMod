@@ -4,7 +4,6 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static Terraria.Player;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,13 +20,13 @@ namespace UnbiddenMod
     public bool ichor;
     public int ichorCount;
 
-    public virtual void Initialize()
+    public override void Initialize()
     {
       this.ichor = false;
       this.ichorCount = 0;
     }
 
-    public virtual TagCompound Save()
+    public override TagCompound Save()
     {
       return new TagCompound {
         {"ichor", this.ichor},
@@ -37,10 +36,10 @@ namespace UnbiddenMod
 
     public override void ResetEffects()
     {
-      // statLifeMax2 += this.ichorCount * 20;
+      
     }
 
-    public virtual void Load(TagCompound tag)
+    public override void Load(TagCompound tag)
     {
       ichor = tag.GetBool("ichor");
       ichorCount = tag.GetInt("ichorCount");

@@ -20,11 +20,11 @@ namespace UnbiddenMod
     public bool ichor;
     public int ichorCount;
 
-    public override void Initialize()
-    {
-      this.ichor = false;
-      this.ichorCount = 0;
-    }
+    // public override void Initialize()
+    // {
+    //   this.ichor = false;
+    //   this.ichorCount = 0;
+    // }
 
     public override TagCompound Save()
     {
@@ -36,7 +36,7 @@ namespace UnbiddenMod
 
     public override void ResetEffects()
     {
-      
+      player.statLifeMax2 += ichorCount * 20;
     }
 
     public override void Load(TagCompound tag)

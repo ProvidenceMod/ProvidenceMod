@@ -24,7 +24,7 @@ namespace UnbiddenMod.Code.Items.Consumables.IchorFromBeyond
         }
 
         public override bool CanUseItem(Player player) {
-          return !player.ichor && player.statLifeMax >= 500;
+          return !player.ichor && player.statLifeMax2 >= 500 && player.statLifeMax2 <= 1000;
         }
 
         public override bool UseItem(Player player)

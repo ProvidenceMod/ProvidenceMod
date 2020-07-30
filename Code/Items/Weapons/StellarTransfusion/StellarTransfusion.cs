@@ -27,14 +27,14 @@ namespace UnbiddenMod.Code.Items.Weapons.StellarTransfusion
             item.rare = 12;
             item.autoReuse = true;
             item.useTurn = true;
-            item.shoot = ProjectileType<VampireKnifeClone>();
+            item.shoot = mod.ProjectileType("VampireKnifeClone");
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int spread = 10;
             float spreadMult = 0.2f;
-            int numOfKnives = Main.rand.Next(7) + 6; // Determines how many knives to shoot (6-12 range)
+            int numOfKnives = Main.rand.Next(5) + 5; // Determines how many knives to shoot (6-12 range)
             for(int i = 0; i < numOfKnives; i++)
             {
                 float vX = speedX +(float)Main.rand.Next(-spread,spread+1) * spreadMult;

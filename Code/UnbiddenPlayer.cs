@@ -20,12 +20,6 @@ namespace UnbiddenMod
     public bool ichor;
     public int ichorCount;
 
-    // public override void Initialize()
-    // {
-    //   this.ichor = false;
-    //   this.ichorCount = 0;
-    // }
-
     public override TagCompound Save()
     {
       return new TagCompound {

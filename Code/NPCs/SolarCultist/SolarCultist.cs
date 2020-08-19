@@ -16,7 +16,7 @@ namespace UnbiddenMod.Code.NPCs.SolarCultist
   public class SolarCultist : ModNPC
   {
 
-    public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist";
+    public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist/SolarCultist";
 
     public override bool Autoload(ref string name)
     {

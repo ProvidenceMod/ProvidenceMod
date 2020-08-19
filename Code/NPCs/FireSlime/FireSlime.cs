@@ -13,11 +13,8 @@ using static UnbiddenMod.UnbiddenNPC;
 namespace UnbiddenMod.Code.NPCs.FireSlime
 {
   // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
-  [AutoloadHead]
   public class FireSlime : ModNPC
   {
-    public int[] resists = new int[7] {0, 200, 100, 100, 100, 100, 100};
-    public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist/SolarCultist";
 
     public override bool Autoload(ref string name)
     {
@@ -33,6 +30,7 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
 
     public override void SetDefaults()
     {
+      npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[7] {0, 200, 100, 100, 100, 100, 100};
       npc.townNPC = false;
       npc.width = 24;
       npc.height = 18;

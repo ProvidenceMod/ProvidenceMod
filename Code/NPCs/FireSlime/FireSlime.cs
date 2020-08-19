@@ -17,7 +17,7 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
   public class FireSlime : ModNPC
   {
     public int[] resists = new int[7] {0, 200, 100, 100, 100, 100, 100};
-    public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist";
+    public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist/SolarCultist";
 
     public override bool Autoload(ref string name)
     {

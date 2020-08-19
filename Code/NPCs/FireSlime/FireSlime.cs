@@ -8,6 +8,7 @@ using Terraria.Utilities;
 using static Terraria.NPC;
 using static Terraria.Player;
 using static Terraria.ModLoader.ModContent;
+using static UnbiddenMod.UnbiddenNPC;
 
 namespace UnbiddenMod.Code.NPCs.FireSlime
 {
@@ -15,7 +16,7 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
   [AutoloadHead]
   public class FireSlime : ModNPC
   {
-    public int[] resists = new string[7] {0, 200, 100, 100, 100, 100, 100};
+    public int[] resists = new int[7] {0, 200, 100, 100, 100, 100, 100};
     public override string Texture => "UnbiddenMod/Code/NPCs/SolarCultist";
 
     public override bool Autoload(ref string name)
@@ -43,16 +44,6 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
       npc.DeathSound = SoundID.NPCDeath1;
       npc.value = 25;
       animationType = 1;
-    }
-
-    public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-    {
-
-    }
-
-    public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-    {
-
     }
 
   }

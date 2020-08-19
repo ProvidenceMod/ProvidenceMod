@@ -13,7 +13,8 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod;
+using static UnbiddenMod.UnbiddenItem;
+using static UnbiddenMod.UnbiddenProjectile;
 
 namespace UnbiddenMod
 {

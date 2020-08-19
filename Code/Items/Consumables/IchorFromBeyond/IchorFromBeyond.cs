@@ -45,7 +45,9 @@ namespace UnbiddenMod.Code.Items.Consumables.IchorFromBeyond
             // Recipes here. See Basic Recipe Guide2
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(ItemID.DirtBlock, 10); //Adds ingredients
+            recipe.AddIngredient(ItemID.Ichor, 25); 
+            recipe.AddIngredient(ItemID.LifeCrystal, 5);
+            recipe.AddTile(412); // Ancient Manipulator
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
         }

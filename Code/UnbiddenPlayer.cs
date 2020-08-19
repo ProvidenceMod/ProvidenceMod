@@ -19,18 +19,15 @@ namespace UnbiddenMod
   {
     public bool ichor;
     public int ichorCount;
-
-    // public override void Initialize()
-    // {
-    //   this.ichor = false;
-    //   this.ichorCount = 0;
-    // }
+    public string[] elements = new string[7] {"fire", "ice", "lightning", "poison", "acid", "holy", "unholy"};
+    public int[] resists = new int[7] {100, 100, 100, 100, 100, 100, 100};
 
     public override TagCompound Save()
     {
       return new TagCompound {
         {"ichor", this.ichor},
-        {"ichorCount", this.ichorCount}
+        {"ichorCount", this.ichorCount},
+        {"resists", this.resists}
       };
     }
 
@@ -43,6 +40,7 @@ namespace UnbiddenMod
     {
       ichor = tag.GetBool("ichor");
       ichorCount = tag.GetInt("ichorCount");
+      resists = tag.GetIntArray("resists");
     }
   }
 }

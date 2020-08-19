@@ -21,8 +21,8 @@ namespace UnbiddenMod.Code.Items.Weapons.FireBrand
         {
             item.CloneDefaults(ItemID.WoodenSword);
             item.damage = 150;
-            item.width = 20;
-            item.height = 20;
+            item.width = 90;
+            item.height = 90;
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
             item.useTime = 13;

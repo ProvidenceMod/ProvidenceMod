@@ -9,7 +9,7 @@ using static Terraria.NPC;
 using static Terraria.Player;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Code.NPCs
+namespace UnbiddenMod.Code.NPCs.SolarCultist
 {
   // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
   [AutoloadHead]
@@ -146,7 +146,7 @@ namespace UnbiddenMod.Code.NPCs
         if (NPC.downedTowerSolar) {
           chat.Add("I think this is the one time I will agree with you destroying my creed. Those pillars are a menace.");
         }
-        if (NPC.downedMoonLord) {
+        if (NPC.downedMoonlord) {
           chat.Add("I can only fear the imbalances of sun and moon killing one of the lords.");
         }
       } else {

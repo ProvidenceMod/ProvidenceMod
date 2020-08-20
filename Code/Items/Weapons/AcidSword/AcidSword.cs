@@ -31,7 +31,18 @@ namespace UnbiddenMod.Code.Items.Weapons.AcidSword
             // Recipes here. See Basic Recipe Guide2
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(ItemID.DirtBlock, 10); //Adds ingredients
+            recipe.AddIngredient(ItemID.PlatinumBroadsword, 1);
+            recipe.AddIngredient(ItemID.Deathweed, 15);
+            recipe.AddIngredient(ItemID.JungleSpores, 12);
+            recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
+            recipe.SetResult(this); //Sets the result of this recipe to this item
+            recipe.AddRecipe(); //Adds the recipe to the mod
+
+            ModRecipe recipe = new ModRecipe(mod);
+            
+            recipe.AddIngredient(ItemID.GoldBroadsword, 1);
+            recipe.AddIngredient(ItemID.Deathweed, 15);
+            recipe.AddIngredient(ItemID.JungleSpores, 12);
             recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod

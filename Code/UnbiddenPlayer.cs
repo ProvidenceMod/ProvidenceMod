@@ -29,12 +29,12 @@ namespace UnbiddenMod
         {"angelTear", this.angelTear},
         {"tearCount", this.tearCount},
         {"resists", this.resists},
-        {"brimHeart", this.brimHeart}
       };
     }
 
     public override void ResetEffects()
     {
+      brimHeart = false;
       player.statLifeMax2 += tearCount * 20;
     }
 
@@ -43,7 +43,6 @@ namespace UnbiddenMod
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
       resists = tag.GetIntArray("resists");
-      brimHeart = tag.GetBool("brimHeart");
     }
     public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
     {

@@ -21,13 +21,15 @@ namespace UnbiddenMod
     public int tearCount;
     public string[] elements = new string[7] {"fire", "ice", "lightning", "poison", "acid", "holy", "unholy"};
     public int[] resists = new int[7] {100, 100, 100, 100, 100, 100, 100};
+    public bool brimHeart = false;
 
     public override TagCompound Save()
     {
       return new TagCompound {
         {"angelTear", this.angelTear},
         {"tearCount", this.tearCount},
-        {"resists", this.resists}
+        {"resists", this.resists},
+        {"brimHeart", this.brimHeart}
       };
     }
 
@@ -41,6 +43,20 @@ namespace UnbiddenMod
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
       resists = tag.GetIntArray("resists");
+      brimHeart = tag.GetBool("brimHeart");
     }
+    public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
+    {
+      if (brimHeart)
+      {
+          player.buffImmune[BuffID.OnFire] = true;
+          if (item.GetGlobalItem<UnbiddenItem>().element == 0) // If the weapon is fire-based
+          {
+            // Reduce cost by 15%
+            reduce -= 0.15f;
+          }
+      }
+    }
+
   }
 }

@@ -26,12 +26,7 @@ namespace UnbiddenMod.Code.Items.Accessories.BrimstoneHeart
         }
         public override void UpdateEquip(Player player)
         {
-          player.buffImmune[BuffID.OnFire] = true;
-          if (player.inventory[player.selectedItem].GetGlobalItem<UnbiddenItem>().element == 0) // If the weapon is fire-based
-          {
-            // Reduce cost by 15%
-            player.manaCost -= 0.15f;
-          }
+            player.GetModPlayer<UnbiddenPlayer>().brimHeart = true;
         }
         public override void AddRecipes()
         {

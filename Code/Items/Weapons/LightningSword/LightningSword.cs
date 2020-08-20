@@ -7,28 +7,29 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace UnbiddenMod.Code.Items.Weapons.FireyPlatinumBroadsword
+namespace UnbiddenMod.Code.Items.Weapons.LightningSword
 {
-    public class FireyPlatinumBroadsword : ModItem
+    public class LightningSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Firey Platinum Broadsword");
+            DisplayName.SetDefault("Lightning Sword");
+            Tooltip.SetDefault("\"A sword of pure Lightning\"");
         }
 
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenItem>().element = 0; // Fire
+            item.GetGlobalItem<UnbiddenItem>().element = 2; // Lightning
+            // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-          if (Main.rand.Next(10) == 0) // 10% chance
-          {
-            target.AddBuff(BuffID.OnFire, 300, true);
-          }
-          
+            if (Main.rand.Next(10) == 0) // 10% chance
+            {
+                target.AddBuff(144, 60, true); // Electrified for 1 second
+            }
         }
 
         public override void AddRecipes()

@@ -43,13 +43,13 @@ namespace UnbiddenMod.Code.Items.Weapons.IceSword
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
 
-            ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe2 = new ModRecipe(mod);
             
-            recipe.AddIngredient(ItemID.GoldBroadsword, 1);
-            recipe.AddIngredient(ItemID.IceBlock, 199);
-            recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
-            recipe.SetResult(this); //Sets the result of this recipe to this item
-            recipe.AddRecipe(); //Adds the recipe to the mod
+            recipe2.AddIngredient(ItemID.GoldBroadsword, 1);
+            recipe2.AddIngredient(ItemID.IceBlock, 199);
+            recipe2.AddTile(TileID.Anvils); //The tile you craft this sword at
+            recipe2.SetResult(this); //Sets the result of this recipe to this item
+            recipe2.AddRecipe(); //Adds the recipe to the mod
         }
     }
 }

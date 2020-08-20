@@ -21,7 +21,8 @@ namespace UnbiddenMod.Code.Items.Weapons.AcidSword
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
             item.GetGlobalItem<UnbiddenItem>().element = 4; // Acid
-            // item.shoot = true; // TODO: ADD AN ACID PROJECTILE
+            item.shoot = mod.ProjectileType("AcidBlob");
+            item.shootSpeed = 8f;
         }
 
 

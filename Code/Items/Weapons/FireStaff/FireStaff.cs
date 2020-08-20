@@ -21,7 +21,7 @@ namespace UnbiddenMod.Code.Items.Weapons.FireStaff
         public override void SetDefaults()
         {
             item.CloneDefaults(743);
-            item.damage = 150;
+            item.damage = 20;
             item.width = 90;
             item.height = 90;
             item.value = Item.buyPrice(0, 10, 0, 0);
@@ -31,7 +31,7 @@ namespace UnbiddenMod.Code.Items.Weapons.FireStaff
             item.useAnimation = 13;
             item.scale = 1.0f;
             item.magic = true;
-            item.mana = 100;
+            item.mana = 7;
             item.autoReuse = true;
             item.useTurn = true;
             item.GetGlobalItem<UnbiddenItem>().element = 0; // Fire

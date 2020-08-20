@@ -43,6 +43,5 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
       npc.value = 25;
       animationType = 1;
     }
-
   }
 }

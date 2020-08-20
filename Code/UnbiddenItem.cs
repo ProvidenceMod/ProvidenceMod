@@ -25,6 +25,5 @@ namespace UnbiddenMod
       myClone.element = element;
       return myClone;
     }
-
   }
 }

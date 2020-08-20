@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
 {
@@ -20,7 +23,6 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.WoodenSword);
             item.damage = 150;
             item.width = 20;
             item.height = 20;
@@ -28,28 +30,39 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
             item.rare = 12;
             item.useTime = 13;
             item.useAnimation = 13;
+            item.useTurn = true;
+            item.useStyle = 1;
             item.scale = 1.0f;
             item.melee = true;
             item.autoReuse = true;
-            item.useTurn = true;
             item.shoot = mod.ProjectileType("StarBlast");
             item.shootSpeed = 16f;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 
-    public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-    {
-      int numberProjectiles = 1; // 4 or 5 shots
-      for (int i = 0; i < numberProjectiles; i++)
-      {
-        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
-        // If you want to randomize the speed to stagger the projectiles
-        float scale = 1f - (Main.rand.NextFloat() * .1f);
-        perturbedSpeed = perturbedSpeed * scale;
-        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-      }
-      return false; // return false because we don't want tModContent to shoot projectile
-    }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            var tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+            if (tt != null)
+            {
+                string[] split = tt.text.Split(' ');
+                tt.text = split.First() + " fire " + split.Last();
+            }
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            int numberProjectiles = 1; // 4 or 5 shots
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
+                // If you want to randomize the speed to stagger the projectiles
+                float scale = 1f - (Main.rand.NextFloat() * .1f);
+                perturbedSpeed = perturbedSpeed * scale;
+                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+            }
+            return false; // return false because we don't want tModContent to shoot projectile
+        }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {

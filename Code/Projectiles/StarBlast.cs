@@ -13,6 +13,7 @@ namespace UnbiddenMod.Code.Projectiles
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Star Blast");
+      Main.projFrames[projectile.type] = 30;
     }
 
     public override void SetDefaults()
@@ -28,6 +29,7 @@ namespace UnbiddenMod.Code.Projectiles
       aiType = 0;
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
+      projectile.scale = 1.5f;
 
     }
 
@@ -35,14 +37,30 @@ namespace UnbiddenMod.Code.Projectiles
     {
       Player player = Main.player[projectile.owner];
       Lighting.AddLight(projectile.Center, 0.25f, 0f, 0.75f);
-      projectile.rotation += 0.4f * (float)projectile.direction;
       projectile.ai[0] += 1f;
       Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"));
       if (projectile.soundDelay == 0)
       {
-        projectile.soundDelay = 8;
+        projectile.soundDelay = 640;
         Main.PlaySound(SoundID.Item9, projectile.position);
       }
+      projectile.rotation += 3f * (float)projectile.direction;
+      /*if ((float) ((Vector2) ((Entity) projectile).velocity).X > 0.0)
+      {
+        projectile.rotation += 0.8f;
+      }
+      else
+      {
+        projectile.rotation -= 0.8f;
+      }*/
+      if (++projectile.frameCounter >= 2) 
+      {
+				projectile.frameCounter = 0;
+				if (++projectile.frame >= 30) 
+        {
+					projectile.frame = 0;
+				}
+			}
       for (int i = 0; i < 200; i++)
       {
         NPC target = Main.npc[i];

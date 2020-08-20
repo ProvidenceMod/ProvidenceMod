@@ -41,6 +41,7 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
       npc.HitSound = SoundID.NPCHit1;
       npc.DeathSound = SoundID.NPCDeath1;
       npc.value = 25;
+      npc.buffImmune[BuffID.OnFire] = true;
       animationType = 1;
     }
   }

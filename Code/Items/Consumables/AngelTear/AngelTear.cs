@@ -6,16 +6,17 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
 using System.Windows.Forms;
+using static UnbiddenMod.UnbiddenPlayer;
 
-namespace UnbiddenMod.Code.Items.Consumables.IchorFromBeyond
+namespace UnbiddenMod.Code.Items.Consumables.AngelTear
 {
-    public class IchorFromBeyond : ModItem
+    public class AngelTear : ModItem
     {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ichor From Beyond");
-            Tooltip.SetDefault("\"It glows illustriously, and smells like ozone.\"\n+20 max Health, to a limit of 1000\nMust have consumed all life fruits first");
+            DisplayName.SetDefault("Angel's Tear");
+            Tooltip.SetDefault("\"The physical manifest of an angel's suffering.\"\n+20 max Health, to a limit of 1000\nMust have consumed all life fruits first");
         }
 
         public override void SetDefaults()
@@ -24,17 +25,17 @@ namespace UnbiddenMod.Code.Items.Consumables.IchorFromBeyond
         }
 
         public override bool CanUseItem(Player player) {
-          return !player.ichor && player.statLifeMax2 >= 500 && player.statLifeMax2 <= 1000;
+          return player.statLifeMax2 >= 500 && player.statLifeMax2 < 1000;
         }
 
         public override bool UseItem(Player player)
         {
-          if (player.statLifeMax >= 500 && player.statLifeMax < 1000) {
+          if (player.statLifeMax2 >= 500 && player.statLifeMax2 < 1000) {
             player.statLifeMax2 += 20;
             player.statLife += 20;
             player.HealEffect(20, true);
-            player.GetModPlayer<UnbiddenPlayer>().ichor = true;
-            player.GetModPlayer<UnbiddenPlayer>().ichorCount++;
+            player.GetModPlayer<UnbiddenPlayer>().angelTear = true;
+            player.GetModPlayer<UnbiddenPlayer>().tearCount++;
             return true;
           } else {
             return false;

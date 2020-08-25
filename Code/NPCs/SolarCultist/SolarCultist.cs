@@ -1,18 +1,13 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
-using static Terraria.NPC;
-using static Terraria.Player;
-using static Terraria.ModLoader.ModContent;
 
 namespace UnbiddenMod.Code.NPCs.SolarCultist
 {
-  // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
-  [AutoloadHead]
+    // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
+    [AutoloadHead]
   public class SolarCultist : ModNPC
   {
 
@@ -74,7 +69,7 @@ namespace UnbiddenMod.Code.NPCs.SolarCultist
 
         foreach (Item item in player.inventory)
         {
-          if (item.type == 3539);
+          if (item.type == 3539)
           {
             return true;
           }
@@ -94,7 +89,7 @@ namespace UnbiddenMod.Code.NPCs.SolarCultist
         for (int y = top; y <= bottom; y++)
         {
           int type = Main.tile[x, y].type;
-          if (type == monolith || type == woodChair || type == woodBench || type == basicBed || type == woodDoor)
+          if (type == monolith || type == woodChair || type == woodBench || type == basicBed || type == woodDoor || type == woodTable)
           {
             score++;
           }

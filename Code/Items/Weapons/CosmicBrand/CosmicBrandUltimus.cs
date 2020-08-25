@@ -1,13 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
-using System.Windows.Forms;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
@@ -39,7 +34,7 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
             item.shootSpeed = 16f;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
-
+        
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             var tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");

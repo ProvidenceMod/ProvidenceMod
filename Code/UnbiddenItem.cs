@@ -1,15 +1,9 @@
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace UnbiddenMod
 {
-  public class UnbiddenItem : GlobalItem
+    public class UnbiddenItem : GlobalItem
   {
     public override bool InstancePerEntity => true;
 

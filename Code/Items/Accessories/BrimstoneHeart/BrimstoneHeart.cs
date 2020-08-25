@@ -1,19 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
-using System.Windows.Forms;
-using static UnbiddenMod.UnbiddenPlayer;
-using static UnbiddenMod.UnbiddenItem;
 
 namespace UnbiddenMod.Code.Items.Accessories.BrimstoneHeart
 {
     public class BrimstoneHeart : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Brimstone Heart");

@@ -1,16 +1,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using System;
-using Terraria.Utilities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace UnbiddenMod.Code.Items.Weapons.EightGodsBlade
 {
-  public class EightGodsBlade : ModItem
+    public class EightGodsBlade : ModItem
   {
 
     public override void SetStaticDefaults()

@@ -1,0 +1,19 @@
+{
+    "[git-commit]": {
+
+        "editor.rulers": [
+            72
+        ]
+    },
+    // Is git enabled
+    "git.enabled": true,
+    
+    // Path to the git executable
+
+    "launch": {
+
+
+        "configurations": [],
+        "compounds": []
+    }
+}

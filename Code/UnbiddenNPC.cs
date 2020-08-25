@@ -1,24 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.NPC;
-using static Terraria.Player;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.Mod;
-using static UnbiddenMod.UnbiddenItem;
-using static UnbiddenMod.UnbiddenProjectile;
 
 namespace UnbiddenMod
 {
-  public class UnbiddenNPC : GlobalNPC
+    public class UnbiddenNPC : GlobalNPC
   {
     public override bool InstancePerEntity => true;
     public override bool CloneNewInstances => true;

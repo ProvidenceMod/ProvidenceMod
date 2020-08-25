@@ -2,30 +2,28 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Code.Items.Tools.CosmicTerraformer
+namespace UnbiddenMod.Code.Items.Weapons.FireyBlade
 {
-    public class CosmicTerraformer : ModItem
+    public class FireyBlade : ModItem
     {
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Terraformer");
-            Tooltip.SetDefault("\"A pickaxe forged from the pure essence of the Cosmos\"");
+            DisplayName.SetDefault("Firey Blade");
         }
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.NebulaPickaxe);
-            item.width = 20;
-            item.height = 20;
-            item.value = Item.buyPrice(0, 10, 0, 0);
-            item.useTime = 4;
-            item.useAnimation = 10;
-            item.scale = 1.0f;
-            item.melee = true;
-            item.autoReuse = true;
-            item.useTurn = true;
-            item.pick = 255;
+            item.CloneDefaults(ItemID.PlatinumBroadsword);
+            item.GetGlobalItem<UnbiddenItem>().element = 0; // Fire
+        }
+
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+          if (Main.rand.Next(10) == 0) // 10% chance
+          {
+            target.AddBuff(BuffID.OnFire, 300, true);
+          }
+          
         }
 
         public override void AddRecipes()

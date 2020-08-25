@@ -2,13 +2,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Code.Items.Weapons.FireyBlade
+namespace UnbiddenMod.Code.Items.Weapons.FieryBlade
 {
-    public class FireyBlade : ModItem
+    public class FieryBlade : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Firey Blade");
+            DisplayName.SetDefault("Fiery Blade");
         }
 
         public override void SetDefaults()

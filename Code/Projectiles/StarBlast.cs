@@ -1,21 +1,19 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UnbiddenMod.Code.Dusts;
 
 namespace UnbiddenMod.Code.Projectiles
 {
   public class StarBlast : ModProjectile
   {
-    public int projectileAI = 1;
-    public int projectileCycle = 1;
-    public int projectileAICount = 1;
-    public int r = 0;
-    public int g = 0;
-    public int b = 0;
+    //public int projectileAI = 1;
+    //public int projectileCycle = 1;
+    //public int projectileAICount = 1;
+    //public int r = 0;
+    //public int g = 0;
+    //public int b = 0;
 
     public override void SetStaticDefaults()
     {
@@ -42,38 +40,17 @@ namespace UnbiddenMod.Code.Projectiles
     public override void AI()
     {
       Player player = Main.player[projectile.owner];
-      double r2 = ((100 / 255) * r) * 0.01;
-      double g2 = ((100 / 255) * g) * 0.01;
-      double b2 = ((100 / 255) * b) * 0.01;
-      Lighting.AddLight(projectile.Center,(float) r2, (float) g2, (float) b2);
+      Lighting.AddLight(projectile.Center,(float) Main.DiscoR / 400f, (float) Main.DiscoG / 400f, (float) Main.DiscoB / 400f);
       projectile.ai[0] += 1f;
-      Color color = new Color (r, g, b, 0);
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"), 0, 0, 0, color, 0.7f);
-      if((projectileAI % 4) / 1 == 0)
-      {
-        projectileAI = 0;
-        projectileAICount += 1;
-        if(projectileAICount > 15)
-        {
-          projectileAICount = 1;
-          projectileCycle += 1;
-        }
-      }
-      projectileAI += 1;
+      Color color = new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
+      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"), 0, 0, 0, new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0), 0.7f);
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;
         Main.PlaySound(SoundID.Item9, projectile.position);
       }
       projectile.rotation += projectile.velocity.X * 0.1f;
-      /*if ((float) ((Vector2) ((Entity) projectile).velocity).X > 0.0)
-      {
-        projectile.rotation += 0.8f;
-      }
-      else
-      {
-        projectile.rotation -= 0.8f;
-      }*/
+      //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 16f, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("StarBlast"), projectile.damage, projectile.knockBack, projectile.owner);
       for (int i = 0; i < 200; i++)
       {
         NPC target = Main.npc[i];
@@ -100,6 +77,34 @@ namespace UnbiddenMod.Code.Projectiles
         }
       }
     }
+    public override void PostAI()
+    {
+      Player player = Main.player[projectile.owner];
+      for (int i = projectile.oldPos.Length - 1; i > 0; i--)
+      {
+        projectile.oldPos[i] = projectile.oldPos[i - 1];
+      }
+      projectile.oldPos[0] = projectile.position;
+    }
+    public static void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
+        {
+            Color color = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
+            SpriteEffects effects = SpriteEffects.None;
+            int a = 0;
+            int b = 0;
+            float num100 = (float)(Main.projectileTexture[projectile.type].Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
+            for(int i = 0; i < 10; i++)
+            {
+                Color alpha = projectile.GetAlpha(color);
+                float num127 = (float)(9 - i) / 9f;
+                alpha.R = (byte)((float)alpha.R * num127);
+                alpha.G = (byte)((float)alpha.G * num127);
+                alpha.B = (byte)((float)alpha.B * num127);
+                alpha.A = (byte)((float)alpha.A * num127);
+                float num128 = (float)(9 - i) / 9f;
+                Main.spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.oldPos[i].X - Main.screenPosition.X + num100 + (float)b, projectile.oldPos[i].Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height)), alpha, projectile.rotation, new Vector2(num100, (float)(projectile.height / 2 + a)), num128 * projectile.scale, effects, 0f);
+            }
+        }
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
       Player player = Main.player[projectile.owner];
@@ -134,123 +139,7 @@ namespace UnbiddenMod.Code.Projectiles
 
     public override Color? GetAlpha(Color lightColor)
     {
-      if(projectileCycle == 1) //Add to green
-      {
-        r = 255;
-        if(projectileAI == 1)
-        {
-          g += 4;
-        }
-        else if(projectileAI == 2)
-        {
-          g += 4;
-        }
-        else if(projectileAI == 3)
-        {
-          g += 4;
-        }
-        else if(projectileAI == 4)
-        {
-          g += 5;
-        }
-      }
-      else if(projectileCycle == 2) //Subtract from red
-      {
-        if(projectileAI == 1)
-        {
-          r -= 4;
-        }
-        else if(projectileAI == 2)
-        {
-          r -= 4;
-        }
-        else if(projectileAI == 3)
-        {
-          r -= 4;
-        }
-        else if(projectileAI == 4)
-        {
-          r -= 5;
-        }
-      }
-      else if(projectileCycle == 3) //Add to blue
-      {
-        if(projectileAI == 1)
-        {
-          b += 4;
-        }
-        else if(projectileAI == 2)
-        {
-          b += 4;
-        }
-        else if(projectileAI == 3)
-        {
-          b += 4;
-        }
-        else if(projectileAI == 4)
-        {
-          b += 5;
-        }
-      }
-      else if(projectileCycle == 4) //Subtract from green
-      {
-        if(projectileAI == 1)
-        {
-          g -= 4;
-        }
-        else if(projectileAI == 2)
-        {
-          g -= 4;
-        }
-        else if(projectileAI == 3)
-        {
-          g -= 4;
-        }
-        else if(projectileAI == 4)
-        {
-          g -= 5;
-        }
-      }
-      else if(projectileCycle == 5) //Add to red
-      {
-        if(projectileAI == 1)
-        {
-          r += 4;
-        }
-        else if(projectileAI == 2)
-        {
-          r += 4;
-        }
-        else if(projectileAI == 3)
-        {
-          r += 4;
-        }
-        else if(projectileAI == 4)
-        {
-          r += 5;
-        }
-      }
-      else if(projectileCycle == 6) //Subtract from blue
-      {
-        if(projectileAI == 1)
-        {
-          b -= 4;
-        }
-        else if(projectileAI == 2)
-        {
-          b -= 4;
-        }
-        else if(projectileAI == 3)
-        {
-          b -= 4;
-        }
-        else if(projectileAI == 4)
-        {
-          b -= 5;
-        }
-        projectileCycle = 1;
-      }
-      Color color = new Color (r, g, b, 0);
+      Color color = new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
       return(color);
     }
 

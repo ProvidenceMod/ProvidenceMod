@@ -30,7 +30,7 @@ namespace UnbiddenMod.Code.Projectiles
       projectile.aiStyle = 0;
       projectile.friendly = true;
       projectile.melee = true;
-      projectile.tileCollide = true;
+      projectile.tileCollide = false;
       projectile.ignoreWater = true;
       aiType = 0;
       projectile.timeLeft = 300;
@@ -109,7 +109,7 @@ namespace UnbiddenMod.Code.Projectiles
       projectile.penetrate--;
     }
 
-    public override bool OnTileCollide(Vector2 oldVelocity)
+    /*public override bool OnTileCollide(Vector2 oldVelocity)
     {
       projectile.penetrate--;
       if (projectile.penetrate <= 0)
@@ -130,7 +130,7 @@ namespace UnbiddenMod.Code.Projectiles
         }
       }
       return false;
-    }
+    }*/
 
     public override Color? GetAlpha(Color lightColor)
     {

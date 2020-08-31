@@ -20,14 +20,19 @@ namespace UnbiddenMod.Code.Items.Weapons.StellarTransfusion
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.VampireKnives);
-
             item.damage = 60;
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
             item.autoReuse = true;
             item.useTurn = true;
             item.shoot = mod.ProjectileType("VampireKnifeClone");
+            item.useTime = 13;
+            item.useAnimation = 13;
+            item.useStyle = 5;
+            item.scale = 1.0f;
+            item.melee = true;
+            item.autoReuse = true;
+            item.shootSpeed = 16f;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

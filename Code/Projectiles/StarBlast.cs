@@ -10,18 +10,24 @@ namespace UnbiddenMod.Code.Projectiles
 {
   public class StarBlast : ModProjectile
   {
+    public int projectileAI = 1;
+    public int projectileCycle = 1;
+    public int projectileAICount = 1;
+    public int r = 0;
+    public int g = 0;
+    public int b = 0;
+
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Star Blast");
-      Main.projFrames[projectile.type] = 30;
     }
 
     public override void SetDefaults()
     {
       projectile.arrow = true;
-      projectile.width = 16;
-      projectile.height = 16;
-      projectile.aiStyle = 1;
+      projectile.width = 30;
+      projectile.height = 30;
+      projectile.aiStyle = 0;
       projectile.friendly = true;
       projectile.melee = true;
       projectile.tileCollide = true;
@@ -29,22 +35,37 @@ namespace UnbiddenMod.Code.Projectiles
       aiType = 0;
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
-      projectile.scale = 1.5f;
+      projectile.scale = 1f;
 
     }
 
     public override void AI()
     {
       Player player = Main.player[projectile.owner];
-      Lighting.AddLight(projectile.Center, 0.25f, 0f, 0.75f);
+      double r2 = ((100 / 255) * r) * 0.01;
+      double g2 = ((100 / 255) * g) * 0.01;
+      double b2 = ((100 / 255) * b) * 0.01;
+      Lighting.AddLight(projectile.Center,(float) r2, (float) g2, (float) b2);
       projectile.ai[0] += 1f;
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"));
+      Color color = new Color (r, g, b, 0);
+      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"), 0, 0, 0, color, 0.7f);
+      if((projectileAI % 4) / 1 == 0)
+      {
+        projectileAI = 0;
+        projectileAICount += 1;
+        if(projectileAICount > 15)
+        {
+          projectileAICount = 1;
+          projectileCycle += 1;
+        }
+      }
+      projectileAI += 1;
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;
         Main.PlaySound(SoundID.Item9, projectile.position);
       }
-      projectile.rotation += 3f * (float)projectile.direction;
+      projectile.rotation += projectile.velocity.X * 0.1f;
       /*if ((float) ((Vector2) ((Entity) projectile).velocity).X > 0.0)
       {
         projectile.rotation += 0.8f;
@@ -53,14 +74,6 @@ namespace UnbiddenMod.Code.Projectiles
       {
         projectile.rotation -= 0.8f;
       }*/
-      if (++projectile.frameCounter >= 2) 
-      {
-				projectile.frameCounter = 0;
-				if (++projectile.frame >= 30) 
-        {
-					projectile.frame = 0;
-				}
-			}
       for (int i = 0; i < 200; i++)
       {
         NPC target = Main.npc[i];
@@ -118,6 +131,129 @@ namespace UnbiddenMod.Code.Projectiles
       }
       return false;
     }
+
+    public override Color? GetAlpha(Color lightColor)
+    {
+      if(projectileCycle == 1) //Add to green
+      {
+        r = 255;
+        if(projectileAI == 1)
+        {
+          g += 4;
+        }
+        else if(projectileAI == 2)
+        {
+          g += 4;
+        }
+        else if(projectileAI == 3)
+        {
+          g += 4;
+        }
+        else if(projectileAI == 4)
+        {
+          g += 5;
+        }
+      }
+      else if(projectileCycle == 2) //Subtract from red
+      {
+        if(projectileAI == 1)
+        {
+          r -= 4;
+        }
+        else if(projectileAI == 2)
+        {
+          r -= 4;
+        }
+        else if(projectileAI == 3)
+        {
+          r -= 4;
+        }
+        else if(projectileAI == 4)
+        {
+          r -= 5;
+        }
+      }
+      else if(projectileCycle == 3) //Add to blue
+      {
+        if(projectileAI == 1)
+        {
+          b += 4;
+        }
+        else if(projectileAI == 2)
+        {
+          b += 4;
+        }
+        else if(projectileAI == 3)
+        {
+          b += 4;
+        }
+        else if(projectileAI == 4)
+        {
+          b += 5;
+        }
+      }
+      else if(projectileCycle == 4) //Subtract from green
+      {
+        if(projectileAI == 1)
+        {
+          g -= 4;
+        }
+        else if(projectileAI == 2)
+        {
+          g -= 4;
+        }
+        else if(projectileAI == 3)
+        {
+          g -= 4;
+        }
+        else if(projectileAI == 4)
+        {
+          g -= 5;
+        }
+      }
+      else if(projectileCycle == 5) //Add to red
+      {
+        if(projectileAI == 1)
+        {
+          r += 4;
+        }
+        else if(projectileAI == 2)
+        {
+          r += 4;
+        }
+        else if(projectileAI == 3)
+        {
+          r += 4;
+        }
+        else if(projectileAI == 4)
+        {
+          r += 5;
+        }
+      }
+      else if(projectileCycle == 6) //Subtract from blue
+      {
+        if(projectileAI == 1)
+        {
+          b -= 4;
+        }
+        else if(projectileAI == 2)
+        {
+          b -= 4;
+        }
+        else if(projectileAI == 3)
+        {
+          b -= 4;
+        }
+        else if(projectileAI == 4)
+        {
+          b -= 5;
+        }
+        projectileCycle = 1;
+      }
+      Color color = new Color (r, g, b, 0);
+      return(color);
+    }
+
     public override void Kill(int timeLeft)
     {
 

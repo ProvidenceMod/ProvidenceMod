@@ -1,19 +1,10 @@
-using System;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Utilities;
-using static Terraria.NPC;
-using static Terraria.Player;
-using static Terraria.ModLoader.ModContent;
-using static UnbiddenMod.UnbiddenNPC;
 
 namespace UnbiddenMod.Code.NPCs.FireSlime
 {
-  // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
-  public class FireSlime : ModNPC
+    // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
+    public class FireSlime : ModNPC
   {
 
     public override bool Autoload(ref string name)

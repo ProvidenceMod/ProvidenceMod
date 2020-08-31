@@ -15,12 +15,16 @@ namespace UnbiddenMod.Code.Projectiles
 
     public override void SetDefaults()
     {
-      projectile.CloneDefaults(ProjectileID.VampireKnife);
-      projectile.ignoreWater = true;
       projectile.aiStyle = 0;
-      projectile.timeLeft = 180;
       projectile.hide = false;
-      projectile.penetrate = 5;
+      projectile.arrow = true;
+      projectile.width = 16;
+      projectile.height = 16;
+      projectile.friendly = true;
+      projectile.melee = true;
+      projectile.tileCollide = true;
+      projectile.ignoreWater = true;
+      projectile.scale = 1f;
     }
 
 

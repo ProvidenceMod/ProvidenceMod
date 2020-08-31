@@ -31,7 +31,7 @@ namespace UnbiddenMod.Code.Items.Weapons.FireSword
         {
             // Recipes here. See Basic Recipe Guide2
             ModRecipe recipe = new ModRecipe(mod);
-
+        
             recipe.AddIngredient(ItemID.PlatinumBroadsword, 1);
             recipe.AddIngredient(ItemID.Torch, 25);
             recipe.AddIngredient(ItemID.Gel, 99);

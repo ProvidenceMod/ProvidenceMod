@@ -16,6 +16,9 @@ namespace UnbiddenMod.Code.Items.Weapons.FireSword
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
             item.GetGlobalItem<UnbiddenItem>().element = 0; // Fire
+            item.autoReuse = true;
+            item.useAnimation = 15;
+            item.useTime = 15;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 

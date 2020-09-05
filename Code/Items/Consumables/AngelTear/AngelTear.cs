@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
+using UnbiddenMod.Code.Items.Materials;
 
 namespace UnbiddenMod.Code.Items.Consumables.AngelTear
 {
@@ -16,10 +18,11 @@ namespace UnbiddenMod.Code.Items.Consumables.AngelTear
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.LifeCrystal);
+            item.maxStack = 99;
         }
 
         public override bool CanUseItem(Player player) {
-          return player.statLifeMax2 >= 500 && player.statLifeMax2 < 1000;
+          return player.statLifeMax2 >= 500 && player.GetModPlayer<UnbiddenPlayer>().tearCount < 25; // If you have all life fruits AND haven't gained up to 500 extra HP total from it
         }
 
         public override bool UseItem(Player player)
@@ -40,8 +43,11 @@ namespace UnbiddenMod.Code.Items.Consumables.AngelTear
             // Recipes here. See Basic Recipe Guide2
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(ItemID.Ichor, 25); 
-            recipe.AddIngredient(ItemID.LifeCrystal, 5);
+            recipe.AddIngredient(ItemID.FragmentSolar, 15);
+            recipe.AddIngredient(ItemID.FragmentNebula, 15);
+            recipe.AddIngredient(ItemID.FragmentVortex, 15);
+            recipe.AddIngredient(ItemID.FragmentStardust, 15);
+            recipe.AddIngredient(ItemType<LuminousFragment>(), 5);
             recipe.AddTile(412); // Ancient Manipulator
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod

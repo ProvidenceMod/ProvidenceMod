@@ -16,6 +16,7 @@ namespace UnbiddenMod.Code.Items.Weapons.PoisonSword
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
             item.GetGlobalItem<UnbiddenItem>().element = 3; // Poison
+            item.autoReuse = true;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 

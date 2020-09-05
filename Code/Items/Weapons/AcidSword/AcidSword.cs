@@ -17,6 +17,7 @@ namespace UnbiddenMod.Code.Items.Weapons.AcidSword
             item.GetGlobalItem<UnbiddenItem>().element = 4; // Acid
             item.shoot = mod.ProjectileType("AcidBlob");
             item.shootSpeed = 8f;
+            item.autoReuse = true;
         }
 
 

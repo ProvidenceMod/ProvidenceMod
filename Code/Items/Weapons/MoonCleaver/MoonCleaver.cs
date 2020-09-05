@@ -6,22 +6,22 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
+namespace UnbiddenMod.Code.Items.Weapons.MoonCleaver
 {
-    public class CosmicBrandUltimus : ModItem
+    public class MoonCleaver : ModItem
     {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cosmic Brand Ultimus");
+            DisplayName.SetDefault("Moon Cleaver");
             Tooltip.SetDefault("\"A sword forged from the pure essence of the Cosmos\"");
         }
 
         public override void SetDefaults()
         {
             item.damage = 150;
-            item.width = 20;
-            item.height = 20;
+            item.width = 90;
+            item.height = 90;
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
             item.useTime = 13;
@@ -68,6 +68,12 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
             player.HealEffect(healingAmount, true);
         }
 
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            Texture2D tex = mod.GetTexture("Code/Items/Weapons/MoonCleaver/MoonCleaverGlow"); //loads our glowmask
+            spriteBatch.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + item.width * 0.5f, item.position.Y - Main.screenPosition.Y + item.height - tex.Height * 0.5f + 2f), tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, 0, 0); //draws our glowmask in the inventory. To see how to draw it in the world, see the ModifyDrawLayers method in ExamplePlayer.
+        }
+
         public override void AddRecipes()
         {
             // Recipes here. See Basic Recipe Guide2
@@ -81,7 +87,7 @@ namespace UnbiddenMod.Code.Items.Weapons.CosmicBrand
 
         /*public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            Texture2D tex = ModContent.GetTexture("Code/Items/Weapons/CosmicBrand/CosmicBrandUltimusGlowmask"); //loads our glowmask
+            Texture2D tex = ModContent.GetTexture("Code/Items/Weapons/MoonCleaver/MoonCleaverGlow"); //loads our glowmask
             spriteBatch.Draw(tex, position, tex.Frame(), Color.White, 0, origin, scale, 0, 0); //draws our glowmask in the inventory. To see how to draw it in the world, see the ModifyDrawLayers method in ExamplePlayer.
         }*/
     }

@@ -8,13 +8,6 @@ namespace UnbiddenMod.Code.Projectiles
 {
   public class StarBlast : ModProjectile
   {
-    //public int projectileAI = 1;
-    //public int projectileCycle = 1;
-    //public int projectileAICount = 1;
-    //public int r = 0;
-    //public int g = 0;
-    //public int b = 0;
-
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Star Blast");
@@ -86,25 +79,6 @@ namespace UnbiddenMod.Code.Projectiles
       }
       projectile.oldPos[0] = projectile.position;
     }
-    public static void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
-        {
-            Color color = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
-            SpriteEffects effects = SpriteEffects.None;
-            int a = 0;
-            int b = 0;
-            float num100 = (float)(Main.projectileTexture[projectile.type].Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
-            for(int i = 0; i < 10; i++)
-            {
-                Color alpha = projectile.GetAlpha(color);
-                float num127 = (float)(9 - i) / 9f;
-                alpha.R = (byte)((float)alpha.R * num127);
-                alpha.G = (byte)((float)alpha.G * num127);
-                alpha.B = (byte)((float)alpha.B * num127);
-                alpha.A = (byte)((float)alpha.A * num127);
-                float num128 = (float)(9 - i) / 9f;
-                Main.spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.oldPos[i].X - Main.screenPosition.X + num100 + (float)b, projectile.oldPos[i].Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height)), alpha, projectile.rotation, new Vector2(num100, (float)(projectile.height / 2 + a)), num128 * projectile.scale, effects, 0f);
-            }
-        }
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
       Player player = Main.player[projectile.owner];

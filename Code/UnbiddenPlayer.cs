@@ -78,9 +78,9 @@ namespace UnbiddenMod
 		{
 			Player player = info.drawPlayer; //the player!
 
-			if (player.HeldItem.type == ModContent.ItemType<Code.Items.Weapons.CosmicBrand.CosmicBrandUltimus>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
+			if (player.HeldItem.type == ModContent.ItemType<Code.Items.Weapons.MoonCleaver.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
 			{
-				Texture2D tex = mod.GetTexture("Code/Items/Weapons/CosmicBrand/CosmicBrandUltimusGlowmask"); //The texture of our glowmask.
+				Texture2D tex = mod.GetTexture("Code/Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our glowmask.
 
 				//Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
 				Main.playerDrawData.Add(
@@ -102,10 +102,10 @@ namespace UnbiddenMod
 		{
 			Player player = info.drawPlayer; //the player!
 
-			if (player.HeldItem.type == ModContent.ItemType<Code.Items.Weapons.CosmicBrand.CosmicBrandUltimus>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
+			if (player.HeldItem.type == ModContent.ItemType<Code.Items.Weapons.MoonCleaver.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
 			{
-				Texture2D tex = ModContent.GetTexture("Code/Items/Weapons/CosmicBrand/CosmicBrandUltimusGlowmask"); //The texture of our animated sword.
-				Rectangle frame = Main.itemAnimations[ModContent.ItemType<Code.Items.Weapons.CosmicBrand.CosmicBrandUltimus>()].GetFrame(tex);//the animation frame that we want should be passed as the source rectangle. this is the region if your sprite the game will read to draw.
+				Texture2D tex = ModContent.GetTexture("Code/Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our animated sword.
+				Rectangle frame = Main.itemAnimations[ModContent.ItemType<Code.Items.Weapons.MoonCleaver.MoonCleaver>()].GetFrame(tex);//the animation frame that we want should be passed as the source rectangle. this is the region if your sprite the game will read to draw.
 																												//special note that this requires your item's animation to be set up correctly in the inventory. If you want your item to be animated ONLY when you swing you will have to find the frame another way.
 
 				//Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
@@ -130,9 +130,9 @@ namespace UnbiddenMod
       Mod mod = ModLoader.GetMod("UnbiddenMod");
       UnbiddenPlayer modPlayer = drawPlayer.GetModPlayer<UnbiddenPlayer>();
       Item obj = drawPlayer.inventory[drawPlayer.selectedItem];
-      if (obj.type == ModContent.ItemType<Code.Items.Weapons.CosmicBrand.CosmicBrandUltimus>());
+      if (obj.type == ModContent.ItemType<Code.Items.Weapons.MoonCleaver.MoonCleaver>());
       {
-        Texture2D texture = mod.GetTexture("Code/Items/Weapons/CosmicBrand/CosmicBrandUltimusGlowmask");
+        Texture2D texture = mod.GetTexture("Code/Items/Weapons/MoonCleaver/MoonCleaverGlow");
         Vector2 pos = (Vector2) ((Entity) drawPlayer).position + ((Vector2) drawPlayer.itemLocation - (Vector2) ((Entity) drawPlayer).position);
         SpriteEffects spriteEffects = drawPlayer.gravDir != 1.0 ? (((Entity) drawPlayer).direction != 1 ? SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically : SpriteEffects.FlipVertically) : (((Entity) drawPlayer).direction != 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
         float rotation = (float) (drawPlayer.itemRotation + 0.785000026226044 * (double) (float) ((Entity) drawPlayer).direction);

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace UnbiddenMod.Code.Items.Weapons.MoonCleaver
 {
@@ -49,14 +50,22 @@ namespace UnbiddenMod.Code.Items.Weapons.MoonCleaver
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberProjectiles = 4; // 4 or 5 shots
-            float pos = 40f;
+            float pos = -40f;
+
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
+                // double degrees = Math.Asin((Main.mouseY + (pos * i)) / (Math.Sqrt((Main.mouseX * Main.mouseX) + (Main.mouseY * Main.mouseY))));
+                // double degrees = Math.Asin(((pos * i) + Main.mouseY) / Math.Sqrt((Main.mouseX * Main.mouseX) + (((pos * i) + Main.mouseY) * ((pos * i) + Main.mouseY))));
+                // double degrees = Math.Asin((pos * -i) / Math.Sqrt((Main.mouseX * Main.mouseX) + ((pos * -i) * (pos * -i) )));
+                // float yPos = pos * -i;
+                // float xPos = Main.mouseX * (float) 0.5;
+                // double radians = Math.Atan(yPos / xPos);
+                // .RotatedBy(radians)
+                Vector2 speed = new Vector2(speedX, speedY);
                 // If you want to randomize the speed to stagger the projectiles
-                float scale = 1f - (Main.rand.NextFloat() * .1f);
-                perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(position.X, position.Y - (pos * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                // float scale = 1f - (Main.rand.NextFloat() * .1f);
+                // perturbedSpeed = perturbedSpeed * scale;
+                Projectile.NewProjectile(position.X, position.Y + (pos * i), speed.X, speed.Y, type, damage, knockBack, player.whoAmI);
             }
             return false; // return false because we don't want tModContent to shoot projectile
         }

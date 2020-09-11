@@ -19,6 +19,7 @@ namespace UnbiddenMod.Code.Items.Accessories.BrimstoneHeart
         public override void UpdateEquip(Player player)
         {
             player.GetModPlayer<UnbiddenPlayer>().brimHeart = true;
+            player.GetModPlayer<UnbiddenPlayer>().resists[0] = 150;
         }
         public override void AddRecipes()
         {

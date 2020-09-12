@@ -33,6 +33,7 @@ namespace UnbiddenMod
     {
       brimHeart = false;
       player.statLifeMax2 += tearCount * 20;
+      resists = new int[7] {100, 100, 100, 100, 100, 100, 100};
     }
 
     public override void Load(TagCompound tag)
@@ -53,6 +54,45 @@ namespace UnbiddenMod
         }
       }
     }
+    // If the Player is hit by an NPC's contact damage...
+    public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+    {
+      int npcEl = npc.GetGlobalNPC<UnbiddenNPC>().contactDamageEl;
+      if (npcEl != -1)
+      {
+        float damageFloat = (float)damage, // And the damage we already have, converted to float
+          resistMod = (float)(resists[npcEl]) / 100f;
+        if (resistMod > 0f) // If you don't have immunity (meaning your resist number is 0 or lower)
+        {
+          damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
+          damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
+        }
+        else // If not, you're damage is set to 1
+        {
+          damage = 1;
+        }
+      }
+    }
+
+    public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+    {
+      int projEl = proj.GetGlobalProjectile<UnbiddenProjectile>().element; // Determine the element (will always be between 0-6 for array purposes)
+      if (projEl != -1) // if not typeless (and implicitly within 0-6)
+      {
+        float damageFloat = (float)damage, // And the damage we already have, converted to float
+          resistMod = (float)(resists[projEl]) / 100f;
+        if (resistMod > 0f)
+        {
+          damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
+          damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
+        }
+        else
+        {
+          damage = 1;
+        }
+      }
+    }
+
     public override void ModifyDrawLayers(List<PlayerLayer> layers) 
     {
       

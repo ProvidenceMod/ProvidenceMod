@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace UnbiddenMod.Code.Items.Accessories.BrimstoneHeart
 {
@@ -19,6 +20,7 @@ namespace UnbiddenMod.Code.Items.Accessories.BrimstoneHeart
         public override void UpdateEquip(Player player)
         {
             player.GetModPlayer<UnbiddenPlayer>().brimHeart = true;
+            player.GetModPlayer<UnbiddenPlayer>().resists[0] -= 15;
         }
         public override void AddRecipes()
         {

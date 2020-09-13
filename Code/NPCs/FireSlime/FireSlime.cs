@@ -22,13 +22,14 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
     public override void SetDefaults()
     {
       npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[7] {0, 200, 100, 100, 100, 100, 100};
+      npc.GetGlobalNPC<UnbiddenNPC>().contactDamageEl = 0; // Fire
       npc.townNPC = false;
       npc.width = 24;
       npc.height = 18;
       npc.aiStyle = 1;
-      npc.damage = 1;
+      npc.damage = 10;
       npc.defense = 2;
-      npc.lifeMax = 5000;
+      npc.lifeMax = 35;
       npc.HitSound = SoundID.NPCHit1;
       npc.DeathSound = SoundID.NPCDeath1;
       npc.value = 25;

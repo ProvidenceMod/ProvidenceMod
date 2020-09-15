@@ -16,7 +16,7 @@ namespace UnbiddenMod
   {
     public bool angelTear;
     public int tearCount;
-    public string[] elements = new string[8] {"fire", "ice", "lightning", "water", "poison", "acid", "holy", "unholy"};
+    public string[] elements = new string[8] {"fire", "ice", "lightning", "water", "earth", "air", "holy", "unholy"};
     public int[] resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
     public bool brimHeart = false;
 

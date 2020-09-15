@@ -7,7 +7,7 @@ namespace UnbiddenMod
   {
     public override bool InstancePerEntity => true;
     public override bool CloneNewInstances => true;
-    public int[] resists = new int[8] { 100, 100, 100, 100, 100, 100, 100, 100 }; // Fire, Ice, Lightning, Water, Poison, Acid, Holy, Unholy
+    public int[] resists = new int[8] { 100, 100, 100, 100, 100, 100, 100, 100 }; // Fire, Ice, Lightning, Water, Earth, Air, Holy, Unholy
     public int contactDamageEl = -1; // Contact damage element, -1 by default for typeless
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
     {

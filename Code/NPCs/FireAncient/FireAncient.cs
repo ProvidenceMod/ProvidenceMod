@@ -43,6 +43,7 @@ namespace UnbiddenMod.Code.NPCs.FireAncient
             npc.chaseable = true;
             npc.width = 760;
             npc.height = 484;
+            npc.getGlobalNPC<UnbiddenNPC>().resists = new int[8] {0, 75, 100, 250, 100, 100, 100, 100};
         }
 
         public override void AI() //this is where you program your AI

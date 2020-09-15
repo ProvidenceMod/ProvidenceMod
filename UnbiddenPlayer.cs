@@ -120,7 +120,7 @@ namespace UnbiddenMod
 
 			if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
 			{
-				Texture2D tex = mod.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our glowmask.
+				Texture2D tex = mod.GetTexture("Items/Weapons/MoonCleaverGlow"); //The texture of our glowmask.
 
 				//Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
 				Main.playerDrawData.Add(

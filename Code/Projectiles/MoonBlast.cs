@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace UnbiddenMod.Code.Projectiles
 {
-  public class StarBlast : ModProjectile
+  public class MoonBlast : ModProjectile
   {
     public override void SetStaticDefaults()
     {
@@ -36,14 +36,14 @@ namespace UnbiddenMod.Code.Projectiles
       Lighting.AddLight(projectile.Center,(float) Main.DiscoR / 400f, (float) Main.DiscoG / 400f, (float) Main.DiscoB / 400f);
       projectile.ai[0] += 1f;
       Color color = new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("StarBlastDust"), 0, 0, 0, new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0), 0.7f);
+      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("MoonBlastDust"), 0, 0, 0, new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0), 0.7f);
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;
         Main.PlaySound(SoundID.Item9, projectile.position);
       }
-      projectile.rotation += projectile.velocity.X * 0.1f;
-      //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 16f, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("StarBlast"), projectile.damage, projectile.knockBack, projectile.owner);
+      projectile.rotation += projectile.velocity.X * 0.05f;
+      //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 16f, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("MoonBlast"), projectile.damage, projectile.knockBack, projectile.owner);
       for (int i = 0; i < 200; i++)
       {
         NPC target = Main.npc[i];
@@ -69,6 +69,28 @@ namespace UnbiddenMod.Code.Projectiles
           }
         }
       }
+    }
+    public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) 
+    {
+      Texture2D tex = mod.GetTexture("Code/Projectiles/MoonBlast");
+        //float alpha = i * 15;
+        //spriteBatch.Draw(tex, projectile.oldPos[5], new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 128f));
+
+      for (int k = 0; k < 3; k++) {
+				Vector2 previous = projectile.position;
+				if (k > 0) 
+        {
+					previous = projectile.oldPos[k - 1];
+				}
+        float alpha = 0.5f - (k * 0.15f);
+        Color color = projectile.GetAlpha(lightColor) * alpha;
+        //* ((float) (projectile.oldPos.Length - k) / (float) projectile.oldPos.Length)
+				//Color alpha = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 45 * k);
+				Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition;
+				spriteBatch.Draw(tex, drawPos, null, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			  //drawPos += (previous - projectile.oldPos[k]) / 4;
+			}
+			return true;
     }
     public override void PostAI()
     {

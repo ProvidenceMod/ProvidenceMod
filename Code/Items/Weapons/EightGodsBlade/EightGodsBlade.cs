@@ -28,7 +28,7 @@ namespace UnbiddenMod.Code.Items.Weapons.EightGodsBlade
       item.melee = true;
       item.autoReuse = true;
       item.useTurn = true;
-      item.shoot = mod.ProjectileType("StarBlast");
+      item.shoot = mod.ProjectileType("MoonBlast");
       item.shootSpeed = 16f;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }

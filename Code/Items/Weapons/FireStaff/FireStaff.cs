@@ -31,7 +31,7 @@ namespace UnbiddenMod.Code.Items.Weapons.FireStaff
             item.autoReuse = true;
             item.useTurn = true;
             item.GetGlobalItem<UnbiddenItem>().element = 0; // Fire
-            item.shoot = mod.ProjectileType("StarBlast");
+            item.shoot = mod.ProjectileType("MoonBlast");
             item.shootSpeed = 16f;
         }
 

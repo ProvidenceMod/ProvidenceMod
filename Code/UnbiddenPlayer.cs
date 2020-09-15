@@ -164,53 +164,14 @@ namespace UnbiddenMod
 					));
 			}
 		}*/
-    /*public static readonly PlayerLayer HeldItem = new PlayerLayer("UnbiddenMod", "HeldItem", PlayerLayer.HeldItem, delegate (PlayerDrawInfo drawInfo)
+    
+    public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) 
     {
-      Player drawPlayer = drawInfo.drawPlayer;
-      Mod mod = ModLoader.GetMod("UnbiddenMod");
-      UnbiddenPlayer modPlayer = drawPlayer.GetModPlayer<UnbiddenPlayer>();
-      Item obj = drawPlayer.inventory[drawPlayer.selectedItem];
-      if (obj.type == ModContent.ItemType<Code.Items.Weapons.MoonCleaver.MoonCleaver>());
-      {
-        Texture2D texture = mod.GetTexture("Code/Items/Weapons/MoonCleaver/MoonCleaverGlow");
-        Vector2 pos = (Vector2) ((Entity) drawPlayer).position + ((Vector2) drawPlayer.itemLocation - (Vector2) ((Entity) drawPlayer).position);
-        SpriteEffects spriteEffects = drawPlayer.gravDir != 1.0 ? (((Entity) drawPlayer).direction != 1 ? SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically : SpriteEffects.FlipVertically) : (((Entity) drawPlayer).direction != 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
-        float rotation = (float) (drawPlayer.itemRotation + 0.785000026226044 * (double) (float) ((Entity) drawPlayer).direction);
-        Vector2 height = new Vector2(0.0f, texture.Height);
-        int width = 0;
-        int drawX = (int)(pos.X - (Main.screenPosition.X + height.X + width));
-        int drawY = (int)(pos.Y - (Main.screenPosition.Y + 0.0));
-        if (drawPlayer.gravDir == -1.0)
-        {
-          if (((Entity) drawPlayer).direction == -1)
-          {
-            rotation += 1.57f;
-            height = new Vector2((float) ((Texture2D) Main.itemTexture[obj.type]).Width, 0.0f);
-            width -= ((Texture2D) Main.itemTexture[obj.type]).Width;
-          }
-          else
-          {
-            rotation -= 1.57f;
-            height = Vector2.Zero;
-          }
-        }
-        else if (((Entity) drawPlayer).direction == -1)
-        {
-          height = new Vector2((float) ((Texture2D) Main.itemTexture[obj.type]).Width, (float) ((Texture2D) Main.itemTexture[obj.type]).Height);
-          width -= ((Texture2D) Main.itemTexture[obj.type]).Width;
-        }
-        DrawData data = new DrawData(
-                            texture,
-                            new Vector2( drawX, drawY), 
-                            new Microsoft.Xna.Framework.Rectangle(0, 0, texture.Width, texture.Height), 
-                            Microsoft.Xna.Framework.Color.White, 
-                            rotation, 
-                            height, 
-                            obj.scale, 
-                            spriteEffects, 
-                            0);
-      Main.playerDrawData.Add(data);
-      }    
-    });*/
+			ModPacket packet = mod.GetPacket();
+			packet.Write((byte)UnbiddenModMessageType.UnbiddenPlayerSyncPlayer);
+			packet.Write((byte)player.whoAmI);
+			packet.Write(tearCount); // While we sync nonStopParty in SendClientChanges, we still need to send it here as well so newly joining players will receive the correct value.
+			packet.Send(toWho, fromWho);
+		}
   }
 }

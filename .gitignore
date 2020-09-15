@@ -2,3 +2,7 @@
 *.mdp
 *.psd
 Unbidden Sprites/desktop.ini
+bin/
+.git/
+.vs/
+

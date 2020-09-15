@@ -1,3 +1,0 @@
-displayName = Unbidden
-author = Zack
-version = 0.1

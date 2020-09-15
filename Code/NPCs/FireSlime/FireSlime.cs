@@ -21,7 +21,7 @@ namespace UnbiddenMod.Code.NPCs.FireSlime
 
     public override void SetDefaults()
     {
-      npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[7] {0, 200, 100, 100, 100, 100, 100};
+      npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[8] {0, 50, 100, 200, 100, 100, 100, 100};
       npc.GetGlobalNPC<UnbiddenNPC>().contactDamageEl = 0; // Fire
       npc.townNPC = false;
       npc.width = 24;

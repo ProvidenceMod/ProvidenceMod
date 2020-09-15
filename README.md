@@ -1,6 +1,6 @@
 # Unbidden
 
-> "I picture a world sung from chaos by beings from beyond the divine gate; Vela Sara the Angel of Shadows, Amastacia the Angel of Stars, Sashasa the Angel of the Waves, T'ir Anui the Angel of Embers, Ahnrah the Angel of Clouds, Leiathil the Angel of Flowers, Canta the Angel of Song, and Marisolia the Angel of Dance. These angels forge the world from the chaos, and descend to live with their creation, and eventually disperse into the world."
+> "I picture a world sung from chaos by beings from beyond the divine gate; Vela Sara the Angel of Shadows, Amastacia the Angel of Stars, Sashasa the Angel of the Waves, T'ir Anui the Angel of Embers, Ahnrah the Angel of Clouds, Leiathil the Angel of Flowers, Canta the Angel of Song, and Marisolia the Angel of Dance."
 
 You've destroyed Golem, you've assaulted the Lunatic Cultist, halted the Lunar events, and destroyed the Moon Lord, the Destroyer of Worlds. Now what? Do you just sit back and enjoy your boundless power as if nothing happened?
 

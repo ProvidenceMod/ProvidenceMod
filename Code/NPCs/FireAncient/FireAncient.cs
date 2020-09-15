@@ -30,11 +30,12 @@ namespace UnbiddenMod.Code.NPCs.FireAncient
 
         public override void SetDefaults()
         {
-            music = mod.GetSoundSlot(SoundType.Music, "Code/Music/FromTheDepths");
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths.wav");
 			musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
-            npc.aiStyle = -1;
+            npc.aiStyle = 14;
             npc.lavaImmune = true;
             npc.noGravity = true;
+            npc.damage = 75;
             npc.noTileCollide = true;
             npc.lifeMax = 100000;
             npc.townNPC = false;
@@ -43,7 +44,8 @@ namespace UnbiddenMod.Code.NPCs.FireAncient
             npc.chaseable = true;
             npc.width = 760;
             npc.height = 484;
-            npc.getGlobalNPC<UnbiddenNPC>().resists = new int[8] {0, 75, 100, 250, 100, 100, 100, 100};
+            npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[8] {0, 200, 100, 50, 100, 100, 100, 100};
+            npc.GetGlobalNPC<UnbiddenNPC>().contactDamageEl = 0;
         }
 
         public override void AI() //this is where you program your AI

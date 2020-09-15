@@ -15,7 +15,7 @@ namespace UnbiddenMod.Code.Items.Weapons.UnholySword
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenItem>().element = 6; // Unholy
+            item.GetGlobalItem<UnbiddenItem>().element = 7; // Unholy
             item.autoReuse = true;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }

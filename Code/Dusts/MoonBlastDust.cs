@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace UnbiddenMod.Code.Dusts
 {
-	public class StarBlastDust : ModDust
+	public class MoonBlastDust : ModDust
 	{
 		public override void OnSpawn(Dust dust) 
         {
@@ -35,6 +35,6 @@ namespace UnbiddenMod.Code.Dusts
 		}
 
 		public override Color? GetAlpha(Dust dust, Color lightColor) 
-			=> new Color(lightColor.R, lightColor.G, lightColor.B, 25);
+			=> new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 25);
 	}
 }

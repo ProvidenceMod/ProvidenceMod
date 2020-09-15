@@ -53,7 +53,7 @@ namespace UnbiddenMod.Code.NPCs.SolarCultist
       int num = npc.life > 0 ? 1 : 5;
       for (int k = 0; k < num; k++)
       {
-        Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("StarBlastDust"));
+        Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("MoonBlastDust"));
       }
     }
 
@@ -195,7 +195,7 @@ namespace UnbiddenMod.Code.NPCs.SolarCultist
     // Gives them a way to defend themselves: The projectile itself
     public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
     {
-      projType = mod.ProjectileType("StarBlast");
+      projType = mod.ProjectileType("MoonBlast");
       attackDelay = 1;
     }
     

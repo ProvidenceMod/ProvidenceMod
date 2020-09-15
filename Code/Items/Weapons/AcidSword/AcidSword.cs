@@ -14,7 +14,7 @@ namespace UnbiddenMod.Code.Items.Weapons.AcidSword
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenItem>().element = 4; // Acid
+            item.GetGlobalItem<UnbiddenItem>().element = 5; // Acid
             item.shoot = mod.ProjectileType("AcidBlob");
             item.shootSpeed = 8f;
             item.autoReuse = true;

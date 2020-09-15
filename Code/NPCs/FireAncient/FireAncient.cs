@@ -39,9 +39,10 @@ namespace UnbiddenMod.Code.NPCs.FireAncient
             npc.lifeMax = 100000;
             npc.townNPC = false;
             npc.boss = true;
-            npc.height = 305;
-            npc.width = 169;
-            
+            npc.HitSound = SoundID.NPCHit41;
+            npc.chaseable = true;
+            npc.width = 760;
+            npc.height = 484;
         }
 
         public override void AI() //this is where you program your AI
@@ -52,6 +53,7 @@ namespace UnbiddenMod.Code.NPCs.FireAncient
                 spawnText = true;
             }
             FindPlayers();
+
         }
 
         private void Talk(string message) 
@@ -79,13 +81,6 @@ namespace UnbiddenMod.Code.NPCs.FireAncient
         public override void FindFrame(int frameHeight)
         {   
             Texture2D tex = mod.GetTexture("Code/NPCs/FireAncient/FireAncient");
-            /*npc.frameCounter -= 0.5F; // Determines the animation speed. Higher value = faster animation.
-            npc.frameCounter %= Main.npcFrameCount[npc.type];
-            int frame = (int)npc.frameCounter;
-            frameHeight = tex.Height / 5;
-            npc.frame.Y = frame * frameHeight;
-            npc.spriteDirection = npc.direction;*/
-
             NPC npc = this.npc;
             if(npc.frameCounter + 0.5f > 5f)
             {

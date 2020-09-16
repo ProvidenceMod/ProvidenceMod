@@ -76,6 +76,11 @@ namespace UnbiddenMod
 
 		public override void UpdateMusic(ref int music, ref MusicPriority priority)
 		{
+			if (Main.LocalPlayer.HasBuff(BuffID.OnFire))
+			{
+				music = GetSoundSlot((SoundType) 51, "Sounds/FromTheDepths");
+				priority = MusicPriority.Environment;
+			}
 		}
 	}
 

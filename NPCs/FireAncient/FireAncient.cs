@@ -4,9 +4,11 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace UnbiddenMod.NPCs.FireAncient
 {
@@ -30,7 +32,8 @@ namespace UnbiddenMod.NPCs.FireAncient
 
         public override void SetDefaults()
         {
-            music = mod.GetSoundSlot(SoundType.Music, "Sounds/FromTheDepths");
+            // Grabbing the whole mod so there's (hopefully) no discrepancies with directories
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths");
 			musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
             npc.aiStyle = -1;
             npc.lavaImmune = true;

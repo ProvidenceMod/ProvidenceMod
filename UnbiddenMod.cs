@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using UnbiddenMod.NPCs.FireAncient;
 using static Terraria.ModLoader.Mod;
@@ -71,15 +70,6 @@ namespace UnbiddenMod
 					new List<int> { ModContent.ItemType<Items.Weapons.MoonCleaver>(), ModContent.ItemType<Items.Weapons.MoonCleaver>() },
 					"$Mods.UnbiddenMod.BossSpawnInfo.FireAncient"
 				);
-			}
-		}
-
-		public override void UpdateMusic(ref int music, ref MusicPriority priority)
-		{
-			if (Main.LocalPlayer.HasBuff(BuffID.OnFire))
-			{
-				music = GetSoundSlot((SoundType) 51, "Sounds/FromTheDepths");
-				priority = MusicPriority.Environment;
 			}
 		}
 	}

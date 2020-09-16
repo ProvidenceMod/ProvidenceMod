@@ -32,7 +32,6 @@ namespace UnbiddenMod.NPCs.FireAncient
 
         public override void SetDefaults()
         {
-            // Grabbing the whole mod so there's (hopefully) no discrepancies with directories
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths");
 			musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
             npc.aiStyle = -1;

@@ -36,7 +36,7 @@ namespace UnbiddenMod.Projectiles
       Lighting.AddLight(projectile.Center,(float) Main.DiscoR / 400f, (float) Main.DiscoG / 400f, (float) Main.DiscoB / 400f);
       projectile.ai[0] += 1f;
       Color color = new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("MoonBlastDust"), 0, 0, 0, color, 0.7f);
+      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("MoonBlastDust"), 0, 0, 0, new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0), 0.7f);
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;
@@ -57,11 +57,12 @@ namespace UnbiddenMod.Projectiles
           //  √ shootToX² + shootToY², using the Pythagorean Theorem to calculate the distance from the target
           float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
+          //f, in this scenario, is a measurement of Pixel Distance
           if (distance < 80f && !target.friendly && target.active)
           {
             distance = 3f / distance;
-            shootToY *= 1.05f;
-            shootToX *= 1.05f;
+            shootToY *= distance * 5;
+            shootToX *= distance * 5;
 
             projectile.velocity.Y = shootToY;
             projectile.velocity.X = shootToX;

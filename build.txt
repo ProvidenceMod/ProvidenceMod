@@ -1,7 +1,3 @@
-displayName = UnbiddenMod
-author = SnowyStarfall and the Unbidden Dev Team
+displayName = Unbidden
+author = Zack
 version = 0.1
-homepage = https://github.com/Unbidden-Dev-Team/UnbiddenMod
-hideCode = true
-hideResources = true
-includePDB = true

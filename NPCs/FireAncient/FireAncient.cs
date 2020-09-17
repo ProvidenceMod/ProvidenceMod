@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using UnbiddenMod.Projectiles;
 
 namespace UnbiddenMod.NPCs.FireAncient
 {
@@ -14,7 +15,6 @@ namespace UnbiddenMod.NPCs.FireAncient
     {
         private bool spawnText = false;
         public readonly IList<int> targets = new List<int>();
-
         public override bool Autoload(ref string name)
         {
             name = "FireAncient";
@@ -49,14 +49,29 @@ namespace UnbiddenMod.NPCs.FireAncient
 
         public override void AI() //this is where you program your AI
         {
+            npc.ai[0] += 1;
             if(spawnText == false)
             {
                 Talk("A Fiery Ancient has awoken!");
                 spawnText = true;
             }
             FindPlayers();
-
+            AbyssalHellblast();
         }
+
+        private void AbyssalHellblast() 
+        {
+            int numAttacks = 20;
+            float timer = 60f;
+            float totalTime = numAttacks * timer + 120f;
+            int type = mod.ProjectileType("Projectiles/AbyssalHellblast");
+            for (int k = 0 ; k < numAttacks ; k++)
+            {
+                int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, type, 50, 0f, Main.myPlayer, npc.whoAmI, (int)(60f + k * timer));
+			    Main.projectile[proj].localAI[0] = (int)totalTime;
+				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+            }
+		}
 
         private void Talk(string message) 
         {

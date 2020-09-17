@@ -30,7 +30,7 @@ namespace UnbiddenMod.Projectiles
       projectile.timeLeft = 300;
       projectile.penetrate = 1;
       projectile.scale = 1f;
-      projectile.GetGlobalProjectile<UnbiddenProjectile>().element = 4; // Acid
+      projectile.GetGlobalProjectile<UnbiddenProjectile>().element = 0; // Acid
 
     }
 
@@ -41,22 +41,13 @@ namespace UnbiddenMod.Projectiles
       // Gravity
       projectile.ai[0] += 1f;
       // Rotation
-      if ((float) ((Vector2) ((Entity) projectile).velocity).X > 0.0)
+      if (projectile.velocity.X > 0.0)
       {
         projectile.rotation -= 1.57f * (float)projectile.direction;
       }
       else
       {
         projectile.rotation += 1.57f * (float)projectile.direction;
-      }
-      // Animation AI
-      if (++projectile.frameCounter >= 3)
-      {
-        projectile.frameCounter = 0;
-        if (++projectile.frame >= 6)
-        {
-          projectile.frame = 0;
-        }
       }
     }
   }

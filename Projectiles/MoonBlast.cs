@@ -73,9 +73,6 @@ namespace UnbiddenMod.Projectiles
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) 
     {
       Texture2D tex = mod.GetTexture("Projectiles/MoonBlast");
-        //float alpha = i * 15;
-        //spriteBatch.Draw(tex, projectile.oldPos[5], new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 128f));
-
       for (int k = 0; k < 3; k++) {
 				Vector2 previous = projectile.position;
 				if (k > 0) 

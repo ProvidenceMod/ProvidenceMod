@@ -64,7 +64,7 @@ namespace UnbiddenMod.NPCs.FireAncient
             int numAttacks = 20;
             float timer = 60f;
             float totalTime = numAttacks * timer + 120f;
-            int type = mod.ProjectileType("Projectiles/AbyssalHellblast");
+            int type = mod.ProjectileType("AbyssalHellblast");
             for (int k = 0 ; k < numAttacks ; k++)
             {
                 int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, type, 50, 0f, Main.myPlayer, npc.whoAmI, (int)(60f + k * timer));

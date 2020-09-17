@@ -72,6 +72,10 @@ namespace UnbiddenMod
 				);
 			}
 		}
+
+		public override void UpdateMusic(ref int music, ref MusicPriority priority)
+		{
+		}
 	}
 
     internal enum UnbiddenModMessageType : byte

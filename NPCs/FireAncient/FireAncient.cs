@@ -32,6 +32,7 @@ namespace UnbiddenMod.NPCs.FireAncient
         {
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths");
 			musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
+            npc.damage = 75;
             npc.aiStyle = -1;
             npc.lavaImmune = true;
             npc.noGravity = true;
@@ -44,11 +45,14 @@ namespace UnbiddenMod.NPCs.FireAncient
             npc.width = 760;
             npc.height = 484;
             npc.knockBackResist = 0f;
+            npc.buffImmune[BuffID.OnFire] = true;
             npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[8] {0, 75, 100, 250, 100, 100, 100, 100};
+            npc.GetGlobalNPC<UnbiddenNPC>().contactDamageEl = 0;
         }
 
         public override void AI() //this is where you program your AI
         {
+            int timer = 180;
             npc.ai[0] += 1;
             if(spawnText == false)
             {
@@ -56,7 +60,12 @@ namespace UnbiddenMod.NPCs.FireAncient
                 spawnText = true;
             }
             FindPlayers();
-            AbyssalHellblast();
+            if (timer == 0)
+            {
+                AbyssalHellblast();
+                timer = Main.rand.Next(180, 240);
+            }
+            timer--;
         }
 
         private void AbyssalHellblast() 

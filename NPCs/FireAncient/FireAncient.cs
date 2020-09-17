@@ -47,6 +47,11 @@ namespace UnbiddenMod.NPCs.FireAncient
             npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[8] {0, 75, 100, 250, 100, 100, 100, 100};
         }
 
+        private int stage {
+			get => (int)npc.ai[0];
+			set => npc.ai[0] = value;
+		}
+
         public override void AI() //this is where you program your AI
         {
             npc.ai[0] += 1;
@@ -62,13 +67,16 @@ namespace UnbiddenMod.NPCs.FireAncient
         private void AbyssalHellblast() 
         {
             int numAttacks = 20;
-            float timer = 60f;
-            float totalTime = numAttacks * timer + 120f;
-            int type = mod.ProjectileType("Projectiles/AbyssalHellblast");
+            int type = mod.ProjectileType("AbyssalHellblast");
+            Player player = Main.player[0];
             for (int k = 0 ; k < numAttacks ; k++)
             {
-                int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, type, 50, 0f, Main.myPlayer, npc.whoAmI, (int)(60f + k * timer));
-			    Main.projectile[proj].localAI[0] = (int)totalTime;
+                /*Vector2 offset = player.Center - npc.Center;
+                float speedX = (float) offset.X;
+                float speedY = (float) offset.Y;
+                if(speedX > 5f) {speedX = 5f;}
+                if(speedY > 5f) {speedY = 5f;}*/
+                int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 1f, 1f, type, 50, 0f, Main.myPlayer, npc.whoAmI);
 				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
             }
 		}

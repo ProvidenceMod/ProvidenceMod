@@ -31,12 +31,10 @@ namespace UnbiddenMod.Projectiles
         public override void AI()
         {
             NPC npc = Main.npc[(int)projectile.ai[0]];
-            projectile.ai[1] -= 1f;
-			projectile.localAI[0] -= 1f;
-            if (projectile.ai[1] == 0f) 
-            {
-				SetDirection(npc);
-			}
+            projectile.ai[1] += 1f;
+			projectile.localAI[0] += 1f;
+			SetDirection(npc);
+            
         }
 
         private void SetDirection(NPC npc)

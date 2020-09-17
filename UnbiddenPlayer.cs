@@ -5,10 +5,10 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UnbiddenMod;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnbiddenMod.Items.TreasureBags;
 
 namespace UnbiddenMod
 {
@@ -35,13 +35,26 @@ namespace UnbiddenMod
       player.statLifeMax2 += tearCount * 20;
       resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
     }
-
+    
     public override void Load(TagCompound tag)
     {
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
       resists = tag.GetIntArray("resists");
     }
+
+    public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
+    {
+      items.Add(createItem(mod.ItemType("StarterBag")));
+
+      Item createItem(int type)
+      {
+        Item obj = new Item();
+        obj.SetDefaults(type, false);
+        return obj;
+      }
+    }
+
     public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
     {
       if (brimHeart)

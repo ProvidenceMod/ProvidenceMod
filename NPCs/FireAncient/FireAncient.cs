@@ -20,6 +20,7 @@ namespace UnbiddenMod.NPCs.FireAncient
             name = "FireAncient";
             return mod.Properties.Autoload;
         }
+        public int timer = 10; 
 
         public override void SetStaticDefaults()
         {
@@ -46,13 +47,17 @@ namespace UnbiddenMod.NPCs.FireAncient
             npc.height = 484;
             npc.knockBackResist = 0f;
             npc.buffImmune[BuffID.OnFire] = true;
-            npc.GetGlobalNPC<UnbiddenNPC>().resists = new int[8] {0, 75, 100, 250, 100, 100, 100, 100};
-            npc.GetGlobalNPC<UnbiddenNPC>().contactDamageEl = 0;
+            npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists = new int[8] {0, 75, 100, 250, 100, 100, 100, 100};
+            npc.GetGlobalNPC<UnbiddenGlobalNPC>().contactDamageEl = 0;
         }
+
+        private int stage {
+			get => (int)npc.ai[0];
+			set => npc.ai[0] = value;
+		}
 
         public override void AI() //this is where you program your AI
         {
-            int timer = 180;
             npc.ai[0] += 1;
             if(spawnText == false)
             {
@@ -60,10 +65,24 @@ namespace UnbiddenMod.NPCs.FireAncient
                 spawnText = true;
             }
             FindPlayers();
+            Player player = Main.player[0];
+            for (int k = 0 ; k < 255 ; k++)
+            {
+                if(Main.player[k].active)
+                {
+                    player = Main.player[k];
+                    break;
+                }
+            }
+            if (npc.position.X != player.position.X)
+            {
+                npc.position.X = player.position.X - npc.width / 2;
+                npc.position.Y = player.position.Y - 500f;
+            }
             if (timer == 0)
             {
                 AbyssalHellblast();
-                timer = Main.rand.Next(180, 240);
+                timer = 10;
             }
             timer--;
         }
@@ -71,13 +90,16 @@ namespace UnbiddenMod.NPCs.FireAncient
         private void AbyssalHellblast() 
         {
             int numAttacks = 20;
-            float timer = 60f;
-            float totalTime = numAttacks * timer + 120f;
             int type = mod.ProjectileType("AbyssalHellblast");
+            Player player = Main.player[0];
             for (int k = 0 ; k < numAttacks ; k++)
             {
-                int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, type, 50, 0f, Main.myPlayer, npc.whoAmI, (int)(60f + k * timer));
-			    Main.projectile[proj].localAI[0] = (int)totalTime;
+                /*Vector2 offset = player.Center - npc.Center;
+                float speedX = (float) offset.X;
+                float speedY = (float) offset.Y;
+                if(speedX > 5f) {speedX = 5f;}
+                if(speedY > 5f) {speedY = 5f;}*/
+                int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 24f, type, 50, 0f, Main.myPlayer, npc.whoAmI);
 				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
             }
 		}

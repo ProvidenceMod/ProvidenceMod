@@ -30,7 +30,7 @@ namespace UnbiddenMod.Projectiles
       projectile.timeLeft = 300;
       projectile.penetrate = 1;
       projectile.scale = 1f;
-      projectile.GetGlobalProjectile<UnbiddenProjectile>().element = 0; // Acid
+      projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Acid
 
     }
 

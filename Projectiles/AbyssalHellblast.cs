@@ -21,22 +21,20 @@ namespace UnbiddenMod.Projectiles
             projectile.tileCollide = true;
             projectile.ignoreWater = true;
             projectile.timeLeft = 300;
-            projectile.penetrate = -1;
+            projectile.penetrate = 1;
             projectile.scale = 1f;
             projectile.damage = 100;
-            projectile.GetGlobalProjectile<UnbiddenProjectile>().element = 0; // Fire
+            projectile.hostile = true;
+            projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Fire
             projectile.tileCollide = false;
         }
 
         public override void AI()
         {
             NPC npc = Main.npc[(int)projectile.ai[0]];
-            projectile.ai[1] -= 1f;
-			projectile.localAI[0] -= 1f;
-            if (projectile.ai[1] == 0f) 
-            {
-				SetDirection(npc);
-			}
+            projectile.ai[1] += 1f;
+			projectile.localAI[0] += 1f;
+			SetDirection(npc);
         }
 
         private void SetDirection(NPC npc)
@@ -63,5 +61,11 @@ namespace UnbiddenMod.Projectiles
         {
 			target.AddBuff((BuffID.OnFire), 10);
 		}
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.White;
+            return(color);
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace UnbiddenMod.Items.Weapons
             item.melee = true;
             item.autoReuse = true;
             item.useTurn = true;
-            item.GetGlobalItem<UnbiddenItem>().element = 0; // Fire
+            item.GetGlobalItem<UnbiddenGlobalItem>().element = 0; // Fire
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 

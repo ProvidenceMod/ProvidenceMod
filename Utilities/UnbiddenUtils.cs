@@ -17,9 +17,9 @@ namespace UnbiddenMod
     public static class UnbiddenUtils
     {
         public static UnbiddenPlayer Unbidden(this Player player) => (UnbiddenPlayer) player.GetModPlayer<UnbiddenPlayer>();
-        public static UnbiddenGlobalNPC Calamity(this NPC npc) => (UnbiddenGlobalNPC) npc.GetGlobalNPC<UnbiddenGlobalNPC>();
-        public static UnbiddenGlobalItem Calamity(this Item item) => (UnbiddenGlobalItem) item.GetGlobalItem<UnbiddenGlobalItem>();
-        public static UnbiddenGlobalProjectile Calamity(this Projectile proj) => (UnbiddenGlobalProjectile) proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
+        public static UnbiddenGlobalNPC Unbidden(this NPC npc) => (UnbiddenGlobalNPC) npc.GetGlobalNPC<UnbiddenGlobalNPC>();
+        public static UnbiddenGlobalItem Unbidden(this Item item) => (UnbiddenGlobalItem) item.GetGlobalItem<UnbiddenGlobalItem>();
+        public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => (UnbiddenGlobalProjectile) proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
 
 
         public static void AddWithCondition<T>(this List<T> list, T type, bool condition)

@@ -15,7 +15,7 @@ namespace UnbiddenMod.Items.Weapons
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenItem>().element = 0; // Fire
+            item.GetGlobalItem<UnbiddenGlobalItem>().element = 0; // Fire
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 15;

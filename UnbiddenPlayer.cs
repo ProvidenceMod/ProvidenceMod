@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using UnbiddenMod.Items.TreasureBags;
+using Microsoft.Xna.Framework.Input;
 
 namespace UnbiddenMod
 {
@@ -35,7 +35,7 @@ namespace UnbiddenMod
       player.statLifeMax2 += tearCount * 20;
       resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
     }
-    
+
     public override void Load(TagCompound tag)
     {
       angelTear = tag.GetBool("angelTear");
@@ -54,13 +54,47 @@ namespace UnbiddenMod
         return obj;
       }
     }
+    
+    public static List<Keys> GetPressedKeys()
+    {
+      List<Keys> list = ((IEnumerable<Keys>) Main.keyState.GetPressedKeys()).ToList<Keys>();
+      for (int index = list.Count - 1; index >= 0; --index)
+      {
+        if (list[index] == Keys.None)
+          list.RemoveAt(index);
+      }
+      return list;
+    }
+
+    public bool DoubleTapVertical()
+    {
+      bool w1 = false;
+      bool w2 = false;
+      List<Keys> pressedKeys = UnbiddenPlayer.GetPressedKeys();
+      if (pressedKeys.Count == 0)
+        return false;
+      for (int k = 1; k < pressedKeys.Count; k++)
+      {
+        if (pressedKeys[k] == Keys.W && k == 1)
+          w1 = true;
+        if (pressedKeys[k] == Keys.W && k == 2)
+          w2 = true;
+      }
+      if (w1 == true && w2 == true) 
+      {
+        player.velocity.Y = -24;
+        return true;
+      }
+      else
+        return false;
+    }
 
     public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
     {
       if (brimHeart)
       {
         player.buffImmune[BuffID.OnFire] = true;
-        if (item.GetGlobalItem<UnbiddenItem>().element == 0) // If the weapon is fire-based
+        if (item.GetGlobalItem<UnbiddenGlobalItem>().element == 0) // If the weapon is fire-based
         {
           // Reduce cost by 15%
           reduce -= 0.15f;
@@ -70,7 +104,7 @@ namespace UnbiddenMod
     // If the Player is hit by an NPC's contact damage...
     public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
     {
-      int npcEl = npc.GetGlobalNPC<UnbiddenNPC>().contactDamageEl;
+      int npcEl = npc.GetGlobalNPC<UnbiddenGlobalNPC>().contactDamageEl;
       if (npcEl != -1)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float
@@ -89,7 +123,7 @@ namespace UnbiddenMod
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
-      int projEl = proj.GetGlobalProjectile<UnbiddenProjectile>().element; // Determine the element (will always be between 0-6 for array purposes)
+      int projEl = proj.GetGlobalProjectile<UnbiddenGlobalProjectile>().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float

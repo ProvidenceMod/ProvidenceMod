@@ -15,7 +15,7 @@ namespace UnbiddenMod.Items.Weapons
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenItem>().element = 2; // Lightning
+            item.GetGlobalItem<UnbiddenGlobalItem>().element = 2; // Lightning
             item.autoReuse = true;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }

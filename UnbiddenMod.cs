@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.ModLoader;
 using UnbiddenMod.NPCs.FireAncient;
 using static Terraria.ModLoader.Mod;
-using static UnbiddenMod.UnbiddenNPC;
+using static UnbiddenMod.UnbiddenGlobalNPC;
 using static UnbiddenMod.UnbiddenPlayer;
-using static UnbiddenMod.UnbiddenProjectile;
+using static UnbiddenMod.UnbiddenGlobalProjectile;
 
 namespace UnbiddenMod
 {

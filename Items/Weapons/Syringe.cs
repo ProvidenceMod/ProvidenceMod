@@ -25,7 +25,7 @@ namespace UnbiddenMod.Items.Weapons {
       item.useAnimation = 30;
       item.useTime = 30;
       item.useTurn = true;
-      item.UseSound = (LegacySoundStyle) 2;
+      item.UseSound = SoundID.Item2;
     }
 
     public override void OnHitNPC (Player player, NPC target, int damage, float knockBack, bool crit) {

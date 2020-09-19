@@ -9,10 +9,9 @@ using System;
 
 namespace UnbiddenMod.Items.Weapons {
   public class Syringe : SupportItem {
-    public static bool banana = true;
     public override void SetStaticDefaults () {
       DisplayName.SetDefault ("Syringe");
-      Tooltip.SetDefault ("\"Stab allies to boost their next potion\nStab enemies to increase their damage taken by 20%\"");
+      Tooltip.SetDefault ("\"Stab allies to boost their next potion\"\n\"Stab enemies to increase their damage taken by 20%\"");
     }
 
     public override void SetDefaults () {

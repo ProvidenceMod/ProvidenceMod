@@ -31,7 +31,7 @@ namespace UnbiddenMod.Items.Weapons
       }
     }
 
-    public override void GetWeaponDamage(Player player, ref int damage)
+    public virtual void ModifyWeaponDamage(Player player, ref int damage)
     {
       UnbiddenPlayer modPlayer = player.Unbidden();
       int originalDmg = damage;

@@ -11,7 +11,7 @@ namespace UnbiddenMod.Items.Weapons {
   public class Syringe : SupportItem {
     public override void SetStaticDefaults () {
       DisplayName.SetDefault ("Syringe");
-      Tooltip.SetDefault ("Stab allies to boost their next potion\nStab enemies to increase their damage taken by 20%");
+      Tooltip.SetDefault ("Stab allies to boost their next potion\nStab enemies to increase their damage taken by 20% for 5 seconds");
     }
 
     public override void SetDefaults () {
@@ -19,7 +19,7 @@ namespace UnbiddenMod.Items.Weapons {
       item.height = 45;
       item.useStyle = 3;
       item.knockBack = 1f;
-      item.damage = 125;
+      item.damage = 65;
       item.rare = 4;
       item.autoReuse = true;
       item.useAnimation = 30;
@@ -29,7 +29,6 @@ namespace UnbiddenMod.Items.Weapons {
     }
 
     public override void OnHitNPC (Player player, NPC target, int damage, float knockBack, bool crit) {
-      // TODO: Make a debuff to increase their damage taken
       player.AddBuff(mod.BuffType("BoosterShot"), 3600);
       target.AddBuff(mod.BuffType("Hypodermia"), 300);
     }
@@ -38,21 +37,9 @@ namespace UnbiddenMod.Items.Weapons {
       // Recipes here. See Basic Recipe Guide2
       ModRecipe recipe = new ModRecipe (mod);
 
-      recipe.AddIngredient (ItemID.PlatinumBroadsword, 1);
-      recipe.AddIngredient (ItemID.Torch, 25);
-      recipe.AddIngredient (ItemID.Gel, 99);
-      recipe.AddTile (TileID.Anvils); //The tile you craft this sword at
-      recipe.SetResult (this); //Sets the result of this recipe to this item
-      recipe.AddRecipe (); //Adds the recipe to the mod
-
-      ModRecipe recipe2 = new ModRecipe (mod);
-
-      recipe2.AddIngredient (ItemID.GoldBroadsword, 1);
-      recipe2.AddIngredient (ItemID.Torch, 25);
-      recipe2.AddIngredient (ItemID.Gel, 99);
-      recipe2.AddTile (TileID.Anvils); //The tile you craft this sword at
-      recipe2.SetResult (this); //Sets the result of this recipe to this item
-      recipe2.AddRecipe (); //Adds the recipe to the mod
+      recipe.AddIngredient (ItemID.DirtBlock, 1);
+      recipe.SetResult (this);
+      recipe.AddRecipe ();
     }
   }
 }

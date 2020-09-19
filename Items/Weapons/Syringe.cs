@@ -11,7 +11,7 @@ namespace UnbiddenMod.Items.Weapons {
   public class Syringe : SupportItem {
     public override void SetStaticDefaults () {
       DisplayName.SetDefault ("Syringe");
-      Tooltip.SetDefault ("\"Stab allies to boost their next potion\"\n\"Stab enemies to increase their damage taken by 20%\"");
+      Tooltip.SetDefault ("Stab allies to boost their next potion\nStab enemies to increase their damage taken by 20%");
     }
 
     public override void SetDefaults () {
@@ -25,11 +25,13 @@ namespace UnbiddenMod.Items.Weapons {
       item.useAnimation = 30;
       item.useTime = 30;
       item.useTurn = true;
-      item.UseSound = SoundID.Item2;
+      item.UseSound = SoundID.Item1;
     }
 
     public override void OnHitNPC (Player player, NPC target, int damage, float knockBack, bool crit) {
       // TODO: Make a debuff to increase their damage taken
+      player.AddBuff(mod.BuffType("BoosterShot"), 3600);
+      target.AddBuff(mod.BuffType("Hypodermia"), 300);
     }
 
     public override void AddRecipes () {

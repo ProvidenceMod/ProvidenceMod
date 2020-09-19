@@ -20,6 +20,7 @@ namespace UnbiddenMod
     public int[] resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
     public bool brimHeart = false;
     public float support = 1f;
+    public bool boosterShot = false;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -32,6 +33,7 @@ namespace UnbiddenMod
     public override void ResetEffects()
     {
       brimHeart = false;
+      boosterShot = false;
       support = 1f;
       player.statLifeMax2 += tearCount * 20;
       resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
@@ -138,6 +140,15 @@ namespace UnbiddenMod
         {
           damage = 1;
         }
+      }
+    }
+
+    public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
+    {
+      if (boosterShot && item.potion)
+      {
+        healValue = (int)(healValue * 2); // Doubles potion power
+        player.DelBuff(player.FindBuffIndex(mod.BuffType("BoosterShot"))); // Immediately deletes it from buff bar
       }
     }
 

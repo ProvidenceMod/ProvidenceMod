@@ -9,8 +9,23 @@ namespace UnbiddenMod
     public override bool CloneNewInstances => true;
     public int[] resists = new int[8] { 100, 100, 100, 100, 100, 100, 100, 100 }; // Fire, Ice, Lightning, Water, Earth, Air, Holy, Unholy
     public int contactDamageEl = -1; // Contact damage element, -1 by default for typeless
+    public bool hypodermia = false;
+
+
+    public override void ResetEffects(NPC npc)
+    {
+      npc.Unbidden().hypodermia = false;
+    }
+
+
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
     {
+      if (hypodermia)
+      {
+        damage = (int)(damage * 1.20f); // 20% damage increase
+      }
+
+
       int weapEl = item.GetGlobalItem<UnbiddenGlobalItem>().element; // Determine the element (will always be between 0-6 for array purposes)
       if (weapEl != -1) // if not typeless (and implicitly within 0-6)
       {
@@ -30,6 +45,11 @@ namespace UnbiddenMod
 
     public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
     {
+      if (hypodermia)
+      {
+        damage = (int)(damage * 1.20f); // 20% damage increase
+      }
+      
       int projEl = projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {

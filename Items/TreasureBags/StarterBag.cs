@@ -26,7 +26,7 @@ namespace UnbiddenMod.Items.TreasureBags
 			return true;
 		}
 
-		public virtual void RightClick(Player player) 
+		public override void RightClick(Player player) 
         {
 			player.QuickSpawnItem(ItemID.IronBroadsword);
             player.QuickSpawnItem(ItemID.IronBow);

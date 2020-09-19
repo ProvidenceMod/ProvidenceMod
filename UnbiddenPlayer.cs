@@ -19,7 +19,7 @@ namespace UnbiddenMod
     public string[] elements = new string[8] {"fire", "ice", "lightning", "water", "earth", "air", "holy", "unholy"};
     public int[] resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
     public bool brimHeart = false;
-
+    public float support = 1f;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -32,6 +32,7 @@ namespace UnbiddenMod
     public override void ResetEffects()
     {
       brimHeart = false;
+      support = 1f;
       player.statLifeMax2 += tearCount * 20;
       resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
     }

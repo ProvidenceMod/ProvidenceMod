@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Terraria.Localization;
 
 namespace UnbiddenMod.Items.Weapons
 {
@@ -34,7 +35,6 @@ namespace UnbiddenMod.Items.Weapons
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("MoonBlast");
             item.shootSpeed = 16f;
-            // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
         
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -116,11 +116,14 @@ namespace UnbiddenMod.Items.Weapons
             int healingAmount = damage / 60; //decrease the value 30 to increase heal, increase value to decrease. Or you can just replace damage/x with a set value to heal, instead of making it based on damage.
             player.statLife += healingAmount;
             player.HealEffect(healingAmount, true);
+            Color cyan = Color.Cyan;
+            string str = ("fire!");
+            CombatText.NewText(new Rectangle((int) target.position.X, (int) target.position.Y, (int) target.width, (int) target.height), cyan, Language.GetTextValue(str), false, false);
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D tex = mod.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //loads our glowmask
+            Texture2D tex = mod.GetTexture("dItems/Weapons/MoonCleaver/MoonCleaverGlow"); //loads our glowmask
             spriteBatch.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + item.width * 0.5f, item.position.Y - Main.screenPosition.Y + item.height - tex.Height * 0.5f + 2f), tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, 0, 0); //draws our glowmask in the inventory. To see how to draw it in the world, see the ModifyDrawLayers method in ExamplePlayer.
         }
 

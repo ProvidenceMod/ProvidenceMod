@@ -14,10 +14,15 @@ namespace UnbiddenMod
 {
   public class UnbiddenPlayer : ModPlayer
   {
+
+    // Elemental variables for Player
+
+    public string[] elements = new string[8] {"fire", "ice", "lightning", "water", "earth", "air", "holy", "unholy"};
+    public float[] resists = new float[8] {1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f};
+
+    // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
     public bool angelTear;
     public int tearCount;
-    public string[] elements = new string[8] {"fire", "ice", "lightning", "water", "earth", "air", "holy", "unholy"};
-    public int[] resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
     public bool brimHeart = false;
     public float support = 1f;
     public bool boosterShot = false;
@@ -26,8 +31,7 @@ namespace UnbiddenMod
     {
       return new TagCompound {
         {"angelTear", this.angelTear},
-        {"tearCount", this.tearCount},
-        {"resists", this.resists},
+        {"tearCount", this.tearCount}
       };
     }
 
@@ -37,14 +41,13 @@ namespace UnbiddenMod
       boosterShot = false;
       support = 1f;
       player.statLifeMax2 += tearCount * 20;
-      resists = new int[8] {100, 100, 100, 100, 100, 100, 100, 100};
+      resists = new float[8] {1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f};
     }
 
     public override void Load(TagCompound tag)
     {
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
-      resists = tag.GetIntArray("resists");
     }
 
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
@@ -150,7 +153,7 @@ namespace UnbiddenMod
       if (npcEl != -1)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float
-          resistMod = (float)(resists[npcEl]) / 100f;
+        resistMod = resists[npcEl];
         if (resistMod > 0f) // If you don't have immunity (meaning your resist number is 0 or lower)
         {
           damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
@@ -173,7 +176,7 @@ namespace UnbiddenMod
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float
-          resistMod = (float)(resists[projEl]) / 100f;
+        resistMod = resists[projEl];
         if (resistMod > 0f)
         {
           damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
@@ -189,6 +192,8 @@ namespace UnbiddenMod
 
       focus = 0f;
     }
+
+
 
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {

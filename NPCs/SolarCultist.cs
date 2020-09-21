@@ -175,7 +175,7 @@ namespace UnbiddenMod.NPCs
     // Setting up shop for when the "Shop" button is clicked
     public override void SetupShop(Chest shop, ref int nextSlot)
     {
-      shop.item[nextSlot].SetDefaults(mod.ItemType("StardustUltimus"));
+      shop.item[nextSlot].SetDefaults(mod.ItemType("MoonCleaver"));
     }
 
     // Gives them a way to defend themselves: How hard they hit

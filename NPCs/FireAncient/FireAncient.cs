@@ -43,11 +43,10 @@ namespace UnbiddenMod.NPCs.FireAncient
             npc.boss = true;
             npc.HitSound = SoundID.NPCHit41;
             npc.chaseable = true;
-            npc.width = 760;
-            npc.height = 484;
+            npc.Hitbox = new Rectangle((int) npc.Center.X, (int) npc.Center.Y - 100, 178, 224);
             npc.knockBackResist = 0f;
             npc.buffImmune[BuffID.OnFire] = true;
-            npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists = new int[8] {0, 75, 100, 250, 100, 100, 100, 100};
+            npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists = new float[8] {0f, 0.75f, 1f, 2.5f, 1f, 1f, 1f, 1f};
             npc.GetGlobalNPC<UnbiddenGlobalNPC>().contactDamageEl = 0;
         }
 
@@ -64,20 +63,46 @@ namespace UnbiddenMod.NPCs.FireAncient
                 Talk("A Fiery Ancient has awoken!");
                 spawnText = true;
             }
-            FindPlayers();
-            Player player = Main.player[0];
-            for (int k = 0 ; k < 255 ; k++)
+            npc.TargetClosest(false);
+            Player player = Main.player[npc.target];
+            UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
+
+            if (player.active == true && player.dead == false)
             {
-                if(Main.player[k].active)
+                if (npc.Center.X < player.Center.X && npc.velocity.X < 15f)
                 {
-                    player = Main.player[k];
-                    break;
+                    npc.velocity.X += 0.5f;
                 }
-            }
-            if (npc.position.X != player.position.X)
-            {
-                npc.position.X = player.position.X - npc.width / 2;
-                npc.position.Y = player.position.Y - 500f;
+                else if (npc.Center.X > player.Center.X && npc.velocity.X > -15f)
+                {
+                    npc.velocity.X -= 0.5f;
+                }
+                if(npc.position.Y > player.position.Y - 500f)
+                {
+                    if(npc.velocity.Y > 0f)
+                    {
+                        npc.velocity.Y = 0f;
+                    }
+                    npc.velocity.Y -= 0.3f;
+                    if (npc.position.Y == player.position.Y - 500f)
+                    {
+                        npc.velocity.Y = 0.0f;
+                    }
+                }
+                else if (npc.position.Y < player.position.Y - 500f)
+                {
+                    if(npc.velocity.Y < 0f)
+                    {
+                        npc.velocity.Y = 0f;
+                    }
+                    npc.velocity.Y += 0.3f;
+                    if (npc.position.Y == player.position.Y - 500f)
+                    {
+                        npc.velocity.Y = 0.0f;
+                    }
+                    
+                }
+                //npc.position.Y = player.position.Y - 700f;
             }
             if (timer == 0)
             {

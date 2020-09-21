@@ -5,9 +5,13 @@ namespace UnbiddenMod
 {
     public class UnbiddenGlobalItem : GlobalItem
   {
-    public override bool InstancePerEntity => true;
+
+    // Elemental variables for Items
 
     public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
+
+    // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
+    public override bool InstancePerEntity => true;
 
     public UnbiddenGlobalItem()
     {

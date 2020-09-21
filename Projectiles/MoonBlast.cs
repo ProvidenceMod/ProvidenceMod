@@ -70,34 +70,20 @@ namespace UnbiddenMod.Projectiles
         }
       }
     }
+
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) 
     {
       Texture2D tex = mod.GetTexture("Projectiles/MoonBlast");
-      for (int k = 0; k < 3; k++) {
-				Vector2 previous = projectile.position;
-				if (k > 0) 
-        {
-					previous = projectile.oldPos[k - 1];
-				}
-        float alpha = 0.5f - (k * 0.15f);
-        Color color = projectile.GetAlpha(lightColor) * alpha;
-        //* ((float) (projectile.oldPos.Length - k) / (float) projectile.oldPos.Length)
-				//Color alpha = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 45 * k);
-				Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition;
-				spriteBatch.Draw(tex, drawPos, null, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			  //drawPos += (previous - projectile.oldPos[k]) / 4;
-			}
-			return true;
+      UnbiddenGlobalProjectile.AfterImage(this.projectile, lightColor, tex);
+
+			return false;
     }
-    public override void PostAI()
+
+    public virtual void PostDraw()
     {
-      Player player = Main.player[projectile.owner];
-      for (int i = projectile.oldPos.Length - 1; i > 0; i--)
-      {
-        projectile.oldPos[i] = projectile.oldPos[i - 1];
-      }
-      projectile.oldPos[0] = projectile.position;
+      projectile.rotation += projectile.velocity.X * 0.05f;
     }
+    
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
       Player player = Main.player[projectile.owner];

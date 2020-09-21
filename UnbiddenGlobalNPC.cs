@@ -5,9 +5,13 @@ namespace UnbiddenMod
 {
     public class UnbiddenGlobalNPC : GlobalNPC
   {
+    // Elemental variables for NPC's
+
+    public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f }; // Fire, Ice, Lightning, Water, Earth, Air, Holy, Unholy
+
+    // Elemental variables also contained within GlobalItem, GlobalProjectile, and Player
     public override bool InstancePerEntity => true;
     public override bool CloneNewInstances => true;
-    public int[] resists = new int[8] { 100, 100, 100, 100, 100, 100, 100, 100 }; // Fire, Ice, Lightning, Water, Earth, Air, Holy, Unholy
     public int contactDamageEl = -1; // Contact damage element, -1 by default for typeless
     public bool hypodermia = false;
 
@@ -30,7 +34,7 @@ namespace UnbiddenMod
       if (weapEl != -1) // if not typeless (and implicitly within 0-6)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float
-          resistMod = (float)(npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists[weapEl]) / 100f;
+          resistMod = npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists[weapEl];
         if (resistMod > 0f)
         {
           damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
@@ -54,7 +58,7 @@ namespace UnbiddenMod
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float
-          resistMod = (float)(npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists[projEl]) / 100f;
+          resistMod = npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists[projEl];
         if (resistMod > 0f)
         {
           damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)

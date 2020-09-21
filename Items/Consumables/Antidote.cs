@@ -12,7 +12,7 @@ namespace UnbiddenMod.Items.Consumables
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Antidote");
-      Tooltip.SetDefault("Cures \"Posioned\" and \"Venom\" debuffs\nAdds 5 seconds of potion sickness\n15 HP restored");
+      Tooltip.SetDefault("Cures \"Posioned\" and \"Venom\" debuffs\nAdds 5 seconds of potion sickness, 10 in Expert mode\n15 HP restored");
     }
 
     public override void SetDefaults()

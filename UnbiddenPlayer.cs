@@ -21,6 +21,7 @@ namespace UnbiddenMod
     public bool brimHeart = false;
     public float support = 1f;
     public bool boosterShot = false;
+    public float focus = 0f;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -104,10 +105,48 @@ namespace UnbiddenMod
         }
       }
     }
+    private float DetermineFocusGain(NPC boss, ref int useTime, ref int damage, ref bool crit)
+    {
+      // Default values to compare with
+      const float defGain = 0.005f, defBossHPLoss = 0.5f;
+      const int defUseTime = 20;
+
+      // Determining approximate % HP lost
+      int trueDamage = crit ? damage * 2 : damage;
+      float perOffHP = ((boss.life - trueDamage) / boss.life) * 100;
+
+      // Determining difference between actual and default
+      float useDiff = (float)((useTime / defUseTime) * 100),
+            bossHPLoss = (float)((perOffHP / defBossHPLoss) * 100);
+
+      // Putting everything together and returning
+      return defGain + useDiff + bossHPLoss;
+    }
+    public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+    {
+      if (target.boss && target.active)
+      {
+        // Should add to the focus bar
+        focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
+        if (focus > 1f) focus = 1f;
+      }
+    }
+
+    public override void ModifyHitNPCWithProj (Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+    {
+      Player player = Main.player[proj.owner];
+      Item item = player.inventory[player.selectedItem];
+      if (target.boss && target.active)
+      {
+        focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
+        if (focus > 1f) focus = 1f;
+      }
+    }
+
     // If the Player is hit by an NPC's contact damage...
     public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
     {
-      int npcEl = npc.GetGlobalNPC<UnbiddenGlobalNPC>().contactDamageEl;
+      int npcEl = npc.Unbidden().contactDamageEl;
       if (npcEl != -1)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float
@@ -122,11 +161,15 @@ namespace UnbiddenMod
           damage = 1;
         }
       }
+
+
+
+        focus = 0f;
     }
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
-      int projEl = proj.GetGlobalProjectile<UnbiddenGlobalProjectile>().element; // Determine the element (will always be between 0-6 for array purposes)
+      int projEl = proj.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
         float damageFloat = (float)damage, // And the damage we already have, converted to float
@@ -141,6 +184,10 @@ namespace UnbiddenMod
           damage = 1;
         }
       }
+
+
+
+      focus = 0f;
     }
 
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)

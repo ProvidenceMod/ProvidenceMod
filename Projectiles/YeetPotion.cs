@@ -55,7 +55,7 @@ namespace UnbiddenMod.Projectiles
     }
     public override void Kill(int timeLeft)
     {
-      int explosionRadius = 5 * 16; // # of Tiles in one direction
+      int explosionRadius = 5 * 6; // # of Tiles in one direction
       float leftEdgeX = projectile.position.X - explosionRadius,
             rightEdgeX = projectile.position.X + explosionRadius,
             upperEdgeY = projectile.position.Y - explosionRadius,

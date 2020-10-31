@@ -17,7 +17,7 @@ namespace UnbiddenMod
     // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
 
-    public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture)
+    public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / (int) Main.projFrames[projectile.type];
       int y = height * projectile.frame;
@@ -29,14 +29,22 @@ namespace UnbiddenMod
         projectile.oldPos[i] = projectile.oldPos[i - 1];
       }
       projectile.oldPos[0] = projectile.position;
-      for (int k = 0; k < 3; k++) 
+      for (int k = 0; k < counter; k++) 
       {
 				Vector2 previous = projectile.position;
 				if (k > 0) 
         {
 					previous = projectile.oldPos[k - 1];
 				}
-        float alpha = 0.5f - (k * 0.15f);
+        float alpha;
+        if (k == 0)
+        {
+          alpha = 1f;
+        }
+        else
+        {
+          alpha = 1f - (k * 0.200f);
+        }
         Color color = projectile.GetAlpha(lightColor) * alpha;
         Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition;
 				Main.spriteBatch.Draw(texture, drawPos, rectangle, color, rotation, origin, 1f, SpriteEffects.None, 0f);

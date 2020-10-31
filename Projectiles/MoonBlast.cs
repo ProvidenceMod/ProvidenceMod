@@ -74,7 +74,8 @@ namespace UnbiddenMod.Projectiles
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) 
     {
       Texture2D tex = mod.GetTexture("Projectiles/MoonBlast");
-      UnbiddenGlobalProjectile.AfterImage(this.projectile, lightColor, tex);
+      int counter = 5;
+      UnbiddenGlobalProjectile.AfterImage(this.projectile, lightColor, tex, counter);
 
 			return false;
     }

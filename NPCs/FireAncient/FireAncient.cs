@@ -21,6 +21,7 @@ namespace UnbiddenMod.NPCs.FireAncient
             return mod.Properties.Autoload;
         }
         public int timer = 10; 
+        public int radialAttack = -1;
 
         public override void SetStaticDefaults()
         {
@@ -63,6 +64,7 @@ namespace UnbiddenMod.NPCs.FireAncient
                 Talk("A Fiery Ancient has awoken!");
                 spawnText = true;
             }
+            FindPlayers();
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
             UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
@@ -106,27 +108,27 @@ namespace UnbiddenMod.NPCs.FireAncient
             }
             if (timer == 0)
             {
-                AbyssalHellblast();
-                timer = 10;
+                AbyssalHellblast(player);
+                timer = 50;
             }
             timer--;
         }
 
-        private void AbyssalHellblast() 
+        private void AbyssalHellblast(Player target) 
         {
-            int numAttacks = 20;
+            /*radialAttack += 1;
+            if(radialAttack == 21)
+                {radialAttack = 1;}
+                */
+            
             int type = mod.ProjectileType("AbyssalHellblast");
-            Player player = Main.player[0];
-            for (int k = 0 ; k < numAttacks ; k++)
-            {
-                /*Vector2 offset = player.Center - npc.Center;
-                float speedX = (float) offset.X;
-                float speedY = (float) offset.Y;
-                if(speedX > 5f) {speedX = 5f;}
-                if(speedY > 5f) {speedY = 5f;}*/
-                int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 24f, type, 50, 0f, Main.myPlayer, npc.whoAmI);
-				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-            }
+            /*float speedX = 0f;
+            float speedY = 10f;
+            Vector2 speed = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToDegrees(18 * radialAttack));
+            */
+            //Vector2 directionTo = DirectionTo(target.Center);
+            //int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
+			//NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
 		}
 
         private void Talk(string message) 

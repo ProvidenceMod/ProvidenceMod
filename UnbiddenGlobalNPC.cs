@@ -210,37 +210,22 @@ namespace UnbiddenMod
         case NPCID.Zombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ZombieDoctor:
+        case NPCID.SmallZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ZombieSweater:
+        case NPCID.BigZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ZombieRaincoat:
+        case NPCID.ArmedZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ZombieSuperman:
+        case NPCID.BaldZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ZombieElf:
+        case NPCID.SmallBaldZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ZombieElfBeard:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.ZombieElfGirl:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.ZombieEskimo:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.ZombieMushroom:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.ZombieMushroomHat:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.ZombiePixie:
+        case NPCID.BigBaldZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.PincushionZombie:
@@ -252,24 +237,108 @@ namespace UnbiddenMod
         case NPCID.SmallPincushionZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        // case NPCID.PincushionZombie:
-        //   npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-        //   break;
+        case NPCID.ArmedZombiePincussion:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SlimedZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SmallSlimedZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.BigSlimedZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ArmedZombieSlimed:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SwampZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SmallSwampZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.BigSwampZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ArmedZombieSwamp:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.TwiggyZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SmallTwiggyZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.BigTwiggyZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ArmedZombieTwiggy:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.FemaleZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SmallFemaleZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.BigFemaleZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieDoctor:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieSuperman:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombiePixie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieSweater:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
         case NPCID.ZombieXmas:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ArmedZombie:
+        case NPCID.ZombieRaincoat:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieElf:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieElfBeard:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieElfGirl:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieMushroom:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ZombieMushroomHat:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.ArmedZombieCenx:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
+        case NPCID.ZombieEskimo:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.DoctorBones:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.TheGroom:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.TheBride:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.BloodZombie:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
         case NPCID.ArmedZombieEskimo:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.ArmedZombiePincussion:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
         // case NPCID.ZombieSuperman:
         //   npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
         //   break;
@@ -279,7 +348,7 @@ namespace UnbiddenMod
         // case NPCID.ZombieSuperman:
         //   npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
         //   break;
-
+        
         // Surface        
         case NPCID.BlueSlime:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };

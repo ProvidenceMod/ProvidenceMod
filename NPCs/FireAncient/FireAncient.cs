@@ -32,7 +32,7 @@ namespace UnbiddenMod.NPCs.FireAncient
 
         public override void SetDefaults()
         {
-            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths");
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/HandsOfASlayer");
 			musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
             npc.damage = 75;
             npc.aiStyle = -1;

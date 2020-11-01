@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using System.IO;
 
 namespace UnbiddenMod.Items.Weapons
 {
@@ -54,43 +53,28 @@ namespace UnbiddenMod.Items.Weapons
       }
     }
 
-    public override void NetSend(BinaryWriter writer)
-    {
-      writer.Write("VerifyHealing");
-      writer.Write(item.damage);
-    }
+    private void RegisterRadius(Player player) {
+      float mX = Main.screenPosition.X + Main.mouseX,
+            mY = Main.screenPosition.Y + Main.mouseY;
+      int explosionRadius = 2 * 16; // Not explosion, per se...
 
+      float leftEdgeX = mX - explosionRadius, // Grabbing the bounds of the AoE
+            rightEdgeX = mX + explosionRadius,
+            upperEdgeY = mY - explosionRadius,
+            lowerEdgeY = mY + explosionRadius;
 
-    private BinaryWriter writer;
-    private void RegisterRadius(Player player)
-    {
-      if (Main.myPlayer == player.whoAmI)
+      Item tome = player.inventory[player.selectedItem]; // Referencing the item that cast this
+
+      // Urgently healing? Double rate.
+      int healing = tome.damage;
+      for (int i = 0; i < Main.player.Length; i++) // For every player on Main. Not the most optimal, but it's a start.
       {
-        float mX = Main.screenPosition.X + Main.mouseX,
-              mY = Main.screenPosition.Y + Main.mouseY;
-        int explosionRadius = 2 * 16; // Not explosion, per se...
-
-        float leftEdgeX = mX - explosionRadius, // Grabbing the bounds of the AoE
-              rightEdgeX = mX + explosionRadius,
-              upperEdgeY = mY - explosionRadius,
-              lowerEdgeY = mY + explosionRadius;
-
-        Item tome = player.inventory[player.selectedItem]; // Referencing the item that cast this
-
-        // Urgently healing? Double rate.
-        int healing = tome.damage;
-        for (int i = 0; i < Main.player.Length; i++) // For every player on Main. Not the most optimal, but it's a start.
+        Player iteratedPlayer = Main.player[i]; // Reference for later
+        // If the player is active and within the bounds of the explosion radius AND not the original caster
+        if (iteratedPlayer != Main.player[player.whoAmI] && iteratedPlayer.active && (iteratedPlayer.position.X >= leftEdgeX && iteratedPlayer.position.X <= rightEdgeX) && (iteratedPlayer.position.Y <= lowerEdgeY && iteratedPlayer.position.Y >= upperEdgeY))
         {
-          Player iteratedPlayer = Main.player[i]; // Reference for later
-                                                  // If the player is active and within the bounds of the explosion radius AND not the original caster
-          if (iteratedPlayer != Main.player[player.whoAmI] && iteratedPlayer.active && (iteratedPlayer.position.X >= leftEdgeX && iteratedPlayer.position.X <= rightEdgeX) && (iteratedPlayer.position.Y <= lowerEdgeY && iteratedPlayer.position.Y >= upperEdgeY))
-          {
-            iteratedPlayer.statLife += healing;
-            
-            NetSend(writer);
-
-            iteratedPlayer.HealEffect(healing, true);
-          }
+          iteratedPlayer.statLife += healing;
+          iteratedPlayer.HealEffect(healing, true);
         }
       }
     }
@@ -103,15 +87,12 @@ namespace UnbiddenMod.Items.Weapons
     public override void OnMissingMana(Player player, int neededMana)
     {
       // Limiter to not call it every damn tick
-      if (missingManaCooldown == 0 && player.statLife > 2)
-      {
+      if (missingManaCooldown == 0 && player.statLife > 2) {
         Item tome = player.inventory[player.selectedItem];
         player.statLife -= tome.mana;
         RegisterRadius(player);
         missingManaCooldown = 10;
-      }
-      else
-      {
+      } else {
         missingManaCooldown--;
       }
     }

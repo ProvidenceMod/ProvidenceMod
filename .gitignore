@@ -6,3 +6,4 @@ bin/
 .git/
 .vs/
 .obj/
+obj/Debug/net45/UnbiddenMod.assets.cache

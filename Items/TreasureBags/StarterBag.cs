@@ -44,9 +44,6 @@ namespace UnbiddenMod.Items.TreasureBags
             player.QuickSpawnItem(ItemID.SpelunkerPotion, 5);
             player.QuickSpawnItem(ItemID.GillsPotion, 5);
             player.QuickSpawnItem(ItemID.LesserHealingPotion, 5);
-            player.QuickSpawnItem(ItemID.Torch, 100);
-            player.QuickSpawnItem(ItemID.WoodenArrow, 100);
-            player.QuickSpawnItem(ItemID.Bomb, 20);
         }
 	}
 }

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace UnbiddenMod
 {
-    public class UnbiddenGlobalNPC : GlobalNPC
+  public class UnbiddenGlobalNPC : GlobalNPC
   {
     // Elemental variables for NPC's
 
@@ -54,7 +54,7 @@ namespace UnbiddenMod
       {
         damage = (int)(damage * 1.20f); // 20% damage increase
       }
-      
+
       int projEl = projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
@@ -77,43 +77,37 @@ namespace UnbiddenMod
       {
         // Underworld Enemies
         case NPCID.FireImp:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.RedDevil:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.BoneSerpentHead:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.BoneSerpentBody:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.BoneSerpentTail:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Demon:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.VoodooDemon:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Lavabat:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Hellbat:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.LavaSlime:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.WallofFlesh:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.WallofFleshEye:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.DemonTaxCollector:
-          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 1f, 2f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.25f, 1.25f, 0.25f, 1.5f, 1f, 1f, 1f, 1f };
           break;
 
         // Dungeon Enemies
@@ -210,16 +204,13 @@ namespace UnbiddenMod
         case NPCID.NecromancerArmored:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.25f, 0.25f };
           break;
-        case NPCID.CultistBoss:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.25f, 0.25f };
-          break;
         case NPCID.CultistDevote:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.25f, 0.25f };
           break;
         case NPCID.CultistArcherBlue:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.25f, 0.25f };
           break;
-          
+
         // Zombies (Yes, there's that fucking many)
         case NPCID.Zombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.25f, 0.25f };
@@ -344,87 +335,81 @@ namespace UnbiddenMod
         case NPCID.TwiggyZombie:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.25f, 0.25f };
           break;
-        
+
         // Surface        
         case NPCID.BlueSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.GreenSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.RedSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.PurpleSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Pinky:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.KingSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.SlimeSpiked:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.DemonEye:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.50f, 0.25f };
           break;
         case NPCID.DemonEye2:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.50f, 0.25f };
           break;
         case NPCID.DemonEyeOwl:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.50f, 0.25f };
           break;
         case NPCID.DemonEyeSpaceship:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.50f, 0.25f };
           break;
         case NPCID.PossessedArmor:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.50f, 0.25f };
           break;
         case NPCID.WanderingEye:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.50f, 0.25f };
           break;
         case NPCID.Wraith:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.50f, 0.25f };
           break;
         case NPCID.Werewolf:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.HoppinJack:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.25f, 0.25f };
           break;
         case NPCID.GoblinScout:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         //Snow Biome
         case NPCID.IceSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 1f, 1f, 1f };
           break;
         case NPCID.ZombieEskimo:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.ArmedZombieEskimo:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CorruptPenguin:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CrimsonPenguin:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.IceElemental:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 1f, 1f, 1f };
           break;
         case NPCID.Wolf:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.IceGolem:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 0.5f, 1f, 1f };
           break;
 
-          // Desert
+        // Desert
         case NPCID.SandSlime:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
@@ -435,152 +420,137 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Mummy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.DarkMummy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.LightMummy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
 
         //Evil
         case NPCID.EaterofSouls:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.EaterofWorldsBody:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.EaterofWorldsHead:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.EaterofWorldsTail:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigEater:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.LittleEater:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Corruptor:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigMimicCorruption:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SandsharkCorrupt:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CorruptGoldfish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CorruptSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.DesertGhoulCorruption:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Slimeling:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CorruptBunny:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CursedHammer:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Clinger:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.DesertDjinn:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Slimer:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Slimer2:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SandsharkCrimson:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BloodCrawler:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CrimsonGoldfish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.FaceMonster:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Crimera:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigCrimera:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.LittleCrimera:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.BrainofCthulhu:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.Creeper:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Herpling:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Crimslime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BloodJelly:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BloodFeeder:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CrimsonAxe:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.IchorSticker:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.FloatyGross:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigMimicCrimson:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.DesertGhoulCrimson:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.PigronCrimson:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
-        
+
         // Jungle
         case NPCID.JungleBat:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.JungleSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.JungleCreeper:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.BigMimicJungle:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.Piranha:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.Snatcher:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.AngryTrapper:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.Derpling:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -589,56 +559,53 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.AnglerFish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.Arapaima:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.GiantTortoise:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
 
         // Ocean
         case NPCID.PinkJellyfish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.Crab:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.Squid:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.SeaSnail:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.Shark:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.DukeFishron:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
 
         // Mushroom 
         case NPCID.AnomuraFungus:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.FungiBulb:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.GiantFungiBulb:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.MushiLadybug:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.Spore:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.FungiSpore:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.FungoFish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
 
         // Underground Desert 
@@ -658,13 +625,13 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.DesertLamiaDark:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.DesertLamiaLight:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.DesertBeast:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.DesertScorpionWalk:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -675,82 +642,79 @@ namespace UnbiddenMod
 
         //Underground Jungle 
         case NPCID.Hornet:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.HornetFatty:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.HornetHoney:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.HornetLeafy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.HornetSpikey:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.HornetStingy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.BigHornetFatty:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.BigHornetHoney:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.BigHornetLeafy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.BigHornetSpikey:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.BigHornetStingy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.BigMossHornet:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.GiantMossHornet:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.LittleHornetFatty:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.LittleHornetHoney:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.LittleHornetLeafy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.LittleHornetSpikey:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.LittleHornetStingy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.LittleMossHornet:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.MossHornet:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.TinyMossHornet:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.ManEater:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.SpikedJungleSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.LacBeetle:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.DoctorBones:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.QueenBee:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Bee:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -764,19 +728,16 @@ namespace UnbiddenMod
         case NPCID.Moth:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.Plantera:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        
+
         // Ice Biome 
         case NPCID.IceBat:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 0.5f, 1f, 1f };
           break;
         case NPCID.SnowFlinx:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 0.5f, 1f, 1f };
           break;
         case NPCID.SpikedIceSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 0.5f, 1f, 1f };
           break;
         case NPCID.ArmoredViking:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -794,35 +755,35 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.IceTortoise:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 0.5f, 1f, 1f };
           break;
         case NPCID.IcyMerman:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.5f, 0.25f, 1f, 1f, 0.25f, 0.5f, 1f, 1f };
           break;
 
         //Hallow
         case NPCID.Pixie:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.Unicorn:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.RainbowSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.Gastropod:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.LightningBug:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         //Underground Hallow
         case NPCID.IlluminantSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.IlluminantBat:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.ChaosElemental:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -831,29 +792,29 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.BigMimicHallow:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.PigronHallow:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
         case NPCID.DesertGhoulHallow:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
           break;
-  
+
         // Granite Cave
         case NPCID.GraniteFlyer:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.GraniteGolem:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
 
         // Marble Cave
         case NPCID.GreekSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
         case NPCID.Medusa:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
 
         // Jungle Temple
@@ -866,25 +827,10 @@ namespace UnbiddenMod
         case NPCID.LihzahrdCrawler:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        case NPCID.Golem:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.GolemFistLeft:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.GolemFistRight:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.GolemHead:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.GolemHeadFree:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        
+
         // Meteorite
         case NPCID.MeteorHead:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 0.25f, 0.5f, 1f, 0.25f, 1.5f, 1f, 1f };
           break;
 
         // Spider Cave
@@ -903,78 +849,78 @@ namespace UnbiddenMod
 
         // Space
         case NPCID.Harpy:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1.5f, 1f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.WyvernBody:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1.5f, 1f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.WyvernBody2:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1.5f, 1f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.WyvernBody3:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1.5f, 1f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.WyvernHead:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1.5f, 1f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.WyvernLegs:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1.5f, 1f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.WyvernTail:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1.5f, 1f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
 
         // Underground
         case NPCID.Skeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SkeletonArcher:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.HeavySkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SmallSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.HeadacheSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigHeadacheSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SmallHeadacheSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.MisassembledSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigMisassembledSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SmallMisassembledSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.PantlessSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.BigPantlessSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SmallPantlessSkeleton:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SkeletonTopHat:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SkeletonAlien:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.SkeletonAstonaut:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.GiantWormBody:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -986,10 +932,10 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.YellowSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.BlueJellyfish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.DiggerBody:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1004,18 +950,18 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.GreenJellyfish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
-        
-        // Caverm
+
+        // Cavern
         case NPCID.BlackSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.BabySlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.MotherSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1.25f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Salamander:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1045,22 +991,22 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.Crawdad:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.Crawdad2:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.CaveBat:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.GiantShelly:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.GiantShelly2:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
           break;
         case NPCID.Tim:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.CochinealBeetle:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1069,34 +1015,34 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.RuneWizard:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
 
         // Blood Moon 
         case NPCID.Clown:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.Drippler:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.TheGroom:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
         case NPCID.TheBride:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1.5f, 0.25f };
           break;
-        
+
         // Rain 
         case NPCID.AngryNimbus:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1.5f, 1.5f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.FlyingFish:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.5f, 1.5f, 1.5f, 0.25f, 0.5f, 0.25f, 1f, 1f };
           break;
         case NPCID.UmbrellaSlime:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          npc.Unbidden().resists = new float[8] { 0.75f, 1f, 1.5f, 0.75f, 1f, 1f, 1f, 1f };
           break;
-        
+
         // Sandstorm
         case NPCID.Tumbleweed:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1107,7 +1053,7 @@ namespace UnbiddenMod
         case NPCID.SandsharkHallow:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         // Goblin Invasion
         case NPCID.GoblinArcher:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1233,7 +1179,7 @@ namespace UnbiddenMod
         case NPCID.SnowmanGangsta:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         // Pirate Invasion 
         case NPCID.Parrot:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1309,7 +1255,7 @@ namespace UnbiddenMod
         case NPCID.Vampire:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         // Martian Madness
         case NPCID.BrainScrambler:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1324,18 +1270,6 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.MartianOfficer:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.MartianSaucer:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.MartianSaucerCannon:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.MartianSaucerCore:
-          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
-          break;
-        case NPCID.MartianSaucerTurret:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
         case NPCID.MartianTurret:
@@ -1353,7 +1287,7 @@ namespace UnbiddenMod
         case NPCID.ScutlixRider:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-          
+
         // Pumpkin Moon 
         case NPCID.HeadlessHorseman:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1397,7 +1331,7 @@ namespace UnbiddenMod
         case NPCID.Splinterling:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         // Frost Moon 
         case NPCID.ElfArcher:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1426,7 +1360,7 @@ namespace UnbiddenMod
         case NPCID.Yeti:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         // Nebula Pillar
         case NPCID.NebulaBeast:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1440,7 +1374,7 @@ namespace UnbiddenMod
         case NPCID.NebulaSoldier:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         //Solar Pillar
         case NPCID.SolarCorite:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1466,7 +1400,7 @@ namespace UnbiddenMod
         case NPCID.SolarSroller:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
         // Stardust Pillar 
         case NPCID.StardustCellBig:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1498,7 +1432,7 @@ namespace UnbiddenMod
         case NPCID.StardustWormTail:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-          
+
         //Vortex Pillar
         case NPCID.VortexHornet:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1515,7 +1449,218 @@ namespace UnbiddenMod
         case NPCID.VortexSoldier:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-        
+
+          
+        // Bosses //
+
+        // King Slime
+        case NPCID.KingSlime:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SlimeSpiked:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        // Eye of Cthulhu
+        case NPCID.EyeofCthulhu:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.ServantofCthulhu:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        // Eater of Worlds
+        case NPCID.EaterofWorldsBody:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.EaterofWorldsHead:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.EaterofWorldsTail:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        // Brain of Cthulhu
+        case NPCID.BrainofCthulhu:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.Creeper:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        // Queen Bee
+        case NPCID.QueenBee:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        //Skeletron
+        case NPCID.SkeletronHead:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.SkeletronHand:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        // Wall of Flesh
+        case NPCID.WallofFlesh:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.WallofFleshEye:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.TheHungry:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.TheHungryII:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.LeechBody:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.LeechHead:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.LeechTail:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        // Skeletron Prime
+        case NPCID.SkeletronPrime:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.PrimeCannon:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.PrimeLaser:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.PrimeSaw:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.PrimeVice:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        //The Destroyer
+        case NPCID.TheDestroyer:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.TheDestroyerBody:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.TheDestroyerTail:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.Probe:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        // The Twins
+        case NPCID.Retinazer:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.Spazmatism:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        // Plantera
+        case NPCID.Plantera:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.PlanterasHook:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.PlanterasTentacle:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        // Golem
+        case NPCID.Golem:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.GolemFistLeft:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.GolemFistRight:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.GolemHead:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.GolemHeadFree:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        // Lunatic Cultist
+        case NPCID.CultistBoss:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.CultistBossClone:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.CultistDragonBody1:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.CultistDragonBody2:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.CultistDragonBody3:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.CultistDragonBody4:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.CultistDragonHead:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.CultistDragonTail:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.AncientCultistSquidhead:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.AncientDoom:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.AncientLight:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        //Duke Fishron
+        case NPCID.DukeFishron:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.Sharkron:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.Sharkron2:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+
+        // Moonlord
+        case NPCID.MoonLordCore:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.MoonLordFreeEye:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.MoonLordHand:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.MoonLordHead:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.MoonLordLeechBlob:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        // Martian Madness Bosses
+        case NPCID.MartianSaucer:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.MartianSaucerCannon:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.MartianSaucerCore:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
+        case NPCID.MartianSaucerTurret:
+          npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+          break;
       }
     }
   }

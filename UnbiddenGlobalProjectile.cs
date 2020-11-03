@@ -51,5 +51,16 @@ namespace UnbiddenMod
       }
       Player player = Main.player[projectile.owner];
     }
+
+
+    public override void SetDefaults(Projectile projectile)
+    {
+      switch(projectile.type)
+      {
+        case ProjectileID.Flames:
+          projectile.Unbidden().element = 0; // Fire
+          break;
+      }
+    }
   }
 }

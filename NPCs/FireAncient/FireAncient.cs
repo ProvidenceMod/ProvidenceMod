@@ -47,8 +47,10 @@ namespace UnbiddenMod.NPCs.FireAncient
             npc.Hitbox = new Rectangle((int) npc.Center.X, (int) npc.Center.Y - 100, 178, 224);
             npc.knockBackResist = 0f;
             npc.buffImmune[BuffID.OnFire] = true;
-            npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists = new float[8] {0f, 0.75f, 1f, 2.5f, 1f, 1f, 1f, 1f};
-            npc.GetGlobalNPC<UnbiddenGlobalNPC>().contactDamageEl = 0;
+            npc.buffImmune[mod.BuffType("Freezing")] = true;
+            npc.buffImmune[mod.BuffType("Frozen")] = true;
+            npc.Unbidden().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
+            npc.Unbidden().contactDamageEl = 0;
         }
 
         private int stage {

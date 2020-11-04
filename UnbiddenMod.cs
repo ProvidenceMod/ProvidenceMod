@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using UnbiddenMod.NPCs.FireAncient;
-using static Terraria.ModLoader.Mod;
-using static UnbiddenMod.UnbiddenGlobalNPC;
-using static UnbiddenMod.UnbiddenPlayer;
-using static UnbiddenMod.UnbiddenGlobalProjectile;
 
 namespace UnbiddenMod
 {
@@ -75,6 +72,10 @@ namespace UnbiddenMod
 
 		public override void UpdateMusic(ref int music, ref MusicPriority priority)
 		{
+			if (NPC.AnyNPCs(NPCID.BrainofCthulhu)) {
+				music = GetSoundSlot(SoundType.Music, "Sounds/Music/Brainiac");
+				priority = MusicPriority.BossMedium;
+			}
 		}
 	}
 

@@ -70,7 +70,7 @@ namespace UnbiddenMod.Projectiles
                 projectile.velocity.Y -= 0.1f;
             else if (offset.Y == 0)
                 projectile.velocity.Y = 0f;
-            */////
+            */
         }
 
         private void SetDirection(NPC npc)

@@ -1503,6 +1503,7 @@ namespace UnbiddenMod
           npc.buffImmune[mod.BuffType("Freezing")] = true;
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
+          
         // Brain of Cthulhu
         case NPCID.BrainofCthulhu:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1569,6 +1570,7 @@ namespace UnbiddenMod
           npc.buffImmune[mod.BuffType("Freezing")] = true;
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
+
         // Skeletron Prime
         case NPCID.SkeletronPrime:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1643,6 +1645,7 @@ namespace UnbiddenMod
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
+
         // Golem
         case NPCID.Golem:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1669,6 +1672,7 @@ namespace UnbiddenMod
           npc.buffImmune[mod.BuffType("Freezing")] = true;
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
+
         // Lunatic Cultist
         case NPCID.CultistBoss:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1741,7 +1745,7 @@ namespace UnbiddenMod
           npc.buffImmune[mod.BuffType("Freezing")] = true;
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
-
+        
         // Moonlord
         case NPCID.MoonLordCore:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1768,6 +1772,7 @@ namespace UnbiddenMod
           npc.buffImmune[mod.BuffType("Freezing")] = true;
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
+
         // Martian Madness Bosses
         case NPCID.MartianSaucer:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };

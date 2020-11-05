@@ -3,11 +3,11 @@ using Terraria.ModLoader;
 
 namespace UnbiddenMod.Items.Weapons
 {
-    public class AcidSword : ModItem
+    public class AirSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Acid Sword");
+            DisplayName.SetDefault("Air Sword");
             Tooltip.SetDefault("\"A sword that flings acid\"");
         }
 

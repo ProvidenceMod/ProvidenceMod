@@ -8,3 +8,9 @@ bin/
 .obj/
 obj/Debug/net45/UnbiddenMod.assets.cache
 obj/Debug/net45/UnbiddenMod.assets.cache
+obj/UnbiddenMod.csproj.nuget.g.props
+obj/UnbiddenMod.csproj.nuget.dgspec.json
+obj/project.nuget.cache
+obj/project.assets.json
+obj/Debug/net45/UnbiddenMod.csprojAssemblyReference.cache
+obj/Debug/net45/UnbiddenMod.assets.cache

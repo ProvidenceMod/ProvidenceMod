@@ -4,11 +4,11 @@ using Terraria;
 
 namespace UnbiddenMod.Items.Weapons
 {
-    public class PoisonSword : ModItem
+    public class EarthSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Poison Sword");
+            DisplayName.SetDefault("Earth Sword");
             Tooltip.SetDefault("\"A sword to poison your enemies\"");
         }
 

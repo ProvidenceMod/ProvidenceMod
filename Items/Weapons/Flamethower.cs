@@ -58,6 +58,7 @@ namespace UnbiddenMod.Items.Weapons
             recipe.AddIngredient(ItemID.Torch, 1);
             recipe.AddIngredient(ItemID.Switch, 1);
             recipe.AddIngredient(ItemID.CobaltBar, 10);
+            recipe.AddIngredient(ItemID.IllegalGunParts, 1);
             recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod

@@ -1479,6 +1479,7 @@ namespace UnbiddenMod
         case NPCID.EaterofWorldsTail:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
+          
         // Brain of Cthulhu
         case NPCID.BrainofCthulhu:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1522,6 +1523,7 @@ namespace UnbiddenMod
         case NPCID.LeechTail:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
+
         // Skeletron Prime
         case NPCID.SkeletronPrime:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1571,6 +1573,7 @@ namespace UnbiddenMod
         case NPCID.PlanterasTentacle:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
+
         // Golem
         case NPCID.Golem:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1587,6 +1590,7 @@ namespace UnbiddenMod
         case NPCID.GolemHeadFree:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
+
         // Lunatic Cultist
         case NPCID.CultistBoss:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1631,7 +1635,7 @@ namespace UnbiddenMod
         case NPCID.Sharkron2:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-
+        
         // Moonlord
         case NPCID.MoonLordCore:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1648,6 +1652,7 @@ namespace UnbiddenMod
         case NPCID.MoonLordLeechBlob:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
+
         // Martian Madness Bosses
         case NPCID.MartianSaucer:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };

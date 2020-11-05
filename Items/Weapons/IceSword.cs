@@ -24,7 +24,7 @@ namespace UnbiddenMod.Items.Weapons
         {
             if (Main.rand.Next(10) == 0) // 10% chance
             {
-                target.AddBuff(32, 300, true); // Slow for 5 seconds
+                target.AddBuff(mod.BuffType("Freezing"), 300, true); // Slow for 5 seconds
             }
         }
 

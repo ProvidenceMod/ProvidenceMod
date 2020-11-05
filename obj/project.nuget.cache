@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "f2GkegiAyvz8RcE5vogPApUYtC05SspgcY2SWCXK576P3eqAuXd414O50K9xqaKyhYwUxkaABTA6HXLMPe8ilg==",
+  "dgSpecHash": "E4RUOJSBHlZyxQp526UhCNXem1hVwLJxdjCOiAm9T8cLwUCi3+xUV6wzNo4wVHD2YygNyW3SRNqbfUDkvIIzdA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Zack Callais\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\UnbiddenMod.csproj",
+  "projectFilePath": "c:\\Users\\vtuck\\Documents\\My games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\UnbiddenMod.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Zack Callais\\.nuget\\packages\\tmodloader.codeassist\\0.1.1\\tmodloader.codeassist.0.1.1.nupkg.sha512"
+    "C:\\Users\\vtuck\\.nuget\\packages\\tmodloader.codeassist\\0.1.1\\tmodloader.codeassist.0.1.1.nupkg.sha512"
   ],
   "logs": []
 }

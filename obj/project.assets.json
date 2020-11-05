@@ -31,19 +31,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Zack Callais\\.nuget\\packages\\": {}
+    "C:\\Users\\vtuck\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Zack Callais\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\UnbiddenMod.csproj",
+      "projectUniqueName": "c:\\Users\\vtuck\\Documents\\My games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\UnbiddenMod.csproj",
       "projectName": "UnbiddenMod",
-      "projectPath": "C:\\Users\\Zack Callais\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\UnbiddenMod.csproj",
-      "packagesPath": "C:\\Users\\Zack Callais\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Zack Callais\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\obj\\",
+      "projectPath": "c:\\Users\\vtuck\\Documents\\My games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\UnbiddenMod.csproj",
+      "packagesPath": "C:\\Users\\vtuck\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\vtuck\\Documents\\My games\\Terraria\\ModLoader\\Mod Sources\\UnbiddenMod\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Zack Callais\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vtuck\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -13,7 +13,7 @@ namespace UnbiddenMod
 
     public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
     
-
+    public bool inverseKB = false;
     // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
 

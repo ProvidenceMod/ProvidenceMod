@@ -39,13 +39,18 @@ namespace UnbiddenMod
       }
     }
 
+
+
+    private bool DetermineCrit(int itemCritCh)
+    {
+      return Main.rand.Next(100) <= itemCritCh;
+    }
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
     {
       if (hypodermia)
       {
         damage = (int)(damage * 1.20f); // 20% damage increase
       }
-
 
       int weapEl = item.GetGlobalItem<UnbiddenGlobalItem>().element; // Determine the element (will always be between 0-6 for array purposes)
       if (weapEl != -1) // if not typeless (and implicitly within 0-6)
@@ -62,6 +67,11 @@ namespace UnbiddenMod
           damage = 1;
         }
       }
+      if (item.Unbidden().inverseKB)
+      {
+        npc.StrikeNPC(0, npc.defense, -player.direction, false);
+      }
+      
     }
 
     public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -85,6 +95,10 @@ namespace UnbiddenMod
         {
           damage = 1;
         }
+      }
+      if (projectile.Unbidden().inverseKB)
+      {
+        npc.StrikeNPC(0, npc.defense, -projectile.direction, crit);
       }
     }
     public override void SetDefaults(NPC npc)

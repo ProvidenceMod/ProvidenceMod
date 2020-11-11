@@ -8,7 +8,7 @@ namespace UnbiddenMod
   {
 
     // Elemental variables for Items
-
+    public bool inverseKB = false;
     public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
 
     // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player

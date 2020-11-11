@@ -21,7 +21,7 @@ namespace UnbiddenMod.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.damage = 1;
+            item.damage = 5;
             item.width = 54;
             item.height = 16;
             item.value = Item.buyPrice(0, 10, 0, 0);

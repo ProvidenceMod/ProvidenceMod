@@ -27,6 +27,8 @@ namespace UnbiddenMod
     public float support = 1f;
     public bool boosterShot = false;
     public float focus = 0f;
+    public bool deflectable = false;
+    public bool micitBangle = false;
     public override TagCompound Save()
     {
       return new TagCompound {

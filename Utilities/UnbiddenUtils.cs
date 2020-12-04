@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using UnbiddenMod.Buffs;
 
 namespace UnbiddenMod
 {

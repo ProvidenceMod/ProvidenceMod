@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using System.Reflection;
 
 namespace UnbiddenMod
 {
@@ -154,7 +155,6 @@ namespace UnbiddenMod
       damage = player.CalcEleDamageFromNPC(npc, ref damage);
 
 
-
       focus = 0f;
     }
 
@@ -166,8 +166,6 @@ namespace UnbiddenMod
 
       focus = 0f;
     }
-
-
 
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {

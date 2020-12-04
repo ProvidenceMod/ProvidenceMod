@@ -101,6 +101,45 @@ namespace UnbiddenMod
       return damage;
     }
 
+    public static void Parry(Player player, Rectangle hitbox)
+    {
+      int NoOfProj = Main.projectile.Length;
+      int affectedProjs = 0;
+      for (int i = 0; i < NoOfProj; i++)
+      {
+        Projectile currProj = Main.projectile[i];
+        if (!player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.active && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        {
+          // Add your melee damage multiplier to the damage so it has a little more oomph
+          currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
+
+          // If Micit Bangle is equipped, add that multiplier.
+          currProj.damage = player.Unbidden().micitBangle ? (int)(currProj.damage * 2.5) : currProj.damage;
+          // Convert the proj so you own it and reverse its trajectory
+          currProj.owner = player.whoAmI;
+          currProj.hostile = false;
+          currProj.friendly = true;
+          currProj.Unbidden().deflected = true;
+          currProj.velocity.X = -currProj.velocity.X;
+          currProj.velocity.Y = -currProj.velocity.Y;
+          affectedProjs++;
+        }
+      }
+      if (affectedProjs > 0)
+      {
+        // Give a cooldown; 1 second per projectile reflected
+        // CantDeflect is a debuff, separate from this code block
+        player.AddBuff(ModContent.BuffType<CantDeflect>(), affectedProjs * 60, true);
+      }
+    }
+
+    public static CombatText ChangeNumberColor(this CombatText text, ref int element)
+    {
+        typeof(CombatText).GetField("DamagedHostile", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, new Color(255, 0, 0));
+        return text;
+
+    }
+
 
     public static void AddWithCondition<T>(this List<T> list, T type, bool condition)
     {

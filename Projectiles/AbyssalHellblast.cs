@@ -36,7 +36,7 @@ namespace UnbiddenMod.Projectiles
             NPC npc = Main.npc[(int)projectile.ai[0]];
             projectile.ai[1] += 1f;
             projectile.localAI[0] += 1f;
-            SetDirection(npc);
+            // SetDirection(npc);
             // int npcType = ModContent.NPCType<NPCs.FireAncient.FireAncient>();
             // FireAncient npc2 = (FireAncient)ModContent.GetModNPC(npcType);
             // IList<int> targets = npc2.targets;
@@ -55,20 +55,44 @@ namespace UnbiddenMod.Projectiles
                     projectile.frame = 0;
                 }
             }
-            //Vector2 offset = Main.player[player].position - projectile.position;
-            /*////
+            Vector2 offset = Main.player[player2].position - projectile.position;
+            float speedCap = 8f;
+            float gainStrengh = 0.2f;
+            float slowStrength = 1.1f;
+            UnbiddenGlobalProjectile.IsHoming(projectile, offset, speedCap, gainStrengh, slowStrength);
+            /*
             if(offset.X > 0)
-                projectile.velocity.X += 0.1f;
-            else if (offset.X < 0)
-                projectile.velocity.X -= 0.1f;
-            else if (offset.X == 0)
+            {
+                if(projectile.velocity.X < 0)
+                    projectile.velocity.X /= 1.1f;
+                if(projectile.velocity.X < 10f)
+                    projectile.velocity.X += 0.3f;
+            }
+            if (offset.X < 0)
+            {
+                if(projectile.velocity.X > 0)
+                    projectile.velocity.X /= 1.1f;
+                if(projectile.velocity.X > -10f)
+                    projectile.velocity.X -= 0.3f;
+            }
+            if (offset.X == 0)
                 projectile.velocity.X = 0f;
             /////
             if(offset.Y > 0)
-                projectile.velocity.Y += 0.1f;
-            else if (offset.Y < 0)
-                projectile.velocity.Y -= 0.1f;
-            else if (offset.Y == 0)
+            {
+                if(projectile.velocity.Y < 0)
+                    projectile.velocity.Y /= 1.1f;
+                if(projectile.velocity.Y < 10f)
+                    projectile.velocity.Y += 0.3f;
+            }
+            if (offset.Y < 0)
+            {
+                if(projectile.velocity.Y > 0)
+                    projectile.velocity.Y /= 1.1f;
+                if(projectile.velocity.Y > -10f)
+                    projectile.velocity.Y -= 0.3f;
+            }
+            if (offset.Y == 0)
                 projectile.velocity.Y = 0f;
             */
         }

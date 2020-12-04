@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UnbiddenMod.Projectiles;
 
 namespace UnbiddenMod
 {
@@ -50,9 +51,48 @@ namespace UnbiddenMod
       }
       Player player = Main.player[projectile.owner];
     }
-    public static void IsHoming(Projectile projectile, NPC target)
+    // Projectile projectile
+    // Vector2 offset
+    // Vector2 speedX
+    // Vector2 speedY
+    // float gainStrength
+    // float speedCap
+    // float slowStrength
+    public static void IsHoming(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
     {
-      
+      if(offset.X > 0)
+      {
+        if(projectile.velocity.X < 0)
+          projectile.velocity.X /= slowStrength;
+        if(projectile.velocity.X < speedCap)
+          projectile.velocity.X += gainStrength;
+      }
+      if (offset.X < 0)
+      {
+        if(projectile.velocity.X > 0)
+          projectile.velocity.X /= slowStrength;
+        if(projectile.velocity.X > -speedCap)
+          projectile.velocity.X -= gainStrength;
+      }
+      if (offset.X == 0)
+        projectile.velocity.X = 0f;
+      /////
+      if(offset.Y > 0)
+      {
+        if(projectile.velocity.Y < 0)
+          projectile.velocity.Y /= slowStrength;
+        if(projectile.velocity.Y < speedCap)
+          projectile.velocity.Y += gainStrength;
+      }
+      if (offset.Y < 0)
+      {
+        if(projectile.velocity.Y > 0)
+          projectile.velocity.Y /= slowStrength;
+        if(projectile.velocity.Y > -speedCap)
+          projectile.velocity.Y -= gainStrength;
+      }
+      if (offset.Y == 0)
+        projectile.velocity.Y = 0f;
     }
     public override void SetDefaults(Projectile projectile)
     {

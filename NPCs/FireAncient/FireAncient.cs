@@ -120,17 +120,17 @@ namespace UnbiddenMod.NPCs.FireAncient
         {
             /*radialAttack += 1;
             if(radialAttack == 21)
-                {radialAttack = 1;}
-                */
+                {radialAttack = 1;}*/
+                
             
             int type = mod.ProjectileType("AbyssalHellblast");
-            /*float speedX = 0f;
+            ModProjectile projectile = ModContent.GetModProjectile(type);
+            float speedX = 0f;
             float speedY = 10f;
-            Vector2 speed = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToDegrees(18 * radialAttack));
-            */
+            Vector2 speed = new Vector2(speedX, speedY);
             //Vector2 directionTo = DirectionTo(target.Center);
-            //int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
-			//NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+            int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
+			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
 		}
 
         private void Talk(string message) 

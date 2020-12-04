@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Terraria.Localization;
+using System.Reflection;
 
 namespace UnbiddenMod.Items.Weapons
 {
@@ -118,7 +119,7 @@ namespace UnbiddenMod.Items.Weapons
             player.HealEffect(healingAmount, true);
             Color cyan = Color.Cyan;
             string str = ("fire!");
-            CombatText.NewText(new Rectangle((int) target.position.X, (int) target.position.Y, (int) target.width, (int) target.height), cyan, Language.GetTextValue(str), false, false);
+            typeof(CombatText).GetField("DamagedHostile", BindingFlags.Static | BindingFlags.NonPublic).SetValue(CombatText.DamagedHostile, cyan);
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

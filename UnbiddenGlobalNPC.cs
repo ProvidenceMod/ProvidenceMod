@@ -55,21 +55,7 @@ namespace UnbiddenMod
         damage = (int)(damage * 1.20f); // 20% damage increase
       }
 
-      int weapEl = item.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
-      if (weapEl != -1) // if not typeless (and implicitly within 0-6)
-      {
-        float damageFloat = (float)damage, // And the damage we already have, converted to float
-          resistMod = npc.Unbidden().resists[weapEl];
-        if (resistMod > 0f)
-        {
-          damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
-          damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
-        }
-        else
-        {
-          damage = 1;
-        }
-      }
+      damage = item.CalcEleDamage(npc, ref damage);
       if (item.Unbidden().inverseKB)
       {
         npc.StrikeNPC(0, npc.defense, -player.direction, false);
@@ -84,21 +70,7 @@ namespace UnbiddenMod
         damage = (int)(damage * 1.20f); // 20% damage increase
       }
 
-      int projEl = projectile.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
-      if (projEl != -1) // if not typeless (and implicitly within 0-6)
-      {
-        float damageFloat = (float)damage, // And the damage we already have, converted to float
-          resistMod = npc.Unbidden().resists[projEl];
-        if (resistMod > 0f)
-        {
-          damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
-          damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
-        }
-        else
-        {
-          damage = 1;
-        }
-      }
+      damage = projectile.CalcEleDamage(npc, ref damage);
       if (projectile.Unbidden().inverseKB)
       {
         npc.StrikeNPC(0, knockback, -projectile.direction, crit);

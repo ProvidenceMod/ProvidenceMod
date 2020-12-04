@@ -26,8 +26,36 @@ namespace UnbiddenMod
     }
     public override void SetDefaults(Item item) 
     {
+      /*Mod magicStorage = ModLoader.GetMod("MagicStorage");
+			if (magicStorage != null) 
+      {
+        switch (item.type)
+        {
+        case magicStorage.ItemType<CraftingAccess>():
+          item.maxStack = 999;
+          break;
+        }
+			}*/
       switch (item.type)
       {
+      case ItemID.StickyBomb:
+        item.maxStack = 999;
+        break;
+      case ItemID.StickyDynamite:
+        item.maxStack = 999;
+        break;
+      case ItemID.StickyGlowstick:
+        item.maxStack = 999;
+        break;
+      case ItemID.StickyGrenade:
+        item.maxStack = 999;
+        break;
+      case ItemID.LifeCrystal:
+        item.maxStack = 999;
+        break;
+      case ItemID.FallenStar:
+        item.maxStack = 999;
+        break;
 			case ItemID.Torch:
         item.maxStack = 999;
         break;

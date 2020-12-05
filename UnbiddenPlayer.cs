@@ -33,8 +33,7 @@ namespace UnbiddenMod
     public bool micitBangle = false;
     public bool hasClericSet = false;
     public float clericAuraRadius = 300f;
-    public const int auraDotTimerCap = 5;
-    public int auraDoTTimer = 5;
+    public bool regenAura = false;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -51,6 +50,7 @@ namespace UnbiddenMod
       player.statLifeMax2 += tearCount * 20;
       hasClericSet = false;
       clericAuraRadius = 300f;
+      regenAura = false;
       resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
     }
 
@@ -62,23 +62,18 @@ namespace UnbiddenMod
 
     public override void PostUpdate()
     {
-      if (player.Unbidden().hasClericSet)
+      ////////// DELETE THIS LATER //////////
+      if (hasClericSet)
       {
         for (float rotation = 0f; rotation < 360f; rotation += 8f)
         {
           Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
           Dust.NewDustPerfect(spawnPosition, ModContent.DustType<AuraDust>(), null, 255, new Color(255, 255, 255), 1f);
         }
-        foreach (NPC npc in Main.npc)
-        {
-          float distance = Vector2.Distance(npc.position, player.MountedCenter);
-          if (distance <= clericAuraRadius && !npc.townNPC)
-          {
-            npc.AddBuff(BuffID.OnFire, 1);
-          }
-        }
+        regenAura = true;
       }
     }
+
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
     {
       items.Add(createItem(mod.ItemType("StarterBag")));
@@ -167,7 +162,7 @@ namespace UnbiddenMod
 
     public override void NaturalLifeRegen(ref float regen)
     {
-      if (player.Unbidden().hasClericSet)
+      if (regenAura)
       {
         foreach (Player targetPlayer in Main.player)
         {

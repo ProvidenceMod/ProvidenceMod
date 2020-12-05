@@ -14,6 +14,7 @@ using Terraria.ObjectData;
 using UnbiddenMod;
 using UnbiddenMod.Buffs;
 using UnbiddenMod.Dusts;
+using UnbiddenMod.Items.Weapons;
 
 namespace UnbiddenMod
 {
@@ -133,6 +134,17 @@ namespace UnbiddenMod
         player.AddBuff(ModContent.BuffType<CantDeflect>(), affectedProjs * 60, true);
       }
     }
+
+    public static void GenerateAuraField(Player player, int buff)
+    {
+      UnbiddenPlayer mP = player.Unbidden();
+      for (float rotation = 0f; rotation < 360f; rotation += 8f)
+      {
+        Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
+        Dust.NewDustPerfect(spawnPosition, buff, null, 255, new Color(255, 255, 255), 1f);
+      }
+    }
+
     public static void AddWithCondition<T>(this List<T> list, T type, bool condition)
     {
       if (!condition)

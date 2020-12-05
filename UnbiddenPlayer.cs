@@ -67,15 +67,8 @@ namespace UnbiddenMod
         for (float rotation = 0f; rotation < 360f; rotation += 8f)
         {
           Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
-          Dust.NewDustDirect(spawnPosition, 5, 5, ModContent.DustType<AuraDust>(), 0f, 0f, 255, new Color(0, 255, 0), 1f);
-        }
-        foreach (NPC npc in Main.npc)
-        {
-          float distance = Vector2.Distance(npc.position, player.MountedCenter);
-          if (distance <= clericAuraRadius)
-          {
-            npc.AddBuff(BuffID.OnFire, 1);
-          }
+
+          Dust.NewDustDirect(spawnPosition, 5, 5, mod.DustType("AuraDust"), 0f, 0f, 255, new Color(0, 255, 0), 1f);
         }
       }
     }

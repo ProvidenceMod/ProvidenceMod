@@ -31,10 +31,10 @@ namespace UnbiddenMod
     public float focus = 0f;
     public bool deflectable = false;
     public bool micitBangle = false;
-    public bool hasClericSet = true;
-    public float clericAuraRadius = 50f;
-    private int auraDustTimer = 5;
-    private const int auraDustTimerCap = 5;
+    public bool hasClericSet = false;
+    public float clericAuraRadius = 300f;
+    public const int auraDotTimerCap = 5;
+    public int auraDoTTimer = 5;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -49,8 +49,8 @@ namespace UnbiddenMod
       boosterShot = false;
       cleric = 1f;
       player.statLifeMax2 += tearCount * 20;
-      hasClericSet = true;
-      clericAuraRadius = 50f;
+      hasClericSet = false;
+      clericAuraRadius = 300f;
       resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
     }
 
@@ -64,15 +64,18 @@ namespace UnbiddenMod
     {
       if (player.Unbidden().hasClericSet)
       {
-        for (float rotation = 0f; rotation < 360f; rotation += 2f)
+        for (float rotation = 0f; rotation < 360f; rotation += 8f)
         {
-          Vector2 origin = new Vector2(player.Center.X, player.Center.Y).RotatedBy(MathHelper.ToRadians(rotation));
-          Vector2 pos = new Vector2(clericAuraRadius, 0f).RotatedBy(MathHelper.ToRadians(rotation));
-          float trueX = origin.X + pos.X,
-                trueY = origin.Y + pos.Y;
-          Vector2 truePos = new Vector2(trueX, trueY);
-          // Vector2 pos = new Vector2(player.Center.X, player.Center.Y);
-          Dust.NewDust(truePos, 5, 5, mod.DustType("MoonBlastDust"), 0f, 0f, 255, new Color(0, 255, 0), 1f);
+          Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
+          Dust.NewDustDirect(spawnPosition, 5, 5, ModContent.DustType<AuraDust>(), 0f, 0f, 255, new Color(0, 255, 0), 1f);
+        }
+        foreach (NPC npc in Main.npc)
+        {
+          float distance = Vector2.Distance(npc.position, player.MountedCenter);
+          if (distance <= clericAuraRadius)
+          {
+            npc.AddBuff(BuffID.OnFire, 1);
+          }
         }
       }
     }
@@ -166,9 +169,14 @@ namespace UnbiddenMod
     {
       if (player.Unbidden().hasClericSet)
       {
-        // Get the position of targets
-        // Find the distance between the targets and aura center
-        // if distance <= radius, they are in the circle
+        foreach (Player targetPlayer in Main.player)
+        {
+          float distance = Vector2.Distance(targetPlayer.MountedCenter, player.MountedCenter);
+          if (distance <= clericAuraRadius)
+          {
+            targetPlayer.lifeRegen += player.lifeRegen;
+          }
+        }
 
 
       }

@@ -11,8 +11,9 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using UnbiddenMod.Buffs;
 using UnbiddenMod;
+using UnbiddenMod.Buffs;
+using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod
 {
@@ -133,12 +134,6 @@ namespace UnbiddenMod
       }
     }
 
-    public static CombatText ChangeNumberColor(this CombatText text, ref int element)
-    {
-        typeof(CombatText).GetField("DamagedHostile", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, new Color(255, 0, 0));
-        return text;
-
-    }
 
 
     public static void AddWithCondition<T>(this List<T> list, T type, bool condition)

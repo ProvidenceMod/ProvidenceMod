@@ -10,7 +10,7 @@ namespace UnbiddenMod.Items.Accessories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bastion's Aegis");
-            Tooltip.SetDefault("");
+            Tooltip.SetDefault("+100% Cleric damage!\nCreates a cleric aura!");
         }
 
         public override void SetDefaults()
@@ -21,6 +21,8 @@ namespace UnbiddenMod.Items.Accessories
         public override void UpdateEquip(Player player)
         {
             UnbiddenPlayer unbiddenPlayer = player.Unbidden();
+            unbiddenPlayer.cleric += 1f;
+            unbiddenPlayer.hasClericSet = true;
             player.dash = 20;
         }
     }

@@ -11,7 +11,6 @@ namespace UnbiddenMod.Items.Weapons
 {
   public abstract class ClericItem : ModItem
   {
-    public static bool cleric = true;
     public override void SetDefaults()
     {
       item.melee = false;

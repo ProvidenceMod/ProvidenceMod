@@ -117,8 +117,8 @@ namespace UnbiddenMod.Items.Weapons.Melee
             int healingAmount = damage / 60; //decrease the value 30 to increase heal, increase value to decrease. Or you can just replace damage/x with a set value to heal, instead of making it based on damage.
             player.statLife += healingAmount;
             player.HealEffect(healingAmount, true);
-            Color cyan = Color.Cyan;
-            string str = ("fire!");
+            // Color cyan = Color.Cyan;
+            // string str = ("fire!");
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

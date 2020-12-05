@@ -60,19 +60,19 @@ namespace UnbiddenMod
       tearCount = tag.GetInt("tearCount");
     }
 
-    public override void PreUpdate()
+    public override void PostUpdate()
     {
       if (player.Unbidden().hasClericSet)
       {
         for (float rotation = 0f; rotation < 360f; rotation += 8f)
         {
           Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
-          Dust.NewDustDirect(spawnPosition, 5, 5, ModContent.DustType<AuraDust>(), 0f, 0f, 255, new Color(0, 255, 0), 1f);
+          Dust.NewDustPerfect(spawnPosition, ModContent.DustType<AuraDust>(), null, 255, new Color(255, 255, 255), 1f);
         }
         foreach (NPC npc in Main.npc)
         {
           float distance = Vector2.Distance(npc.position, player.MountedCenter);
-          if (distance <= clericAuraRadius)
+          if (distance <= clericAuraRadius && !npc.townNPC)
           {
             npc.AddBuff(BuffID.OnFire, 1);
           }
@@ -174,11 +174,9 @@ namespace UnbiddenMod
           float distance = Vector2.Distance(targetPlayer.MountedCenter, player.MountedCenter);
           if (distance <= clericAuraRadius)
           {
-            targetPlayer.lifeRegen += player.lifeRegen;
+            targetPlayer.lifeRegen += (int)(cleric * 2);
           }
         }
-
-
       }
     }
     public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using System.Reflection;
+using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod
 {
@@ -25,11 +26,15 @@ namespace UnbiddenMod
     public bool angelTear;
     public int tearCount;
     public bool brimHeart = false;
-    public float support = 1f;
+    public float cleric = 1f;
     public bool boosterShot = false;
     public float focus = 0f;
     public bool deflectable = false;
     public bool micitBangle = false;
+    public bool hasClericSet = true;
+    public float clericAuraRadius = 50f;
+    private int auraDustTimer = 5;
+    private const int auraDustTimerCap = 5;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -42,8 +47,10 @@ namespace UnbiddenMod
     {
       brimHeart = false;
       boosterShot = false;
-      support = 1f;
+      cleric = 1f;
       player.statLifeMax2 += tearCount * 20;
+      hasClericSet = true;
+      clericAuraRadius = 50f;
       resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
     }
 
@@ -53,6 +60,22 @@ namespace UnbiddenMod
       tearCount = tag.GetInt("tearCount");
     }
 
+    public override void PreUpdate()
+    {
+      if (player.Unbidden().hasClericSet)
+      {
+        for (float rotation = 0f; rotation < 360f; rotation += 2f)
+        {
+          Vector2 origin = new Vector2(player.Center.X, player.Center.Y).RotatedBy(MathHelper.ToRadians(rotation));
+          Vector2 pos = new Vector2(clericAuraRadius, 0f).RotatedBy(MathHelper.ToRadians(rotation));
+          float trueX = origin.X + pos.X,
+                trueY = origin.Y + pos.Y;
+          Vector2 truePos = new Vector2(trueX, trueY);
+          // Vector2 pos = new Vector2(player.Center.X, player.Center.Y);
+          Dust.NewDust(truePos, 5, 5, mod.DustType("MoonBlastDust"), 0f, 0f, 255, new Color(0, 255, 0), 1f);
+        }
+      }
+    }
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
     {
       items.Add(createItem(mod.ItemType("StarterBag")));
@@ -138,6 +161,18 @@ namespace UnbiddenMod
       }
     }
 
+
+    public override void NaturalLifeRegen(ref float regen)
+    {
+      if (player.Unbidden().hasClericSet)
+      {
+        // Get the position of targets
+        // Find the distance between the targets and aura center
+        // if distance <= radius, they are in the circle
+
+
+      }
+    }
     public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
     {
       Player player = Main.player[proj.owner];

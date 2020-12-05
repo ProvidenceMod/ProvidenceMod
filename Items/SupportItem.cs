@@ -9,9 +9,9 @@ using System;
 
 namespace UnbiddenMod.Items.Weapons
 {
-  public abstract class SupportItem : ModItem
+  public abstract class ClericItem : ModItem
   {
-    public static bool support = true;
+    public static bool cleric = true;
     public override void SetDefaults()
     {
       item.melee = false;
@@ -27,7 +27,7 @@ namespace UnbiddenMod.Items.Weapons
       if (tt != null)
       {
         string[] split = tt.text.Split(' ');
-        tt.text = split.First() + " support " + split.Last();
+        tt.text = split.First() + " cleric " + split.Last();
       }
     }
 
@@ -35,7 +35,7 @@ namespace UnbiddenMod.Items.Weapons
     {
       UnbiddenPlayer modPlayer = player.Unbidden();
       int originalDmg = damage;
-      damage = (int)(damage * modPlayer.support);
+      damage = (int)(damage * modPlayer.cleric);
       float globalDmg = player.meleeDamage - 1;
       if (player.magicDamage - 1 < globalDmg) { globalDmg = player.magicDamage - 1; }
       if (player.rangedDamage - 1 < globalDmg) { globalDmg = player.rangedDamage - 1; }

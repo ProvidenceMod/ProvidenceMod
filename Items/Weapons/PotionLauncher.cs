@@ -9,7 +9,7 @@ using System;
 
 namespace UnbiddenMod.Items.Weapons
 {
-  public class PotionLauncher : SupportItem
+  public class PotionLauncher : ClericItem
   {
     public override void SetStaticDefaults()
     {

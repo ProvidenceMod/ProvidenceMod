@@ -9,7 +9,7 @@ using System;
 
 namespace UnbiddenMod.Items.Weapons
 {
-  public class HealTome : SupportItem
+  public class HealTome : ClericItem
   {
     private int missingManaCooldown = 10;
     public bool urgentHeal = false;

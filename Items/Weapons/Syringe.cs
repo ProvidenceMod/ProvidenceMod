@@ -8,7 +8,7 @@ using System.Linq;
 using System;
 
 namespace UnbiddenMod.Items.Weapons {
-  public class Syringe : SupportItem {
+  public class Syringe : ClericItem {
     public override void SetStaticDefaults () {
       DisplayName.SetDefault ("Syringe");
       Tooltip.SetDefault ("Stab allies to boost their next potion\nStab enemies to increase their damage taken by 20% for 5 seconds");

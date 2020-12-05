@@ -262,33 +262,87 @@ namespace UnbiddenMod
       }
     }
 
-    /*private void DrawSwordAnimation(PlayerDrawInfo info)
-		{
-			Player player = info.drawPlayer; //the player!
+        /*private void DrawSwordAnimation(PlayerDrawInfo info)
+            {
+                Player player = info.drawPlayer; //the player!
 
-			if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
-			{
-				Texture2D tex = ModContent.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our animated sword.
-				Rectangle frame = Main.itemAnimations[ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>()].GetFrame(tex);//the animation frame that we want should be passed as the source rectangle. this is the region if your sprite the game will read to draw.
-																												//special note that this requires your item's animation to be set up correctly in the inventory. If you want your item to be animated ONLY when you swing you will have to find the frame another way.
+                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
+                {
+                    Texture2D tex = ModContent.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our animated sword.
+                    Rectangle frame = Main.itemAnimations[ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>()].GetFrame(tex);//the animation frame that we want should be passed as the source rectangle. this is the region if your sprite the game will read to draw.
+                                                                                                                    //special note that this requires your item's animation to be set up correctly in the inventory. If you want your item to be animated ONLY when you swing you will have to find the frame another way.
 
-				//Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
-				Main.playerDrawData.Add(
-					new DrawData(
-						tex, //pass our item's spritesheet
-						info.itemLocation - Main.screenPosition, //pass the position we should be drawing at from the PlayerDrawInfo we pass into this method. Always use this and not player.itemLocation.
-						frame, //the animation frame we got earlier
-						Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16), //since our sword shouldn't glow, we want the color of the light on our player to be the color our sword draws with. 
-																								 //We divide by 16 and cast to int to get TILE coordinates rather than WORLD coordinates, as thats what Lighting.GetColor takes.
-						player.itemRotation, //the rotation of the player's item based on how they used it. This allows our glowmask to rotate with swingng swords or guns pointing in a direction.
-						new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height), //the origin that our mask rotates about. This needs to be adjusted based on the player's direction, thus the ternary expression.
-						player.HeldItem.scale, //scales our mask to match the item's scale
-						info.spriteEffects, //the PlayerDrawInfo that was passed to this will tell us if we need to flip the sprite or not.
-						0 //we dont need to worry about the layer depth here
-					));
-			}
-		}*/
-
+                    //Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
+                    Main.playerDrawData.Add(
+                        new DrawData(
+                            tex, //pass our item's spritesheet
+                            info.itemLocation - Main.screenPosition, //pass the position we should be drawing at from the PlayerDrawInfo we pass into this method. Always use this and not player.itemLocation.
+                            frame, //the animation frame we got earlier
+                            Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16), //since our sword shouldn't glow, we want the color of the light on our player to be the color our sword draws with. 
+                                                                                                     //We divide by 16 and cast to int to get TILE coordinates rather than WORLD coordinates, as thats what Lighting.GetColor takes.
+                            player.itemRotation, //the rotation of the player's item based on how they used it. This allows our glowmask to rotate with swingng swords or guns pointing in a direction.
+                            new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height), //the origin that our mask rotates about. This needs to be adjusted based on the player's direction, thus the ternary expression.
+                            player.HeldItem.scale, //scales our mask to match the item's scale
+                            info.spriteEffects, //the PlayerDrawInfo that was passed to this will tell us if we need to flip the sprite or not.
+                            0 //we dont need to worry about the layer depth here
+                        ));
+                }
+            }*/
+    public override void OnHitAnything(float x, float y, Entity victim)
+    {
+      int combatIndex1 = -1;
+      for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
+      {
+        CombatText combatText = Main.combatText[combatIndex2];
+        if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
+        {
+          if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
+          {
+            if (player.HeldItem.Unbidden().element == 0)
+              Main.combatText[combatIndex2].color = new Color(235, 90, 33);
+            else if (player.HeldItem.Unbidden().element == 1)
+              Main.combatText[combatIndex2].color = new Color(0, 255, 255);
+            else if (player.HeldItem.Unbidden().element == 2)
+              Main.combatText[combatIndex2].color = new Color(235, 255, 0);
+            else if (player.HeldItem.Unbidden().element == 3)
+              Main.combatText[combatIndex2].color = new Color(0, 0, 255);
+            else if (player.HeldItem.Unbidden().element == 4)
+              Main.combatText[combatIndex2].color = new Color(0, 255, 0);
+            else if (player.HeldItem.Unbidden().element == 5)
+              Main.combatText[combatIndex2].color = new Color(128, 0, 255);
+            else if (player.HeldItem.Unbidden().element == 6)
+              Main.combatText[combatIndex2].color = new Color(255, 228, 153);
+            else if (player.HeldItem.Unbidden().element == 7)
+              Main.combatText[combatIndex2].color = new Color(74, 18, 179);
+          }
+          else if (combatText.color == CombatText.OthersDamagedHostile || combatText.color == CombatText.OthersDamagedHostileCrit)
+          {
+            if (player.HeldItem.Unbidden().element == 0)
+              Main.combatText[combatIndex2].color = new Color(235, 90, 33);
+            else if (player.HeldItem.Unbidden().element == 1)
+              Main.combatText[combatIndex2].color = new Color(0, 255, 255);
+            else if (player.HeldItem.Unbidden().element == 2)
+              Main.combatText[combatIndex2].color = new Color(235, 255, 0);
+            else if (player.HeldItem.Unbidden().element == 3)
+              Main.combatText[combatIndex2].color = new Color(0, 0, 255);
+            else if (player.HeldItem.Unbidden().element == 4)
+              Main.combatText[combatIndex2].color = new Color(0, 255, 0);
+            else if (player.HeldItem.Unbidden().element == 5)
+              Main.combatText[combatIndex2].color = new Color(128, 0, 255);
+            else if (player.HeldItem.Unbidden().element == 6)
+              Main.combatText[combatIndex2].color = new Color(255, 228, 153);
+            else if (player.HeldItem.Unbidden().element == 7)
+              Main.combatText[combatIndex2].color = new Color(74, 18, 179);
+          }
+          combatIndex1 = combatIndex2;
+          break;
+        }
+      }
+      if (combatIndex1 == -1)
+        return;
+    }
+      
+    
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
     {
       ModPacket packet = mod.GetPacket();

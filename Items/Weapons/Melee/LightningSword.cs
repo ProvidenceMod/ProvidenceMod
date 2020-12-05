@@ -2,20 +2,20 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Melee
 {
-    public class CorruptSword : ModItem
+    public class LightningSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Unholy Sword");
-            Tooltip.SetDefault("\"A depraved sword\"");
+            DisplayName.SetDefault("Lightning Sword");
+            Tooltip.SetDefault("\"A sword of pure Lightning\"");
         }
 
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenGlobalItem>().element = 7; // Unholy
+            item.GetGlobalItem<UnbiddenGlobalItem>().element = 2; // Lightning
             item.autoReuse = true;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
@@ -24,7 +24,7 @@ namespace UnbiddenMod.Items.Weapons
         {
             if (Main.rand.Next(10) == 0) // 10% chance
             {
-                target.AddBuff(39, 180, true); // Cursed Inferno for 3 seconds
+                target.AddBuff(144, 60, true); // Electrified for 1 second
             }
         }
 
@@ -32,10 +32,10 @@ namespace UnbiddenMod.Items.Weapons
         {
             // Recipes here. See Basic Recipe Guide2
             ModRecipe recipe = new ModRecipe(mod);
-        
+
             recipe.AddIngredient(ItemID.PlatinumBroadsword, 1);
-            recipe.AddIngredient(ItemID.Torch, 25);
-            recipe.AddIngredient(ItemID.Gel, 99);
+            recipe.AddIngredient(ItemID.RainCloud, 50);
+            recipe.AddIngredient(ItemID.Topaz, 10);
             recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
@@ -43,8 +43,8 @@ namespace UnbiddenMod.Items.Weapons
             ModRecipe recipe2 = new ModRecipe(mod);
             
             recipe2.AddIngredient(ItemID.GoldBroadsword, 1);
-            recipe2.AddIngredient(ItemID.Torch, 25);
-            recipe2.AddIngredient(ItemID.Gel, 99);
+            recipe2.AddIngredient(ItemID.RainCloud, 50);
+            recipe2.AddIngredient(ItemID.Topaz, 10);
             recipe2.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe2.SetResult(this); //Sets the result of this recipe to this item
             recipe2.AddRecipe(); //Adds the recipe to the mod

@@ -9,7 +9,7 @@ using System;
 using Terraria.Localization;
 using System.Reflection;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Melee
 {
     public class MoonCleaver : ModItem
     {
@@ -123,7 +123,7 @@ namespace UnbiddenMod.Items.Weapons
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D tex = mod.GetTexture("Items/Weapons/MoonCleaverGlow"); //loads our glowmask
+            Texture2D tex = mod.GetTexture("Items/Weapons/Melee/MoonCleaverGlow"); //loads our glowmask
             spriteBatch.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + item.width * 0.5f, item.position.Y - Main.screenPosition.Y + item.height - tex.Height * 0.5f + 2f), tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, 0, 0); //draws our glowmask in the inventory. To see how to draw it in the world, see the ModifyDrawLayers method in ExamplePlayer.
         }
 

@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static UnbiddenMod.UnbiddenUtils;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Melee
 {
 	public class CounterSwing : ModItem
 	{

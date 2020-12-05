@@ -133,13 +133,23 @@ namespace UnbiddenMod
       }
     }
 
-    public static CombatText ChangeNumberColor(this CombatText text, ref int element)
+    public static void ChangeNumberColor()
     {
-        typeof(CombatText).GetField("DamagedHostile", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, new Color(255, 0, 0));
-        return text;
-
+      int combatIndex1 = -1;
+      for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
+      {
+        CombatText combatText = Main.combatText[combatIndex2];
+        if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0 && (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit || combatText.color == CombatText.OthersDamagedHostile || combatText.color == CombatText.OthersDamagedHostileCrit))
+        {
+          combatIndex1 = combatIndex2;
+          break;
+        }
+      }
+      if (combatIndex1 == -1)
+        return;
+      Color color = Color.Cyan;
+      Main.combatText[combatIndex1].color = color;
     }
-
 
     public static void AddWithCondition<T>(this List<T> list, T type, bool condition)
     {

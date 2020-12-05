@@ -62,9 +62,9 @@ namespace UnbiddenMod
 					this, // Mod
 					"$Mods.UnbiddenMod.NPCName.FireAncient",
 					(Func<bool>)(() => UnbiddenWorld.downedFireAncient),
-					ModContent.ItemType<Items.Weapons.MoonCleaver>(),
-					new List<int> { ModContent.ItemType<Items.Weapons.MoonCleaver>(), ModContent.ItemType<Items.Weapons.MoonCleaver>() },
-					new List<int> { ModContent.ItemType<Items.Weapons.MoonCleaver>(), ModContent.ItemType<Items.Weapons.MoonCleaver>() },
+					ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>(),
+					new List<int> { ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>(), ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() },
+					new List<int> { ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>(), ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() },
 					"$Mods.UnbiddenMod.BossSpawnInfo.FireAncient"
 				);
 			}

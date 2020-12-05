@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Melee
 {
     public class EightGodsBlade : ModItem
   {

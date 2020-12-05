@@ -135,7 +135,6 @@ namespace UnbiddenMod
     }
 
 
-
     public static void AddWithCondition<T>(this List<T> list, T type, bool condition)
     {
       if (!condition)

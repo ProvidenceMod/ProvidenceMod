@@ -2,20 +2,20 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Melee
 {
-    public class LightningSword : ModItem
+    public class IceSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightning Sword");
-            Tooltip.SetDefault("\"A sword of pure Lightning\"");
+            DisplayName.SetDefault("Ice Sword");
+            Tooltip.SetDefault("\"A sword of pure ice\"");
         }
 
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenGlobalItem>().element = 2; // Lightning
+            item.GetGlobalItem<UnbiddenGlobalItem>().element = 1; // Ice
             item.autoReuse = true;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
@@ -24,7 +24,7 @@ namespace UnbiddenMod.Items.Weapons
         {
             if (Main.rand.Next(10) == 0) // 10% chance
             {
-                target.AddBuff(144, 60, true); // Electrified for 1 second
+                target.AddBuff(mod.BuffType("Freezing"), 300, true); // Slow for 5 seconds
             }
         }
 
@@ -34,8 +34,7 @@ namespace UnbiddenMod.Items.Weapons
             ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(ItemID.PlatinumBroadsword, 1);
-            recipe.AddIngredient(ItemID.RainCloud, 50);
-            recipe.AddIngredient(ItemID.Topaz, 10);
+            recipe.AddIngredient(ItemID.IceBlock, 199);
             recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
@@ -43,8 +42,7 @@ namespace UnbiddenMod.Items.Weapons
             ModRecipe recipe2 = new ModRecipe(mod);
             
             recipe2.AddIngredient(ItemID.GoldBroadsword, 1);
-            recipe2.AddIngredient(ItemID.RainCloud, 50);
-            recipe2.AddIngredient(ItemID.Topaz, 10);
+            recipe2.AddIngredient(ItemID.IceBlock, 199);
             recipe2.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe2.SetResult(this); //Sets the result of this recipe to this item
             recipe2.AddRecipe(); //Adds the recipe to the mod

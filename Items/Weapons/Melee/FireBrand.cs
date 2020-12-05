@@ -2,7 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Melee
 {
     public class FireBrand : ModItem
     {

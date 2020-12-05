@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Cleric
 {
   public class PotionLauncher : ClericItem
   {

@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 using System;
 using Microsoft.Xna.Framework;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Cleric
 {
 
   public class Serrator : ModItem

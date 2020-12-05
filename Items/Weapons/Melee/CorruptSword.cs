@@ -2,29 +2,29 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items.Weapons.Melee
 {
-    public class EarthSword : ModItem
+    public class CorruptSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Earth Sword");
-            Tooltip.SetDefault("\"A sword to poison your enemies\"");
+            DisplayName.SetDefault("Unholy Sword");
+            Tooltip.SetDefault("\"A depraved sword\"");
         }
 
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenGlobalItem>().element = 4; // Poison
+            item.GetGlobalItem<UnbiddenGlobalItem>().element = 7; // Unholy
             item.autoReuse = true;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            if (Main.rand.Next(5) == 0) // 20% chance
+            if (Main.rand.Next(10) == 0) // 10% chance
             {
-                target.AddBuff(20, 300, true); // Poisoned for 5 seconds
+                target.AddBuff(39, 180, true); // Cursed Inferno for 3 seconds
             }
         }
 
@@ -32,10 +32,10 @@ namespace UnbiddenMod.Items.Weapons
         {
             // Recipes here. See Basic Recipe Guide2
             ModRecipe recipe = new ModRecipe(mod);
-
+        
             recipe.AddIngredient(ItemID.PlatinumBroadsword, 1);
-            recipe.AddIngredient(ItemID.Stinger, 20);
-            recipe.AddIngredient(ItemID.JungleSpores, 20);
+            recipe.AddIngredient(ItemID.Torch, 25);
+            recipe.AddIngredient(ItemID.Gel, 99);
             recipe.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
@@ -43,8 +43,8 @@ namespace UnbiddenMod.Items.Weapons
             ModRecipe recipe2 = new ModRecipe(mod);
             
             recipe2.AddIngredient(ItemID.GoldBroadsword, 1);
-            recipe2.AddIngredient(ItemID.Stinger, 20);
-            recipe2.AddIngredient(ItemID.JungleSpores, 20);
+            recipe2.AddIngredient(ItemID.Torch, 25);
+            recipe2.AddIngredient(ItemID.Gel, 99);
             recipe2.AddTile(TileID.Anvils); //The tile you craft this sword at
             recipe2.SetResult(this); //Sets the result of this recipe to this item
             recipe2.AddRecipe(); //Adds the recipe to the mod

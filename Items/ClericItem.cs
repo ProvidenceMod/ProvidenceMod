@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnbiddenMod.Dusts;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Items.Weapons
 {
@@ -30,6 +32,26 @@ namespace UnbiddenMod.Items.Weapons
       }
     }
 
+    // The most you'll need to edit is what's in the conditional.
+    // Also make sure for line 42 you're "using static UnbiddenMod.UnbiddenUtils;"
+    protected virtual void GenerateAuraEffect(Player player)
+    {
+      UnbiddenPlayer mP = player.Unbidden();
+      if (mP.hasClericSet)
+      {
+        GenerateAuraField(player, ModContent.DustType<AuraDust>());
+        mP.regenAura = true;
+      }
+    }
+
+    // 99% of the time you should use base.UpdateArmorSet on inherited classes
+    public override void UpdateArmorSet(Player player)
+    {
+      player.Unbidden().hasClericSet = true;
+      GenerateAuraEffect(player);
+    }
+
+    
     public virtual void ModifyWeaponDamage(Player player, ref int damage)
     {
       UnbiddenPlayer modPlayer = player.Unbidden();

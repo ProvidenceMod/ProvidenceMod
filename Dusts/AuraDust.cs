@@ -14,7 +14,7 @@ namespace UnbiddenMod.Dusts
       dust.scale = 1f;
 			dust.noGravity = true;
 			dust.noLight = true;
-			dust.alpha = 96;
+			dust.alpha = 98;
     }
 
     public override bool Update(Dust dust)

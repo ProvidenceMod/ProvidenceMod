@@ -39,7 +39,7 @@ namespace UnbiddenMod.Items
       UnbiddenPlayer mP = player.Unbidden();
       if (mP.hasClericSet)
       {
-        GenerateAuraField(player, ModContent.DustType<AuraDust>());
+        GenerateAuraField(player, ModContent.DustType<AuraDust>(), 0f);
         mP.regenAura = true;
       }
     }

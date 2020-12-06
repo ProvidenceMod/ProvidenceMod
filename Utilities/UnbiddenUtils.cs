@@ -135,13 +135,13 @@ namespace UnbiddenMod
       }
     }
 
-    public static void GenerateAuraField(Player player, int buff)
+    public static void GenerateAuraField(Player player, int dust, float radiusBoost)
     {
       UnbiddenPlayer mP = player.Unbidden();
       for (float rotation = 0f; rotation < 360f; rotation += 8f)
       {
-        Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
-        Dust.NewDustPerfect(spawnPosition, buff, null, 255, new Color(255, 255, 255), 1f);
+        Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius + radiusBoost).RotatedBy(MathHelper.ToRadians(rotation));
+        Dust.NewDustPerfect(spawnPosition, dust, null, 255, new Color(255, 255, 255), 1f);
       }
     }
 

@@ -11,6 +11,7 @@ using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using System.Reflection;
 using UnbiddenMod.Dusts;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod
 {
@@ -64,21 +65,22 @@ namespace UnbiddenMod
 
     public override void PostUpdate()
     {
-      // ////////// DELETE THIS LATER //////////
-      // if (hasClericSet)
-      // {
-      //   for (float rotation = 0f; rotation < 360f; rotation += 8f)
-      //   {
-      //     Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
-      //     Dust.NewDustPerfect(spawnPosition, ModContent.DustType<AuraDust>(), null, 255, new Color(255, 255, 255), 1f);
-      //   }
-      //   burnAura = true;
-      //   foreach (NPC npc in Main.npc)
-      //   if (Vector2.Distance(npc.position, player.MountedCenter) <= clericAuraRadius)
-      //   {
-      //     npc.AddBuff(BuffID.OnFire, 1);
-      //   }
-      // }
+      ////////// DELETE THIS LATER //////////
+      if (hasClericSet)
+      {
+        if (burnAura)
+        {
+          float burnRadiusBoost = -100f;
+          GenerateAuraField(player, ModContent.DustType<AuraDust>(), burnRadiusBoost);
+          foreach (NPC npc in Main.npc)
+          {
+            if (Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + burnRadiusBoost))
+            {
+              npc.AddBuff(BuffID.OnFire, 1);
+            }
+          }
+        }
+      }
     }
 
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)

@@ -221,21 +221,13 @@ namespace UnbiddenMod
 
     public override void ModifyDrawLayers(List<PlayerLayer> layers)
     {
+			// Note that if you want to give your held item an animation, you should set that item's NoUseGraphic field to true so that the entire spritesheet for that item wont draw.
 
-      /* This shows an example of how we can give the held sprite of an item a glowmask or animation. This example goes over drawing a mask for a specific item, but you may want to
-			 * expand your layer to cover multiple items, rather than adding in a new layer for every single item you want to create a mask for.
-			 * 
-			 * PlayerLayers have many other uses, basically anything you would want to visually create on a player, such as a custom accessory layer, holding a weapon, or anything else you can think of
-			 * that would involve drawing sprites on a player or their held items. these examples only serve to illustrate common requests and can be extrapolated into anything you want. DrawData's constructor has
-			 * the same set of params as SpriteBatch.Draw(), so you can get as creative as you want here.
-			 * 
-			 * Note that if you want to give your held item an animation, you should set that item's NoUseGraphic field to true so that the entire spritesheet for that item wont draw.
-			 */
-
-      //this layer is for our animated sword example! this is pretty much the same as the above layer insertion.
+      //Animated Sword Code
       /*Action<PlayerDrawInfo> layerTarget2 = s => DrawSwordAnimation(s);
 			PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
 			layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer2);*/
+
       Action<PlayerDrawInfo> layerTarget = s => DrawSwordGlowmask(s); //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
       PlayerLayer layer = new PlayerLayer("UnbiddenMod", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
       layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index. 
@@ -244,55 +236,52 @@ namespace UnbiddenMod
     {
       Player player = info.drawPlayer; //the player!
 
-      if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
+      if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0)
       {
-        Texture2D tex = mod.GetTexture("Items/Weapons/Melee/MoonCleaverGlow"); //The texture of our glowmask.
-
-        //Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
+        Texture2D tex = mod.GetTexture("Items/Weapons/Melee/MoonCleaverGlow");
         Main.playerDrawData.Add(
           new DrawData(
-            tex, //pass our glowmask's texture
-            info.itemLocation - Main.screenPosition, //pass the position we should be drawing at from the PlayerDrawInfo we pass into this method. Always use this and not player.itemLocation.
-            tex.Frame(), //our source rectangle should be the entire frame of our texture. If our mask was animated it would be the current frame of the animation.
-            Color.White, //since we want our glowmask to glow, we tell it to draw with Color.White. This will make it ignore all lighting
-            player.itemRotation, //the rotation of the player's item based on how they used it. This allows our glowmask to rotate with swingng swords or guns pointing in a direction.
-            new Vector2(player.direction == 1 ? 0 : tex.Width, tex.Height), //the origin that our mask rotates about. This needs to be adjusted based on the player's direction, thus the ternary expression.
-            player.HeldItem.scale, //scales our mask to match the item's scale
-            info.spriteEffects, //the PlayerDrawInfo that was passed to this will tell us if we need to flip the sprite or not.
-            0 //we dont need to worry about the layer depth here
+            tex,
+            info.itemLocation - Main.screenPosition,
+            tex.Frame(),
+            Color.White,
+            player.itemRotation,
+            new Vector2(player.direction == 1 ? 0 : tex.Width, tex.Height),
+            player.HeldItem.scale,
+            info.spriteEffects,
+            0
           ));
       }
     }
 
-        /*private void DrawSwordAnimation(PlayerDrawInfo info)
-            {
-                Player player = info.drawPlayer; //the player!
-
-                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
-                {
-                    Texture2D tex = ModContent.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our animated sword.
-                    Rectangle frame = Main.itemAnimations[ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>()].GetFrame(tex);//the animation frame that we want should be passed as the source rectangle. this is the region if your sprite the game will read to draw.
-                                                                                                                    //special note that this requires your item's animation to be set up correctly in the inventory. If you want your item to be animated ONLY when you swing you will have to find the frame another way.
-
-                    //Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
-                    Main.playerDrawData.Add(
-                        new DrawData(
-                            tex, //pass our item's spritesheet
-                            info.itemLocation - Main.screenPosition, //pass the position we should be drawing at from the PlayerDrawInfo we pass into this method. Always use this and not player.itemLocation.
-                            frame, //the animation frame we got earlier
-                            Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16), //since our sword shouldn't glow, we want the color of the light on our player to be the color our sword draws with. 
-                                                                                                     //We divide by 16 and cast to int to get TILE coordinates rather than WORLD coordinates, as thats what Lighting.GetColor takes.
-                            player.itemRotation, //the rotation of the player's item based on how they used it. This allows our glowmask to rotate with swingng swords or guns pointing in a direction.
-                            new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height), //the origin that our mask rotates about. This needs to be adjusted based on the player's direction, thus the ternary expression.
-                            player.HeldItem.scale, //scales our mask to match the item's scale
-                            info.spriteEffects, //the PlayerDrawInfo that was passed to this will tell us if we need to flip the sprite or not.
-                            0 //we dont need to worry about the layer depth here
-                        ));
-                }
-            }*/
-    public override void OnHitAnything(float x, float y, Entity victim)
+    /*private void DrawSwordAnimation(PlayerDrawInfo info)
     {
-      int combatIndex1 = -1;
+      Player player = info.drawPlayer; //the player!
+
+      if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
+      {
+        Texture2D tex = ModContent.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our animated sword.
+        Rectangle frame = Main.itemAnimations[ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>()].GetFrame(tex);//the animation frame that we want should be passed as the source rectangle. this is the region if your sprite the game will read to draw.
+        //special note that this requires your item's animation to be set up correctly in the inventory. If you want your item to be animated ONLY when you swing you will have to find the frame another way.
+        //Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
+        Main.playerDrawData.Add(
+          new DrawData(
+            tex, //pass our item's spritesheet
+            info.itemLocation - Main.screenPosition, //pass the position we should be drawing at from the PlayerDrawInfo we pass into this method. Always use this and not player.itemLocation.
+            frame, //the animation frame we got earlier
+            Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16), //since our sword shouldn't glow, we want the color of the light on our player to be the color our sword draws with. 
+            //We divide by 16 and cast to int to get TILE coordinates rather than WORLD coordinates, as thats what Lighting.GetColor takes.
+            player.itemRotation, //the rotation of the player's item based on how they used it. This allows our glowmask to rotate with swingng swords or guns pointing in a direction.
+            new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height), //the origin that our mask rotates about. This needs to be adjusted based on the player's direction, thus the ternary expression.
+            player.HeldItem.scale, //scales our mask to match the item's scale
+            info.spriteEffects, //the PlayerDrawInfo that was passed to this will tell us if we need to flip the sprite or not.
+            0 //we dont need to worry about the layer depth here
+          )
+        );
+      }
+    }*/
+    public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+    {
       for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
       {
         CombatText combatText = Main.combatText[combatIndex2];
@@ -317,31 +306,8 @@ namespace UnbiddenMod
             else if (player.HeldItem.Unbidden().element == 7)
               Main.combatText[combatIndex2].color = new Color(74, 18, 179);
           }
-          else if (combatText.color == CombatText.OthersDamagedHostile || combatText.color == CombatText.OthersDamagedHostileCrit)
-          {
-            if (player.HeldItem.Unbidden().element == 0)
-              Main.combatText[combatIndex2].color = new Color(235, 90, 33);
-            else if (player.HeldItem.Unbidden().element == 1)
-              Main.combatText[combatIndex2].color = new Color(0, 255, 255);
-            else if (player.HeldItem.Unbidden().element == 2)
-              Main.combatText[combatIndex2].color = new Color(235, 255, 0);
-            else if (player.HeldItem.Unbidden().element == 3)
-              Main.combatText[combatIndex2].color = new Color(0, 0, 255);
-            else if (player.HeldItem.Unbidden().element == 4)
-              Main.combatText[combatIndex2].color = new Color(0, 255, 0);
-            else if (player.HeldItem.Unbidden().element == 5)
-              Main.combatText[combatIndex2].color = new Color(128, 0, 255);
-            else if (player.HeldItem.Unbidden().element == 6)
-              Main.combatText[combatIndex2].color = new Color(255, 228, 153);
-            else if (player.HeldItem.Unbidden().element == 7)
-              Main.combatText[combatIndex2].color = new Color(74, 18, 179);
-          }
-          combatIndex1 = combatIndex2;
-          break;
         }
       }
-      if (combatIndex1 == -1)
-        return;
     }
       
     

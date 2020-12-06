@@ -27,6 +27,6 @@ namespace UnbiddenMod.Dusts
 			return false;
     }
     public override Color? GetAlpha(Dust dust, Color lightColor)
-      => new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 25);
+      => new Color(255, 255, 255);
   }
 }

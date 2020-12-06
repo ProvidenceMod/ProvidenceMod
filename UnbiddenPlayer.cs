@@ -34,6 +34,7 @@ namespace UnbiddenMod
     public bool hasClericSet = false;
     public float clericAuraRadius = 300f;
     public bool regenAura = false;
+    public bool burnAura = false;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -51,6 +52,7 @@ namespace UnbiddenMod
       hasClericSet = false;
       clericAuraRadius = 300f;
       regenAura = false;
+      burnAura = false;
       resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
     }
 
@@ -62,16 +64,21 @@ namespace UnbiddenMod
 
     public override void PostUpdate()
     {
-      ////////// DELETE THIS LATER //////////
-      if (hasClericSet)
-      {
-        for (float rotation = 0f; rotation < 360f; rotation += 8f)
-        {
-          Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
-          Dust.NewDustPerfect(spawnPosition, ModContent.DustType<AuraDust>(), null, 255, new Color(255, 255, 255), 1f);
-        }
-        regenAura = true;
-      }
+      // ////////// DELETE THIS LATER //////////
+      // if (hasClericSet)
+      // {
+      //   for (float rotation = 0f; rotation < 360f; rotation += 8f)
+      //   {
+      //     Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, clericAuraRadius).RotatedBy(MathHelper.ToRadians(rotation));
+      //     Dust.NewDustPerfect(spawnPosition, ModContent.DustType<AuraDust>(), null, 255, new Color(255, 255, 255), 1f);
+      //   }
+      //   burnAura = true;
+      //   foreach (NPC npc in Main.npc)
+      //   if (Vector2.Distance(npc.position, player.MountedCenter) <= clericAuraRadius)
+      //   {
+      //     npc.AddBuff(BuffID.OnFire, 1);
+      //   }
+      // }
     }
 
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)

@@ -9,7 +9,7 @@ using System;
 using UnbiddenMod.Dusts;
 using static UnbiddenMod.UnbiddenUtils;
 
-namespace UnbiddenMod.Items.Weapons
+namespace UnbiddenMod.Items
 {
   public abstract class ClericItem : ModItem
   {

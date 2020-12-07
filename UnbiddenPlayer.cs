@@ -37,6 +37,7 @@ namespace UnbiddenMod
     public bool regenAura = false;
     public bool burnAura = false;
     public bool cFlameAura = false;
+    public bool ampCapacitor = false;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -56,6 +57,7 @@ namespace UnbiddenMod
       regenAura = false;
       burnAura = false;
       cFlameAura = false;
+      ampCapacitor = false;
       resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
     }
 
@@ -92,6 +94,21 @@ namespace UnbiddenMod
             {
               npc.AddBuff(BuffID.CursedInferno, 180);
             }
+          }
+        }
+      }
+      if(ampCapacitor)
+      {
+        float ampRadiusBoost = 0;
+        GenerateAuraField(player, ModContent.DustType<MoonBlastDust>(), ampRadiusBoost);
+        foreach(Projectile projectile in Main.projectile)
+        {
+          int originalDMG = projectile.damage;
+          Vector2 originalV = projectile.velocity;
+          if (Vector2.Distance(projectile.position, player.MountedCenter) <= (clericAuraRadius + ampRadiusBoost))
+          {
+            projectile.damage *= 2;
+            projectile.velocity *= 2f;
           }
         }
       }

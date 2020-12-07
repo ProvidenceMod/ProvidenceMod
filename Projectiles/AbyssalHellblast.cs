@@ -36,17 +36,9 @@ namespace UnbiddenMod.Projectiles
             NPC npc = Main.npc[(int)projectile.ai[0]];
             projectile.ai[1] += 1f;
             projectile.localAI[0] += 1f;
-            // SetDirection(npc);
-            // int npcType = ModContent.NPCType<NPCs.FireAncient.FireAncient>();
-            // FireAncient npc2 = (FireAncient)ModContent.GetModNPC(npcType);
-            // IList<int> targets = npc2.targets;
             IList<int> targets = ((FireAncient)npc.modNPC).targets;
             int player2 = targets[0];
             Player player = Main.player[player2];
-            /*Vector2 directionTo = projectile.DirectionTo(player.Center);
-            projectile.velocity.Y = directionTo.Y * 10f;
-            projectile.velocity.X = directionTo.X * 10f;
-            */
             if (++projectile.frameCounter >= 3) // Frame time
             {
                 projectile.frameCounter = 0;
@@ -57,44 +49,9 @@ namespace UnbiddenMod.Projectiles
             }
             Vector2 offset = Main.player[player2].position - projectile.position;
             float speedCap = 8f;
-            float gainStrengh = 0.2f;
+            float gainStrength = 0.2f;
             float slowStrength = 1.1f;
-            UnbiddenGlobalProjectile.IsHoming(projectile, offset, speedCap, gainStrengh, slowStrength);
-            /*
-            if(offset.X > 0)
-            {
-                if(projectile.velocity.X < 0)
-                    projectile.velocity.X /= 1.1f;
-                if(projectile.velocity.X < 10f)
-                    projectile.velocity.X += 0.3f;
-            }
-            if (offset.X < 0)
-            {
-                if(projectile.velocity.X > 0)
-                    projectile.velocity.X /= 1.1f;
-                if(projectile.velocity.X > -10f)
-                    projectile.velocity.X -= 0.3f;
-            }
-            if (offset.X == 0)
-                projectile.velocity.X = 0f;
-            /////
-            if(offset.Y > 0)
-            {
-                if(projectile.velocity.Y < 0)
-                    projectile.velocity.Y /= 1.1f;
-                if(projectile.velocity.Y < 10f)
-                    projectile.velocity.Y += 0.3f;
-            }
-            if (offset.Y < 0)
-            {
-                if(projectile.velocity.Y > 0)
-                    projectile.velocity.Y /= 1.1f;
-                if(projectile.velocity.Y > -10f)
-                    projectile.velocity.Y -= 0.3f;
-            }
-            if (offset.Y == 0)
-                projectile.velocity.Y = 0f;
-            */
+            UnbiddenGlobalProjectile.IsHomingPlayer(projectile, offset, player, speedCap, gainStrength, slowStrength);
         }
 
         private void SetDirection(NPC npc)

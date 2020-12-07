@@ -47,26 +47,21 @@ namespace UnbiddenMod.Projectiles
       for (int i = 0; i < 200; i++)
       {
         NPC target = Main.npc[i];
-        //This will allow the projectile to only target hostile NPC's by referencing the variable, "target", above
-        if (target.active && !target.dontTakeDamage && !target.friendly)
+        //This will allow the projectile to only target hostile NPC's by referencing the variable, "target", above'
+        
+        Vector2 offset = target.position - projectile.position;
+        float speedCap = 20f;
+        float gainStrength = 1.0f;
+        float slowStrength = 1.1f;
+        // Finding the horizontal position of the target and adjusting trajectory accordingly
+        float shootToX = target.position.X + (float)target.width * 0.5f - projectile.Center.X;
+        // Finding the vertical position of the target and adjusting trajectory accordingly
+        float shootToY = target.position.Y - projectile.Center.Y;
+        //  √ shootToX² + shootToY², using the Pythagorean Theorem to calculate the distance from the target
+        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+        if (distance < 600f && !target.friendly && target.active)
         {
-          //Finding the horizontal position of the target and adjusting trajectory accordingly
-          float shootToX = target.position.X + (float)target.width * 0.5f - projectile.Center.X;
-          //Finding the vertical position of the target and adjusting trajectory accordingly
-          float shootToY = target.position.Y - projectile.Center.Y;
-          //  √ shootToX² + shootToY², using the Pythagorean Theorem to calculate the distance from the target
-          float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-          //f, in this scenario, is a measurement of Pixel Distance
-          if (distance < 80f && !target.friendly && target.active)
-          {
-            distance = 3f / distance;
-            shootToY *= distance * 5;
-            shootToX *= distance * 5;
-
-            projectile.velocity.Y = shootToY;
-            projectile.velocity.X = shootToX;
-          }
+          UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, target, speedCap, gainStrength, slowStrength);
         }
       }
     }

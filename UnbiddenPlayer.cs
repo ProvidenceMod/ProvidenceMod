@@ -36,6 +36,7 @@ namespace UnbiddenMod
     public float clericAuraRadius = 300f;
     public bool regenAura = false;
     public bool burnAura = false;
+    public bool cFlameAura = false;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -54,6 +55,7 @@ namespace UnbiddenMod
       clericAuraRadius = 300f;
       regenAura = false;
       burnAura = false;
+      cFlameAura = false;
       resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
     }
 
@@ -74,9 +76,21 @@ namespace UnbiddenMod
           GenerateAuraField(player, ModContent.DustType<AuraDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + burnRadiusBoost))
+            if (!npc.townNPC && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + burnRadiusBoost))
             {
               npc.AddBuff(BuffID.OnFire, 1);
+            }
+          }
+        }
+        if (cFlameAura)
+        {
+          float cFRadiusBoost = -150f;
+          GenerateAuraField(player, ModContent.DustType<AuraDust>(), cFRadiusBoost);
+          foreach (NPC npc in Main.npc)
+          {
+            if (!npc.townNPC && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + cFRadiusBoost))
+            {
+              npc.AddBuff(BuffID.CursedInferno, 180);
             }
           }
         }

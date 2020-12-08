@@ -141,7 +141,9 @@ namespace UnbiddenMod
       for (float rotation = 0f; rotation < 360f; rotation += 8f)
       {
         Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius + radiusBoost).RotatedBy(MathHelper.ToRadians(rotation));
-        Dust.NewDustPerfect(spawnPosition, dust, null, 255, new Color(255, 255, 255), 1f);
+        Dust d = Dust.NewDustPerfect(spawnPosition, dust, null, 90, new Color(255, 255, 255), 1f);
+        d.noLight = true;
+        d.noGravity = true;
       }
     }
 

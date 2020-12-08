@@ -103,12 +103,20 @@ namespace UnbiddenMod
         GenerateAuraField(player, ModContent.DustType<MoonBlastDust>(), ampRadiusBoost);
         foreach(Projectile projectile in Main.projectile)
         {
-          int originalDMG = projectile.damage;
-          Vector2 originalV = projectile.velocity;
-          if (Vector2.Distance(projectile.position, player.MountedCenter) <= (clericAuraRadius + ampRadiusBoost))
+          if (Vector2.Distance(projectile.position, player.MountedCenter) <= (clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
           {
-            projectile.damage *= 2;
-            projectile.velocity *= 2f;
+            if (projectile.friendly)
+            {
+              projectile.damage = (int)(projectile.damage * 1.15);
+              projectile.velocity *= 1.15f;
+              projectile.Unbidden().amped = true;
+            } 
+            else if (projectile.hostile)
+            {
+              projectile.damage = (int)(projectile.damage * 0.85);
+              projectile.velocity *= 0.85f;
+              projectile.Unbidden().amped = true; 
+            }
           }
         }
       }

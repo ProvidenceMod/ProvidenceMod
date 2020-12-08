@@ -17,6 +17,7 @@ namespace UnbiddenMod
     // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
     public bool deflected = false;
+    public bool amped = false;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / (int) Main.projFrames[projectile.type];

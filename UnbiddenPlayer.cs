@@ -38,6 +38,10 @@ namespace UnbiddenMod
     public bool burnAura = false;
     public bool cFlameAura = false;
     public bool ampCapacitor = false;
+    public bool bastionsAegis = false;
+    public int dashTimeMod;
+    public int dashMod;
+    public int dashModDelay;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -133,41 +137,83 @@ namespace UnbiddenMod
         return obj;
       }
     }
-
-    public static List<Keys> GetPressedKeys()
+    public override void PostUpdateRunSpeeds()
     {
-      List<Keys> list = ((IEnumerable<Keys>)Main.keyState.GetPressedKeys()).ToList<Keys>();
-      for (int index = list.Count - 1; index >= 0; --index)
-      {
-        if (list[index] == Keys.None)
-          list.RemoveAt(index);
-      }
-      return list;
+      if (dashMod > 0)
+        ModDashMovement();
+      if(dashModDelay > 0)
+        player.releaseLeft = false;
+        dashModDelay--;
     }
-
-    public bool DoubleTapVertical()
+    public void ModDashMovement()
     {
-      bool w1 = false;
-      bool w2 = false;
-      List<Keys> pressedKeys = UnbiddenPlayer.GetPressedKeys();
-      if (pressedKeys.Count == 0)
-        return false;
-      for (int k = 1; k < pressedKeys.Count; k++)
+      if (dashMod == 1)
       {
-        if (pressedKeys[k] == Keys.W && k == 1)
-          w1 = true;
-        if (pressedKeys[k] == Keys.W && k == 2)
-          w2 = true;
+        float dashStrength = 12f;
+        int dashDir = 0;
+        bool isDashingHorizontal = false;
+        bool isDashingVertical = false;
+        if (this.dashTimeMod > 0)
+          --this.dashTimeMod;
+        if (this.dashTimeMod < 0)
+          ++this.dashTimeMod;
+        if (player.controlRight && player.releaseRight)
+        {
+          if (player.dashTime > 0)
+          {
+            dashDir = 1;
+            isDashingHorizontal = true;
+            player.dashTime = 0;
+          }
+          else
+            player.dashTime = 15;
+        }
+        else if (player.controlLeft && player.releaseLeft)
+        {
+          if (player.dashTime < 0)
+          {
+            dashDir = -1;
+            isDashingHorizontal = true;
+            player.dashTime = 0;
+          }
+          else
+            player.dashTime = -15;
+        }
+        else if (player.controlUp && player.releaseUp)
+        {
+          if(player.dashTime < 0)
+          {
+            dashDir = -1;
+            isDashingVertical = true;
+            player.dashTime = 0;
+          }
+          else 
+            player.dashTime = -15;
+        }
+        else if (player.controlDown && player.releaseDown)
+        {
+          if(player.dashTime > 0)
+          {
+            dashDir = 1;
+            isDashingVertical = true;
+            player.dashTime = 0;
+          }
+          else 
+            player.dashTime = 15;
+        }
+        if(!isDashingHorizontal && !isDashingVertical)
+          return;
+        if(isDashingHorizontal)
+          player.velocity.X = dashStrength * dashDir;
+        if(isDashingVertical)
+          player.velocity.Y = dashStrength * dashDir;
+        Point tileCoordinates1 = (player.Center + new Vector2((float) (dashDir * player.width / 2 + 2), (float) ((double) player.gravDir * (double) -player.height / 2.0 + (double) player.gravDir * 2.0))).ToTileCoordinates();
+        Point tileCoordinates2 = (player.Center + new Vector2((float) (dashDir * player.width / 2 + 2), 0.0f)).ToTileCoordinates();
+        if (WorldGen.SolidOrSlopedTile(tileCoordinates1.X, tileCoordinates1.Y) || WorldGen.SolidOrSlopedTile(tileCoordinates2.X, tileCoordinates2.Y))
+          player.velocity.X /= 2f;
+        player.dashDelay = 200;
       }
-      if (w1 == true && w2 == true)
-      {
-        player.velocity.Y = -24;
-        return true;
-      }
-      else
-        return false;
     }
-
     public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
     {
       if (brimHeart)
@@ -331,26 +377,26 @@ namespace UnbiddenMod
           if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
           {
             if (player.HeldItem.Unbidden().element == 0)
-              Main.combatText[combatIndex2].color = new Color(235, 90, 33);
+              Main.combatText[combatIndex2].color = new Color(238, 74, 89);
             else if (player.HeldItem.Unbidden().element == 1)
-              Main.combatText[combatIndex2].color = new Color(0, 255, 255);
+              Main.combatText[combatIndex2].color = new Color(238, 74, 204);
             else if (player.HeldItem.Unbidden().element == 2)
-              Main.combatText[combatIndex2].color = new Color(235, 255, 0);
+              Main.combatText[combatIndex2].color = new Color(238, 226, 74);
             else if (player.HeldItem.Unbidden().element == 3)
-              Main.combatText[combatIndex2].color = new Color(0, 0, 255);
+              Main.combatText[combatIndex2].color = new Color(74, 95, 238);
             else if (player.HeldItem.Unbidden().element == 4)
-              Main.combatText[combatIndex2].color = new Color(0, 255, 0);
+              Main.combatText[combatIndex2].color = new Color(74, 238, 137);
             else if (player.HeldItem.Unbidden().element == 5)
-              Main.combatText[combatIndex2].color = new Color(128, 0, 255);
+              Main.combatText[combatIndex2].color = new Color(145, 74, 238);
             else if (player.HeldItem.Unbidden().element == 6)
-              Main.combatText[combatIndex2].color = new Color(255, 228, 153);
+              Main.combatText[combatIndex2].color = new Color(255, 216, 117);
             else if (player.HeldItem.Unbidden().element == 7)
-              Main.combatText[combatIndex2].color = new Color(74, 18, 179);
+              Main.combatText[combatIndex2].color = new Color(96, 0, 188);
           }
         }
       }
     }
-      
+    
     
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
     {

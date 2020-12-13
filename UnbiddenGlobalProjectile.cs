@@ -132,6 +132,65 @@ namespace UnbiddenMod
       if (offset.Y == 0)
         projectile.velocity.Y = 0f;
     }
+    public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+    {
+      for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
+      {
+        CombatText combatText = Main.combatText[combatIndex2];
+        if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
+        {
+          if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
+          {
+            if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 0)
+              Main.combatText[combatIndex2].color = new Color(238, 74, 89);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 1)
+              Main.combatText[combatIndex2].color = new Color(238, 74, 204);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 2)
+              Main.combatText[combatIndex2].color = new Color(238, 226, 74);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 3)
+              Main.combatText[combatIndex2].color = new Color(74, 95, 238);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 4)
+              Main.combatText[combatIndex2].color = new Color(74, 238, 137);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 5)
+              Main.combatText[combatIndex2].color = new Color(145, 74, 238);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 6)
+              Main.combatText[combatIndex2].color = new Color(255, 216, 117);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 7)
+              Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+          }
+        }
+      }
+    }
+    public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
+    {
+      for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
+      {
+        CombatText combatText = Main.combatText[combatIndex2];
+        if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
+        {
+          if (combatText.color == CombatText.DamagedFriendly || combatText.color == CombatText.DamagedFriendlyCrit)
+          {
+            if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 0)
+              Main.combatText[combatIndex2].color = new Color(238, 74, 89);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 1)
+              Main.combatText[combatIndex2].color = new Color(238, 74, 204);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 2)
+              Main.combatText[combatIndex2].color = new Color(238, 226, 74);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 3)
+              Main.combatText[combatIndex2].color = new Color(74, 95, 238);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 4)
+              Main.combatText[combatIndex2].color = new Color(74, 238, 137);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 5)
+              Main.combatText[combatIndex2].color = new Color(145, 74, 238);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 6)
+              Main.combatText[combatIndex2].color = new Color(255, 216, 117);
+            else if (projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element == 7)
+              Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+          }
+        }
+      }
+    }
+    
     public override void SetDefaults(Projectile projectile)
     {
       switch(projectile.type)

@@ -18,6 +18,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
       item.CloneDefaults(ItemID.PlatinumBroadsword);
       item.GetGlobalItem<UnbiddenGlobalItem>().element = 2; // Lightning
       item.autoReuse = true;
+      item.shootSpeed = 10f;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }
 

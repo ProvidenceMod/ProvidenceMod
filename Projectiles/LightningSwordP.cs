@@ -9,7 +9,7 @@ namespace UnbiddenMod.Projectiles
 {
   public class LightningSwordP : ModProjectile
   {
-    public override string Texture => "Terraria/Projectile_" + ProjectileID.SandBallGun;
+    public override string Texture => "Terraria/Projectile_" + ProjectileID.WoodenArrowFriendly;
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Lightning Bolt");
@@ -17,11 +17,9 @@ namespace UnbiddenMod.Projectiles
 
     public override void SetDefaults()
     {
-      projectile.CloneDefaults(ProjectileID.CultistBossLightningOrb);
+      projectile.CloneDefaults(ProjectileID.WoodenArrowFriendly);
       projectile.damage = 10;
       projectile.timeLeft = 180;
-      projectile.hostile = false;
-      projectile.friendly = true;
       projectile.Unbidden().element = 2;
     }
   }

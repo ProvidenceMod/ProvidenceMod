@@ -21,7 +21,7 @@ namespace UnbiddenMod
     // Elemental variables for Player
 
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "holy", "unholy" };
-    public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
     // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
     public bool angelTear;
@@ -58,7 +58,7 @@ namespace UnbiddenMod
       burnAura = false;
       cFlameAura = false;
       ampCapacitor = false;
-      resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
+      resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     }
 
     public override void Load(TagCompound tag)

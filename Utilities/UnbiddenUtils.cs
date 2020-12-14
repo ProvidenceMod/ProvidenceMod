@@ -94,17 +94,8 @@ namespace UnbiddenMod
       int npcEl = npc.Unbidden().contactDamageEl;
       if (npcEl != -1)
       {
-        float damageFloat = (float)damage, // And the damage we already have, converted to float
-        resistMod = player.Unbidden().resists[npcEl];
-        if (resistMod > 0f) // If you don't have immunity (meaning your resist number is 0 or lower)
-        {
-          damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
-          damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
-        }
-        else // If not, you're damage is set to 1
-        {
-          damage = 1;
-        }
+        int resistMod = player.Unbidden().resists[npcEl];
+        damage -= (int)(Main.expertMode ? resistMod * 0.75 : resistMod * 0.5);
       }
       return damage;
     }
@@ -117,17 +108,8 @@ namespace UnbiddenMod
       int projEl = proj.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
-        float damageFloat = (float)damage, // And the damage we already have, converted to float
-        resistMod = player.Unbidden().resists[projEl];
-        if (resistMod > 0f)
-        {
-          damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
-          damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
-        }
-        else
-        {
-          damage = 1;
-        }
+        int resistMod = player.Unbidden().resists[projEl];
+        damage -= (int)(Main.expertMode ? resistMod * 0.75 : resistMod * 0.5); // set the damage to the int version of the new float, implicitly rounding down to the lower int
       }
       return damage;
     }

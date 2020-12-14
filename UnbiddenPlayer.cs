@@ -41,7 +41,7 @@ namespace UnbiddenMod
     public bool bastionsAegis = false;
     public int dashTimeMod;
     public int dashMod;
-    public int dashModDelay;
+    public int dashModDelay = 60;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -63,6 +63,8 @@ namespace UnbiddenMod
       cFlameAura = false;
       ampCapacitor = false;
       resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+      dashMod = 0;
+      dashTimeMod = 0;
     }
 
     public override void Load(TagCompound tag)
@@ -139,11 +141,12 @@ namespace UnbiddenMod
     }
     public override void PostUpdateRunSpeeds()
     {
-      if (dashMod > 0)
+      if (dashMod > 0 && dashModDelay <= 0)
         ModDashMovement();
-      if(dashModDelay > 0)
+      else {
         player.releaseLeft = false;
         dashModDelay--;
+      }
     }
     public void ModDashMovement()
     {
@@ -151,12 +154,13 @@ namespace UnbiddenMod
       {
         float dashStrength = 12f;
         int dashDir = 0;
+        int delayTime = 60;
         bool isDashingHorizontal = false;
         bool isDashingVertical = false;
-        if (this.dashTimeMod > 0)
-          --this.dashTimeMod;
-        if (this.dashTimeMod < 0)
-          ++this.dashTimeMod;
+        if (player.dashTime > 0)
+          --player.dashTime;
+        if (player.dashTime < 0)
+          ++player.dashTime;
         if (player.controlRight && player.releaseRight)
         {
           if (player.dashTime > 0)
@@ -164,6 +168,7 @@ namespace UnbiddenMod
             dashDir = 1;
             isDashingHorizontal = true;
             player.dashTime = 0;
+            dashModDelay = delayTime;
           }
           else
             player.dashTime = 15;
@@ -175,6 +180,7 @@ namespace UnbiddenMod
             dashDir = -1;
             isDashingHorizontal = true;
             player.dashTime = 0;
+            dashModDelay = delayTime;
           }
           else
             player.dashTime = -15;
@@ -186,6 +192,7 @@ namespace UnbiddenMod
             dashDir = -1;
             isDashingVertical = true;
             player.dashTime = 0;
+            dashModDelay = delayTime;
           }
           else 
             player.dashTime = -15;
@@ -197,6 +204,7 @@ namespace UnbiddenMod
             dashDir = 1;
             isDashingVertical = true;
             player.dashTime = 0;
+            dashModDelay = delayTime;
           }
           else 
             player.dashTime = 15;
@@ -211,7 +219,7 @@ namespace UnbiddenMod
         Point tileCoordinates2 = (player.Center + new Vector2((float) (dashDir * player.width / 2 + 2), 0.0f)).ToTileCoordinates();
         if (WorldGen.SolidOrSlopedTile(tileCoordinates1.X, tileCoordinates1.Y) || WorldGen.SolidOrSlopedTile(tileCoordinates2.X, tileCoordinates2.Y))
           player.velocity.X /= 2f;
-        player.dashDelay = 200;
+        player.dashDelay = 60;
       }
     }
     public override void ModifyManaCost(Item item, ref float reduce, ref float mult)

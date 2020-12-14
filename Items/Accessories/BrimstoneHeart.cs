@@ -19,8 +19,9 @@ namespace UnbiddenMod.Items.Accessories
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<UnbiddenPlayer>().brimHeart = true;
-            player.GetModPlayer<UnbiddenPlayer>().resists[0] += 15;
+            player.Unbidden().brimHeart = true;
+            player.Unbidden().resists[0] += 15;
+            player.Unbidden().affinities[0] += 1;
         }
         public override void AddRecipes()
         {

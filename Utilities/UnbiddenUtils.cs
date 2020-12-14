@@ -39,6 +39,15 @@ namespace UnbiddenMod
     // References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.
     // UnbiddenGlobalProjectile unbiddenProjectile = projectile.Unbidden();
     public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => (UnbiddenGlobalProjectile)proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
+    public static float[,] elemAffDef = new float[2, 15] 
+    {  // Defense score (middle), Damage mult (bottom)
+      {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
+      {1.010f, 1.022f, 1.037f, 1.056f, 1.080f, 1.110f, 5.000f, 1.192f, 1.246f, 1.310f, 1.397f, 1.497f, 1.611f, 1.740f, 1.885f}
+    };
+    public static float[] GetAffinityBonuses(this Player player, int e)
+    {
+      return new float[2] {elemAffDef[0, player.Unbidden().affinities[e]], elemAffDef[1, player.Unbidden().affinities[e]]};
+    }
     // 
     // Summary:
     // Calculates elemental item damage based on UnbiddenGlobalNPC resists.
@@ -59,6 +68,12 @@ namespace UnbiddenMod
         {
           damage = 1;
         }
+        // UnbiddenPlayer modPlayer = Main.player[item.owner].Unbidden();
+        // if (modPlayer.affExpCooldown <= 0)
+        // {
+        //   modPlayer.affExp[weapEl] += 1;
+        //   modPlayer.affExpCooldown = 120;
+        // }
       }
       return damage;
     }
@@ -82,6 +97,12 @@ namespace UnbiddenMod
         {
           damage = 1;
         }
+        // UnbiddenPlayer modPlayer = Main.player[projectile.owner].Unbidden();
+        // if (modPlayer.affExpCooldown <= 0)
+        // {
+        //   modPlayer.affExp[projEl] += 1;
+        //   modPlayer.affExpCooldown = 120;
+        // }
       }
       return damage;
     }

@@ -21,7 +21,10 @@ namespace UnbiddenMod
     // Elemental variables for Player
 
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "holy", "unholy" };
-    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 },
+                 affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+                //  affExp = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+    // public int affExpCooldown = 0;
 
     // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
     public bool angelTear;
@@ -46,7 +49,8 @@ namespace UnbiddenMod
     {
       return new TagCompound {
         {"angelTear", this.angelTear},
-        {"tearCount", this.tearCount}
+        {"tearCount", this.tearCount},
+        // {"affExp", this.affExp}
       };
     }
 
@@ -65,16 +69,66 @@ namespace UnbiddenMod
       resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       dashMod = 0;
       dashTimeMod = 0;
+      affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     }
 
     public override void Load(TagCompound tag)
     {
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
+      // affExp = tag.GetIntArray("affExp");
     }
-
+    // private void DetermineAffinityLevel()
+    // {
+    //   for (int e = 0; e < 8; e++)
+    //   {
+    //     affinities[e] = DetermineElAffinityLevel(e);
+    //   }
+    // }
+    // private int DetermineElAffinityLevel(int e)
+    // {
+    //   // Spoofed numbers for actual experience caps, just to proof of concept.
+    //   int elExp = affExp[e];
+    //   if (elExp >= 15)
+    //     return 15;
+    //   else if (elExp >= 14)
+    //     return 14;
+    //   else if (elExp >= 13)
+    //     return 13;
+    //   else if (elExp >= 12)
+    //     return 12;
+    //   else if (elExp >= 11)
+    //     return 11;
+    //   else if (elExp >= 10)
+    //     return 10;
+    //   else if (elExp >= 9)
+    //     return 9;
+    //   else if (elExp >= 8)
+    //     return 8;
+    //   else if (elExp >= 7)
+    //     return 7;
+    //   else if (elExp >= 6)
+    //     return 6;
+    //   else if (elExp >= 5)
+    //     return 5;
+    //   else if (elExp >= 4)
+    //     return 4;
+    //   else if (elExp >= 3)
+    //     return 3;
+    //   else if (elExp >= 2)
+    //     return 2;
+    //   else if (elExp >= 1)
+    //     return 1;
+    //   else
+    //     return 0;
+    // }
     public override void PostUpdate()
     {
+      // // Provide a cooldown so it's actually a challenge to level up naturally
+      // if (affExpCooldown > 0)
+      // {
+      //   affExpCooldown--;
+      // }
       ////////// DELETE THIS LATER //////////
       if (hasClericSet)
       {

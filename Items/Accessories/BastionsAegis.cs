@@ -21,9 +21,10 @@ namespace UnbiddenMod.Items.Accessories
         public override void UpdateEquip(Player player)
         {
             UnbiddenPlayer unbiddenPlayer = player.Unbidden();
+            unbiddenPlayer.bastionsAegis = true;
             unbiddenPlayer.hasClericSet = true;
             unbiddenPlayer.burnAura = true;
-            player.dash = 20;
+            unbiddenPlayer.dashMod = 1;
         }
     }
 }

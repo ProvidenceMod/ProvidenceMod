@@ -20,11 +20,29 @@ namespace UnbiddenMod
 {
   public static class UnbiddenUtils
   {
+    // Summary:
+    // References the UnbiddenPlayer instance. Shorthand for ease of use.
+    // UnbiddenPlayer unbiddenPlayer = player.Unbidden();
     public static UnbiddenPlayer Unbidden(this Player player) => (UnbiddenPlayer)player.GetModPlayer<UnbiddenPlayer>();
+    // 
+    // Summary:
+    // References the UnbiddenGlobalNPC instance. Shorthand for ease of use.
+    // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
     public static UnbiddenGlobalNPC Unbidden(this NPC npc) => (UnbiddenGlobalNPC)npc.GetGlobalNPC<UnbiddenGlobalNPC>();
+    // 
+    // Summary:
+    // References the UnbiddenGlobalItem instance. Shorthand for ease of use.
+    // UnbiddenGlobalItem unbiddenItem = item.Unbidden();
     public static UnbiddenGlobalItem Unbidden(this Item item) => (UnbiddenGlobalItem)item.GetGlobalItem<UnbiddenGlobalItem>();
+    // 
+    // Summary:
+    // References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.
+    // UnbiddenGlobalProjectile unbiddenProjectile = projectile.Unbidden();
     public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => (UnbiddenGlobalProjectile)proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
-
+    // 
+    // Summary:
+    // Calculates elemental item damage based on UnbiddenGlobalNPC resists.
+    // UnbiddenUtils.CalcEleDamage(Item item, NPC npc, ref int damage);
     public static int CalcEleDamage(this Item item, NPC npc, ref int damage)
     {
       int weapEl = item.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -44,6 +62,10 @@ namespace UnbiddenMod
       }
       return damage;
     }
+    // 
+    // Summary:
+    // Calculates elemental projectile damage based on UnbiddenGlobalNPC resists.
+    // UnbiddenUtils.CalcEleDamage(Projectile projectile, NPC npc, ref int damage);
     public static int CalcEleDamage(this Projectile projectile, NPC npc, ref int damage)
     {
       int projEl = projectile.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -63,7 +85,10 @@ namespace UnbiddenMod
       }
       return damage;
     }
-
+    // 
+    // Summary:
+    // Calculates elemental damage based on UnbiddenPlayer resists.
+    // UnbiddenUtils.CalcEleDamageFromNPC(Player player, NPC npc, ref int damage);
     public static int CalcEleDamageFromNPC(this Player player, NPC npc, ref int damage)
     {
       int npcEl = npc.Unbidden().contactDamageEl;
@@ -83,6 +108,10 @@ namespace UnbiddenMod
       }
       return damage;
     }
+    // 
+    // Summary:
+    // Calculates elemental projectile damage based on UnbiddenPlayer resists.
+    // UnbiddenUtils.CalcEleDamageFromProj(Player player, Projectile proj, ref int damage);
     public static int CalcEleDamageFromProj(this Player player, Projectile proj, ref int damage)
     {
       int projEl = proj.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -102,7 +131,10 @@ namespace UnbiddenMod
       }
       return damage;
     }
-
+    // 
+    // Summary:
+    // Allows players to parry. Call this when executing a swing.
+    // UnbiddenUtils.Parry(Player player, Rectangle hitbox);
     public static void Parry(Player player, Rectangle hitbox)
     {
       int NoOfProj = Main.projectile.Length;
@@ -134,7 +166,10 @@ namespace UnbiddenMod
         player.AddBuff(ModContent.BuffType<CantDeflect>(), affectedProjs * 60, true);
       }
     }
-
+    // 
+    // Summary:
+    // Generates dust particles based on Aura size. Call when adding an Aura buff.
+    // UnbiddenUtils.GenerateAuraField(Player player, int dust, float radiusBoost);
     public static void GenerateAuraField(Player player, int dust, float radiusBoost)
     {
       UnbiddenPlayer mP = player.Unbidden();
@@ -146,12 +181,20 @@ namespace UnbiddenMod
         d.noGravity = true;
       }
     }
-
+    // 
+    // Summary:
+    // Add to a list if condition returns true.
+    // UnbiddenUtils.AddWithCondition(List<T> list, T type, bool condition);
     public static void AddWithCondition<T>(this List<T> list, T type, bool condition)
     {
       if (!condition)
         return;
       list.Add(type);
+    }
+    public static Color ColorShift(Color firstColor, Color secondColor, float seconds)
+    {
+      float amount = (float) ((Math.Sin((Math.PI * Math.PI) / seconds * Main.GlobalTime) + 1.0) * 0.5);
+      return Color.Lerp(firstColor, secondColor, amount);
     }
   }
 }

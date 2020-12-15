@@ -184,6 +184,30 @@ namespace UnbiddenMod
         d.noGravity = true;
       }
     }
+    public static NPC ClosestEnemyNPC(Projectile projectile)
+    {
+      float shortest = -1f;
+      NPC chosenNPC = null;
+      foreach (NPC npc in Main.npc)
+      {
+        if (npc.active && !npc.townNPC && !npc.friendly)
+        {
+          float dist = Vector2.Distance(projectile.position, npc.position);
+          if (dist < shortest || shortest == -1f)
+          {
+            shortest = dist;
+            chosenNPC = npc;
+          }
+        }
+      }
+      return chosenNPC;
+    }
+
+    public static Vector2 RotateTo(this Vector2 v, float rotation)
+    {
+      float oldVRotation = v.ToRotation();
+      return v.RotatedBy(rotation - oldVRotation);
+    }
     // 
     // Summary:
     // Add to a list if condition returns true.

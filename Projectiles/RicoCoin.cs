@@ -9,6 +9,7 @@ namespace UnbiddenMod.Projectiles
 {
   public class RicoCoin : ModProjectile
   {
+    private bool primed = false;
     public bool ricocheted = false;
     public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;
     public override void SetStaticDefaults()
@@ -48,6 +49,14 @@ namespace UnbiddenMod.Projectiles
       {
         if (proj2.active && !proj2.hostile && proj2.friendly && proj2 != projectile && projectile.Hitbox.Intersects(proj2.Hitbox))
         {
+          if (projectile.timeLeft >= 570)
+          {
+            continue;
+          }
+          if (ricocheted)
+          {
+            continue;
+          }
           if (projectile.type == ModContent.ProjectileType<RicoCoin>() && projectile.type == proj2.type)
           {
             continue;
@@ -60,7 +69,7 @@ namespace UnbiddenMod.Projectiles
             if (ClosestEnemyNPC(proj2) != null)
             {
               Main.PlaySound(SoundID.Item37, proj2.position);
-              proj2.damage *= 2;
+              proj2.damage += 600 - projectile.timeLeft > proj2.damage * 5 ? proj2.damage * 5 : 600 - projectile.timeLeft;
               proj2.velocity = proj2.velocity.RotateTo(ClosestEnemyNPC(proj2).AngleFrom(proj2.position));
             }
             else {

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+
+- name: First interaction
+  uses: actions/first-interaction@v1.1.0
+  with:
+    # Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}
+    repo-token: {{ secrets.GITHUB_TOKEN }}
+    # Comment to post on an individual's first issue
+    issue-message: Hi there! I see that you're new to our discussions! Please be sure to mind the posting guideless and to follow the templates. If you are unsure about whether to post something, please join our discord server for further assistance. [Discord Server](https://discord.gg/bhCuppRdVF)
+    # Comment to post on an individual's first pull request
+    pr-message: Hi there! I see that you're making a pull request! Thank you for your contribution, and please be sure to mind the posting guideless regarding code suggestions. If you are unsure, please join our discord server for further assistance. [Discord Server](https://discord.gg/bhCuppRdVF)

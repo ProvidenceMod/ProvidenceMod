@@ -129,6 +129,7 @@ namespace UnbiddenMod
       // {
       //   affExpCooldown--;
       // }
+      UnbiddenUtils.CalcElemDefense(player);
       ////////// DELETE THIS LATER //////////
       if (hasClericSet)
       {
@@ -332,7 +333,6 @@ namespace UnbiddenMod
     }
     public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
     {
-      Player player = Main.player[proj.owner];
       Item item = player.inventory[player.selectedItem];
       if (target.boss && target.active)
       {

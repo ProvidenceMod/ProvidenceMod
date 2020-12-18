@@ -385,7 +385,7 @@ namespace UnbiddenMod
     {
       Player player = info.drawPlayer; //the player!
 
-      if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0)
+      /*if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0)
       {
         Texture2D tex = mod.GetTexture("Items/Weapons/Melee/MoonCleaverGlow");
         Main.playerDrawData.Add(
@@ -400,7 +400,7 @@ namespace UnbiddenMod
             info.spriteEffects,
             0
           ));
-      }
+      }*/
     }
 
     /*private void DrawSwordAnimation(PlayerDrawInfo info)

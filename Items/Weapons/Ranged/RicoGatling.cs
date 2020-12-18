@@ -12,48 +12,28 @@ using Terraria.Audio;
 
 namespace UnbiddenMod.Items.Weapons.Ranged
 {
-  public class RicochetRevolver : ModItem
+  public class RicoGatling : ModItem
   {
-    public override string Texture => "Terraria/Item_" + ItemID.Revolver;
+    public override string Texture => "Terraria/Item_" + ItemID.Minishark;
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Trickshot Revolver");
-      Tooltip.SetDefault("Right-click to flip a coin. Shoot said coins to ricochet your shot into an enemy!\nYou can even chain ricochets together!");
+      DisplayName.SetDefault("Trickshot Gatling Gun");
+      Tooltip.SetDefault("Fires a stream of bullets, will sometimes spew a coin out!");
     }
 
     public override void SetDefaults()
     {
-      item.CloneDefaults(ItemID.Revolver);
+      item.CloneDefaults(ItemID.Minishark);
     }
 
-    public override bool AltFunctionUse(Player player)
+    public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
     {
-      return true;
-    }
-
-    public override bool ConsumeAmmo(Player player)
-    {
-      if (player.altFunctionUse == 2)
+      if (Main.rand.Next(100) <= 15) // 15% chance
       {
-        return false;
-      }
-      return true;
-    }
-    public override bool CanUseItem(Player player)
-    {
-      if (player.altFunctionUse == 2)
-      {
-        item.shoot = ModContent.ProjectileType<RicoCoin>();
-        item.useAmmo = AmmoID.None;
-        item.shootSpeed = 5f;
-        item.UseSound = new LegacySoundStyle(38, 1, Terraria.Audio.SoundType.Sound); // Coin Pickup sound
-      }
-      else
-      {
-        item.useAmmo = AmmoID.Bullet;
-        item.shootSpeed = 10f;
-        item.UseSound = SoundID.Item41;
+        type = ModContent.ProjectileType<RicoCoin>();
+        speedX /= 2;
+        speedY /= 2;
       }
       return true;
     }

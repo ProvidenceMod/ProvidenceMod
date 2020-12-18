@@ -9,7 +9,7 @@ namespace UnbiddenMod
     // Elemental variables for NPC's
 
     public int contactDamageEl = -1; // Contact damage element, -1 by default for typeless
-    public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f }; // Fire, Ice, Lightning, Water, Earth, Air, Holy, Unholy
+    public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f }; // Fire, Ice, Lightning, Water, Earth, Air, Radiant, Necrotic
 
     // Elemental variables also contained within GlobalItem, GlobalProjectile, and Player
     public override bool InstancePerEntity => true;

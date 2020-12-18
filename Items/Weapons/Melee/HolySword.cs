@@ -4,18 +4,18 @@ using Terraria;
 
 namespace UnbiddenMod.Items.Weapons.Melee
 {
-    public class HolySword : ModItem
+    public class RadiantSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Holy Sword");
+            DisplayName.SetDefault("Radiant Sword");
             Tooltip.SetDefault("\"An exalted sword\"");
         }
 
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.PlatinumBroadsword);
-            item.GetGlobalItem<UnbiddenGlobalItem>().element = 6; // Holy
+            item.GetGlobalItem<UnbiddenGlobalItem>().element = 6; // Radiant
             item.autoReuse = true;
             // item.shoot = true; // Commenting this until we have a projectile to shoot
         }

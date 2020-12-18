@@ -20,7 +20,7 @@ namespace UnbiddenMod
 
     // Elemental variables for Player
 
-    public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "holy", "unholy" };
+    public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 },
                  affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
                 //  affExp = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };

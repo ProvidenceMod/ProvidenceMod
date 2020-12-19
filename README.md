@@ -7,8 +7,7 @@ You've destroyed Golem, you've assaulted the Lunatic Cultist, halted the Lunar e
 Hells no! You've got a lot left to do. Moon Lord was only the beginning. The calamities you've faced, the hells you've endured, it's only the tip of the iceberg. The cosmos had reared its ugly head for but a moment, and you were nearly obliterated. Impossible odds are against you now as not only the cosmos, but beyond, in the Aether, face you in full and bring its worst down upon you. You're nearing your journey's end. The true question is:
 
 ***Are you ready?***
-_________________________________________________________________________________________________________________________________________________________________________________
-
+___
 This is the source-code for the UnbiddenMod project.
 
 ## Unbidden Mod

@@ -17,7 +17,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves into
 
 ## Installation
 In order to install our mod, simply follow these steps:
-1. Copy the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/)
+1. Copy the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/).
 2. Once you have done that, you can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding experience, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) made by the tModLoader team.
 
 ## Contributing:

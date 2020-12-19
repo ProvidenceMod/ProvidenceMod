@@ -46,5 +46,3 @@ In order to install our mod, simply follow these steps:
   </div>
   </a>
 </div>
-
-_[FenGoScrem](https://github.com/FenGoScrem), [LanceYosh](https://github.com/LanceYosh), [SnowyStarfall](https://github.com/SnowyStarfall), [Zackfox0](https://github.com/ZackFox0)_

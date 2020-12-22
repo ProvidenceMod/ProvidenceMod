@@ -117,7 +117,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
                     npc.velocity.Y = 0f;
             }
             /////
-            
+            // Harpy Feather Projecti= 38
+
         }
 
         private void Talk(string message)
@@ -125,7 +126,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
             if (Main.netMode != NetmodeID.Server)
             {
                 string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
-                Main.NewText(text, 241, 127, 82);
+                Main.NewText(text, 4, 127, 82);
             }
             else
             {

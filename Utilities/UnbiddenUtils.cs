@@ -44,12 +44,16 @@ namespace UnbiddenMod
       {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
       {1.010f, 1.022f, 1.037f, 1.056f, 1.080f, 1.110f, 5.000f, 1.192f, 1.246f, 1.310f, 1.397f, 1.497f, 1.611f, 1.740f, 1.885f}
     };
-    public static void CalcElemDefense(Player player)
+    public static void CalcElemDefense(this Player player)
     {
-      UnbiddenPlayer unPlayer = player.Unbidden();
+      UnbiddenPlayer unPlayer = player.GetModPlayer<UnbiddenPlayer>();
       for(int k = 0 ; k < 8 ; k++)
       {
-       unPlayer.resists[k] = (int) UnbiddenUtils.elemAffDef[unPlayer.affinities[k] - 1, 1];
+        int index = unPlayer.affinities[k] - 1;
+        if (index == -1) 
+          unPlayer.resists[k] = 0;
+        else
+          unPlayer.resists[k] = (int) UnbiddenUtils.elemAffDef[0, index];
       }
     }
     public static float[] GetAffinityBonuses(this Player player, int e)

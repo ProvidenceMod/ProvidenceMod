@@ -129,7 +129,7 @@ namespace UnbiddenMod
       // {
       //   affExpCooldown--;
       // }
-      UnbiddenUtils.CalcElemDefense(player);
+      player.CalcElemDefense();
       ////////// DELETE THIS LATER //////////
       if (hasClericSet)
       {

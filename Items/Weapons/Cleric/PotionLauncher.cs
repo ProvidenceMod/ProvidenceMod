@@ -21,10 +21,10 @@ namespace UnbiddenMod.Items.Weapons.Cleric
     {
       item.width = 40;
       item.height = 16;
-      item.useStyle = 5;
+      item.useStyle = ItemUseStyleID.HoldingOut;
       item.knockBack = 1f;
       item.damage = 100;
-      item.rare = 4;
+      item.rare = ItemRarityID.LightRed;
       item.autoReuse = true;
       item.useAnimation = 30;
       item.useTime = 30;

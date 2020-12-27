@@ -32,7 +32,6 @@ namespace UnbiddenMod.Projectiles
 
     public override void AI()
     {
-      Player player = Main.player[projectile.owner];
       Lighting.AddLight(projectile.Center,(float) Main.DiscoR / 400f, (float) Main.DiscoG / 400f, (float) Main.DiscoB / 400f);
       projectile.ai[0] += 1f;
       Color color = new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);

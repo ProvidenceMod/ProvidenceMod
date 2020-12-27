@@ -16,13 +16,13 @@ namespace UnbiddenMod.Items.Weapons.Magic
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(743);
+            item.CloneDefaults(ItemID.RubyStaff);
             item.damage = 20;
             item.width = 90;
             item.height = 90;
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 12;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.useTime = 13;
             item.useAnimation = 13;
             item.scale = 1.0f;
@@ -43,7 +43,7 @@ namespace UnbiddenMod.Items.Weapons.Magic
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
                 // If you want to randomize the speed to stagger the projectiles
                 float scale = 1f - (Main.rand.NextFloat() * .1f);
-                perturbedSpeed = perturbedSpeed * scale;
+                perturbedSpeed *= scale;
                 Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
             return false; // return false because we don't want tModContent to shoot projectile

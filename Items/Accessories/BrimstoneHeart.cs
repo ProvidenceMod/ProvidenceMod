@@ -30,7 +30,7 @@ namespace UnbiddenMod.Items.Accessories
 
             recipe.AddIngredient(ItemID.Ichor, 25); 
             recipe.AddIngredient(ItemID.LifeCrystal, 5);
-            recipe.AddTile(412); // Ancient Manipulator
+            recipe.AddTile(TileID.LunarCraftingStation); // Ancient Manipulator
             recipe.SetResult(this); //Sets the result of this recipe to this item
             recipe.AddRecipe(); //Adds the recipe to the mod
         }

@@ -26,7 +26,7 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.useTime = 15;
       item.useAnimation = 15;
       item.value = 1500;
-      item.rare = 1;
+      item.rare = ItemRarityID.Blue;
     }
     public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
     {

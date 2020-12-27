@@ -36,8 +36,6 @@ namespace UnbiddenMod.Projectiles
 
     public override void AI()
     {
-      // ID'ing player for future reference
-      Player player = Main.player[projectile.owner];
       // Gravity
       projectile.ai[0] += 1f;
       // Rotation

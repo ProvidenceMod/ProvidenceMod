@@ -62,7 +62,7 @@ namespace UnbiddenMod.Items
       if (player.rangedDamage - 1 < globalDmg) { globalDmg = player.rangedDamage - 1; }
       if (player.minionDamage - 1 < globalDmg) { globalDmg = player.minionDamage - 1; }
       if (player.thrownDamage - 1 < globalDmg) { globalDmg = player.thrownDamage - 1; }
-      if (globalDmg > 1) { damage = damage + (int)(originalDmg * globalDmg); }
+      if (globalDmg > 1) { damage += (int)(originalDmg * globalDmg); }
     }
   }
 }

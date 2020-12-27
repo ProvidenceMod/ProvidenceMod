@@ -60,7 +60,7 @@ namespace UnbiddenMod.Items.Consumables
       recipe.AddIngredient(ItemID.FragmentVortex, 15);
       recipe.AddIngredient(ItemID.FragmentStardust, 15);
       recipe.AddIngredient(ItemType<LuminousFragment>(), 5);
-      recipe.AddTile(412); // Ancient Manipulator
+      recipe.AddTile(TileID.LunarCraftingStation); // Ancient Manipulator
       recipe.SetResult(this); //Sets the result of this recipe to this item
       recipe.AddRecipe(); //Adds the recipe to the mod
     }

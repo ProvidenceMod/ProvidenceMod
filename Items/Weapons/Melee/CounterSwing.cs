@@ -23,7 +23,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
 			item.scale = 2.25f;
 			item.useTime = 12;
 			item.useAnimation = 12;
-			item.useStyle = 1;
+			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.knockBack = 6;
 			item.value = 10000;
 			item.rare = 12;

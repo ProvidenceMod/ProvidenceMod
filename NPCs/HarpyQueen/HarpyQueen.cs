@@ -20,7 +20,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       name = "HarpyQueen";
       return mod.Properties.Autoload;
     }
-    public int timer = 10;
+    public int shootTimer = 20;
     public int bulletHellTimer = 0;
     private int? PhaseChecker()
     {
@@ -96,7 +96,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       FindPlayers();
       npc.TargetClosest(false);
       Player player = Main.player[npc.target];
-      UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
+      // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
+      // Vector2 position = player.position;
       /////
       // Movement
       Vector2 offset = npc.position - player.position;
@@ -141,7 +142,18 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       }
       /////
       // Harpy Feather Projecti= 38
-
+      shootTimer -= 1;
+      if(shootTimer == 0)
+      {
+        int type = ProjectileID.MoonlordArrow;
+        float speedX = 0f;
+        float speedY = 10f;
+        Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
+        //Vector2 directionTo = DirectionTo(target.Center);
+        int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
+        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+        shootTimer = 20;
+      }
     }
 
     private void Talk(string message)

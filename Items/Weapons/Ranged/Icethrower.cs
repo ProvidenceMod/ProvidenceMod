@@ -26,11 +26,11 @@ namespace UnbiddenMod.Items.Weapons.Ranged
             item.width = 54;
             item.height = 16;
             item.value = Item.buyPrice(0, 10, 0, 0);
-            item.rare = 5;
+            item.rare = ItemRarityID.Pink;
             item.useTime = 6;
             item.useAnimation = 6;
             item.useTurn = false;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.scale = 1.0f;
             item.ranged = true;
             item.noMelee = true;

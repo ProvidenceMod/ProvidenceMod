@@ -53,7 +53,7 @@ namespace UnbiddenMod.NPCs.FireAncient
             npc.Unbidden().contactDamageEl = 0;
         }
 
-        private int stage
+        private int Stage
         {
             get => (int)npc.ai[0];
             set => npc.ai[0] = value;
@@ -70,7 +70,7 @@ namespace UnbiddenMod.NPCs.FireAncient
             FindPlayers();
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
-            UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
+            // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
             Vector2 offset = npc.position - player.position;
             float speedCap = 8f;
             float gainStrength = 0.2f;
@@ -113,13 +113,13 @@ namespace UnbiddenMod.NPCs.FireAncient
             }
             if (timer == 0)
             {
-                AbyssalHellblast(player);
+                AbyssalHellblast();
                 timer = 50;
             }
             timer--;
         }
 
-        private void AbyssalHellblast(Player target) 
+        private void AbyssalHellblast() 
         {
             /*radialAttack += 1;
             if(radialAttack == 21)
@@ -127,7 +127,6 @@ namespace UnbiddenMod.NPCs.FireAncient
 
 
             int type = mod.ProjectileType("AbyssalHellblast");
-            ModProjectile projectile = ModContent.GetModProjectile(type);
             float speedX = 0f;
             float speedY = 10f;
             Vector2 speed = new Vector2(speedX, speedY);

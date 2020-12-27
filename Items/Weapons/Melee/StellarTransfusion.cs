@@ -28,7 +28,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
             item.shoot = mod.ProjectileType("VampireKnifeClone");
             item.useTime = 13;
             item.useAnimation = 13;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.scale = 1.0f;
             item.melee = true;
             item.autoReuse = true;

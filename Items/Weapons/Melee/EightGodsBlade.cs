@@ -41,7 +41,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
         // If you want to randomize the speed to stagger the projectiles
         float scale = 1f - (Main.rand.NextFloat() * .1f);
-        perturbedSpeed = perturbedSpeed * scale;
+        perturbedSpeed *= scale;
         Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
       }
       return false; // return false because we don't want tModContent to shoot projectile

@@ -69,7 +69,7 @@ namespace UnbiddenMod.NPCs
 
         foreach (Item item in player.inventory)
         {
-          if (item.type == 3539)
+          if (item.type == ItemID.SolarMonolith)
           {
             return true;
           }

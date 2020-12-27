@@ -11,7 +11,7 @@ namespace UnbiddenMod.Projectiles
   {
     private bool primed = false;
     public bool ricocheted = false;
-    public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;
+    public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;    
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Rico-Coin");
@@ -52,7 +52,7 @@ namespace UnbiddenMod.Projectiles
           if (projectile.timeLeft >= 570)
           {
             continue;
-          }
+          }   
           if (ricocheted)
           {
             continue;

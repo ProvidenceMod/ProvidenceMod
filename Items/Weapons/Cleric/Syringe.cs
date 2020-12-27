@@ -18,10 +18,10 @@ namespace UnbiddenMod.Items.Weapons.Cleric
     public override void SetDefaults () {
       item.width = 45;
       item.height = 45;
-      item.useStyle = 3;
+      item.useStyle = ItemUseStyleID.Stabbing;
       item.knockBack = 1f;
       item.damage = 65;
-      item.rare = 4;
+      item.rare = ItemRarityID.LightRed;
       item.autoReuse = true;
       item.useAnimation = 30;
       item.useTime = 30;

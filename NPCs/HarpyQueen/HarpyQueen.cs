@@ -22,7 +22,16 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     }
     public int timer = 10;
     public int bulletHellTimer = 0;
-
+    private int? PhaseChecker()
+    {
+      float pLifeLeft = npc.life / npc.lifeMax * 100;
+      if (pLifeLeft >= 50)
+        return 0;
+      else if (pLifeLeft < 50)
+        return 1;
+      else return null;
+    }
+    private int talkTimer = 60;
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Harpy Queen");
@@ -54,7 +63,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       npc.Unbidden().contactDamageEl = 0;
     }
 
-    private int stage
+    private int Stage
     {
       get => (int)npc.ai[0];
       set => npc.ai[0] = value;
@@ -62,13 +71,27 @@ namespace UnbiddenMod.NPCs.HarpyQueen
 
     public override void AI() //this is where you program your AI
     {
-      bulletHellTimer += 1;
-      npc.ai[0] += 1;
       if (spawnText == false)
       {
         Talk("The Harpy Queen has awoken!");
         spawnText = true;
       }
+      int? phase = PhaseChecker();
+      if (phase == 0)
+      {
+        if (talkTimer == 0)
+        {
+          Talk($"Currently in Phase: {phase}.");
+        }
+        else
+        {
+          talkTimer--;
+        }
+      }
+      bulletHellTimer += 1;
+      npc.ai[0] += 1;
+
+      
       // Gets targets
       FindPlayers();
       npc.TargetClosest(false);

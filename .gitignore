@@ -4,6 +4,7 @@ Unbidden Sprites/desktop.ini
 bin/
 .git/
 .vs/
+.vscode/
 .obj/
 obj/Debug/net45/UnbiddenMod.assets.cache
 obj/Debug/net45/UnbiddenMod.assets.cache

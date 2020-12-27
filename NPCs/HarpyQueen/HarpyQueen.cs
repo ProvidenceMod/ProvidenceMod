@@ -21,8 +21,14 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       return mod.Properties.Autoload;
     }
     public int shootTimer = 20;
+    public int plusTimer = 25;
+    public int xTimer = 25;
+    public int radialTimer = 45;
+    public int flurryTimer = 10;
     public int bulletHellTimer = 0;
-    private int? PhaseChecker()
+    public int phase = 0;
+    private int talkTimer = 60;
+    /*private int? PhaseChecker()
     {
       float pLifeLeft = npc.life / npc.lifeMax * 100;
       if (pLifeLeft >= 50)
@@ -30,8 +36,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       else if (pLifeLeft < 50)
         return 1;
       else return null;
-    }
-    private int talkTimer = 60;
+    }*/
+
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Harpy Queen");
@@ -62,35 +68,156 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       npc.Unbidden().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
       npc.Unbidden().contactDamageEl = 0;
     }
-    public override void AI() //this is where you program your AI
+    public override void AI()
     {
       if (!spawnText)
       {
         Talk("The Harpy Queen has awoken!");
         spawnText = true;
       }
-      int? phase = PhaseChecker();
-      if (phase == 0)
+      // int? phase = PhaseChecker();
+      talkTimer--;
+      if (talkTimer == 0)
       {
-        if (talkTimer == 0)
-        {
-          Talk($"Currently in Phase: {phase}.");
-        }
-        else
-        {
-          talkTimer--;
-        }
+        Talk($"Currently in Phase: {phase}.");
+        talkTimer = 60;
       }
       bulletHellTimer++;
       npc.ai[0]++;
-      // Gets targets
       FindPlayers();
       npc.TargetClosest(false);
       Player player = Main.player[npc.target];
-      // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
-      // Vector2 position = player.position;
-      /////
-      // Movement
+      if (bulletHellTimer < 600)
+      {
+        if (npc.life > npc.lifeMax / 2)
+        {
+          phase = 0;
+          shootTimer--;
+          if (shootTimer == 0)
+          {
+            const float speedX = 0f;
+            const float speedY = 10f;
+            Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
+            //Vector2 directionTo = DirectionTo(target.Center);
+            int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+            NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+            shootTimer = 20;
+          }
+        }
+        else if (npc.life < npc.lifeMax / 2)
+        {
+          flurryTimer--;
+          if (flurryTimer == 0)
+          {
+            FlurryAttack();
+            flurryTimer = 10;
+          }
+        }
+
+      }
+      else if (bulletHellTimer < 700f)
+      {
+        phase = 1;
+        plusTimer--;
+        if (plusTimer == 0)
+        {
+          PlusAttack();
+          plusTimer = 25;
+        }
+      }
+      else if (bulletHellTimer < 800f)
+      {
+        xTimer--;
+        if (xTimer == 0)
+        {
+          XAttack();
+          xTimer = 25;
+        }
+      }
+      else if (bulletHellTimer < 900f)
+      {
+        plusTimer--;
+        if (plusTimer == 0)
+        {
+          PlusAttack();
+          plusTimer = 25;
+        }
+      }
+      else if (bulletHellTimer < 1000f)
+      {
+        xTimer--;
+        if (xTimer == 0)
+        {
+          XAttack();
+          xTimer = 25;
+        }
+      }
+      else if (bulletHellTimer < 1300f)
+      {
+        radialTimer--;
+        if (radialTimer == 0)
+        {
+          RadialAttack();
+          radialTimer = 45;
+        }
+      }
+      else
+      {
+        bulletHellTimer = 0;
+      }
+    }
+
+    private void Talk(string message)
+    {
+      if (Main.netMode != NetmodeID.Server)
+      {
+        string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
+        Main.NewText(text, 4, 127, 82);
+      }
+      else
+      {
+        NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
+        NetMessage.BroadcastChatMessage(text, new Color(241, 127, 82));
+      }
+    }
+    public void PlusAttack()
+    {
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+    }
+    public void XAttack()
+    {
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+    }
+    public void RadialAttack()
+    {
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+    }
+    public void FlurryAttack()
+    {
+      Player player = Main.player[npc.target];
+      const float speedX = 0f;
+      const float speedY = 10f;
+      Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
+      speed = speed.RotatedBy(Main.rand.Next(1, 5), npc.Center);
+      //Vector2 directionTo = DirectionTo(target.Center);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+    }
+    public void Movement()
+    {
+      Player player = Main.player[npc.target];
       Vector2 offset = npc.position - player.position;
       const float speedCap = 6f;
       const float gainStrength = 0.1f;
@@ -131,36 +258,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
         if (npc.position.Y == player.position.Y - 200f)
           npc.velocity.Y = 0f;
       }
-      /////
-      // Harpy Feather Projecti= 38
-      shootTimer--;
-      if (shootTimer == 0)
-      {
-        const int type = ProjectileID.MoonlordArrow;
-        const float speedX = 0f;
-        const float speedY = 10f;
-        Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
-        //Vector2 directionTo = DirectionTo(target.Center);
-        int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
-        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-        shootTimer = 20;
-      }
     }
-
-    private void Talk(string message)
-    {
-      if (Main.netMode != NetmodeID.Server)
-      {
-        string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
-        Main.NewText(text, 4, 127, 82);
-      }
-      else
-      {
-        NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
-        NetMessage.BroadcastChatMessage(text, new Color(241, 127, 82));
-      }
-    }
-
     public override void FindFrame(int frameHeight)
     {
       Texture2D tex = mod.GetTexture("NPCs/FireAncient/FireAncient");

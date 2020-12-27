@@ -34,11 +34,7 @@ namespace UnbiddenMod.Items.Weapons.Ranged
 
     public override bool ConsumeAmmo(Player player)
     {
-      if (player.altFunctionUse == 2)
-      {
-        return false;
-      }
-      return true;
+      return player.altFunctionUse != 2;
     }
     public override bool CanUseItem(Player player)
     {
@@ -70,7 +66,6 @@ namespace UnbiddenMod.Items.Weapons.Ranged
       recipe.SetResult(this); //Sets the result of this recipe to this item
       recipe.AddRecipe(); //Adds the recipe to the mod
     }
-
 
     /*public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {

@@ -8,7 +8,6 @@ namespace UnbiddenMod.Items.Consumables
 {
   public class Antidote : ModItem
   {
-
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Antidote");
@@ -21,7 +20,6 @@ namespace UnbiddenMod.Items.Consumables
       item.maxStack = 30;
       item.healLife = 15;
       item.potion = false;
-
     }
 
     public override bool CanUseItem(Player player)
@@ -35,7 +33,6 @@ namespace UnbiddenMod.Items.Consumables
       Main.debuff[20] = false;
       Main.debuff[70] = false;
       int sickTime = Main.expertMode ? 600 : 300; // 5 seconds in normal mode, 10 in Expert
-      
       if (potionSick != -1)
       {
         player.buffTime[potionSick] += sickTime;

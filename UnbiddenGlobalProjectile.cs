@@ -9,7 +9,6 @@ namespace UnbiddenMod
 {
   public class UnbiddenGlobalProjectile : GlobalProjectile
   {
-
     // Elemental variables for Projectiles
 
     public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
@@ -20,23 +19,23 @@ namespace UnbiddenMod
     public bool amped = false;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
-      int height = texture.Height / (int) Main.projFrames[projectile.type];
+      int height = texture.Height / (int)Main.projFrames[projectile.type];
       int y = height * projectile.frame;
       float rotation = projectile.rotation;
       Rectangle rectangle = new Rectangle(0, y, texture.Width, height);
-      Vector2 origin = Utils.Size(rectangle) / 2f;
+      Vector2 origin = rectangle.Size() / 2f;
       for (int i = projectile.oldPos.Length - 1; i > 0; i--)
       {
         projectile.oldPos[i] = projectile.oldPos[i - 1];
       }
       projectile.oldPos[0] = projectile.position;
-      for (int k = 0; k < counter; k++) 
+      for (int k = 0; k < counter; k++)
       {
-				Vector2 previous = projectile.position;
-				if (k > 0) 
+        _ = projectile.position;
+        if (k > 0)
         {
-					previous = projectile.oldPos[k - 1];
-				}
+          _ = projectile.oldPos[k - 1];
+        }
         float alpha;
         if (k == 0)
         {
@@ -48,9 +47,8 @@ namespace UnbiddenMod
         }
         Color color = projectile.GetAlpha(lightColor) * alpha;
         Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition;
-				Main.spriteBatch.Draw(texture, drawPos, rectangle, color, rotation, origin, 1f, SpriteEffects.None, 0f);
+        Main.spriteBatch.Draw(texture, drawPos, rectangle, color, rotation, origin, 1f, SpriteEffects.None, 0f);
       }
-      Player player = Main.player[projectile.owner];
     }
     // Projectile projectile
     // Vector2 offset
@@ -61,35 +59,35 @@ namespace UnbiddenMod
     // float slowStrength
     public static void IsHomingNPC(Projectile projectile, Vector2 offset, NPC target, float speedCap, float gainStrength, float slowStrength)
     {
-      if(offset.X > 0)
+      if (offset.X > 0)
       {
-        if(projectile.velocity.X < 0)
+        if (projectile.velocity.X < 0)
           projectile.velocity.X /= slowStrength;
-        if(projectile.velocity.X < speedCap)
+        if (projectile.velocity.X < speedCap)
           projectile.velocity.X += gainStrength;
       }
       if (offset.X < 0)
       {
-        if(projectile.velocity.X > 0)
+        if (projectile.velocity.X > 0)
           projectile.velocity.X /= slowStrength;
-        if(projectile.velocity.X > -speedCap)
+        if (projectile.velocity.X > -speedCap)
           projectile.velocity.X -= gainStrength;
       }
       if (offset.X == 0)
         projectile.velocity.X = 0f;
       /////
-      if(offset.Y > 0)
+      if (offset.Y > 0)
       {
-        if(projectile.velocity.Y < 0)
+        if (projectile.velocity.Y < 0)
           projectile.velocity.Y /= slowStrength;
-        if(projectile.velocity.Y < speedCap)
+        if (projectile.velocity.Y < speedCap)
           projectile.velocity.Y += gainStrength;
       }
       if (offset.Y < 0)
       {
-        if(projectile.velocity.Y > 0)
+        if (projectile.velocity.Y > 0)
           projectile.velocity.Y /= slowStrength;
-        if(projectile.velocity.Y > -speedCap)
+        if (projectile.velocity.Y > -speedCap)
           projectile.velocity.Y -= gainStrength;
       }
       if (offset.Y == 0)
@@ -98,35 +96,35 @@ namespace UnbiddenMod
 
     public static void IsHomingPlayer(Projectile projectile, Vector2 offset, Player target, float speedCap, float gainStrength, float slowStrength)
     {
-      if(offset.X > 0)
+      if (offset.X > 0)
       {
-        if(projectile.velocity.X < 0)
+        if (projectile.velocity.X < 0)
           projectile.velocity.X /= slowStrength;
-        if(projectile.velocity.X < speedCap)
+        if (projectile.velocity.X < speedCap)
           projectile.velocity.X += gainStrength;
       }
       if (offset.X < 0)
       {
-        if(projectile.velocity.X > 0)
+        if (projectile.velocity.X > 0)
           projectile.velocity.X /= slowStrength;
-        if(projectile.velocity.X > -speedCap)
+        if (projectile.velocity.X > -speedCap)
           projectile.velocity.X -= gainStrength;
       }
       if (offset.X == 0)
         projectile.velocity.X = 0f;
       /////
-      if(offset.Y > 0)
+      if (offset.Y > 0)
       {
-        if(projectile.velocity.Y < 0)
+        if (projectile.velocity.Y < 0)
           projectile.velocity.Y /= slowStrength;
-        if(projectile.velocity.Y < speedCap)
+        if (projectile.velocity.Y < speedCap)
           projectile.velocity.Y += gainStrength;
       }
       if (offset.Y < 0)
       {
-        if(projectile.velocity.Y > 0)
+        if (projectile.velocity.Y > 0)
           projectile.velocity.Y /= slowStrength;
-        if(projectile.velocity.Y > -speedCap)
+        if (projectile.velocity.Y > -speedCap)
           projectile.velocity.Y -= gainStrength;
       }
       if (offset.Y == 0)
@@ -134,7 +132,7 @@ namespace UnbiddenMod
     }
     public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
     {
-      for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
+      for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)
       {
         CombatText combatText = Main.combatText[combatIndex2];
         if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
@@ -163,7 +161,7 @@ namespace UnbiddenMod
     }
     public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
     {
-      for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
+      for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)
       {
         CombatText combatText = Main.combatText[combatIndex2];
         if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
@@ -190,10 +188,9 @@ namespace UnbiddenMod
         }
       }
     }
-    
     public override void SetDefaults(Projectile projectile)
     {
-      switch(projectile.type)
+      switch (projectile.type)
       {
         case ProjectileID.Flames:
           projectile.Unbidden().element = 0; // Fire

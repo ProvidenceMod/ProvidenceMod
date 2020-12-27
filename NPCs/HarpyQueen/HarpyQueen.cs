@@ -62,16 +62,9 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       npc.Unbidden().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
       npc.Unbidden().contactDamageEl = 0;
     }
-
-    private int Stage
-    {
-      get => (int)npc.ai[0];
-      set => npc.ai[0] = value;
-    }
-
     public override void AI() //this is where you program your AI
     {
-      if (spawnText == false)
+      if (!spawnText)
       {
         Talk("The Harpy Queen has awoken!");
         spawnText = true;
@@ -88,10 +81,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
           talkTimer--;
         }
       }
-      bulletHellTimer += 1;
-      npc.ai[0] += 1;
-
-      
+      bulletHellTimer++;
+      npc.ai[0]++;
       // Gets targets
       FindPlayers();
       npc.TargetClosest(false);
@@ -101,10 +92,10 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       /////
       // Movement
       Vector2 offset = npc.position - player.position;
-      float speedCap = 6f;
-      float gainStrength = 0.1f;
-      float slowStrength = 1.1f;
-      if (player.active == true && player.dead == false)
+      const float speedCap = 6f;
+      const float gainStrength = 0.1f;
+      const float slowStrength = 1.1f;
+      if (player.active && !player.dead)
       {
         if (npc.Center.X < player.Center.X)
         {
@@ -142,12 +133,12 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       }
       /////
       // Harpy Feather Projecti= 38
-      shootTimer -= 1;
-      if(shootTimer == 0)
+      shootTimer--;
+      if (shootTimer == 0)
       {
-        int type = ProjectileID.MoonlordArrow;
-        float speedX = 0f;
-        float speedY = 10f;
+        const int type = ProjectileID.MoonlordArrow;
+        const float speedX = 0f;
+        const float speedY = 10f;
         Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
         //Vector2 directionTo = DirectionTo(target.Center);
         int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
@@ -251,7 +242,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     public override Color? GetAlpha(Color lightColor)
     {
       Color color = Color.White;
-      return (color);
+      return color;
     }
   }
 }

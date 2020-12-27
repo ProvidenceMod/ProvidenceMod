@@ -3,10 +3,9 @@ using Terraria.ModLoader;
 
 namespace UnbiddenMod.NPCs
 {
-    // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
-    public class FireSlime : ModNPC
+  // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
+  public class FireSlime : ModNPC
   {
-
     public override bool Autoload(ref string name)
     {
       name = "FireSlime";

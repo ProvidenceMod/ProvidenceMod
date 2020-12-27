@@ -35,7 +35,6 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.mana = 2;
     }
 
-
     public override bool CanRightClick()
     {
       return true;
@@ -43,20 +42,14 @@ namespace UnbiddenMod.Items.Weapons.Cleric
 
     public override void RightClick(Player player)
     {
-      if (urgentHeal)
-      {
-        urgentHeal = false;
-      }
-      else
-      {
-        urgentHeal = true;
-      }
+      urgentHeal = !urgentHeal;
     }
 
-    private void RegisterRadius(Player player) {
+    private void RegisterRadius(Player player)
+    {
       float mX = Main.screenPosition.X + Main.mouseX,
             mY = Main.screenPosition.Y + Main.mouseY;
-      int explosionRadius = 2 * 16; // Not explosion, per se...
+      const int explosionRadius = 2 * 16; // Not explosion, per se...
 
       float leftEdgeX = mX - explosionRadius, // Grabbing the bounds of the AoE
             rightEdgeX = mX + explosionRadius,
@@ -87,12 +80,15 @@ namespace UnbiddenMod.Items.Weapons.Cleric
     public override void OnMissingMana(Player player, int neededMana)
     {
       // Limiter to not call it every damn tick
-      if (missingManaCooldown == 0 && player.statLife > 2) {
+      if (missingManaCooldown == 0 && player.statLife > 2)
+      {
         Item tome = player.inventory[player.selectedItem];
         player.statLife -= tome.mana;
         RegisterRadius(player);
         missingManaCooldown = 10;
-      } else {
+      }
+      else
+      {
         missingManaCooldown--;
       }
     }

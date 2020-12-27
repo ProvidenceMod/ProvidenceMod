@@ -7,21 +7,15 @@ namespace UnbiddenMod
   public class UnbiddenGlobalNPC : GlobalNPC
   {
     // Elemental variables for NPC's
-
     public int contactDamageEl = -1; // Contact damage element, -1 by default for typeless
     public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f }; // Fire, Ice, Lightning, Water, Earth, Air, Radiant, Necrotic
-
     // Elemental variables also contained within GlobalItem, GlobalProjectile, and Player
     public override bool InstancePerEntity => true;
     public override bool CloneNewInstances => true;
-    
-
     // Status effect bools
     public bool hypodermia = false;
     public bool freezing = false;
     public bool frozen = false;
-
-
     public override void ResetEffects(NPC npc)
     {
       npc.Unbidden().hypodermia = false;
@@ -38,12 +32,9 @@ namespace UnbiddenMod
       if (npc.Unbidden().frozen)
       {
         npc.velocity.X = 0; // Frozen in place. Keep in mind they can still shoot if they could already.
-        npc.velocity.Y = 0; 
+        npc.velocity.Y = 0;
       }
     }
-
-
-
     private bool DetermineCrit(int itemCritCh)
     {
       return Main.rand.Next(100) <= itemCritCh;
@@ -60,7 +51,6 @@ namespace UnbiddenMod
       {
         npc.StrikeNPC(0, npc.defense, -player.direction, false);
       }
-      
     }
 
     public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -1454,8 +1444,6 @@ namespace UnbiddenMod
         case NPCID.VortexSoldier:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           break;
-
-
         // Bosses //
 
         // King Slime
@@ -1492,12 +1480,10 @@ namespace UnbiddenMod
           npc.buffImmune[mod.BuffType("Freezing")] = true;
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
-          
         // Brain of Cthulhu
         case NPCID.BrainofCthulhu:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
           npc.buffImmune[mod.BuffType("Frozen")] = true;
-          
           break;
         case NPCID.Creeper:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
@@ -1734,7 +1720,6 @@ namespace UnbiddenMod
           npc.buffImmune[mod.BuffType("Freezing")] = true;
           npc.buffImmune[mod.BuffType("Frozen")] = true;
           break;
-        
         // Moonlord
         case NPCID.MoonLordCore:
           npc.Unbidden().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };

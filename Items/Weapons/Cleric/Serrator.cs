@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 
 namespace UnbiddenMod.Items.Weapons.Cleric
 {
-
   public class Serrator : ModItem
   {
     public override void SetStaticDefaults()
@@ -30,7 +29,6 @@ namespace UnbiddenMod.Items.Weapons.Cleric
     }
     public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
     {
-
       // Pre-lim check to limit overkill as to not snap the game in half
       if (overkill > 100)
       {
@@ -69,7 +67,6 @@ namespace UnbiddenMod.Items.Weapons.Cleric
     }
     public override void AddRecipes()
     {
-
       ModRecipe recipeUS = new ModRecipe(mod);
       recipeUS.AddIngredient(ItemID.Wood, 5);
       recipeUS.AddTile(TileID.WorkBenches);

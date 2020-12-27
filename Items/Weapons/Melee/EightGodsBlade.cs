@@ -5,9 +5,8 @@ using Microsoft.Xna.Framework;
 
 namespace UnbiddenMod.Items.Weapons.Melee
 {
-    public class EightGodsBlade : ModItem
+  public class EightGodsBlade : ModItem
   {
-
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Eight-God Blade");
@@ -35,7 +34,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
 
     public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
     {
-      int numberProjectiles = 3; // 4 or 5 shots
+      const int numberProjectiles = 3; // 4 or 5 shots
       for (int i = 0; i < numberProjectiles; i++)
       {
         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));

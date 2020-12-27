@@ -24,11 +24,11 @@ namespace UnbiddenMod.Items
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-      var tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+      var tt = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
       if (tt != null)
       {
         string[] split = tt.text.Split(' ');
-        tt.text = split.First() + " cleric " + split.Last();
+        tt.text = split[0] + " cleric " + split.Last();
       }
     }
 
@@ -50,8 +50,6 @@ namespace UnbiddenMod.Items
       player.Unbidden().hasClericSet = true;
       GenerateAuraEffect(player);
     }
-
-    
     public virtual void ModifyWeaponDamage(Player player, ref int damage)
     {
       UnbiddenPlayer modPlayer = player.Unbidden();

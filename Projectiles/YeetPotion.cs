@@ -33,8 +33,6 @@ namespace UnbiddenMod.Projectiles
 
     public override void AI()
     {
-      // ID'ing player for future reference
-      Player player = Main.player[projectile.owner];
       // Gravity
       projectile.ai[0] += 2f;
       // Rotation
@@ -55,12 +53,11 @@ namespace UnbiddenMod.Projectiles
     }
     public override void Kill(int timeLeft)
     {
-      int explosionRadius = 5 * 6; // # of Tiles in one direction
+      const int explosionRadius = 5 * 6; // # of Tiles in one direction
       float leftEdgeX = projectile.position.X - explosionRadius,
             rightEdgeX = projectile.position.X + explosionRadius,
             upperEdgeY = projectile.position.Y - explosionRadius,
             lowerEdgeY = projectile.position.Y + explosionRadius;
-      
       Player owner = Main.player[projectile.owner];
       Item launcher = owner.inventory[owner.selectedItem];
 

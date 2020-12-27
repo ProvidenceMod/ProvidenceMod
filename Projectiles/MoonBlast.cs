@@ -27,14 +27,13 @@ namespace UnbiddenMod.Projectiles
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
       projectile.scale = 1f;
-
     }
 
     public override void AI()
     {
-      Lighting.AddLight(projectile.Center,(float) Main.DiscoR / 400f, (float) Main.DiscoG / 400f, (float) Main.DiscoB / 400f);
-      projectile.ai[0] += 1f;
-      Color color = new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
+      Lighting.AddLight(projectile.Center, (float)Main.DiscoR / 400f, (float)Main.DiscoG / 400f, (float)Main.DiscoB / 400f);
+      projectile.ai[0]++;
+      Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
       Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("MoonBlastDust"), 0, 0, 0, color, 0.7f);
       if (projectile.soundDelay == 0)
       {
@@ -47,17 +46,16 @@ namespace UnbiddenMod.Projectiles
       {
         NPC target = Main.npc[i];
         //This will allow the projectile to only target hostile NPC's by referencing the variable, "target", above'
-        
         Vector2 offset = target.position - projectile.position;
-        float speedCap = 20f;
-        float gainStrength = 1.0f;
-        float slowStrength = 1.1f;
+        const float speedCap = 20f;
+        const float gainStrength = 1.0f;
+        const float slowStrength = 1.1f;
         // Finding the horizontal position of the target and adjusting trajectory accordingly
-        float shootToX = target.position.X + (float)target.width * 0.5f - projectile.Center.X;
+        float shootToX = target.position.X + ((float)target.width * 0.5f) - projectile.Center.X;
         // Finding the vertical position of the target and adjusting trajectory accordingly
         float shootToY = target.position.Y - projectile.Center.Y;
         //  √ shootToX² + shootToY², using the Pythagorean Theorem to calculate the distance from the target
-        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+        float distance = (float)System.Math.Sqrt((double)((shootToX * shootToX) + (shootToY * shootToY)));
         if (distance < 600f && !target.friendly && target.active)
         {
           UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, target, speedCap, gainStrength, slowStrength);
@@ -65,20 +63,19 @@ namespace UnbiddenMod.Projectiles
       }
     }
 
-    public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) 
+    public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
     {
       Texture2D tex = mod.GetTexture("Projectiles/MoonBlast");
-      int counter = 5;
+      const int counter = 5;
       UnbiddenGlobalProjectile.AfterImage(this.projectile, lightColor, tex, counter);
 
-			return false;
+      return false;
     }
 
     public virtual void PostDraw()
     {
       projectile.rotation += projectile.velocity.X * 0.05f;
     }
-    
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
       Player player = Main.player[projectile.owner];
@@ -114,13 +111,12 @@ namespace UnbiddenMod.Projectiles
 
     public override Color? GetAlpha(Color lightColor)
     {
-      Color color = new Color (Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      return(color);
+      Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
+      return color;
     }
 
     public override void Kill(int timeLeft)
     {
-
     }
   }
 }

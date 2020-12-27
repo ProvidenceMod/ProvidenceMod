@@ -31,13 +31,12 @@ namespace UnbiddenMod.Projectiles
       projectile.penetrate = 1;
       projectile.scale = 1f;
       projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Acid
-
     }
 
     public override void AI()
     {
       // Gravity
-      projectile.ai[0] += 1f;
+      projectile.ai[0]++;
       // Rotation
       if (projectile.velocity.X > 0.0)
       {

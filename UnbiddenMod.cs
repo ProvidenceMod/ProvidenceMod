@@ -62,9 +62,7 @@ namespace UnbiddenMod
     {
       // Showcases mod support with Boss Checklist without referencing the mod
       Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-      if (bossChecklist != null)
-      {
-        bossChecklist.Call(
+      bossChecklist?.Call(
           "AddBoss",
           10.5f,
           new List<int> { ModContent.NPCType<NPCs.FireAncient.FireAncient>() },
@@ -76,7 +74,6 @@ namespace UnbiddenMod
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },
           "$Mods.UnbiddenMod.BossSpawnInfo.FireAncient"
         );
-      }
     }
 
     public override void UpdateMusic(ref int music, ref MusicPriority priority)

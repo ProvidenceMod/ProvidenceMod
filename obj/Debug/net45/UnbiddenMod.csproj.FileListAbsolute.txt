@@ -51,8 +51,6 @@ C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin
 C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\System.ValueTuple.dll
 C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\TerrariaHooks.dll
 C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.exe
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.pdb
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.xml
 C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.RuntimeDetour.xml
 C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.Utils.xml
 C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csprojAssemblyReference.cache

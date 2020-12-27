@@ -4,7 +4,6 @@ about: Ask questions about this project
 title: "[QUESTION] Summary Title"
 labels: question
 assignees: ZackFox0, SnowyStarfall
-
 ---
 
 **If you have not joined the discord server, support is best given there.**

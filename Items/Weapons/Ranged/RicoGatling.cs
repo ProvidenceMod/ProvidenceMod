@@ -51,7 +51,6 @@ namespace UnbiddenMod.Items.Weapons.Ranged
       recipe.AddRecipe(); //Adds the recipe to the mod
     }
 
-
     /*public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {
         Texture2D tex = ModContent.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //loads our glowmask

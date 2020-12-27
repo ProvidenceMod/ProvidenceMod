@@ -26,15 +26,12 @@ namespace UnbiddenMod.Projectiles
       projectile.ignoreWater = true;
       projectile.scale = 1f;
     }
-
-
     // Making the AI so it'll home in on enemies
     public override void AI()
     {
-      Player player = Main.player[projectile.owner];
       Lighting.AddLight(projectile.Center, 0.5f, 0.25f, 0f);
       projectile.rotation += 0.4f * (float)projectile.direction;
-      projectile.ai[0] += 1f;
+      projectile.ai[0]++;
 
       for (int i = 0; i < 20; i++)
       {
@@ -43,11 +40,11 @@ namespace UnbiddenMod.Projectiles
         if (target.active && !target.dontTakeDamage && !target.friendly)
         {
           //Finding the horizontal position of the target and adjusting trajectory accordingly
-          float shootToX = target.position.X + (float)target.width * 0.5f - projectile.Center.X;
+          float shootToX = target.position.X + ((float)target.width * 0.5f) - projectile.Center.X;
           //Finding the vertical position of the target and adjusting trajectory accordingly
           float shootToY = target.position.Y - projectile.Center.Y;
           //  √ shootToX² + shootToY², using the Pythagorean Theorem to calculate the distance from the target
-          float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+          float distance = (float)System.Math.Sqrt((double)((shootToX * shootToX) + (shootToY * shootToY)));
 
           //f, in this scenario, is a measurement of Pixel Distance
           if (distance < 400f && !target.friendly && target.active)
@@ -88,9 +85,11 @@ namespace UnbiddenMod.Projectiles
       return false;
     }
 
-    public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+    public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+    {
       projectile.penetrate--;
-      if (projectile.penetrate <= 0) {
+      if (projectile.penetrate <= 0)
+      {
         projectile.Kill();
       }
     }

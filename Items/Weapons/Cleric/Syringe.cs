@@ -9,13 +9,16 @@ using System;
 
 namespace UnbiddenMod.Items.Weapons.Cleric
 {
-  public class Syringe : ClericItem {
-    public override void SetStaticDefaults () {
-      DisplayName.SetDefault ("Syringe");
-      Tooltip.SetDefault ("Stab allies to boost their next potion\nStab enemies to increase their damage taken by 20% for 5 seconds");
+  public class Syringe : ClericItem
+  {
+    public override void SetStaticDefaults()
+    {
+      DisplayName.SetDefault("Syringe");
+      Tooltip.SetDefault("Stab allies to boost their next potion\nStab enemies to increase their damage taken by 20% for 5 seconds");
     }
 
-    public override void SetDefaults () {
+    public override void SetDefaults()
+    {
       item.width = 45;
       item.height = 45;
       item.useStyle = ItemUseStyleID.Stabbing;
@@ -29,18 +32,20 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.UseSound = SoundID.Item1;
     }
 
-    public override void OnHitNPC (Player player, NPC target, int damage, float knockBack, bool crit) {
+    public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+    {
       player.AddBuff(mod.BuffType("BoosterShot"), 3600);
       target.AddBuff(mod.BuffType("Hypodermia"), 300);
     }
 
-    public override void AddRecipes () {
+    public override void AddRecipes()
+    {
       // Recipes here. See Basic Recipe Guide2
-      ModRecipe recipe = new ModRecipe (mod);
+      ModRecipe recipe = new ModRecipe(mod);
 
-      recipe.AddIngredient (ItemID.DirtBlock, 1);
-      recipe.SetResult (this);
-      recipe.AddRecipe ();
+      recipe.AddIngredient(ItemID.DirtBlock, 1);
+      recipe.SetResult(this);
+      recipe.AddRecipe();
     }
   }
 }

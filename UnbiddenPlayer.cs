@@ -17,13 +17,12 @@ namespace UnbiddenMod
 {
   public class UnbiddenPlayer : ModPlayer
   {
-
     // Elemental variables for Player
 
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 },
                  affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-                //  affExp = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+    //  affExp = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     // public int affExpCooldown = 0;
 
     // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
@@ -135,7 +134,7 @@ namespace UnbiddenMod
       {
         if (burnAura)
         {
-          float burnRadiusBoost = -100f;
+          const float burnRadiusBoost = -100f;
           GenerateAuraField(player, ModContent.DustType<AuraDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
@@ -147,7 +146,7 @@ namespace UnbiddenMod
         }
         if (cFlameAura)
         {
-          float cFRadiusBoost = -150f;
+          const float cFRadiusBoost = -150f;
           GenerateAuraField(player, ModContent.DustType<AuraDust>(), cFRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
@@ -158,11 +157,11 @@ namespace UnbiddenMod
           }
         }
       }
-      if(ampCapacitor)
+      if (ampCapacitor)
       {
-        float ampRadiusBoost = 0;
+        const float ampRadiusBoost = 0;
         GenerateAuraField(player, ModContent.DustType<MoonBlastDust>(), ampRadiusBoost);
-        foreach(Projectile projectile in Main.projectile)
+        foreach (Projectile projectile in Main.projectile)
         {
           if (Vector2.Distance(projectile.position, player.MountedCenter) <= (clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
           {
@@ -171,12 +170,12 @@ namespace UnbiddenMod
               projectile.damage = (int)(projectile.damage * 1.15);
               projectile.velocity *= 1.15f;
               projectile.Unbidden().amped = true;
-            } 
+            }
             else if (projectile.hostile)
             {
               projectile.damage = (int)(projectile.damage * 0.85);
               projectile.velocity *= 0.85f;
-              projectile.Unbidden().amped = true; 
+              projectile.Unbidden().amped = true;
             }
           }
         }
@@ -197,8 +196,11 @@ namespace UnbiddenMod
     public override void PostUpdateRunSpeeds()
     {
       if (dashMod > 0 && dashModDelay <= 0)
+      {
         ModDashMovement();
-      else {
+      }
+      else
+      {
         player.releaseLeft = false;
         dashModDelay--;
       }
@@ -207,9 +209,9 @@ namespace UnbiddenMod
     {
       if (dashMod == 1)
       {
-        float dashStrength = 12f;
+        const float dashStrength = 12f;
         int dashDir = 0;
-        int delayTime = 60;
+        const int delayTime = 60;
         bool isDashingHorizontal = false;
         bool isDashingVertical = false;
         if (player.dashTime > 0)
@@ -226,7 +228,9 @@ namespace UnbiddenMod
             dashModDelay = delayTime;
           }
           else
+          {
             player.dashTime = 15;
+          }
         }
         else if (player.controlLeft && player.releaseLeft)
         {
@@ -238,40 +242,46 @@ namespace UnbiddenMod
             dashModDelay = delayTime;
           }
           else
+          {
             player.dashTime = -15;
+          }
         }
         else if (player.controlUp && player.releaseUp)
         {
-          if(player.dashTime < 0)
+          if (player.dashTime < 0)
           {
             dashDir = -1;
             isDashingVertical = true;
             player.dashTime = 0;
             dashModDelay = delayTime;
           }
-          else 
+          else
+          {
             player.dashTime = -15;
+          }
         }
         else if (player.controlDown && player.releaseDown)
         {
-          if(player.dashTime > 0)
+          if (player.dashTime > 0)
           {
             dashDir = 1;
             isDashingVertical = true;
             player.dashTime = 0;
             dashModDelay = delayTime;
           }
-          else 
+          else
+          {
             player.dashTime = 15;
+          }
         }
-        if(!isDashingHorizontal && !isDashingVertical)
+        if (!isDashingHorizontal && !isDashingVertical)
           return;
-        if(isDashingHorizontal)
+        if (isDashingHorizontal)
           player.velocity.X = dashStrength * dashDir;
-        if(isDashingVertical)
+        if (isDashingVertical)
           player.velocity.Y = dashStrength * dashDir;
-        Point tileCoordinates1 = (player.Center + new Vector2((float) (dashDir * player.width / 2 + 2), (float) ((double) player.gravDir * (double) -player.height / 2.0 + (double) player.gravDir * 2.0))).ToTileCoordinates();
-        Point tileCoordinates2 = (player.Center + new Vector2((float) (dashDir * player.width / 2 + 2), 0.0f)).ToTileCoordinates();
+        Point tileCoordinates1 = (player.Center + new Vector2((float)((dashDir * player.width / 2) + 2), (float)(((double)player.gravDir * (double)-player.height / 2.0) + ((double)player.gravDir * 2.0)))).ToTileCoordinates();
+        Point tileCoordinates2 = (player.Center + new Vector2((float)((dashDir * player.width / 2) + 2), 0.0f)).ToTileCoordinates();
         if (WorldGen.SolidOrSlopedTile(tileCoordinates1.X, tileCoordinates1.Y) || WorldGen.SolidOrSlopedTile(tileCoordinates2.X, tileCoordinates2.Y))
           player.velocity.X /= 2f;
         player.dashDelay = 60;
@@ -315,8 +325,6 @@ namespace UnbiddenMod
         if (focus > 1f) focus = 1f;
       }
     }
-
-
     public override void NaturalLifeRegen(ref float regen)
     {
       if (regenAura)
@@ -345,17 +353,12 @@ namespace UnbiddenMod
     public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromNPC(npc, ref damage);
-
-
       focus = 0f;
     }
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromProj(proj, ref damage);
-
-
-
       focus = 0f;
     }
 
@@ -370,16 +373,16 @@ namespace UnbiddenMod
 
     public override void ModifyDrawLayers(List<PlayerLayer> layers)
     {
-			// Note that if you want to give your held item an animation, you should set that item's NoUseGraphic field to true so that the entire spritesheet for that item wont draw.
+      // Note that if you want to give your held item an animation, you should set that item's NoUseGraphic field to true so that the entire spritesheet for that item wont draw.
 
       //Animated Sword Code
       /*Action<PlayerDrawInfo> layerTarget2 = s => DrawSwordAnimation(s);
 			PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
 			layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer2);*/
 
-      Action<PlayerDrawInfo> layerTarget = s => DrawSwordGlowmask(s); //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
+      void layerTarget(PlayerDrawInfo s) => DrawSwordGlowmask(s); //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
       PlayerLayer layer = new PlayerLayer("UnbiddenMod", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
-      layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index. 
+      layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index. 
     }
     private void DrawSwordGlowmask(PlayerDrawInfo info)
     {
@@ -431,7 +434,7 @@ namespace UnbiddenMod
     }*/
     public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
     {
-      for (int combatIndex2 = 99 ; combatIndex2 >= 0 ; --combatIndex2)
+      for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)
       {
         CombatText combatText = Main.combatText[combatIndex2];
         if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
@@ -458,8 +461,6 @@ namespace UnbiddenMod
         }
       }
     }
-    
-    
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
     {
       ModPacket packet = mod.GetPacket();

@@ -6,11 +6,10 @@ using Terraria.Utilities;
 
 namespace UnbiddenMod.NPCs
 {
-    // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
-    [AutoloadHead]
+  // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
+  [AutoloadHead]
   public class SolarCultist : ModNPC
   {
-
     public override string Texture => "UnbiddenMod/NPCs/SolarCultist";
 
     public override bool Autoload(ref string name)
@@ -105,7 +104,8 @@ namespace UnbiddenMod.NPCs
     // Random name generator when the NPC arrives
     public override string TownNPCName()
     {
-      switch (Main.rand.Next(4)) {
+      switch (Main.rand.Next(4))
+      {
         case 1:
           return "Jenova";
         case 2:
@@ -130,25 +130,30 @@ namespace UnbiddenMod.NPCs
 			}*/
     }
 
-		// Consider using this alternate approach to choosing a random thing. Very useful for a variety of use cases.
-		// The WeightedRandom class needs "using Terraria.Utilities;" to use
-		public override string GetChat()
-		{
-			WeightedRandom<string> chat = new WeightedRandom<string>();
-			chat.Add("'Tranquillitas, frater'. I'm not one of those Lunies.");
-      if (NPC.downedAncientCultist) {
+    // Consider using this alternate approach to choosing a random thing. Very useful for a variety of use cases.
+    // The WeightedRandom class needs "using Terraria.Utilities;" to use
+    public override string GetChat()
+    {
+      WeightedRandom<string> chat = new WeightedRandom<string>();
+      chat.Add("'Tranquillitas, frater'. I'm not one of those Lunies.");
+      if (NPC.downedAncientCultist)
+      {
         chat.Add("So you've killed my brother. I thank you for ridding of him, but now his soul will be forever toyed with.");
-        if (NPC.downedTowerSolar) {
+        if (NPC.downedTowerSolar)
+        {
           chat.Add("I think this is the one time I will agree with you destroying my creed. Those pillars are a menace.");
         }
-        if (NPC.downedMoonlord) {
+        if (NPC.downedMoonlord)
+        {
           chat.Add("I can only fear the imbalances of sun and moon killing one of the lords.");
         }
-      } else {
-			  chat.Add("Have you seen my demonized sibling? He's a Lunie, I suggest keeping your distance.");
       }
-			return chat; // chat is implicitly cast to a string. You can also do "return chat.Get();" if that makes you feel better
-		}
+      else
+      {
+        chat.Add("Have you seen my demonized sibling? He's a Lunie, I suggest keeping your distance.");
+      }
+      return chat; // chat is implicitly cast to a string. You can also do "return chat.Get();" if that makes you feel better
+    }
 
     public override void SetChatButtons(ref string button, ref string button2)
     {
@@ -198,11 +203,11 @@ namespace UnbiddenMod.NPCs
       projType = mod.ProjectileType("MoonBlast");
       attackDelay = 1;
     }
-    
     // So he can actually throw the projectile instead of letting it spawn and fall through the floor
-    public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
-			multiplier = 12f;
-			randomOffset = 2f;
-		}
+    public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+    {
+      multiplier = 12f;
+      randomOffset = 2f;
+    }
   }
 }

@@ -11,7 +11,7 @@ namespace UnbiddenMod.Projectiles
   {
     private bool primed = false;
     public bool ricocheted = false;
-    public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;    
+    public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Rico-Coin");
@@ -32,8 +32,6 @@ namespace UnbiddenMod.Projectiles
       projectile.damage = 0;
       projectile.timeLeft = 600;
     }
-
-
     // Making the AI so it'll home in on enemies
     public override void AI()
     {
@@ -52,7 +50,7 @@ namespace UnbiddenMod.Projectiles
           if (projectile.timeLeft >= 570)
           {
             continue;
-          }   
+          }
           if (ricocheted)
           {
             continue;
@@ -72,7 +70,8 @@ namespace UnbiddenMod.Projectiles
               proj2.damage += 600 - projectile.timeLeft > proj2.damage * 5 ? proj2.damage * 5 : 600 - projectile.timeLeft;
               proj2.velocity = proj2.velocity.RotateTo(ClosestEnemyNPC(proj2).AngleFrom(proj2.position));
             }
-            else {
+            else
+            {
               proj2.active = false;
             }
           }

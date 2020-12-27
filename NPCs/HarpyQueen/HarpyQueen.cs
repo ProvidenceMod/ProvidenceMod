@@ -27,7 +27,6 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     public int flurryTimer = 10;
     public int bulletHellTimer = 0;
     public int phase = 0;
-    private int talkTimer = 60;
     /*private int? PhaseChecker()
     {
       float pLifeLeft = npc.life / npc.lifeMax * 100;
@@ -76,14 +75,9 @@ namespace UnbiddenMod.NPCs.HarpyQueen
         spawnText = true;
       }
       // int? phase = PhaseChecker();
-      talkTimer--;
-      if (talkTimer == 0)
-      {
-        Talk($"Currently in Phase: {phase}.");
-        talkTimer = 60;
-      }
       bulletHellTimer++;
       npc.ai[0]++;
+      Movement();
       FindPlayers();
       npc.TargetClosest(false);
       Player player = Main.player[npc.target];
@@ -101,19 +95,18 @@ namespace UnbiddenMod.NPCs.HarpyQueen
             //Vector2 directionTo = DirectionTo(target.Center);
             int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
             NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-            shootTimer = 20;
+            shootTimer = 30;
           }
         }
-        else if (npc.life < npc.lifeMax / 2)
+        else if (npc.life <= npc.lifeMax / 2)
         {
           flurryTimer--;
           if (flurryTimer == 0)
           {
             FlurryAttack();
-            flurryTimer = 10;
+            flurryTimer = 15;
           }
         }
-
       }
       else if (bulletHellTimer < 700f)
       {
@@ -182,36 +175,35 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     }
     public void PlusAttack()
     {
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      // Creates a projectile, whose speed is based on the current rotation (in degrees for simplicity)
+      // Same happens with XAttack and RadialAttack.
+      for (float rotation = 0f; rotation < 360f; rotation += 90f)
+      {
+        Vector2 speed = new Vector2(0f, -10f).RotatedBy(MathHelper.ToRadians(rotation));
+        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      }
     }
     public void XAttack()
     {
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      for (float rotation = 0f; rotation < 360f; rotation += 90f)
+      {
+        Vector2 speed = new Vector2(10f, -10f).RotatedBy(MathHelper.ToRadians(rotation));
+        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      }
     }
     public void RadialAttack()
     {
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 0f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, 10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, -10f, -10f, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      for (float rotation = 0f; rotation < 360f; rotation += 45f)
+      {
+        Vector2 speed = new Vector2(0f, -10f).RotateTo(MathHelper.ToRadians(rotation));
+        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      }
     }
     public void FlurryAttack()
     {
       Player player = Main.player[npc.target];
-      const float speedX = 0f;
-      const float speedY = 10f;
-      Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
-      speed = speed.RotatedBy(Main.rand.Next(1, 5), npc.Center);
+      Vector2 speed = new Vector2(0f, -10f).RotateTo(npc.AngleTo(player.Center));
+      speed = speed.RotatedByRandom(MathHelper.ToRadians(15f));
       //Vector2 directionTo = DirectionTo(target.Center);
       _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
     }

@@ -3,7 +3,9 @@
     "Terraria": {
       "commandName": "Executable",
       "executablePath": "$(tMLPath)",
-      "workingDirectory": "$(TerrariaSteamPath)"
+      "workingDirectory": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\tModLoader",
+      "remoteDebugEnabled": false,
+      "nativeDebugging": false
     },
     "TerrariaServer": {
       "commandName": "Executable",

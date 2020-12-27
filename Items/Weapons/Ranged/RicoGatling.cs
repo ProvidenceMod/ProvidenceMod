@@ -25,6 +25,7 @@ namespace UnbiddenMod.Items.Weapons.Ranged
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.Minishark);
+      item.damage = 200;
     }
 
     public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

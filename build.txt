@@ -5,3 +5,4 @@ homepage = https://github.com/Unbidden-Dev-Team/UnbiddenMod
 hideCode = false
 hideResources = true
 includePDB = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*

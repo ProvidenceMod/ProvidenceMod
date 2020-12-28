@@ -183,7 +183,12 @@ namespace UnbiddenMod.UI
       }
       if(Main.mapStyle == 1)
       {
-        area.Top.Set(427, 0f);
+        int mH = 256;
+        if (mH + 600 > Main.screenHeight)
+        {
+          mH = Main.screenHeight - 600;
+        }
+        area.Top.Set(176 + mH, 0f);
       }
       else if (Main.mapStyle == 0 || Main.mapStyle == 2)
       {

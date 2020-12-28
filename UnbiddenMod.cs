@@ -41,7 +41,9 @@ namespace UnbiddenMod
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
-      layers.Insert(0, new LegacyGameInterfaceLayer("Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
+      int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
+      if (accbarIndex != -1)
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
     {

@@ -28,18 +28,16 @@ namespace UnbiddenMod.UI
     private UIImage elemDefWater;
     private UIImage elemDefRadiant;
     private UIImage elemDefNecrotic;
-    private Color gradientA;
-    private Color gradientB;
 
     public override void OnInitialize()
     {
       // Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
       // UIElement is invisible and has no padding. You can use a UIPanel if you wish for a background.
       area = new UIElement();
-      area.Left.Set(-(Main.screenWidth * 0.1758f), 1f); // Halfway across the screen?
-      area.Top.Set(Main.screenHeight * 0.225f, 0f); // Placing it just a bit below the top of the screen.
-      area.Width.Set(36, 0f); // 36 * 8 = 288
-      area.Height.Set(288, 0f); // Our icons are all 36x
+      area.Left.Set(-228, 1f); // Halfway across the screen?
+      area.Top.Set(-671, 1f); // Placing it just a bit below the top of the screen.
+      area.Width.Set(36, 0f); // 36 * 8 = 288 // 44 * 8 = 352
+      area.Height.Set(344, 0f); // Our icons are all 36x
       float currentTop = 0;
       const float left = 0;
       // Fire
@@ -48,7 +46,7 @@ namespace UnbiddenMod.UI
       elemDefFire.Left.Set(left, 0f);
       elemDefFire.Width.Set(36, 0f);
       elemDefFire.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       fireText = new UIText("0", 1f); // text to show stat
       fireText.Top.Set(currentTop - 28, 0f);
@@ -61,7 +59,7 @@ namespace UnbiddenMod.UI
       elemDefIce.Left.Set(left, 0f);
       elemDefIce.Width.Set(36, 0f);
       elemDefIce.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       iceText = new UIText("0", 1f); // text to show stat
       iceText.Top.Set(currentTop - 28, 0f);
@@ -74,7 +72,7 @@ namespace UnbiddenMod.UI
       elemDefLightning.Left.Set(left, 0f);
       elemDefLightning.Width.Set(36, 0f);
       elemDefLightning.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       lightningText = new UIText("0", 1f); // text to show stat
       lightningText.Top.Set(currentTop - 28, 0f);
@@ -87,7 +85,7 @@ namespace UnbiddenMod.UI
       elemDefWater.Left.Set(left, 0f);
       elemDefWater.Width.Set(36, 0f);
       elemDefWater.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       waterText = new UIText("0", 1f); // text to show stat
       waterText.Top.Set(currentTop - 28, 0f);
@@ -100,7 +98,7 @@ namespace UnbiddenMod.UI
       elemDefEarth.Left.Set(left, 0f);
       elemDefEarth.Width.Set(36, 0f);
       elemDefEarth.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       earthText = new UIText("0", 1f); // text to show stat
       earthText.Top.Set(currentTop - 28, 0f);
@@ -113,7 +111,7 @@ namespace UnbiddenMod.UI
       elemDefAir.Left.Set(left, 0f);
       elemDefAir.Width.Set(36, 0f);
       elemDefAir.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       airText = new UIText("0", 1f); // text to show stat
       airText.Top.Set(currentTop - 28, 0f);
@@ -126,7 +124,7 @@ namespace UnbiddenMod.UI
       elemDefRadiant.Left.Set(left, 0f);
       elemDefRadiant.Width.Set(36, 0f);
       elemDefRadiant.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       radiantText = new UIText("0", 1f); // text to show stat
       radiantText.Top.Set(currentTop - 28, 0f);
@@ -139,7 +137,7 @@ namespace UnbiddenMod.UI
       elemDefNecrotic.Left.Set(left, 0f);
       elemDefNecrotic.Width.Set(36, 0f);
       elemDefNecrotic.Height.Set(36, 0f);
-      currentTop += 36;
+      currentTop += 43;
 
       necroticText = new UIText("0", 1f); // text to show stat
       necroticText.Top.Set(currentTop - 28, 0f);

@@ -139,7 +139,7 @@ namespace UnbiddenMod
           GenerateAuraField(player, ModContent.DustType<AuraDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + burnRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + burnRadiusBoost))
             {
               npc.AddBuff(BuffID.OnFire, 1);
             }
@@ -151,7 +151,7 @@ namespace UnbiddenMod
           GenerateAuraField(player, ModContent.DustType<AuraDust>(), cFRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + cFRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + cFRadiusBoost))
             {
               npc.AddBuff(BuffID.CursedInferno, 180);
             }
@@ -402,7 +402,7 @@ namespace UnbiddenMod
     }
     private void DrawSwordGlowmask(PlayerDrawInfo info)
     {
-      Player player = info.drawPlayer; //the player!
+      _ = info.drawPlayer; //the player!
 
       /*if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0)
       {

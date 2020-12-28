@@ -44,6 +44,7 @@ namespace UnbiddenMod
     public int dashTimeMod;
     public int dashMod;
     public int dashModDelay = 60;
+    public string dashDir = "";
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -210,78 +211,93 @@ namespace UnbiddenMod
       if (dashMod == 1)
       {
         const float dashStrength = 12f;
-        int dashDir = 0;
         const int delayTime = 60;
-        bool isDashingHorizontal = false;
-        bool isDashingVertical = false;
+        bool dashing = false;
+        if (!dashing && player.dashTime == 0)
+          dashDir = "";
         if (player.dashTime > 0)
-          --player.dashTime;
-        if (player.dashTime < 0)
-          ++player.dashTime;
+          player.dashTime--;
         if (player.controlRight && player.releaseRight)
         {
-          if (player.dashTime > 0)
+          if (player.dashTime > 0 && dashDir == "right")
           {
-            dashDir = 1;
-            isDashingHorizontal = true;
             player.dashTime = 0;
             dashModDelay = delayTime;
+            dashing = true;
           }
           else
           {
+            dashDir = "right";
             player.dashTime = 15;
           }
         }
         else if (player.controlLeft && player.releaseLeft)
         {
-          if (player.dashTime < 0)
+          if (player.dashTime > 0 && dashDir == "left")
           {
-            dashDir = -1;
-            isDashingHorizontal = true;
             player.dashTime = 0;
             dashModDelay = delayTime;
+            dashing = true;
           }
           else
           {
-            player.dashTime = -15;
+            dashDir = "left";
+            player.dashTime = 15;
           }
         }
         else if (player.controlUp && player.releaseUp)
         {
-          if (player.dashTime < 0)
+          if (player.dashTime > 0 && dashDir == "up")
           {
-            dashDir = -1;
-            isDashingVertical = true;
             player.dashTime = 0;
             dashModDelay = delayTime;
+            dashing = true;
           }
           else
           {
-            player.dashTime = -15;
+            dashDir = "up";
+            player.dashTime = 15;
           }
         }
         else if (player.controlDown && player.releaseDown)
         {
-          if (player.dashTime > 0)
+          if (player.dashTime > 0 && dashDir == "down")
           {
-            dashDir = 1;
-            isDashingVertical = true;
             player.dashTime = 0;
             dashModDelay = delayTime;
+            dashing = true;
           }
           else
           {
+            dashDir = "down";
             player.dashTime = 15;
           }
         }
-        if (!isDashingHorizontal && !isDashingVertical)
+        if (dashing)
+        {
+          switch (dashDir)
+          {
+            case "left":
+              player.velocity.X = -dashStrength;
+              break;
+            case "right":
+              player.velocity.X = dashStrength;
+              break;
+            case "up":
+              player.velocity.Y = -dashStrength;
+              break;
+            case "down":
+              player.velocity.Y = dashStrength;
+              break;
+          }
+        }
+        else
+        {
           return;
-        if (isDashingHorizontal)
-          player.velocity.X = dashStrength * dashDir;
-        if (isDashingVertical)
-          player.velocity.Y = dashStrength * dashDir;
-        Point tileCoordinates1 = (player.Center + new Vector2((float)((dashDir * player.width / 2) + 2), (float)(((double)player.gravDir * (double)-player.height / 2.0) + ((double)player.gravDir * 2.0)))).ToTileCoordinates();
-        Point tileCoordinates2 = (player.Center + new Vector2((float)((dashDir * player.width / 2) + 2), 0.0f)).ToTileCoordinates();
+        }
+        int dashDirInt = dashDir == "left" || dashDir == "up" ? -1 : dashDir == "right" || dashDir == "down" ? 1 : 0;
+        Point tileCoordinates1 = (player.Center + new Vector2((float)((dashDirInt * player.width / 2) + 2), (float)(((double)player.gravDir * (double)-player.height / 2.0) + ((double)player.gravDir * 2.0)))).ToTileCoordinates();
+        Point tileCoordinates2 = (player.Center + new Vector2((float)((dashDirInt * player.width / 2) + 2), 0.0f)).ToTileCoordinates();
         if (WorldGen.SolidOrSlopedTile(tileCoordinates1.X, tileCoordinates1.Y) || WorldGen.SolidOrSlopedTile(tileCoordinates2.X, tileCoordinates2.Y))
           player.velocity.X /= 2f;
         player.dashDelay = 60;

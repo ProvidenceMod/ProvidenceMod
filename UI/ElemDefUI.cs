@@ -50,7 +50,7 @@ namespace UnbiddenMod.UI
       elemDefFire.Height.Set(36, 0f);
       currentTop += 36;
 
-      fireText = new UIText("1", 1f); // text to show stat
+      fireText = new UIText("0", 1f); // text to show stat
       fireText.Top.Set(currentTop - 28, 0f);
       fireText.Left.Set(left + 8, 0f);
       fireText.Width.Set(18, 0f);
@@ -63,7 +63,7 @@ namespace UnbiddenMod.UI
       elemDefIce.Height.Set(36, 0f);
       currentTop += 36;
 
-      iceText = new UIText("1", 1f); // text to show stat
+      iceText = new UIText("0", 1f); // text to show stat
       iceText.Top.Set(currentTop - 28, 0f);
       iceText.Left.Set(left + 8, 0f);
       iceText.Width.Set(18, 0f);
@@ -76,7 +76,7 @@ namespace UnbiddenMod.UI
       elemDefLightning.Height.Set(36, 0f);
       currentTop += 36;
 
-      lightningText = new UIText("1", 1f); // text to show stat
+      lightningText = new UIText("0", 1f); // text to show stat
       lightningText.Top.Set(currentTop - 28, 0f);
       lightningText.Left.Set(left + 8, 0f);
       lightningText.Width.Set(18, 0f);
@@ -89,7 +89,7 @@ namespace UnbiddenMod.UI
       elemDefWater.Height.Set(36, 0f);
       currentTop += 36;
 
-      waterText = new UIText("1", 1f); // text to show stat
+      waterText = new UIText("0", 1f); // text to show stat
       waterText.Top.Set(currentTop - 28, 0f);
       waterText.Left.Set(left + 8, 0f);
       waterText.Width.Set(18, 0f);
@@ -102,7 +102,7 @@ namespace UnbiddenMod.UI
       elemDefEarth.Height.Set(36, 0f);
       currentTop += 36;
 
-      earthText = new UIText("1", 1f); // text to show stat
+      earthText = new UIText("0", 1f); // text to show stat
       earthText.Top.Set(currentTop - 28, 0f);
       earthText.Left.Set(left + 8, 0f);
       earthText.Width.Set(18, 0f);
@@ -115,7 +115,7 @@ namespace UnbiddenMod.UI
       elemDefAir.Height.Set(36, 0f);
       currentTop += 36;
 
-      airText = new UIText("1", 1f); // text to show stat
+      airText = new UIText("0", 1f); // text to show stat
       airText.Top.Set(currentTop - 28, 0f);
       airText.Left.Set(left + 8, 0f);
       airText.Width.Set(18, 0f);
@@ -128,7 +128,7 @@ namespace UnbiddenMod.UI
       elemDefRadiant.Height.Set(36, 0f);
       currentTop += 36;
 
-      radiantText = new UIText("1", 1f); // text to show stat
+      radiantText = new UIText("0", 1f); // text to show stat
       radiantText.Top.Set(currentTop - 28, 0f);
       radiantText.Left.Set(left + 8, 0f);
       radiantText.Width.Set(18, 0f);
@@ -141,7 +141,7 @@ namespace UnbiddenMod.UI
       elemDefNecrotic.Height.Set(36, 0f);
       currentTop += 36;
 
-      necroticText = new UIText("1", 1f); // text to show stat
+      necroticText = new UIText("0", 1f); // text to show stat
       necroticText.Top.Set(currentTop - 28, 0f);
       necroticText.Left.Set(left + 8, 0f);
       necroticText.Width.Set(18, 0f);

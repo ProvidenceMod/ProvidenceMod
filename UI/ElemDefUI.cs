@@ -181,6 +181,14 @@ namespace UnbiddenMod.UI
         oldScale = Main.inventoryScale;
         Recalculate();
       }
+      if(Main.mapStyle == 1)
+      {
+        area.Top.Set(427, 0f);
+      }
+      else if (Main.mapStyle == 0 || Main.mapStyle == 2)
+      {
+        area.Top.Set(176, 0f);
+      }
     }
   }
 }

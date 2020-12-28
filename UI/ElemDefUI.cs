@@ -36,8 +36,8 @@ namespace UnbiddenMod.UI
       // Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
       // UIElement is invisible and has no padding. You can use a UIPanel if you wish for a background.
       area = new UIElement();
-      area.Left.Set(-225, 1f); // Halfway across the screen?
-      area.Top.Set(0, 0.3f); // Placing it just a bit below the top of the screen.
+      area.Left.Set(-(Main.screenWidth * 0.1171875f), 1f); // Halfway across the screen?
+      area.Top.Set(Main.screenHeight * 0.175f, 0f); // Placing it just a bit below the top of the screen.
       area.Width.Set(36, 0f); // 36 * 8 = 288
       area.Height.Set(288, 0f); // Our icons are all 36x
       float currentTop = 0;
@@ -165,20 +165,6 @@ namespace UnbiddenMod.UI
       area.Append(radiantText);
       area.Append(necroticText);
       Append(area);
-    }
-    protected override void DrawSelf(SpriteBatch spriteBatch)
-    {
-      base.DrawSelf(spriteBatch);
-
-      UnbiddenPlayer unPlayer = Main.LocalPlayer.Unbidden();
-      int fireAff = unPlayer.affinities[0];
-      int iceAff = unPlayer.affinities[1];
-      int airAff = unPlayer.affinities[2];
-      int earthAff = unPlayer.affinities[3];
-      int lightningAff = unPlayer.affinities[4];
-      int waterAff = unPlayer.affinities[5];
-      int radiantAff = unPlayer.affinities[6];
-      int necroticAff = unPlayer.affinities[7];
     }
     public override void Update(GameTime gameTime)
     {

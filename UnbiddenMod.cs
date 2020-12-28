@@ -33,7 +33,7 @@ namespace UnbiddenMod
     }
     private bool DrawElemDefUI()
     {
-      if (ElemDefUI.visible)
+      if (ElemDefUI.visible && Main.playerInventory)
       {
         elemDefUI.Draw(Main.spriteBatch, new GameTime());
       }
@@ -41,7 +41,7 @@ namespace UnbiddenMod
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
-      layers.Add(new LegacyGameInterfaceLayer("Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
+      layers.Insert(0, new LegacyGameInterfaceLayer("Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
     {

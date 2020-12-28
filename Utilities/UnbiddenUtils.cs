@@ -53,7 +53,7 @@ namespace UnbiddenMod
         if (index == -1)
           unPlayer.resists[k] = 0;
         else
-          unPlayer.resists[k] = (int)UnbiddenUtils.elemAffDef[0, index];
+          unPlayer.resists[k] += (int)elemAffDef[0, index];
       }
     }
     public static float[] GetAffinityBonuses(this Player player, int e)

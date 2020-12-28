@@ -28,6 +28,7 @@ namespace UnbiddenMod.Items.Armor
       player.meleeCrit += 3;
       player.rangedCrit += 3;
       player.thrownCrit += 3;
+      player.Unbidden().resists[7] += 2;
     }
 
     public override void AddRecipes()

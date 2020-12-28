@@ -35,10 +35,7 @@ namespace UnbiddenMod
         npc.velocity.Y = 0;
       }
     }
-    private bool DetermineCrit(int itemCritCh)
-    {
-      return Main.rand.Next(100) <= itemCritCh;
-    }
+
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
     {
       if (hypodermia)

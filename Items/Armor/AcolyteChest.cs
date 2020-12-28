@@ -27,6 +27,7 @@ namespace UnbiddenMod.Items.Armor
     public override void UpdateEquip(Player player)
     {
       player.lifeRegen++;
+      player.Unbidden().resists[6] += 2;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)

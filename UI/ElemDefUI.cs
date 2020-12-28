@@ -35,8 +35,8 @@ namespace UnbiddenMod.UI
       // UIElement is invisible and has no padding. You can use a UIPanel if you wish for a background.
       area = new UIElement();
       area.Left.Set(-228, 1f); // Halfway across the screen?
-      area.Top.Set(-671, 1f); // Placing it just a bit below the top of the screen.
-      area.Width.Set(36, 0f); // 36 * 8 = 288 // 44 * 8 = 352
+      area.Top.Set(176, 0f); // Placing it just a bit below the top of the screen.
+      area.Width.Set(36, 0f); // 36 * 8 = 288 // 43 * 8 = 344
       area.Height.Set(344, 0f); // Our icons are all 36x
       float currentTop = 0;
       const float left = 0;
@@ -49,7 +49,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       fireText = new UIText("0", 1f); // text to show stat
-      fireText.Top.Set(currentTop - 28, 0f);
+      fireText.Top.Set(currentTop - 35, 0f);
       fireText.Left.Set(left + 8, 0f);
       fireText.Width.Set(18, 0f);
       fireText.Height.Set(18, 0f);
@@ -62,7 +62,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       iceText = new UIText("0", 1f); // text to show stat
-      iceText.Top.Set(currentTop - 28, 0f);
+      iceText.Top.Set(currentTop - 35, 0f);
       iceText.Left.Set(left + 8, 0f);
       iceText.Width.Set(18, 0f);
       iceText.Height.Set(18, 0f);
@@ -75,7 +75,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       lightningText = new UIText("0", 1f); // text to show stat
-      lightningText.Top.Set(currentTop - 28, 0f);
+      lightningText.Top.Set(currentTop - 35, 0f);
       lightningText.Left.Set(left + 8, 0f);
       lightningText.Width.Set(18, 0f);
       lightningText.Height.Set(18, 0f);
@@ -88,7 +88,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       waterText = new UIText("0", 1f); // text to show stat
-      waterText.Top.Set(currentTop - 28, 0f);
+      waterText.Top.Set(currentTop - 35, 0f);
       waterText.Left.Set(left + 8, 0f);
       waterText.Width.Set(18, 0f);
       waterText.Height.Set(18, 0f);
@@ -101,7 +101,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       earthText = new UIText("0", 1f); // text to show stat
-      earthText.Top.Set(currentTop - 28, 0f);
+      earthText.Top.Set(currentTop - 35, 0f);
       earthText.Left.Set(left + 8, 0f);
       earthText.Width.Set(18, 0f);
       earthText.Height.Set(18, 0f);
@@ -114,7 +114,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       airText = new UIText("0", 1f); // text to show stat
-      airText.Top.Set(currentTop - 28, 0f);
+      airText.Top.Set(currentTop - 35, 0f);
       airText.Left.Set(left + 8, 0f);
       airText.Width.Set(18, 0f);
       airText.Height.Set(18, 0f);
@@ -127,7 +127,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       radiantText = new UIText("0", 1f); // text to show stat
-      radiantText.Top.Set(currentTop - 28, 0f);
+      radiantText.Top.Set(currentTop - 35, 0f);
       radiantText.Left.Set(left + 8, 0f);
       radiantText.Width.Set(18, 0f);
       radiantText.Height.Set(18, 0f);
@@ -140,7 +140,7 @@ namespace UnbiddenMod.UI
       currentTop += 43;
 
       necroticText = new UIText("0", 1f); // text to show stat
-      necroticText.Top.Set(currentTop - 28, 0f);
+      necroticText.Top.Set(currentTop - 35, 0f);
       necroticText.Left.Set(left + 8, 0f);
       necroticText.Width.Set(18, 0f);
       necroticText.Height.Set(18, 0f);

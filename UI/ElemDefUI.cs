@@ -144,7 +144,7 @@ namespace UnbiddenMod.UI
       necroticText.Left.Set(left + 8, 0f);
       necroticText.Width.Set(18, 0f);
       necroticText.Height.Set(18, 0f);
-
+      /*
       area.Append(elemDefFire);
       area.Append(elemDefIce);
       area.Append(elemDefLightning);
@@ -162,6 +162,7 @@ namespace UnbiddenMod.UI
       area.Append(airText);
       area.Append(radiantText);
       area.Append(necroticText);
+      */
       Append(area);
     }
     public override void Update(GameTime gameTime)
@@ -181,13 +182,150 @@ namespace UnbiddenMod.UI
         oldScale = Main.inventoryScale;
         Recalculate();
       }
-      if(Main.mapStyle == 1)
+      // Map handling
+      if (Main.mapStyle == 1)
       {
         area.Top.Set(427, 0f);
       }
       else if (Main.mapStyle == 0 || Main.mapStyle == 2)
       {
         area.Top.Set(176, 0f);
+      }
+      // Fire
+      if (unPlayer.resists[0] > 0)
+      {
+        area.Append(elemDefFire);
+      }
+      else
+      {
+        area.RemoveChild(elemDefFire);
+      }
+      if (unPlayer.resists[0] > 0)
+      {
+        area.Append(fireText);
+      }
+      else
+      {
+        area.RemoveChild(fireText);
+      }
+      // Ice
+      if (unPlayer.resists[1] > 0)
+      {
+        area.Append(elemDefIce);
+      }
+      else
+      {
+        area.RemoveChild(elemDefIce);
+      }
+      if (unPlayer.resists[1] > 0)
+      {
+        area.Append(iceText);
+      }
+      else
+      {
+        area.RemoveChild(iceText);
+      }
+      // Lightning
+      if (unPlayer.resists[2] > 0)
+      {
+        area.Append(elemDefLightning);
+      }
+      else
+      {
+        area.RemoveChild(elemDefLightning);
+      }
+      if (unPlayer.resists[2] > 0)
+      {
+        area.Append(lightningText);
+      }
+      else
+      {
+        area.RemoveChild(lightningText);
+      }
+      // Water
+      if (unPlayer.resists[3] > 0)
+      {
+        area.Append(elemDefWater);
+      }
+      else
+      {
+        area.RemoveChild(elemDefWater);
+      }
+      if (unPlayer.resists[3] > 0)
+      {
+        area.Append(waterText);
+      }
+      else
+      {
+        area.RemoveChild(waterText);
+      }
+      // Earth
+      if (unPlayer.resists[4] > 0)
+      {
+        area.Append(elemDefEarth);
+      }
+      else
+      {
+        area.RemoveChild(elemDefEarth);
+      }
+      if (unPlayer.resists[4] > 0)
+      {
+        area.Append(earthText);
+      }
+      else
+      {
+        area.RemoveChild(earthText);
+      }
+      // Air
+      if (unPlayer.resists[5] > 0)
+      {
+        area.Append(elemDefAir);
+      }
+      else
+      {
+        area.RemoveChild(elemDefAir);
+      }
+      if (unPlayer.resists[5] > 0)
+      {
+        area.Append(airText);
+      }
+      else
+      {
+        area.RemoveChild(airText);
+      }
+      // Radiant
+      if (unPlayer.resists[6] > 0)
+      {
+        area.Append(elemDefRadiant);
+      }
+      else
+      {
+        area.RemoveChild(elemDefRadiant);
+      }
+      if (unPlayer.resists[6] > 0)
+      {
+        area.Append(radiantText);
+      }
+      else
+      {
+        area.RemoveChild(radiantText);
+      }
+      // Necrotic
+      if (unPlayer.resists[7] > 0)
+      {
+        area.Append(elemDefNecrotic);
+      }
+      else
+      {
+        area.RemoveChild(elemDefNecrotic);
+      }
+      if (unPlayer.resists[7] > 0)
+      {
+        area.Append(necroticText);
+      }
+      else
+      {
+        area.RemoveChild(necroticText);
       }
     }
   }

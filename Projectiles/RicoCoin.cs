@@ -9,7 +9,6 @@ namespace UnbiddenMod.Projectiles
 {
   public class RicoCoin : ModProjectile
   {
-    private bool primed = false;
     public bool ricocheted = false;
     public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;
     public override void SetStaticDefaults()
@@ -55,11 +54,7 @@ namespace UnbiddenMod.Projectiles
           {
             continue;
           }
-          if (projectile.type == ModContent.ProjectileType<RicoCoin>() && projectile.type == proj2.type)
-          {
-            continue;
-          }
-          else
+          if (projectile.type != ModContent.ProjectileType<RicoCoin>() || projectile.type != proj2.type)
           {
             ricocheted = true;
             projectile.velocity = Vector2.Add(projectile.velocity, proj2.velocity);

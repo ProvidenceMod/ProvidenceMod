@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,11 +27,22 @@ namespace UnbiddenMod
           somethingInterface.SetState(somethingUI);
       }*/
       ElemDefUI = new ElemDefUI();
-      ElemDefUI.Activate();
+      ElemDefUI.Initialize();
       elemDefUI = new UserInterface();
       elemDefUI.SetState(ElemDefUI);
     }
-
+    private bool DrawElemDefUI()
+    {
+      if (ElemDefUI.visible)
+      {
+        elemDefUI.Draw(Main.spriteBatch, new GameTime());
+      }
+      return true;
+    }
+    public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+    {
+      layers.Add(new LegacyGameInterfaceLayer("Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
+    }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
     {
       UnbiddenModMessageType msgType = (UnbiddenModMessageType)reader.ReadByte();
@@ -83,6 +95,10 @@ namespace UnbiddenMod
         music = GetSoundSlot(SoundType.Music, "Sounds/Music/Brainiac");
         priority = MusicPriority.BossMedium;
       }
+    }
+    public override void UpdateUI(GameTime gameTime)
+    {
+      elemDefUI?.Update(gameTime);
     }
   }
 

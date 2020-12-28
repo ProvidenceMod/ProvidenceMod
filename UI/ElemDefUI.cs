@@ -9,6 +9,7 @@ namespace UnbiddenMod.UI
 {
   internal class ElemDefUI : UIState
   {
+    public static bool visible = true;
     private UIText fireText;
     private UIText iceText;
     private UIText airText;
@@ -34,34 +35,38 @@ namespace UnbiddenMod.UI
       // Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
       // UIElement is invisible and has no padding. You can use a UIPanel if you wish for a background.
       area = new UIElement();
-      area.Left.Set(-area.Width.Pixels - 314, 1f); // Place the resource bar to the left of the hearts.
-      area.Top.Set(300, 0f); // Placing it just a bit below the top of the screen.
-      area.Width.Set(36, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
-      area.Height.Set(408, 0f);
+      area.Left.Set(0, 50f); // Halfway across the screen?
+      area.Top.Set(0, 5f); // Placing it just a bit below the top of the screen.
+      area.Width.Set(288, 0f); // 36 * 8 = 288
+      area.Height.Set(36, 0f); // Our icons are all 36x
+      float currentLeft = area.Left.Pixels;
+      float top = area.Top.Pixels;
 
       elemDefFire = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefFireUI"));
-      elemDefFire.Left.Set(0, 0f);
-      elemDefFire.Top.Set(0, 0f);
+      elemDefFire.Left.Set(currentLeft, 0f);
+      elemDefFire.Top.Set(top, 0f);
       elemDefFire.Width.Set(36, 0f);
       elemDefFire.Height.Set(36, 0f);
+      currentLeft += 36;
 
-      fireText = new UIText("1", 0.8f); // text to show stat
-      fireText.Width.Set(24, 0f);
-      fireText.Height.Set(24, 0f);
-      fireText.Top.Set(18, 0f);
-      fireText.Left.Set(18, 0f);
+      fireText = new UIText("1", 1f); // text to show stat
+      fireText.Left.Set(currentLeft - 18, 0f);
+      fireText.Top.Set(top + 18, 0f);
+      fireText.Width.Set(18, 0f);
+      fireText.Height.Set(18, 0f);
 
       elemDefIce = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefIceUI"));
-      elemDefIce.Left.Set(0, 0f);
-      elemDefIce.Top.Set(51, 0f);
+      elemDefIce.Left.Set(currentLeft, 0f);
+      elemDefIce.Top.Set(top, 0f);
       elemDefIce.Width.Set(36, 0f);
       elemDefIce.Height.Set(36, 0f);
+      currentLeft += 36;
 
-      iceText = new UIText("1", 0.8f); // text to show stat
-      iceText.Width.Set(24, 0f);
-      iceText.Height.Set(24, 0f);
-      iceText.Top.Set(69, 0f);
-      iceText.Left.Set(69, 0f);
+      iceText = new UIText("1", 1f); // text to show stat
+      iceText.Left.Set(currentLeft - 18, 0f);
+      iceText.Top.Set(top + 18, 0f);
+      iceText.Width.Set(18, 0f);
+      iceText.Height.Set(18, 0f);
 
       area.Append(elemDefFire);
       area.Append(fireText);
@@ -73,7 +78,7 @@ namespace UnbiddenMod.UI
     {
       base.DrawSelf(spriteBatch);
 
-      UnbiddenPlayer unPlayer = Main.LocalPlayer.GetModPlayer<UnbiddenPlayer>();
+      UnbiddenPlayer unPlayer = Main.LocalPlayer.Unbidden();
       int fireAff = unPlayer.affinities[0];
       int iceAff = unPlayer.affinities[1];
       int airAff = unPlayer.affinities[2];
@@ -85,7 +90,7 @@ namespace UnbiddenMod.UI
     }
     public override void Update(GameTime gameTime)
     {
-      UnbiddenPlayer unPlayer = Main.LocalPlayer.GetModPlayer<UnbiddenPlayer>();
+      UnbiddenPlayer unPlayer = Main.player[0].Unbidden();
       fireText.SetText(unPlayer.resists[0].ToString());
       iceText.SetText(unPlayer.resists[1].ToString());
       base.Update(gameTime);

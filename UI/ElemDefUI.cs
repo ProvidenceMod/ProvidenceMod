@@ -36,7 +36,7 @@ namespace UnbiddenMod.UI
       // Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
       // UIElement is invisible and has no padding. You can use a UIPanel if you wish for a background.
       area = new UIElement();
-      area.Left.Set(-225, 1f); // Halfway across the screen?
+      area.Left.Set(-(Main.screenWidth * 0.1758f), 1f); // Halfway across the screen?
       area.Top.Set(Main.screenHeight * 0.225f, 0f); // Placing it just a bit below the top of the screen.
       area.Width.Set(36, 0f); // 36 * 8 = 288
       area.Height.Set(288, 0f); // Our icons are all 36x

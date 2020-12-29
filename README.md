@@ -32,17 +32,17 @@ In order to install our mod, simply follow these steps:
 <div class="row">
    <a href="https://github.com/FenGoScrem">
     <div class="column">
-      <k><img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="50"></k>
+      <img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="50">
     </div>
    </a>
   <a href="https://github.com/LanceYosh">
   <div class="column">
-    <k><img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="50"></k>
+    <img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="50">
   </div>
   </a>
   <a href="https://github.com/SnowyStarfall">
   <div class="column">
-    <k><img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="50"></k>
+    <img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="50">
   </div>
   </a>
   <a href="https://github.com/ZackFox0">

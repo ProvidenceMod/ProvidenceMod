@@ -13,8 +13,10 @@ namespace UnbiddenMod
 {
   public class UnbiddenMod : Mod
   {
-    private UserInterface elemDefUI;
+    private UserInterface elemDefUI, focusUI;
     internal ElemDefUI ElemDefUI;
+    internal Focus focusBar;
+
     public override void Load()
     {
       // this makes sure that the UI doesn't get opened on the server
@@ -30,20 +32,32 @@ namespace UnbiddenMod
       ElemDefUI.Initialize();
       elemDefUI = new UserInterface();
       elemDefUI.SetState(ElemDefUI);
+
+      focusBar = new Focus();
+      focusBar.Initialize();
+      focusUI = new UserInterface();
+      focusUI.SetState(focusBar);
     }
     private bool DrawElemDefUI()
     {
       if (ElemDefUI.visible && Main.playerInventory)
-      {
         elemDefUI.Draw(Main.spriteBatch, new GameTime());
-      }
+      return true;
+    }
+    private bool DrawFocusUI()
+    {
+      if (Focus.visible)
+        focusUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
       int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
       if (accbarIndex != -1)
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
+      {
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
+      }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
     {
@@ -101,6 +115,7 @@ namespace UnbiddenMod
     public override void UpdateUI(GameTime gameTime)
     {
       elemDefUI?.Update(gameTime);
+      focusUI?.Update(gameTime);
     }
   }
 

@@ -31,7 +31,9 @@ namespace UnbiddenMod
     public bool brimHeart = false;
     public float cleric = 1f;
     public bool boosterShot = false;
+    public bool allowFocus = false;
     public float focus = 0f;
+    public float focusMax = 1f;
     public bool deflectable = false;
     public bool micitBangle = false;
     public bool hasClericSet = false;
@@ -70,6 +72,8 @@ namespace UnbiddenMod
       dashMod = 0;
       dashTimeMod = 0;
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+      focusMax = 1f;
+      allowFocus = false;
     }
 
     public override void Load(TagCompound tag)
@@ -122,6 +126,18 @@ namespace UnbiddenMod
     //   else
     //     return 0;
     // }
+
+    public override void PreUpdate()
+    {
+      base.PreUpdate();
+      foreach(NPC npc in Main.npc)
+      {
+        if (npc.active && npc.boss)
+          allowFocus = true;
+      }
+      if (!allowFocus)
+        focus = 0;
+    }
     public override void PostUpdate()
     {
       // // Provide a cooldown so it's actually a challenge to level up naturally
@@ -129,6 +145,11 @@ namespace UnbiddenMod
       // {
       //   affExpCooldown--;
       // }
+      // Safeguard against weird ass number overflowing
+      if (focus <= 0)
+        focus = 0;
+      else if (focus > focusMax)
+        focus = focusMax;
       player.CalcElemDefense();
       ////////// DELETE THIS LATER //////////
       if (hasClericSet)

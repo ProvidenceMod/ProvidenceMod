@@ -10,7 +10,7 @@ Hells no! You've got a lot left to do. Moon Lord was only the beginning. The cal
 
 ---
 
-This is the source-code for the UnbiddenMod project.
+This is the source-code for the UnbiddenMod project; A mod for Terraria via tModLoader.
 
 ## Unbidden Mod
 
@@ -31,23 +31,28 @@ In order to install our mod, simply follow these steps:
 
 <div class="row">
    <a href="https://github.com/FenGoScrem">
-    <div class="column">
-      <img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="50">
+    <div class="inline-block">
+      <k><img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="50"></k>
     </div>
    </a>
   <a href="https://github.com/LanceYosh">
-  <div class="column">
-    <img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="50">
+  <div class="inline-block">
+    <k><img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="50"></k>
   </div>
   </a>
   <a href="https://github.com/SnowyStarfall">
-  <div class="column">
-    <img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="50">
+  <div class="inline-block">
+    <k><img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="50"></k>
   </div>
   </a>
   <a href="https://github.com/ZackFox0">
-  <div class="column">
+  <div class="inline-block">
     <img src="https://avatars1.githubusercontent.com/u/65053215?s=400&v=4" width="50">
   </div>
   </a>
 </div>
+
+## Credits:
+   _"Thank you to the Dev team for toughing out the beginning, and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone in the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to ReLogic for creating such a wonderful game."_
+
+_-SnowyStarfall and the UnbiddenMod Dev Team_

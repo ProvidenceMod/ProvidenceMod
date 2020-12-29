@@ -402,7 +402,7 @@ namespace UnbiddenMod
     }
     private void DrawSwordGlowmask(PlayerDrawInfo info)
     {
-      _ = info.drawPlayer; //the player!
+      Player player = info.drawPlayer; //the player!
 
       /*if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0)
       {

@@ -19,3 +19,5 @@ obj/Debug/net45/UnbiddenMod.AssemblyInfo.cs
 obj/Debug/net45/UnbiddenMod.AssemblyInfoInputs.cache
 obj/UnbiddenMod.csproj.nuget.g.targets
 desktop.ini
+.vscode/settings.json
+.vscode/settings.json

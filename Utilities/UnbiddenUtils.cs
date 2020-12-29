@@ -50,9 +50,7 @@ namespace UnbiddenMod
       for (int k = 0; k < 8; k++)
       {
         int index = unPlayer.affinities[k] - 1;
-        if (index == -1)
-          unPlayer.resists[k] = 0;
-        else
+        if (index != -1)
           unPlayer.resists[k] += (int)elemAffDef[0, index];
       }
     }

@@ -646,41 +646,88 @@ namespace UnbiddenMod
           break;
 
         case ItemID.FossilHelm:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.FossilShirt:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.FossilPants:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.BeeHeadgear:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.BeeBreastplate:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.BeeGreaves:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.JungleHat:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.JungleShirt:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
         case ItemID.JunglePants:
-          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
           break;
 
         case ItemID.MeteorHelmet:
-          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Earth, item.defense / 2);
+          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Ice, item.defense / 2);
           break;
         case ItemID.MeteorSuit:
-          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Earth, item.defense / 2);
+          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Ice, item.defense / 2);
           break;
         case ItemID.MeteorLeggings:
-          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Earth, item.defense / 2);
+          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Ice, item.defense / 2);
+          break;
+        case ItemID.NecroHelmet:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.NecroBreastplate:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.NecroGreaves:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+
+        case ItemID.ShadowHelmet:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.ShadowScalemail:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.ShadowGreaves:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.AncientShadowHelmet:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.AncientShadowScalemail:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.AncientShadowGreaves:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.CrimsonHelmet:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.CrimsonScalemail:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.CrimsonGreaves:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+
+        case ItemID.MoltenHelmet:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
+          break;
+        case ItemID.MoltenBreastplate:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
+          break;
+        case ItemID.MoltenGreaves:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
           break;
       }
     }

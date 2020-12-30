@@ -24,7 +24,6 @@ namespace UnbiddenMod.Items.Armor
     public override void UpdateEquip(Player player)
     {
       player.Unbidden().cleric += 0.05f;
-      player.Unbidden().resists[2] += 2;
     }
 
     public override void AddRecipes()

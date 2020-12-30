@@ -344,11 +344,11 @@ namespace UnbiddenMod
 
       // Determining approximate % HP lost
       int trueDamage = crit ? damage * 2 : damage;
-      float perOffHP = ((boss.life - trueDamage) / boss.life) * 100;
+      float perOffHP = (boss.life - trueDamage) / boss.life * 100;
 
       // Determining difference between actual and default
-      float useDiff = (float)((useTime / defUseTime) * 100),
-            bossHPLoss = (float)((perOffHP / defBossHPLoss) * 100);
+      float useDiff = (float)(useTime / defUseTime * 100),
+            bossHPLoss = (float)(perOffHP / defBossHPLoss * 100);
 
       // Putting everything together and returning
       return defGain + useDiff + bossHPLoss;
@@ -361,6 +361,8 @@ namespace UnbiddenMod
         focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
         if (focus > 1f) focus = 1f;
       }
+      // Determined at the end of everything so any focus gained within a tick is retroactive
+      damage += (int)(damage * (focus / 5));
     }
     public override void NaturalLifeRegen(ref float regen)
     {
@@ -375,6 +377,9 @@ namespace UnbiddenMod
           }
         }
       }
+
+      // Focus regain
+      regen += regen * focus;
     }
     public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
     {
@@ -384,18 +389,25 @@ namespace UnbiddenMod
         focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
         if (focus > 1f) focus = 1f;
       }
+      damage += (int)(damage * (focus / 5));
     }
 
     // If the Player is hit by an NPC's contact damage...
     public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromNPC(npc, ref damage);
+
+      float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
+      damage -= (int)(damage * focusDR);
       focus = 0f;
     }
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromProj(proj, ref damage);
+
+      float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
+      damage -= (int)(damage * focusDR);
       focus = 0f;
     }
 

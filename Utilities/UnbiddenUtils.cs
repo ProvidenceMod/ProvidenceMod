@@ -233,5 +233,28 @@ namespace UnbiddenMod
       float amount = (float)((Math.Sin((Math.PI * Math.PI) / seconds * Main.GlobalTime) + 1.0) * 0.5);
       return Color.Lerp(firstColor, secondColor, amount);
     }
+
+    public static void SetElementalTraits(this Item item, int elID, int elDef = 0, int weakElID = -1, int weakElDef = 0)
+    {
+      item.Unbidden().element = elID;
+      item.Unbidden().elementDef = elDef;
+      if (weakElID != -1)
+      {
+        item.Unbidden().weakEl = weakElID;
+        item.Unbidden().weakElDef = weakElDef;
+      }
+    }
+  }
+
+  public static class ElementID
+  {
+    public const int Fire = 0;
+    public const int Ice = 1;
+    public const int Lightning = 2;
+    public const int Water = 3;
+    public const int Earth = 4;
+    public const int Air = 5;
+    public const int Radiant = 6;
+    public const int Necrotic = 7;
   }
 }

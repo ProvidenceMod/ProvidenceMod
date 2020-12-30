@@ -196,142 +196,86 @@ namespace UnbiddenMod.UI
       {
         area.Top.Set(176, 0f);
       }
+
       // Fire
-      if (unPlayer.resists[0] > 0)
-      {
+      if (unPlayer.resists[0] != 0)
         area.Append(elemDefFire);
-      }
       else
-      {
         area.RemoveChild(elemDefFire);
-      }
-      if (unPlayer.resists[0] > 0)
-      {
+      if (unPlayer.resists[0] != 0)
         area.Append(fireText);
-      }
       else
-      {
         area.RemoveChild(fireText);
-      }
+
       // Ice
-      if (unPlayer.resists[1] > 0)
-      {
+      if (unPlayer.resists[1] != 0)
         area.Append(elemDefIce);
-      }
       else
-      {
         area.RemoveChild(elemDefIce);
-      }
-      if (unPlayer.resists[1] > 0)
-      {
+      if (unPlayer.resists[1] != 0)
         area.Append(iceText);
-      }
       else
-      {
         area.RemoveChild(iceText);
-      }
+
       // Lightning
-      if (unPlayer.resists[2] > 0)
-      {
+      if (unPlayer.resists[2] != 0)
         area.Append(elemDefLightning);
-      }
       else
-      {
         area.RemoveChild(elemDefLightning);
-      }
-      if (unPlayer.resists[2] > 0)
-      {
+      if (unPlayer.resists[2] != 0)
         area.Append(lightningText);
-      }
       else
-      {
         area.RemoveChild(lightningText);
-      }
+
       // Water
-      if (unPlayer.resists[3] > 0)
-      {
+      if (unPlayer.resists[3] != 0)
         area.Append(elemDefWater);
-      }
       else
-      {
         area.RemoveChild(elemDefWater);
-      }
-      if (unPlayer.resists[3] > 0)
-      {
+      if (unPlayer.resists[3] != 0)
         area.Append(waterText);
-      }
       else
-      {
         area.RemoveChild(waterText);
-      }
+
       // Earth
-      if (unPlayer.resists[4] > 0)
-      {
+      if (unPlayer.resists[4] != 0)
         area.Append(elemDefEarth);
-      }
       else
-      {
         area.RemoveChild(elemDefEarth);
-      }
-      if (unPlayer.resists[4] > 0)
-      {
+      if (unPlayer.resists[4] != 0)
         area.Append(earthText);
-      }
       else
-      {
         area.RemoveChild(earthText);
-      }
+
       // Air
-      if (unPlayer.resists[5] > 0)
-      {
+      if (unPlayer.resists[5] != 0)
         area.Append(elemDefAir);
-      }
       else
-      {
         area.RemoveChild(elemDefAir);
-      }
-      if (unPlayer.resists[5] > 0)
-      {
+      if (unPlayer.resists[5] != 0)
         area.Append(airText);
-      }
       else
-      {
         area.RemoveChild(airText);
-      }
+
       // Radiant
-      if (unPlayer.resists[6] > 0)
-      {
+      if (unPlayer.resists[6] != 0)
         area.Append(elemDefRadiant);
-      }
       else
-      {
         area.RemoveChild(elemDefRadiant);
-      }
-      if (unPlayer.resists[6] > 0)
-      {
+      if (unPlayer.resists[6] != 0)
         area.Append(radiantText);
-      }
       else
-      {
         area.RemoveChild(radiantText);
-      }
+
       // Necrotic
-      if (unPlayer.resists[7] > 0)
-      {
+      if (unPlayer.resists[7] != 0)
         area.Append(elemDefNecrotic);
-      }
       else
-      {
         area.RemoveChild(elemDefNecrotic);
-      }
-      if (unPlayer.resists[7] > 0)
-      {
+      if (unPlayer.resists[7] != 0)
         area.Append(necroticText);
-      }
       else
-      {
         area.RemoveChild(necroticText);
-      }
     }
   }
 }

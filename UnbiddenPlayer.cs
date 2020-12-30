@@ -359,7 +359,7 @@ namespace UnbiddenMod
       {
         // Should add to the focus bar
         focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
-        if (focus > 1f) focus = 1f;
+        if (focus > focusMax) focus = focusMax;
       }
       // Determined at the end of everything so any focus gained within a tick is retroactive
       damage += (int)(damage * (focus / 5));
@@ -387,7 +387,7 @@ namespace UnbiddenMod
       if (target.boss && target.active)
       {
         focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
-        if (focus > 1f) focus = 1f;
+        if (focus > focusMax) focus = focusMax;
       }
       damage += (int)(damage * (focus / 5));
     }

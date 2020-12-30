@@ -1,6 +1,7 @@
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod
 {
@@ -8,18 +9,26 @@ namespace UnbiddenMod
   {
     // Elemental variables for Items
     public bool inverseKB = false;
-    public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
+    public int element = -1, weakEl = -1; // -1 means Typeless, meaning we don't worry about this in the first place
     // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
+    public int elementDef = 0, weakElDef = 0;
     public override bool InstancePerEntity => true;
 
     public UnbiddenGlobalItem()
     {
       element = -1;
+      elementDef = 0;
+      weakEl = -1;
+      weakElDef = 0;
     }
+
     public override GlobalItem Clone(Item item, Item itemClone)
     {
       UnbiddenGlobalItem myClone = (UnbiddenGlobalItem)base.Clone(item, itemClone);
       myClone.element = element;
+      myClone.elementDef = elementDef;
+      myClone.weakEl = weakEl;
+      myClone.weakElDef = weakElDef;
       return myClone;
     }
     public override void SetDefaults(Item item)
@@ -582,7 +591,107 @@ namespace UnbiddenMod
         case ItemID.WebCoveredChest:
           item.maxStack = 999;
           break;
+
+        case ItemID.EbonwoodHelmet:
+          // Provides a boost to Necrotic and a penalty to Radiant (defenses)
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          break;
+        case ItemID.EbonwoodBreastplate:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          break;
+        case ItemID.EbonwoodGreaves:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          break;
+        case ItemID.ShadewoodHelmet:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          break;
+        case ItemID.ShadewoodBreastplate:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          break;
+        case ItemID.ShadewoodGreaves:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          break;
+        case ItemID.RainCoat:
+          item.SetElementalTraits(ElementID.Water, item.defense);
+          break;
+        case ItemID.RainHat:
+          item.SetElementalTraits(ElementID.Water, item.defense);
+          break;
+        case ItemID.EskimoCoat:
+          item.SetElementalTraits(ElementID.Ice, item.defense);
+          break;
+        case ItemID.EskimoHood:
+          item.SetElementalTraits(ElementID.Ice, item.defense);
+          break;
+        case ItemID.EskimoPants:
+          item.SetElementalTraits(ElementID.Ice, item.defense);
+          break;
+        case ItemID.PinkEskimoCoat:
+          item.SetElementalTraits(ElementID.Ice, item.defense);
+          break;
+        case ItemID.PinkEskimoHood:
+          item.SetElementalTraits(ElementID.Ice, item.defense);
+          break;
+        case ItemID.PinkEskimoPants:
+          item.SetElementalTraits(ElementID.Ice, item.defense);
+          break;
+        case ItemID.AnglerHat:
+          item.SetElementalTraits(ElementID.Water, item.defense);
+          break;
+        case ItemID.AnglerVest:
+          item.SetElementalTraits(ElementID.Water, item.defense);
+          break;
+        case ItemID.AnglerPants:
+          item.SetElementalTraits(ElementID.Water, item.defense);
+          break;
+
+        case ItemID.FossilHelm:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.FossilShirt:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.FossilPants:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.BeeHeadgear:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.BeeBreastplate:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.BeeGreaves:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.JungleHat:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.JungleShirt:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+        case ItemID.JunglePants:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Lightning, item.defense / 2);
+          break;
+
+        case ItemID.MeteorHelmet:
+          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Earth, item.defense / 2);
+          break;
+        case ItemID.MeteorSuit:
+          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Earth, item.defense / 2);
+          break;
+        case ItemID.MeteorLeggings:
+          item.SetElementalTraits(ElementID.Air, item.defense, ElementID.Earth, item.defense / 2);
+          break;
       }
+    }
+
+    public override void UpdateEquip(Item item, Player player)
+    {
+      if (item.Unbidden().element != -1)
+        player.Unbidden().resists[item.Unbidden().element] += item.Unbidden().elementDef;
+      if (item.Unbidden().weakEl != -1)
+        player.Unbidden().resists[item.Unbidden().weakEl] -= item.Unbidden().weakElDef;
+      base.UpdateEquip(item, player);
     }
   }
 }

@@ -592,6 +592,8 @@ namespace UnbiddenMod
           item.maxStack = 999;
           break;
 
+        ////////// VANILLA ELEMENTAL DEFENSES //////////
+        // Prehardmode
         case ItemID.EbonwoodHelmet:
           // Provides a boost to Necrotic and a penalty to Radiant (defenses)
           item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
@@ -727,6 +729,156 @@ namespace UnbiddenMod
           item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
           break;
         case ItemID.MoltenGreaves:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
+          break;
+
+        // Hardmode
+        case ItemID.PearlwoodHelmet:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense);
+          break;
+        case ItemID.PearlwoodBreastplate:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense);
+          break;
+        case ItemID.PearlwoodGreaves:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense);
+          break;
+
+        case ItemID.SpiderMask:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.SpiderBreastplate:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.SpiderGreaves:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+
+        case ItemID.FrostHelmet:
+          item.SetElementalTraits(ElementID.Ice, item.defense, ElementID.Water, -item.defense / 2);
+          break;
+        case ItemID.FrostBreastplate:
+          item.SetElementalTraits(ElementID.Ice, item.defense, ElementID.Water, -item.defense / 2);
+          break;
+        case ItemID.FrostLeggings:
+          item.SetElementalTraits(ElementID.Ice, item.defense, ElementID.Water, -item.defense / 2);
+          break;
+
+        case ItemID.AncientBattleArmorHat:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Earth, -item.defense / 2);
+          break;
+        case ItemID.AncientBattleArmorShirt:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Earth, -item.defense / 2);
+          break;
+        case ItemID.AncientBattleArmorPants:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Earth, -item.defense / 2);
+          break;
+
+        case ItemID.HallowedPlateMail:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense / 2);
+          break;
+        case ItemID.HallowedGreaves:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense / 2);
+          break;
+        case ItemID.HallowedHeadgear:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense / 2);
+          break;
+        case ItemID.HallowedHelmet:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense / 2);
+          break;
+        case ItemID.HallowedMask:
+          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense / 2);
+          break;
+
+        case ItemID.ChlorophytePlateMail:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ChlorophyteGreaves:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ChlorophyteHeadgear:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ChlorophyteHelmet:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ChlorophyteMask:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.TikiMask:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.TikiShirt:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.TikiPants:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.TurtleHelmet:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.TurtleScaleMail:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.TurtleLeggings:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.BeetleHelmet:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.BeetleScaleMail:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.BeetleHusk:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.BeetleLeggings:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ShroomiteBreastplate:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ShroomiteLeggings:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ShroomiteHelmet:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ShroomiteMask:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+        case ItemID.ShroomiteHeadgear:
+          item.SetElementalTraits(ElementID.Earth, item.defense, ElementID.Air, item.defense / 2);
+          break;
+
+        case ItemID.SpectreRobe:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.SpectrePants:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.SpectreHood:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.SpectreMask:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.SpookyBreastplate:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.SpookyLeggings:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+        case ItemID.SpookyHelmet:
+          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          break;
+
+        case ItemID.SolarFlareHelmet:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
+          break;
+        case ItemID.SolarFlareBreastplate:
+          item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
+          break;
+        case ItemID.SolarFlareLeggings:
           item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
           break;
       }

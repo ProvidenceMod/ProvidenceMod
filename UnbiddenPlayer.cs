@@ -87,7 +87,7 @@ namespace UnbiddenMod
       allowFocus = IsThereABoss();
       tankFocus = false;
       // Max 15%, min 5%
-      focusLoss = 0.25f - (float)(tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (float)(tankingItemCount / 100);
+      focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
       bonusFocusGain = 0f;
       player.moveSpeed += focus / 2;
     }

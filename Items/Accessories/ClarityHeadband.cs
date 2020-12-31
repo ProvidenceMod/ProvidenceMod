@@ -11,7 +11,7 @@ namespace UnbiddenMod.Items.Accessories
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Clarity Headband");
-      Tooltip.SetDefault("\"A headband to help clear the mind, and focus\"\nBoosts focus gain");
+      Tooltip.SetDefault("\"A headband to help clear the mind, and focus\"\nBoosts focus gain and max focus");
     }
 
     public override void SetDefaults()
@@ -21,6 +21,7 @@ namespace UnbiddenMod.Items.Accessories
     public override void UpdateEquip(Player player)
     {
       player.Unbidden().bonusFocusGain += 0.005f;
+      player.Unbidden().focusMax += 0.2f;
     }
     public override void AddRecipes()
     {

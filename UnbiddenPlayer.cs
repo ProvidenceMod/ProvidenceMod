@@ -34,12 +34,12 @@ namespace UnbiddenMod
 
     public bool allowFocus = false;
     public float focus = 0f;
-    public bool tankFocus = false;
     public float focusMax = 1f;
-    public int tankingItemCount = 0;
+    public float tankingItemCount;
     public const float defaultFocusGain = 0.005f;
     public float bonusFocusGain = 0f;
     public float focusLoss = 0.15f;
+    public float defaultFocusLoss = 0.25f;
     public int focusLossCooldown = 0;
     public int focusLossCooldownMax = 20;
 
@@ -83,11 +83,9 @@ namespace UnbiddenMod
       dashMod = 0;
       dashTimeMod = 0;
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+
       focusMax = 1f;
       allowFocus = IsThereABoss();
-      tankFocus = false;
-      // Max 15%, min 5%
-      focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
       bonusFocusGain = 0f;
       player.moveSpeed += focus / 2;
     }
@@ -151,14 +149,15 @@ namespace UnbiddenMod
         focusLossCooldown--;
       if (!allowFocus)
         focus = 0;
-      if (focus <= 0)
-        focus = 0;
-      else if (focus > focusMax)
-        focus = focusMax;
+
+      focus = Utils.Clamp(focus, 0, focusMax);
       base.PreUpdate();
     }
     public override void PostUpdate()
     {
+      tankingItemCount = (int)Math.Floor((decimal)(player.statDefense / 15));
+      // Max 15%, min 5%
+      focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
       // // Provide a cooldown so it's actually a challenge to level up naturally
       // if (affExpCooldown > 0)
       // {

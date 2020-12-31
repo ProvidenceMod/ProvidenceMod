@@ -20,6 +20,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       name = "HarpyQueen";
       return mod.Properties.Autoload;
     }
+    public int preBHTimer = 300;
+    public bool preSpawnText = false;
     public int shootTimer = 20;
     public int plusTimer = 25;
     public int xTimer = 25;
@@ -69,6 +71,15 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     }
     public override void AI()
     {
+      if (!preSpawnText)
+      {
+        Talk("The Harpy Queen has spotted you...");
+        preSpawnText = true;
+      }
+      if (--preBHTimer > 0 && npc.life == npc.lifeMax)
+      {
+        return;
+      }
       if (!spawnText)
       {
         Talk("The Harpy Queen has awoken!");

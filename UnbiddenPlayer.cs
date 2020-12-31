@@ -397,7 +397,7 @@ namespace UnbiddenMod
 
       if (allowFocus)
       {
-        float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
+        float focusDR = focus / 4 >= 0.25f ? 0.15f : focus / 4;
         damage -= (int)(damage * focusDR);
 
         if (focusLossCooldown == 0)
@@ -415,7 +415,7 @@ namespace UnbiddenMod
 
       if (allowFocus)
       {
-        float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
+        float focusDR = focus / 4 >= 0.25f ? 0.15f : focus / 4;
         damage -= (int)(damage * focusDR);
 
         if (focusLossCooldown == 0)

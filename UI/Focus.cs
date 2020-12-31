@@ -44,7 +44,7 @@ namespace UnbiddenMod.UI
       focusFrame.Width.Set(120f, 0f);
       focusFrame.Height.Set(25f, 0f);
 
-      focusBarRect = new Rectangle(0, 0, 200, 34);
+      focusBarRect = new Rectangle(0, 0, 0, 34);
       focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusBarUI"), focusBarRect);
       focusBar.Top.Set(8f, 0f); 
       focusBar.Left.Set(10f, 0f);

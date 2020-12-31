@@ -36,6 +36,7 @@ namespace UnbiddenMod.Projectiles
       NPC npc = Main.npc[(int)projectile.ai[0]];
       projectile.ai[1]++;
       projectile.localAI[0]++;
+      projectile.rotation = projectile.velocity.ToRotation();
       IList<int> targets = ((FireAncient)npc.modNPC).targets;
       int player2 = targets[0];
       Player player = Main.player[player2];

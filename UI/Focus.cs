@@ -11,16 +11,19 @@ namespace UnbiddenMod.UI
   {
     public static bool visible = true;
     public float oldScale = Main.inventoryScale;
-    private UIPanel area;
+    private UIElement area;
     private UIText currFocus, breakSlash, maxFocus;
+    private UIImage focusFrame;
+    private Rectangle focusBarRect;
+    private UIImageFramed focusBar;
 
     public override void OnInitialize()
     {
-      area = new UIPanel();
-      area.Left.Set(0f, 0.5f);
-      area.Top.Set(50f, 0f);
-      area.Width.Set(100, 0f);
-      area.Height.Set(25, 0f);
+      area = new UIElement();
+      area.Left.Set(500f, 0f);
+      area.Top.Set(25f, 0f);
+      area.Width.Set(240, 0f);
+      area.Height.Set(50, 0f);
       area.PaddingTop = 5f;
       area.PaddingBottom = 5f;
 
@@ -30,10 +33,26 @@ namespace UnbiddenMod.UI
       breakSlash.Top.Set(0f, 0f);
       maxFocus.Top.Set(0f, 0f);
 
-      currFocus.Left.Set(10, 0f);
+      currFocus.Left.Set(20, 0f);
       breakSlash.Left.Set(0, 0.5f);
-      maxFocus.Left.Set(-25, 1f);
+      maxFocus.Left.Set(-50, 1f);
+      
+      focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusFrameUI"))
+      {ImageScale = 1f};
+      focusFrame.Top.Set(0, 0f);
+      focusFrame.Left.Set(0, 0f);
+      focusFrame.Width.Set(120f, 0f);
+      focusFrame.Height.Set(25f, 0f);
 
+      focusBarRect = new Rectangle(0, 0, 200, 34);
+      focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusBarUI"), focusBarRect);
+      focusBar.Top.Set(8f, 0f); 
+      focusBar.Left.Set(10f, 0f);
+      focusBar.Width.Set(200f, 0f);
+      focusBar.Height.Set(34f, 0f);
+
+      area.Append(focusBar);
+      area.Append(focusFrame);
       area.Append(currFocus);
       area.Append(breakSlash);
       area.Append(maxFocus);
@@ -44,7 +63,11 @@ namespace UnbiddenMod.UI
     {
       UnbiddenPlayer unPlayer = Main.player[0].Unbidden();
       currFocus.SetText(((int)(unPlayer.focus * 100)).ToString());
-
+      float quotient = unPlayer.focus / unPlayer.focusMax;
+      quotient = Utils.Clamp(quotient, 0f, 1f);
+      int measure = (int) (quotient * 100);
+      focusBarRect.Width = measure * 2;
+      focusBar.SetFrame(focusBarRect);
       // Minor optimization so it doesn't have to run as much.
       // ONLY RECOMMENDED FOR SMALLER CHANGING ITEMS LIKE MAX VALUES.
       if (maxFocus.Text != unPlayer.focusMax.ToString())

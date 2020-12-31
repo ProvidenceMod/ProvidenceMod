@@ -29,13 +29,24 @@ namespace UnbiddenMod
     public bool angelTear;
     public int tearCount;
     public bool brimHeart = false;
-    public float cleric = 1f;
+
     public bool boosterShot = false;
+
     public bool allowFocus = false;
     public float focus = 0f;
+    public bool tankFocus = false;
     public float focusMax = 1f;
+    public int tankingItemCount = 0;
+    public const float defaultFocusGain = 0.005f;
+    public float bonusFocusGain = 0f;
+    public float focusLoss = 0.15f;
+    public int focusLossCooldown = 0;
+    public int focusLossCooldownMax = 20;
+
     public bool deflectable = false;
     public bool micitBangle = false;
+
+    public float cleric = 1f;
     public bool hasClericSet = false;
     public float clericAuraRadius = 300f;
     public bool regenAura = false;
@@ -73,7 +84,12 @@ namespace UnbiddenMod
       dashTimeMod = 0;
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       focusMax = 1f;
-      allowFocus = false;
+      allowFocus = IsThereABoss();
+      tankFocus = false;
+      // Max 15%, min 5%
+      focusLoss = 0.25f - (float)(tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (float)(tankingItemCount / 100);
+      bonusFocusGain = 0f;
+      player.moveSpeed += focus / 2;
     }
 
     public override void Load(TagCompound tag)
@@ -129,14 +145,17 @@ namespace UnbiddenMod
 
     public override void PreUpdate()
     {
-      base.PreUpdate();
-      foreach(NPC npc in Main.npc)
-      {
-        if (npc.active && npc.boss)
-          allowFocus = true;
-      }
+      if (IsThereABoss()) allowFocus = true;
+
+      if (focusLossCooldown > 0)
+        focusLossCooldown--;
       if (!allowFocus)
         focus = 0;
+      if (focus <= 0)
+        focus = 0;
+      else if (focus > focusMax)
+        focus = focusMax;
+      base.PreUpdate();
     }
     public override void PostUpdate()
     {
@@ -146,10 +165,6 @@ namespace UnbiddenMod
       //   affExpCooldown--;
       // }
       // Safeguard against weird ass number overflowing
-      if (focus <= 0)
-        focus = 0;
-      else if (focus > focusMax)
-        focus = focusMax;
       player.CalcElemDefense();
       ////////// DELETE THIS LATER //////////
       if (hasClericSet)
@@ -336,29 +351,12 @@ namespace UnbiddenMod
         }
       }
     }
-    private float DetermineFocusGain(NPC boss, ref int useTime, ref int damage, ref bool crit)
-    {
-      // Default values to compare with
-      const float defGain = 0.005f, defBossHPLoss = 0.5f;
-      const int defUseTime = 20;
-
-      // Determining approximate % HP lost
-      int trueDamage = crit ? damage * 2 : damage;
-      float perOffHP = (boss.life - trueDamage) / boss.life * 100;
-
-      // Determining difference between actual and default
-      float useDiff = (float)(useTime / defUseTime * 100),
-            bossHPLoss = (float)(perOffHP / defBossHPLoss * 100);
-
-      // Putting everything together and returning
-      return defGain + useDiff + bossHPLoss;
-    }
     public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
     {
       if (target.boss && target.active)
       {
         // Should add to the focus bar
-        focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
+        focus += defaultFocusGain + bonusFocusGain;
         if (focus > focusMax) focus = focusMax;
       }
       // Determined at the end of everything so any focus gained within a tick is retroactive
@@ -386,7 +384,7 @@ namespace UnbiddenMod
       Item item = player.inventory[player.selectedItem];
       if (target.boss && target.active)
       {
-        focus += DetermineFocusGain(target, ref item.useTime, ref damage, ref crit);
+        focus += defaultFocusGain + bonusFocusGain;
         if (focus > focusMax) focus = focusMax;
       }
       damage += (int)(damage * (focus / 5));
@@ -397,18 +395,36 @@ namespace UnbiddenMod
     {
       damage = player.CalcEleDamageFromNPC(npc, ref damage);
 
-      float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
-      damage -= (int)(damage * focusDR);
-      focus = 0f;
+      if (allowFocus)
+      {
+        float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
+        damage -= (int)(damage * focusDR);
+
+        if (focusLossCooldown == 0)
+        {
+          focus -= focusLoss;
+          if (focus < 0f) focus = 0f;
+          focusLossCooldown = focusLossCooldownMax;
+        }
+      }
     }
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromProj(proj, ref damage);
 
-      float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
-      damage -= (int)(damage * focusDR);
-      focus = 0f;
+      if (allowFocus)
+      {
+        float focusDR = focus / 4 >= 0.15f ? 0.15f : focus / 4;
+        damage -= (int)(damage * focusDR);
+
+        if (focusLossCooldown == 0)
+        {
+          focus -= focusLoss;
+          if (focus < 0f) focus = 0f;
+          focusLossCooldown = focusLossCooldownMax;
+        }
+      }
     }
 
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)

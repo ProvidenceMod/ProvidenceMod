@@ -43,7 +43,7 @@ namespace UnbiddenMod.UI
     public override void Update(GameTime gameTime)
     {
       UnbiddenPlayer unPlayer = Main.player[0].Unbidden();
-      currFocus.SetText((unPlayer.focus * 100).ToString());
+      currFocus.SetText(((int)(unPlayer.focus * 100)).ToString());
 
       // Minor optimization so it doesn't have to run as much.
       // ONLY RECOMMENDED FOR SMALLER CHANGING ITEMS LIKE MAX VALUES.

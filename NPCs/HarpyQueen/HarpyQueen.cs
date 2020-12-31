@@ -46,7 +46,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
 
     public override void SetDefaults()
     {
-      music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths");
+      music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/HighInTheSky");
       musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
       npc.damage = 75;
       npc.aiStyle = -1;
@@ -203,7 +203,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     {
       Player player = Main.player[npc.target];
       Vector2 speed = new Vector2(0f, -10f).RotateTo(npc.AngleTo(player.Center));
-      speed = speed.RotatedByRandom(MathHelper.ToRadians(15f));
+      speed = speed.RotatedByRandom(MathHelper.ToRadians(5f));
       //Vector2 directionTo = DirectionTo(target.Center);
       _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
     }

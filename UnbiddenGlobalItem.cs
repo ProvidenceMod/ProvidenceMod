@@ -890,6 +890,12 @@ namespace UnbiddenMod
         player.Unbidden().resists[item.Unbidden().element] += item.Unbidden().elementDef;
       if (item.Unbidden().weakEl != -1)
         player.Unbidden().resists[item.Unbidden().weakEl] -= item.Unbidden().weakElDef;
+      int def = item.defense;
+      while (def >= 15)
+      {
+        player.Unbidden().tankingItemCount++;
+        def -= 15;
+      }
       base.UpdateEquip(item, player);
     }
   }

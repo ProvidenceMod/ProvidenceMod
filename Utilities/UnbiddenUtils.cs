@@ -244,6 +244,15 @@ namespace UnbiddenMod
         item.Unbidden().weakElDef = weakElDef;
       }
     }
+    public static bool IsThereABoss() {
+      bool bossExists = false;
+      foreach (NPC npc in Main.npc)
+      {
+        if (npc.active && npc.boss)
+          bossExists = true;
+      }
+      return bossExists;
+    }
   }
 
   public static class ElementID

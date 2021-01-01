@@ -69,8 +69,8 @@ namespace UnbiddenMod
       if (accbarIndex != -1)
       {
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -130,7 +130,7 @@ namespace UnbiddenMod
     {
       elemDefUI?.Update(gameTime);
       focusUI?.Update(gameTime);
-      BossHealth?.Update(gameTime);
+      bossHealthUI?.Update(gameTime);
     }
   }
 

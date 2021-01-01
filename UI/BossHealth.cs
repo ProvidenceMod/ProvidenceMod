@@ -5,11 +5,13 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.UI
 {
   internal class BossHealth : UIState
   {
+    public float oldScale = Main.inventoryScale;
     public static bool visible = true;
     private UIElement area;
     private UIImage frame;
@@ -30,7 +32,7 @@ namespace UnbiddenMod.UI
     public override void OnInitialize()
     {
       area = new UIElement();
-      area.Left.Set(750f, 0f);
+      area.Left.Set(755f, 0f);
       area.Top.Set(25f, 0f);
       area.Width.Set(240, 0f);
       area.Height.Set(50, 0f);
@@ -57,22 +59,35 @@ namespace UnbiddenMod.UI
       barAfterImage.Width.Set(200f, 0f);
       barAfterImage.Height.Set(34f, 0f);
 
-      area.Append(barAfterImage);
-      area.Append(mainBar);
-      area.Append(frame);
+      Append(area);
     }
     public override void Update(GameTime gameTime)
     {
-      /*foreach (NPC npc in Main.npc)
+      if (IsThereABoss().Item1)
+      {
+        area.Append(barAfterImage);
+        area.Append(mainBar);
+        area.Append(frame);
+      }
+      else if (!IsThereABoss().Item1)
+      {
+        area.RemoveAllChildren();
+      }
+      if (oldScale != Main.inventoryScale)
+      {
+        oldScale = Main.inventoryScale;
+        Recalculate();
+      }
+      foreach (NPC npc in Main.npc)
       {
         if (npc.active && npc.boss)
         {
           bossNPC = npc;
-          quotient = bossNPC.life / bossNPC.lifeMax;
           boss = true;
-        }        
+        }
       }
-
+      if(boss)
+        quotient = ((float) bossNPC.life) / ((float)bossNPC.lifeMax);
       // Main Bar
       quotient = Utils.Clamp(quotient, 0f, 1f);
       int measure = (int)(quotient * 100);
@@ -107,7 +122,7 @@ namespace UnbiddenMod.UI
         barAfterImageRect.Width--;
         amount--;
         mainBar.SetFrame(barAfterImageRect);
-      }*/
+      }
     }
   }
 }

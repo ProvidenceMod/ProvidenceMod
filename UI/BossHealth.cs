@@ -17,17 +17,18 @@ namespace UnbiddenMod.UI
     private UIImage frame;
     private UIImageFramed mainBar;
     private UIImageFramed barAfterImage;
+    private UIText currFocus;
+    private UIText currFocus2;
+    private UIText currFocus3;
     private Rectangle mainBarRect;
     private Rectangle barAfterImageRect;
-    private int afterImageCooldown = 120;
-    private int oldBarLength;
-    private int barLength;
-    private int amount;
-    private bool justHit = false;
-    private bool decreasing = false;
+    private int damageAount;
+    private int stackLimit = 2;
     private bool boss = false;
+    private bool arraySet = false;
     private NPC bossNPC;
     private float quotient;
+    private int[] lifeArray = new int[3] {0, 0, 0};
 
     public override void OnInitialize()
     {
@@ -59,6 +60,18 @@ namespace UnbiddenMod.UI
       barAfterImage.Width.Set(200f, 0f);
       barAfterImage.Height.Set(34f, 0f);
 
+      currFocus = new UIText("0", 1f);
+      currFocus.Top.Set(0f, 0f);
+      currFocus.Left.Set(0, 0f);
+
+      currFocus2 = new UIText("0", 1f);
+      currFocus2.Top.Set(0f, 0f);
+      currFocus2.Left.Set(90, 0f);
+
+      currFocus3 = new UIText("0", 1f);
+      currFocus3.Top.Set(0f, 0f);
+      currFocus3.Left.Set(180, 0f);
+
       Append(area);
     }
     public override void Update(GameTime gameTime)
@@ -68,6 +81,9 @@ namespace UnbiddenMod.UI
         area.Append(barAfterImage);
         area.Append(mainBar);
         area.Append(frame);
+        area.Append(currFocus);
+        area.Append(currFocus2);
+        area.Append(currFocus3);
       }
       else if (!IsThereABoss().Item1)
       {
@@ -90,6 +106,24 @@ namespace UnbiddenMod.UI
       {
         // Don't change this please, it works, Roslynator is wack
         quotient = ((float) bossNPC.life) / ((float)bossNPC.lifeMax);
+        if(!arraySet)
+        {
+          lifeArray[2] = lifeArray[1];
+          lifeArray[1] = lifeArray[0];
+          lifeArray[0] = bossNPC.life;
+          arraySet = true;
+        }
+        if(bossNPC.life < lifeArray[0])
+        {
+          lifeArray[2] = lifeArray[1];
+          lifeArray[1] = lifeArray[0];
+          lifeArray[0] = bossNPC.life;
+
+        }
+        currFocus.SetText(lifeArray[0].ToString());
+        currFocus2.SetText(lifeArray[1].ToString());
+        currFocus3.SetText(lifeArray[2].ToString());
+
       }
       // Main Bar
       quotient = Utils.Clamp(quotient, 0f, 1f);
@@ -98,34 +132,6 @@ namespace UnbiddenMod.UI
       mainBar.SetFrame(mainBarRect);
 
       // After Image
-
-      if (boss && !bossNPC.justHit)
-      {
-        oldBarLength = mainBarRect.Width;
-      }
-      else if (boss && bossNPC.justHit)
-      {
-        barLength = mainBarRect.Width;
-        justHit = true;
-      }
-      if(justHit)
-      {
-        afterImageCooldown = 120;
-        afterImageCooldown--;
-        if(afterImageCooldown == 0)
-        {
-          afterImageCooldown = 120;
-          justHit = false;
-          decreasing = true;
-        }
-        amount = oldBarLength - barLength;
-      }
-      if(decreasing && amount > 0)
-      {
-        barAfterImageRect.Width--;
-        amount--;
-        mainBar.SetFrame(barAfterImageRect);
-      }
     }
   }
 }

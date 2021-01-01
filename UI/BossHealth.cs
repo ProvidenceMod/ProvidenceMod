@@ -87,7 +87,10 @@ namespace UnbiddenMod.UI
         }
       }
       if(boss)
+      {
+        // Don't change this please, it works, Roslynator is wack
         quotient = ((float) bossNPC.life) / ((float)bossNPC.lifeMax);
+      }
       // Main Bar
       quotient = Utils.Clamp(quotient, 0f, 1f);
       int measure = (int)(quotient * 100);

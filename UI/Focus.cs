@@ -36,7 +36,7 @@ namespace UnbiddenMod.UI
       currFocus.Left.Set(20, 0f);
       breakSlash.Left.Set(0, 0.5f);
       maxFocus.Left.Set(-50, 1f);
-      
+
       focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusFrameUI"))
       {ImageScale = 1f};
       focusFrame.Top.Set(0, 0f);

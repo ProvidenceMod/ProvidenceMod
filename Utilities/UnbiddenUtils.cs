@@ -130,7 +130,7 @@ namespace UnbiddenMod
       }
       return damage;
     }
-    // 
+
     // Summary:
     // Calculates elemental projectile damage based on UnbiddenPlayer resists.
     // UnbiddenUtils.CalcEleDamageFromProj(Player player, Projectile proj, ref int damage);

@@ -541,3 +541,19 @@ namespace UnbiddenMod
     }
   }
 }
+/*
+currFocus = new UIText("0", 1f);
+      currFocus.Top.Set(0f, 0f);
+      currFocus.Left.Set(0, 0f);
+
+      currFocus2 = new UIText("0", 1f);
+      currFocus2.Top.Set(0f, 0f);
+      currFocus2.Left.Set(90, 0f);
+
+      currFocus3 = new UIText("0", 1f);
+      currFocus3.Top.Set(0f, 0f);
+      currFocus3.Left.Set(180, 0f);
+      currFocus.SetText(lifeArray[0].ToString());
+        currFocus2.SetText(lifeArray[1].ToString());
+        currFocus3.SetText(lifeArray[2].ToString());
+      */

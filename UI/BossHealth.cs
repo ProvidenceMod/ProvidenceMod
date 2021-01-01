@@ -15,6 +15,7 @@ namespace UnbiddenMod.UI
     public static bool visible = true;
     private UIElement area;
     private UIImage frame;
+    private UIImage background;
     private UIImageFramed mainBar;
     private UIImageFramed barAfterImage;
     private UIText currFocus;
@@ -22,68 +23,57 @@ namespace UnbiddenMod.UI
     private UIText currFocus3;
     private Rectangle mainBarRect;
     private Rectangle barAfterImageRect;
-    private int damageAount;
-    private int stackLimit = 2;
+    private int cooldown = 2000;
+    private int speed = 50;
+    private int[] lifeArray = new int[3] {0, 0, 0};
+    private float quotient;
     private bool boss = false;
     private bool arraySet = false;
     private NPC bossNPC;
-    private float quotient;
-    private int[] lifeArray = new int[3] {0, 0, 0};
 
     public override void OnInitialize()
     {
       area = new UIElement();
-      area.Left.Set(755f, 0f);
-      area.Top.Set(25f, 0f);
-      area.Width.Set(240, 0f);
-      area.Height.Set(50, 0f);
-      area.PaddingTop = 5f;
-      area.PaddingBottom = 5f;
+      area.Left.Set(175f, 0f);
+      area.Top.Set(0f, 0.85f);
+      area.Width.Set(1282f, 0f);
+      area.Height.Set(82f, 0f);
 
-      frame = new UIImage(GetTexture("UnbiddenMod/UI/FocusFrameUI"));
+      frame = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthFrameUI"));
       frame.Top.Set(0, 0f);
       frame.Left.Set(0, 0f);
-      frame.Width.Set(120f, 0f);
-      frame.Height.Set(25f, 0f);
+      frame.Width.Set(1282f, 0f);
+      frame.Height.Set(82f, 0f);
 
-      mainBarRect = new Rectangle(0, 0, 200, 34);
-      mainBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusBarUI"), mainBarRect);
-      mainBar.Top.Set(8f, 0f);
-      mainBar.Left.Set(10f, 0f);
-      mainBar.Width.Set(200f, 0f);
-      mainBar.Height.Set(34f, 0f);
+      background = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthBackgroundUI"));
+      background.Top.Set(16f, 0f);
+      background.Left.Set(36f, 0f);
+      background.Width.Set(1210f, 0f);
+      background.Height.Set(50f, 0f);
 
-      barAfterImageRect = new Rectangle(0, 0, 200, 34);
-      barAfterImage = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossNextBarUI"), barAfterImageRect);
-      barAfterImage.Top.Set(8f, 0f);
-      barAfterImage.Left.Set(10f, 0f);
-      barAfterImage.Width.Set(200f, 0f);
-      barAfterImage.Height.Set(34f, 0f);
+      mainBarRect = new Rectangle(0, 0, 1210, 50);
+      mainBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthBarUI"), mainBarRect);
+      mainBar.Top.Set(16f, 0f);
+      mainBar.Left.Set(36f, 0f);
+      mainBar.Width.Set(1210f, 0f);
+      mainBar.Height.Set(50f, 0f);
 
-      currFocus = new UIText("0", 1f);
-      currFocus.Top.Set(0f, 0f);
-      currFocus.Left.Set(0, 0f);
-
-      currFocus2 = new UIText("0", 1f);
-      currFocus2.Top.Set(0f, 0f);
-      currFocus2.Left.Set(90, 0f);
-
-      currFocus3 = new UIText("0", 1f);
-      currFocus3.Top.Set(0f, 0f);
-      currFocus3.Left.Set(180, 0f);
-
+      barAfterImageRect = new Rectangle(0, 0, 1210, 50);
+      barAfterImage = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthHitUI"), barAfterImageRect);
+      barAfterImage.Top.Set(16f, 0f);
+      barAfterImage.Left.Set(36f, 0f);
+      barAfterImage.Width.Set(1210f, 0f);
+      barAfterImage.Height.Set(50f, 0f);
       Append(area);
     }
     public override void Update(GameTime gameTime)
     {
       if (IsThereABoss().Item1)
       {
+        area.Append(background);
         area.Append(barAfterImage);
         area.Append(mainBar);
         area.Append(frame);
-        area.Append(currFocus);
-        area.Append(currFocus2);
-        area.Append(currFocus3);
       }
       else if (!IsThereABoss().Item1)
       {
@@ -118,17 +108,49 @@ namespace UnbiddenMod.UI
           lifeArray[2] = lifeArray[1];
           lifeArray[1] = lifeArray[0];
           lifeArray[0] = bossNPC.life;
-
+          cooldown = 2000;
         }
-        currFocus.SetText(lifeArray[0].ToString());
-        currFocus2.SetText(lifeArray[1].ToString());
-        currFocus3.SetText(lifeArray[2].ToString());
-
+        else if(bossNPC.life == lifeArray[0])
+        {
+          if(cooldown - 1 < 0)
+          {
+            cooldown = 0;
+          }
+          else
+          {
+            cooldown--;
+          }
+        }
+        if(cooldown == 0 && barAfterImageRect.Width != mainBarRect.Width)
+        {
+          if(speed == 0)
+          {
+            barAfterImageRect.Width--;
+            barAfterImage.SetFrame(barAfterImageRect);
+            speed = 50;
+          }
+          else
+          {
+            speed--;
+          }
+        }
+        if (bossNPC.life <= 0)
+        {
+          boss = false;
+          bossNPC = null;
+          barAfterImageRect.Width = 1210;
+          barAfterImage.SetFrame(barAfterImageRect);
+          cooldown = 2000;
+          speed = 50;
+          lifeArray[0] = 0;
+          lifeArray[1] = 0;
+          lifeArray[2] = 0;
+          arraySet = false;
+        }
       }
       // Main Bar
       quotient = Utils.Clamp(quotient, 0f, 1f);
-      int measure = (int)(quotient * 100);
-      mainBarRect.Width = measure * 2;
+      mainBarRect.Width = (int)(1210 * quotient);
       mainBar.SetFrame(mainBarRect);
 
       // After Image

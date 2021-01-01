@@ -50,7 +50,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     {
       music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/HighInTheSky");
       musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
-      npc.damage = 75;
+      npc.damage = 25;
       npc.aiStyle = -1;
       npc.lavaImmune = true;
       npc.noGravity = true;

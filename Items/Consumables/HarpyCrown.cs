@@ -25,7 +25,7 @@ namespace UnbiddenMod.Items.Consumables
 
     public override bool CanUseItem(Player player)
     {
-      return !IsThereABoss();
+      return !IsThereABoss().Item1;
     }
 
     public override bool UseItem(Player player)

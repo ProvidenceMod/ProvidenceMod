@@ -18,7 +18,6 @@ namespace UnbiddenMod
   public class UnbiddenPlayer : ModPlayer
   {
     // Elemental variables for Player
-
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 },
                  affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -42,10 +41,8 @@ namespace UnbiddenMod
     public float defaultFocusLoss = 0.25f;
     public int focusLossCooldown = 0;
     public int focusLossCooldownMax = 20;
-
     public bool deflectable = false;
     public bool micitBangle = false;
-
     public float cleric = 1f;
     public bool hasClericSet = false;
     public float clericAuraRadius = 300f;
@@ -58,6 +55,7 @@ namespace UnbiddenMod
     public int dashMod;
     public int dashModDelay = 60;
     public string dashDir = "";
+    public bool thereIsABoss;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -85,7 +83,7 @@ namespace UnbiddenMod
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
       focusMax = 1f;
-      allowFocus = IsThereABoss();
+      allowFocus = IsThereABoss().Item1;
       bonusFocusGain = 0f;
       player.moveSpeed += focus / 2;
     }
@@ -143,7 +141,15 @@ namespace UnbiddenMod
 
     public override void PreUpdate()
     {
-      if (IsThereABoss()) allowFocus = true;
+      if (IsThereABoss().Item1)
+      {
+        allowFocus = true;
+        thereIsABoss = true;
+      }
+      else if (!IsThereABoss().Item1)
+      {
+        thereIsABoss = false;
+      }
 
       if (focusLossCooldown > 0)
         focusLossCooldown--;

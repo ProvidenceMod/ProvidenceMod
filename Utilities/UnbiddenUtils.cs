@@ -244,14 +244,16 @@ namespace UnbiddenMod
         item.Unbidden().weakElDef = weakElDef;
       }
     }
-    public static bool IsThereABoss() {
+    public static Tuple<bool, int> IsThereABoss() {
       bool bossExists = false;
+      int bossID = 0;
       foreach (NPC npc in Main.npc)
       {
         if (npc.active && npc.boss)
           bossExists = true;
+          bossID = npc.type;
       }
-      return bossExists;
+      return Tuple.Create(bossExists, bossID);
     }
   }
 

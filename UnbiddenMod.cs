@@ -8,14 +8,16 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using UnbiddenMod.NPCs.FireAncient;
 using UnbiddenMod.UI;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod
 {
   public class UnbiddenMod : Mod
   {
-    private UserInterface elemDefUI, focusUI;
+    private UserInterface elemDefUI, focusUI, bossHealthUI;
     internal ElemDefUI ElemDefUI;
     internal Focus focusBar;
+    internal BossHealth BossHealth;
 
     public override void Load()
     {
@@ -37,6 +39,11 @@ namespace UnbiddenMod
       focusBar.Initialize();
       focusUI = new UserInterface();
       focusUI.SetState(focusBar);
+
+      BossHealth = new BossHealth();
+      BossHealth.Initialize();
+      bossHealthUI = new UserInterface();
+      bossHealthUI.SetState(BossHealth);
     }
     private bool DrawElemDefUI()
     {
@@ -50,6 +57,12 @@ namespace UnbiddenMod
         focusUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
+    private bool DrawBossHealthUI()
+    {
+      if (BossHealth.visible)
+        bossHealthUI.Draw(Main.spriteBatch, new GameTime());
+      return true;
+    }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
       int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
@@ -57,6 +70,7 @@ namespace UnbiddenMod
       {
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -116,6 +130,7 @@ namespace UnbiddenMod
     {
       elemDefUI?.Update(gameTime);
       focusUI?.Update(gameTime);
+      BossHealth?.Update(gameTime);
     }
   }
 

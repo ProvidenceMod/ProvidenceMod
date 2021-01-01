@@ -23,8 +23,7 @@ namespace UnbiddenMod.UI
     private UIText currFocus3;
     private Rectangle mainBarRect;
     private Rectangle barAfterImageRect;
-    private int cooldown = 2000;
-    private int speed = 50;
+    private int cooldown = 90;
     private int[] lifeArray = new int[3] {0, 0, 0};
     private float quotient;
     private bool boss = false;
@@ -108,31 +107,16 @@ namespace UnbiddenMod.UI
           lifeArray[2] = lifeArray[1];
           lifeArray[1] = lifeArray[0];
           lifeArray[0] = bossNPC.life;
-          cooldown = 2000;
+          cooldown = 30;
         }
         else if(bossNPC.life == lifeArray[0])
         {
-          if(cooldown - 1 < 0)
-          {
-            cooldown = 0;
-          }
-          else
-          {
-            cooldown--;
-          }
+          if(cooldown > 0) cooldown--;
         }
         if(cooldown == 0 && barAfterImageRect.Width != mainBarRect.Width)
         {
-          if(speed == 0)
-          {
-            barAfterImageRect.Width--;
-            barAfterImage.SetFrame(barAfterImageRect);
-            speed = 50;
-          }
-          else
-          {
-            speed--;
-          }
+          barAfterImageRect.Width--;
+          barAfterImage.SetFrame(barAfterImageRect);
         }
         if (bossNPC.life <= 0)
         {
@@ -140,8 +124,7 @@ namespace UnbiddenMod.UI
           bossNPC = null;
           barAfterImageRect.Width = 605;
           barAfterImage.SetFrame(barAfterImageRect);
-          cooldown = 2000;
-          speed = 50;
+          cooldown = 30;
           lifeArray[0] = 0;
           lifeArray[1] = 0;
           lifeArray[2] = 0;

@@ -36,34 +36,34 @@ namespace UnbiddenMod.UI
       area = new UIElement();
       area.Left.Set(175f, 0f);
       area.Top.Set(0f, 0.85f);
-      area.Width.Set(1282f, 0f);
-      area.Height.Set(82f, 0f);
+      area.Width.Set(641f, 0f);
+      area.Height.Set(41f, 0f);
 
       frame = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthFrameUI"));
       frame.Top.Set(0, 0f);
       frame.Left.Set(0, 0f);
-      frame.Width.Set(1282f, 0f);
-      frame.Height.Set(82f, 0f);
+      frame.Width.Set(641f, 0f);
+      frame.Height.Set(41f, 0f);
 
       background = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthBackgroundUI"));
-      background.Top.Set(16f, 0f);
-      background.Left.Set(36f, 0f);
-      background.Width.Set(1210f, 0f);
-      background.Height.Set(50f, 0f);
+      background.Top.Set(8f, 0f);
+      background.Left.Set(18f, 0f);
+      background.Width.Set(605f, 0f);
+      background.Height.Set(25f, 0f);
 
-      mainBarRect = new Rectangle(0, 0, 1210, 50);
+      mainBarRect = new Rectangle(0, 0, 605, 25);
       mainBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthBarUI"), mainBarRect);
-      mainBar.Top.Set(16f, 0f);
-      mainBar.Left.Set(36f, 0f);
-      mainBar.Width.Set(1210f, 0f);
-      mainBar.Height.Set(50f, 0f);
+      mainBar.Top.Set(8f, 0f);
+      mainBar.Left.Set(18f, 0f);
+      mainBar.Width.Set(605f, 0f);
+      mainBar.Height.Set(25f, 0f);
 
-      barAfterImageRect = new Rectangle(0, 0, 1210, 50);
+      barAfterImageRect = new Rectangle(0, 0, 605, 25);
       barAfterImage = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthHitUI"), barAfterImageRect);
-      barAfterImage.Top.Set(16f, 0f);
-      barAfterImage.Left.Set(36f, 0f);
-      barAfterImage.Width.Set(1210f, 0f);
-      barAfterImage.Height.Set(50f, 0f);
+      barAfterImage.Top.Set(8f, 0f);
+      barAfterImage.Left.Set(18f, 0f);
+      barAfterImage.Width.Set(605f, 0f);
+      barAfterImage.Height.Set(25f, 0f);
       Append(area);
     }
     public override void Update(GameTime gameTime)
@@ -138,7 +138,7 @@ namespace UnbiddenMod.UI
         {
           boss = false;
           bossNPC = null;
-          barAfterImageRect.Width = 1210;
+          barAfterImageRect.Width = 605;
           barAfterImage.SetFrame(barAfterImageRect);
           cooldown = 2000;
           speed = 50;
@@ -150,10 +150,8 @@ namespace UnbiddenMod.UI
       }
       // Main Bar
       quotient = Utils.Clamp(quotient, 0f, 1f);
-      mainBarRect.Width = (int)(1210 * quotient);
+      mainBarRect.Width = (int)(605 * quotient);
       mainBar.SetFrame(mainBarRect);
-
-      // After Image
     }
   }
 }

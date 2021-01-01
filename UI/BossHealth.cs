@@ -67,6 +67,7 @@ namespace UnbiddenMod.UI
     }
     public override void Update(GameTime gameTime)
     {
+      base.Update(gameTime);
       if (IsThereABoss().Item1)
       {
         area.Append(background);

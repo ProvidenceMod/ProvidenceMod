@@ -22,7 +22,7 @@ namespace UnbiddenMod.UI
       area = new UIElement();
       area.Left.Set(500f, 0f);
       area.Top.Set(25f, 0f);
-      area.Width.Set(240, 0f);
+      area.Width.Set(220, 0f);
       area.Height.Set(50, 0f);
       area.PaddingTop = 5f;
       area.PaddingBottom = 5f;
@@ -37,12 +37,11 @@ namespace UnbiddenMod.UI
       breakSlash.Left.Set(0, 0.5f);
       maxFocus.Left.Set(-50, 1f);
 
-      focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusFrameUI"))
-      {ImageScale = 1f};
+      focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusFrameUI"));
       focusFrame.Top.Set(0, 0f);
       focusFrame.Left.Set(0, 0f);
-      focusFrame.Width.Set(120f, 0f);
-      focusFrame.Height.Set(25f, 0f);
+      focusFrame.Width.Set(220f, 0f);
+      focusFrame.Height.Set(50f, 0f);
 
       focusBarRect = new Rectangle(0, 0, 0, 34);
       focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusBarUI"), focusBarRect);
@@ -65,8 +64,7 @@ namespace UnbiddenMod.UI
       currFocus.SetText(((int)(unPlayer.focus * 100)).ToString());
       float quotient = unPlayer.focus / unPlayer.focusMax;
       quotient = Utils.Clamp(quotient, 0f, 1f);
-      int measure = (int) (quotient * 100);
-      focusBarRect.Width = measure * 2;
+      focusBarRect.Width = (int) (focusBarRect.Width * quotient);
       focusBar.SetFrame(focusBarRect);
       // Minor optimization so it doesn't have to run as much.
       // ONLY RECOMMENDED FOR SMALLER CHANGING ITEMS LIKE MAX VALUES.

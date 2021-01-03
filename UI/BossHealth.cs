@@ -108,7 +108,14 @@ namespace UnbiddenMod.UI
         }
         if(cooldown == 0 && barAfterImageRect.Width != mainBarRect.Width)
         {
-          barAfterImageRect.Width--;
+          if((barAfterImageRect.Width - mainBarRect.Width) * 0.05f < 1)
+          {
+            barAfterImageRect.Width--;
+          }
+          else
+          {
+            barAfterImageRect.Width -= (int) ((barAfterImageRect.Width - mainBarRect.Width) * 0.05f);
+          }
           barAfterImage.SetFrame(barAfterImageRect);
         }
         if (bossNPC.life <= 0)

@@ -37,7 +37,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
       const int numberProjectiles = 3; // 4 or 5 shots
       for (int i = 0; i < numberProjectiles; i++)
       {
-        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
+        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(15f.InRadians());
         // If you want to randomize the speed to stagger the projectiles
         float scale = 1f - (Main.rand.NextFloat() * .1f);
         perturbedSpeed *= scale;

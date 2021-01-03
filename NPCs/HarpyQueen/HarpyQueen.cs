@@ -190,7 +190,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       // Same happens with XAttack and RadialAttack.
       for (float rotation = 0f; rotation < 360f; rotation += 90f)
       {
-        Vector2 speed = new Vector2(0f, -10f).RotatedBy(MathHelper.ToRadians(rotation));
+        Vector2 speed = new Vector2(0f, -10f).RotatedBy(rotation.InRadians());
         Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
       }
     }
@@ -198,7 +198,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     {
       for (float rotation = 0f; rotation < 360f; rotation += 90f)
       {
-        Vector2 speed = new Vector2(10f, -10f).RotatedBy(MathHelper.ToRadians(rotation));
+        Vector2 speed = new Vector2(10f, -10f).RotatedBy(rotation.InRadians());
         Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
       }
     }
@@ -206,7 +206,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     {
       for (float rotation = 0f; rotation < 360f; rotation += 45f)
       {
-        Vector2 speed = new Vector2(0f, -10f).RotateTo(MathHelper.ToRadians(rotation));
+        Vector2 speed = new Vector2(0f, -10f).RotateTo(rotation.InRadians());
         Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
       }
     }
@@ -214,7 +214,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     {
       Player player = Main.player[npc.target];
       Vector2 speed = new Vector2(0f, -10f).RotateTo(npc.AngleTo(player.Center));
-      speed = speed.RotatedByRandom(MathHelper.ToRadians(5f));
+      speed = speed.RotatedByRandom(5f.InRadians());
       //Vector2 directionTo = DirectionTo(target.Center);
       _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
     }

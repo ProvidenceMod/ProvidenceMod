@@ -23,22 +23,24 @@ namespace UnbiddenMod
     // Summary:
     // References the UnbiddenPlayer instance. Shorthand for ease of use.
     // UnbiddenPlayer unbiddenPlayer = player.Unbidden();
-    public static UnbiddenPlayer Unbidden(this Player player) => (UnbiddenPlayer)player.GetModPlayer<UnbiddenPlayer>();
+    public static UnbiddenPlayer Unbidden(this Player player) => player.GetModPlayer<UnbiddenPlayer>();
     // 
     // Summary:
     // References the UnbiddenGlobalNPC instance. Shorthand for ease of use.
     // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
-    public static UnbiddenGlobalNPC Unbidden(this NPC npc) => (UnbiddenGlobalNPC)npc.GetGlobalNPC<UnbiddenGlobalNPC>();
+    public static UnbiddenGlobalNPC Unbidden(this NPC npc) => npc.GetGlobalNPC<UnbiddenGlobalNPC>();
     // 
     // Summary:
     // References the UnbiddenGlobalItem instance. Shorthand for ease of use.
     // UnbiddenGlobalItem unbiddenItem = item.Unbidden();
-    public static UnbiddenGlobalItem Unbidden(this Item item) => (UnbiddenGlobalItem)item.GetGlobalItem<UnbiddenGlobalItem>();
+    public static UnbiddenGlobalItem Unbidden(this Item item) => item.GetGlobalItem<UnbiddenGlobalItem>();
     // 
     // Summary:
     // References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.
     // UnbiddenGlobalProjectile unbiddenProjectile = projectile.Unbidden();
-    public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => (UnbiddenGlobalProjectile)proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
+    public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
+    public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
+    public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
     public static float[,] elemAffDef = new float[2, 15]
     {  // Defense score (middle), Damage mult (bottom)
       {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
@@ -188,7 +190,7 @@ namespace UnbiddenMod
       UnbiddenPlayer mP = player.Unbidden();
       for (float rotation = 0f; rotation < 360f; rotation += 8f)
       {
-        Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius + radiusBoost).RotatedBy(MathHelper.ToRadians(rotation));
+        Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius + radiusBoost).RotatedBy(rotation.InRadians());
         Dust d = Dust.NewDustPerfect(spawnPosition, dust, null, 90, new Color(255, 255, 255), 1f);
         d.noLight = true;
         d.noGravity = true;

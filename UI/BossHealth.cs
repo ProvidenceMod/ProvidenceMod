@@ -17,13 +17,10 @@ namespace UnbiddenMod.UI
     private UIImage frame;
     private UIImageFramed mainBar;
     private UIImageFramed barAfterImage;
-    private UIText currFocus;
-    private UIText currFocus2;
-    private UIText currFocus3;
     private Rectangle mainBarRect;
     private Rectangle barAfterImageRect;
     private int cooldown = 90;
-    private int[] lifeArray = new int[3] {0, 0, 0};
+    private readonly int[] lifeArray = new int[3] {0, 0, 0};
     private float quotient;
     private bool boss = false;
     private bool arraySet = false;

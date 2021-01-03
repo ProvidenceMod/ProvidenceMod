@@ -43,19 +43,19 @@ namespace UnbiddenMod.UI
       frame.Width.Set(1120f, 0f);
       frame.Height.Set(60f, 0f);
 
-      mainBarRect = new Rectangle(0, 0, 1000, 32);
+      mainBarRect = new Rectangle(0, 0, 1000, 40);
       mainBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthUIBar"), mainBarRect);
-      mainBar.Top.Set(14f, 0f);
+      mainBar.Top.Set(10f, 0f);
       mainBar.Left.Set(60f, 0f);
       mainBar.Width.Set(1000f, 0f);
-      mainBar.Height.Set(32f, 0f);
+      mainBar.Height.Set(40f, 0f);
 
-      barAfterImageRect = new Rectangle(0, 0, 1000, 32);
+      barAfterImageRect = new Rectangle(0, 0, 1000, 40);
       barAfterImage = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthUIHit"), barAfterImageRect);
-      barAfterImage.Top.Set(14f, 0f);
+      barAfterImage.Top.Set(10f, 0f);
       barAfterImage.Left.Set(60f, 0f);
       barAfterImage.Width.Set(1000f, 0f);
-      barAfterImage.Height.Set(32f, 0f);
+      barAfterImage.Height.Set(40f, 0f);
       Append(area);
     }
     public override void Update(GameTime gameTime)

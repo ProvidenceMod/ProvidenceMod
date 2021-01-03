@@ -230,7 +230,7 @@ namespace UnbiddenMod
     }
     public static Color ColorShift(Color firstColor, Color secondColor, float seconds)
     {
-      float amount = (float)((Math.Sin((Math.PI * Math.PI) / seconds * Main.GlobalTime) + 1.0) * 0.5);
+      float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
       return Color.Lerp(firstColor, secondColor, amount);
     }
 
@@ -246,7 +246,7 @@ namespace UnbiddenMod
     }
     public static Tuple<bool, int> IsThereABoss() {
       bool bossExists = false;
-      int bossID = 0;
+      int bossID = -1;
       foreach (NPC npc in Main.npc)
       {
         if (npc.active && npc.boss)

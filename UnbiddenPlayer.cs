@@ -55,7 +55,6 @@ namespace UnbiddenMod
     public int dashMod;
     public int dashModDelay = 60;
     public string dashDir = "";
-    public bool thereIsABoss;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -92,64 +91,12 @@ namespace UnbiddenMod
     {
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
-      // affExp = tag.GetIntArray("affExp");
     }
-    // private void DetermineAffinityLevel()
-    // {
-    //   for (int e = 0; e < 8; e++)
-    //   {
-    //     affinities[e] = DetermineElAffinityLevel(e);
-    //   }
-    // }
-    // private int DetermineElAffinityLevel(int e)
-    // {
-    //   // Spoofed numbers for actual experience caps, just to proof of concept.
-    //   int elExp = affExp[e];
-    //   if (elExp >= 15)
-    //     return 15;
-    //   else if (elExp >= 14)
-    //     return 14;
-    //   else if (elExp >= 13)
-    //     return 13;
-    //   else if (elExp >= 12)
-    //     return 12;
-    //   else if (elExp >= 11)
-    //     return 11;
-    //   else if (elExp >= 10)
-    //     return 10;
-    //   else if (elExp >= 9)
-    //     return 9;
-    //   else if (elExp >= 8)
-    //     return 8;
-    //   else if (elExp >= 7)
-    //     return 7;
-    //   else if (elExp >= 6)
-    //     return 6;
-    //   else if (elExp >= 5)
-    //     return 5;
-    //   else if (elExp >= 4)
-    //     return 4;
-    //   else if (elExp >= 3)
-    //     return 3;
-    //   else if (elExp >= 2)
-    //     return 2;
-    //   else if (elExp >= 1)
-    //     return 1;
-    //   else
-    //     return 0;
-    // }
 
     public override void PreUpdate()
     {
       if (IsThereABoss().Item1)
-      {
         allowFocus = true;
-        thereIsABoss = true;
-      }
-      else if (!IsThereABoss().Item1)
-      {
-        thereIsABoss = false;
-      }
 
       if (focusLossCooldown > 0)
         focusLossCooldown--;
@@ -164,14 +111,10 @@ namespace UnbiddenMod
       tankingItemCount = (int)Math.Floor((decimal)(player.statDefense / 15));
       // Max 15%, min 5%
       focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
-      // // Provide a cooldown so it's actually a challenge to level up naturally
-      // if (affExpCooldown > 0)
-      // {
-      //   affExpCooldown--;
-      // }
+
       // Safeguard against weird ass number overflowing
       player.CalcElemDefense();
-      ////////// DELETE THIS LATER //////////
+
       if (hasClericSet)
       {
         if (burnAura)
@@ -180,7 +123,7 @@ namespace UnbiddenMod
           GenerateAuraField(player, ModContent.DustType<AuraDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && !npc.friendly && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + burnRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
             {
               npc.AddBuff(BuffID.OnFire, 1);
             }
@@ -192,7 +135,7 @@ namespace UnbiddenMod
           GenerateAuraField(player, ModContent.DustType<AuraDust>(), cFRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && !npc.friendly && Vector2.Distance(npc.position, player.MountedCenter) <= (clericAuraRadius + cFRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + cFRadiusBoost))
             {
               npc.AddBuff(BuffID.CursedInferno, 180);
             }
@@ -205,7 +148,7 @@ namespace UnbiddenMod
         GenerateAuraField(player, ModContent.DustType<MoonBlastDust>(), ampRadiusBoost);
         foreach (Projectile projectile in Main.projectile)
         {
-          if (Vector2.Distance(projectile.position, player.MountedCenter) <= (clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
+          if (projectile.position.IsInRadius(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
           {
             if (projectile.friendly)
             {
@@ -373,8 +316,7 @@ namespace UnbiddenMod
       {
         foreach (Player targetPlayer in Main.player)
         {
-          float distance = Vector2.Distance(targetPlayer.MountedCenter, player.MountedCenter);
-          if (distance <= clericAuraRadius)
+          if (targetPlayer.MountedCenter.IsInRadius(player.MountedCenter, clericAuraRadius))
           {
             targetPlayer.lifeRegen += (int)(cleric * 2);
           }

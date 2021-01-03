@@ -15,7 +15,6 @@ namespace UnbiddenMod.UI
     public static bool visible = true;
     private UIElement area;
     private UIImage frame;
-    private UIImage background;
     private UIImageFramed mainBar;
     private UIImageFramed barAfterImage;
     private UIText currFocus;
@@ -33,36 +32,30 @@ namespace UnbiddenMod.UI
     public override void OnInitialize()
     {
       area = new UIElement();
-      area.Left.Set(175f, 0f);
-      area.Top.Set(0f, 0.85f);
-      area.Width.Set(641f, 0f);
-      area.Height.Set(41f, 0f);
+      area.Left.Set(250f, 0f);
+      area.Top.Set(700f, 0f);
+      area.Width.Set(1120f, 0f);
+      area.Height.Set(60f, 0f);
 
-      frame = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthFrameUI"));
+      frame = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthUIFrame"));
       frame.Top.Set(0, 0f);
       frame.Left.Set(0, 0f);
-      frame.Width.Set(641f, 0f);
-      frame.Height.Set(41f, 0f);
+      frame.Width.Set(1120f, 0f);
+      frame.Height.Set(60f, 0f);
 
-      background = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthBackgroundUI"));
-      background.Top.Set(8f, 0f);
-      background.Left.Set(18f, 0f);
-      background.Width.Set(605f, 0f);
-      background.Height.Set(25f, 0f);
+      mainBarRect = new Rectangle(0, 0, 1000, 32);
+      mainBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthUIBar"), mainBarRect);
+      mainBar.Top.Set(14f, 0f);
+      mainBar.Left.Set(60f, 0f);
+      mainBar.Width.Set(1000f, 0f);
+      mainBar.Height.Set(32f, 0f);
 
-      mainBarRect = new Rectangle(0, 0, 605, 25);
-      mainBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthBarUI"), mainBarRect);
-      mainBar.Top.Set(8f, 0f);
-      mainBar.Left.Set(18f, 0f);
-      mainBar.Width.Set(605f, 0f);
-      mainBar.Height.Set(25f, 0f);
-
-      barAfterImageRect = new Rectangle(0, 0, 605, 25);
-      barAfterImage = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthHitUI"), barAfterImageRect);
-      barAfterImage.Top.Set(8f, 0f);
-      barAfterImage.Left.Set(18f, 0f);
-      barAfterImage.Width.Set(605f, 0f);
-      barAfterImage.Height.Set(25f, 0f);
+      barAfterImageRect = new Rectangle(0, 0, 1000, 32);
+      barAfterImage = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthUIHit"), barAfterImageRect);
+      barAfterImage.Top.Set(14f, 0f);
+      barAfterImage.Left.Set(60f, 0f);
+      barAfterImage.Width.Set(1000f, 0f);
+      barAfterImage.Height.Set(32f, 0f);
       Append(area);
     }
     public override void Update(GameTime gameTime)
@@ -70,7 +63,6 @@ namespace UnbiddenMod.UI
       base.Update(gameTime);
       if (IsThereABoss().Item1)
       {
-        area.Append(background);
         area.Append(barAfterImage);
         area.Append(mainBar);
         area.Append(frame);
@@ -123,7 +115,7 @@ namespace UnbiddenMod.UI
         {
           boss = false;
           bossNPC = null;
-          barAfterImageRect.Width = 605;
+          barAfterImageRect.Width = 1000;
           barAfterImage.SetFrame(barAfterImageRect);
           cooldown = 30;
           lifeArray[0] = 0;
@@ -134,7 +126,7 @@ namespace UnbiddenMod.UI
       }
       // Main Bar
       quotient = Utils.Clamp(quotient, 0f, 1f);
-      mainBarRect.Width = (int)(605 * quotient);
+      mainBarRect.Width = (int)(1000 * quotient);
       mainBar.SetFrame(mainBarRect);
     }
   }

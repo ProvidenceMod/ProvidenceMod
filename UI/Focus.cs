@@ -24,8 +24,6 @@ namespace UnbiddenMod.UI
       area.Top.Set(25f, 0f);
       area.Width.Set(220, 0f);
       area.Height.Set(50, 0f);
-      area.PaddingTop = 5f;
-      area.PaddingBottom = 5f;
 
       currFocus = new UIText("0", 1f); breakSlash = new UIText("/", 1f); maxFocus = new UIText("100", 1f);
 
@@ -37,14 +35,14 @@ namespace UnbiddenMod.UI
       breakSlash.Left.Set(0, 0.5f);
       maxFocus.Left.Set(-50, 1f);
 
-      focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusUITest"));
+      focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusUIFrame"));
       focusFrame.Top.Set(0, 0f);
       focusFrame.Left.Set(0, 0f);
-      focusFrame.Width.Set(110f, 0f);
-      focusFrame.Height.Set(25f, 0f);
+      focusFrame.Width.Set(220f, 1f);
+      focusFrame.Height.Set(50f, 1f);
 
       focusBarRect = new Rectangle(0, 0, 0, 34);
-      focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusBarUI"), focusBarRect);
+      focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIBar"), focusBarRect);
       focusBar.Top.Set(8f, 0f);
       focusBar.Left.Set(5f, 0f);
       focusBar.Width.Set(200f, 0f);

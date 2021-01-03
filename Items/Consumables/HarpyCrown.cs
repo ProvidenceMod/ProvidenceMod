@@ -25,12 +25,13 @@ namespace UnbiddenMod.Items.Consumables
 
     public override bool CanUseItem(Player player)
     {
-      return !IsThereABoss().Item1;
+      // No other bosses active and on at least the surface layer
+      return !IsThereABoss().Item1 && player.position.Y <= Main.worldSurface * 16;
     }
 
     public override bool UseItem(Player player)
     {
-      NPC.NewNPC((int)player.position.X, (int)(player.position.Y - (37 * 16)), ModContent.NPCType<HarpyQueen>());
+      _ = NPC.NewNPC((int)player.position.X, (int)(player.position.Y - (37 * 16)), NPCType<HarpyQueen>());
       return true;
     }
     public override void AddRecipes()

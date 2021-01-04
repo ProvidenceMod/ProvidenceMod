@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -11,7 +12,7 @@ namespace UnbiddenMod.UI
   {
     public static bool visible = true;
     public float oldScale = Main.inventoryScale;
-    private UIElement area;
+    private FocusElement area;
     private UIText currFocus, breakSlash, maxFocus;
     private UIImage focusFrame;
     private Rectangle focusBarRect;
@@ -19,7 +20,7 @@ namespace UnbiddenMod.UI
 
     public override void OnInitialize()
     {
-      area = new UIElement();
+      area = new FocusElement();
       area.Left.Set(500f, 0f);
       area.Top.Set(25f, 0f);
       area.Width.Set(220, 0f);

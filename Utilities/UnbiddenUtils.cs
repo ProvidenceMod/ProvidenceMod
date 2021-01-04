@@ -266,6 +266,17 @@ namespace UnbiddenMod
       }
       return Tuple.Create(bossExists, bossID);
     }
+    // Tuple in this order: Damage, DR, Regen, Speed
+    public static Tuple<int, decimal, decimal, decimal> FocusBonuses(this Player player)
+    {
+      UnbiddenPlayer mP = player.Unbidden();
+      int focusPercent = (int)(mP.focus * 100);
+      int damageBoost = focusPercent / 5;
+      decimal DR = (decimal)((mP.focus / 4 >= 0.25f ? 0.25f : mP.focus / 4) * 100);
+      decimal regen = focusPercent;
+      decimal moveSpeedBoost = focusPercent / 2;
+      return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR, regen, moveSpeedBoost);
+    }
   }
 
   public static class ElementID

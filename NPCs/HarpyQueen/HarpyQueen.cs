@@ -42,7 +42,6 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Harpy Queen");
-      Main.npcFrameCount[npc.type] = 5;
       NPCID.Sets.MustAlwaysDraw[npc.type] = true;
     }
 
@@ -58,10 +57,10 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       npc.lifeMax = 3400;
       npc.townNPC = false;
       npc.boss = true;
-      npc.scale = 0.5f;
+      npc.scale = 2f;
       npc.HitSound = SoundID.NPCHit1;
       npc.chaseable = true;
-      npc.Hitbox = new Rectangle((int)npc.Center.X, (int)npc.Center.Y - 100, 178, 224);
+      npc.Hitbox = new Rectangle((int)npc.Center.X, (int)npc.Center.Y, 140, 72);
       npc.knockBackResist = 0f;
       npc.buffImmune[BuffID.OnFire] = true;
       npc.buffImmune[mod.BuffType("Freezing")] = true;
@@ -225,6 +224,10 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       const float speedCap = 6f;
       const float gainStrength = 0.1f;
       const float slowStrength = 1.1f;
+      if(npc.velocity.X > 0)
+      {npc.spriteDirection = 1;}
+      else if (npc.velocity.X < 0)
+      {npc.spriteDirection = -1;}
       if (player.active && !player.dead)
       {
         if (npc.Center.X < player.Center.X)
@@ -262,7 +265,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
           npc.velocity.Y = 0f;
       }
     }
-    public override void FindFrame(int frameHeight)
+    /*    public override void FindFrame(int frameHeight)
     {
       Texture2D tex = mod.GetTexture("NPCs/FireAncient/FireAncient");
       NPC npc = this.npc;
@@ -272,7 +275,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       }
       npc.frameCounter += 0.125f;
       npc.frame.Y = (int)npc.frameCounter * (tex.Height / 5);
-    }
+    }*/
 
     public void FindPlayers()
     {

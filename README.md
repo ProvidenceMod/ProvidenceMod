@@ -80,6 +80,8 @@ _-SnowyStarfall and the UnbiddenMod Dev Team_
 <a name="code_of_conduct"></a>
 # Contributor Covenant Code of Conduct
 
+Please follow this Code of Conduct when udnertaking in any interaction in our GitHub repository, or any of its children.
+
 ## Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as

@@ -6,8 +6,6 @@ Hells no! You've got a lot left to do. Moon Lord was only the beginning. The cal
 
 **_Are you ready?_**
 
----
-
 ## Unbidden Mod
 
 This is the source-code for the UnbiddenMod project; A mod for Terraria via tModLoader.

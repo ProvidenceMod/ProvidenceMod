@@ -66,7 +66,6 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       npc.buffImmune[mod.BuffType("Freezing")] = true;
       npc.buffImmune[mod.BuffType("Frozen")] = true;
       npc.Unbidden().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
-      npc.Unbidden().contactDamageEl = 0;
     }
     public override void AI()
     {
@@ -103,7 +102,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
             const float speedY = 10f;
             Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
             //Vector2 directionTo = DirectionTo(target.Center);
-            int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+            int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
             NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
             shootTimer = 30;
           }
@@ -190,7 +189,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       for (float rotation = 0f; rotation < 360f; rotation += 90f)
       {
         Vector2 speed = new Vector2(0f, -10f).RotatedBy(rotation.InRadians());
-        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
       }
     }
     public void XAttack()
@@ -198,7 +197,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       for (float rotation = 0f; rotation < 360f; rotation += 90f)
       {
         Vector2 speed = new Vector2(10f, -10f).RotatedBy(rotation.InRadians());
-        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
       }
     }
     public void RadialAttack()
@@ -206,7 +205,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       for (float rotation = 0f; rotation < 360f; rotation += 45f)
       {
         Vector2 speed = new Vector2(0f, -10f).RotateTo(rotation.InRadians());
-        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
       }
     }
     public void FlurryAttack()
@@ -215,7 +214,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       Vector2 speed = new Vector2(0f, -10f).RotateTo(npc.AngleTo(player.Center));
       speed = speed.RotatedByRandom(5f.InRadians());
       //Vector2 directionTo = DirectionTo(target.Center);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 50, 0f, Main.myPlayer, npc.whoAmI);
+      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
     }
     public void Movement()
     {

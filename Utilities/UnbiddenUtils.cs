@@ -12,7 +12,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using UnbiddenMod;
-using UnbiddenMod.Buffs;
+using UnbiddenMod.Buffs.Cooldowns;
 using UnbiddenMod.Dusts;
 using UnbiddenMod.Items.Weapons;
 

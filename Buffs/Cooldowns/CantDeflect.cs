@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs
+namespace UnbiddenMod.Buffs.Cooldowns
 {
   public class CantDeflect : ModBuff
   {

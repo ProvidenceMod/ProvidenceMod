@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs
+namespace UnbiddenMod.Buffs.StatDebuffs
 {
   public class Frozen : ModBuff
   {

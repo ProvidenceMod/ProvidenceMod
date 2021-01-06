@@ -89,9 +89,9 @@ In order to install our mod, simply follow these steps:
 
 <a name="credits"></a>
 ## Credits:
-   _"Thank you to the Dev team for toughing out the beginning, and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone in the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to ReLogic for creating such a wonderful game."_
-
-_-SnowyStarfall and the UnbiddenMod Dev Team_
+   > _Thank you to the Dev team for toughing out the beginning, and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone in the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to ReLogic for creating such a wonderful game._
+> 
+> _-SnowyStarfall and the UnbiddenMod Dev Team_
 
 
 

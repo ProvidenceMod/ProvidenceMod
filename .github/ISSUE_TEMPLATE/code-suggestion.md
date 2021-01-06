@@ -6,7 +6,10 @@ labels: documentation
 assignees: SnowyStarfall, ZackFox0
 ---
 
-**What are you improving? Why?** 1. File '...' 2. Reason '...'
+**What are you improving? Why?** 
+
+1. File '...' 
+2. Reason '...'
 
 **Does this concern a bug?**
 
@@ -14,6 +17,7 @@ assignees: SnowyStarfall, ZackFox0
 - This post does not concern a bug.
 
 **Have you created a post pertaining to this bug?**
+
 -Yes, [Link to post]()
 -No.
 -N/A

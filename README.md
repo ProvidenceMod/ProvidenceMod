@@ -21,7 +21,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves into
 - [Contributor Covenant Code of Conduct](#code_of_conduct)
 
 <a name="ccontributing"></a>
-# Contributing
+## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 
@@ -37,14 +37,14 @@ In order to install our mod, simply follow these steps:
 2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) made by the tModLoader team.
 
 <a name="pull_request_process"></a>
-# Pull Request Process
+## Pull Request Process
 
 - Please follow the [pull request template](https://github.com/UnbiddenMod/UnbiddenMod/blob/master/PULL_REQUEST_TEMPLATE.md).
 - You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
 - Please follow proper formatting. This includes using two-space indentation, placing files in the correct folders, using Camel Case for variables, and Pascal Case for file names, folder names, and method names.
 
 <a name="contributors"></a>
-# Contributors:
+## Contributors:
 
 <div class="row">
    <a href="https://github.com/FenGoScrem">
@@ -70,17 +70,21 @@ In order to install our mod, simply follow these steps:
 </div>
 
 <a name="credits"></a>
-# Credits:
+## Credits:
    _"Thank you to the Dev team for toughing out the beginning, and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone in the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to ReLogic for creating such a wonderful game."_
 
 _-SnowyStarfall and the UnbiddenMod Dev Team_
 
+
+
+
+
 <a name="code_of_conduct"></a>
-# Contributor Covenant Code of Conduct
+## Contributor Covenant Code of Conduct
 
 Please follow this Code of Conduct when udnertaking in any interaction in our GitHub repository, or any of its children.
 
-## Our Pledge
+### Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
 contributors and maintainers pledge to making participation in our project and
@@ -89,7 +93,7 @@ size, disability, ethnicity, sex characteristics, gender identity and expression
 level of experience, education, socio-economic status, nationality, personal
 appearance, race, religion, or sexual identity and orientation.
 
-## Our Standards
+### Our Standards
 
 Examples of behavior that contributes to creating a positive environment
 include:
@@ -111,7 +115,7 @@ Examples of unacceptable behavior by participants include:
 * Other conduct which could reasonably be considered inappropriate in a
  professional setting
 
-## Our Responsibilities
+### Our Responsibilities
 
 Project maintainers are responsible for clarifying the standards of acceptable
 behavior and are expected to take appropriate and fair corrective action in
@@ -123,7 +127,7 @@ that are not aligned to this Code of Conduct, or to ban temporarily or
 permanently any contributor for other behaviors that they deem inappropriate,
 threatening, offensive, or harmful.
 
-## Scope
+### Scope
 
 This Code of Conduct applies both within project spaces and in public spaces
 when an individual is representing the project or its community. Examples of
@@ -132,7 +136,7 @@ address, posting via an official social media account, or acting as an appointed
 representative at an online or offline event. Representation of a project may be
 further defined and clarified by project maintainers.
 
-## Enforcement
+### Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported by contacting the project team at snowystarfall.art@gmail.com. All
@@ -145,7 +149,7 @@ Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
-## Attribution
+### Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
 available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html

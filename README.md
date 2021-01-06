@@ -62,7 +62,7 @@ In order to install our mod, simply follow these steps:
 - Please follow proper formatting. This includes using two-space indentation, placing files in the correct folders, using Camel Case for variables, and Pascal Case for file names, folder names, and method names.
 
 <a name="contributors"></a>
-## Contributors:
+## Contributors
 
 <div class="row">
    <a href="https://github.com/FenGoScrem">
@@ -88,7 +88,7 @@ In order to install our mod, simply follow these steps:
 </div>
 
 <a name="credits"></a>
-## Credits:
+## Credits
    > _Thank you to the Dev team for toughing out the beginning, and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone in the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to ReLogic for creating such a wonderful game._
 > 
 > _-SnowyStarfall and the UnbiddenMod Dev Team_

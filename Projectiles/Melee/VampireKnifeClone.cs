@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Melee
 {
   public class VampireKnifeClone : ModProjectile
   {

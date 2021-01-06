@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
 using static UnbiddenMod.UnbiddenUtils;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Summon
 {
   public class ProjectorShield : ModProjectile
   {

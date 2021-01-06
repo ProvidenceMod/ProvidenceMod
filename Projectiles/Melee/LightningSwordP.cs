@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Melee
 {
   public class LightningSwordP : ModProjectile
   {

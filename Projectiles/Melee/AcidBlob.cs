@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using UnbiddenMod.Dusts;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Melee
 {
   public class AcidBlob : ModProjectile
   {

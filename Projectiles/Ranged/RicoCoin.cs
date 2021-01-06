@@ -5,7 +5,7 @@ using System;
 using Microsoft.Xna.Framework;
 using static UnbiddenMod.UnbiddenUtils;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Ranged
 {
   public class RicoCoin : ModProjectile
   {

@@ -2,8 +2,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.Audio;
-using UnbiddenMod.Projectiles;
 using Microsoft.Xna.Framework;
+using UnbiddenMod.Projectiles.Summon;
 
 namespace UnbiddenMod.Items.Weapons.Summon
 {

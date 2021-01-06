@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Ranged
 {
   public class IceSphere : ModProjectile
   {

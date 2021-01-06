@@ -4,7 +4,7 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Melee
 {
   public class MoonBlast : ModProjectile
   {

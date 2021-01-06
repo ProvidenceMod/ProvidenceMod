@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Terraria.Localization;
-using UnbiddenMod.Projectiles;
+using UnbiddenMod.Projectiles.Ranged;
 using Terraria.Audio;
 
 namespace UnbiddenMod.Items.Weapons.Ranged

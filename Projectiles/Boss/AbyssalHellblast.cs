@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System;
 using UnbiddenMod.NPCs.FireAncient;
 
-namespace UnbiddenMod.Projectiles
+namespace UnbiddenMod.Projectiles.Boss
 {
   public class AbyssalHellblast : ModProjectile
   {

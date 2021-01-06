@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using UnbiddenMod.Projectiles;
+using UnbiddenMod.Projectiles.Melee;
 
 namespace UnbiddenMod.Items.Weapons.Melee
 {
@@ -31,7 +31,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     {
       if (player.altFunctionUse == 2)
       {
-        item.shoot = ModContent.ProjectileType<Projectiles.LightningSwordP>();
+        item.shoot = ModContent.ProjectileType<LightningSwordP>();
       }
       else
       {

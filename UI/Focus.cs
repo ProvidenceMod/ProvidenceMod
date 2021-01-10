@@ -16,7 +16,15 @@ namespace UnbiddenMod.UI
     private UIText currFocus, breakSlash, maxFocus;
     private UIImage focusFrame;
     private Rectangle focusBarRect;
+    private Rectangle focusUseRect;
     private UIImageFramed focusBar;
+    private UIImageFramed focusUse;
+    private int cooldown = 30;
+    private int[] focusArray = new int[3] { 0, 0, 0 };
+    private bool arraySet;
+    private bool boss;
+    private bool barSet = false;
+    private NPC bossNPC;
 
     public override void OnInitialize()
     {
@@ -39,21 +47,22 @@ namespace UnbiddenMod.UI
       focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusUIFrame"));
       focusFrame.Top.Set(0, 0f);
       focusFrame.Left.Set(0, 0f);
-      focusFrame.Width.Set(220f, 1f);
-      focusFrame.Height.Set(52f, 1f);
+      focusFrame.Width.Set(260f, 0f);
+      focusFrame.Height.Set(68f, 0f);
 
-      focusBarRect = new Rectangle(0, 0, 0, 36);
+      focusBarRect = new Rectangle(0, 0, 200, 40);
       focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIBar"), focusBarRect);
-      focusBar.Top.Set(8f, 0f);
-      focusBar.Left.Set(10f, 0f);
+      focusBar.Top.Set(16f, 0f);
+      focusBar.Left.Set(30f, 0f);
       focusBar.Width.Set(200f, 0f);
-      focusBar.Height.Set(36f, 0f);
+      focusBar.Height.Set(40f, 0f);
 
-      area.Append(focusBar);
-      area.Append(focusFrame);
-      area.Append(currFocus);
-      area.Append(breakSlash);
-      area.Append(maxFocus);
+      focusUseRect = new Rectangle(0, 0, 200, 40);
+      focusUse = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIUse"), focusBarRect);
+      focusUse.Top.Set(16f, 0f);
+      focusUse.Left.Set(30f, 0f);
+      focusUse.Width.Set(200f, 0f);
+      focusUse.Height.Set(40f, 0f);
       Append(area);
     }
 
@@ -63,7 +72,7 @@ namespace UnbiddenMod.UI
       currFocus.SetText(((int)(unPlayer.focus * 100)).ToString());
       float quotient = unPlayer.focus / unPlayer.focusMax;
       quotient = Utils.Clamp(quotient, 0f, 1f);
-      focusBarRect.Width = (int) (200 * quotient);
+      focusBarRect.Width = (int)(200 * quotient);
       focusBar.SetFrame(focusBarRect);
       // Minor optimization so it doesn't have to run as much.
       // ONLY RECOMMENDED FOR SMALLER CHANGING ITEMS LIKE MAX VALUES.
@@ -74,6 +83,78 @@ namespace UnbiddenMod.UI
       {
         oldScale = Main.inventoryScale;
         Recalculate();
+      }
+      foreach (NPC npc in Main.npc)
+      {
+        if (npc.boss)
+        {
+          bossNPC = npc;
+          boss = true;
+        }
+      }
+      if (boss)
+      {
+        if(!barSet)
+        {
+          focusUseRect.Width = 0;
+          focusUse.SetFrame(focusBarRect);
+          barSet = true;
+        }
+        area.Append(focusUse);
+        area.Append(focusBar);
+        area.Append(focusFrame);
+        area.Append(currFocus);
+        area.Append(breakSlash);
+        area.Append(maxFocus);
+        if (!arraySet)
+        {
+          focusArray[2] = focusArray[1];
+          focusArray[1] = focusArray[0];
+          focusArray[0] = (int)(unPlayer.focus * 100);
+          arraySet = true;
+        }
+        if (unPlayer.focus < focusArray[0])
+        {
+          focusArray[2] = focusArray[1];
+          focusArray[1] = focusArray[0];
+          focusArray[0] = (int)(unPlayer.focus * 100);
+          cooldown = 30;
+        }
+        else if (unPlayer.focus == focusArray[0])
+        {
+          if (cooldown > 0) cooldown--;
+        }
+        if (cooldown == 0 && focusUseRect.Width != focusBarRect.Width)
+        {
+          if ((focusUseRect.Width - focusBarRect.Width) * 0.05f < 1)
+          {
+            focusUseRect.Width--;
+          }
+          else
+          {
+            focusUseRect.Width -= (int)((focusUseRect.Width - focusBarRect.Width) * 0.05f);
+          }
+          focusUse.SetFrame(focusUseRect);
+        }
+        if(focusBarRect.Width > focusUseRect.Width)
+        {
+          focusUseRect.Width = focusBarRect.Width;
+          focusUse.SetFrame(focusUseRect);
+        }
+        if (bossNPC.life <= 0)
+        {
+          area.RemoveAllChildren();
+          boss = false;
+          bossNPC = null;
+          barSet = false;
+          focusUseRect.Width = 0;
+          focusUse.SetFrame(focusBarRect);
+          cooldown = 30;
+          focusArray[0] = 0;
+          focusArray[1] = 0;
+          focusArray[2] = 0;
+          arraySet = false;
+        }
       }
     }
   }

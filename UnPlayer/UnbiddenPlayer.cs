@@ -28,7 +28,6 @@ namespace UnbiddenMod
     public bool angelTear;
     public int tearCount;
     public bool brimHeart = false;
-
     public bool boosterShot = false;
 
     public bool allowFocus = false;

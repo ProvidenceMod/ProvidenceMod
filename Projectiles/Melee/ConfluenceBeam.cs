@@ -35,7 +35,6 @@ namespace UnbiddenMod.Projectiles.Melee
       }
     }
 
-    public override string Texture => $"Terraria/Projectile_{ProjectileID.TerraBeam}";
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Confluence Beam");

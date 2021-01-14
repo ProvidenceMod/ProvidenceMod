@@ -94,7 +94,7 @@ namespace UnbiddenMod.UI
       }
       if (boss)
       {
-        if(!barSet)
+        if (!barSet)
         {
           focusUseRect.Width = 0;
           focusUse.SetFrame(focusBarRect);
@@ -136,7 +136,7 @@ namespace UnbiddenMod.UI
           }
           focusUse.SetFrame(focusUseRect);
         }
-        if(focusBarRect.Width > focusUseRect.Width)
+        if (focusBarRect.Width > focusUseRect.Width)
         {
           focusUseRect.Width = focusBarRect.Width;
           focusUse.SetFrame(focusUseRect);

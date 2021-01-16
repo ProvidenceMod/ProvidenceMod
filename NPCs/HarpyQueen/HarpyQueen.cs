@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using UnbiddenMod.Projectiles;
+using UnbiddenMod.Projectiles.Boss;
 
 namespace UnbiddenMod.NPCs.HarpyQueen
 {
@@ -23,6 +24,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
     public int preBHTimer = 300;
     public bool preSpawnText = false;
     public int shootTimer = 20;
+    public int royalFeatherTimer = 150;
     public int plusTimer = 25;
     public int xTimer = 25;
     public int radialTimer = 45;
@@ -86,8 +88,6 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       // int? phase = PhaseChecker();
       bulletHellTimer++;
       npc.ai[0]++;
-      Movement();
-      FindPlayers();
       npc.TargetClosest(false);
       Player player = Main.player[npc.target];
       if (bulletHellTimer < 600)
@@ -96,6 +96,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
         {
           phase = 0;
           shootTimer--;
+          Movement();
           if (shootTimer == 0)
           {
             const float speedX = 0f;
@@ -110,10 +111,21 @@ namespace UnbiddenMod.NPCs.HarpyQueen
         else if (npc.life <= npc.lifeMax / 2)
         {
           flurryTimer--;
+          royalFeatherTimer--;
+          Movement();
           if (flurryTimer == 0)
           {
             FlurryAttack();
             flurryTimer = 15;
+          }
+          if (royalFeatherTimer == 0)
+          {
+            const float speedX = 0f;
+            const float speedY = 4f;
+            Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
+            int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ModContent.ProjectileType<RoyalFeather>(), 35, 0f, Main.myPlayer, npc.whoAmI);
+            NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+            royalFeatherTimer = 150;
           }
         }
       }
@@ -121,6 +133,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       {
         phase = 1;
         plusTimer--;
+        Movement();
         if (plusTimer == 0)
         {
           PlusAttack();
@@ -130,6 +143,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       else if (bulletHellTimer < 800f)
       {
         xTimer--;
+        Movement();
         if (xTimer == 0)
         {
           XAttack();
@@ -139,6 +153,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       else if (bulletHellTimer < 900f)
       {
         plusTimer--;
+        Movement();
         if (plusTimer == 0)
         {
           PlusAttack();
@@ -148,6 +163,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       else if (bulletHellTimer < 1000f)
       {
         xTimer--;
+        Movement();
         if (xTimer == 0)
         {
           XAttack();
@@ -189,7 +205,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       for (float rotation = 0f; rotation < 360f; rotation += 90f)
       {
         Vector2 speed = new Vector2(0f, -10f).RotatedBy(rotation.InRadians());
-        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+        int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
       }
     }
     public void XAttack()
@@ -197,15 +214,19 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       for (float rotation = 0f; rotation < 360f; rotation += 90f)
       {
         Vector2 speed = new Vector2(10f, -10f).RotatedBy(rotation.InRadians());
-        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+        int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
       }
     }
     public void RadialAttack()
     {
+      npc.velocity.X = 0f;
+      npc.velocity.Y = 0f;
       for (float rotation = 0f; rotation < 360f; rotation += 45f)
       {
         Vector2 speed = new Vector2(0f, -10f).RotateTo(rotation.InRadians());
-        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+        int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
       }
     }
     public void FlurryAttack()
@@ -214,7 +235,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       Vector2 speed = new Vector2(0f, -10f).RotateTo(npc.AngleTo(player.Center));
       speed = speed.RotatedByRandom(5f.InRadians());
       //Vector2 directionTo = DirectionTo(target.Center);
-      _ = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+      int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
+      NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
     }
     public void Movement()
     {
@@ -276,69 +298,11 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       npc.frame.Y = (int)npc.frameCounter * (tex.Height / 5);
     }*/
 
-    public void FindPlayers()
-    {
-      if (Main.netMode != NetmodeID.MultiplayerClient)
-      {
-        int originalCount = targets.Count;
-        targets.Clear();
-        for (int k = 0; k < 255; k++)
-        {
-          if (Main.player[k].active)
-          {
-            targets.Add(k);
-          }
-        }
-        if (Main.netMode == NetmodeID.Server && targets.Count != originalCount)
-        {
-          ModPacket netMessage = GetPacket(FireAncientMessageType.TargetList);
-          netMessage.Write(targets.Count);
-          foreach (int target in targets)
-          {
-            netMessage.Write(target);
-          }
-          netMessage.Send();
-        }
-      }
-    }
-
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
     {
       if (UnbiddenWorld.downedFireAncient)
       {
         UnbiddenWorld.downedFireAncient = true;
-      }
-    }
-
-    private ModPacket GetPacket(FireAncientMessageType type)
-    {
-      ModPacket packet = mod.GetPacket();
-      packet.Write((byte)UnbiddenModMessageType.FireAncient);
-      packet.Write(npc.whoAmI);
-      packet.Write((byte)type);
-      return packet;
-    }
-
-    internal enum FireAncientMessageType : byte
-    {
-      HeroPlayer,
-      TargetList,
-      DontTakeDamage,
-      PlaySound,
-      Damage
-    }
-
-    public void HandlePacket(BinaryReader reader)
-    {
-      FireAncientMessageType type = (FireAncientMessageType)reader.ReadByte();
-      if (type == FireAncientMessageType.TargetList)
-      {
-        int numTargets = reader.ReadInt32();
-        targets.Clear();
-        for (int k = 0; k < numTargets; k++)
-        {
-          targets.Add(reader.ReadInt32());
-        }
       }
     }
 

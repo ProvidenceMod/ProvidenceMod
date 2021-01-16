@@ -54,6 +54,8 @@ namespace UnbiddenMod
     public int dashMod;
     public int dashModDelay = 60;
     public string dashDir = "";
+    // TODO: Make this have use (see tooltip in the item of same name)
+    public bool zephyriumAglet;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -79,6 +81,7 @@ namespace UnbiddenMod
       dashMod = 0;
       dashTimeMod = 0;
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+      zephyriumAglet = false;
 
       focusMax = 1f;
       allowFocus = IsThereABoss().Item1;

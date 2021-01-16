@@ -16,6 +16,8 @@ namespace UnbiddenMod
     public bool hypodermia = false;
     public bool freezing = false;
     public bool frozen = false;
+    public static bool downedFireAncient = false;
+    public static bool downedHarpyQueen = false;
     public override void ResetEffects(NPC npc)
     {
       npc.Unbidden().hypodermia = false;

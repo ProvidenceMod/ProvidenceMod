@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using UnbiddenMod.Projectiles;
+using UnbiddenMod.Items.Placeable;
+using UnbiddenMod.Items.TreasureBags;
 using UnbiddenMod.Projectiles.Boss;
+using static Terraria.ModLoader.ModContent;
 
 namespace UnbiddenMod.NPCs.HarpyQueen
 {
@@ -300,9 +300,19 @@ namespace UnbiddenMod.NPCs.HarpyQueen
 
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
     {
-      if (UnbiddenWorld.downedFireAncient)
+      if (!UnbiddenGlobalNPC.downedHarpyQueen)
       {
-        UnbiddenWorld.downedFireAncient = true;
+        UnbiddenGlobalNPC.downedHarpyQueen = true;
+      }
+      switch(Main.expertMode)
+      {
+        case true:
+          Item.NewItem(npc.position, ItemType<HarpyQueenBag>(), 1);
+          break;
+        case false:
+          // Hardcoded 16-50 Zephyrium ore dropped
+          Item.NewItem(npc.position, ItemType<ZephyriumOre>(), Main.rand.Next(16, 51));
+          break;
       }
     }
 

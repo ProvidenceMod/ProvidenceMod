@@ -110,7 +110,7 @@ namespace UnbiddenMod
           new List<int> { ModContent.NPCType<NPCs.FireAncient.FireAncient>() },
           this, // Mod
           "$Mods.UnbiddenMod.NPCName.FireAncient",
-          (Func<bool>)(() => UnbiddenWorld.downedFireAncient),
+          (Func<bool>)(() => UnbiddenGlobalNPC.downedFireAncient),
           ModContent.ItemType<Items.Weapons.Melee.AirSword>(),
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },

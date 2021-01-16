@@ -200,9 +200,9 @@ namespace UnbiddenMod.NPCs.FireAncient
 
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
     {
-      if (UnbiddenWorld.downedFireAncient)
+      if (UnbiddenGlobalNPC.downedFireAncient)
       {
-        UnbiddenWorld.downedFireAncient = true;
+        UnbiddenGlobalNPC.downedFireAncient = true;
       }
     }
 

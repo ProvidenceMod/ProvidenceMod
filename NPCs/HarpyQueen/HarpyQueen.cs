@@ -304,7 +304,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       {
         UnbiddenGlobalNPC.downedHarpyQueen = true;
       }
-      switch(Main.expertMode)
+      switch (Main.expertMode)
       {
         case true:
           Item.NewItem(npc.position, ItemType<HarpyQueenBag>(), 1);

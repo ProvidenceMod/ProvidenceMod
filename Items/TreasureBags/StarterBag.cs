@@ -18,7 +18,7 @@ namespace UnbiddenMod.Items.TreasureBags
       item.consumable = true;
       item.width = 24;
       item.height = 24;
-      item.rare = ItemRarityID.Expert;
+      item.rare = ItemRarityID.Blue;
     }
 
     public override bool CanRightClick()

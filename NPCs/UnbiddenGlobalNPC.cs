@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod
 {
@@ -16,6 +17,8 @@ namespace UnbiddenMod
     public bool hypodermia = false;
     public bool freezing = false;
     public bool frozen = false;
+    public bool spawnRateTempSet = false;
+    public int spawnRateTemp;
     public static bool downedFireAncient = false;
     public static bool downedHarpyQueen = false;
     public override void ResetEffects(NPC npc)
@@ -63,6 +66,24 @@ namespace UnbiddenMod
       if (projectile.Unbidden().inverseKB)
       {
         npc.StrikeNPC(0, knockback, -projectile.direction, crit);
+      }
+    }
+    public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+    {
+      if(IsThereABoss().Item1)
+      {
+        if (!spawnRateTempSet)
+        {
+        spawnRateTemp = spawnRate;
+        spawnRateTempSet = true;
+        }
+        spawnRate = 0;
+      }
+      else if (!IsThereABoss().Item1)
+      {
+        spawnRate = spawnRateTemp;
+        spawnRateTemp = 0;
+        spawnRateTempSet = false;
       }
     }
     public override void SetDefaults(NPC npc)

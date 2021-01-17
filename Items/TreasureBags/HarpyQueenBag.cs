@@ -21,6 +21,8 @@ namespace UnbiddenMod.Items.TreasureBags
       item.consumable = true;
       item.width = 24;
       item.height = 24;
+      item.expertOnly = true;
+      item.expert = true;
       item.rare = ItemRarityID.Expert;
     }
 

@@ -30,6 +30,7 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.useTime = 30;
       item.useTurn = true;
       item.UseSound = SoundID.Item1;
+      item.Unbidden().cleric = true;
     }
 
     public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

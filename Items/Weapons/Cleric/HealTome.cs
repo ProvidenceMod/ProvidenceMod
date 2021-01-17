@@ -33,6 +33,7 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.useTurn = true;
       item.UseSound = SoundID.Item1;
       item.mana = 2;
+      item.Unbidden().cleric = true;
     }
 
     public override bool CanRightClick()

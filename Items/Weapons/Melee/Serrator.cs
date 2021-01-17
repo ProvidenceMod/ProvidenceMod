@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 using System;
 using Microsoft.Xna.Framework;
 
-namespace UnbiddenMod.Items.Weapons.Cleric
+namespace UnbiddenMod.Items.Weapons.Melee
 {
   public class Serrator : ModItem
   {
@@ -26,6 +26,7 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.useAnimation = 15;
       item.value = 1500;
       item.rare = ItemRarityID.Blue;
+      item.melee = true;
     }
     public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
     {

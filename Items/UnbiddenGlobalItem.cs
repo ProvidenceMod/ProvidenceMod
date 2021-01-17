@@ -3,6 +3,9 @@ using Terraria;
 using Terraria.ID;
 using System;
 using static UnbiddenMod.UnbiddenUtils;
+using System.Collections.Generic;
+using System.Linq;
+using UnbiddenMod;
 
 namespace UnbiddenMod
 {
@@ -13,6 +16,7 @@ namespace UnbiddenMod
     public int element = -1, weakEl = -1; // -1 means Typeless, meaning we don't worry about this in the first place
     // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
     public int elementDef, weakElDef;
+    public bool cleric;
     public override bool InstancePerEntity => true;
 
     public UnbiddenGlobalItem()
@@ -21,6 +25,7 @@ namespace UnbiddenMod
       elementDef = 0;
       weakEl = -1;
       weakElDef = 0;
+      cleric = false;
     }
 
     public override GlobalItem Clone(Item item, Item itemClone)
@@ -30,6 +35,7 @@ namespace UnbiddenMod
       myClone.elementDef = elementDef;
       myClone.weakEl = weakEl;
       myClone.weakElDef = weakElDef;
+      myClone.cleric = cleric;
       return myClone;
     }
     public override void SetDefaults(Item item)
@@ -377,6 +383,57 @@ namespace UnbiddenMod
       }
     }
 
+    private string DetermineDamagetip(Item item)
+    {
+      string el;
+      string dmgType = item.melee ? "melee" :
+                       item.ranged ? "ranged" :
+                       item.magic ? "magic" :
+                       item.summon ? "summon" :
+                       item.thrown ? "throwing" :
+                       item.Unbidden().cleric ? "cleric" :
+                       "";
+      switch (item.Unbidden().element)
+      {
+        case ElementID.Fire:
+          el = "fire ";
+          break;
+        case ElementID.Ice:
+          el = "ice ";
+          break;
+        case ElementID.Lightning:
+          el = "lightning ";
+          break;
+        case ElementID.Water:
+          el = "water ";
+          break;
+        case ElementID.Earth:
+          el = "earth ";
+          break;
+        case ElementID.Air:
+          el = "air ";
+          break;
+        case ElementID.Radiant:
+          el = "radiant ";
+          break;
+        case ElementID.Necrotic:
+          el = "necrotic ";
+          break;
+        default:
+          el = "";
+          break;
+      }
+      return $" {el}{dmgType} "; // The space between is added implicitly in el's assignment
+    }
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+    {
+      var tt = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
+      if (tt != null)
+      {
+        string[] split = tt.text.Split(' ');
+        tt.text = split[0] + DetermineDamagetip(item) + split.Last();
+      }
+    }
     public override void UpdateEquip(Item item, Player player)
     {
       if (item.Unbidden().element != -1)
@@ -384,7 +441,6 @@ namespace UnbiddenMod
       if (item.Unbidden().weakEl != -1)
         player.Unbidden().resists[item.Unbidden().weakEl] -= item.Unbidden().weakElDef;
 
-      // player.Unbidden().tankingItemCount = (int)Math.Floor((decimal)(player.statDefense / 15));
       base.UpdateEquip(item, player);
     }
   }

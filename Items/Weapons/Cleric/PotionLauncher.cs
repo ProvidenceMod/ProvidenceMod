@@ -32,6 +32,7 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.shoot = mod.ProjectileType("YeetPotion");
       item.shootSpeed = 16f;
       item.UseSound = SoundID.Item1;
+      item.Unbidden().cleric = true;
     }
 
     public override void AddRecipes()

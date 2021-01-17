@@ -1,11 +1,5 @@
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.Linq;
-using System;
 using UnbiddenMod.Dusts;
 using static UnbiddenMod.UnbiddenUtils;
 
@@ -20,16 +14,7 @@ namespace UnbiddenMod.Items
       item.magic = false;
       item.summon = false;
       item.thrown = false;
-    }
-
-    public override void ModifyTooltips(List<TooltipLine> tooltips)
-    {
-      var tt = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
-      if (tt != null)
-      {
-        string[] split = tt.text.Split(' ');
-        tt.text = split[0] + " cleric " + split.Last();
-      }
+      item.Unbidden().cleric = true;
     }
 
     // The most you'll need to edit is what's in the conditional.

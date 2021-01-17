@@ -29,7 +29,6 @@ namespace UnbiddenMod.Dusts
       float strength = dust.scale * 1.4f;
       if (strength > 1f)
       {
-        strength = 1f;
       }
       float r = Main.DiscoR * (float)0.003921568627450980 / 3;
       float g = Main.DiscoG * (float)0.003921568627450980 / 3;

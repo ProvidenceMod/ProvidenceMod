@@ -118,7 +118,6 @@ namespace UnbiddenMod
           "$Mods.UnbiddenMod.BossSpawnInfo.FireAncient"
         );
     }
-    public static void RegisterDimension(string modname, string areaname, Action<Rectangle> generatorCode) { }
     public override void UpdateMusic(ref int music, ref MusicPriority priority)
     {
       if (NPC.AnyNPCs(NPCID.BrainofCthulhu))

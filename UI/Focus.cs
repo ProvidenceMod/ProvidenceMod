@@ -20,7 +20,7 @@ namespace UnbiddenMod.UI
     private UIImageFramed focusBar;
     private UIImageFramed focusUse;
     private int cooldown = 30;
-    private int[] focusArray = new int[3] { 0, 0, 0 };
+    private readonly int[] focusArray = new int[3] { 0, 0, 0 };
     private bool arraySet;
     private bool boss;
     private bool barSet = false;

@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Reflection;
 using UnbiddenMod.Dusts;
 using static UnbiddenMod.UnbiddenUtils;
+using UnbiddenMod.Buffs.StatDebuffs;
 
 namespace UnbiddenMod
 {
@@ -56,6 +57,7 @@ namespace UnbiddenMod
     public string dashDir = "";
     // TODO: Make this have use (see tooltip in the item of same name)
     public bool zephyriumAglet;
+    public bool intimidated = false;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -99,6 +101,10 @@ namespace UnbiddenMod
     {
       if (IsThereABoss().Item1)
         allowFocus = true;
+        player.AddBuff(ModContent.BuffType<Intimidated>(), 2);
+        intimidated = true;
+      if (!IsThereABoss().Item1)
+        player.ClearBuff(ModContent.BuffType<Intimidated>());
 
       if (focusLossCooldown > 0)
         focusLossCooldown--;
@@ -330,7 +336,7 @@ namespace UnbiddenMod
     }
     public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
     {
-      Item item = player.inventory[player.selectedItem];
+      // Item item = player.inventory[player.selectedItem];
       if (target.boss && target.active)
       {
         focus += defaultFocusGain + bonusFocusGain;
@@ -400,7 +406,7 @@ namespace UnbiddenMod
     }
     private void DrawSwordGlowmask(PlayerDrawInfo info)
     {
-      Player player = info.drawPlayer; //the player!
+      // Player player = info.drawPlayer; //the player!
 
       /*if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0)
       {

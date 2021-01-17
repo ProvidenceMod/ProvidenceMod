@@ -70,21 +70,11 @@ namespace UnbiddenMod
     }
     public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
     {
-      if(IsThereABoss().Item1)
-      {
-        if (!spawnRateTempSet)
-        {
-        spawnRateTemp = spawnRate;
-        spawnRateTempSet = true;
-        }
+      UnbiddenPlayer unPlayer = player.Unbidden();
+      if (unPlayer.intimidated)
         spawnRate = 0;
-      }
-      else if (!IsThereABoss().Item1)
-      {
-        spawnRate = spawnRateTemp;
-        spawnRateTemp = 0;
-        spawnRateTempSet = false;
-      }
+      if(!unPlayer.intimidated)
+        spawnRate = 1;
     }
     public override void SetDefaults(NPC npc)
     {

@@ -57,7 +57,7 @@ namespace UnbiddenMod
     // float gainStrength
     // float speedCap
     // float slowStrength
-    public static void IsHomingNPC(Projectile projectile, Vector2 offset, NPC target, float speedCap, float gainStrength, float slowStrength)
+    public static void IsHomingNPC(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
     {
       if (offset.X > 0)
       {
@@ -94,7 +94,7 @@ namespace UnbiddenMod
         projectile.velocity.Y = 0f;
     }
 
-    public static void IsHomingPlayer(Projectile projectile, Vector2 offset, Player target, float speedCap, float gainStrength, float slowStrength)
+    public static void IsHomingPlayer(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
     {
       if (offset.X > 0)
       {

@@ -237,7 +237,7 @@ namespace UnbiddenMod
           item.maxStack = 999;
           break;
 
-        ////////// VANILLA ELEMENTAL DEFENSES //////////
+        /// VANILLA ELEMENTAL DEFENSES ///
         // Prehardmode
         case ItemID.EbonwoodHelmet:
           // Provides a boost to Necrotic and a penalty to Radiant (defenses)
@@ -434,6 +434,17 @@ namespace UnbiddenMod
         tt.text = split[0] + DetermineDamagetip(item) + split.Last();
       }
     }
+    public override void AddRecipes()
+    {
+      ModRecipe skymillR = new ModRecipe(mod);
+      skymillR.AddIngredient(ItemID.SunplateBlock, 15);
+      skymillR.AddIngredient(ItemID.Cloud, 10);
+      skymillR.AddIngredient(ItemID.RainCloud, 5);
+      skymillR.AddTile(TileID.WorkBenches);
+      skymillR.SetResult(ItemID.SkyMill, 1);
+      skymillR.AddRecipe();
+    }
+
     public override void UpdateEquip(Item item, Player player)
     {
       if (item.Unbidden().element != -1)

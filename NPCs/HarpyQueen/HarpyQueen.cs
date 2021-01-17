@@ -304,6 +304,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       {
         UnbiddenGlobalNPC.downedHarpyQueen = true;
       }
+
       switch (Main.expertMode)
       {
         case true:
@@ -312,14 +313,9 @@ namespace UnbiddenMod.NPCs.HarpyQueen
         case false:
           // Hardcoded 16-50 Zephyrium ore dropped
           Item.NewItem(npc.position, ItemType<ZephyriumOre>(), Main.rand.Next(16, 51));
+          Item.NewItem(npc.position, ItemID.GoldCoin, 5);
           break;
       }
-    }
-
-    public override Color? GetAlpha(Color lightColor)
-    {
-      Color color = Color.White;
-      return color;
     }
   }
 }

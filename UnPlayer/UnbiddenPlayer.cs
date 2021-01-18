@@ -66,6 +66,7 @@ namespace UnbiddenMod
     // This should NEVER be changed.
     public const int maxParryActiveTime = 90;
     public int parryActiveTime;
+    public bool parryActiveCooldown;
     public int parriedProjs;
     public bool spawnReset = true;
     public override TagCompound Save()
@@ -95,7 +96,8 @@ namespace UnbiddenMod
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       zephyriumAglet = false;
       parryCapable = false;
-      parryActive = parryActiveTime == 0;
+      parryActive = parryActiveTime > 0;
+      parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
 
       intimidated = false;
       focusMax = 1f;
@@ -106,7 +108,7 @@ namespace UnbiddenMod
 
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
-      if (UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
+      if (UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()) && !parryActiveCooldown)
       {
         parryActiveTime = maxParryActiveTime;
       }
@@ -170,6 +172,7 @@ namespace UnbiddenMod
         if (parryWasActive && !parryActive)
         {
           player.AddBuff(BuffType<CantDeflect>(), 180 + (parriedProjs * 60), true);
+          parryWasActive = false;
           parriedProjs = 0;
         }
       }

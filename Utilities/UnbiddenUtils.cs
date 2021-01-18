@@ -168,9 +168,9 @@ namespace UnbiddenMod
           affectedProjs++;
         }
       }
-      player.Unbidden().parriedProjs = affectedProjs;
+      player.Unbidden().parriedProjs += affectedProjs;
     }
-    public static void TankParry(Player player, Rectangle hitbox, ref int parryShield)
+    public static int TankParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
       int DRBoost = 0;
@@ -178,18 +178,13 @@ namespace UnbiddenMod
       {
         if (currProj.IsParry(player, hitbox, ref parryShield))
         {
-          DRBoost = currProj.damage / 100;
+          DRBoost += currProj.damage / 10;
           currProj.active = false;
           affectedProjs++;
         }
       }
-      player.Unbidden().parriedProjs = affectedProjs;
-      if (DRBoost != 0)
-      {
-        player.Unbidden().tankParryPWR = DRBoost;
-        // 5 secs of time, -1 second for each hit tanked with this active
-        player.AddBuff(BuffType<TankParryBoost>(), 600);
-      }
+      player.Unbidden().parriedProjs += affectedProjs;
+      return DRBoost;
     }
 
     public static void DPSParry(Player player, Rectangle hitbox, ref int parryShield)
@@ -212,7 +207,7 @@ namespace UnbiddenMod
           affectedProjs++;
         }
       }
-      player.Unbidden().parriedProjs = affectedProjs;
+      player.Unbidden().parriedProjs += affectedProjs;
     }
     // 
     // Summary:

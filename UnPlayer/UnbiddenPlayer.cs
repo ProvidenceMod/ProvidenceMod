@@ -67,6 +67,8 @@ namespace UnbiddenMod
     public const int maxParryActiveTime = 90;
     public int parryActiveTime;
     public int parriedProjs = 0;
+    public bool intimidated = false;
+    public bool spawnReset = true;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -96,6 +98,7 @@ namespace UnbiddenMod
       parryCapable = false;
       parryActive = parryActiveTime == 0;
 
+      intimidated = false;
       focusMax = 1f;
       allowFocus = IsThereABoss().Item1;
       bonusFocusGain = 0f;
@@ -117,12 +120,23 @@ namespace UnbiddenMod
 
     public override void PreUpdate()
     {
+      UnbiddenGlobalNPC unNPC = new UnbiddenGlobalNPC();
       if (IsThereABoss().Item1)
         allowFocus = true;
-      player.AddBuff(BuffType<Intimidated>(), 2);
-      intimidated = true;
+        player.AddBuff(ModContent.BuffType<Intimidated>(), 2);
+        intimidated = true;
+        // int spawnRate = 2147483647;
+        // int maxSpawns = 0;
+        // unNPC.EditSpawnRate(player, ref spawnRate, ref maxSpawns);
+        // spawnReset = false;
       if (!IsThereABoss().Item1)
-        player.ClearBuff(BuffType<Intimidated>());
+        player.ClearBuff(ModContent.BuffType<Intimidated>());
+        intimidated = false;
+        // spawnRate = 0;
+        // maxSpawns = 5;
+        // if(!intimidated && !spawnReset)
+        //   unNPC.EditSpawnRate(player, ref spawnRate, ref maxSpawns);
+        //   spawnReset = true;
 
       if (focusLossCooldown > 0)
         focusLossCooldown--;

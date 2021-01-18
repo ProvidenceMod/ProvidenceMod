@@ -315,7 +315,6 @@ namespace UnbiddenMod
     public const int Tank = 1;
     public const int DPS = 2;
     public const int Support = 3;
-
   }
   public static class ElementID
   {

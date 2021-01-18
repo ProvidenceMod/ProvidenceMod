@@ -19,8 +19,8 @@ namespace UnbiddenMod.Projectiles.Ability
     public override void SetDefaults()
     {
       projectile.arrow = true;
-      projectile.width = 28;
-      projectile.height = 42;
+      projectile.width = 44;
+      projectile.height = 76  ;
       projectile.friendly = true;
       projectile.ignoreWater = true;
       projectile.timeLeft = 90;
@@ -41,8 +41,8 @@ namespace UnbiddenMod.Projectiles.Ability
     }
     public override void AI()
     {
-      Player owner = Main.player[projectile.owner];
-      projectile.position = Vector2.Add(owner.position, new Vector2(0, -35f).RotateTo(owner.AngleTo(Main.MouseWorld)));
+      Player owner = Main.LocalPlayer;
+      projectile.position = Vector2.Add(new Vector2(owner.position.X - (owner.width / 2), owner.position.Y - (owner.height / 2)), new Vector2(35, 0).RotateTo(owner.AngleTo(Main.MouseWorld)));
       projectile.rotation = owner.AngleTo(Main.MouseWorld);
     }
   }

@@ -67,7 +67,6 @@ namespace UnbiddenMod
     public const int maxParryActiveTime = 90;
     public int parryActiveTime;
     public int parriedProjs = 0;
-    public bool intimidated = false;
     public bool spawnReset = true;
     public override TagCompound Save()
     {

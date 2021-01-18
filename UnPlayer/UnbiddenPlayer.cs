@@ -1,18 +1,16 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
-using System.Linq;
-using Microsoft.Xna.Framework.Input;
-using System.Reflection;
 using UnbiddenMod.Dusts;
 using static UnbiddenMod.UnbiddenUtils;
 using UnbiddenMod.Buffs.StatDebuffs;
+using static Terraria.ModLoader.ModContent;
+using UnbiddenMod.Buffs.Cooldowns;
 
 namespace UnbiddenMod
 {
@@ -29,41 +27,51 @@ namespace UnbiddenMod
     // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
     public bool angelTear;
     public int tearCount;
-    public bool brimHeart = false;
-    public bool boosterShot = false;
+    public bool brimHeart;
+    public bool boosterShot;
 
-    public bool allowFocus = false;
-    public float focus = 0f;
+    public bool allowFocus;
+    public float focus;
     public float focusMax = 1f;
     public float tankingItemCount;
     public const float defaultFocusGain = 0.005f;
-    public float bonusFocusGain = 0f;
+    public float bonusFocusGain;
     public float focusLoss = 0.15f;
     public float defaultFocusLoss = 0.25f;
-    public int focusLossCooldown = 0;
+    public int focusLossCooldown;
     public int focusLossCooldownMax = 20;
-    public bool deflectable = false;
-    public bool micitBangle = false;
+    public bool deflectable;
+    public bool micitBangle;
     public float cleric = 1f;
-    public bool hasClericSet = false;
+    public bool hasClericSet;
     public float clericAuraRadius = 300f;
-    public bool regenAura = false;
-    public bool burnAura = false;
-    public bool cFlameAura = false;
-    public bool ampCapacitor = false;
-    public bool bastionsAegis = false;
+    public bool regenAura;
+    public bool burnAura;
+    public bool cFlameAura;
+    public bool ampCapacitor;
+    public bool bastionsAegis;
     public int dashTimeMod;
     public int dashMod;
     public int dashModDelay = 60;
     public string dashDir = "";
     // TODO: Make this have use (see tooltip in the item of same name)
     public bool zephyriumAglet;
-    public bool intimidated = false;
+    public bool intimidated;
+
+    public bool parryCapable;
+    public int parryType = ParryTypeID.Universal;
+    public bool parryActive;
+    public bool parryWasActive;
+
+    // This should NEVER be changed.
+    public const int maxParryActiveTime = 90;
+    public int parryActiveTime;
+    public int parriedProjs = 0;
     public override TagCompound Save()
     {
       return new TagCompound {
-        {"angelTear", this.angelTear},
-        {"tearCount", this.tearCount},
+        {"angelTear", angelTear},
+        {"tearCount", tearCount},
         // {"affExp", this.affExp}
       };
     }
@@ -85,6 +93,8 @@ namespace UnbiddenMod
       dashTimeMod = 0;
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       zephyriumAglet = false;
+      parryCapable = false;
+      parryActive = parryActiveTime == 0;
 
       focusMax = 1f;
       allowFocus = IsThereABoss().Item1;
@@ -92,6 +102,13 @@ namespace UnbiddenMod
       player.moveSpeed += focus / 2;
     }
 
+    public override void ProcessTriggers(TriggersSet triggersSet)
+    {
+      if (UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
+      {
+        parryActiveTime = maxParryActiveTime;
+      }
+    }
     public override void Load(TagCompound tag)
     {
       angelTear = tag.GetBool("angelTear");
@@ -102,16 +119,35 @@ namespace UnbiddenMod
     {
       if (IsThereABoss().Item1)
         allowFocus = true;
-        player.AddBuff(ModContent.BuffType<Intimidated>(), 2);
-        intimidated = true;
+      player.AddBuff(BuffType<Intimidated>(), 2);
+      intimidated = true;
       if (!IsThereABoss().Item1)
-        player.ClearBuff(ModContent.BuffType<Intimidated>());
+        player.ClearBuff(BuffType<Intimidated>());
 
       if (focusLossCooldown > 0)
         focusLossCooldown--;
       if (!allowFocus)
         focus = 0;
 
+      if (parryCapable)
+      {
+        if (parryActive)
+        {
+        if (parryActiveTime > 0)
+          parryActiveTime--;
+        // Setting an "oldX" bool for PostUpdate
+        parryWasActive = parryActive;
+          switch (parryType)
+          {
+            case ParryTypeID.Universal:
+              StandardParry(player, new Rectangle((int)player.position.X, (int)player.position.Y, 100, 100));
+              break;
+            case ParryTypeID.DPS:
+              DPSParry(player, new Rectangle((int)player.position.X, (int)player.position.Y, 100, 100));
+              break;
+          }
+        }
+      }
       focus = Utils.Clamp(focus, 0, focusMax);
       base.PreUpdate();
     }
@@ -123,6 +159,16 @@ namespace UnbiddenMod
 
       // Safeguard against weird ass number overflowing
       player.CalcElemDefense();
+
+      if (parryCapable)
+      {
+        // This shouldn't just be when unequal, it specifically needs to be when it's not active anymore, but was within this tick
+        if (parryWasActive && !parryActive)
+        {
+          player.AddBuff(BuffType<CantDeflect>(), 180 + (parriedProjs * 60), true);
+          parriedProjs = 0;
+        }
+      }
 
       if (hasClericSet)
       {
@@ -198,6 +244,9 @@ namespace UnbiddenMod
         player.releaseLeft = false;
         dashModDelay--;
       }
+    }
+    public void ActivateParry()
+    {
     }
     public void ModDashMovement()
     {

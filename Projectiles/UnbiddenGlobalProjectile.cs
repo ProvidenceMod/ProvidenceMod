@@ -12,11 +12,12 @@ namespace UnbiddenMod
     // Elemental variables for Projectiles
 
     public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
-    public bool inverseKB = false;
+    public bool inverseKB;
     // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
-    public bool deflected = false;
-    public bool amped = false;
+    public bool deflectable;
+    public bool deflected;
+    public bool amped;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / (int)Main.projFrames[projectile.type];

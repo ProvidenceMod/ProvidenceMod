@@ -34,7 +34,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void MeleeEffects(Player player, Rectangle hitbox)
     {
       // Run the parry util (In TynUtils)
-      Parry(player, hitbox);
+      StandardParry(player, hitbox);
     }
     public override void AddRecipes()
     {

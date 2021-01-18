@@ -149,15 +149,12 @@ namespace UnbiddenMod
     // 
     // Summary:
     // Allows players to parry. Call this when executing a swing.
-    // UnbiddenUtils.Parry(Player player, Rectangle hitbox);
-    public static void Parry(Player player, Rectangle hitbox)
+    public static void StandardParry(Player player, Rectangle hitbox)
     {
-      int NoOfProj = Main.projectile.Length;
       int affectedProjs = 0;
-      for (int i = 0; i < NoOfProj; i++)
+      foreach (Projectile currProj in Main.projectile)
       {
-        Projectile currProj = Main.projectile[i];
-        if (!player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.active && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        if (currProj.active && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
         {
           // Add your melee damage multiplier to the damage so it has a little more oomph
           currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
@@ -174,12 +171,28 @@ namespace UnbiddenMod
           affectedProjs++;
         }
       }
-      if (affectedProjs > 0)
+      player.Unbidden().parriedProjs = affectedProjs;
+    }
+    public static void DPSParry(Player player, Rectangle hitbox)
+    {
+      int affectedProjs = 0;
+      foreach (Projectile currProj in Main.projectile)
       {
-        // Give a cooldown; 1 second per projectile reflected
-        // CantDeflect is a debuff, separate from this code block
-        player.AddBuff(ModContent.BuffType<CantDeflect>(), affectedProjs * 60, true);
+        if (currProj.active && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        {
+          _ = Projectile.NewProjectile(
+            currProj.position,
+            Vector2.Negate(currProj.velocity),
+            ProjectileID.ChlorophyteBullet,
+            (int)(player.Unbidden().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 5),
+            currProj.knockBack
+            );
+
+          currProj.active = false;
+          affectedProjs++;
+        }
       }
+      player.Unbidden().parriedProjs = affectedProjs;
     }
     // 
     // Summary:
@@ -215,7 +228,8 @@ namespace UnbiddenMod
       return chosenNPC;
     }
     public static bool IsInRadius(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
-    public static int GrabProjCount(int type) {
+    public static int GrabProjCount(int type)
+    {
       int count = 0;
       foreach (Projectile proj in Main.projectile)
       {
@@ -255,14 +269,15 @@ namespace UnbiddenMod
         item.Unbidden().weakElDef = weakElDef;
       }
     }
-    public static Tuple<bool, int> IsThereABoss() {
+    public static Tuple<bool, int> IsThereABoss()
+    {
       bool bossExists = false;
       int bossID = -1;
       foreach (NPC npc in Main.npc)
       {
         if (npc.active && npc.boss)
           bossExists = true;
-          bossID = npc.type;
+        bossID = npc.type;
       }
       return Tuple.Create(bossExists, bossID);
     }
@@ -279,6 +294,14 @@ namespace UnbiddenMod
     }
   }
 
+  public static class ParryTypeID
+  {
+    public const int Universal = 0;
+    public const int Tank = 1;
+    public const int DPS = 2;
+    public const int Support = 3;
+
+  }
   public static class ElementID
   {
     public const int Fire = 0;

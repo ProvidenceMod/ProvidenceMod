@@ -19,6 +19,7 @@ namespace UnbiddenMod
     internal ElemDefUI ElemDefUI;
     internal Focus focusBar;
     internal BossHealth BossHealth;
+    public static ModHotKey ParryHotkey;
 
     public override void Load()
     {
@@ -45,6 +46,8 @@ namespace UnbiddenMod
       BossHealth.Initialize();
       bossHealthUI = new UserInterface();
       bossHealthUI.SetState(BossHealth);
+
+      ParryHotkey = RegisterHotKey("Parry", "F");
     }
     private bool DrawElemDefUI()
     {

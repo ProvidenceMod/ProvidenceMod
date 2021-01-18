@@ -22,6 +22,7 @@ namespace UnbiddenMod.Items.Accessories
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
       player.Unbidden().micitBangle = true;
+      player.Unbidden().parryCapable = true;
     }
     public override void AddRecipes()
     {

@@ -149,12 +149,12 @@ namespace UnbiddenMod
     // 
     // Summary:
     // Allows players to parry. Call this when executing a swing.
-    public static void StandardParry(Player player, Rectangle hitbox)
+    public static void StandardParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
       foreach (Projectile currProj in Main.projectile)
       {
-        if (currProj.active && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        if (currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
         {
           // Add your melee damage multiplier to the damage so it has a little more oomph
           currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
@@ -173,19 +173,20 @@ namespace UnbiddenMod
       }
       player.Unbidden().parriedProjs = affectedProjs;
     }
-    public static void DPSParry(Player player, Rectangle hitbox)
+    public static void DPSParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
       foreach (Projectile currProj in Main.projectile)
       {
-        if (currProj.active && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        if (currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
         {
           _ = Projectile.NewProjectile(
             currProj.position,
             Vector2.Negate(currProj.velocity),
             ProjectileID.ChlorophyteBullet,
             (int)(player.Unbidden().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 5),
-            currProj.knockBack
+            currProj.knockBack,
+            player.whoAmI
             );
 
           currProj.active = false;

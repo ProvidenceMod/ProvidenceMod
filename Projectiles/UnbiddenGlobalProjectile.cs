@@ -15,7 +15,7 @@ namespace UnbiddenMod
     public bool inverseKB;
     // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
-    public bool deflectable;
+    public bool deflectable = true;
     public bool deflected;
     public bool amped;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)

@@ -11,6 +11,7 @@ using static UnbiddenMod.UnbiddenUtils;
 using UnbiddenMod.Buffs.StatDebuffs;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
+using UnbiddenMod.Projectiles.Ability;
 
 namespace UnbiddenMod
 {
@@ -69,6 +70,8 @@ namespace UnbiddenMod
     public bool parryActiveCooldown;
     public int parriedProjs;
     public bool spawnReset = true;
+    public Projectile parryProj;
+    public int parryProjID;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -98,6 +101,7 @@ namespace UnbiddenMod
       parryCapable = false;
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
+      parryType = ParryTypeID.Universal;
 
       intimidated = false;
       focusMax = 1f;
@@ -111,6 +115,9 @@ namespace UnbiddenMod
       if (UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()) && !parryActiveCooldown)
       {
         parryActiveTime = maxParryActiveTime;
+        int p = Projectile.NewProjectile(player.position, new Vector2(0, 0), ProjectileType<ParryShield>(), 0, 0, player.whoAmI);
+        parryProj = Main.projectile[p];
+        parryProjID = p;
       }
     }
     public override void Load(TagCompound tag)
@@ -135,23 +142,20 @@ namespace UnbiddenMod
       if (!allowFocus)
         focus = 0;
 
-      if (parryCapable)
+      if (parryCapable && parryActive)
       {
-        if (parryActive)
-        {
         if (parryActiveTime > 0)
           parryActiveTime--;
         // Setting an "oldX" bool for PostUpdate
         parryWasActive = parryActive;
-          switch (parryType)
-          {
-            case ParryTypeID.Universal:
-              StandardParry(player, new Rectangle((int)player.position.X, (int)player.position.Y, 100, 100));
-              break;
-            case ParryTypeID.DPS:
-              DPSParry(player, new Rectangle((int)player.position.X, (int)player.position.Y, 100, 100));
-              break;
-          }
+        switch (parryType)
+        {
+          case ParryTypeID.Universal:
+            StandardParry(player, parryProj.Hitbox, ref parryProjID);
+            break;
+          case ParryTypeID.DPS:
+            DPSParry(player, parryProj.Hitbox, ref parryProjID);
+            break;
         }
       }
       focus = Utils.Clamp(focus, 0, focusMax);
@@ -174,6 +178,8 @@ namespace UnbiddenMod
           player.AddBuff(BuffType<CantDeflect>(), 180 + (parriedProjs * 60), true);
           parryWasActive = false;
           parriedProjs = 0;
+          parryProj = null;
+          parryProjID = 255;
         }
       }
 

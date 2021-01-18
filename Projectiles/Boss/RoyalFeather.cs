@@ -26,6 +26,7 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.damage = 25;
       projectile.hostile = true;
       projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = -1; // Typeless
+      projectile.Unbidden().deflectable = false;
     }
 
     public override void AI()

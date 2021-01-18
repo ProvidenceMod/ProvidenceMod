@@ -48,7 +48,7 @@ namespace UnbiddenMod.Projectiles.Boss
       const float speedCap = 4f;
       const float gainStrength = 0.1f;
       const float slowStrength = 1.1f;
-      UnbiddenGlobalProjectile.IsHomingPlayer(projectile, offset, player, speedCap, gainStrength, slowStrength);
+      UnbiddenGlobalProjectile.IsHomingPlayer(projectile, offset, speedCap, gainStrength, slowStrength);
     }
 
     public override Color? GetAlpha(Color lightColor)

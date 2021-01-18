@@ -58,7 +58,7 @@ namespace UnbiddenMod.Projectiles.Melee
         float distance = (float)System.Math.Sqrt((double)((shootToX * shootToX) + (shootToY * shootToY)));
         if (distance < 600f && !target.friendly && target.active)
         {
-          UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, target, speedCap, gainStrength, slowStrength);
+          UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, speedCap, gainStrength, slowStrength);
         }
       }
     }

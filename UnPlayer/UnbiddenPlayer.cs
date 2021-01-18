@@ -105,6 +105,7 @@ namespace UnbiddenMod
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryType = ParryTypeID.Universal;
+      tankParryPWR = player.HasBuff(BuffType<TankParryBoost>()) || parryActive ? tankParryPWR : 0;
       tankParryOn = false;
       tankParryPWR = tankParryOn ? tankParryPWR : 0;
       intimidated = false;
@@ -138,7 +139,7 @@ namespace UnbiddenMod
           StandardParry(player, parryProj.Hitbox, ref parryProjID);
           break;
         case ParryTypeID.Tank:
-          TankParry(player, parryProj.Hitbox, ref parryProjID);
+          tankParryPWR += TankParry(player, parryProj.Hitbox, ref parryProjID);
           break;
         case ParryTypeID.DPS:
           DPSParry(player, parryProj.Hitbox, ref parryProjID);
@@ -168,6 +169,12 @@ namespace UnbiddenMod
         // Setting an "oldX" bool for PostUpdate
         parryWasActive = parryActive;
         ActivateParry();
+
+        if (parryType == ParryTypeID.Tank && tankParryPWR != 0 && !player.HasBuff(BuffType<TankParryBoost>()))
+        {
+          // 5 secs of time, -1 second for each hit tanked with this active
+          player.AddBuff(BuffType<TankParryBoost>(), 300);
+        }
       }
       focus = Utils.Clamp(focus, 0, focusMax);
       base.PreUpdate();
@@ -199,7 +206,7 @@ namespace UnbiddenMod
         if (burnAura)
         {
           const float burnRadiusBoost = -100f;
-          GenerateAuraField(player, ModContent.DustType<AuraDust>(), burnRadiusBoost);
+          GenerateAuraField(player, DustType<AuraDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
             if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
@@ -211,7 +218,7 @@ namespace UnbiddenMod
         if (cFlameAura)
         {
           const float cFRadiusBoost = -150f;
-          GenerateAuraField(player, ModContent.DustType<AuraDust>(), cFRadiusBoost);
+          GenerateAuraField(player, DustType<AuraDust>(), cFRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
             if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + cFRadiusBoost))
@@ -427,7 +434,6 @@ namespace UnbiddenMod
         float focusDR = focus / 4 >= 0.25f ? 0.25f : focus / 4;
         damage -= (int)(damage * focusDR);
 
-
         if (focusLossCooldown == 0)
         {
           focus -= focusLoss;
@@ -435,11 +441,8 @@ namespace UnbiddenMod
           focusLossCooldown = focusLossCooldownMax;
         }
       }
-      if (tankParryOn)
-      {
-        damage -= damage * (tankParryPWR / 100);
-        player.buffTime[BuffType<TankParryBoost>()] -= 60;
-      }
+
+      damage -= damage * (tankParryPWR / 100);
     }
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -458,18 +461,15 @@ namespace UnbiddenMod
           focusLossCooldown = focusLossCooldownMax;
         }
       }
-      if (tankParryOn)
-      {
-        damage -= damage * (tankParryPWR / 100);
-        player.buffTime[BuffType<TankParryBoost>()] -= 60;
-      }
+
+      damage -= damage * (tankParryPWR / 100);
     }
 
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {
       if (boosterShot && item.potion)
       {
-        healValue = healValue * 2; // Doubles potion power
+        healValue *= 2; // Doubles potion power
         player.DelBuff(player.FindBuffIndex(mod.BuffType("BoosterShot"))); // Immediately deletes it from buff bar
       }
     }

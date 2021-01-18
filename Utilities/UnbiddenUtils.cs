@@ -1,20 +1,12 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.GameContent.Events;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
-using UnbiddenMod;
+using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
-using UnbiddenMod.Dusts;
-using UnbiddenMod.Items.Weapons;
+using UnbiddenMod.Buffs.StatBuffs;
 
 namespace UnbiddenMod
 {
@@ -146,6 +138,11 @@ namespace UnbiddenMod
       }
       return damage;
     }
+
+    public static bool IsParry(this Projectile currProj, Player player, Rectangle hitbox, ref int parryShield)
+    {
+      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
+    }
     // 
     // Summary:
     // Allows players to parry. Call this when executing a swing.
@@ -154,7 +151,7 @@ namespace UnbiddenMod
       int affectedProjs = 0;
       foreach (Projectile currProj in Main.projectile)
       {
-        if (currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        if (currProj.IsParry(player, hitbox, ref parryShield))
         {
           // Add your melee damage multiplier to the damage so it has a little more oomph
           currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
@@ -173,12 +170,34 @@ namespace UnbiddenMod
       }
       player.Unbidden().parriedProjs = affectedProjs;
     }
+    public static void TankParry(Player player, Rectangle hitbox, ref int parryShield)
+    {
+      int affectedProjs = 0;
+      int DRBoost = 0;
+      foreach (Projectile currProj in Main.projectile)
+      {
+        if (currProj.IsParry(player, hitbox, ref parryShield))
+        {
+          DRBoost = currProj.damage / 100;
+          currProj.active = false;
+          affectedProjs++;
+        }
+      }
+      player.Unbidden().parriedProjs = affectedProjs;
+      if (DRBoost != 0)
+      {
+        player.Unbidden().tankParryPWR = DRBoost;
+        // 5 secs of time, -1 second for each hit tanked with this active
+        player.AddBuff(BuffType<TankParryBoost>(), 600);
+      }
+    }
+
     public static void DPSParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
       foreach (Projectile currProj in Main.projectile)
       {
-        if (currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        if (currProj.IsParry(player, hitbox, ref parryShield))
         {
           _ = Projectile.NewProjectile(
             currProj.position,

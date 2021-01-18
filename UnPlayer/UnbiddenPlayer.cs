@@ -12,6 +12,7 @@ using UnbiddenMod.Buffs.StatDebuffs;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
 using UnbiddenMod.Projectiles.Ability;
+using UnbiddenMod.Buffs.StatBuffs;
 
 namespace UnbiddenMod
 {
@@ -72,6 +73,8 @@ namespace UnbiddenMod
     public bool spawnReset = true;
     public Projectile parryProj;
     public int parryProjID;
+    public bool tankParryOn;
+    public int tankParryPWR;
     public override TagCompound Save()
     {
       return new TagCompound {
@@ -102,6 +105,8 @@ namespace UnbiddenMod
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryType = ParryTypeID.Universal;
+      tankParryOn = false;
+      tankParryPWR = tankParryOn ? tankParryPWR : 0;
 
       intimidated = false;
       focusMax = 1f;
@@ -126,16 +131,31 @@ namespace UnbiddenMod
       tearCount = tag.GetInt("tearCount");
     }
 
+    public void ActivateParry()
+    {
+      switch (parryType)
+      {
+        case ParryTypeID.Universal:
+          StandardParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
+        case ParryTypeID.Tank:
+          TankParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
+        case ParryTypeID.DPS:
+          DPSParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
+      }
+    }
     public override void PreUpdate()
     {
       if (IsThereABoss().Item1)
         allowFocus = true;
-        player.AddBuff(BuffType<Intimidated>(), 2);
-        intimidated = true;
+      player.AddBuff(BuffType<Intimidated>(), 2);
+      intimidated = true;
 
       if (!IsThereABoss().Item1)
         player.ClearBuff(BuffType<Intimidated>());
-        intimidated = false;
+      intimidated = false;
 
       if (focusLossCooldown > 0)
         focusLossCooldown--;
@@ -148,15 +168,7 @@ namespace UnbiddenMod
           parryActiveTime--;
         // Setting an "oldX" bool for PostUpdate
         parryWasActive = parryActive;
-        switch (parryType)
-        {
-          case ParryTypeID.Universal:
-            StandardParry(player, parryProj.Hitbox, ref parryProjID);
-            break;
-          case ParryTypeID.DPS:
-            DPSParry(player, parryProj.Hitbox, ref parryProjID);
-            break;
-        }
+        ActivateParry();
       }
       focus = Utils.Clamp(focus, 0, focusMax);
       base.PreUpdate();
@@ -213,7 +225,7 @@ namespace UnbiddenMod
       if (ampCapacitor)
       {
         const float ampRadiusBoost = 0;
-        GenerateAuraField(player, ModContent.DustType<MoonBlastDust>(), ampRadiusBoost);
+        GenerateAuraField(player, DustType<MoonBlastDust>(), ampRadiusBoost);
         foreach (Projectile projectile in Main.projectile)
         {
           if (projectile.position.IsInRadius(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
@@ -258,9 +270,7 @@ namespace UnbiddenMod
         dashModDelay--;
       }
     }
-    public void ActivateParry()
-    {
-    }
+
     public void ModDashMovement()
     {
       if (dashMod == 1)
@@ -418,12 +428,18 @@ namespace UnbiddenMod
         float focusDR = focus / 4 >= 0.25f ? 0.25f : focus / 4;
         damage -= (int)(damage * focusDR);
 
+
         if (focusLossCooldown == 0)
         {
           focus -= focusLoss;
           if (focus < 0f) focus = 0f;
           focusLossCooldown = focusLossCooldownMax;
         }
+      }
+      if (tankParryOn)
+      {
+        damage -= damage * (tankParryPWR / 100);
+        player.buffTime[BuffType<TankParryBoost>()] -= 60;
       }
     }
 
@@ -443,13 +459,18 @@ namespace UnbiddenMod
           focusLossCooldown = focusLossCooldownMax;
         }
       }
+      if (tankParryOn)
+      {
+        damage -= damage * (tankParryPWR / 100);
+        player.buffTime[BuffType<TankParryBoost>()] -= 60;
+      }
     }
 
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {
       if (boosterShot && item.potion)
       {
-        healValue = (int)(healValue * 2); // Doubles potion power
+        healValue = healValue * 2; // Doubles potion power
         player.DelBuff(player.FindBuffIndex(mod.BuffType("BoosterShot"))); // Immediately deletes it from buff bar
       }
     }

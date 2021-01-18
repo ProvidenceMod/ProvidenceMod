@@ -107,7 +107,6 @@ namespace UnbiddenMod
       parryType = ParryTypeID.Universal;
       tankParryOn = false;
       tankParryPWR = tankParryOn ? tankParryPWR : 0;
-
       intimidated = false;
       focusMax = 1f;
       allowFocus = IsThereABoss().Item1;

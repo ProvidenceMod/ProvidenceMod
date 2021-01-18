@@ -19,6 +19,7 @@ namespace UnbiddenMod
   public class UnbiddenPlayer : ModPlayer
   {
     // Elemental variables for Player
+    // Testing commit
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 },
                  affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };

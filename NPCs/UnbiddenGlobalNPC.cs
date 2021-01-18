@@ -17,8 +17,9 @@ namespace UnbiddenMod
     public bool hypodermia = false;
     public bool freezing = false;
     public bool frozen = false;
-    public bool spawnRateTempSet = false;
-    public int spawnRateTemp;
+    public bool spawnReset = true;
+    public bool maxSpawnsTempSet = false;
+    public int maxSpawnsTemp;
     public static bool downedFireAncient = false;
     public static bool downedHarpyQueen = false;
     public override void ResetEffects(NPC npc)
@@ -72,9 +73,27 @@ namespace UnbiddenMod
     {
       UnbiddenPlayer unPlayer = player.Unbidden();
       if (unPlayer.intimidated)
+      {
+        if (!maxSpawnsTempSet)
+        {
+          maxSpawnsTemp = maxSpawns;
+          maxSpawnsTempSet = true;
+        }
+        spawnRate = 2147483647;
+        maxSpawns = 0;
+        spawnReset = false;
+      }
+      if (!unPlayer.intimidated && !spawnReset)
+      {
+        if(maxSpawnsTempSet)
+        {
+          maxSpawns = maxSpawnsTemp;
+          maxSpawnsTemp = 0;
+          maxSpawnsTempSet = false;
+        }
         spawnRate = 0;
-      if(!unPlayer.intimidated)
-        spawnRate = 1;
+        spawnReset = true;
+      }
     }
     public override void SetDefaults(NPC npc)
     {

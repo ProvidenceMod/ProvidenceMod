@@ -209,6 +209,26 @@ namespace UnbiddenMod
       }
       player.Unbidden().parriedProjs += affectedProjs;
     }
+    public static void SupportParry(Player player, Rectangle hitbox, ref int parryShield)
+    {
+      int affectedProjs = 0;
+      int HPBoost = 0;
+      foreach (Projectile currProj in Main.projectile)
+      {
+        if (currProj.IsParry(player, hitbox, ref parryShield))
+        {
+          HPBoost += currProj.damage / 10;
+          currProj.active = false;
+          affectedProjs++;
+        }
+      }
+      player.Unbidden().parriedProjs += affectedProjs;
+      player.statLife += HPBoost;
+      if (HPBoost > 0)
+      {
+        player.HealEffect(HPBoost);
+      }
+    }
     // 
     // Summary:
     // Generates dust particles based on Aura size. Call when adding an Aura buff.

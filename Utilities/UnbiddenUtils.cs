@@ -374,14 +374,11 @@ namespace UnbiddenMod
         // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
         NPC potTarget = ClosestEnemyNPC(projectile);
         if (potTarget?.position.IsInRadius(projectile.position, trackingRadius) == true)
-        {
           projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(potTarget.position), turnStrength);
-        }
+
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
         if (overshotPrevention && potTarget?.position.IsInRadius(projectile.position, overshotThreshold) == true)
-        {
           projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(potTarget.position));
-        }
       }
       else if (projectile.hostile)
       {
@@ -389,21 +386,16 @@ namespace UnbiddenMod
         NPC owner = Main.npc[projectile.owner];
         Player potTarget = ClosestPlayer(projectile);
         if (potTarget.active && potTarget.position.IsInRadius(projectile.position, trackingRadius))
-        {
           projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(potTarget.position), turnStrength);
-        }
+
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
         if (overshotPrevention && potTarget.position.IsInRadius(projectile.position, overshotThreshold))
-        {
           projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(potTarget.position));
-        }
       }
 
       // Force speed cap.
       if (projectile.velocity.Length() > speedCap)
-      {
         projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
-      }
     }
   }
 

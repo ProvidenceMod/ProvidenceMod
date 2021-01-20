@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
 using UnbiddenMod.Buffs.StatBuffs;
+using UnbiddenMod.Projectiles.Healing;
 
 namespace UnbiddenMod
 {

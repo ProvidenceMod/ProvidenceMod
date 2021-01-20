@@ -34,7 +34,7 @@ namespace UnbiddenMod.Projectiles.Melee
       Lighting.AddLight(projectile.Center, (float)Main.DiscoR / 400f, (float)Main.DiscoG / 400f, (float)Main.DiscoB / 400f);
       projectile.ai[0]++;
       Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("MoonBlastDust"), 0, 0, 0, color, 0.7f);
+      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("ParryShieldDust"), 0, 0, 0, color, 0.7f);
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;

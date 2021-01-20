@@ -231,7 +231,7 @@ namespace UnbiddenMod
       if (ampCapacitor)
       {
         const float ampRadiusBoost = 0;
-        GenerateAuraField(player, DustType<MoonBlastDust>(), ampRadiusBoost);
+        GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
         foreach (Projectile projectile in Main.projectile)
         {
           if (projectile.position.IsInRadius(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)

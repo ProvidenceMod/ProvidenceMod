@@ -120,10 +120,8 @@ namespace UnbiddenMod.NPCs.HarpyQueen
           }
           if (royalFeatherTimer == 0)
           {
-            const float speedX = 0f;
-            const float speedY = 4f;
-            Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
-            int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ModContent.ProjectileType<RoyalFeather>(), 35, 0f, Main.myPlayer, npc.whoAmI);
+            Vector2 speed = new Vector2(0f, 8f).RotateTo(player.AngleFrom(npc.Center));
+            int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileType<RoyalFeather>(), 35, 0f, Main.myPlayer, npc.whoAmI);
             NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
             royalFeatherTimer = 150;
           }

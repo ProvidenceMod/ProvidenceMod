@@ -3,13 +3,15 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Projectiles.Melee
 {
   public class ConfluenceBeam : ModProjectile
   {
     private int el = -1;
-    private bool elDetermined = false;
+    private bool elDetermined;
+
     private Color? DetermineColor(int e)
     {
       switch (e)
@@ -50,9 +52,6 @@ namespace UnbiddenMod.Projectiles.Melee
 
     public override void AI()
     {
-      // Copying function on Terra Beam AI
-      Main.projectile[ProjectileID.TerraBeam].AI();
-
       if (!elDetermined)
       {
         el = Main.rand.Next(-1, 8);

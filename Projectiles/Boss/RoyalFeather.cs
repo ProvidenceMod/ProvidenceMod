@@ -45,17 +45,17 @@ namespace UnbiddenMod.Projectiles.Boss
       //     projectile.frame = 0;
       //   }
       // }
-      Vector2 offset = player.position - projectile.position;
-      const float speedCap = 4f;
-      const float gainStrength = 0.1f;
-      const float slowStrength = 1.1f;
-      UnbiddenGlobalProjectile.IsHomingPlayer(projectile, offset, speedCap, gainStrength, slowStrength);
+      const float speedCap = 8f, turnStrength = 0.3f;
+      projectile.Homing(speedCap, turnStrength);
     }
-
+    public override void OnHitPlayer(Player target, int damage, bool crit)
+    {
+      base.OnHitPlayer(target, damage, crit);
+      projectile.active = false;
+    }
     public override Color? GetAlpha(Color lightColor)
     {
-      Color color = new Color(255, 255, 255);
-      return color;
+      return new Color(255, 255, 255);
     }
   }
 }

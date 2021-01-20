@@ -251,7 +251,7 @@ namespace UnbiddenMod
       NPC chosenNPC = null;
       foreach (NPC npc in Main.npc)
       {
-        if (npc.active && !npc.townNPC && !npc.friendly)
+        if (npc.active && !npc.townNPC && !npc.friendly && npc.type != NPCID.TargetDummy)
         {
           float dist = Vector2.Distance(projectile.position, npc.position);
           if (dist < shortest || shortest == -1f)
@@ -262,6 +262,24 @@ namespace UnbiddenMod
         }
       }
       return chosenNPC;
+    }
+    public static Player ClosestPlayer(Projectile projectile)
+    {
+      float shortest = -1f;
+      Player chosenPC = null;
+      foreach (Player player in Main.player)
+      {
+        if (player.active)
+        {
+          float dist = Vector2.Distance(projectile.position, player.position);
+          if (dist < shortest || shortest == -1f)
+          {
+            shortest = dist;
+            chosenPC = player;
+          }
+        }
+      }
+      return chosenPC;
     }
     public static bool IsInRadius(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
     public static int GrabProjCount(int type)
@@ -328,6 +346,65 @@ namespace UnbiddenMod
       decimal moveSpeedBoost = focusPercent / 2;
       return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR, regen, moveSpeedBoost);
     }
+
+    public static Vector2 TurnTowardsByX(this Vector2 v, float angleToTarget, float turnAMT)
+    {
+      Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
+      return Vector2.Add(v, pull);
+    }
+
+    /// <summary>
+    /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
+    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
+    /// </summary>
+    /// <param name="projectile">The projectile being worked with.</param>
+    /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
+    /// <param name="turnStrength">How much the projectile will change direction. Defaults at 0.1f.</param>
+    /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
+    /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
+    /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
+    public static void Homing(this Projectile projectile, float speedCap = 6f, float turnStrength = 0.1f,
+    float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f)
+    {
+      // Slightly different tracking methods between hostile and friendly AIs. Not much, but enough.
+      if (projectile.friendly)
+      {
+        // Potential owner requirements?
+        Player owner = Main.player[projectile.owner];
+        // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
+        NPC potTarget = ClosestEnemyNPC(projectile);
+        if (potTarget?.position.IsInRadius(projectile.position, trackingRadius) == true)
+        {
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(potTarget.position), turnStrength);
+        }
+        // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
+        if (overshotPrevention && potTarget?.position.IsInRadius(projectile.position, overshotThreshold) == true)
+        {
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(potTarget.position));
+        }
+      }
+      else if (projectile.hostile)
+      {
+        // Same basic process as with friendly projs.
+        NPC owner = Main.npc[projectile.owner];
+        Player potTarget = ClosestPlayer(projectile);
+        if (potTarget.active && potTarget.position.IsInRadius(projectile.position, trackingRadius))
+        {
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(potTarget.position), turnStrength);
+        }
+        // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
+        if (overshotPrevention && potTarget.position.IsInRadius(projectile.position, overshotThreshold))
+        {
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(potTarget.position));
+        }
+      }
+
+      // Force speed cap.
+      if (projectile.velocity.Length() > speedCap)
+      {
+        projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
+      }
+    }
   }
 
   public static class ParryTypeID
@@ -339,6 +416,7 @@ namespace UnbiddenMod
   }
   public static class ElementID
   {
+    public const int Typeless = -1;
     public const int Fire = 0;
     public const int Ice = 1;
     public const int Lightning = 2;

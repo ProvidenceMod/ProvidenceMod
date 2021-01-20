@@ -18,6 +18,7 @@ namespace UnbiddenMod
     public bool deflectable = true;
     public bool deflected;
     public bool amped;
+    public bool homing;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / (int)Main.projFrames[projectile.type];

@@ -23,7 +23,7 @@ namespace UnbiddenMod.Items.Accessories
     {
       player.Unbidden().micitBangle = true;
       player.Unbidden().parryCapable = true;
-      player.Unbidden().parryType = ParryTypeID.Tank;
+      player.Unbidden().parryType = ParryTypeID.Support;
     }
     public override void AddRecipes()
     {

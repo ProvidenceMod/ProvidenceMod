@@ -144,6 +144,9 @@ namespace UnbiddenMod
         case ParryTypeID.DPS:
           DPSParry(player, parryProj.Hitbox, ref parryProjID);
           break;
+        case ParryTypeID.Support:
+          SupportParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
       }
     }
     public override void PreUpdate()

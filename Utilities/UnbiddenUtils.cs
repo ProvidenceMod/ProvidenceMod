@@ -1,44 +1,35 @@
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
-using UnbiddenMod.Buffs.StatBuffs;
-using UnbiddenMod.Projectiles.Healing;
 
 namespace UnbiddenMod
 {
   public static class UnbiddenUtils
   {
-    // Summary:
-    // References the UnbiddenPlayer instance. Shorthand for ease of use.
-    // UnbiddenPlayer unbiddenPlayer = player.Unbidden();
+    /// <summary>References the UnbiddenPlayer instance. Shorthand for ease of use.</summary>
     public static UnbiddenPlayer Unbidden(this Player player) => player.GetModPlayer<UnbiddenPlayer>();
-    // 
-    // Summary:
-    // References the UnbiddenGlobalNPC instance. Shorthand for ease of use.
-    // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
+    /// <summary>References the UnbiddenGlobalNPC instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalNPC Unbidden(this NPC npc) => npc.GetGlobalNPC<UnbiddenGlobalNPC>();
-    // 
-    // Summary:
-    // References the UnbiddenGlobalItem instance. Shorthand for ease of use.
-    // UnbiddenGlobalItem unbiddenItem = item.Unbidden();
+    /// <summary>References the UnbiddenGlobalItem instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalItem Unbidden(this Item item) => item.GetGlobalItem<UnbiddenGlobalItem>();
-    // 
-    // Summary:
-    // References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.
-    // UnbiddenGlobalProjectile unbiddenProjectile = projectile.Unbidden();
+    /// <summary>References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
+
+    /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
+    /// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
     public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
     public static float[,] elemAffDef = new float[2, 15]
     {  // Defense score (middle), Damage mult (bottom)
       {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
       {1.010f, 1.022f, 1.037f, 1.056f, 1.080f, 1.110f, 5.000f, 1.192f, 1.246f, 1.310f, 1.397f, 1.497f, 1.611f, 1.740f, 1.885f}
     };
+
+    /// <summary>Calculates the elemental defense of the player based on their affinities, and any accessories and armor providing such defense.</summary>
     public static void CalcElemDefense(this Player player)
     {
       UnbiddenPlayer unPlayer = player.GetModPlayer<UnbiddenPlayer>();
@@ -53,10 +44,10 @@ namespace UnbiddenMod
     {
       return new float[2] { elemAffDef[0, player.Unbidden().affinities[e]], elemAffDef[1, player.Unbidden().affinities[e]] };
     }
-    // 
-    // Summary:
-    // Calculates elemental item damage based on UnbiddenGlobalNPC resists.
-    // UnbiddenUtils.CalcEleDamage(Item item, NPC npc, ref int damage);
+
+    /// <summary>
+    /// Elemental damage calculation for when the player hits an NPC with a melee weapon.
+    /// </summary>
     public static int CalcEleDamage(this Item item, NPC npc, ref int damage)
     {
       int weapEl = item.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -86,6 +77,9 @@ namespace UnbiddenMod
     // Summary:
     // Calculates elemental projectile damage based on UnbiddenGlobalNPC resists.
     // UnbiddenUtils.CalcEleDamage(Projectile projectile, NPC npc, ref int damage);
+    /// <summary>
+    /// Elemental damage calculation for when the player hits an NPC with a projectile.
+    /// </summary>
     public static int CalcEleDamage(this Projectile projectile, NPC npc, ref int damage)
     {
       int projEl = projectile.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -102,19 +96,13 @@ namespace UnbiddenMod
         {
           damage = 1;
         }
-        // UnbiddenPlayer modPlayer = Main.player[projectile.owner].Unbidden();
-        // if (modPlayer.affExpCooldown <= 0)
-        // {
-        //   modPlayer.affExp[projEl] += 1;
-        //   modPlayer.affExpCooldown = 120;
-        // }
       }
       return damage;
     }
-    // 
-    // Summary:
-    // Calculates elemental damage based on UnbiddenPlayer resists.
-    // UnbiddenUtils.CalcEleDamageFromNPC(Player player, NPC npc, ref int damage);
+
+    /// <summary>
+    /// Elemental damage calculation for when the player is hit by an NPC.
+    /// </summary>
     public static int CalcEleDamageFromNPC(this Player player, NPC npc, ref int damage)
     {
       int npcEl = npc.Unbidden().contactDamageEl;
@@ -126,9 +114,9 @@ namespace UnbiddenMod
       return damage;
     }
 
-    // Summary:
-    // Calculates elemental projectile damage based on UnbiddenPlayer resists.
-    // UnbiddenUtils.CalcEleDamageFromProj(Player player, Projectile proj, ref int damage);
+    /// <summary>
+    /// Elemental damage calculation for when the player is hit by a projectile.
+    /// </summary>
     public static int CalcEleDamageFromProj(this Player player, Projectile proj, ref int damage)
     {
       int projEl = proj.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -139,14 +127,25 @@ namespace UnbiddenMod
       }
       return damage;
     }
-
+    /// <summary>
+    /// Shorthanding for the conditional in the Parry methods.
+    /// </summary>
+    /// <param name="currProj">The projectile being tested.</param>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
     public static bool IsParry(this Projectile currProj, Player player, Rectangle hitbox, ref int parryShield)
     {
-      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
+      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
     }
-    // 
-    // Summary:
-    // Allows players to parry. Call this when executing a swing.
+
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>Standard Parry is exactly what you would expect from a parry: bounce projectiles back towards enemies, keeping the damage off of you and on them.</para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
     public static void StandardParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
@@ -171,6 +170,13 @@ namespace UnbiddenMod
       }
       player.Unbidden().parriedProjs += affectedProjs;
     }
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>Tank Parry absorbs projectiles, instead of deflecting them. Each projectile absorbed provides a Damage Reduction boost, based on the damage of the projectile, which it then returns.</para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
     public static int TankParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
@@ -188,6 +194,13 @@ namespace UnbiddenMod
       return DRBoost;
     }
 
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>DPS Parry turns all deflected projectiles into a chlorophyte bullet, with improved damage, almost always guaranteeing it will contact and deal substantial damage.</para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
     public static void DPSParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
@@ -210,6 +223,14 @@ namespace UnbiddenMod
       }
       player.Unbidden().parriedProjs += affectedProjs;
     }
+
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>Support Parry is currently incomplete. Its expected effect is to heal the user, and if the user is at max HP, the closest player gains the benefit.<para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
     public static void SupportParry(Player player, Rectangle hitbox, ref int parryShield)
     {
       int affectedProjs = 0;
@@ -230,10 +251,11 @@ namespace UnbiddenMod
         player.HealEffect(HPBoost);
       }
     }
-    // 
-    // Summary:
-    // Generates dust particles based on Aura size. Call when adding an Aura buff.
-    // UnbiddenUtils.GenerateAuraField(Player player, int dust, float radiusBoost);
+
+    /// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="dust">The ID of the dust particle to use for the aura. By convention, this dust should have no gravity or light, and should have AI set to dissipate within 3-5 ticks.</param>
+    /// <param name="radiusBoost">The distance modifier for the aura's effective range.</param>
     public static void GenerateAuraField(Player player, int dust, float radiusBoost)
     {
       UnbiddenPlayer mP = player.Unbidden();
@@ -245,6 +267,7 @@ namespace UnbiddenMod
         d.noGravity = true;
       }
     }
+    /// <summary>Finds and returns the hostile NPC closest to the provided projectile. Actively disregards Target Dummies.</summary>
     public static NPC ClosestEnemyNPC(Projectile projectile)
     {
       float shortest = -1f;
@@ -263,6 +286,7 @@ namespace UnbiddenMod
       }
       return chosenNPC;
     }
+    /// <summary>Finds and returns the player closest to the provided projectile.</summary>
     public static Player ClosestPlayer(Projectile projectile)
     {
       float shortest = -1f;
@@ -281,7 +305,10 @@ namespace UnbiddenMod
       }
       return chosenPC;
     }
+    /// <summary>Shorthanding of distance testing involving Vector2's, for readability.</summary>
     public static bool IsInRadius(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
+
+    /// <summary>Provides how many instances of the projectile type currently exist.</summary>
     public static int GrabProjCount(int type)
     {
       int count = 0;
@@ -292,6 +319,7 @@ namespace UnbiddenMod
       }
       return count;
     }
+    /// <summary>A simpler version of rotation control, just sets the rotation to the given value. This is deterministic, unlike "RotatedBy", which adds the rotation value to the current.</summary>
     public static Vector2 RotateTo(this Vector2 v, float rotation)
     {
       float oldVRotation = v.ToRotation();
@@ -313,6 +341,12 @@ namespace UnbiddenMod
       return Color.Lerp(firstColor, secondColor, amount);
     }
 
+    /// <summary>For use in setting defaults in items.</summary>
+    /// <param name="item">The item being set.</param>
+    /// <param name="elID">The element of a weapon's attacks, or additional elemental defense of accessories and armor.</param>
+    /// <param name="elDef">The amount of elemental defense provided in the element given to "elID" Defaults to 0.</param>
+    /// <param name="weakElID">The element of a weapon's weakness. Only really used for armor. Defaults to -1 (Typeless).</param>
+    /// <param name="weakElDef">The amount of elemental defense lowered in the element given to "weakElID". Defaults to 0.</param>
     public static void SetElementalTraits(this Item item, int elID, int elDef = 0, int weakElID = -1, int weakElDef = 0)
     {
       item.Unbidden().element = elID;
@@ -323,6 +357,7 @@ namespace UnbiddenMod
         item.Unbidden().weakElDef = weakElDef;
       }
     }
+    /// <summary>Returns if there is a boss, and if there is, their ID in "Main.npc".</summary>
     public static Tuple<bool, int> IsThereABoss()
     {
       bool bossExists = false;
@@ -336,6 +371,7 @@ namespace UnbiddenMod
       return Tuple.Create(bossExists, bossID);
     }
     // Tuple in this order: Damage, DR, Regen, Speed
+    /// <summary>Returns the player's bonuses originated from their focus. In a tuple for ease of access.</summary>
     public static Tuple<int, decimal, decimal, decimal> FocusBonuses(this Player player)
     {
       UnbiddenPlayer mP = player.Unbidden();
@@ -347,6 +383,12 @@ namespace UnbiddenMod
       return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR, regen, moveSpeedBoost);
     }
 
+    /// <summary>
+    /// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
+    /// </summary>
+    /// <param name="v">The velocity being gravitized.</param>
+    /// <param name="angleToTarget">The angle relative to v and the source of gravity.</param>
+    /// <param name="turnAMT">How strong the gravity is, and how fast the turning effect is.</param>
     public static Vector2 TurnTowardsByX(this Vector2 v, float angleToTarget, float turnAMT)
     {
       Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);

@@ -386,6 +386,15 @@ namespace UnbiddenMod
     }
 
     /// <summary>
+    /// Provides a random point near the Vector2 you call this on.
+    /// </summary>
+    /// <param name="maxDist">The distance in pixels away from the origin to move. Defaults at 16f, or 1 tile.</param>
+    public static Vector2 RandomPointNearby(this Vector2 v, float maxDist = 16f)
+    {
+      return Vector2.Add(v, new Vector2(0, Main.rand.NextFloat(maxDist)).RotatedByRandom(180f.InRadians()));
+    }
+
+    /// <summary>
     /// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
     /// </summary>
     /// <param name="v">The velocity being gravitized.</param>
@@ -408,8 +417,8 @@ namespace UnbiddenMod
     /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
     /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
     /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
-    public static void Homing(this Projectile projectile, float speedCap = 6f, float gainStrength = 0.1f,
-    float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f, bool smoothing = false)
+    public static void GravityHoming(this Projectile projectile, float speedCap = 6f, float turnStrength = 0.1f,
+    float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f)
     {
       // Slightly different tracking methods between hostile and friendly AIs. Not much, but enough.
       if (projectile.friendly)

@@ -48,11 +48,10 @@ namespace UnbiddenMod.Projectiles.Boss
           projectile.frame = 0;
         }
       }
-      Vector2 offset = Main.player[player2].position - projectile.position;
       const float speedCap = 8f;
-      const float gainStrength = 0.2f;
-      const float slowStrength = 1.1f;
-      // UnbiddenGlobalProjectile.IsHoming(projectile, offset, speedCap, gainStrength, slowStrength);
+      const float turnStrength = 0.2f;
+      const float radius = 500f;
+      projectile.GravityHoming(speedCap, turnStrength, radius);
     }
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
     {

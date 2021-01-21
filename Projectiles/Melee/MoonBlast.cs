@@ -58,14 +58,14 @@ namespace UnbiddenMod.Projectiles.Melee
         float distance = (float)System.Math.Sqrt((double)((shootToX * shootToX) + (shootToY * shootToY)));
         if (distance < 600f && !target.friendly && target.active)
         {
-          UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, speedCap, gainStrength, slowStrength);
+          projectile.Homing(20f, 0.1f, 600f, true, 5f, true);
         }
       }
     }
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
     {
-      Texture2D tex = mod.GetTexture("Projectiles/MoonBlast");
+      Texture2D tex = mod.GetTexture("Projectiles/Melee/MoonBlast");
       const int counter = 5;
       UnbiddenGlobalProjectile.AfterImage(this.projectile, lightColor, tex, counter);
 

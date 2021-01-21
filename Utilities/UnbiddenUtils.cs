@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
+using UnbiddenMod.Projectiles.Healing;
 
 namespace UnbiddenMod
 {
@@ -242,14 +243,15 @@ namespace UnbiddenMod
           HPBoost += currProj.damage / 10;
           currProj.active = false;
           affectedProjs++;
+          _ = Projectile.NewProjectile(new Vector2(player.position.X + 35, 0), new Vector2(0, 0), ProjectileType<HealProjectile>(), 0, 0);
         }
       }
       player.Unbidden().parriedProjs += affectedProjs;
-      player.statLife += HPBoost;
-      if (HPBoost > 0)
-      {
-        player.HealEffect(HPBoost);
-      }
+      // player.statLife += HPBoost;
+      // if (HPBoost > 0)
+      // {
+      //   player.HealEffect(HPBoost);
+      // }
     }
 
     /// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
@@ -399,7 +401,7 @@ namespace UnbiddenMod
     /// <param name="angleToTarget">The angle relative to v and the source of gravity.</param>
     /// <param name="turnAMT">How strong the gravity is, and how fast the turning effect is.</param>
     public static Vector2 TurnTowardsByX(this Vector2 v, float angleToTarget, float turnAMT)
-    {
+    { 
       Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
       return Vector2.Add(v, pull);
     }
@@ -410,7 +412,8 @@ namespace UnbiddenMod
     /// </summary>
     /// <param name="projectile">The projectile being worked with.</param>
     /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
-    /// <param name="turnStrength">How much the projectile will change direction. Defaults at 0.1f.</param>
+    /// <param name="gain">How quickly the projectile will gain speed. Defaults at 0.1f </param>
+    /// <param name="slow">How quickly the projectile will slow down. Defaults at 0.1f.</param>
     /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
     /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
     /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
@@ -423,25 +426,25 @@ namespace UnbiddenMod
         // Potential owner requirements?
         Player owner = Main.player[projectile.owner];
         // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
-        NPC potTarget = ClosestEnemyNPC(projectile);
-        if (potTarget?.position.IsInRadius(projectile.position, trackingRadius) == true)
-          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(potTarget.position), turnStrength);
+        NPC target = ClosestEnemyNPC(projectile);
+        if (target?.position.IsInRadius(projectile.position, trackingRadius) == true)
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), gainStrength);
 
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
-        if (overshotPrevention && potTarget?.position.IsInRadius(projectile.position, overshotThreshold) == true)
-          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(potTarget.position));
+        if (overshotPrevention && target?.position.IsInRadius(projectile.position, overshotThreshold) == true)
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
       }
       else if (projectile.hostile)
       {
         // Same basic process as with friendly projs.
         NPC owner = Main.npc[projectile.owner];
-        Player potTarget = ClosestPlayer(projectile);
-        if (potTarget.active && potTarget.position.IsInRadius(projectile.position, trackingRadius))
-          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(potTarget.position), turnStrength);
+        Player target = ClosestPlayer(projectile);
+        if (target.active && target.position.IsInRadius(projectile.position, trackingRadius))
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), gainStrength);
 
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
-        if (overshotPrevention && potTarget.position.IsInRadius(projectile.position, overshotThreshold))
-          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(potTarget.position));
+        if (overshotPrevention && target.position.IsInRadius(projectile.position, overshotThreshold))
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
       }
 
       // Force speed cap.

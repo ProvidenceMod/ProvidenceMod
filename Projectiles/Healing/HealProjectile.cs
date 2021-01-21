@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Projectiles.Healing
 {
@@ -25,16 +27,22 @@ namespace UnbiddenMod.Projectiles.Healing
 
     public override void AI()
     {
+      projectile.ai[1]++;
+      projectile.localAI[0]++;
+      Texture2D tex = ModContent.GetTexture("UnbiddenMod/Projectiles/Healing/HealProjectile");
       Player player = Main.LocalPlayer;
       Vector2 offset = player.position - projectile.position;
-      const float speedCap = 8f;
-      const float gainStrength = 0.2f;
-      const float slowStrength = 1.1f;
-      UnbiddenGlobalProjectile.IsHomingPlayer(projectile, offset, speedCap, gainStrength, slowStrength);
+      projectile.Homing(8f, 0.2f, 200f, true, 5f, true);
+      UnbiddenGlobalProjectile.AfterImage(projectile, Color.White, tex, 10);
       if (projectile.getRect().Intersects(player.getRect()))
       {
         player.statLife += 25;
+        player.HealEffect(25);
       }
+    }
+    public override Color? GetAlpha(Color lightColor)
+    {
+      return Color.White;
     }
   }
 }

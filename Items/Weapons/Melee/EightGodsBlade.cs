@@ -2,6 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using UnbiddenMod.Projectiles.Melee;
 
 namespace UnbiddenMod.Items.Weapons.Melee
 {
@@ -41,7 +42,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
         // If you want to randomize the speed to stagger the projectiles
         float scale = 1f - (Main.rand.NextFloat() * .1f);
         perturbedSpeed *= scale;
-        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<MoonBlast>(), damage, knockBack, player.whoAmI);
       }
       return false; // return false because we don't want tModContent to shoot projectile
     }

@@ -52,7 +52,7 @@ namespace UnbiddenMod.Projectiles.Boss
       const float speedCap = 8f;
       const float gainStrength = 0.2f;
       const float slowStrength = 1.1f;
-      UnbiddenGlobalProjectile.IsHomingPlayer(projectile, offset, speedCap, gainStrength, slowStrength);
+      // UnbiddenGlobalProjectile.IsHoming(projectile, offset, speedCap, gainStrength, slowStrength);
     }
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
     {

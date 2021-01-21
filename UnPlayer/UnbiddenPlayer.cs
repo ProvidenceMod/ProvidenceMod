@@ -473,7 +473,7 @@ namespace UnbiddenMod
       if (boosterShot && item.potion)
       {
         healValue *= 2; // Doubles potion power
-        player.DelBuff(player.FindBuffIndex(mod.BuffType("BoosterShot"))); // Immediately deletes it from buff bar
+        player.ClearBuff(BuffType<BoosterShot>()); // Immediately deletes it from buff bar
       }
     }
 

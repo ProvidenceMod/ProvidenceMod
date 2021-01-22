@@ -212,7 +212,7 @@ namespace UnbiddenMod
           GenerateAuraField(player, DustType<AuraDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
             {
               npc.AddBuff(BuffID.OnFire, 1);
             }
@@ -224,7 +224,7 @@ namespace UnbiddenMod
           GenerateAuraField(player, DustType<AuraDust>(), cFRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + cFRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + cFRadiusBoost))
             {
               npc.AddBuff(BuffID.CursedInferno, 180);
             }

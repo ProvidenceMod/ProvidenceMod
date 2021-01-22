@@ -308,7 +308,7 @@ namespace UnbiddenMod
       return chosenPC;
     }
     /// <summary>Shorthanding of distance testing involving Vector2's, for readability.</summary>
-    public static bool IsInRadius(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
+    public static bool IsInRadiusOf(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
 
     /// <summary>Provides how many instances of the projectile type currently exist.</summary>
     public static int GrabProjCount(int type)
@@ -414,11 +414,11 @@ namespace UnbiddenMod
         Player owner = Main.player[projectile.owner];
         // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
         NPC target = ClosestEnemyNPC(projectile);
-        if (target?.position.IsInRadius(projectile.position, trackingRadius) == true)
+        if (target?.position.IsInRadiusOf(projectile.position, trackingRadius) == true)
           projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
 
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
-        if (overshotPrevention && target?.position.IsInRadius(projectile.position, overshotThreshold) == true)
+        if (overshotPrevention && target?.position.IsInRadiusOf(projectile.position, overshotThreshold) == true)
           projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
       }
       else if (projectile.hostile)
@@ -426,11 +426,11 @@ namespace UnbiddenMod
         // Same basic process as with friendly projs.
         NPC owner = Main.npc[projectile.owner];
         Player target = ClosestPlayer(projectile);
-        if (target.active && target.position.IsInRadius(projectile.position, trackingRadius))
+        if (target.active && target.position.IsInRadiusOf(projectile.position, trackingRadius))
           projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
 
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
-        if (overshotPrevention && target.position.IsInRadius(projectile.position, overshotThreshold))
+        if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold))
           projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
       }
 
@@ -461,9 +461,9 @@ namespace UnbiddenMod
             case EntityType.NPC:
               NPC target = ClosestEnemyNPC(projectile);
               Vector2 offset = target == null ? default : target.Hitbox.Center.ToVector2() - projectile.position;
-              if (target?.active == true && target.position.IsInRadius(projectile.position, trackingRadius))
+              if (target?.active == true && target.position.IsInRadiusOf(projectile.position, trackingRadius))
               {
-                projectile.velocity = SmartHoming(projectile.velocity, offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
+                projectile.velocity.SmartHoming(offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
               }
               break;
             case 1:
@@ -493,8 +493,9 @@ namespace UnbiddenMod
       Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
       return Vector2.Add(v, pull);
     }
+
     /// <summary>
-    /// A snart homing AI.
+    /// A smart homing AI.
     /// </summary>
     /// <param name="velocity">The velocity of the projectile.</param>
     /// <param name="offset">The offset from the projectile position to the target position.</param>
@@ -505,7 +506,7 @@ namespace UnbiddenMod
     /// <param name="overshotPrevention">Whether or not the projectile will guarentee a hit within a certain distnace.</param>
     /// <param name="overshotThreshold">The range that overshotPrevention will guarantee a hit within.</param>
     /// <param name="speedCap">The max speed this projectile can reach.</param>
-    public static Vector2 SmartHoming(Vector2 velocity, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
+    public static void SmartHoming(this Vector2 velocity, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
     {
       if (offset.X > 0)
       {
@@ -579,7 +580,6 @@ namespace UnbiddenMod
       //   if (projectile.velocity.Length() > speedCap)
       //     projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
       // }
-      return velocity;
     }
 
     public static class ParryTypeID

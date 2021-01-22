@@ -507,7 +507,7 @@ namespace UnbiddenMod
     /// <param name="overshotPrevention">Whether or not the projectile will guarentee a hit within a certain distnace.</param>
     /// <param name="overshotThreshold">The range that overshotPrevention will guarantee a hit within.</param>
     /// <param name="speedCap">The max speed this projectile can reach.</param>
-    public static Vector2 SmartHoming(Vector2 velocity, Projectile projectile, Entity target, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
+    public static Vector2 SmartHoming(this Vector2 velocity, Projectile projectile, Entity target, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
     {
       if (offset.X > 0)
       {

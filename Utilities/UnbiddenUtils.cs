@@ -6,6 +6,8 @@ using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
 using UnbiddenMod.Projectiles.Healing;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UnbiddenMod
 {
@@ -576,14 +578,19 @@ namespace UnbiddenMod
             velocity.Y = 0f;
         }
       }
-      if (overshotPrevention)
+      if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold))
       {
-        if(target.position.IsInRadiusOf(projectile.position, overshotThreshold))
-        {
-          projectile.velocity.RotateTo(projectile.AngleTo(target.position));
-        }
+        velocity.RotateTo(projectile.AngleTo(target.position));
       }
       return velocity;
+    }
+
+    public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, int frameCount, float rotation, Texture2D tex)
+    {
+      Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, (Main.itemTexture[item.type].Height / frameCount / 2) + 19);
+      Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex);
+      Vector2 position = item.Center - Main.screenPosition;
+      spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
     }
 
     public static class ParryTypeID

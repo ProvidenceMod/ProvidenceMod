@@ -18,7 +18,6 @@ namespace UnbiddenMod.Projectiles.Melee
 
     public override void SetDefaults()
     {
-      projectile.arrow = true;
       projectile.width = 30;
       projectile.height = 30;
       projectile.aiStyle = 0;
@@ -47,7 +46,7 @@ namespace UnbiddenMod.Projectiles.Melee
       }
       projectile.rotation += projectile.velocity.X * 0.05f;
       //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 16f, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("MoonBlast"), projectile.damage, projectile.knockBack, projectile.owner);
-      projectile.Homing(20f, 1.0f, 1.1f, 300f, false, 5f, true, 5f);
+      projectile.Homing(20f, 1.0f, 1.1f, 300f, true, 100f, true, 5f);
     }
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -57,11 +56,6 @@ namespace UnbiddenMod.Projectiles.Melee
       UnbiddenGlobalProjectile.AfterImage(projectile, lightColor, tex, counter);
 
       return false;
-    }
-
-    public virtual void PostDraw()
-    {
-      projectile.rotation += projectile.velocity.X * 0.05f;
     }
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
@@ -83,29 +77,6 @@ namespace UnbiddenMod.Projectiles.Melee
           projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(newTarget.position));
       }
     }
-
-    /*public override bool OnTileCollide(Vector2 oldVelocity)
-    {
-      projectile.penetrate--;
-      if (projectile.penetrate <= 0)
-      {
-        projectile.Kill();
-      }
-      else
-      {
-        Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-        Main.PlaySound(SoundID.Item10, projectile.position);
-        if (projectile.velocity.X != oldVelocity.X)
-        {
-          projectile.velocity.X = -oldVelocity.X;
-        }
-        if (projectile.velocity.Y != oldVelocity.Y)
-        {
-          projectile.velocity.Y = -oldVelocity.Y;
-        }
-      }
-      return false;
-    }*/
 
     public override Color? GetAlpha(Color lightColor)
     {

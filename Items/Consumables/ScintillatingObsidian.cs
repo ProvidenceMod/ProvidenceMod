@@ -7,19 +7,24 @@ using UnbiddenMod.Items.Materials;
 using UnbiddenMod.NPCs.FireAncient;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
 namespace UnbiddenMod.Items.Consumables
 {
   public class ScintilatingObsidian : ModItem
   {
+    public int frame = Main.itemFrameCounter[0];
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Scintilating Obsidian");
-      Tooltip.SetDefault("\"It pulses with an eerie fiery glow.\"");
+      Tooltip.SetDefault($"\"It pulses with an eerie fiery glow.\"{frame}");
+      Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(8, 13));
     }
 
     public override void SetDefaults()
     {
+      item.width = 40;
+      item.height = 40;
       item.CloneDefaults(ItemID.SuspiciousLookingEye);
       item.maxStack = 1;
     }
@@ -39,16 +44,21 @@ namespace UnbiddenMod.Items.Consumables
     {
       return false;
     }
-    public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-    {
-      Texture2D tex = GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow");
-      spriteBatch.Draw(tex, position, tex.Frame(), Color.White, 0, origin, scale, 0, 0);
-    }
-    public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-    {
-      Texture2D tex = GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow");
-      spriteBatch.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f) + 2f), new Rectangle(0, 0, tex.Width, tex.Height), Color.White, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-    }
+    public override void PostDrawInInventory(
+      SpriteBatch spriteBatch, 
+      Vector2 position, 
+      Rectangle frame, 
+      Color drawColor, 
+      Color itemColor, 
+      Vector2 origin, 
+      float scale) => item.DrawGlowmask(spriteBatch, 13, default, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"));
+    public override void PostDrawInWorld(
+      SpriteBatch spriteBatch, 
+      Color lightColor,
+       Color alphaColor, 
+       float rotation, 
+       float scale, 
+       int whoAmI) => item.DrawGlowmask(spriteBatch, 13, rotation, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"));
     public override void AddRecipes()
     {
       // Recipes here. See Basic Recipe Guide2

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
@@ -44,7 +45,7 @@ namespace UnbiddenMod.UI
     //
     //
     // This is a life array, you can see how the life values are written to it in the Update method
-    private readonly int[] lifeArray = new int[3] {0, 0, 0};
+    private readonly int[] lifeArray = new int[3] { 0, 0, 0 };
     //
     //
     // This is the quotient, or, the value from 0.0f to 1.0f that we use to determine how much of the health bar to render
@@ -61,6 +62,8 @@ namespace UnbiddenMod.UI
     //
     // This is the NPC variable that contains the identity for the Boss
     private NPC bossNPC;
+    private int bossHealth;
+    private int bossHealthMax;
 
     public override void OnInitialize()
     {
@@ -134,44 +137,49 @@ namespace UnbiddenMod.UI
       {
         if (npc.active && npc.boss)
         {
-          bossNPC = npc;
-          boss = true;
+            bossHealth = npc.life;
+            bossHealthMax = npc.lifeMax;
+            bossNPC = npc;
+            boss = true;
         }
       }
       // This only runs if there is a boss
-      if(boss)
+      if (boss)
       {
+        if (bossNPC.type == NPCID.MoonLordCore)
+        {
+        }
         // Don't change this please, it works, Roslynator is wack
-        quotient = ((float) bossNPC.life) / ((float)bossNPC.lifeMax);
-        if(!arraySet)
+        quotient = ((float)bossHealth) / ((float)bossHealthMax);
+        if (!arraySet)
         {
           lifeArray[2] = lifeArray[1];
           lifeArray[1] = lifeArray[0];
-          lifeArray[0] = bossNPC.life;
+          lifeArray[0] = bossHealth;
           arraySet = true;
         }
         // This checks if the current boss life is less than the previous recorded value
         // If it is, it resets the cooldown for the hit bar movement
-        if(bossNPC.life < lifeArray[0])
+        if (bossHealth < lifeArray[0])
         {
           lifeArray[2] = lifeArray[1];
           lifeArray[1] = lifeArray[0];
-          lifeArray[0] = bossNPC.life;
+          lifeArray[0] = bossHealth;
           cooldown = 30;
         }
-        else if(bossNPC.life == lifeArray[0])
+        else if (bossHealth == lifeArray[0])
         {
-          if(cooldown > 0) cooldown--;
+          if (cooldown > 0) cooldown--;
         }
-        if(cooldown == 0 && barAfterImageRect.Width != mainBarRect.Width)
+        if (cooldown == 0 && barAfterImageRect.Width != mainBarRect.Width)
         {
-          if((barAfterImageRect.Width - mainBarRect.Width) * 0.05f < 1)
+          if ((barAfterImageRect.Width - mainBarRect.Width) * 0.05f < 1)
           {
             barAfterImageRect.Width--;
           }
           else
           {
-            barAfterImageRect.Width -= (int) ((barAfterImageRect.Width - mainBarRect.Width) * 0.05f);
+            barAfterImageRect.Width -= (int)((barAfterImageRect.Width - mainBarRect.Width) * 0.05f);
           }
           barAfterImage.SetFrame(barAfterImageRect);
         }
@@ -180,6 +188,8 @@ namespace UnbiddenMod.UI
         {
           boss = false;
           bossNPC = null;
+          bossHealth = 0;
+          bossHealthMax = 0;
           barAfterImageRect.Width = 1000;
           barAfterImage.SetFrame(barAfterImageRect);
           cooldown = 30;

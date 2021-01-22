@@ -463,7 +463,7 @@ namespace UnbiddenMod
               Vector2 offset = target == null ? default : target.Hitbox.Center.ToVector2() - projectile.position;
               if (target?.active == true && target.position.IsInRadiusOf(projectile.position, trackingRadius))
               {
-                projectile.velocity.SmartHoming(offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
+                projectile.velocity = projectile.velocity.SmartHoming(offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
               }
               break;
             case 1:
@@ -506,7 +506,7 @@ namespace UnbiddenMod
     /// <param name="overshotPrevention">Whether or not the projectile will guarentee a hit within a certain distnace.</param>
     /// <param name="overshotThreshold">The range that overshotPrevention will guarantee a hit within.</param>
     /// <param name="speedCap">The max speed this projectile can reach.</param>
-    public static void SmartHoming(this Vector2 velocity, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
+    public static Vector2 SmartHoming(this Vector2 velocity, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
     {
       if (offset.X > 0)
       {
@@ -580,6 +580,7 @@ namespace UnbiddenMod
       //   if (projectile.velocity.Length() > speedCap)
       //     projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
       // }
+      return velocity;
     }
 
     public static class ParryTypeID

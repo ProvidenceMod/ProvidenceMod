@@ -461,14 +461,9 @@ namespace UnbiddenMod
             case EntityType.NPC:
               NPC target = ClosestEnemyNPC(projectile);
               Vector2 offset = target == null ? default : target.position - projectile.position;
-              if(target != null)
-              if (target.active && target.position.IsInRadius(projectile.position, trackingRadius))
+              if (target?.active == true && target.position.IsInRadius(projectile.position, trackingRadius))
               {
                 projectile.velocity = SmartHoming(projectile.velocity, offset, projectile, projectile.AngleTo(target.position), gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
-              }
-              else
-              {
-                return;
               }
               break;
             case 1:

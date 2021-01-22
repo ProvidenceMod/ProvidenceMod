@@ -51,7 +51,7 @@ namespace UnbiddenMod.Projectiles.Boss
       const float speedCap = 8f;
       const float turnStrength = 0.2f;
       const float radius = 500f;
-      projectile.GravityHoming(speedCap, turnStrength, radius);
+      //projectile.GravityHoming(speedCap, turnStrength, radius);
     }
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
     {

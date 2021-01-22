@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Projectiles.Melee
 {
@@ -27,6 +28,8 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
       projectile.scale = 1f;
+      projectile.Unbidden().homingID = HomingID.Smart;
+      projectile.Unbidden().entityType = EntityType.NPC;
     }
 
     public override void AI()
@@ -58,9 +61,11 @@ namespace UnbiddenMod.Projectiles.Melee
         float distance = (float)System.Math.Sqrt((double)((shootToX * shootToX) + (shootToY * shootToY)));
         if (distance < 600f && !target.friendly && target.active)
         {
-          projectile.Homing(20f, 0.1f, 600f, true, 5f, true);
+          //UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, speedCap, gainStrength, slowStrength);
+          //projectile.GravityHoming(8f, 0.1f, 600f, false, 5f);
         }
       }
+      projectile.Homing(20f, 1.0f, 1.1f, 600f, false, 5f, true, 5f);
     }
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

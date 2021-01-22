@@ -32,7 +32,7 @@ namespace UnbiddenMod.Projectiles.Healing
       Texture2D tex = ModContent.GetTexture("UnbiddenMod/Projectiles/Healing/HealProjectile");
       Player player = Main.LocalPlayer;
       Vector2 offset = player.position - projectile.position;
-      projectile.Homing(8f, 0.2f, 200f, true, 5f, true);
+      // projectile.Homing(8f, 0.2f, 200f, true, 5f, true);
       UnbiddenGlobalProjectile.AfterImage(projectile, Color.White, tex, 10);
       if (projectile.getRect().Intersects(player.getRect()))
       {

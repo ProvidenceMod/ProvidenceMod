@@ -18,7 +18,8 @@ namespace UnbiddenMod
     public bool deflectable = true;
     public bool deflected;
     public bool amped;
-    public bool homing;
+    public int entityType;
+    public int homingID;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / (int)Main.projFrames[projectile.type];
@@ -61,12 +62,48 @@ namespace UnbiddenMod
     // float slowStrength
     public static void IsHomingNPC(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
     {
+      // if (offset.X > 0)
+      // {
+      //   if (projectile.velocity.X < 0)
+      //     projectile.velocity.X /= slowStrength;
+      //   if (projectile.velocity.X < speedCap)
+      //     projectile.velocity.X += gainStrength;
+      // }
+      // if (offset.X < 0)
+      // {
+      //   if (projectile.velocity.X > 0)
+      //     projectile.velocity.X /= slowStrength;
+      //   if (projectile.velocity.X > -speedCap)
+      //     projectile.velocity.X -= gainStrength;
+      // }
+      // if (offset.X == 0)
+      //   projectile.velocity.X = 0f;
+      // /////
+      // if (offset.Y > 0)
+      // {
+      //   if (projectile.velocity.Y < 0)
+      //     projectile.velocity.Y /= slowStrength;
+      //   if (projectile.velocity.Y < speedCap)
+      //     projectile.velocity.Y += gainStrength;
+      // }
+      // if (offset.Y < 0)
+      // {
+      //   if (projectile.velocity.Y > 0)
+      //     projectile.velocity.Y /= slowStrength;
+      //   if (projectile.velocity.Y > -speedCap)
+      //     projectile.velocity.Y -= gainStrength;
+      // }
+      // if (offset.Y == 0)
+      //   projectile.velocity.Y = 0f;
+      const bool courseAdjust = true;
       if (offset.X > 0)
       {
         if (projectile.velocity.X < 0)
           projectile.velocity.X /= slowStrength;
         if (projectile.velocity.X < speedCap)
           projectile.velocity.X += gainStrength;
+        if (projectile.velocity.X > speedCap)
+          projectile.velocity.X = speedCap;
       }
       if (offset.X < 0)
       {
@@ -74,16 +111,17 @@ namespace UnbiddenMod
           projectile.velocity.X /= slowStrength;
         if (projectile.velocity.X > -speedCap)
           projectile.velocity.X -= gainStrength;
+        if (projectile.velocity.X < -speedCap)
+          projectile.velocity.X = -speedCap;
       }
-      if (offset.X == 0)
-        projectile.velocity.X = 0f;
-      /////
       if (offset.Y > 0)
       {
         if (projectile.velocity.Y < 0)
           projectile.velocity.Y /= slowStrength;
         if (projectile.velocity.Y < speedCap)
           projectile.velocity.Y += gainStrength;
+        if (projectile.velocity.Y > speedCap)
+          projectile.velocity.Y = speedCap;
       }
       if (offset.Y < 0)
       {
@@ -91,12 +129,43 @@ namespace UnbiddenMod
           projectile.velocity.Y /= slowStrength;
         if (projectile.velocity.Y > -speedCap)
           projectile.velocity.Y -= gainStrength;
+        if (projectile.velocity.Y < -speedCap)
+          projectile.velocity.Y = -speedCap;
       }
-      if (offset.Y == 0)
-        projectile.velocity.Y = 0f;
+      if (courseAdjust)
+      {
+        if (offset.X <= 5f && !(offset.X < 0))
+        {
+          if (offset.X > 0 && !(offset.X < 1))
+            projectile.velocity.X -= gainStrength;
+          if (offset.X < 1)
+            projectile.velocity.X = 0f;
+        }
+        if(offset.X >= -5f && !(offset.X > 0))
+        {
+          if (offset.X < 0 && !(offset.X > -1))
+            projectile.velocity.X += gainStrength;
+          if (offset.X > -1)
+            projectile.velocity.X = 0f;
+        }
+        if (offset.Y <= 5f && !(offset.Y < 0))
+        {
+          if (offset.Y > 0 && !(offset.Y < 1))
+            projectile.velocity.Y -= gainStrength;
+          if (offset.Y < 1)
+            projectile.velocity.Y = 0f;
+        }
+        if (offset.Y >= -5f && !(offset.Y > 0))
+        {
+          if (offset.Y < 0 && !(offset.Y > -1))
+            projectile.velocity.Y += gainStrength;
+          if (offset.Y > -1)
+            projectile.velocity.Y = 0f;
+        }
+      }
     }
 
-    public static void IsHomingPlayer(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
+    /*public static void IsHomingPlayer(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
     {
       if (offset.X > 0)
       {
@@ -131,7 +200,8 @@ namespace UnbiddenMod
       }
       if (offset.Y == 0)
         projectile.velocity.Y = 0f;
-    }
+    }*/
+
     public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
     {
       for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)

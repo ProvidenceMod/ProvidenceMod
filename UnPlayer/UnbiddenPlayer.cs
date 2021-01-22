@@ -237,7 +237,7 @@ namespace UnbiddenMod
         GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
         foreach (Projectile projectile in Main.projectile)
         {
-          if (projectile.position.IsInRadius(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
+          if (projectile.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
           {
             if (projectile.friendly)
             {
@@ -406,7 +406,7 @@ namespace UnbiddenMod
       {
         foreach (Player targetPlayer in Main.player)
         {
-          if (targetPlayer.MountedCenter.IsInRadius(player.MountedCenter, clericAuraRadius))
+          if (targetPlayer.MountedCenter.IsInRadiusOf(player.MountedCenter, clericAuraRadius))
           {
             targetPlayer.lifeRegen += (int)(cleric * 2);
           }

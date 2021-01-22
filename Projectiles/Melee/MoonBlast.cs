@@ -4,6 +4,8 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static UnbiddenMod.UnbiddenUtils;
+using static Terraria.ModLoader.ModContent;
+using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod.Projectiles.Melee
 {
@@ -37,7 +39,7 @@ namespace UnbiddenMod.Projectiles.Melee
       Lighting.AddLight(projectile.Center, (float)Main.DiscoR / 400f, (float)Main.DiscoG / 400f, (float)Main.DiscoB / 400f);
       projectile.ai[0]++;
       Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("ParryShieldDust"), 0, 0, 0, color, 0.7f);
+      Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<ParryShieldDust>(), 0, 0, 0, color, 0.7f);
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;
@@ -64,9 +66,12 @@ namespace UnbiddenMod.Projectiles.Melee
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
       Player player = Main.player[projectile.owner];
-      int healingAmount = damage / 60; //decrease the value 30 to increase heal, increase value to decrease. Or you can just replace damage/x with a set value to heal, instead of making it based on damage.
+      // Caps potential healing at 1% of max health per hit.
+      int healingAmount = damage / 60 >= player.statLifeMax / 100 ? player.statLifeMax / 100 : damage / 60;
+      // Actually heals, and gives the little green numbers pop up
       player.statLife += healingAmount;
       player.HealEffect(healingAmount, true);
+
       projectile.penetrate--;
       target.immune[projectile.owner] = 3;
 

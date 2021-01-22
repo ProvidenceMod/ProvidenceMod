@@ -72,7 +72,6 @@ namespace UnbiddenMod.Projectiles.Ability
         projectile.Opacity += increment;
       }
       Player owner = Main.player[projectile.owner];
-      UnbiddenPlayer unPlayer = owner.Unbidden();
       projectile.position = Vector2.Add(new Vector2(owner.position.X - (owner.width / 2), owner.position.Y - (owner.height / 2)), new Vector2(35, 0).RotateTo(owner.AngleTo(Main.MouseWorld)));
       projectile.rotation = owner.AngleTo(Main.MouseWorld);
       int dustSpawn = Main.rand.Next(0, 2);

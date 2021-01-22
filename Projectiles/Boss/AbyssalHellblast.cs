@@ -33,13 +33,9 @@ namespace UnbiddenMod.Projectiles.Boss
 
     public override void AI()
     {
-      NPC npc = Main.npc[(int)projectile.ai[0]];
       projectile.ai[1]++;
       projectile.localAI[0]++;
       projectile.rotation = projectile.velocity.ToRotation();
-      IList<int> targets = ((FireAncient)npc.modNPC).targets;
-      int player2 = targets[0];
-      Player player = Main.player[player2];
       if (++projectile.frameCounter >= 3) // Frame time
       {
         projectile.frameCounter = 0;
@@ -51,7 +47,7 @@ namespace UnbiddenMod.Projectiles.Boss
       const float speedCap = 8f;
       const float turnStrength = 0.2f;
       const float radius = 500f;
-      //projectile.GravityHoming(speedCap, turnStrength, radius);
+      projectile.GravityHoming(speedCap, turnStrength, radius);
     }
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
     {

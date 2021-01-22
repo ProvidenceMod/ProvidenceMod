@@ -460,10 +460,10 @@ namespace UnbiddenMod
           {
             case EntityType.NPC:
               NPC target = ClosestEnemyNPC(projectile);
-              Vector2 offset = target == null ? default : target.position - projectile.position;
+              Vector2 offset = target == null ? default : target.Hitbox.Center.ToVector2() - projectile.position;
               if (target?.active == true && target.position.IsInRadius(projectile.position, trackingRadius))
               {
-                projectile.velocity = SmartHoming(projectile.velocity, offset, projectile, projectile.AngleTo(target.position), gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
+                projectile.velocity = SmartHoming(projectile.velocity, offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
               }
               break;
             case 1:
@@ -493,7 +493,19 @@ namespace UnbiddenMod
       Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
       return Vector2.Add(v, pull);
     }
-    public static Vector2 SmartHoming(Vector2 velocity, Vector2 offset, Projectile projectile, float angleToTarget, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f, float turnAmount = 0.1f)
+    /// <summary>
+    /// A snart homing AI.
+    /// </summary>
+    /// <param name="velocity">The velocity of the projectile.</param>
+    /// <param name="offset">The offset from the projectile position to the target position.</param>
+    /// <param name="gain">How fast the projectile gains speed.</param>
+    /// <param name="slow">How fast the projectile loses speed</param>
+    /// <param name="courseAdjust">Whether or not the projectile will prevent overshooting the axes of the target.</param>
+    /// <param name="courseRange">The range that courseAdjust will activate within.</param>
+    /// <param name="overshotPrevention">Whether or not the projectile will guarentee a hit within a certain distnace.</param>
+    /// <param name="overshotThreshold">The range that overshotPrevention will guarantee a hit within.</param>
+    /// <param name="speedCap">The max speed this projectile can reach.</param>
+    public static Vector2 SmartHoming(Vector2 velocity, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
     {
       if (offset.X > 0)
       {
@@ -533,28 +545,28 @@ namespace UnbiddenMod
       }
       if (courseAdjust)
       {
-        if (offset.X <= 5f && !(offset.X < 0))
+        if (offset.X <= courseRange && !(offset.X < 0))
         {
           if (!(offset.X < 1))
             velocity.X /= slow;
           if (offset.X < 1)
             velocity.X = 0f;
         }
-        if (offset.X >= -5f && !(offset.X > 0))
+        if (offset.X >= -courseRange && !(offset.X > 0))
         {
           if (!(offset.X > -1))
             velocity.X /= slow;
           if (offset.X > -1)
             velocity.X = 0f;
         }
-        if (offset.Y <= 5f && !(offset.Y < 0))
+        if (offset.Y <= courseRange && !(offset.Y < 0))
         {
           if (!(offset.Y < 1))
             velocity.Y /= slow;
           if (offset.Y < 1)
             velocity.Y = 0f;
         }
-        if (offset.Y >= -5f && !(offset.Y > 0))
+        if (offset.Y >= -courseRange && !(offset.Y > 0))
         {
           if (!(offset.Y > -1))
             velocity.Y /= slow;

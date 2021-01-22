@@ -395,25 +395,12 @@ namespace UnbiddenMod
     }
 
     /// <summary>
-    /// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
-    /// </summary>
-    /// <param name="v">The velocity being gravitized.</param>
-    /// <param name="angleToTarget">The angle relative to v and the source of gravity.</param>
-    /// <param name="turnAMT">How strong the gravity is, and how fast the turning effect is.</param>
-    public static Vector2 TurnTowardsByX(this Vector2 v, float angleToTarget, float turnAMT)
-    { 
-      Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
-      return Vector2.Add(v, pull);
-    }
-
-    /// <summary>
     /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
     /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
     /// </summary>
     /// <param name="projectile">The projectile being worked with.</param>
     /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
-    /// <param name="gain">How quickly the projectile will gain speed. Defaults at 0.1f </param>
-    /// <param name="slow">How quickly the projectile will slow down. Defaults at 0.1f.</param>
+    /// <param name="turnStrength">How quickly the projectile will gain turn. Defaults at 0.1f </param>
     /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
     /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
     /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
@@ -428,7 +415,7 @@ namespace UnbiddenMod
         // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
         NPC target = ClosestEnemyNPC(projectile);
         if (target?.position.IsInRadius(projectile.position, trackingRadius) == true)
-          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), gainStrength);
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
 
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
         if (overshotPrevention && target?.position.IsInRadius(projectile.position, overshotThreshold) == true)
@@ -440,7 +427,7 @@ namespace UnbiddenMod
         NPC owner = Main.npc[projectile.owner];
         Player target = ClosestPlayer(projectile);
         if (target.active && target.position.IsInRadius(projectile.position, trackingRadius))
-          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), gainStrength);
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
 
         // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
         if (overshotPrevention && target.position.IsInRadius(projectile.position, overshotThreshold))
@@ -451,25 +438,175 @@ namespace UnbiddenMod
       if (projectile.velocity.Length() > speedCap)
         projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
     }
-  }
+    /// <summary>
+    /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
+    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
+    /// </summary>
+    /// <param name="projectile">The projectile being worked with.</param>
+    /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
+    /// <param name="gain">How quickly the projectile will gain speed. Defaults at 0.1f </param>
+    /// <param name="slow">How quickly the projectile will slow down. Defaults at 0.1f.</param>
+    /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
+    /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
+    /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
+    /// <param name="courseAdjust">Whether or not the projectile should never overshoot the axis. Defaults to false.</param>
+    /// <param name="courseRange">If courseAdjust is true, provides the range which will activate course adjustment. The range is centered around the axis of the target. Defaults to 5f.</param>
+    public static void Homing(this Projectile projectile, float speedCap = 8f, float gain = 0.1f, float slow = 0.1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 5f, bool courseAdjust = false, float courseRange = 5f)
+    {
+      switch (projectile.Unbidden().homingID)
+      {
+        case HomingID.Smart:
+          switch (projectile.Unbidden().entityType)
+          {
+            case EntityType.NPC:
+              NPC target = ClosestEnemyNPC(projectile);
+              Vector2 offset = target == null ? default : target.position - projectile.position;
+              if(target != null)
+              if (target.active && target.position.IsInRadius(projectile.position, trackingRadius))
+              {
+                projectile.velocity = SmartHoming(projectile.velocity, offset, projectile, projectile.AngleTo(target.position), gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
+              }
+              else
+              {
+                return;
+              }
+              break;
+            case 1:
+              break;
+            case 2:
+              break;
+            case 3:
+              break;
+          }
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+      }
+    }
+    /// <summary>
+    /// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
+    /// </summary>
+    /// <param name="v">The velocity being gravitized.</param>
+    /// <param name="angleToTarget">The angle relative to v and the source of gravity.</param>
+    /// <param name="turnAMT">How strong the gravity is, and how fast the turning effect is.</param>
+    public static Vector2 TurnTowardsByX(this Vector2 v, float angleToTarget, float turnAMT)
+    {
+      Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
+      return Vector2.Add(v, pull);
+    }
+    public static Vector2 SmartHoming(Vector2 velocity, Vector2 offset, Projectile projectile, float angleToTarget, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f, float turnAmount = 0.1f)
+    {
+      if (offset.X > 0)
+      {
+        if (velocity.X < 0)
+          velocity.X /= slow;
+        if (velocity.X < speedCap)
+          velocity.X += gain;
+        if (velocity.X > speedCap)
+          velocity.X = speedCap;
+      }
+      if (offset.X < 0)
+      {
+        if (velocity.X > 0)
+          velocity.X /= slow;
+        if (velocity.X > -speedCap)
+          velocity.X -= gain;
+        if (velocity.X < -speedCap)
+          velocity.X = -speedCap;
+      }
+      if (offset.Y > 0)
+      {
+        if (velocity.Y < 0)
+          velocity.Y /= slow;
+        if (velocity.Y < speedCap)
+          velocity.Y += gain;
+        if (velocity.Y > speedCap)
+          velocity.Y = speedCap;
+      }
+      if (offset.Y < 0)
+      {
+        if (velocity.Y > 0)
+          velocity.Y /= slow;
+        if (velocity.Y > -speedCap)
+          velocity.Y -= gain;
+        if (velocity.Y < -speedCap)
+          velocity.Y = -speedCap;
+      }
+      if (courseAdjust)
+      {
+        if (offset.X <= 5f && !(offset.X < 0))
+        {
+          if (!(offset.X < 1))
+            velocity.X /= slow;
+          if (offset.X < 1)
+            velocity.X = 0f;
+        }
+        if (offset.X >= -5f && !(offset.X > 0))
+        {
+          if (!(offset.X > -1))
+            velocity.X /= slow;
+          if (offset.X > -1)
+            velocity.X = 0f;
+        }
+        if (offset.Y <= 5f && !(offset.Y < 0))
+        {
+          if (!(offset.Y < 1))
+            velocity.Y /= slow;
+          if (offset.Y < 1)
+            velocity.Y = 0f;
+        }
+        if (offset.Y >= -5f && !(offset.Y > 0))
+        {
+          if (!(offset.Y > -1))
+            velocity.Y /= slow;
+          if (offset.Y > -1)
+            velocity.Y = 0f;
+        }
+      }
+      // if (overshotPrevention)
+      // {
+      //   if (projectile.velocity.Length() > speedCap)
+      //     projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
+      // }
+      return velocity;
+    }
 
-  public static class ParryTypeID
-  {
-    public const int Universal = 0;
-    public const int Tank = 1;
-    public const int DPS = 2;
-    public const int Support = 3;
-  }
-  public static class ElementID
-  {
-    public const int Typeless = -1;
-    public const int Fire = 0;
-    public const int Ice = 1;
-    public const int Lightning = 2;
-    public const int Water = 3;
-    public const int Earth = 4;
-    public const int Air = 5;
-    public const int Radiant = 6;
-    public const int Necrotic = 7;
+    public static class ParryTypeID
+    {
+      public const int Universal = 0;
+      public const int Tank = 1;
+      public const int DPS = 2;
+      public const int Support = 3;
+    }
+    public static class ElementID
+    {
+      public const int Typeless = -1;
+      public const int Fire = 0;
+      public const int Ice = 1;
+      public const int Lightning = 2;
+      public const int Water = 3;
+      public const int Earth = 4;
+      public const int Air = 5;
+      public const int Radiant = 6;
+      public const int Necrotic = 7;
+    }
+    public static class HomingID
+    {
+      public const int Smart = 0;
+      public const int Gravity = 1;
+      public const int Sine = 2;
+      public const int Linear = 3;
+    }
+    public static class EntityType
+    {
+      public const int NPC = 0;
+      public const int Player = 1;
+      public const int Projectile = 2;
+      public const int Entity = 3;
+    }
   }
 }

@@ -62,6 +62,9 @@ namespace UnbiddenMod.UI
     //
     // This is the NPC variable that contains the identity for the Boss
     private NPC bossNPC;
+    private NPC head;
+    private NPC hand;
+    private NPC hand2;
     private int bossHealth;
     private int bossHealthMax;
 
@@ -135,19 +138,47 @@ namespace UnbiddenMod.UI
       // Here we check the entire NPC array, this lets us set our boss variables from earlier
       foreach (NPC npc in Main.npc)
       {
-        if (npc.active && npc.boss)
+        if (npc.type == NPCID.MoonLordCore)
         {
-            bossHealth = npc.life;
-            bossHealthMax = npc.lifeMax;
-            bossNPC = npc;
-            boss = true;
+          bossNPC = npc;
+          bossHealth = npc.life;
+          bossHealthMax = npc.lifeMax;
+          boss = true;
+        }
+        if (npc.type == NPCID.MoonLordHead)
+        {
+          head = npc;
+        }
+        if (npc.type == NPCID.MoonLordHand)
+        {
+          hand = npc;
+        }
+        if (npc.type == NPCID.MoonLordHand && npc != hand)
+        {
+          hand2 = npc;
+        }
+        else if (npc.active && npc.boss && npc.type != NPCID.MoonLordCore && npc.type != NPCID.MoonLordHead && npc.type != NPCID.MoonLordHand && npc.type != NPCID.MoonLordFreeEye && npc.type != NPCID.MoonLordLeechBlob)
+        {
+          bossHealth = npc.life;
+          bossHealthMax = npc.lifeMax;
+          bossNPC = npc;
+          boss = true;
         }
       }
       // This only runs if there is a boss
       if (boss)
       {
-        if (bossNPC.type == NPCID.MoonLordCore)
+        if (bossNPC.type == NPCID.MoonLordCore || bossNPC.type == NPCID.MoonLordHead || bossNPC.type == NPCID.MoonLordHand)
         {
+          if (bossNPC != null && head != null && hand != null && hand2 != null)
+          {
+            bossHealth = bossNPC.life + hand.life + hand2.life + head.life;
+            bossHealthMax = bossNPC.lifeMax + hand.lifeMax + hand2.life + head.lifeMax;
+          }
+        }
+        else
+        {
+          bossHealth = bossNPC.life;
         }
         // Don't change this please, it works, Roslynator is wack
         quotient = ((float)bossHealth) / ((float)bossHealthMax);
@@ -184,7 +215,7 @@ namespace UnbiddenMod.UI
           barAfterImage.SetFrame(barAfterImageRect);
         }
         // Resetting everything after the boss is dead, make sure to do this if your UI is dependent on variables and changing things around
-        if (bossNPC.life <= 0)
+        if (bossHealth <= 0)
         {
           boss = false;
           bossNPC = null;

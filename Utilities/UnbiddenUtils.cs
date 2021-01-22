@@ -463,7 +463,7 @@ namespace UnbiddenMod
               Vector2 offset = target == null ? default : target.Hitbox.Center.ToVector2() - projectile.position;
               if (target?.active == true && target.position.IsInRadiusOf(projectile.position, trackingRadius))
               {
-                projectile.velocity.SmartHoming(offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
+                projectile.velocity = SmartHoming(projectile.velocity, projectile, target, offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
               }
               break;
             case 1:
@@ -496,6 +496,7 @@ namespace UnbiddenMod
 
     /// <summary>
     /// A smart homing AI.
+    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
     /// </summary>
     /// <param name="velocity">The velocity of the projectile.</param>
     /// <param name="offset">The offset from the projectile position to the target position.</param>
@@ -506,7 +507,7 @@ namespace UnbiddenMod
     /// <param name="overshotPrevention">Whether or not the projectile will guarentee a hit within a certain distnace.</param>
     /// <param name="overshotThreshold">The range that overshotPrevention will guarantee a hit within.</param>
     /// <param name="speedCap">The max speed this projectile can reach.</param>
-    public static void SmartHoming(this Vector2 velocity, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
+    public static Vector2 SmartHoming(Vector2 velocity, Projectile projectile, Entity target, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
     {
       if (offset.X > 0)
       {
@@ -575,11 +576,14 @@ namespace UnbiddenMod
             velocity.Y = 0f;
         }
       }
-      // if (overshotPrevention)
-      // {
-      //   if (projectile.velocity.Length() > speedCap)
-      //     projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
-      // }
+      if (overshotPrevention)
+      {
+        if(target.position.IsInRadiusOf(projectile.position, overshotThreshold))
+        {
+          projectile.velocity.RotateTo(projectile.AngleTo(target.position));
+        }
+      }
+      return velocity;
     }
 
     public static class ParryTypeID

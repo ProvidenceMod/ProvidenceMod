@@ -5,6 +5,8 @@ using static Terraria.ModLoader.ModContent;
 using static UnbiddenMod.UnbiddenUtils;
 using UnbiddenMod.Items.Materials;
 using UnbiddenMod.NPCs.FireAncient;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace UnbiddenMod.Items.Consumables
 {
@@ -36,6 +38,16 @@ namespace UnbiddenMod.Items.Consumables
     public override bool ConsumeItem(Player player)
     {
       return false;
+    }
+    public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+    {
+      Texture2D tex = GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow");
+      spriteBatch.Draw(tex, position, tex.Frame(), Color.White, 0, origin, scale, 0, 0);
+    }
+    public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+    {
+      Texture2D tex = GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow");
+      spriteBatch.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f) + 2f), new Rectangle(0, 0, tex.Width, tex.Height), Color.White, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0f);
     }
     public override void AddRecipes()
     {

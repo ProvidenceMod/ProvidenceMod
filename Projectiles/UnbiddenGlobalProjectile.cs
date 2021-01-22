@@ -54,43 +54,6 @@ namespace UnbiddenMod
       }
     }
 
-    /*public static void IsHomingPlayer(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
-    {
-      if (offset.X > 0)
-      {
-        if (projectile.velocity.X < 0)
-          projectile.velocity.X /= slowStrength;
-        if (projectile.velocity.X < speedCap)
-          projectile.velocity.X += gainStrength;
-      }
-      if (offset.X < 0)
-      {
-        if (projectile.velocity.X > 0)
-          projectile.velocity.X /= slowStrength;
-        if (projectile.velocity.X > -speedCap)
-          projectile.velocity.X -= gainStrength;
-      }
-      if (offset.X == 0)
-        projectile.velocity.X = 0f;
-      /////
-      if (offset.Y > 0)
-      {
-        if (projectile.velocity.Y < 0)
-          projectile.velocity.Y /= slowStrength;
-        if (projectile.velocity.Y < speedCap)
-          projectile.velocity.Y += gainStrength;
-      }
-      if (offset.Y < 0)
-      {
-        if (projectile.velocity.Y > 0)
-          projectile.velocity.Y /= slowStrength;
-        if (projectile.velocity.Y > -speedCap)
-          projectile.velocity.Y -= gainStrength;
-      }
-      if (offset.Y == 0)
-        projectile.velocity.Y = 0f;
-    }*/
-
     public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
     {
       for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)

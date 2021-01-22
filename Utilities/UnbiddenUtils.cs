@@ -463,7 +463,7 @@ namespace UnbiddenMod
               Vector2 offset = target == null ? default : target.Hitbox.Center.ToVector2() - projectile.position;
               if (target?.active == true && target.position.IsInRadiusOf(projectile.position, trackingRadius))
               {
-                projectile.velocity = SmartHoming(projectile.velocity, projectile, target, offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
+                projectile.velocity = projectile.velocity.SmartHoming(projectile, target, offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
               }
               break;
             case 1:

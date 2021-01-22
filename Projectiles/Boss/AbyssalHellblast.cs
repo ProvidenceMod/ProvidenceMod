@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 using UnbiddenMod.NPCs.FireAncient;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Projectiles.Boss
 {
@@ -29,6 +30,8 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.hostile = true;
       projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Fire
       projectile.tileCollide = false;
+      projectile.Unbidden().homingID = HomingID.Smart;
+      projectile.Unbidden().entityType = EntityType.Player;
     }
 
     public override void AI()
@@ -49,9 +52,8 @@ namespace UnbiddenMod.Projectiles.Boss
         }
       }
       const float speedCap = 8f;
-      const float turnStrength = 0.2f;
       const float radius = 500f;
-      //projectile.GravityHoming(speedCap, turnStrength, radius);
+      projectile.Homing(speedCap, 0.5f, 1.2f, radius);
     }
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
     {

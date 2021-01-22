@@ -46,7 +46,7 @@ namespace UnbiddenMod.Projectiles.Boss
       //   }
       // }
       const float speedCap = 8f, turnStrength = 0.3f;
-      //projectile.GravityHoming(speedCap, turnStrength);
+      projectile.GravityHoming(speedCap, turnStrength);
     }
     public override void OnHitPlayer(Player target, int damage, bool crit)
     {

@@ -45,34 +45,14 @@ namespace UnbiddenMod.Projectiles.Melee
       }
       projectile.rotation += projectile.velocity.X * 0.05f;
       //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 16f, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("MoonBlast"), projectile.damage, projectile.knockBack, projectile.owner);
-      for (int i = 0; i < 200; i++)
-      {
-        NPC target = Main.npc[i];
-        //This will allow the projectile to only target hostile NPC's by referencing the variable, "target", above'
-        Vector2 offset = target.position - projectile.position;
-        const float speedCap = 20f;
-        const float gainStrength = 1.0f;
-        const float slowStrength = 1.1f;
-        // Finding the horizontal position of the target and adjusting trajectory accordingly
-        float shootToX = target.position.X + ((float)target.width * 0.5f) - projectile.Center.X;
-        // Finding the vertical position of the target and adjusting trajectory accordingly
-        float shootToY = target.position.Y - projectile.Center.Y;
-        //  √ shootToX² + shootToY², using the Pythagorean Theorem to calculate the distance from the target
-        float distance = (float)System.Math.Sqrt((double)((shootToX * shootToX) + (shootToY * shootToY)));
-        if (distance < 600f && !target.friendly && target.active)
-        {
-          //UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, speedCap, gainStrength, slowStrength);
-          //projectile.GravityHoming(8f, 0.1f, 600f, false, 5f);
-        }
-      }
-      projectile.Homing(20f, 1.0f, 1.1f, 600f, false, 5f, true, 5f);
+      projectile.Homing(20f, 1.0f, 1.1f, 300f, false, 5f, true, 5f);
     }
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
     {
       Texture2D tex = mod.GetTexture("Projectiles/Melee/MoonBlast");
       const int counter = 5;
-      UnbiddenGlobalProjectile.AfterImage(this.projectile, lightColor, tex, counter);
+      UnbiddenGlobalProjectile.AfterImage(projectile, lightColor, tex, counter);
 
       return false;
     }
@@ -89,6 +69,14 @@ namespace UnbiddenMod.Projectiles.Melee
       player.HealEffect(healingAmount, true);
       projectile.penetrate--;
       target.immune[projectile.owner] = 3;
+
+      int trueDmg = crit ? damage * 2 : damage;
+      if (target.life - trueDmg <= 0)
+      {
+        NPC newTarget = ClosestEnemyNPC(projectile);
+        if (newTarget?.active == true)
+          projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(newTarget.position));
+      }
     }
 
     /*public override bool OnTileCollide(Vector2 oldVelocity)
@@ -116,8 +104,7 @@ namespace UnbiddenMod.Projectiles.Melee
 
     public override Color? GetAlpha(Color lightColor)
     {
-      Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      return color;
+      return new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
     }
 
     public override void Kill(int timeLeft)

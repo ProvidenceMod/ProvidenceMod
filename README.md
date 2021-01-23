@@ -77,6 +77,9 @@ In order to install our mod, simply follow these steps:
    <a href="https://github.com/ZackFox0">
       <img src="https://avatars1.githubusercontent.com/u/65053215?s=400&v=4" width="100" />
    </a>
+   <a href="https://github.com/FloofLeo">
+      <img src="https://avatars.githubusercontent.com/u/65053413?s=460&v=4" width="100" />
+   </a>
 </p>
 
 <a name="credits"></a>

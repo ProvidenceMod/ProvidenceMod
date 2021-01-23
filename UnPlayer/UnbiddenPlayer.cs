@@ -27,54 +27,56 @@ namespace UnbiddenMod
     // public int affExpCooldown = 0;
 
     // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
-    public bool angelTear;
-    public int tearCount;
-    public bool brimHeart;
-    public bool boosterShot;
+    public Projectile parryProj;
 
     public bool allowFocus;
-    public float focus;
-    public float focusMax = 1f;
-    public float tankingItemCount;
+    public bool ampCapacitor;
+    public bool angelTear;
+    public bool bastionsAegis;
+    public bool brimHeart;
+    public bool boosterShot;
+    public bool burnAura;
+    public bool deflectable;
+    public bool cFlameAura;
+    public bool hasClericSet;
+    public bool micitBangle;
+    public bool intimidated;
+    public bool parryActive;
+    public bool parryActiveCooldown;
+    public bool parryCapable;
+    public bool parryWasActive;
+    public bool regenAura;
+    public bool spawnReset = true;
+    public bool tankParryOn;
+    public bool zephyriumAglet;
+
     public const float defaultFocusGain = 0.005f;
     public float bonusFocusGain;
-    public float focusLoss = 0.15f;
-    public float defaultFocusLoss = 0.25f;
-    public int focusLossCooldown;
-    public int focusLossCooldownMax = 20;
-    public bool deflectable;
-    public bool micitBangle;
     public float cleric = 1f;
-    public bool hasClericSet;
     public float clericAuraRadius = 300f;
-    public bool regenAura;
-    public bool burnAura;
-    public bool cFlameAura;
-    public bool ampCapacitor;
-    public bool bastionsAegis;
-    public int dashTimeMod;
-    public int dashMod;
-    public int dashModDelay = 60;
-    public string dashDir = "";
-    // TODO: Make this have use (see tooltip in the item of same name)
-    public bool zephyriumAglet;
-    public bool intimidated;
-
-    public bool parryCapable;
-    public int parryType;
-    public bool parryActive;
-    public bool parryWasActive;
+    public float defaultFocusLoss = 0.25f;
+    public float focus;
+    public float focusLoss = 0.15f;
+    public float focusMax = 1f;
+    public float tankingItemCount;
 
     // This should NEVER be changed.
     public const int maxParryActiveTime = 90;
-    public int parryActiveTime;
-    public bool parryActiveCooldown;
+    public int dashMod;
+    public int dashTimeMod;
+    public int dashModDelay = 60;
+    public int focusLossCooldown;
+    public int focusLossCooldownMax = 20;
     public int parriedProjs;
-    public bool spawnReset = true;
-    public Projectile parryProj;
+    public int parryActiveTime;
     public int parryProjID;
-    public bool tankParryOn;
+    public int parryType;
     public int tankParryPWR;
+    public int tearCount;
+    
+    public string dashDir = "";
+    // TODO: Make this have use (see tooltip in the item of same name)
+
     public override TagCompound Save()
     {
       return new TagCompound {

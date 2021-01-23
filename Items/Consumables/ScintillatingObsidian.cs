@@ -45,19 +45,19 @@ namespace UnbiddenMod.Items.Consumables
       return false;
     }
     public override void PostDrawInInventory(
-      SpriteBatch spriteBatch, 
-      Vector2 position, 
-      Rectangle frame, 
-      Color drawColor, 
-      Color itemColor, 
-      Vector2 origin, 
+      SpriteBatch spriteBatch,
+      Vector2 position,
+      Rectangle frame,
+      Color drawColor,
+      Color itemColor,
+      Vector2 origin,
       float scale) => item.DrawGlowmask(spriteBatch, 13, default, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"));
     public override void PostDrawInWorld(
-      SpriteBatch spriteBatch, 
+      SpriteBatch spriteBatch,
       Color lightColor,
-       Color alphaColor, 
-       float rotation, 
-       float scale, 
+       Color alphaColor,
+       float rotation,
+       float scale,
        int whoAmI) => item.DrawGlowmask(spriteBatch, 13, rotation, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"));
     public override void AddRecipes()
     {

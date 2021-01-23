@@ -8,6 +8,7 @@ using UnbiddenMod.Buffs.Cooldowns;
 using UnbiddenMod.Projectiles.Healing;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace UnbiddenMod
 {
@@ -21,6 +22,15 @@ namespace UnbiddenMod
     public static UnbiddenGlobalItem Unbidden(this Item item) => item.GetGlobalItem<UnbiddenGlobalItem>();
     /// <summary>References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
+    public static UnbiddenWall UnbiddenWall(this Mod wall) => (UnbiddenWall) wall.GetGlobalWall("UnbiddenMod");
+    public static UnbiddenWorld UnbiddenWorld(this Mod world) => (UnbiddenWorld) world.GetModWorld("UnbiddenMod");
+    public static UnbiddenBuff UnbiddenBuff(this Mod buff) => (UnbiddenBuff) buff.GetGlobalBuff("UnbiddenMod");
+    public static UnbiddenTile UnbiddenTile(this Mod tile) => (UnbiddenTile) tile.GetGlobalTile("UnbiddenMod");
+    public static UnbiddenBigStyle UnbiddenStyle(this Mod style) => (UnbiddenBigStyle) style.GetGlobalBgStyle("UnbiddenMod");
+    public static UnbiddenRecipes UnbiddenRecipes(this Mod recipe) => (UnbiddenRecipes) recipe.GetGlobalRecipe("UnbiddenMod");
+    public static Player ProjectileOwnerPlayer (this Projectile projectile) => Main.player[projectile.owner];
+    public static NPC ProjectileOwnerNPC (this Projectile projectile) => Main.npc[projectile.owner];
+    public static Player LocalPlayer () => Main.LocalPlayer;
 
     /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
@@ -413,7 +423,7 @@ namespace UnbiddenMod
       if (projectile.friendly)
       {
         // Potential owner requirements?
-        Player owner = Main.player[projectile.owner];
+        Player owner = projectile.ProjectileOwnerPlayer();
         // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
         NPC target = ClosestEnemyNPC(projectile);
         if (target?.position.IsInRadiusOf(projectile.position, trackingRadius) == true)
@@ -426,7 +436,7 @@ namespace UnbiddenMod
       else if (projectile.hostile)
       {
         // Same basic process as with friendly projs.
-        NPC owner = Main.npc[projectile.owner];
+        NPC owner = projectile.ProjectileOwnerNPC();
         Player target = ClosestPlayer(projectile);
         if (target.active && target.position.IsInRadiusOf(projectile.position, trackingRadius))
           projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);

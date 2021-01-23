@@ -26,11 +26,11 @@ namespace UnbiddenMod.Items.Materials
     }
 
     public override void PostDrawInWorld(
-      SpriteBatch spriteBatch, 
-      Color lightColor, 
-      Color alphaColor, 
-      float rotation, 
-      float scale, 
+      SpriteBatch spriteBatch,
+      Color lightColor,
+      Color alphaColor,
+      float rotation,
+      float scale,
       int whoAmI) => item.DrawGlowmask(spriteBatch, 13, default, ModContent.GetTexture("UnbiddenMod/Items/Materials/LuminousFragment"));
   }
 }

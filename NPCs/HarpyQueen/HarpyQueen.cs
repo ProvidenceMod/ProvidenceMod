@@ -298,9 +298,9 @@ namespace UnbiddenMod.NPCs.HarpyQueen
 
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
     {
-      if (!UnbiddenGlobalNPC.downedHarpyQueen)
+      if (!UnbiddenWorld.downedHarpyQueen)
       {
-        UnbiddenGlobalNPC.downedHarpyQueen = true;
+        UnbiddenWorld.downedHarpyQueen = true;
       }
 
       switch (Main.expertMode)

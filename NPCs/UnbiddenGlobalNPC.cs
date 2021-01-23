@@ -20,8 +20,6 @@ namespace UnbiddenMod
     public bool spawnReset = true;
     public bool maxSpawnsTempSet = false;
     public int maxSpawnsTemp;
-    public static bool downedFireAncient = false;
-    public static bool downedHarpyQueen = false;
     public override void ResetEffects(NPC npc)
     {
       npc.Unbidden().hypodermia = false;

@@ -59,7 +59,7 @@ namespace UnbiddenMod.Projectiles.Melee
     }
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
-      Player player = Main.player[projectile.owner];
+      Player player = projectile.ProjectileOwner();
       // Caps potential healing at 1% of max health per hit.
       int healingAmount = damage / 60 >= player.statLifeMax / 100 ? player.statLifeMax / 100 : damage / 60;
       // Actually heals, and gives the little green numbers pop up

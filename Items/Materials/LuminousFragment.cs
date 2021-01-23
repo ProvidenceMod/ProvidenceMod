@@ -24,13 +24,6 @@ namespace UnbiddenMod.Items.Materials
       item.width = 38;
       item.height = 58;
     }
-
-    public override void PostDrawInWorld(
-      SpriteBatch spriteBatch,
-      Color lightColor,
-      Color alphaColor,
-      float rotation,
-      float scale,
-      int whoAmI) => item.DrawGlowmask(spriteBatch, 13, default, ModContent.GetTexture("UnbiddenMod/Items/Materials/LuminousFragment"));
+    public override Color? GetAlpha(Color lightColor) => new Color?(new Color(255, 255, 255));
   }
 }

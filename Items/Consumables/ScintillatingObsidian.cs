@@ -51,14 +51,14 @@ namespace UnbiddenMod.Items.Consumables
       Color drawColor,
       Color itemColor,
       Vector2 origin,
-      float scale) => item.DrawGlowmask(spriteBatch, 13, default, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"));
+      float scale) => item.DrawGlowmask(spriteBatch, 13, default, scale, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"), true);
     public override void PostDrawInWorld(
       SpriteBatch spriteBatch,
       Color lightColor,
        Color alphaColor,
        float rotation,
        float scale,
-       int whoAmI) => item.DrawGlowmask(spriteBatch, 13, rotation, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"));
+       int whoAmI) => item.DrawGlowmask(spriteBatch, 13, rotation, scale, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"), true);
     public override void AddRecipes()
     {
       // Recipes here. See Basic Recipe Guide2

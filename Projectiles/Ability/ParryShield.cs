@@ -12,9 +12,9 @@ namespace UnbiddenMod.Projectiles.Ability
   public class ParryShield : ModProjectile
   {
     public bool alphaLowering = true;
-    public bool alphaRising = false;
-    public bool setLower = false;
-    public bool setRise = false;
+    public bool alphaRising;
+    public bool setLower;
+    public bool setRise;
     public float decrement = 0.05f;
     public float increment = 0.05f;
     public override void SetStaticDefaults()
@@ -81,5 +81,6 @@ namespace UnbiddenMod.Projectiles.Ability
         Dust.NewDust(new Vector2(projectile.getRect().X + Main.rand.Next(0, 44), projectile.getRect().Y + Main.rand.Next(0, 76)), 5, 5, DustType<ParryShieldDust>(), 0, 0, 0, Color.White, 1f);
       }
     }
+    // public override Color? GetAlpha(Color lightColor) => new Color?(new Color(255, 255, 255, 255));
   }
 }

@@ -22,15 +22,32 @@ namespace UnbiddenMod
     public static UnbiddenGlobalItem Unbidden(this Item item) => item.GetGlobalItem<UnbiddenGlobalItem>();
     /// <summary>References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
-    public static UnbiddenWall UnbiddenWall(this Mod wall) => (UnbiddenWall) wall.GetGlobalWall("UnbiddenMod");
-    public static UnbiddenWorld UnbiddenWorld(this Mod world) => (UnbiddenWorld) world.GetModWorld("UnbiddenMod");
-    public static UnbiddenBuff UnbiddenBuff(this Mod buff) => (UnbiddenBuff) buff.GetGlobalBuff("UnbiddenMod");
-    public static UnbiddenTile UnbiddenTile(this Mod tile) => (UnbiddenTile) tile.GetGlobalTile("UnbiddenMod");
-    public static UnbiddenBigStyle UnbiddenStyle(this Mod style) => (UnbiddenBigStyle) style.GetGlobalBgStyle("UnbiddenMod");
-    public static UnbiddenRecipes UnbiddenRecipes(this Mod recipe) => (UnbiddenRecipes) recipe.GetGlobalRecipe("UnbiddenMod");
-    public static Player ProjectileOwnerPlayer (this Projectile projectile) => Main.player[projectile.owner];
-    public static NPC ProjectileOwnerNPC (this Projectile projectile) => Main.npc[projectile.owner];
-    public static Player LocalPlayer () => Main.LocalPlayer;
+    /// <summary>References the UnbiddenGlobalWall instance. Shorthand for ease of use.</summary>
+    public static UnbiddenWall UnbiddenWall(this Mod wall) => (UnbiddenWall)wall.GetGlobalWall("UnbiddenMod");
+    /// <summary>References the UnbiddenWorld instance. Shorthand for ease of use.</summary>
+    public static UnbiddenWorld UnbiddenWorld(this Mod world) => (UnbiddenWorld)world.GetModWorld("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalBuff instance. Shorthand for ease of use.</summary>
+    public static UnbiddenBuff UnbiddenBuff(this Mod buff) => (UnbiddenBuff)buff.GetGlobalBuff("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalTile instance. Shorthand for ease of use.</summary>
+    public static UnbiddenTile UnbiddenTile(this Mod tile) => (UnbiddenTile)tile.GetGlobalTile("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalBigStyle instance. Shorthand for ease of use.</summary>
+    public static UnbiddenBigStyle UnbiddenStyle(this Mod style) => (UnbiddenBigStyle)style.GetGlobalBgStyle("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalRecipes instance. Shorthand for ease of use.</summary>
+    public static UnbiddenRecipes UnbiddenRecipes(this Mod recipe) => (UnbiddenRecipes)recipe.GetGlobalRecipe("UnbiddenMod");
+    /// <summary>References the Player owner of a projectile instance. Shorthand for ease of use.</summary>
+    public static Player ProjectileOwnerPlayer(this Projectile projectile) => Main.player[projectile.owner];
+    /// <summary>References the NPC owner of a projectile instance. Shorthand for ease of use.</summary>
+    public static NPC ProjectileOwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
+    /// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
+    public static Player LocalPlayer() => Main.LocalPlayer;
+    /// <summary>Retyrbs the correct frame to draw for sprite animations. Shorthand for ease of use.</summary>
+    public static Rectangle AnimationFrame(Item item, Texture2D tex) => Main.itemAnimations[item.type].GetFrame(tex);
+    /// <summary>Returns the origin on the frame of a sprite animation. Shorthand for ease of use.</summary>
+    public static Vector2 AnimationOrigin(Item item, int frameCount) => new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
+    /// <summary>Returns the position for an Entity. Shorthand for ease of use.</summary>
+    public static Vector2 AnimatedEntityPosition(Entity entity, Texture2D tex, int frameCount) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y - 13);
+    // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f))
+    public static Vector2 EntityPosition(Entity entity) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y - 13);
 
     /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
@@ -41,7 +58,6 @@ namespace UnbiddenMod
       {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
       {1.010f, 1.022f, 1.037f, 1.056f, 1.080f, 1.110f, 5.000f, 1.192f, 1.246f, 1.310f, 1.397f, 1.497f, 1.611f, 1.740f, 1.885f}
     };
-
     /// <summary>Calculates the elemental defense of the player based on their affinities, and any accessories and armor providing such defense.</summary>
     public static void CalcElemDefense(this Player player)
     {
@@ -595,13 +611,28 @@ namespace UnbiddenMod
       return velocity;
     }
 
-    public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, int frameCount, float rotation, Texture2D tex)
+    public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, int frameCount, float rotation, float scale, Texture2D tex, bool animated = true)
     {
-      Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
-      Rectangle frame = item.getRect();
-      frame.Y = tex.Height / frameCount * Main.itemAnimations[item.type].Frame;
-      Vector2 position = item.Center - Main.screenPosition;
-      spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+      if (animated)
+      {
+        Vector2 origin = AnimationOrigin(item, frameCount);
+        // Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, (Main.itemTexture[item.type].Height / frameCount / 2) + 19);
+        // Rectangle frame = AnimationFrame(item, tex);
+        // Rectangle frame = item.getRect();
+        // frame.Y = tex.Height / frameCount * Main.itemAnimations[item.type].Frame;
+        // Vector2 position = EntityPosition(item);
+        // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f) + 2f)
+        Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex); 
+        Vector2 position = AnimatedEntityPosition(item, tex, frameCount);
+        // Vector2 position = item.Center - Main.screenPosition;
+        spriteBatch.Draw(tex, position, frame, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+        // spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+      }
+      else
+      {
+        Vector2 position = AnimatedEntityPosition(item, tex, frameCount);
+        spriteBatch.Draw(tex, position, tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0.0f);
+      }
     }
 
     public static class ParryTypeID

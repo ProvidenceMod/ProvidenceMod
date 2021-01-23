@@ -1,6 +1,6 @@
 displayName = UnbiddenMod
 author = Unbidden Dev Team
-version = 0.2.0.1
+version = 0.2.1.2
 homepage = https://github.com/Unbidden-Dev-Team/UnbiddenMod
 hideCode = false
 hideResources = true

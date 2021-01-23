@@ -95,7 +95,7 @@ In order to install our mod, simply follow these steps:
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct
 
-Please follow this Code of Conduct when udnertaking in any interaction in our GitHub repository, or any of its children.
+Please follow this Code of Conduct when undertaking in any interaction in our GitHub repository, or any of its children.
 
 ### Our Pledge
 

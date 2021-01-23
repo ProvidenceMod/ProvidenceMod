@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using static UnbiddenMod.UnbiddenUtils;
-using UnbiddenMod.Items.Materials;
 using UnbiddenMod.NPCs.FireAncient;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -13,11 +12,12 @@ namespace UnbiddenMod.Items.Consumables
 {
   public class ScintilatingObsidian : ModItem
   {
-    public int frame = Main.itemFrameCounter[0];
+    public int frame;
+    public int frameCounter;
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Scintilating Obsidian");
-      Tooltip.SetDefault($"\"It pulses with an eerie fiery glow.\"{frame}");
+      Tooltip.SetDefault("It pulses with an eerie fiery glow.");
       Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(8, 13));
     }
 
@@ -27,6 +27,7 @@ namespace UnbiddenMod.Items.Consumables
       item.height = 40;
       item.CloneDefaults(ItemID.SuspiciousLookingEye);
       item.maxStack = 1;
+      item.rare = ItemRarityID.Lime;
     }
 
     public override bool CanUseItem(Player player)
@@ -44,31 +45,51 @@ namespace UnbiddenMod.Items.Consumables
     {
       return false;
     }
-    public override void PostDrawInInventory(
+    public override bool PreDrawInInventory(
       SpriteBatch spriteBatch,
       Vector2 position,
-      Rectangle frame,
+      Rectangle frameI,
       Color drawColor,
       Color itemColor,
       Vector2 origin,
-      float scale) => item.DrawGlowmask(spriteBatch, 13, default, scale, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"), true);
+    float scale)
+    {
+      Texture2D texture = GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianAnimated");
+      spriteBatch.Draw(texture, position, new Rectangle?(item.AnimationFrame(ref frame, ref frameCounter, 8, 13)), Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
+      return false;
+    }
+    public override bool PreDrawInWorld(
+      SpriteBatch spriteBatch,
+      Color lightColor,
+      Color alphaColor,
+      ref float rotation,
+      ref float scale,
+      int whoAmI)
+    {
+      Texture2D texture = GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianAnimated");
+      spriteBatch.Draw(texture, item.position - Main.screenPosition, new Rectangle?(item.AnimationFrame(ref frame, ref frameCounter, 8, 13)), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+      return false;
+    }
     public override void PostDrawInWorld(
       SpriteBatch spriteBatch,
       Color lightColor,
-       Color alphaColor,
-       float rotation,
-       float scale,
-       int whoAmI) => item.DrawGlowmask(spriteBatch, 13, rotation, scale, GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow"), true);
+      Color alphaColor,
+      float rotation,
+      float scale,
+      int whoAmI)
+    {
+      Texture2D texture = GetTexture("UnbiddenMod/Items/Consumables/ScintilatingObsidianGlow");
+      spriteBatch.Draw(texture, item.position - Main.screenPosition, new Rectangle?(item.AnimationFrame(ref frame, ref frameCounter, 8, 13, false)), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+    }
     public override void AddRecipes()
     {
-      // Recipes here. See Basic Recipe Guide2
       ModRecipe recipe = new ModRecipe(mod);
 
       recipe.AddIngredient(ItemID.Feather, 3);
       recipe.AddIngredient(ItemID.SunplateBlock, 20);
-      recipe.AddTile(TileID.SkyMill); // Ancient Manipulator
-      recipe.SetResult(this); //Sets the result of this recipe to this item
-      recipe.AddRecipe(); //Adds the recipe to the mod
+      recipe.AddTile(TileID.SkyMill);
+      recipe.SetResult(this);
+      recipe.AddRecipe();
     }
   }
 }

@@ -597,8 +597,9 @@ namespace UnbiddenMod
 
     public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, int frameCount, float rotation, Texture2D tex)
     {
-      Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, (Main.itemTexture[item.type].Height / frameCount / 2) + 19);
-      Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex);
+      Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
+      Rectangle frame = item.getRect();
+      frame.Y = tex.Height / frameCount * Main.itemAnimations[item.type].Frame;
       Vector2 position = item.Center - Main.screenPosition;
       spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
     }

@@ -64,3 +64,5 @@ C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin
 C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.xml
 C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.Properties.Resources.resources
 C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.GenerateResource.cache
+c:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.Properties.Resources.resources
+c:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.GenerateResource.cache

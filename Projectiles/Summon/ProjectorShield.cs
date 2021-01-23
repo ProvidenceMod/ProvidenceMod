@@ -43,7 +43,7 @@ namespace UnbiddenMod.Projectiles.Summon
       CreateShieldField();
 
       if (GrabProjCount(projectile.type) > 1)
-        projectile.ProjectileOwner().WipeOldestTurret();
+        projectile.ProjectileOwnerPlayer().WipeOldestTurret();
 
       foreach (Projectile proj in Main.projectile)
       {

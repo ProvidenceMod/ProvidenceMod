@@ -45,9 +45,11 @@ namespace UnbiddenMod
     /// <summary>Returns the origin on the frame of a sprite animation. Shorthand for ease of use.</summary>
     public static Vector2 AnimationOrigin(Item item, int frameCount) => new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
     /// <summary>Returns the position for an Entity. Shorthand for ease of use.</summary>
-    public static Vector2 AnimatedEntityPosition(Entity entity, Texture2D tex, int frameCount) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y);
+    public static Vector2 AnimatedEntityPosition(Entity entity, Texture2D tex, int frameCount) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y - (entity.height / 2));
     // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f))
-    public static Vector2 EntityPosition(Entity entity) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y);
+    public static Vector2 EntityPosition(Entity entity) => entity.Center - Main.screenPosition;
+    public static Item HeldItem(this Player player) => !Main.mouseItem.IsAir ? Main.mouseItem : player.HeldItem;
+
 
     /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
@@ -620,24 +622,51 @@ namespace UnbiddenMod
     {
       if (animated)
       {
-        Vector2 origin = AnimationOrigin(item, frameCount);
         // Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, (Main.itemTexture[item.type].Height / frameCount / 2) + 19);
         // Rectangle frame = AnimationFrame(item, tex);
         // Rectangle frame = item.getRect();
         // frame.Y = tex.Height / frameCount * Main.itemAnimations[item.type].Frame;
         // Vector2 position = EntityPosition(item);
         // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f) + 2f)
-        Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex); 
-        Vector2 position = AnimatedEntityPosition(item, tex, frameCount) + offset;
         // Vector2 position = item.Center - Main.screenPosition;
-        spriteBatch.Draw(tex, position, frame, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
         // spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+        // int frameHeight = tex.Height / Main.itemFrame[item.type];
+        // int spriteSheetOffset = frameHeight * Main.itemAnimations[item.type].Frame;
+        // Vector2 sheetInsertPosition = (item.Center + (Vector2.UnitY * item.gfxOffY) - Main.screenPosition).Floor();
+        // spriteBatch.Draw(texture, sheetInsertPosition, new Rectangle?(new Rectangle(0, spriteSheetOffset, texture.Width, frameHeight)), drawColor, projectile.rotation, new Vector2(texture.Width / 2f, frameHeight / 2f), projectile.scale, effects, 0f);
+
+        // Vector2 origin = AnimationOrigin(item, frameCount);
+        // Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex);
+        // Vector2 position = AnimatedEntityPosition(item, tex, frameCount);
+        // spriteBatch.Draw(tex, position, frame, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+
+        Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
+        Rectangle frame = ((DrawAnimation)Main.itemAnimations[item.type]).GetFrame(tex);
+        Vector2 position = item.Center - Main.screenPosition;
+        spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
       }
       else
       {
         Vector2 position = AnimatedEntityPosition(item, tex, frameCount) + offset;
         spriteBatch.Draw(tex, position, tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0.0f);
       }
+    }
+    public static Rectangle AnimationFrame(
+      this Item item,
+      ref int frame,
+      ref int frameCounter,
+      int frameDelay,
+      int frameAmt,
+      bool frameCounterUp = true)
+    {
+      if (frameCounter >= frameDelay)
+      {
+        frameCounter = -1;
+        frame = frame == frameAmt - 1 ? 0 : frame + 1;
+      }
+      if (frameCounterUp)
+        ++frameCounter;
+      return new Rectangle(0, item.height * frame, item.width, item.height);
     }
 
     public static class ParryTypeID

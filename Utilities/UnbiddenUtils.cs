@@ -45,14 +45,19 @@ namespace UnbiddenMod
     /// <summary>Returns the origin on the frame of a sprite animation. Shorthand for ease of use.</summary>
     public static Vector2 AnimationOrigin(Item item, int frameCount) => new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
     /// <summary>Returns the position for an Entity. Shorthand for ease of use.</summary>
-    public static Vector2 AnimatedEntityPosition(Entity entity, Texture2D tex, int frameCount) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y - 13);
+    public static Vector2 AnimatedEntityPosition(Entity entity, Texture2D tex, int frameCount) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y);
     // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f))
-    public static Vector2 EntityPosition(Entity entity) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y - 13);
+    public static Vector2 EntityPosition(Entity entity) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y);
 
     /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
     /// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
     public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
+
+    /// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
+    public static int InTicks(this float seconds) => (int)(seconds * 60);
+    /// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
+    public static int InTicks(this int seconds) => seconds * 60;
     public static float[,] elemAffDef = new float[2, 15]
     {  // Defense score (middle), Damage mult (bottom)
       {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
@@ -611,7 +616,7 @@ namespace UnbiddenMod
       return velocity;
     }
 
-    public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, int frameCount, float rotation, float scale, Texture2D tex, bool animated = true)
+    public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, Texture2D tex, int frameCount, float rotation, float scale, Vector2 offset = default, bool animated = true)
     {
       if (animated)
       {
@@ -623,14 +628,14 @@ namespace UnbiddenMod
         // Vector2 position = EntityPosition(item);
         // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f) + 2f)
         Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex); 
-        Vector2 position = AnimatedEntityPosition(item, tex, frameCount);
+        Vector2 position = AnimatedEntityPosition(item, tex, frameCount) + offset;
         // Vector2 position = item.Center - Main.screenPosition;
         spriteBatch.Draw(tex, position, frame, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
         // spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
       }
       else
       {
-        Vector2 position = AnimatedEntityPosition(item, tex, frameCount);
+        Vector2 position = AnimatedEntityPosition(item, tex, frameCount) + offset;
         spriteBatch.Draw(tex, position, tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0.0f);
       }
     }

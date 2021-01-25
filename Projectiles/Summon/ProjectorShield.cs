@@ -43,11 +43,11 @@ namespace UnbiddenMod.Projectiles.Summon
       CreateShieldField();
 
       if (GrabProjCount(projectile.type) > 1)
-        Main.player[projectile.owner].WipeOldestTurret();
+        projectile.ProjectileOwnerPlayer().WipeOldestTurret();
 
       foreach (Projectile proj in Main.projectile)
       {
-        if (proj.active && proj.hostile && proj.position.IsInRadius(projectile.position, radius))
+        if (proj.active && proj.hostile && proj.position.IsInRadiusOf(projectile.position, radius))
         {
           for (int i = 0; i < 5; i++)
             _ = Dust.NewDust(proj.position, 3, 3, 16, 0, 0, 90, new Color(255,255,255), 1f);

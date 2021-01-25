@@ -52,7 +52,7 @@ namespace UnbiddenMod.NPCs
       int num = npc.life > 0 ? 1 : 5;
       for (int k = 0; k < num; k++)
       {
-        Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("MoonBlastDust"));
+        Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("ParryShieldDust"));
       }
     }
 

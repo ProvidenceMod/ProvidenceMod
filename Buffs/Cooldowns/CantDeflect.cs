@@ -8,7 +8,7 @@ namespace UnbiddenMod.Buffs.Cooldowns
     public override void SetDefaults()
     {
       DisplayName.SetDefault("Can't Deflect");
-      Description.SetDefault("So you can't spam the Micit Sword");
+      Description.SetDefault("Waiting for recharge...");
       Main.debuff[Type] = true;
       Main.pvpBuff[Type] = true;
       Main.buffNoSave[Type] = true;

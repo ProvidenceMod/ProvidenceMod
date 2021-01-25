@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Items.Accessories
 {
@@ -22,6 +23,8 @@ namespace UnbiddenMod.Items.Accessories
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
       player.Unbidden().micitBangle = true;
+      player.Unbidden().parryCapable = true;
+      player.Unbidden().parryType = ParryTypeID.Support;
     }
     public override void AddRecipes()
     {

@@ -19,6 +19,7 @@ namespace UnbiddenMod
     internal ElemDefUI ElemDefUI;
     internal Focus focusBar;
     internal BossHealth BossHealth;
+    public static ModHotKey ParryHotkey;
 
     public override void Load()
     {
@@ -45,6 +46,8 @@ namespace UnbiddenMod
       BossHealth.Initialize();
       bossHealthUI = new UserInterface();
       bossHealthUI.SetState(BossHealth);
+
+      ParryHotkey = RegisterHotKey("Parry", "F");
     }
     private bool DrawElemDefUI()
     {
@@ -111,7 +114,7 @@ namespace UnbiddenMod
           new List<int> { ModContent.NPCType<NPCs.FireAncient.FireAncient>() },
           this, // Mod
           "$Mods.UnbiddenMod.NPCName.FireAncient",
-          (Func<bool>)(() => UnbiddenGlobalNPC.downedFireAncient),
+          (Func<bool>)(() => UnbiddenWorld.downedFireAncient),
           ModContent.ItemType<Items.Weapons.Melee.AirSword>(),
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },

@@ -3,6 +3,9 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static UnbiddenMod.UnbiddenUtils;
+using static Terraria.ModLoader.ModContent;
+using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod.Projectiles.Melee
 {
@@ -15,7 +18,6 @@ namespace UnbiddenMod.Projectiles.Melee
 
     public override void SetDefaults()
     {
-      projectile.arrow = true;
       projectile.width = 30;
       projectile.height = 30;
       projectile.aiStyle = 0;
@@ -27,6 +29,8 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
       projectile.scale = 1f;
+      projectile.Unbidden().homingID = HomingID.Smart;
+      projectile.Unbidden().entityType = EntityType.NPC;
     }
 
     public override void AI()
@@ -34,7 +38,7 @@ namespace UnbiddenMod.Projectiles.Melee
       Lighting.AddLight(projectile.Center, (float)Main.DiscoR / 400f, (float)Main.DiscoG / 400f, (float)Main.DiscoB / 400f);
       projectile.ai[0]++;
       Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("MoonBlastDust"), 0, 0, 0, color, 0.7f);
+      Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<ParryShieldDust>(), 0, 0, 0, color, 0.7f);
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;
@@ -42,77 +46,41 @@ namespace UnbiddenMod.Projectiles.Melee
       }
       projectile.rotation += projectile.velocity.X * 0.05f;
       //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 16f, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("MoonBlast"), projectile.damage, projectile.knockBack, projectile.owner);
-      for (int i = 0; i < 200; i++)
-      {
-        NPC target = Main.npc[i];
-        //This will allow the projectile to only target hostile NPC's by referencing the variable, "target", above'
-        Vector2 offset = target.position - projectile.position;
-        const float speedCap = 20f;
-        const float gainStrength = 1.0f;
-        const float slowStrength = 1.1f;
-        // Finding the horizontal position of the target and adjusting trajectory accordingly
-        float shootToX = target.position.X + ((float)target.width * 0.5f) - projectile.Center.X;
-        // Finding the vertical position of the target and adjusting trajectory accordingly
-        float shootToY = target.position.Y - projectile.Center.Y;
-        //  √ shootToX² + shootToY², using the Pythagorean Theorem to calculate the distance from the target
-        float distance = (float)System.Math.Sqrt((double)((shootToX * shootToX) + (shootToY * shootToY)));
-        if (distance < 600f && !target.friendly && target.active)
-        {
-          UnbiddenGlobalProjectile.IsHomingNPC(projectile, offset, speedCap, gainStrength, slowStrength);
-        }
-      }
+      projectile.Homing(20f, 1.0f, 1.1f, 300f, true, 100f, true, 5f);
     }
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
     {
-      Texture2D tex = mod.GetTexture("Projectiles/MoonBlast");
+      Texture2D tex = mod.GetTexture("Projectiles/Melee/MoonBlast");
       const int counter = 5;
-      UnbiddenGlobalProjectile.AfterImage(this.projectile, lightColor, tex, counter);
+      UnbiddenGlobalProjectile.AfterImage(projectile, lightColor, tex, counter);
 
       return false;
-    }
-
-    public virtual void PostDraw()
-    {
-      projectile.rotation += projectile.velocity.X * 0.05f;
     }
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
     {
-      Player player = Main.player[projectile.owner];
-      int healingAmount = damage / 60; //decrease the value 30 to increase heal, increase value to decrease. Or you can just replace damage/x with a set value to heal, instead of making it based on damage.
+      Player player = projectile.ProjectileOwnerPlayer();
+      // Caps potential healing at 1% of max health per hit.
+      int healingAmount = damage / 60 >= player.statLifeMax / 100 ? player.statLifeMax / 100 : damage / 60;
+      // Actually heals, and gives the little green numbers pop up
       player.statLife += healingAmount;
       player.HealEffect(healingAmount, true);
+
       projectile.penetrate--;
       target.immune[projectile.owner] = 3;
-    }
 
-    /*public override bool OnTileCollide(Vector2 oldVelocity)
-    {
-      projectile.penetrate--;
-      if (projectile.penetrate <= 0)
+      int trueDmg = crit ? damage * 2 : damage;
+      if (target.life - trueDmg <= 0)
       {
-        projectile.Kill();
+        NPC newTarget = ClosestEnemyNPC(projectile);
+        if (newTarget?.active == true)
+          projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(newTarget.position));
       }
-      else
-      {
-        Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-        Main.PlaySound(SoundID.Item10, projectile.position);
-        if (projectile.velocity.X != oldVelocity.X)
-        {
-          projectile.velocity.X = -oldVelocity.X;
-        }
-        if (projectile.velocity.Y != oldVelocity.Y)
-        {
-          projectile.velocity.Y = -oldVelocity.Y;
-        }
-      }
-      return false;
-    }*/
+    }
 
     public override Color? GetAlpha(Color lightColor)
     {
-      Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      return color;
+      return new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
     }
 
     public override void Kill(int timeLeft)

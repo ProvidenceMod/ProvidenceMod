@@ -15,6 +15,7 @@ namespace UnbiddenMod.UI
     private FocusElement area;
     private UIText currFocus, breakSlash, maxFocus;
     private UIImage focusFrame;
+    private UIImage focusBackground;
     private Rectangle focusBarRect;
     private Rectangle focusUseRect;
     private UIImageFramed focusBar;
@@ -31,7 +32,7 @@ namespace UnbiddenMod.UI
       area = new FocusElement();
       area.Left.Set(500f, 0f);
       area.Top.Set(25f, 0f);
-      area.Width.Set(220, 0f);
+      area.Width.Set(110, 0f);
       area.Height.Set(52, 0f);
 
       currFocus = new UIText("0", 1f); breakSlash = new UIText("/", 1f); maxFocus = new UIText("100", 1f);
@@ -47,22 +48,28 @@ namespace UnbiddenMod.UI
       focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusUIFrame"));
       focusFrame.Top.Set(0, 0f);
       focusFrame.Left.Set(0, 0f);
-      focusFrame.Width.Set(260f, 0f);
-      focusFrame.Height.Set(68f, 0f);
+      focusFrame.Width.Set(130f, 0f);
+      focusFrame.Height.Set(30f, 0f);
 
-      focusBarRect = new Rectangle(0, 0, 200, 40);
+      focusBackground = new UIImage(GetTexture("UnbiddenMod/UI/FocusUIBackground"));
+      focusBackground.Top.Set(8f, 0f);
+      focusBackground.Left.Set(15f, 0f);
+      focusBackground.Width.Set(100f, 0f);
+      focusBackground.Height.Set(20f, 0f);
+
+      focusBarRect = new Rectangle(0, 0, 100, 20);
       focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIBar"), focusBarRect);
-      focusBar.Top.Set(16f, 0f);
-      focusBar.Left.Set(30f, 0f);
-      focusBar.Width.Set(200f, 0f);
-      focusBar.Height.Set(40f, 0f);
+      focusBar.Top.Set(8f, 0f);
+      focusBar.Left.Set(15f, 0f);
+      focusBar.Width.Set(100f, 0f);
+      focusBar.Height.Set(20f, 0f);
 
-      focusUseRect = new Rectangle(0, 0, 200, 40);
+      focusUseRect = new Rectangle(0, 0, 100, 20);
       focusUse = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIUse"), focusBarRect);
-      focusUse.Top.Set(16f, 0f);
-      focusUse.Left.Set(30f, 0f);
-      focusUse.Width.Set(200f, 0f);
-      focusUse.Height.Set(40f, 0f);
+      focusUse.Top.Set(8f, 0f);
+      focusUse.Left.Set(15f, 0f);
+      focusUse.Width.Set(100f, 0f);
+      focusUse.Height.Set(20f, 0f);
       Append(area);
     }
 
@@ -72,7 +79,7 @@ namespace UnbiddenMod.UI
       currFocus.SetText(((int)(unPlayer.focus * 100)).ToString());
       float quotient = unPlayer.focus / unPlayer.focusMax;
       quotient = Utils.Clamp(quotient, 0f, 1f);
-      focusBarRect.Width = (int)(200 * quotient);
+      focusBarRect.Width = (int)(100 * quotient);
       focusBar.SetFrame(focusBarRect);
       // Minor optimization so it doesn't have to run as much.
       // ONLY RECOMMENDED FOR SMALLER CHANGING ITEMS LIKE MAX VALUES.
@@ -100,6 +107,7 @@ namespace UnbiddenMod.UI
           focusUse.SetFrame(focusBarRect);
           barSet = true;
         }
+        area.Append(focusBackground);
         area.Append(focusUse);
         area.Append(focusBar);
         area.Append(focusFrame);

@@ -64,28 +64,23 @@ In order to install our mod, simply follow these steps:
 <a name="contributors"></a>
 ## Contributors
 
-<div class="row">
+<p float="left">
    <a href="https://github.com/FenGoScrem">
-    <div class="column">
-      <img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="50">
-    </div>
+      <img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="100" />
    </a>
-  <a href="https://github.com/LanceYosh">
-  <div class="column">
-    <img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="50">
-  </div>
-  </a>
-  <a href="https://github.com/SnowyStarfall">
-  <div class="column">
-    <img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="50">
-  </div>
-  </a>
-  <a href="https://github.com/ZackFox0">
-  <div class="column">
-    <img src="https://avatars1.githubusercontent.com/u/65053215?s=400&v=4" width="50">
-  </div>
-  </a>
-</div>
+   <a href="https://github.com/LanceYosh">
+      <img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="100" />
+   </a>
+   <a href="https://github.com/SnowyStarfall">
+      <img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="100" />
+   </a>
+   <a href="https://github.com/ZackFox0">
+      <img src="https://avatars1.githubusercontent.com/u/65053215?s=400&v=4" width="100" />
+   </a>
+   <a href="https://github.com/FloofLeo">
+      <img src="https://avatars.githubusercontent.com/u/65053413?s=460&v=4" width="100" />
+   </a>
+</p>
 
 <a name="credits"></a>
 ## Credits
@@ -100,7 +95,7 @@ In order to install our mod, simply follow these steps:
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct
 
-Please follow this Code of Conduct when udnertaking in any interaction in our GitHub repository, or any of its children.
+Please follow this Code of Conduct when undertaking in any interaction in our GitHub repository, or any of its children.
 
 ### Our Pledge
 

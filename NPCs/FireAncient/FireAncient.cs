@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using UnbiddenMod.Projectiles;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.NPCs.FireAncient
 {
@@ -200,9 +201,9 @@ namespace UnbiddenMod.NPCs.FireAncient
 
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
     {
-      if (UnbiddenGlobalNPC.downedFireAncient)
+      if (!UnbiddenWorld.downedFireAncient)
       {
-        UnbiddenGlobalNPC.downedFireAncient = true;
+        UnbiddenWorld.downedFireAncient = true;
       }
     }
 

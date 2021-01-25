@@ -12,11 +12,14 @@ namespace UnbiddenMod
     // Elemental variables for Projectiles
 
     public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
-    public bool inverseKB = false;
+    public bool inverseKB;
     // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
-    public bool deflected = false;
-    public bool amped = false;
+    public bool deflectable = true;
+    public bool deflected;
+    public bool amped;
+    public int entityType;
+    public int homingID;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / (int)Main.projFrames[projectile.type];
@@ -50,86 +53,7 @@ namespace UnbiddenMod
         Main.spriteBatch.Draw(texture, drawPos, rectangle, color, rotation, origin, 1f, SpriteEffects.None, 0f);
       }
     }
-    // Projectile projectile
-    // Vector2 offset
-    // Vector2 speedX
-    // Vector2 speedY
-    // float gainStrength
-    // float speedCap
-    // float slowStrength
-    public static void IsHomingNPC(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
-    {
-      if (offset.X > 0)
-      {
-        if (projectile.velocity.X < 0)
-          projectile.velocity.X /= slowStrength;
-        if (projectile.velocity.X < speedCap)
-          projectile.velocity.X += gainStrength;
-      }
-      if (offset.X < 0)
-      {
-        if (projectile.velocity.X > 0)
-          projectile.velocity.X /= slowStrength;
-        if (projectile.velocity.X > -speedCap)
-          projectile.velocity.X -= gainStrength;
-      }
-      if (offset.X == 0)
-        projectile.velocity.X = 0f;
-      /////
-      if (offset.Y > 0)
-      {
-        if (projectile.velocity.Y < 0)
-          projectile.velocity.Y /= slowStrength;
-        if (projectile.velocity.Y < speedCap)
-          projectile.velocity.Y += gainStrength;
-      }
-      if (offset.Y < 0)
-      {
-        if (projectile.velocity.Y > 0)
-          projectile.velocity.Y /= slowStrength;
-        if (projectile.velocity.Y > -speedCap)
-          projectile.velocity.Y -= gainStrength;
-      }
-      if (offset.Y == 0)
-        projectile.velocity.Y = 0f;
-    }
 
-    public static void IsHomingPlayer(Projectile projectile, Vector2 offset, float speedCap, float gainStrength, float slowStrength)
-    {
-      if (offset.X > 0)
-      {
-        if (projectile.velocity.X < 0)
-          projectile.velocity.X /= slowStrength;
-        if (projectile.velocity.X < speedCap)
-          projectile.velocity.X += gainStrength;
-      }
-      if (offset.X < 0)
-      {
-        if (projectile.velocity.X > 0)
-          projectile.velocity.X /= slowStrength;
-        if (projectile.velocity.X > -speedCap)
-          projectile.velocity.X -= gainStrength;
-      }
-      if (offset.X == 0)
-        projectile.velocity.X = 0f;
-      /////
-      if (offset.Y > 0)
-      {
-        if (projectile.velocity.Y < 0)
-          projectile.velocity.Y /= slowStrength;
-        if (projectile.velocity.Y < speedCap)
-          projectile.velocity.Y += gainStrength;
-      }
-      if (offset.Y < 0)
-      {
-        if (projectile.velocity.Y > 0)
-          projectile.velocity.Y /= slowStrength;
-        if (projectile.velocity.Y > -speedCap)
-          projectile.velocity.Y -= gainStrength;
-      }
-      if (offset.Y == 0)
-        projectile.velocity.Y = 0f;
-    }
     public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
     {
       for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)

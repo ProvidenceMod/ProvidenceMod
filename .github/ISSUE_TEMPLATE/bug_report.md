@@ -4,6 +4,7 @@ about: Create a report to help us improve
 title: "[BUG] Summary Title"
 labels: bug
 assignees: SnowyStarfall, ZackFox0
+
 ---
 
 **Describe the bug**

@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[BUG] Unexpected behavior "
+title: "[BUG] Summary Title"
 labels: bug
 assignees: SnowyStarfall, ZackFox0
 

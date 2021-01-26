@@ -1,7 +1,7 @@
 ---
 name: Questions & Concerns
 about: Ask questions about this project
-title: "[QUESTION] Need guidance"
+title: "[QUESTION] Summary Title"
 labels: question
 assignees: SnowyStarfall, ZackFox0
 

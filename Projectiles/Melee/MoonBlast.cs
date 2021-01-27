@@ -29,29 +29,26 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
       projectile.scale = 1f;
-      projectile.Unbidden().homingID = HomingID.Smart;
-      projectile.Unbidden().entityType = EntityType.NPC;
+      projectile.Unbidden().homingID = HomingID.Natural;
     }
 
     public override void AI()
     {
       Lighting.AddLight(projectile.Center, (float)Main.DiscoR / 400f, (float)Main.DiscoG / 400f, (float)Main.DiscoB / 400f);
       projectile.ai[0]++;
-      Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0);
-      Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<ParryShieldDust>(), 0, 0, 0, color, 0.7f);
       if (projectile.soundDelay == 0)
       {
         projectile.soundDelay = 640;
         Main.PlaySound(SoundID.Item9, projectile.position);
       }
       projectile.rotation += projectile.velocity.X * 0.05f;
-      //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 16f, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("MoonBlast"), projectile.damage, projectile.knockBack, projectile.owner);
-      projectile.Homing(20f, 1.0f, 1.1f, 300f, true, 100f, true, 5f);
+      NPC target = ClosestEnemyNPC(projectile);
+      projectile.Homing(target, 20f, default, default, 50, 300f, default, default, default, default);
     }
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
     {
-      Texture2D tex = mod.GetTexture("Projectiles/Melee/MoonBlast");
+      Texture2D tex = GetTexture("UnbiddenMod/Projectiles/Melee/MoonBlast");
       const int counter = 5;
       UnbiddenGlobalProjectile.AfterImage(projectile, lightColor, tex, counter);
 
@@ -70,12 +67,12 @@ namespace UnbiddenMod.Projectiles.Melee
       target.immune[projectile.owner] = 3;
 
       int trueDmg = crit ? damage * 2 : damage;
-      if (target.life - trueDmg <= 0)
-      {
-        NPC newTarget = ClosestEnemyNPC(projectile);
-        if (newTarget?.active == true)
-          projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(newTarget.position));
-      }
+      // if (target.life - trueDmg <= 0)
+      // {
+      //   NPC newTarget = ClosestEnemyNPC(projectile);
+      //   if (newTarget?.active == true)
+      //     projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(newTarget.position));
+      // }
     }
 
     public override Color? GetAlpha(Color lightColor)

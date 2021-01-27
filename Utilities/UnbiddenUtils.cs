@@ -9,6 +9,7 @@ using UnbiddenMod.Projectiles.Healing;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using UnbiddenMod;
 
 namespace UnbiddenMod
 {
@@ -40,16 +41,10 @@ namespace UnbiddenMod
     public static NPC ProjectileOwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
     /// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
     public static Player LocalPlayer() => Main.LocalPlayer;
-    /// <summary>Retyrbs the correct frame to draw for sprite animations. Shorthand for ease of use.</summary>
-    public static Rectangle AnimationFrame(Item item, Texture2D tex) => Main.itemAnimations[item.type].GetFrame(tex);
-    /// <summary>Returns the origin on the frame of a sprite animation. Shorthand for ease of use.</summary>
-    public static Vector2 AnimationOrigin(Item item, int frameCount) => new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
     /// <summary>Returns the position for an Entity. Shorthand for ease of use.</summary>
-    public static Vector2 AnimatedEntityPosition(Entity entity, Texture2D tex, int frameCount) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y - (entity.height / 2));
-    // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f))
     public static Vector2 EntityPosition(Entity entity) => entity.Center - Main.screenPosition;
+    /// <summary>Returns the heldItem of the Player. Shorthand for ease of use.</summary>
     public static Item HeldItem(this Player player) => !Main.mouseItem.IsAir ? Main.mouseItem : player.HeldItem;
-
 
     /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
@@ -109,10 +104,6 @@ namespace UnbiddenMod
       }
       return damage;
     }
-    // 
-    // Summary:
-    // Calculates elemental projectile damage based on UnbiddenGlobalNPC resists.
-    // UnbiddenUtils.CalcEleDamage(Projectile projectile, NPC npc, ref int damage);
     /// <summary>
     /// Elemental damage calculation for when the player hits an NPC with a projectile.
     /// </summary>
@@ -275,10 +266,10 @@ namespace UnbiddenMod
       {
         if (currProj.IsParry(player, hitbox, ref parryShield))
         {
+          _ = Projectile.NewProjectile(new Vector2(player.position.X + 35, 0), new Vector2(0, 0), ProjectileType<HealProjectile>(), 0, 0);
           HPBoost += currProj.damage / 10;
           currProj.active = false;
           affectedProjs++;
-          _ = Projectile.NewProjectile(new Vector2(player.position.X + 35, 0), new Vector2(0, 0), ProjectileType<HealProjectile>(), 0, 0);
         }
       }
       player.Unbidden().parriedProjs += affectedProjs;
@@ -362,22 +353,12 @@ namespace UnbiddenMod
       float oldVRotation = v.ToRotation();
       return v.RotatedBy(rotation - oldVRotation);
     }
-    // 
-    // Summary:
-    // Add to a list if condition returns true.
-    // UnbiddenUtils.AddWithCondition(List<T> list, T type, bool condition);
-    public static void AddWithCondition<T>(this List<T> list, T type, bool condition)
-    {
-      if (!condition)
-        return;
-      list.Add(type);
-    }
+    /// <summary>Gradually shifts between two colors over ingame time.</summary>
     public static Color ColorShift(Color firstColor, Color secondColor, float seconds)
     {
       float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
       return Color.Lerp(firstColor, secondColor, amount);
     }
-
     /// <summary>For use in setting defaults in items.</summary>
     /// <param name="item">The item being set.</param>
     /// <param name="elID">The element of a weapon's attacks, or additional elemental defense of accessories and armor.</param>
@@ -407,7 +388,6 @@ namespace UnbiddenMod
       }
       return Tuple.Create(bossExists, bossID);
     }
-    // Tuple in this order: Damage, DR, Regen, Speed
     /// <summary>Returns the player's bonuses originated from their focus. In a tuple for ease of access.</summary>
     public static Tuple<int, decimal, decimal, decimal> FocusBonuses(this Player player)
     {
@@ -419,60 +399,87 @@ namespace UnbiddenMod
       decimal moveSpeedBoost = focusPercent / 2;
       return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR, regen, moveSpeedBoost);
     }
-
-    /// <summary>
-    /// Provides a random point near the Vector2 you call this on.
-    /// </summary>
+    /// <summary>Provides a random point near the Vector2 you call this on.</summary>
+    /// <param name="v">The origin point.</param>
     /// <param name="maxDist">The distance in pixels away from the origin to move. Defaults at 16f, or 1 tile.</param>
     public static Vector2 RandomPointNearby(this Vector2 v, float maxDist = 16f)
     {
       return Vector2.Add(v, new Vector2(0, Main.rand.NextFloat(maxDist)).RotatedByRandom(180f.InRadians()));
     }
-
-    /// <summary>
-    /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
-    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
-    /// </summary>
-    /// <param name="projectile">The projectile being worked with.</param>
-    /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
-    /// <param name="turnStrength">How quickly the projectile will gain turn. Defaults at 0.1f </param>
-    /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
-    /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
-    /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
-    public static void GravityHoming(this Projectile projectile, float speedCap = 6f, float turnStrength = 0.1f,
-    float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f)
+    /// <summary> Provides the animation frame for given parameters.</summary>
+    /// <param name="frame">
+    /// <param name="frameCounter">
+    /// <param name="frameTime">
+    /// <param name="frameAmount">
+    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameCounter, int frameTime, int frameAmount, bool frameCounterUp)
     {
-      // Slightly different tracking methods between hostile and friendly AIs. Not much, but enough.
-      if (projectile.friendly)
+      if (frameCounter >= frameTime)
       {
-        // Potential owner requirements?
-        Player owner = projectile.ProjectileOwnerPlayer();
-        // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
-        NPC target = ClosestEnemyNPC(projectile);
-        if (target?.position.IsInRadiusOf(projectile.position, trackingRadius) == true)
-          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
-
-        // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
-        if (overshotPrevention && target?.position.IsInRadiusOf(projectile.position, overshotThreshold) == true)
-          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
+        frameCounter = -1;
+        frame = frame == frameAmount - 1 ? 0 : frame + 1;
       }
-      else if (projectile.hostile)
-      {
-        // Same basic process as with friendly projs.
-        NPC owner = projectile.ProjectileOwnerNPC();
-        Player target = ClosestPlayer(projectile);
-        if (target.active && target.position.IsInRadiusOf(projectile.position, trackingRadius))
-          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
-
-        // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
-        if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold))
-          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
-      }
-
-      // Force speed cap.
-      if (projectile.velocity.Length() > speedCap)
-        projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
+      if(frameCounterUp)
+        frameCounter++;
+      return new Rectangle(0, item.height * frame, item.width, item.height);
     }
+
+    public static void Glowmask(this Item item, SpriteBatch spriteBatch, float rotation, Texture2D glowmaskTexture)
+    {
+      Vector2 origin = new Vector2(glowmaskTexture.Width / 2f, (float)((glowmaskTexture.Height / 2.0) - 2.0));
+      spriteBatch.Draw(glowmaskTexture, item.Center - Main.screenPosition, null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+    }
+
+    public static void DrawSwordGlowmask(PlayerDrawInfo info)
+    {
+      Player player = info.drawPlayer;
+      Texture2D glowmaskTexture = null;
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
+      {
+        if (HeldItem(player).Unbidden().glowmask)
+          glowmaskTexture = player.HeldItem.Unbidden().glowmaskTexture;
+        Main.playerDrawData.Add(
+          new DrawData(
+            glowmaskTexture,
+            info.itemLocation - Main.screenPosition,
+            glowmaskTexture.Frame(),
+            Color.White,
+            player.itemRotation,
+            new Vector2(player.direction == 1 ? 0 : glowmaskTexture.Width, glowmaskTexture.Height),
+            player.HeldItem.scale,
+            info.spriteEffects,
+            0
+          ));
+      }
+    }
+
+    public static void DrawGlowmaskAnimation(PlayerDrawInfo info)
+    {
+      Player player = info.drawPlayer;
+      Texture2D animationTexture = null;
+      Rectangle frame = default;
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
+      {
+        if (HeldItem(player).Unbidden().glowmask)
+        {
+          animationTexture = player.HeldItem.Unbidden().animationTexture;
+          frame = Main.itemAnimations[player.HeldItem.type].GetFrame(animationTexture);
+        }
+        Main.playerDrawData.Add(
+          new DrawData(
+            animationTexture,
+            info.itemLocation - Main.screenPosition,
+            frame,
+            Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16),
+            player.itemRotation,
+            new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height),
+            player.HeldItem.scale,
+            info.spriteEffects,
+            0
+          )
+        );
+      }
+    }
+
     /// <summary>
     /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
     /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
@@ -486,34 +493,32 @@ namespace UnbiddenMod
     /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
     /// <param name="courseAdjust">Whether or not the projectile should never overshoot the axis. Defaults to false.</param>
     /// <param name="courseRange">If courseAdjust is true, provides the range which will activate course adjustment. The range is centered around the axis of the target. Defaults to 5f.</param>
-    public static void Homing(this Projectile projectile, float speedCap = 8f, float gain = 0.1f, float slow = 0.1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 5f, bool courseAdjust = false, float courseRange = 5f)
+    public static void Homing(this Projectile projectile, Entity entity, float speed = 8f, float gain = 0.1f, float slow = 0.1f, float turn = 1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 5f, bool courseAdjust = false, float courseRange = 5f)
     {
+      Vector2 target = entity == null ? default : entity.Hitbox.Center.ToVector2() - projectile.position;
       switch (projectile.Unbidden().homingID)
       {
         case HomingID.Smart:
-          switch (projectile.Unbidden().entityType)
-          {
-            case EntityType.NPC:
-              NPC target = ClosestEnemyNPC(projectile);
-              Vector2 offset = target == null ? default : target.Hitbox.Center.ToVector2() - projectile.position;
-              if (target?.active == true && target.position.IsInRadiusOf(projectile.position, trackingRadius))
-              {
-                projectile.velocity = projectile.velocity.SmartHoming(projectile, target, offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
-              }
-              break;
-            case 1:
-              break;
-            case 2:
-              break;
-            case 3:
-              break;
-          }
+          if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
+            projectile.velocity = projectile.velocity.SmartHoming(projectile, entity, target, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speed);
           break;
-        case 1:
+        case HomingID.Gravity:
+          if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
+            GravityHoming(projectile, entity, speed, turn, trackingRadius, overshotPrevention, overshotThreshold);
           break;
-        case 2:
+        case HomingID.Sine:
           break;
-        case 3:
+        case HomingID.Linear:
+          break;
+        case HomingID.Natural:
+          if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
+            NaturalHoming(projectile, entity, turn, speed);
+          break;
+        case HomingID.Smooth:
+          if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
+            SmoothHoming(projectile);
+          break;
+        case HomingID.Complex:
           break;
       }
     }
@@ -618,55 +623,121 @@ namespace UnbiddenMod
       return velocity;
     }
 
-    public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, Texture2D tex, int frameCount, float rotation, float scale, Vector2 offset = default, bool animated = true)
+    /// <summary>
+    /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
+    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
+    /// </summary>
+    /// <param name="projectile">The projectile being worked with.</param>
+    /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
+    /// <param name="turnStrength">How quickly the projectile will gain turn. Defaults at 0.1f </param>
+    /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
+    /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
+    /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
+    public static void GravityHoming(this Projectile projectile, Entity entity, float speedCap = 6f, float turnStrength = 0.1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f)
     {
-      if (animated)
+      // Slightly different tracking methods between hostile and friendly AIs. Not much, but enough.
+      if (projectile.friendly)
       {
-        // Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, (Main.itemTexture[item.type].Height / frameCount / 2) + 19);
-        // Rectangle frame = AnimationFrame(item, tex);
-        // Rectangle frame = item.getRect();
-        // frame.Y = tex.Height / frameCount * Main.itemAnimations[item.type].Frame;
-        // Vector2 position = EntityPosition(item);
-        // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f) + 2f)
-        // Vector2 position = item.Center - Main.screenPosition;
-        // spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
-        // int frameHeight = tex.Height / Main.itemFrame[item.type];
-        // int spriteSheetOffset = frameHeight * Main.itemAnimations[item.type].Frame;
-        // Vector2 sheetInsertPosition = (item.Center + (Vector2.UnitY * item.gfxOffY) - Main.screenPosition).Floor();
-        // spriteBatch.Draw(texture, sheetInsertPosition, new Rectangle?(new Rectangle(0, spriteSheetOffset, texture.Width, frameHeight)), drawColor, projectile.rotation, new Vector2(texture.Width / 2f, frameHeight / 2f), projectile.scale, effects, 0f);
-
-        // Vector2 origin = AnimationOrigin(item, frameCount);
-        // Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex);
-        // Vector2 position = AnimatedEntityPosition(item, tex, frameCount);
-        // spriteBatch.Draw(tex, position, frame, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
-
-        Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
-        Rectangle frame = ((DrawAnimation)Main.itemAnimations[item.type]).GetFrame(tex);
-        Vector2 position = item.Center - Main.screenPosition;
-        spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
-      }
-      else
-      {
-        Vector2 position = AnimatedEntityPosition(item, tex, frameCount) + offset;
-        spriteBatch.Draw(tex, position, tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0.0f);
+        if (entity?.position.IsInRadiusOf(projectile.position, trackingRadius) == true)
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(entity.position), turnStrength);
+        // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
+        if (overshotPrevention && entity?.position.IsInRadiusOf(projectile.position, overshotThreshold) == true)
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(entity.position));
+        // Force speed cap.
+        if (projectile.velocity.Length() > speedCap)
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
       }
     }
-    public static Rectangle AnimationFrame(
-      this Item item,
-      ref int frame,
-      ref int frameCounter,
-      int frameDelay,
-      int frameAmt,
-      bool frameCounterUp = true)
+    //TODO: Code this AI
+    public static void SineHoming()
+    { }
+    //TODO: Code this AI
+    public static void LinearHoming()
+    { }
+    //TODO: Clarify this AI
+    public static void SmoothHoming(Projectile projectile)
     {
-      if (frameCounter >= frameDelay)
+      float velocityTriangle = (float)Math.Sqrt((projectile.velocity.X * (double)projectile.velocity.X) + (projectile.velocity.Y * (double)projectile.velocity.Y));
+      float localAI = projectile.localAI[0];
+      if ((double)localAI == 0.0)
       {
-        frameCounter = -1;
-        frame = frame == frameAmt - 1 ? 0 : frame + 1;
+        projectile.localAI[0] = velocityTriangle;
+        localAI = velocityTriangle;
       }
-      if (frameCounterUp)
-        ++frameCounter;
-      return new Rectangle(0, item.height * frame, item.width, item.height);
+      float posX = projectile.position.X;
+      float posY = projectile.position.Y;
+      float range = 1000f;
+      bool tracking = false;
+      int ai = 0;
+      if (projectile.ai[1] == 0.0)
+      {
+        for (int index = 0; index < 200; ++index)
+        {
+          if (Main.npc[index].CanBeChasedBy(projectile) && (projectile.ai[1] == 0.0 || projectile.ai[1] == (double)(index + 1)))
+          {
+            float npcCenterX = Main.npc[index].position.X + (Main.npc[index].width / 2);
+            float npcCenterY = Main.npc[index].position.Y + (Main.npc[index].height / 2);
+            float totalOffset = Math.Abs(projectile.position.X + (projectile.width / 2) - npcCenterX) + Math.Abs(projectile.position.Y + (projectile.height / 2) - npcCenterY);
+            if (totalOffset < range && Collision.CanHit(new Vector2(projectile.position.X + (projectile.width / 2), projectile.position.Y + (projectile.height / 2)), 1, 1, Main.npc[index].position, Main.npc[index].width, Main.npc[index].height))
+            {
+              range = totalOffset;
+              posX = npcCenterX;
+              posY = npcCenterY;
+              tracking = true;
+              ai = index;
+            }
+          }
+        }
+        if (tracking)
+          projectile.ai[1] = ai + 1;
+        tracking = false;
+      }
+      if (projectile.ai[1] > 0.0)
+      {
+        int index = (int)(projectile.ai[1] - 1.0);
+        if (Main.npc[index].active && Main.npc[index].CanBeChasedBy(projectile, true) && !Main.npc[index].dontTakeDamage)
+        {
+          float npcCenterX = Main.npc[index].position.X + (Main.npc[index].width / 2);
+          float npcCenterY = Main.npc[index].position.Y + (Main.npc[index].height / 2);
+          if (Math.Abs(projectile.position.X + (projectile.width / 2) - npcCenterX) + (double)Math.Abs(projectile.position.Y + (projectile.height / 2) - npcCenterY) < 1000.0)
+          {
+            tracking = true;
+            posX = Main.npc[index].position.X + (Main.npc[index].width / 2);
+            posY = Main.npc[index].position.Y + (Main.npc[index].height / 2);
+          }
+        }
+        else
+        {
+          projectile.ai[1] = 0.0f;
+        }
+      }
+      if (!projectile.friendly)
+        tracking = false;
+      if (tracking)
+      {
+        double npcCenterX = localAI;
+        Vector2 projCenter = new Vector2(projectile.position.X + (projectile.width * 0.5f), projectile.position.Y + (projectile.height * 0.5f));
+        float npcCenterY = posX - projCenter.X;
+        float totalOffset = posY - projCenter.Y;
+        double offset2 = Math.Sqrt((npcCenterY * (double)npcCenterY) + (totalOffset * (double)totalOffset));
+        float num11 = (float)(npcCenterX / offset2);
+        float num12 = npcCenterY * num11;
+        float num13 = totalOffset * num11;
+        int num14 = 8;
+        if (projectile.type == 837)
+          num14 = 32;
+        projectile.velocity.X = ((projectile.velocity.X * (num14 - 1)) + num12) / num14;
+        projectile.velocity.Y = ((projectile.velocity.Y * (num14 - 1)) + num13) / num14;
+      }
+    }
+    public static void NaturalHoming(Projectile projectile, Entity entity, float turn, float homing)
+    {
+      Vector2 unitY = projectile.DirectionTo(entity.Center);
+      projectile.velocity = ((projectile.velocity * turn) + (unitY * homing)) / (turn + 1f);
+    }
+    //TODO: Code this AI
+    public static void ComplexHoming()
+    {
     }
 
     public static class ParryTypeID
@@ -694,6 +765,9 @@ namespace UnbiddenMod
       public const int Gravity = 1;
       public const int Sine = 2;
       public const int Linear = 3;
+      public const int Natural = 4;
+      public const int Smooth = 5;
+      public const int Complex = 6;
     }
     public static class EntityType
     {

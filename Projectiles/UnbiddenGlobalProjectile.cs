@@ -18,11 +18,11 @@ namespace UnbiddenMod
     public bool deflectable = true;
     public bool deflected;
     public bool amped;
-    public int entityType;
     public int homingID;
+    public Item shotBy;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
-      int height = texture.Height / (int)Main.projFrames[projectile.type];
+      int height = texture.Height / Main.projFrames[projectile.type];
       int y = height * projectile.frame;
       float rotation = projectile.rotation;
       Rectangle rectangle = new Rectangle(0, y, texture.Width, height);
@@ -34,11 +34,6 @@ namespace UnbiddenMod
       projectile.oldPos[0] = projectile.position;
       for (int k = 0; k < counter; k++)
       {
-        _ = projectile.position;
-        if (k > 0)
-        {
-          _ = projectile.oldPos[k - 1];
-        }
         float alpha;
         if (k == 0)
         {
@@ -46,7 +41,7 @@ namespace UnbiddenMod
         }
         else
         {
-          alpha = 1f - (k * 0.200f);
+          alpha = 1f - (k * (1f / counter / 2));
         }
         Color color = projectile.GetAlpha(lightColor) * alpha;
         Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition;

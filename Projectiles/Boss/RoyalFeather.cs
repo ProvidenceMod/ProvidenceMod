@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Projectiles.Boss
 {
@@ -27,6 +28,7 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.hostile = true;
       projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = -1; // Typeless
       projectile.Unbidden().deflectable = false;
+      projectile.Unbidden().homingID = HomingID.Gravity;
     }
 
     public override void AI()
@@ -43,7 +45,8 @@ namespace UnbiddenMod.Projectiles.Boss
       //   }
       // }
       const float speedCap = 8f, turnStrength = 0.3f;
-      projectile.GravityHoming(speedCap, turnStrength);
+      Player player = ClosestPlayer(projectile);
+      projectile.Homing(player, speedCap, default, default, turnStrength);
     }
     public override void OnHitPlayer(Player target, int damage, bool crit)
     {

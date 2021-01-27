@@ -30,8 +30,7 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.hostile = true;
       projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Fire
       projectile.tileCollide = false;
-      projectile.Unbidden().homingID = HomingID.Smart;
-      projectile.Unbidden().entityType = EntityType.Player;
+      projectile.Unbidden().homingID = HomingID.Natural;
     }
 
     public override void AI()
@@ -49,7 +48,8 @@ namespace UnbiddenMod.Projectiles.Boss
       }
       const float speedCap = 8f;
       const float radius = 500f;
-      projectile.Homing(speedCap, 0.5f, 1.2f, radius);
+      Player player = ClosestPlayer(projectile);
+      projectile.Homing(player, 8f, default, default, 20);
     }
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
     {

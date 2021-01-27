@@ -13,6 +13,8 @@ using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
 using UnbiddenMod.Projectiles.Ability;
 using UnbiddenMod.Buffs.StatBuffs;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
 
 namespace UnbiddenMod
 {
@@ -73,9 +75,9 @@ namespace UnbiddenMod
     public int parryType;
     public int tankParryPWR;
     public int tearCount;
-    
-    public string dashDir = "";
+
     // TODO: Make this have use (see tooltip in the item of same name)
+    public string dashDir = "";
 
     public override TagCompound Save()
     {
@@ -106,7 +108,7 @@ namespace UnbiddenMod
       parryCapable = false;
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
-      parryType = ParryTypeID.Universal;
+      parryType = ParryTypeID.Support;
       tankParryPWR = player.HasBuff(BuffType<TankParryBoost>()) || parryActive ? tankParryPWR : 0;
       tankParryOn = false;
       tankParryPWR = tankParryOn ? tankParryPWR : 0;
@@ -282,6 +284,7 @@ namespace UnbiddenMod
       }
     }
 
+    //TODO: #4 Fix dash movement: Dashing left is unreliable and sometimes nonfunctional with dash accessories and armor abilities. Double press time is buggy for right dashes
     public void ModDashMovement()
     {
       if (dashMod == 1)
@@ -481,65 +484,20 @@ namespace UnbiddenMod
 
     public override void ModifyDrawLayers(List<PlayerLayer> layers)
     {
-      // Note that if you want to give your held item an animation, you should set that item's NoUseGraphic field to true so that the entire spritesheet for that item wont draw.
-
-      //Animated Sword Code
-      /*Action<PlayerDrawInfo> layerTarget2 = s => DrawSwordAnimation(s);
-			PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
-			layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer2);*/
-
-      void layerTarget(PlayerDrawInfo s) => DrawSwordGlowmask(s); //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
-      PlayerLayer layer = new PlayerLayer("UnbiddenMod", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
-      layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index. 
-    }
-    private void DrawSwordGlowmask(PlayerDrawInfo info)
-    {
-      // Player player = info.drawPlayer; //the player!
-
-      /*if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.Melee.MoonCleaver>() && player.itemAnimation != 0)
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Unbidden().glowmask)
       {
-        Texture2D tex = mod.GetTexture("Items/Weapons/Melee/MoonCleaverGlow");
-        Main.playerDrawData.Add(
-          new DrawData(
-            tex,
-            info.itemLocation - Main.screenPosition,
-            tex.Frame(),
-            Color.White,
-            player.itemRotation,
-            new Vector2(player.direction == 1 ? 0 : tex.Width, tex.Height),
-            player.HeldItem.scale,
-            info.spriteEffects,
-            0
-          ));
-      }*/
-    }
-
-    /*private void DrawSwordAnimation(PlayerDrawInfo info)
-    {
-      Player player = info.drawPlayer; //the player!
-
-      if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>() && player.itemAnimation != 0) //We want to make sure that our layer only draws when the player is swinging our specific item.
-      {
-        Texture2D tex = ModContent.GetTexture("Items/Weapons/MoonCleaver/MoonCleaverGlow"); //The texture of our animated sword.
-        Rectangle frame = Main.itemAnimations[ModContent.ItemType<Items.Weapons.MoonCleaver.MoonCleaver>()].GetFrame(tex);//the animation frame that we want should be passed as the source rectangle. this is the region if your sprite the game will read to draw.
-        //special note that this requires your item's animation to be set up correctly in the inventory. If you want your item to be animated ONLY when you swing you will have to find the frame another way.
-        //Draws via adding to Main.playerDrawData. Always do this and not Main.spriteBatch.Draw().
-        Main.playerDrawData.Add(
-          new DrawData(
-            tex, //pass our item's spritesheet
-            info.itemLocation - Main.screenPosition, //pass the position we should be drawing at from the PlayerDrawInfo we pass into this method. Always use this and not player.itemLocation.
-            frame, //the animation frame we got earlier
-            Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16), //since our sword shouldn't glow, we want the color of the light on our player to be the color our sword draws with. 
-            //We divide by 16 and cast to int to get TILE coordinates rather than WORLD coordinates, as thats what Lighting.GetColor takes.
-            player.itemRotation, //the rotation of the player's item based on how they used it. This allows our glowmask to rotate with swingng swords or guns pointing in a direction.
-            new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height), //the origin that our mask rotates about. This needs to be adjusted based on the player's direction, thus the ternary expression.
-            player.HeldItem.scale, //scales our mask to match the item's scale
-            info.spriteEffects, //the PlayerDrawInfo that was passed to this will tell us if we need to flip the sprite or not.
-            0 //we dont need to worry about the layer depth here
-          )
-        );
+      void layerTarget(PlayerDrawInfo s) => DrawSwordGlowmask(s);
+      PlayerLayer layer = new PlayerLayer("UnbiddenMod", "Sword Glowmask", layerTarget);
+      layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer);
       }
-    }*/
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Unbidden().glowmask && player.HeldItem.Unbidden().animated)
+      {
+      //Animated Sword Code
+      void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
+      PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
+      layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
+      } 
+    }
     public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
     {
       for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)

@@ -6,6 +6,7 @@ using static UnbiddenMod.UnbiddenUtils;
 using System.Collections.Generic;
 using System.Linq;
 using UnbiddenMod;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UnbiddenMod
 {
@@ -13,12 +14,15 @@ namespace UnbiddenMod
   {
     // Elemental variables for Items
     public bool inverseKB;
+    public bool cleric;
+    public bool glowmask = false;
+    public bool animated = false;
     public int element = -1, weakEl = -1; // -1 means Typeless, meaning we don't worry about this in the first place
     // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
     public int elementDef, weakElDef;
-    public bool cleric;
+    public Texture2D glowmaskTexture;
+    public Texture2D animationTexture;
     public override bool InstancePerEntity => true;
-
     public UnbiddenGlobalItem()
     {
       element = -1;

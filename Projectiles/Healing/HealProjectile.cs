@@ -1,10 +1,9 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using static UnbiddenMod.UnbiddenUtils;
+using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod.Projectiles.Healing
 {
@@ -23,8 +22,7 @@ namespace UnbiddenMod.Projectiles.Healing
       projectile.friendly = true;
       projectile.Unbidden().element = -1; // Typeless
       projectile.Unbidden().deflectable = false;
-      projectile.Unbidden().entityType = EntityType.Player;
-      projectile.Unbidden().homingID = HomingID.Smart;
+      projectile.Unbidden().homingID = HomingID.Natural;
     }
 
     public override void AI()
@@ -32,9 +30,10 @@ namespace UnbiddenMod.Projectiles.Healing
       projectile.ai[1]++;
       projectile.localAI[0]++;
       Texture2D tex = ModContent.GetTexture("UnbiddenMod/Projectiles/Healing/HealProjectile");
-      Player player = LocalPlayer();
+      Player player = ClosestPlayer(projectile);
+      Dust.NewDustPerfect(projectile.position, ModContent.DustType<ParryShieldDust>(), null, default, new Color(219, 240, 45), 1f);
       UnbiddenGlobalProjectile.AfterImage(projectile, Color.White, tex, 10);
-      projectile.Homing(20f, 1.1f, 1.1f, 100f, false, default, true, 5f);
+      projectile.Homing(player, 30f, default, default, 20);
       if (projectile.getRect().Intersects(player.getRect()))
       {
         player.statLife += 25;

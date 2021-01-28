@@ -59,7 +59,7 @@ namespace UnbiddenMod.Projectiles.Ranged
             rightEdgeX = projectile.position.X + explosionRadius,
             upperEdgeY = projectile.position.Y - explosionRadius,
             lowerEdgeY = projectile.position.Y + explosionRadius;
-      Player owner = projectile.ProjectileOwnerPlayer();
+      Player owner = projectile.OwnerPlayer();
       Item launcher = owner.inventory[owner.selectedItem];
       for (int i = 0; i < Main.player.Length; i++)
       {

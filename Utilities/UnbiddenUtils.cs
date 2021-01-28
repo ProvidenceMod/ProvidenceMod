@@ -36,16 +36,13 @@ namespace UnbiddenMod
     /// <summary>References the UnbiddenGlobalRecipes instance. Shorthand for ease of use.</summary>
     public static UnbiddenRecipes UnbiddenRecipes(this Mod recipe) => (UnbiddenRecipes)recipe.GetGlobalRecipe("UnbiddenMod");
     /// <summary>References the Player owner of a projectile instance. Shorthand for ease of use.</summary>
-    public static Player ProjectileOwnerPlayer(this Projectile projectile) => Main.player[projectile.owner];
+    public static Player OwnerPlayer(this Projectile projectile) => Main.player[projectile.owner];
     /// <summary>References the NPC owner of a projectile instance. Shorthand for ease of use.</summary>
-    public static NPC ProjectileOwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
+    public static NPC OwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
     /// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
     public static Player LocalPlayer() => Main.LocalPlayer;
     /// <summary>Returns the position for an Entity. Shorthand for ease of use.</summary>
     public static Vector2 EntityPosition(Entity entity) => entity.Center - Main.screenPosition;
-    /// <summary>Returns the heldItem of the Player. Shorthand for ease of use.</summary>
-    public static Item HeldItem(this Player player) => !Main.mouseItem.IsAir ? Main.mouseItem : player.HeldItem;
-
     /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
     /// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
@@ -55,6 +52,10 @@ namespace UnbiddenMod
     public static int InTicks(this float seconds) => (int)(seconds * 60);
     /// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
     public static int InTicks(this int seconds) => seconds * 60;
+
+    public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);
+    public static float Round(this float f, int points) => (float)Math.Round(f, points);
+    public static double Round(this double d, int points) => Math.Round(d, points);
     public static float[,] elemAffDef = new float[2, 15]
     {  // Defense score (middle), Damage mult (bottom)
       {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
@@ -84,7 +85,7 @@ namespace UnbiddenMod
       int weapEl = item.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
       if (weapEl != -1) // if not typeless (and implicitly within 0-6)
       {
-        float damageFloat = (float)damage, // And the damage we already have, converted to float
+        float damageFloat = damage, // And the damage we already have, converted to float
           resistMod = npc.Unbidden().resists[weapEl];
         if (resistMod > 0f)
         {
@@ -112,7 +113,7 @@ namespace UnbiddenMod
       int projEl = projectile.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
-        float damageFloat = (float)damage, // And the damage we already have, converted to float
+        float damageFloat = damage, // And the damage we already have, converted to float
           resistMod = npc.Unbidden().resists[projEl];
         if (resistMod > 0f)
         {
@@ -163,7 +164,7 @@ namespace UnbiddenMod
     /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
     public static bool IsParry(this Projectile currProj, Player player, Rectangle hitbox, ref int parryShield)
     {
-      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
+      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Unbidden().Deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
     }
 
     /// <summary>
@@ -397,7 +398,7 @@ namespace UnbiddenMod
       decimal DR = (decimal)((mP.focus / 4 >= 0.25f ? 0.25f : mP.focus / 4) * 100);
       decimal regen = focusPercent;
       decimal moveSpeedBoost = focusPercent / 2;
-      return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR, regen, moveSpeedBoost);
+      return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR.Round(2), regen.Round(2), moveSpeedBoost.Round(2));
     }
     /// <summary>Provides a random point near the Vector2 you call this on.</summary>
     /// <param name="v">The origin point.</param>
@@ -439,7 +440,7 @@ namespace UnbiddenMod
       Texture2D glowmaskTexture = null;
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
       {
-        if (HeldItem(player).Unbidden().glowmask)
+        if (player.HeldItem.Unbidden().glowmask)
           glowmaskTexture = player.HeldItem.Unbidden().glowmaskTexture;
         Main.playerDrawData.Add(
           new DrawData(
@@ -465,7 +466,7 @@ namespace UnbiddenMod
       Rectangle frame = default;
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
       {
-        if (HeldItem(player).Unbidden().glowmask)
+        if (player.HeldItem.Unbidden().glowmask)
         {
           animationTexture = player.HeldItem.Unbidden().animationTexture;
           frame = Main.itemAnimations[player.HeldItem.type].GetFrame(animationTexture);

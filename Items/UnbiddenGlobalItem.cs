@@ -13,10 +13,9 @@ namespace UnbiddenMod
   public class UnbiddenGlobalItem : GlobalItem
   {
     // Elemental variables for Items
-    public bool inverseKB;
     public bool cleric;
-    public bool glowmask = false;
-    public bool animated = false;
+    public bool glowmask;
+    public bool animated;
     public int element = -1, weakEl = -1; // -1 means Typeless, meaning we don't worry about this in the first place
     // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
     public int elementDef, weakElDef;

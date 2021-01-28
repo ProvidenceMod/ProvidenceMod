@@ -14,11 +14,11 @@ namespace UnbiddenMod
     public override bool InstancePerEntity => true;
     public override bool CloneNewInstances => true;
     // Status effect bools
-    public bool hypodermia = false;
-    public bool freezing = false;
-    public bool frozen = false;
+    public bool hypodermia;
+    public bool freezing;
+    public bool frozen;
     public bool spawnReset = true;
-    public bool maxSpawnsTempSet = false;
+    public bool maxSpawnsTempSet;
     public int maxSpawnsTemp;
     public override void ResetEffects(NPC npc)
     {
@@ -48,10 +48,6 @@ namespace UnbiddenMod
       }
 
       damage = item.CalcEleDamage(npc, ref damage);
-      if (item.Unbidden().inverseKB)
-      {
-        npc.StrikeNPC(0, npc.defense, -player.direction, false);
-      }
     }
 
     public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

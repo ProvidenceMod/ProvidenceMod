@@ -38,7 +38,7 @@ namespace UnbiddenMod
     public bool brimHeart;
     public bool boosterShot;
     public bool burnAura;
-    public bool deflectable;
+    public bool cantdeflect;
     public bool cFlameAura;
     public bool hasClericSet;
     public bool micitBangle;

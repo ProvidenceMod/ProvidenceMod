@@ -46,8 +46,6 @@ namespace UnbiddenMod.Projectiles.Boss
           projectile.frame = 0;
         }
       }
-      const float speedCap = 8f;
-      const float radius = 500f;
       Player player = ClosestPlayer(projectile);
       projectile.Homing(player, 8f, default, default, 20);
     }

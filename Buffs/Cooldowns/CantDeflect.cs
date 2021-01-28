@@ -16,7 +16,7 @@ namespace UnbiddenMod.Buffs.Cooldowns
     }
     public override void Update(Player player, ref int buffIndex)
     {
-      player.Unbidden().deflectable = true;
+      player.Unbidden().cantdeflect = true;
     }
   }
 }

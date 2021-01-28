@@ -283,11 +283,9 @@ namespace UnbiddenMod
         dashModDelay--;
       }
     }
-
-    //TODO: #4 Fix dash movement: Dashing left is unreliable and sometimes nonfunctional with dash accessories and armor abilities. Double press time is buggy for right dashes
     public void ModDashMovement()
     {
-      if (dashMod == 1)
+      if (dashMod == 1 && player.dash == 0)
       {
         const float dashStrength = 12f;
         const int delayTime = 60;
@@ -369,6 +367,7 @@ namespace UnbiddenMod
               player.velocity.Y = dashStrength;
               break;
           }
+          player.dashDelay = 60;
         }
         else
         {
@@ -379,7 +378,6 @@ namespace UnbiddenMod
         Point tileCoordinates2 = (player.Center + new Vector2((float)((dashDirInt * player.width / 2) + 2), 0.0f)).ToTileCoordinates();
         if (WorldGen.SolidOrSlopedTile(tileCoordinates1.X, tileCoordinates1.Y) || WorldGen.SolidOrSlopedTile(tileCoordinates2.X, tileCoordinates2.Y))
           player.velocity.X /= 2f;
-        player.dashDelay = 60;
       }
     }
     public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
@@ -492,7 +490,6 @@ namespace UnbiddenMod
       }
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Unbidden().glowmask && player.HeldItem.Unbidden().animated)
       {
-      //Animated Sword Code
       void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
       PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
       layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
@@ -537,19 +534,3 @@ namespace UnbiddenMod
     }
   }
 }
-/*
-currFocus = new UIText("0", 1f);
-      currFocus.Top.Set(0f, 0f);
-      currFocus.Left.Set(0, 0f);
-
-      currFocus2 = new UIText("0", 1f);
-      currFocus2.Top.Set(0f, 0f);
-      currFocus2.Left.Set(90, 0f);
-
-      currFocus3 = new UIText("0", 1f);
-      currFocus3.Top.Set(0f, 0f);
-      currFocus3.Left.Set(180, 0f);
-      currFocus.SetText(lifeArray[0].ToString());
-        currFocus2.SetText(lifeArray[1].ToString());
-        currFocus3.SetText(lifeArray[2].ToString());
-      */

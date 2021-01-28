@@ -486,7 +486,7 @@ namespace UnbiddenMod
     {
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Unbidden().glowmask)
       {
-      void layerTarget(PlayerDrawInfo s) => DrawSwordGlowmask(s);
+      void layerTarget(PlayerDrawInfo s) => DrawGlowmask(s);
       PlayerLayer layer = new PlayerLayer("UnbiddenMod", "Sword Glowmask", layerTarget);
       layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer);
       }

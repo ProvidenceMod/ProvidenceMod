@@ -43,7 +43,7 @@ namespace UnbiddenMod.Projectiles.Melee
       }
       projectile.rotation += projectile.velocity.X * 0.05f;
       NPC target = ClosestEnemyNPC(projectile);
-      projectile.Homing(target, 20f, default, default, 50, 300f, default, default, default, default);
+      projectile.Homing(target, 20f, default, default, 15f, 300f, default, default, default, default);
     }
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

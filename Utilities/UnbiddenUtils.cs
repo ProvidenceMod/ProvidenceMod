@@ -406,11 +406,11 @@ namespace UnbiddenMod
     {
       return Vector2.Add(v, new Vector2(0, Main.rand.NextFloat(maxDist)).RotatedByRandom(180f.InRadians()));
     }
-    /// <summary> Provides the animation frame for given parameters.</summary>
-    /// <param name="frame">
-    /// <param name="frameCounter">
-    /// <param name="frameTime">
-    /// <param name="frameAmount">
+    /// <summary>Provides the animation frame for given parameters.</summary>
+    /// <param name="frame">The frame that this item is currently on. Use "public int frame;" in your item file.</param>
+    /// <param name="frameCounter">The frame coutner for this item. Use "public int frameCounter;" in your item file.</param>
+    /// <param name="frameTime">How many frames (ticks) you are spending on a single frame.</param>
+    /// <param name="frameAmount">How many frames this animation has.</param>
     public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameCounter, int frameTime, int frameAmount, bool frameCounterUp)
     {
       if (frameCounter >= frameTime)
@@ -422,14 +422,18 @@ namespace UnbiddenMod
         frameCounter++;
       return new Rectangle(0, item.height * frame, item.width, item.height);
     }
-
+    /// <summary>Draws a glowmask for the given item.</summary>
+    /// <param name="spriteBatch">The spriteBatch instance for this glowmask. Passed with "PostDraw" or "PreDraw" item methods.</param>
+    /// <param name="rotation">The rotation for this item. Passed with "PostDraw" item methods.</param>
+    /// <param name="glowmaskTexture">The texture to draw for this glowmask.</param>
     public static void Glowmask(this Item item, SpriteBatch spriteBatch, float rotation, Texture2D glowmaskTexture)
     {
       Vector2 origin = new Vector2(glowmaskTexture.Width / 2f, (float)((glowmaskTexture.Height / 2.0) - 2.0));
       spriteBatch.Draw(glowmaskTexture, item.Center - Main.screenPosition, null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
     }
-
-    public static void DrawSwordGlowmask(PlayerDrawInfo info)
+    /// <summary>Draws a glowmask for the given item while the item is in use.</summary>
+    /// <param name="info">The PlayerDrawInfo instance for this method. Use "PlayerDrawInfo info = new PlayerDrawInfo();" and pass it.</param>
+    public static void DrawGlowmask(PlayerDrawInfo info)
     {
       Player player = info.drawPlayer;
       Texture2D glowmaskTexture = null;
@@ -448,10 +452,12 @@ namespace UnbiddenMod
             player.HeldItem.scale,
             info.spriteEffects,
             0
-          ));
+          )
+        );
       }
     }
-
+    /// <summary>Draws an animated glowmask for the given item while the item is in use.</summary>
+    /// <param name="info">The PlayerDrawInfo instance for this method. Use "PlayerDrawInfo info = new PlayerDrawInfo();" and pass it.</param>
     public static void DrawGlowmaskAnimation(PlayerDrawInfo info)
     {
       Player player = info.drawPlayer;

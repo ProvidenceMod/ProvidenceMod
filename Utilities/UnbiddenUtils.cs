@@ -253,7 +253,7 @@ namespace UnbiddenMod
             currProj.position,
             Vector2.Negate(currProj.velocity),
             ProjectileID.ChlorophyteBullet,
-            (int)(player.Unbidden().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 5),
+            (int)(player.Unbidden().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 2),
             currProj.knockBack,
             player.whoAmI
             );

@@ -274,13 +274,9 @@ namespace UnbiddenMod
     public override void PostUpdateRunSpeeds()
     {
       if (dashMod > 0 && dashModDelay <= 0)
-      {
         ModDashMovement();
-      }
       else
-      {
         dashModDelay--;
-      }
     }
     public void ModDashMovement()
     {

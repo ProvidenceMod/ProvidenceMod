@@ -492,7 +492,7 @@ namespace UnbiddenMod
       void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
       PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
       layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
-      } 
+      }
     }
     public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
     {

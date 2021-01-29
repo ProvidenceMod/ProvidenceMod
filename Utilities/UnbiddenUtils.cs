@@ -10,6 +10,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using UnbiddenMod;
+using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod
 {

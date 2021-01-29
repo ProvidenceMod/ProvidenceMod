@@ -90,33 +90,33 @@ namespace UnbiddenMod
 
     public override void ResetEffects()
     {
+      affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+      allowFocus = IsThereABoss().Item1;
+      ampCapacitor = false;
       brimHeart = false;
+      bonusFocusGain = 0f;
       boosterShot = false;
-      cleric = 1f;
-      player.statLifeMax2 += tearCount * 20;
-      hasClericSet = false;
-      clericAuraRadius = 300f;
-      regenAura = false;
       burnAura = false;
       cFlameAura = false;
-      ampCapacitor = false;
-      resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+      cleric = 1f;
+      clericAuraRadius = 300f;
       dashMod = 0;
       dashTimeMod = 0;
-      affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-      zephyriumAglet = false;
-      parryCapable = false;
+      focusMax = 1f;
+      hasClericSet = false;
+      intimidated = false;
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
+      parryCapable = false;
       parryType = ParryTypeID.Support;
+      player.moveSpeed += focus / 2;
+      player.statLifeMax2 += tearCount * 20;
+      regenAura = false;
+      resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       tankParryPWR = player.HasBuff(BuffType<TankParryBoost>()) || parryActive ? tankParryPWR : 0;
       tankParryOn = false;
       tankParryPWR = tankParryOn ? tankParryPWR : 0;
-      intimidated = false;
-      focusMax = 1f;
-      allowFocus = IsThereABoss().Item1;
-      bonusFocusGain = 0f;
-      player.moveSpeed += focus / 2;
+      zephyriumAglet = false;
     }
 
     public override void ProcessTriggers(TriggersSet triggersSet)
@@ -279,7 +279,6 @@ namespace UnbiddenMod
       }
       else
       {
-        player.releaseLeft = false;
         dashModDelay--;
       }
     }

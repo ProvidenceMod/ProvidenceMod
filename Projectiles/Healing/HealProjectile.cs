@@ -21,9 +21,8 @@ namespace UnbiddenMod.Projectiles.Healing
       projectile.hostile = false;
       projectile.friendly = true;
       projectile.Unbidden().element = -1; // Typeless
-      projectile.Unbidden().deflectable = false;
       projectile.Unbidden().homingID = HomingID.Natural;
-    }
+    } 
 
     public override void AI()
     {

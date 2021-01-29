@@ -10,6 +10,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using UnbiddenMod;
+using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod
 {
@@ -181,6 +182,10 @@ namespace UnbiddenMod
       {
         if (currProj.IsParry(player, hitbox, ref parryShield))
         {
+          for(float i = 0; i < 10; i++)
+          {
+            Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
+          }
           // Add your melee damage multiplier to the damage so it has a little more oomph
           currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
 
@@ -213,6 +218,10 @@ namespace UnbiddenMod
       {
         if (currProj.IsParry(player, hitbox, ref parryShield))
         {
+          for(float i = 0; i < 10; i++)
+          {
+            Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
+          }
           DRBoost += currProj.damage / 10;
           currProj.active = false;
           affectedProjs++;
@@ -236,6 +245,10 @@ namespace UnbiddenMod
       {
         if (currProj.IsParry(player, hitbox, ref parryShield))
         {
+          for(float i = 0; i < 10; i++)
+          {
+            Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 255, Color.White, 5f);
+          }
           _ = Projectile.NewProjectile(
             currProj.position,
             Vector2.Negate(currProj.velocity),
@@ -267,6 +280,10 @@ namespace UnbiddenMod
       {
         if (currProj.IsParry(player, hitbox, ref parryShield))
         {
+          for(float i = 0; i < 10; i++)
+          {
+            Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 255, Color.White, 5f);
+          }
           _ = Projectile.NewProjectile(new Vector2(player.position.X + 35, 0), new Vector2(0, 0), ProjectileType<HealProjectile>(), 0, 0);
           HPBoost += currProj.damage / 10;
           currProj.active = false;

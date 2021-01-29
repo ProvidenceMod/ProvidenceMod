@@ -107,7 +107,6 @@ namespace UnbiddenMod
       zephyriumAglet = false;
       parryCapable = false;
       parryActive = parryActiveTime > 0;
-      parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryType = ParryTypeID.Support;
       tankParryPWR = player.HasBuff(BuffType<TankParryBoost>()) || parryActive ? tankParryPWR : 0;
       tankParryOn = false;
@@ -121,7 +120,7 @@ namespace UnbiddenMod
 
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
-      if (UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()) && !parryActiveCooldown)
+      if (player.Unbidden().parryCapable && UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
       {
         parryActiveTime = maxParryActiveTime;
         int p = Projectile.NewProjectile(player.position, new Vector2(0, 0), ProjectileType<ParryShield>(), 0, 0, player.whoAmI);

@@ -121,7 +121,7 @@ namespace UnbiddenMod
 
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
-      if (UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()) && !parryActiveCooldown)
+      if (player.Unbidden().parryCapable && UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
       {
         parryActiveTime = maxParryActiveTime;
         int p = Projectile.NewProjectile(player.position, new Vector2(0, 0), ProjectileType<ParryShield>(), 0, 0, player.whoAmI);
@@ -492,7 +492,7 @@ namespace UnbiddenMod
       void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
       PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
       layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
-      } 
+      }
     }
     public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
     {

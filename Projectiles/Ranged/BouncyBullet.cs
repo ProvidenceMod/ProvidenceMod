@@ -28,7 +28,7 @@ namespace UnbiddenMod.Projectiles.Ranged
       projectile.ranged = true;
       projectile.restrikeDelay = 2;
       projectile.timeLeft = 5.InTicks();
-      projectile.extraUpdates = 2;
+      projectile.extraUpdates = 1;
     }
     public override void AI()
     {

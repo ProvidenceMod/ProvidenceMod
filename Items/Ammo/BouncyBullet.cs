@@ -21,7 +21,7 @@ namespace UnbiddenMod.Items.Ammo
       item.height = 16;
       item.value = Item.buyPrice(0, 0, 1, 0);
       item.shoot = ProjectileType<Projectiles.Ranged.BouncyBullet>();
-      item.shootSpeed = 4f;
+      item.shootSpeed = 8f;
     }
 
     public override void AddRecipes()

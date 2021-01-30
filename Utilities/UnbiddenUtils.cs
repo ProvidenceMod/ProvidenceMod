@@ -1,51 +1,71 @@
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.GameContent.Events;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria.ObjectData;
-using UnbiddenMod;
+using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Buffs.Cooldowns;
-using UnbiddenMod.Dusts;
-using UnbiddenMod.Items.Weapons;
+using UnbiddenMod.Projectiles.Healing;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace UnbiddenMod
 {
   public static class UnbiddenUtils
   {
-    // Summary:
-    // References the UnbiddenPlayer instance. Shorthand for ease of use.
-    // UnbiddenPlayer unbiddenPlayer = player.Unbidden();
+    /// <summary>References the UnbiddenPlayer instance. Shorthand for ease of use.</summary>
     public static UnbiddenPlayer Unbidden(this Player player) => player.GetModPlayer<UnbiddenPlayer>();
-    // 
-    // Summary:
-    // References the UnbiddenGlobalNPC instance. Shorthand for ease of use.
-    // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
+    /// <summary>References the UnbiddenGlobalNPC instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalNPC Unbidden(this NPC npc) => npc.GetGlobalNPC<UnbiddenGlobalNPC>();
-    // 
-    // Summary:
-    // References the UnbiddenGlobalItem instance. Shorthand for ease of use.
-    // UnbiddenGlobalItem unbiddenItem = item.Unbidden();
+    /// <summary>References the UnbiddenGlobalItem instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalItem Unbidden(this Item item) => item.GetGlobalItem<UnbiddenGlobalItem>();
-    // 
-    // Summary:
-    // References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.
-    // UnbiddenGlobalProjectile unbiddenProjectile = projectile.Unbidden();
+    /// <summary>References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.</summary>
     public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
+    /// <summary>References the UnbiddenGlobalWall instance. Shorthand for ease of use.</summary>
+    public static UnbiddenWall UnbiddenWall(this Mod wall) => (UnbiddenWall)wall.GetGlobalWall("UnbiddenMod");
+    /// <summary>References the UnbiddenWorld instance. Shorthand for ease of use.</summary>
+    public static UnbiddenWorld UnbiddenWorld(this Mod world) => (UnbiddenWorld)world.GetModWorld("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalBuff instance. Shorthand for ease of use.</summary>
+    public static UnbiddenBuff UnbiddenBuff(this Mod buff) => (UnbiddenBuff)buff.GetGlobalBuff("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalTile instance. Shorthand for ease of use.</summary>
+    public static UnbiddenTile UnbiddenTile(this Mod tile) => (UnbiddenTile)tile.GetGlobalTile("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalBigStyle instance. Shorthand for ease of use.</summary>
+    public static UnbiddenBigStyle UnbiddenStyle(this Mod style) => (UnbiddenBigStyle)style.GetGlobalBgStyle("UnbiddenMod");
+    /// <summary>References the UnbiddenGlobalRecipes instance. Shorthand for ease of use.</summary>
+    public static UnbiddenRecipes UnbiddenRecipes(this Mod recipe) => (UnbiddenRecipes)recipe.GetGlobalRecipe("UnbiddenMod");
+    /// <summary>References the Player owner of a projectile instance. Shorthand for ease of use.</summary>
+    public static Player ProjectileOwnerPlayer(this Projectile projectile) => Main.player[projectile.owner];
+    /// <summary>References the NPC owner of a projectile instance. Shorthand for ease of use.</summary>
+    public static NPC ProjectileOwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
+    /// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
+    public static Player LocalPlayer() => Main.LocalPlayer;
+    /// <summary>Retyrbs the correct frame to draw for sprite animations. Shorthand for ease of use.</summary>
+    public static Rectangle AnimationFrame(Item item, Texture2D tex) => Main.itemAnimations[item.type].GetFrame(tex);
+    /// <summary>Returns the origin on the frame of a sprite animation. Shorthand for ease of use.</summary>
+    public static Vector2 AnimationOrigin(Item item, int frameCount) => new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
+    /// <summary>Returns the position for an Entity. Shorthand for ease of use.</summary>
+    public static Vector2 AnimatedEntityPosition(Entity entity, Texture2D tex, int frameCount) => new Vector2(entity.Center.X - Main.screenPosition.X, entity.Center.Y - Main.screenPosition.Y - (entity.height / 2));
+    // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f))
+    public static Vector2 EntityPosition(Entity entity) => entity.Center - Main.screenPosition;
+    public static Item HeldItem(this Player player) => !Main.mouseItem.IsAir ? Main.mouseItem : player.HeldItem;
+
+
+    /// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
     public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
+    /// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
     public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
+
+    /// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
+    public static int InTicks(this float seconds) => (int)(seconds * 60);
+    /// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
+    public static int InTicks(this int seconds) => seconds * 60;
     public static float[,] elemAffDef = new float[2, 15]
     {  // Defense score (middle), Damage mult (bottom)
       {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
       {1.010f, 1.022f, 1.037f, 1.056f, 1.080f, 1.110f, 5.000f, 1.192f, 1.246f, 1.310f, 1.397f, 1.497f, 1.611f, 1.740f, 1.885f}
     };
+    /// <summary>Calculates the elemental defense of the player based on their affinities, and any accessories and armor providing such defense.</summary>
     public static void CalcElemDefense(this Player player)
     {
       UnbiddenPlayer unPlayer = player.GetModPlayer<UnbiddenPlayer>();
@@ -60,10 +80,10 @@ namespace UnbiddenMod
     {
       return new float[2] { elemAffDef[0, player.Unbidden().affinities[e]], elemAffDef[1, player.Unbidden().affinities[e]] };
     }
-    // 
-    // Summary:
-    // Calculates elemental item damage based on UnbiddenGlobalNPC resists.
-    // UnbiddenUtils.CalcEleDamage(Item item, NPC npc, ref int damage);
+
+    /// <summary>
+    /// Elemental damage calculation for when the player hits an NPC with a melee weapon.
+    /// </summary>
     public static int CalcEleDamage(this Item item, NPC npc, ref int damage)
     {
       int weapEl = item.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -93,6 +113,9 @@ namespace UnbiddenMod
     // Summary:
     // Calculates elemental projectile damage based on UnbiddenGlobalNPC resists.
     // UnbiddenUtils.CalcEleDamage(Projectile projectile, NPC npc, ref int damage);
+    /// <summary>
+    /// Elemental damage calculation for when the player hits an NPC with a projectile.
+    /// </summary>
     public static int CalcEleDamage(this Projectile projectile, NPC npc, ref int damage)
     {
       int projEl = projectile.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -109,19 +132,13 @@ namespace UnbiddenMod
         {
           damage = 1;
         }
-        // UnbiddenPlayer modPlayer = Main.player[projectile.owner].Unbidden();
-        // if (modPlayer.affExpCooldown <= 0)
-        // {
-        //   modPlayer.affExp[projEl] += 1;
-        //   modPlayer.affExpCooldown = 120;
-        // }
       }
       return damage;
     }
-    // 
-    // Summary:
-    // Calculates elemental damage based on UnbiddenPlayer resists.
-    // UnbiddenUtils.CalcEleDamageFromNPC(Player player, NPC npc, ref int damage);
+
+    /// <summary>
+    /// Elemental damage calculation for when the player is hit by an NPC.
+    /// </summary>
     public static int CalcEleDamageFromNPC(this Player player, NPC npc, ref int damage)
     {
       int npcEl = npc.Unbidden().contactDamageEl;
@@ -133,9 +150,9 @@ namespace UnbiddenMod
       return damage;
     }
 
-    // Summary:
-    // Calculates elemental projectile damage based on UnbiddenPlayer resists.
-    // UnbiddenUtils.CalcEleDamageFromProj(Player player, Projectile proj, ref int damage);
+    /// <summary>
+    /// Elemental damage calculation for when the player is hit by a projectile.
+    /// </summary>
     public static int CalcEleDamageFromProj(this Player player, Projectile proj, ref int damage)
     {
       int projEl = proj.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
@@ -146,18 +163,31 @@ namespace UnbiddenMod
       }
       return damage;
     }
-    // 
-    // Summary:
-    // Allows players to parry. Call this when executing a swing.
-    // UnbiddenUtils.Parry(Player player, Rectangle hitbox);
-    public static void Parry(Player player, Rectangle hitbox)
+    /// <summary>
+    /// Shorthanding for the conditional in the Parry methods.
+    /// </summary>
+    /// <param name="currProj">The projectile being tested.</param>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
+    public static bool IsParry(this Projectile currProj, Player player, Rectangle hitbox, ref int parryShield)
     {
-      int NoOfProj = Main.projectile.Length;
+      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Unbidden().deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
+    }
+
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>Standard Parry is exactly what you would expect from a parry: bounce projectiles back towards enemies, keeping the damage off of you and on them.</para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
+    public static void StandardParry(Player player, Rectangle hitbox, ref int parryShield)
+    {
       int affectedProjs = 0;
-      for (int i = 0; i < NoOfProj; i++)
+      foreach (Projectile currProj in Main.projectile)
       {
-        Projectile currProj = Main.projectile[i];
-        if (!player.HasBuff(ModContent.BuffType<CantDeflect>()) && currProj.active && currProj.hostile && hitbox.Intersects(currProj.Hitbox))
+        if (currProj.IsParry(player, hitbox, ref parryShield))
         {
           // Add your melee damage multiplier to the damage so it has a little more oomph
           currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
@@ -174,17 +204,95 @@ namespace UnbiddenMod
           affectedProjs++;
         }
       }
-      if (affectedProjs > 0)
-      {
-        // Give a cooldown; 1 second per projectile reflected
-        // CantDeflect is a debuff, separate from this code block
-        player.AddBuff(ModContent.BuffType<CantDeflect>(), affectedProjs * 60, true);
-      }
+      player.Unbidden().parriedProjs += affectedProjs;
     }
-    // 
-    // Summary:
-    // Generates dust particles based on Aura size. Call when adding an Aura buff.
-    // UnbiddenUtils.GenerateAuraField(Player player, int dust, float radiusBoost);
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>Tank Parry absorbs projectiles, instead of deflecting them. Each projectile absorbed provides a Damage Reduction boost, based on the damage of the projectile, which it then returns.</para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
+    public static int TankParry(Player player, Rectangle hitbox, ref int parryShield)
+    {
+      int affectedProjs = 0;
+      int DRBoost = 0;
+      foreach (Projectile currProj in Main.projectile)
+      {
+        if (currProj.IsParry(player, hitbox, ref parryShield))
+        {
+          DRBoost += currProj.damage / 10;
+          currProj.active = false;
+          affectedProjs++;
+        }
+      }
+      player.Unbidden().parriedProjs += affectedProjs;
+      return DRBoost;
+    }
+
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>DPS Parry turns all deflected projectiles into a chlorophyte bullet, with improved damage, almost always guaranteeing it will contact and deal substantial damage.</para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
+    public static void DPSParry(Player player, Rectangle hitbox, ref int parryShield)
+    {
+      int affectedProjs = 0;
+      foreach (Projectile currProj in Main.projectile)
+      {
+        if (currProj.IsParry(player, hitbox, ref parryShield))
+        {
+          _ = Projectile.NewProjectile(
+            currProj.position,
+            Vector2.Negate(currProj.velocity),
+            ProjectileID.ChlorophyteBullet,
+            (int)(player.Unbidden().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 5),
+            currProj.knockBack,
+            player.whoAmI
+            );
+
+          currProj.active = false;
+          affectedProjs++;
+        }
+      }
+      player.Unbidden().parriedProjs += affectedProjs;
+    }
+
+    /// <summary>
+    /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
+    /// <para>Support Parry is currently incomplete. Its expected effect is to heal the user, and if the user is at max HP, the closest player gains the benefit.<para>
+    /// </summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="hitbox">The hitbox of the parry shield projectile.</param>
+    /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
+    public static void SupportParry(Player player, Rectangle hitbox, ref int parryShield)
+    {
+      int affectedProjs = 0;
+      int HPBoost = 0;
+      foreach (Projectile currProj in Main.projectile)
+      {
+        if (currProj.IsParry(player, hitbox, ref parryShield))
+        {
+          HPBoost += currProj.damage / 10;
+          currProj.active = false;
+          affectedProjs++;
+          _ = Projectile.NewProjectile(new Vector2(player.position.X + 35, 0), new Vector2(0, 0), ProjectileType<HealProjectile>(), 0, 0);
+        }
+      }
+      player.Unbidden().parriedProjs += affectedProjs;
+      // player.statLife += HPBoost;
+      // if (HPBoost > 0)
+      // {
+      //   player.HealEffect(HPBoost);
+      // }
+    }
+
+    /// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
+    /// <param name="player">The active player acting as the point of origin.</param>
+    /// <param name="dust">The ID of the dust particle to use for the aura. By convention, this dust should have no gravity or light, and should have AI set to dissipate within 3-5 ticks.</param>
+    /// <param name="radiusBoost">The distance modifier for the aura's effective range.</param>
     public static void GenerateAuraField(Player player, int dust, float radiusBoost)
     {
       UnbiddenPlayer mP = player.Unbidden();
@@ -196,13 +304,14 @@ namespace UnbiddenMod
         d.noGravity = true;
       }
     }
+    /// <summary>Finds and returns the hostile NPC closest to the provided projectile. Actively disregards Target Dummies.</summary>
     public static NPC ClosestEnemyNPC(Projectile projectile)
     {
       float shortest = -1f;
       NPC chosenNPC = null;
       foreach (NPC npc in Main.npc)
       {
-        if (npc.active && !npc.townNPC && !npc.friendly)
+        if (npc.active && !npc.townNPC && !npc.friendly && npc.type != NPCID.TargetDummy)
         {
           float dist = Vector2.Distance(projectile.position, npc.position);
           if (dist < shortest || shortest == -1f)
@@ -214,8 +323,31 @@ namespace UnbiddenMod
       }
       return chosenNPC;
     }
-    public static bool IsInRadius(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
-    public static int GrabProjCount(int type) {
+    /// <summary>Finds and returns the player closest to the provided projectile.</summary>
+    public static Player ClosestPlayer(Projectile projectile)
+    {
+      float shortest = -1f;
+      Player chosenPC = null;
+      foreach (Player player in Main.player)
+      {
+        if (player.active)
+        {
+          float dist = Vector2.Distance(projectile.position, player.position);
+          if (dist < shortest || shortest == -1f)
+          {
+            shortest = dist;
+            chosenPC = player;
+          }
+        }
+      }
+      return chosenPC;
+    }
+    /// <summary>Shorthanding of distance testing involving Vector2's, for readability.</summary>
+    public static bool IsInRadiusOf(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
+
+    /// <summary>Provides how many instances of the projectile type currently exist.</summary>
+    public static int GrabProjCount(int type)
+    {
       int count = 0;
       foreach (Projectile proj in Main.projectile)
       {
@@ -224,6 +356,7 @@ namespace UnbiddenMod
       }
       return count;
     }
+    /// <summary>A simpler version of rotation control, just sets the rotation to the given value. This is deterministic, unlike "RotatedBy", which adds the rotation value to the current.</summary>
     public static Vector2 RotateTo(this Vector2 v, float rotation)
     {
       float oldVRotation = v.ToRotation();
@@ -245,6 +378,12 @@ namespace UnbiddenMod
       return Color.Lerp(firstColor, secondColor, amount);
     }
 
+    /// <summary>For use in setting defaults in items.</summary>
+    /// <param name="item">The item being set.</param>
+    /// <param name="elID">The element of a weapon's attacks, or additional elemental defense of accessories and armor.</param>
+    /// <param name="elDef">The amount of elemental defense provided in the element given to "elID" Defaults to 0.</param>
+    /// <param name="weakElID">The element of a weapon's weakness. Only really used for armor. Defaults to -1 (Typeless).</param>
+    /// <param name="weakElDef">The amount of elemental defense lowered in the element given to "weakElID". Defaults to 0.</param>
     public static void SetElementalTraits(this Item item, int elID, int elDef = 0, int weakElID = -1, int weakElDef = 0)
     {
       item.Unbidden().element = elID;
@@ -255,18 +394,21 @@ namespace UnbiddenMod
         item.Unbidden().weakElDef = weakElDef;
       }
     }
-    public static Tuple<bool, int> IsThereABoss() {
+    /// <summary>Returns if there is a boss, and if there is, their ID in "Main.npc".</summary>
+    public static Tuple<bool, int> IsThereABoss()
+    {
       bool bossExists = false;
       int bossID = -1;
       foreach (NPC npc in Main.npc)
       {
         if (npc.active && npc.boss)
           bossExists = true;
-          bossID = npc.type;
+        bossID = npc.type;
       }
       return Tuple.Create(bossExists, bossID);
     }
     // Tuple in this order: Damage, DR, Regen, Speed
+    /// <summary>Returns the player's bonuses originated from their focus. In a tuple for ease of access.</summary>
     public static Tuple<int, decimal, decimal, decimal> FocusBonuses(this Player player)
     {
       UnbiddenPlayer mP = player.Unbidden();
@@ -277,17 +419,288 @@ namespace UnbiddenMod
       decimal moveSpeedBoost = focusPercent / 2;
       return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR, regen, moveSpeedBoost);
     }
-  }
 
-  public static class ElementID
-  {
-    public const int Fire = 0;
-    public const int Ice = 1;
-    public const int Lightning = 2;
-    public const int Water = 3;
-    public const int Earth = 4;
-    public const int Air = 5;
-    public const int Radiant = 6;
-    public const int Necrotic = 7;
+    /// <summary>
+    /// Provides a random point near the Vector2 you call this on.
+    /// </summary>
+    /// <param name="maxDist">The distance in pixels away from the origin to move. Defaults at 16f, or 1 tile.</param>
+    public static Vector2 RandomPointNearby(this Vector2 v, float maxDist = 16f)
+    {
+      return Vector2.Add(v, new Vector2(0, Main.rand.NextFloat(maxDist)).RotatedByRandom(180f.InRadians()));
+    }
+
+    /// <summary>
+    /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
+    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
+    /// </summary>
+    /// <param name="projectile">The projectile being worked with.</param>
+    /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
+    /// <param name="turnStrength">How quickly the projectile will gain turn. Defaults at 0.1f </param>
+    /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
+    /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
+    /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
+    public static void GravityHoming(this Projectile projectile, float speedCap = 6f, float turnStrength = 0.1f,
+    float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f)
+    {
+      // Slightly different tracking methods between hostile and friendly AIs. Not much, but enough.
+      if (projectile.friendly)
+      {
+        // Potential owner requirements?
+        Player owner = projectile.ProjectileOwnerPlayer();
+        // Target the closest hostile NPC. If in range, turn the velocity towards target by turnStrength.
+        NPC target = ClosestEnemyNPC(projectile);
+        if (target?.position.IsInRadiusOf(projectile.position, trackingRadius) == true)
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
+
+        // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
+        if (overshotPrevention && target?.position.IsInRadiusOf(projectile.position, overshotThreshold) == true)
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
+      }
+      else if (projectile.hostile)
+      {
+        // Same basic process as with friendly projs.
+        NPC owner = projectile.ProjectileOwnerNPC();
+        Player target = ClosestPlayer(projectile);
+        if (target.active && target.position.IsInRadiusOf(projectile.position, trackingRadius))
+          projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(target.position), turnStrength);
+
+        // If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
+        if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold))
+          projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(target.position));
+      }
+
+      // Force speed cap.
+      if (projectile.velocity.Length() > speedCap)
+        projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
+    }
+    /// <summary>
+    /// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
+    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
+    /// </summary>
+    /// <param name="projectile">The projectile being worked with.</param>
+    /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
+    /// <param name="gain">How quickly the projectile will gain speed. Defaults at 0.1f </param>
+    /// <param name="slow">How quickly the projectile will slow down. Defaults at 0.1f.</param>
+    /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
+    /// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
+    /// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
+    /// <param name="courseAdjust">Whether or not the projectile should never overshoot the axis. Defaults to false.</param>
+    /// <param name="courseRange">If courseAdjust is true, provides the range which will activate course adjustment. The range is centered around the axis of the target. Defaults to 5f.</param>
+    public static void Homing(this Projectile projectile, float speedCap = 8f, float gain = 0.1f, float slow = 0.1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 5f, bool courseAdjust = false, float courseRange = 5f)
+    {
+      switch (projectile.Unbidden().homingID)
+      {
+        case HomingID.Smart:
+          switch (projectile.Unbidden().entityType)
+          {
+            case EntityType.NPC:
+              NPC target = ClosestEnemyNPC(projectile);
+              Vector2 offset = target == null ? default : target.Hitbox.Center.ToVector2() - projectile.position;
+              if (target?.active == true && target.position.IsInRadiusOf(projectile.position, trackingRadius))
+              {
+                projectile.velocity = projectile.velocity.SmartHoming(projectile, target, offset, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speedCap);
+              }
+              break;
+            case 1:
+              break;
+            case 2:
+              break;
+            case 3:
+              break;
+          }
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+      }
+    }
+    /// <summary>
+    /// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
+    /// </summary>
+    /// <param name="v">The velocity being gravitized.</param>
+    /// <param name="angleToTarget">The angle relative to v and the source of gravity.</param>
+    /// <param name="turnAMT">How strong the gravity is, and how fast the turning effect is.</param>
+    public static Vector2 TurnTowardsByX(this Vector2 v, float angleToTarget, float turnAMT)
+    {
+      Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
+      return Vector2.Add(v, pull);
+    }
+
+    /// <summary>
+    /// A smart homing AI.
+    /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
+    /// </summary>
+    /// <param name="velocity">The velocity of the projectile.</param>
+    /// <param name="offset">The offset from the projectile position to the target position.</param>
+    /// <param name="gain">How fast the projectile gains speed.</param>
+    /// <param name="slow">How fast the projectile loses speed</param>
+    /// <param name="courseAdjust">Whether or not the projectile will prevent overshooting the axes of the target.</param>
+    /// <param name="courseRange">The range that courseAdjust will activate within.</param>
+    /// <param name="overshotPrevention">Whether or not the projectile will guarentee a hit within a certain distnace.</param>
+    /// <param name="overshotThreshold">The range that overshotPrevention will guarantee a hit within.</param>
+    /// <param name="speedCap">The max speed this projectile can reach.</param>
+    public static Vector2 SmartHoming(this Vector2 velocity, Projectile projectile, Entity target, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
+    {
+      if (offset.X > 0)
+      {
+        if (velocity.X < 0)
+          velocity.X /= slow;
+        if (velocity.X < speedCap)
+          velocity.X += gain;
+        if (velocity.X > speedCap)
+          velocity.X = speedCap;
+      }
+      if (offset.X < 0)
+      {
+        if (velocity.X > 0)
+          velocity.X /= slow;
+        if (velocity.X > -speedCap)
+          velocity.X -= gain;
+        if (velocity.X < -speedCap)
+          velocity.X = -speedCap;
+      }
+      if (offset.Y > 0)
+      {
+        if (velocity.Y < 0)
+          velocity.Y /= slow;
+        if (velocity.Y < speedCap)
+          velocity.Y += gain;
+        if (velocity.Y > speedCap)
+          velocity.Y = speedCap;
+      }
+      if (offset.Y < 0)
+      {
+        if (velocity.Y > 0)
+          velocity.Y /= slow;
+        if (velocity.Y > -speedCap)
+          velocity.Y -= gain;
+        if (velocity.Y < -speedCap)
+          velocity.Y = -speedCap;
+      }
+      if (courseAdjust)
+      {
+        if (offset.X <= courseRange && !(offset.X < 0))
+        {
+          if (!(offset.X < 1))
+            velocity.X /= slow;
+          if (offset.X < 1)
+            velocity.X = 0f;
+        }
+        if (offset.X >= -courseRange && !(offset.X > 0))
+        {
+          if (!(offset.X > -1))
+            velocity.X /= slow;
+          if (offset.X > -1)
+            velocity.X = 0f;
+        }
+        if (offset.Y <= courseRange && !(offset.Y < 0))
+        {
+          if (!(offset.Y < 1))
+            velocity.Y /= slow;
+          if (offset.Y < 1)
+            velocity.Y = 0f;
+        }
+        if (offset.Y >= -courseRange && !(offset.Y > 0))
+        {
+          if (!(offset.Y > -1))
+            velocity.Y /= slow;
+          if (offset.Y > -1)
+            velocity.Y = 0f;
+        }
+      }
+      if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold))
+      {
+        velocity.RotateTo(projectile.AngleTo(target.position));
+      }
+      return velocity;
+    }
+
+    public static void DrawGlowmask(this Item item, SpriteBatch spriteBatch, Texture2D tex, int frameCount, float rotation, float scale, Vector2 offset = default, bool animated = true)
+    {
+      if (animated)
+      {
+        // Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, (Main.itemTexture[item.type].Height / frameCount / 2) + 19);
+        // Rectangle frame = AnimationFrame(item, tex);
+        // Rectangle frame = item.getRect();
+        // frame.Y = tex.Height / frameCount * Main.itemAnimations[item.type].Frame;
+        // Vector2 position = EntityPosition(item);
+        // new Vector2(item.position.X - Main.screenPosition.X + (item.width * 0.5f), item.position.Y - Main.screenPosition.Y + item.height - (tex.Height * 0.5f) + 2f)
+        // Vector2 position = item.Center - Main.screenPosition;
+        // spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+        // int frameHeight = tex.Height / Main.itemFrame[item.type];
+        // int spriteSheetOffset = frameHeight * Main.itemAnimations[item.type].Frame;
+        // Vector2 sheetInsertPosition = (item.Center + (Vector2.UnitY * item.gfxOffY) - Main.screenPosition).Floor();
+        // spriteBatch.Draw(texture, sheetInsertPosition, new Rectangle?(new Rectangle(0, spriteSheetOffset, texture.Width, frameHeight)), drawColor, projectile.rotation, new Vector2(texture.Width / 2f, frameHeight / 2f), projectile.scale, effects, 0f);
+
+        // Vector2 origin = AnimationOrigin(item, frameCount);
+        // Rectangle frame = Main.itemAnimations[item.type].GetFrame(tex);
+        // Vector2 position = AnimatedEntityPosition(item, tex, frameCount);
+        // spriteBatch.Draw(tex, position, frame, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+
+        Vector2 origin = new Vector2(Main.itemTexture[item.type].Width / 2, Main.itemTexture[item.type].Height / frameCount / 2);
+        Rectangle frame = ((DrawAnimation)Main.itemAnimations[item.type]).GetFrame(tex);
+        Vector2 position = item.Center - Main.screenPosition;
+        spriteBatch.Draw(tex, position, new Rectangle?(frame), Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+      }
+      else
+      {
+        Vector2 position = AnimatedEntityPosition(item, tex, frameCount) + offset;
+        spriteBatch.Draw(tex, position, tex.Frame(), Color.White, rotation, tex.Size() * 0.5f, scale, SpriteEffects.None, 0.0f);
+      }
+    }
+    public static Rectangle AnimationFrame(
+      this Item item,
+      ref int frame,
+      ref int frameCounter,
+      int frameDelay,
+      int frameAmt,
+      bool frameCounterUp = true)
+    {
+      if (frameCounter >= frameDelay)
+      {
+        frameCounter = -1;
+        frame = frame == frameAmt - 1 ? 0 : frame + 1;
+      }
+      if (frameCounterUp)
+        ++frameCounter;
+      return new Rectangle(0, item.height * frame, item.width, item.height);
+    }
+
+    public static class ParryTypeID
+    {
+      public const int Universal = 0;
+      public const int Tank = 1;
+      public const int DPS = 2;
+      public const int Support = 3;
+    }
+    public static class ElementID
+    {
+      public const int Typeless = -1;
+      public const int Fire = 0;
+      public const int Ice = 1;
+      public const int Lightning = 2;
+      public const int Water = 3;
+      public const int Earth = 4;
+      public const int Air = 5;
+      public const int Radiant = 6;
+      public const int Necrotic = 7;
+    }
+    public static class HomingID
+    {
+      public const int Smart = 0;
+      public const int Gravity = 1;
+      public const int Sine = 2;
+      public const int Linear = 3;
+    }
+    public static class EntityType
+    {
+      public const int NPC = 0;
+      public const int Player = 1;
+      public const int Projectile = 2;
+      public const int Entity = 3;
+    }
   }
 }

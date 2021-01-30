@@ -1,24 +1,25 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
-using System.Linq;
-using Microsoft.Xna.Framework.Input;
-using System.Reflection;
 using UnbiddenMod.Dusts;
 using static UnbiddenMod.UnbiddenUtils;
 using UnbiddenMod.Buffs.StatDebuffs;
+using static Terraria.ModLoader.ModContent;
+using UnbiddenMod.Buffs.Cooldowns;
+using UnbiddenMod.Projectiles.Ability;
+using UnbiddenMod.Buffs.StatBuffs;
 
 namespace UnbiddenMod
 {
   public class UnbiddenPlayer : ModPlayer
   {
     // Elemental variables for Player
+    // Testing commit
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 },
                  affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -26,43 +27,61 @@ namespace UnbiddenMod
     // public int affExpCooldown = 0;
 
     // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
-    public bool angelTear;
-    public int tearCount;
-    public bool brimHeart = false;
-    public bool boosterShot = false;
+    public Projectile parryProj;
 
-    public bool allowFocus = false;
-    public float focus = 0f;
+    public bool allowFocus;
+    public bool ampCapacitor;
+    public bool angelTear;
+    public bool bastionsAegis;
+    public bool brimHeart;
+    public bool boosterShot;
+    public bool burnAura;
+    public bool deflectable;
+    public bool cFlameAura;
+    public bool hasClericSet;
+    public bool micitBangle;
+    public bool intimidated;
+    public bool parryActive;
+    public bool parryActiveCooldown;
+    public bool parryCapable;
+    public bool parryWasActive;
+    public bool regenAura;
+    public bool spawnReset = true;
+    public bool tankParryOn;
+    public bool zephyriumAglet;
+
+    public const float defaultFocusGain = 0.005f;
+    public float bonusFocusGain;
+    public float cleric = 1f;
+    public float clericAuraRadius = 300f;
+    public float defaultFocusLoss = 0.25f;
+    public float focus;
+    public float focusLoss = 0.15f;
     public float focusMax = 1f;
     public float tankingItemCount;
-    public const float defaultFocusGain = 0.005f;
-    public float bonusFocusGain = 0f;
-    public float focusLoss = 0.15f;
-    public float defaultFocusLoss = 0.25f;
-    public int focusLossCooldown = 0;
-    public int focusLossCooldownMax = 20;
-    public bool deflectable = false;
-    public bool micitBangle = false;
-    public float cleric = 1f;
-    public bool hasClericSet = false;
-    public float clericAuraRadius = 300f;
-    public bool regenAura = false;
-    public bool burnAura = false;
-    public bool cFlameAura = false;
-    public bool ampCapacitor = false;
-    public bool bastionsAegis = false;
-    public int dashTimeMod;
+
+    // This should NEVER be changed.
+    public const int maxParryActiveTime = 90;
     public int dashMod;
+    public int dashTimeMod;
     public int dashModDelay = 60;
+    public int focusLossCooldown;
+    public int focusLossCooldownMax = 20;
+    public int parriedProjs;
+    public int parryActiveTime;
+    public int parryProjID;
+    public int parryType;
+    public int tankParryPWR;
+    public int tearCount;
+    
     public string dashDir = "";
     // TODO: Make this have use (see tooltip in the item of same name)
-    public bool zephyriumAglet;
-    public bool intimidated = false;
+
     public override TagCompound Save()
     {
       return new TagCompound {
-        {"angelTear", this.angelTear},
-        {"tearCount", this.tearCount},
+        {"angelTear", angelTear},
+        {"tearCount", tearCount},
         // {"affExp", this.affExp}
       };
     }
@@ -84,33 +103,84 @@ namespace UnbiddenMod
       dashTimeMod = 0;
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       zephyriumAglet = false;
-
+      parryCapable = false;
+      parryActive = parryActiveTime > 0;
+      parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
+      parryType = ParryTypeID.Universal;
+      tankParryPWR = player.HasBuff(BuffType<TankParryBoost>()) || parryActive ? tankParryPWR : 0;
+      tankParryOn = false;
+      tankParryPWR = tankParryOn ? tankParryPWR : 0;
+      intimidated = false;
       focusMax = 1f;
       allowFocus = IsThereABoss().Item1;
       bonusFocusGain = 0f;
       player.moveSpeed += focus / 2;
     }
 
+    public override void ProcessTriggers(TriggersSet triggersSet)
+    {
+      if (UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()) && !parryActiveCooldown)
+      {
+        parryActiveTime = maxParryActiveTime;
+        int p = Projectile.NewProjectile(player.position, new Vector2(0, 0), ProjectileType<ParryShield>(), 0, 0, player.whoAmI);
+        parryProj = Main.projectile[p];
+        parryProjID = p;
+      }
+    }
     public override void Load(TagCompound tag)
     {
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
     }
 
+    public void ActivateParry()
+    {
+      switch (parryType)
+      {
+        case ParryTypeID.Universal:
+          StandardParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
+        case ParryTypeID.Tank:
+          tankParryPWR += TankParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
+        case ParryTypeID.DPS:
+          DPSParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
+        case ParryTypeID.Support:
+          SupportParry(player, parryProj.Hitbox, ref parryProjID);
+          break;
+      }
+    }
     public override void PreUpdate()
     {
       if (IsThereABoss().Item1)
         allowFocus = true;
-        player.AddBuff(ModContent.BuffType<Intimidated>(), 2);
-        intimidated = true;
+      player.AddBuff(BuffType<Intimidated>(), 2);
+      intimidated = true;
+
       if (!IsThereABoss().Item1)
-        player.ClearBuff(ModContent.BuffType<Intimidated>());
+        player.ClearBuff(BuffType<Intimidated>());
+      intimidated = false;
 
       if (focusLossCooldown > 0)
         focusLossCooldown--;
       if (!allowFocus)
         focus = 0;
 
+      if (parryCapable && parryActive)
+      {
+        if (parryActiveTime > 0)
+          parryActiveTime--;
+        // Setting an "oldX" bool for PostUpdate
+        parryWasActive = parryActive;
+        ActivateParry();
+
+        if (parryType == ParryTypeID.Tank && tankParryPWR != 0 && !player.HasBuff(BuffType<TankParryBoost>()))
+        {
+          // 5 secs of time, -1 second for each hit tanked with this active
+          player.AddBuff(BuffType<TankParryBoost>(), 300);
+        }
+      }
       focus = Utils.Clamp(focus, 0, focusMax);
       base.PreUpdate();
     }
@@ -123,15 +193,28 @@ namespace UnbiddenMod
       // Safeguard against weird ass number overflowing
       player.CalcElemDefense();
 
+      if (parryCapable)
+      {
+        // This shouldn't just be when unequal, it specifically needs to be when it's not active anymore, but was within this tick
+        if (parryWasActive && !parryActive)
+        {
+          player.AddBuff(BuffType<CantDeflect>(), 180 + (parriedProjs * 60), true);
+          parryWasActive = false;
+          parriedProjs = 0;
+          parryProj = null;
+          parryProjID = 255;
+        }
+      }
+
       if (hasClericSet)
       {
         if (burnAura)
         {
           const float burnRadiusBoost = -100f;
-          GenerateAuraField(player, ModContent.DustType<AuraDust>(), burnRadiusBoost);
+          GenerateAuraField(player, DustType<AuraDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
             {
               npc.AddBuff(BuffID.OnFire, 1);
             }
@@ -140,10 +223,10 @@ namespace UnbiddenMod
         if (cFlameAura)
         {
           const float cFRadiusBoost = -150f;
-          GenerateAuraField(player, ModContent.DustType<AuraDust>(), cFRadiusBoost);
+          GenerateAuraField(player, DustType<AuraDust>(), cFRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
-            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadius(player.MountedCenter, clericAuraRadius + cFRadiusBoost))
+            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + cFRadiusBoost))
             {
               npc.AddBuff(BuffID.CursedInferno, 180);
             }
@@ -153,10 +236,10 @@ namespace UnbiddenMod
       if (ampCapacitor)
       {
         const float ampRadiusBoost = 0;
-        GenerateAuraField(player, ModContent.DustType<MoonBlastDust>(), ampRadiusBoost);
+        GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
         foreach (Projectile projectile in Main.projectile)
         {
-          if (projectile.position.IsInRadius(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
+          if (projectile.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
           {
             if (projectile.friendly)
             {
@@ -198,6 +281,7 @@ namespace UnbiddenMod
         dashModDelay--;
       }
     }
+
     public void ModDashMovement()
     {
       if (dashMod == 1)
@@ -324,7 +408,7 @@ namespace UnbiddenMod
       {
         foreach (Player targetPlayer in Main.player)
         {
-          if (targetPlayer.MountedCenter.IsInRadius(player.MountedCenter, clericAuraRadius))
+          if (targetPlayer.MountedCenter.IsInRadiusOf(player.MountedCenter, clericAuraRadius))
           {
             targetPlayer.lifeRegen += (int)(cleric * 2);
           }
@@ -362,6 +446,8 @@ namespace UnbiddenMod
           focusLossCooldown = focusLossCooldownMax;
         }
       }
+
+      damage -= damage * (tankParryPWR / 100);
     }
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -380,14 +466,16 @@ namespace UnbiddenMod
           focusLossCooldown = focusLossCooldownMax;
         }
       }
+
+      damage -= damage * (tankParryPWR / 100);
     }
 
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {
       if (boosterShot && item.potion)
       {
-        healValue = (int)(healValue * 2); // Doubles potion power
-        player.DelBuff(player.FindBuffIndex(mod.BuffType("BoosterShot"))); // Immediately deletes it from buff bar
+        healValue *= 2; // Doubles potion power
+        player.ClearBuff(BuffType<BoosterShot>()); // Immediately deletes it from buff bar
       }
     }
 

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Items.Materials;
+using static UnbiddenMod.UnbiddenUtils;
 
 namespace UnbiddenMod.Items.Accessories
 {

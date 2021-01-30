@@ -2,6 +2,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using UnbiddenMod.Projectiles.Melee;
+using static Terraria.ModLoader.ModContent;
 
 namespace UnbiddenMod.Items.Weapons.Melee
 {
@@ -27,7 +29,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
       item.melee = true;
       item.autoReuse = true;
       item.useTurn = true;
-      item.shoot = mod.ProjectileType("MoonBlast");
+      item.shoot = ProjectileType<MoonBlast>();
       item.shootSpeed = 16f;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }
@@ -41,14 +43,17 @@ namespace UnbiddenMod.Items.Weapons.Melee
         // If you want to randomize the speed to stagger the projectiles
         float scale = 1f - (Main.rand.NextFloat() * .1f);
         perturbedSpeed *= scale;
-        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+        Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<MoonBlast>(), damage, knockBack, player.whoAmI);
       }
       return false; // return false because we don't want tModContent to shoot projectile
     }
 
     public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
     {
-      int healingAmount = damage / 60; //decrease the value 30 to increase heal, increase value to decrease. Or you can just replace damage/x with a set value to heal, instead of making it based on damage.
+      // Caps potential healing at 1% of max health per hit.
+      int healingAmount = damage / 60 >= player.statLifeMax / 100 ? player.statLifeMax / 100 : damage / 60;
+
+      // Actually heals, and gives the little green numbers pop up
       player.statLife += healingAmount;
       player.HealEffect(healingAmount, true);
     }

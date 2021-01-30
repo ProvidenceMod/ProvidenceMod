@@ -18,7 +18,7 @@ namespace UnbiddenMod.Projectiles.Magic
     {
       projectile.width = 50;
       projectile.height = 22;
-      projectile.tileCollide = false;
+      projectile.tileCollide = true;
       projectile.ignoreWater = true;
       projectile.timeLeft = 600;
       projectile.penetrate = 1;

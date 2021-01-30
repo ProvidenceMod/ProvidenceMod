@@ -8,10 +8,9 @@ namespace UnbiddenMod.Items.Materials
 	public class ZephyriumBar : ModItem
 	{
     // Delete this later, when we have a texture
-    public override string Texture => $"Terraria/Item_{ItemID.IronBar}";
 		public override void SetStaticDefaults()
 		{
-      DisplayName.SetDefault("Zephyrium Ingot");
+      DisplayName.SetDefault("Zephyrium Bar");
       Tooltip.SetDefault("\"Even condensed, it's still as light as air.\"");
 		}
 

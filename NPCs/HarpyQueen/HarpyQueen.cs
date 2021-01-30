@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using UnbiddenMod.Items.Materials;
 using UnbiddenMod.Items.Placeable;
 using UnbiddenMod.Items.TreasureBags;
 using UnbiddenMod.Projectiles.Boss;
@@ -303,16 +304,18 @@ namespace UnbiddenMod.NPCs.HarpyQueen
         UnbiddenWorld.downedHarpyQueen = true;
       }
 
-      switch (Main.expertMode)
+      if (Main.expertMode)
       {
-        case true:
-          Item.NewItem(npc.position, ItemType<HarpyQueenBag>(), 1);
-          break;
-        case false:
-          // Hardcoded 16-50 Zephyrium ore dropped
-          Item.NewItem(npc.position, ItemType<ZephyriumOre>(), Main.rand.Next(16, 51));
-          Item.NewItem(npc.position, ItemID.GoldCoin, 5);
-          break;
+        _ = Item.NewItem(npc.position, ItemID.GoldCoin, 7);
+        _ = Item.NewItem(npc.position, ItemID.SilverCoin, 50);
+        _ = Item.NewItem(npc.position, ItemType<HarpyQueenBag>(), 1);
+      }
+      else
+      {
+        _ = Item.NewItem(npc.position, ItemID.GoldCoin, 5);
+        _ = Item.NewItem(npc.position, ItemType<ZephyriumOre>(), Main.rand.Next(16, 51));
+        _ = Item.NewItem(npc.position, ItemType<HarpyQueenTalon>(), Main.rand.Next(1, 6));
+        _ = Item.NewItem(npc.position, ItemType<HarpyQueenFeather>(), Main.rand.Next(2, 6));
       }
     }
   }

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using UnbiddenMod.Items.Placeable;
+using UnbiddenMod.Items.Materials;
 
 namespace UnbiddenMod.Items.TreasureBags
 {
@@ -26,15 +27,14 @@ namespace UnbiddenMod.Items.TreasureBags
       item.rare = ItemRarityID.Expert;
     }
 
-    public override bool CanRightClick()
-    {
-      return true;
-    }
+    public override bool CanRightClick() => true;
 
     public override void RightClick(Player player)
     {
       // 26 to 74 ore spawned
       player.QuickSpawnItem(ItemType<ZephyriumOre>(), Main.rand.Next(26, 75));
+      player.QuickSpawnItem(ItemType<HarpyQueenTalon>(), Main.rand.Next(2, 6));
+      player.QuickSpawnItem(ItemType<HarpyQueenFeather>(), Main.rand.Next(3, 6));
     }
   }
 }

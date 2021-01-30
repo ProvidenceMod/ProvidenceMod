@@ -417,6 +417,12 @@ namespace UnbiddenMod
     {
       return Vector2.Add(v, new Vector2(0, Main.rand.NextFloat(maxDist)).RotatedByRandom(180f.InRadians()));
     }
+    public static Vector2 RandomPointInHitbox(this Rectangle hitbox)
+    {
+      int hBounds = Main.rand.Next(hitbox.Left, hitbox.Right),
+          vBounds = Main.rand.Next(hitbox.Top, hitbox.Bottom);
+      return Vector2.Add(hitbox.Center.ToVector2(), new Vector2(hBounds, vBounds));
+    }
     /// <summary>Provides the animation frame for given parameters.</summary>
     /// <param name="frame">The frame that this item is currently on. Use "public int frame;" in your item file.</param>
     /// <param name="frameCounter">The frame coutner for this item. Use "public int frameCounter;" in your item file.</param>

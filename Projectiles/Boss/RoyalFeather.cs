@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Projectiles.Boss
+namespace ProvidenceMod.Projectiles.Boss
 {
   public class RoyalFeather : ModProjectile
   {
@@ -26,8 +26,8 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.scale = 1f;
       projectile.damage = 25;
       projectile.hostile = true;
-      projectile.Unbidden().element = -1; // Typeless
-      projectile.Unbidden().homingID = HomingID.Gravity;
+      projectile.Providence().element = -1; // Typeless
+      projectile.Providence().homingID = HomingID.Gravity;
     }
 
     public override void AI()

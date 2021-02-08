@@ -2,7 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class TheAmethystDemise : ModItem
   {
@@ -26,7 +26,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
       item.melee = true;
       item.autoReuse = true;
       item.useTurn = true;
-      item.Unbidden().element = 0; // Fire
+      item.Providence().element = 0; // Fire
                                                             // item.shoot = true; // Commenting this until we have a projectile to shoot
     }
 

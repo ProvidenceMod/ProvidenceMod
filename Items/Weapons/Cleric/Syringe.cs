@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace UnbiddenMod.Items.Weapons.Cleric
+namespace ProvidenceMod.Items.Weapons.Cleric
 {
   public class Syringe : ClericItem
   {
@@ -30,7 +30,7 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.useTime = 30;
       item.useTurn = true;
       item.UseSound = SoundID.Item1;
-      item.Unbidden().cleric = true;
+      item.Providence().cleric = true;
     }
 
     public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

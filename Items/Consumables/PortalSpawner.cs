@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Items.Consumables
+namespace ProvidenceMod.Items.Consumables
 {
   public class PortalSpawner : ModItem
   {

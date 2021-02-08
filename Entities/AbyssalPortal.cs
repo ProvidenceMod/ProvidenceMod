@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UnbiddenMod.Items.Consumables;
+using ProvidenceMod.Items.Consumables;
 
-namespace UnbiddenMod.Entities
+namespace ProvidenceMod.Entities
 {
   public class AbyssalPortal : Portal
   {

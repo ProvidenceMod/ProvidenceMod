@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UnbiddenMod.Items.Materials;
+using ProvidenceMod.Items.Materials;
 using static Terraria.ModLoader.ModContent;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class ZephyriumCutlass : ModItem
   {
@@ -19,7 +19,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.BeeKeeper);
-      item.Unbidden().element = ElementID.Air;
+      item.Providence().element = ElementID.Air;
       item.damage = 34;
       item.width = 41;
       item.height = 42;

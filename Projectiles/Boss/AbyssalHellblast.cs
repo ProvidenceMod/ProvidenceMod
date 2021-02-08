@@ -4,10 +4,10 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
-using UnbiddenMod.NPCs.FireAncient;
-using static UnbiddenMod.UnbiddenUtils;
+using ProvidenceMod.NPCs.FireAncient;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Projectiles.Boss
+namespace ProvidenceMod.Projectiles.Boss
 {
   public class AbyssalHellblast : ModProjectile
   {
@@ -28,9 +28,9 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.scale = 1f;
       projectile.damage = 100;
       projectile.hostile = true;
-      projectile.Unbidden().element = 0; // Fire
+      projectile.Providence().element = 0; // Fire
       projectile.tileCollide = false;
-      projectile.Unbidden().homingID = HomingID.Natural;
+      projectile.Providence().homingID = HomingID.Natural;
     }
 
     public override void AI()

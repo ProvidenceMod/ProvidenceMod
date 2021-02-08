@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Items.Placeable;
-using UnbiddenMod.Items.Materials;
+using ProvidenceMod.Items.Placeable;
+using ProvidenceMod.Items.Materials;
 
-namespace UnbiddenMod.Items.TreasureBags
+namespace ProvidenceMod.Items.TreasureBags
 {
   public class HarpyQueenBag : ModItem
   {

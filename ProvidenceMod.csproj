@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\references\tModLoader.targets" />
   <PropertyGroup>
-    <AssemblyName>UnbiddenMod</AssemblyName>
+    <AssemblyName>ProvidenceMod</AssemblyName>
     <TargetFramework>net45</TargetFramework>
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
@@ -16,7 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SubworldLibrary">
-      <HintPath>Library\SubworldLibrary.dll</HintPath>
+      <HintPath>SubworldLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

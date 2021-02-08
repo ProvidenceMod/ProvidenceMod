@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Projectiles.Summon
+namespace ProvidenceMod.Projectiles.Summon
 {
   public class ProjectorShield : ModProjectile
   {

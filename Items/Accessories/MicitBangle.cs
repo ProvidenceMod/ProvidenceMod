@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   public class MicitBangle : ModItem
   {
@@ -22,9 +22,9 @@ namespace UnbiddenMod.Items.Accessories
     }
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-      player.Unbidden().micitBangle = true;
-      player.Unbidden().parryCapable = true;
-      player.Unbidden().parryType = ParryTypeID.Support;
+      player.Providence().micitBangle = true;
+      player.Providence().parryCapable = true;
+      player.Providence().parryType = ParryTypeID.Support;
     }
     public override void AddRecipes()
     {

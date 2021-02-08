@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Projectiles.Magic
+namespace ProvidenceMod.Projectiles.Magic
 {
   public class FriendlyHarpyFeather : ModProjectile
   {
@@ -26,8 +26,8 @@ namespace UnbiddenMod.Projectiles.Magic
       projectile.damage = 25;
       projectile.friendly = true;
       projectile.hostile = false;
-      projectile.Unbidden().element = ElementID.Air; // Typeless
-      projectile.Unbidden().homingID = HomingID.Gravity;
+      projectile.Providence().element = ElementID.Air; // Typeless
+      projectile.Providence().homingID = HomingID.Gravity;
     }
 
     public override void AI()

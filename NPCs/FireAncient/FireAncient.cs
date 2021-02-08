@@ -7,10 +7,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using UnbiddenMod.Projectiles;
-using static UnbiddenMod.UnbiddenUtils;
+using ProvidenceMod.Projectiles;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.NPCs.FireAncient
+namespace ProvidenceMod.NPCs.FireAncient
 {
   public class FireAncient : ModNPC
   {
@@ -50,8 +50,8 @@ namespace UnbiddenMod.NPCs.FireAncient
       npc.buffImmune[BuffID.OnFire] = true;
       npc.buffImmune[mod.BuffType("Freezing")] = true;
       npc.buffImmune[mod.BuffType("Frozen")] = true;
-      npc.Unbidden().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
-      npc.Unbidden().contactDamageEl = 0;
+      npc.Providence().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
+      npc.Providence().contactDamageEl = 0;
     }
 
     public override void AI() //this is where you program your AI
@@ -65,7 +65,7 @@ namespace UnbiddenMod.NPCs.FireAncient
       FindPlayers();
       npc.TargetClosest(false);
       Player player = Main.player[npc.target];
-      // UnbiddenGlobalNPC unbiddenNPC = npc.Unbidden();
+      // ProvidenceGlobalNPC ProvidenceNPC = npc.Providence();
       Vector2 offset = npc.position - player.position;
       const float speedCap = 8f;
       const float gainStrength = 0.2f;
@@ -201,16 +201,16 @@ namespace UnbiddenMod.NPCs.FireAncient
 
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
     {
-      if (!UnbiddenWorld.downedFireAncient)
+      if (!ProvidenceWorld.downedFireAncient)
       {
-        UnbiddenWorld.downedFireAncient = true;
+        ProvidenceWorld.downedFireAncient = true;
       }
     }
 
     private ModPacket GetPacket(FireAncientMessageType type)
     {
       ModPacket packet = mod.GetPacket();
-      packet.Write((byte)UnbiddenModMessageType.FireAncient);
+      packet.Write((byte)ProvidenceModMessageType.FireAncient);
       packet.Write(npc.whoAmI);
       packet.Write((byte)type);
       return packet;

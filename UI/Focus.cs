@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.UI
+namespace ProvidenceMod.UI
 {
   internal class Focus : UIState
   {
@@ -54,27 +54,27 @@ namespace UnbiddenMod.UI
       maxFocus.Left.Set(-50, 1f);
 
       frameRect = new Rectangle(0, 0, 130, 30);
-      focusFrame = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIFrame"), frameRect);
+      focusFrame = new UIImageFramed(GetTexture("ProvidenceMod/UI/FocusUIFrame"), frameRect);
       focusFrame.Top.Set(0, 0f);
       focusFrame.Left.Set(0, 0f);
       focusFrame.Width.Set(130f, 0f);
       focusFrame.Height.Set(30f, 0f);
 
-      focusBackground = new UIImage(GetTexture("UnbiddenMod/UI/FocusUIBackground"));
+      focusBackground = new UIImage(GetTexture("ProvidenceMod/UI/FocusUIBackground"));
       focusBackground.Top.Set(8f, 0f);
       focusBackground.Left.Set(15f, 0f);
       focusBackground.Width.Set(100f, 0f);
       focusBackground.Height.Set(20f, 0f);
 
       focusBarRect = new Rectangle(0, 0, 100, 20);
-      focusBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIBar"), focusBarRect);
+      focusBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/FocusUIBar"), focusBarRect);
       focusBar.Top.Set(8f, 0f);
       focusBar.Left.Set(15f, 0f);
       focusBar.Width.Set(100f, 0f);
       focusBar.Height.Set(20f, 0f);
 
       focusUseRect = new Rectangle(0, 0, 100, 20);
-      focusUse = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIUse"), focusBarRect);
+      focusUse = new UIImageFramed(GetTexture("ProvidenceMod/UI/FocusUIUse"), focusBarRect);
       focusUse.Top.Set(8f, 0f);
       focusUse.Left.Set(15f, 0f);
       focusUse.Width.Set(100f, 0f);
@@ -84,7 +84,7 @@ namespace UnbiddenMod.UI
 
     public override void Update(GameTime gameTime)
     {
-      UnbiddenPlayer unPlayer = Main.player[0].Unbidden();
+      ProvidencePlayer unPlayer = Main.player[0].Providence();
       currFocus.SetText(((int)(unPlayer.focus * 100)).ToString());
       float quotient = unPlayer.focus / unPlayer.focusMax;
       quotient = Utils.Clamp(quotient, 0f, 1f);

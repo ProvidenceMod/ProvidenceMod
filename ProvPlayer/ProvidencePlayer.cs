@@ -6,19 +6,19 @@ using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
-using UnbiddenMod.Dusts;
-using static UnbiddenMod.UnbiddenUtils;
-using UnbiddenMod.Buffs.StatDebuffs;
+using ProvidenceMod.Dusts;
+using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Buffs.StatDebuffs;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Buffs.Cooldowns;
-using UnbiddenMod.Projectiles.Ability;
-using UnbiddenMod.Buffs.StatBuffs;
+using ProvidenceMod.Buffs.Cooldowns;
+using ProvidenceMod.Projectiles.Ability;
+using ProvidenceMod.Buffs.StatBuffs;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 
-namespace UnbiddenMod
+namespace ProvidenceMod
 {
-  public class UnbiddenPlayer : ModPlayer
+  public class ProvidencePlayer : ModPlayer
   {
     // Elemental variables for Player
     // Testing commit
@@ -121,7 +121,7 @@ namespace UnbiddenMod
 
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
-      if (player.Unbidden().parryCapable && UnbiddenMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
+      if (player.Providence().parryCapable && ProvidenceMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
       {
         parryActiveTime = maxParryActiveTime;
         int p = Projectile.NewProjectile(player.position, new Vector2(0, 0), ProjectileType<ParryShield>(), 0, 0, player.whoAmI);
@@ -241,19 +241,19 @@ namespace UnbiddenMod
         GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
         foreach (Projectile projectile in Main.projectile)
         {
-          if (projectile.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Unbidden().amped)
+          if (projectile.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Providence().amped)
           {
             if (projectile.friendly)
             {
               projectile.damage = (int)(projectile.damage * 1.15);
               projectile.velocity *= 1.15f;
-              projectile.Unbidden().amped = true;
+              projectile.Providence().amped = true;
             }
             else if (projectile.hostile)
             {
               projectile.damage = (int)(projectile.damage * 0.85);
               projectile.velocity *= 0.85f;
-              projectile.Unbidden().amped = true;
+              projectile.Providence().amped = true;
             }
           }
         }
@@ -380,7 +380,7 @@ namespace UnbiddenMod
       if (brimHeart)
       {
         player.buffImmune[BuffID.OnFire] = true;
-        if (item.Unbidden().element == 0) // If the weapon is fire-based
+        if (item.Providence().element == 0) // If the weapon is fire-based
         {
           // Reduce cost by 15%
           reduce -= 0.15f;
@@ -477,16 +477,16 @@ namespace UnbiddenMod
 
     public override void ModifyDrawLayers(List<PlayerLayer> layers)
     {
-      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Unbidden().glowmask)
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask)
       {
       void layerTarget(PlayerDrawInfo s) => DrawGlowmask(s);
-      PlayerLayer layer = new PlayerLayer("UnbiddenMod", "Sword Glowmask", layerTarget);
+      PlayerLayer layer = new PlayerLayer("ProvidenceMod", "Sword Glowmask", layerTarget);
       layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer);
       }
-      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Unbidden().glowmask && player.HeldItem.Unbidden().animated)
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask && player.HeldItem.Providence().animated)
       {
       void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
-      PlayerLayer layer2 = new PlayerLayer("UnbiddenMod", "Sword Animation", layerTarget2);
+      PlayerLayer layer2 = new PlayerLayer("ProvidenceMod", "Sword Animation", layerTarget2);
       layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
       }
     }
@@ -499,21 +499,21 @@ namespace UnbiddenMod
         {
           if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
           {
-            if (player.HeldItem.Unbidden().element == 0)
+            if (player.HeldItem.Providence().element == 0)
               Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-            else if (player.HeldItem.Unbidden().element == 1)
+            else if (player.HeldItem.Providence().element == 1)
               Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-            else if (player.HeldItem.Unbidden().element == 2)
+            else if (player.HeldItem.Providence().element == 2)
               Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-            else if (player.HeldItem.Unbidden().element == 3)
+            else if (player.HeldItem.Providence().element == 3)
               Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-            else if (player.HeldItem.Unbidden().element == 4)
+            else if (player.HeldItem.Providence().element == 4)
               Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-            else if (player.HeldItem.Unbidden().element == 5)
+            else if (player.HeldItem.Providence().element == 5)
               Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-            else if (player.HeldItem.Unbidden().element == 6)
+            else if (player.HeldItem.Providence().element == 6)
               Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-            else if (player.HeldItem.Unbidden().element == 7)
+            else if (player.HeldItem.Providence().element == 7)
               Main.combatText[combatIndex2].color = new Color(96, 0, 188);
           }
         }
@@ -522,7 +522,7 @@ namespace UnbiddenMod
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
     {
       ModPacket packet = mod.GetPacket();
-      packet.Write((byte)UnbiddenModMessageType.UnbiddenPlayerSyncPlayer);
+      packet.Write((byte)ProvidenceModMessageType.ProvidencePlayerSyncPlayer);
       packet.Write((byte)player.whoAmI);
       packet.Write(tearCount); // While we sync nonStopParty in SendClientChanges, we still need to send it here as well so newly joining players will receive the correct value.
       packet.Send(toWho, fromWho);

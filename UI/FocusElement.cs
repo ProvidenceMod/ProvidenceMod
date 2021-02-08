@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace UnbiddenMod.UI
+namespace ProvidenceMod.UI
 {
   // This DragableUIPanel class inherits from UIPanel. 
   // Inheriting is a great tool for UI design. By inheriting, we get the background drawing for free from UIPanel

@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs.StatBuffs
+namespace ProvidenceMod.Buffs.StatBuffs
 {
   public class Hypodermia : ModBuff
   {
@@ -16,7 +16,7 @@ namespace UnbiddenMod.Buffs.StatBuffs
     }
     public override void Update(NPC npc, ref int buffIndex)
     {
-      UnbiddenGlobalNPC modNPC = npc.Unbidden();
+      ProvidenceGlobalNPC modNPC = npc.Providence();
       modNPC.hypodermia = true;
     }
   }

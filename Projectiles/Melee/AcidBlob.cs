@@ -4,9 +4,9 @@ using Terraria;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UnbiddenMod.Dusts;
+using ProvidenceMod.Dusts;
 
-namespace UnbiddenMod.Projectiles.Melee
+namespace ProvidenceMod.Projectiles.Melee
 {
   public class AcidBlob : ModProjectile
   {
@@ -30,7 +30,7 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.timeLeft = 300;
       projectile.penetrate = 1;
       projectile.scale = 1f;
-      projectile.Unbidden().element = 0; // Acid
+      projectile.Providence().element = 0; // Acid
     }
 
     public override void AI()

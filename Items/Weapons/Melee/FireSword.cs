@@ -2,7 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class FireSword : ModItem
   {
@@ -15,7 +15,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.Unbidden().element = 0; // Fire
+      item.Providence().element = 0; // Fire
       item.autoReuse = true;
       item.useAnimation = 15;
       item.useTime = 15;

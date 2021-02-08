@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameInput;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   public class CorruptAcolyteRing : ModItem
   {
@@ -20,9 +20,9 @@ namespace UnbiddenMod.Items.Accessories
 
     public override void UpdateEquip(Player player)
     {
-      UnbiddenPlayer unbiddenPlayer = player.Unbidden();
-      unbiddenPlayer.hasClericSet = true;
-      unbiddenPlayer.cFlameAura = true;
+      ProvidencePlayer ProvidencePlayer = player.Providence();
+      ProvidencePlayer.hasClericSet = true;
+      ProvidencePlayer.cFlameAura = true;
       player.dash = 20;
     }
   }

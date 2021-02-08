@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   [AutoloadEquip(EquipType.Wings)]
   public class CosmicCape : ModItem

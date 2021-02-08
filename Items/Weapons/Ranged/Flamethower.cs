@@ -8,7 +8,7 @@ using System.Linq;
 using System;
 using Terraria.Localization;
 
-namespace UnbiddenMod.Items.Weapons.Ranged
+namespace ProvidenceMod.Items.Weapons.Ranged
 {
   public class Flamethrower : ModItem
   {
@@ -21,7 +21,7 @@ namespace UnbiddenMod.Items.Weapons.Ranged
     public override void SetDefaults()
     {
       item.damage = 35;
-      item.Unbidden().element = 0; // Fire
+      item.Providence().element = 0; // Fire
       item.width = 54;
       item.height = 16;
       item.value = Item.buyPrice(0, 10, 0, 0);

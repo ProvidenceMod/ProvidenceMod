@@ -1,68 +1,68 @@
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\UnbiddenMod.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\UnbiddenMod.pdb
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Ionic.Zip.Reduced.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\log4net.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.Game.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.Graphics.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.Xact.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Mono.Cecil.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Mono.Cecil.Mdb.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Mono.Cecil.Pdb.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.RuntimeDetour.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.Utils.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MP3Sharp.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Newtonsoft.Json.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\NVorbis.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\ReLogic.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Steamworks.NET.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\System.ValueTuple.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\TerrariaHooks.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.exe
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.pdb
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.xml
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.RuntimeDetour.xml
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.Utils.xml
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csprojAssemblyReference.cache
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.AssemblyInfoInputs.cache
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.AssemblyInfo.cs
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.CoreCompileInputs.cache
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.CopyComplete
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.dll
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.pdb
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\UnbiddenMod.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\UnbiddenMod.pdb
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Ionic.Zip.Reduced.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\log4net.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.Game.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.Graphics.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Microsoft.Xna.Framework.Xact.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Mono.Cecil.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Mono.Cecil.Mdb.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Mono.Cecil.Pdb.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.RuntimeDetour.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.Utils.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MP3Sharp.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Newtonsoft.Json.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\NVorbis.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\ReLogic.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\Steamworks.NET.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\System.ValueTuple.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\TerrariaHooks.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.exe
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.RuntimeDetour.xml
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\MonoMod.Utils.xml
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csprojAssemblyReference.cache
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.AssemblyInfoInputs.cache
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.AssemblyInfo.cs
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.CoreCompileInputs.cache
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.CopyComplete
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.dll
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.pdb
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.pdb
-C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\bin\Debug\net45\tModLoader.xml
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.Properties.Resources.resources
-C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.GenerateResource.cache
-c:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.Properties.Resources.resources
-c:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\UnbiddenMod\obj\Debug\net45\UnbiddenMod.csproj.GenerateResource.cache
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\ProvidenceMod.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\ProvidenceMod.pdb
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Ionic.Zip.Reduced.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\log4net.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.Game.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.Xact.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Mono.Cecil.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Mono.Cecil.Mdb.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Mono.Cecil.Pdb.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.RuntimeDetour.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.Utils.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MP3Sharp.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Newtonsoft.Json.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\NVorbis.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\ReLogic.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Steamworks.NET.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\System.ValueTuple.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\TerrariaHooks.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\tModLoader.exe
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\tModLoader.pdb
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\tModLoader.xml
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.RuntimeDetour.xml
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.Utils.xml
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csprojAssemblyReference.cache
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.AssemblyInfoInputs.cache
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.AssemblyInfo.cs
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csproj.CoreCompileInputs.cache
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csproj.CopyComplete
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.dll
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.pdb
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\ProvidenceMod.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\ProvidenceMod.pdb
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Ionic.Zip.Reduced.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\log4net.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.Game.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Microsoft.Xna.Framework.Xact.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Mono.Cecil.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Mono.Cecil.Mdb.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Mono.Cecil.Pdb.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.RuntimeDetour.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.Utils.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MP3Sharp.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Newtonsoft.Json.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\NVorbis.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\ReLogic.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\Steamworks.NET.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\System.ValueTuple.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\TerrariaHooks.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\tModLoader.exe
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.RuntimeDetour.xml
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\MonoMod.Utils.xml
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csprojAssemblyReference.cache
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.AssemblyInfoInputs.cache
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.AssemblyInfo.cs
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csproj.CoreCompileInputs.cache
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csproj.CopyComplete
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.dll
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.pdb
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\tModLoader.pdb
+C:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\bin\Debug\net45\tModLoader.xml
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.Properties.Resources.resources
+C:\Users\Zack Callais\Documents\My Games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csproj.GenerateResource.cache
+c:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.Properties.Resources.resources
+c:\Users\vtuck\Documents\My games\Terraria\ModLoader\Mod Sources\ProvidenceMod\obj\Debug\net45\ProvidenceMod.csproj.GenerateResource.cache

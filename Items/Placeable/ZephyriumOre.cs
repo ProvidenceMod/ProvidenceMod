@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Items.Placeable
+namespace ProvidenceMod.Items.Placeable
 {
 	public class ZephyriumOre : ModItem
 	{

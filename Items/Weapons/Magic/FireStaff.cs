@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 
-namespace UnbiddenMod.Items.Weapons.Magic
+namespace ProvidenceMod.Items.Weapons.Magic
 {
   public class FireStaff : ModItem
   {
@@ -30,7 +30,7 @@ namespace UnbiddenMod.Items.Weapons.Magic
       item.mana = 7;
       item.autoReuse = true;
       item.useTurn = true;
-      item.Unbidden().element = 0; // Fire
+      item.Providence().element = 0; // Fire
       item.shoot = mod.ProjectileType("MoonBlast");
       item.shootSpeed = 16f;
     }

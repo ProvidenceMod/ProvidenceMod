@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-namespace UnbiddenMod.Projectiles.Melee
+namespace ProvidenceMod.Projectiles.Melee
 {
   public class LightningSwordP : ModProjectile
   {
@@ -20,7 +20,7 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.CloneDefaults(ProjectileID.WoodenArrowFriendly);
       projectile.damage = 10;
       projectile.timeLeft = 180;
-      projectile.Unbidden().element = 2;
+      projectile.Providence().element = 2;
     }
   }
 }

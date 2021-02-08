@@ -2,7 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Tools
+namespace ProvidenceMod.Items.Tools
 {
   public class CosmicGaveladze : ModItem
   {

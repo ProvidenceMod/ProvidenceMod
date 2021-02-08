@@ -1,8 +1,8 @@
 using Terraria.ModLoader;
 
-namespace UnbiddenMod
+namespace ProvidenceMod
 {
-  public class UnbiddenWorld : ModWorld
+  public class ProvidenceWorld : ModWorld
   {
     public static bool downedFireAncient;
     public static bool downedHarpyQueen;

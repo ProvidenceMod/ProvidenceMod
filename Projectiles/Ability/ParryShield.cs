@@ -5,9 +5,9 @@ using static Terraria.ModLoader.ModContent;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UnbiddenMod.Dusts;
+using ProvidenceMod.Dusts;
 
-namespace UnbiddenMod.Projectiles.Ability
+namespace ProvidenceMod.Projectiles.Ability
 {
   public class ParryShield : ModProjectile
   {
@@ -33,7 +33,7 @@ namespace UnbiddenMod.Projectiles.Ability
       projectile.penetrate = 1;
       projectile.scale = 1f;
       projectile.hide = false;
-      projectile.Unbidden().element = 0; // Acid
+      projectile.Providence().element = 0; // Acid
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

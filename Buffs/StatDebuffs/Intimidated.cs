@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs.StatDebuffs
+namespace ProvidenceMod.Buffs.StatDebuffs
 {
   public class Intimidated : ModBuff
   {
@@ -15,7 +15,7 @@ namespace UnbiddenMod.Buffs.StatDebuffs
     }
     public override void Update(Player player, ref int buffIndex)
     {
-      UnbiddenPlayer unPlayer = player.Unbidden();
+      ProvidencePlayer unPlayer = player.Providence();
       unPlayer.intimidated = true;
     }
   }

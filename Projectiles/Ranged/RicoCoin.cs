@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Projectiles.Ranged
+namespace ProvidenceMod.Projectiles.Ranged
 {
   public class RicoCoin : ModProjectile
   {

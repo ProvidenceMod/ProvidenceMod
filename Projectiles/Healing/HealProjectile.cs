@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static UnbiddenMod.UnbiddenUtils;
-using UnbiddenMod.Dusts;
+using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Dusts;
 
-namespace UnbiddenMod.Projectiles.Healing
+namespace ProvidenceMod.Projectiles.Healing
 {
   public class HealProjectile : ModProjectile
   {
@@ -20,18 +20,18 @@ namespace UnbiddenMod.Projectiles.Healing
       projectile.scale = 1f;
       projectile.hostile = false;
       projectile.friendly = true;
-      projectile.Unbidden().element = -1; // Typeless
-      projectile.Unbidden().homingID = HomingID.Natural;
+      projectile.Providence().element = -1; // Typeless
+      projectile.Providence().homingID = HomingID.Natural;
     }
 
     public override void AI()
     {
       projectile.ai[1]++;
       projectile.localAI[0]++;
-      Texture2D tex = ModContent.GetTexture("UnbiddenMod/Projectiles/Healing/HealProjectile");
+      Texture2D tex = ModContent.GetTexture("ProvidenceMod/Projectiles/Healing/HealProjectile");
       Player player = ClosestPlayer(projectile);
       Dust.NewDustPerfect(projectile.position, ModContent.DustType<ParryShieldDust>(), null, default, new Color(219, 240, 45), 1f);
-      UnbiddenGlobalProjectile.AfterImage(projectile, Color.White, tex, 10);
+      ProvidenceGlobalProjectile.AfterImage(projectile, Color.White, tex, 10);
       projectile.Homing(player, 30f, default, default, 20);
       if (projectile.getRect().Intersects(player.getRect()))
       {

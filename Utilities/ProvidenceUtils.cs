@@ -4,38 +4,38 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Buffs.Cooldowns;
-using UnbiddenMod.Projectiles.Healing;
+using ProvidenceMod.Buffs.Cooldowns;
+using ProvidenceMod.Projectiles.Healing;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using UnbiddenMod;
-using UnbiddenMod.Dusts;
+using ProvidenceMod;
+using ProvidenceMod.Dusts;
 
-namespace UnbiddenMod
+namespace ProvidenceMod
 {
-  public static class UnbiddenUtils
+  public static class ProvidenceUtils
   {
-    /// <summary>References the UnbiddenPlayer instance. Shorthand for ease of use.</summary>
-    public static UnbiddenPlayer Unbidden(this Player player) => player.GetModPlayer<UnbiddenPlayer>();
-    /// <summary>References the UnbiddenGlobalNPC instance. Shorthand for ease of use.</summary>
-    public static UnbiddenGlobalNPC Unbidden(this NPC npc) => npc.GetGlobalNPC<UnbiddenGlobalNPC>();
-    /// <summary>References the UnbiddenGlobalItem instance. Shorthand for ease of use.</summary>
-    public static UnbiddenGlobalItem Unbidden(this Item item) => item.GetGlobalItem<UnbiddenGlobalItem>();
-    /// <summary>References the UnbiddenGlobalProjectile instance. Shorthand for ease of use.</summary>
-    public static UnbiddenGlobalProjectile Unbidden(this Projectile proj) => proj.GetGlobalProjectile<UnbiddenGlobalProjectile>();
-    /// <summary>References the UnbiddenGlobalWall instance. Shorthand for ease of use.</summary>
-    public static UnbiddenWall UnbiddenWall(this Mod wall) => (UnbiddenWall)wall.GetGlobalWall("UnbiddenMod");
-    /// <summary>References the UnbiddenWorld instance. Shorthand for ease of use.</summary>
-    public static UnbiddenWorld UnbiddenWorld(this Mod world) => (UnbiddenWorld)world.GetModWorld("UnbiddenMod");
-    /// <summary>References the UnbiddenGlobalBuff instance. Shorthand for ease of use.</summary>
-    public static UnbiddenBuff UnbiddenBuff(this Mod buff) => (UnbiddenBuff)buff.GetGlobalBuff("UnbiddenMod");
-    /// <summary>References the UnbiddenGlobalTile instance. Shorthand for ease of use.</summary>
-    public static UnbiddenTile UnbiddenTile(this Mod tile) => (UnbiddenTile)tile.GetGlobalTile("UnbiddenMod");
-    /// <summary>References the UnbiddenGlobalBigStyle instance. Shorthand for ease of use.</summary>
-    public static UnbiddenBigStyle UnbiddenStyle(this Mod style) => (UnbiddenBigStyle)style.GetGlobalBgStyle("UnbiddenMod");
-    /// <summary>References the UnbiddenGlobalRecipes instance. Shorthand for ease of use.</summary>
-    public static UnbiddenRecipes UnbiddenRecipes(this Mod recipe) => (UnbiddenRecipes)recipe.GetGlobalRecipe("UnbiddenMod");
+    /// <summary>References the ProvidencePlayer instance. Shorthand for ease of use.</summary>
+    public static ProvidencePlayer Providence(this Player player) => player.GetModPlayer<ProvidencePlayer>();
+    /// <summary>References the ProvidenceGlobalNPC instance. Shorthand for ease of use.</summary>
+    public static ProvidenceGlobalNPC Providence(this NPC npc) => npc.GetGlobalNPC<ProvidenceGlobalNPC>();
+    /// <summary>References the ProvidenceGlobalItem instance. Shorthand for ease of use.</summary>
+    public static ProvidenceGlobalItem Providence(this Item item) => item.GetGlobalItem<ProvidenceGlobalItem>();
+    /// <summary>References the ProvidenceGlobalProjectile instance. Shorthand for ease of use.</summary>
+    public static ProvidenceGlobalProjectile Providence(this Projectile proj) => proj.GetGlobalProjectile<ProvidenceGlobalProjectile>();
+    /// <summary>References the ProvidenceGlobalWall instance. Shorthand for ease of use.</summary>
+    public static ProvidenceWall ProvidenceWall(this Mod wall) => (ProvidenceWall)wall.GetGlobalWall("ProvidenceMod");
+    /// <summary>References the ProvidenceWorld instance. Shorthand for ease of use.</summary>
+    public static ProvidenceWorld ProvidenceWorld(this Mod world) => (ProvidenceWorld)world.GetModWorld("ProvidenceMod");
+    /// <summary>References the ProvidenceGlobalBuff instance. Shorthand for ease of use.</summary>
+    public static ProvidenceBuff ProvidenceBuff(this Mod buff) => (ProvidenceBuff)buff.GetGlobalBuff("ProvidenceMod");
+    /// <summary>References the ProvidenceGlobalTile instance. Shorthand for ease of use.</summary>
+    public static ProvidenceTile ProvidenceTile(this Mod tile) => (ProvidenceTile)tile.GetGlobalTile("ProvidenceMod");
+    /// <summary>References the ProvidenceGlobalBigStyle instance. Shorthand for ease of use.</summary>
+    public static ProvidenceBigStyle ProvidenceStyle(this Mod style) => (ProvidenceBigStyle)style.GetGlobalBgStyle("ProvidenceMod");
+    /// <summary>References the ProvidenceGlobalRecipes instance. Shorthand for ease of use.</summary>
+    public static ProvidenceRecipes ProvidenceRecipes(this Mod recipe) => (ProvidenceRecipes)recipe.GetGlobalRecipe("ProvidenceMod");
     /// <summary>References the Player owner of a projectile instance. Shorthand for ease of use.</summary>
     public static Player OwnerPlayer(this Projectile projectile) => Main.player[projectile.owner];
     /// <summary>References the NPC owner of a projectile instance. Shorthand for ease of use.</summary>
@@ -65,7 +65,7 @@ namespace UnbiddenMod
     /// <summary>Calculates the elemental defense of the player based on their affinities, and any accessories and armor providing such defense.</summary>
     public static void CalcElemDefense(this Player player)
     {
-      UnbiddenPlayer unPlayer = player.Unbidden();
+      ProvidencePlayer unPlayer = player.Providence();
       for (int k = 0; k < 8; k++)
       {
         int index = unPlayer.affinities[k] - 1;
@@ -75,7 +75,7 @@ namespace UnbiddenMod
     }
     public static float[] GetAffinityBonuses(this Player player, int e)
     {
-      return new float[2] { elemAffDef[0, player.Unbidden().affinities[e]], elemAffDef[1, player.Unbidden().affinities[e]] };
+      return new float[2] { elemAffDef[0, player.Providence().affinities[e]], elemAffDef[1, player.Providence().affinities[e]] };
     }
 
     /// <summary>
@@ -83,11 +83,11 @@ namespace UnbiddenMod
     /// </summary>
     public static int CalcEleDamage(this Item item, NPC npc, ref int damage)
     {
-      int weapEl = item.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
+      int weapEl = item.Providence().element; // Determine the element (will always be between 0-6 for array purposes)
       if (weapEl != -1) // if not typeless (and implicitly within 0-6)
       {
         float damageFloat = damage, // And the damage we already have, converted to float
-          resistMod = npc.Unbidden().resists[weapEl];
+          resistMod = npc.Providence().resists[weapEl];
         if (resistMod > 0f)
         {
           damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
@@ -97,7 +97,7 @@ namespace UnbiddenMod
         {
           damage = 1;
         }
-        // UnbiddenPlayer modPlayer = Main.player[item.owner].Unbidden();
+        // ProvidencePlayer modPlayer = Main.player[item.owner].Providence();
         // if (modPlayer.affExpCooldown <= 0)
         // {
         //   modPlayer.affExp[weapEl] += 1;
@@ -111,11 +111,11 @@ namespace UnbiddenMod
     /// </summary>
     public static int CalcEleDamage(this Projectile projectile, NPC npc, ref int damage)
     {
-      int projEl = projectile.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
+      int projEl = projectile.Providence().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
         float damageFloat = damage, // And the damage we already have, converted to float
-          resistMod = npc.Unbidden().resists[projEl];
+          resistMod = npc.Providence().resists[projEl];
         if (resistMod > 0f)
         {
           damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
@@ -134,10 +134,10 @@ namespace UnbiddenMod
     /// </summary>
     public static int CalcEleDamageFromNPC(this Player player, NPC npc, ref int damage)
     {
-      int npcEl = npc.Unbidden().contactDamageEl;
+      int npcEl = npc.Providence().contactDamageEl;
       if (npcEl != -1)
       {
-        int resistMod = player.Unbidden().resists[npcEl];
+        int resistMod = player.Providence().resists[npcEl];
         damage -= (int)(Main.expertMode ? resistMod * 0.75 : resistMod * 0.5);
       }
       return damage;
@@ -148,10 +148,10 @@ namespace UnbiddenMod
     /// </summary>
     public static int CalcEleDamageFromProj(this Player player, Projectile proj, ref int damage)
     {
-      int projEl = proj.Unbidden().element; // Determine the element (will always be between 0-6 for array purposes)
+      int projEl = proj.Providence().element; // Determine the element (will always be between 0-6 for array purposes)
       if (projEl != -1) // if not typeless (and implicitly within 0-6)
       {
-        int resistMod = player.Unbidden().resists[projEl];
+        int resistMod = player.Providence().resists[projEl];
         damage -= (int)(Main.expertMode ? resistMod * 0.75 : resistMod * 0.5); // set the damage to the int version of the new float, implicitly rounding down to the lower int
       }
       return damage;
@@ -165,7 +165,7 @@ namespace UnbiddenMod
     /// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
     public static bool IsParry(this Projectile currProj, Player player, Rectangle hitbox, ref int parryShield)
     {
-      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Unbidden().Deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
+      return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Providence().Deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
     }
 
     /// <summary>
@@ -188,18 +188,18 @@ namespace UnbiddenMod
           currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
 
           // If Micit Bangle is equipped, add that multiplier.
-          currProj.damage = player.Unbidden().micitBangle ? (int)(currProj.damage * 2.5) : currProj.damage;
+          currProj.damage = player.Providence().micitBangle ? (int)(currProj.damage * 2.5) : currProj.damage;
           // Convert the proj so you own it and reverse its trajectory
           currProj.owner = player.whoAmI;
           currProj.hostile = false;
           currProj.friendly = true;
-          currProj.Unbidden().deflected = true;
+          currProj.Providence().deflected = true;
           currProj.velocity.X = -currProj.velocity.X;
           currProj.velocity.Y = -currProj.velocity.Y;
           affectedProjs++;
         }
       }
-      player.Unbidden().parriedProjs += affectedProjs;
+      player.Providence().parriedProjs += affectedProjs;
     }
     /// <summary>
     /// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
@@ -224,7 +224,7 @@ namespace UnbiddenMod
           affectedProjs++;
         }
       }
-      player.Unbidden().parriedProjs += affectedProjs;
+      player.Providence().parriedProjs += affectedProjs;
       return DRBoost;
     }
 
@@ -248,7 +248,7 @@ namespace UnbiddenMod
             currProj.position,
             Vector2.Negate(currProj.velocity),
             ProjectileID.ChlorophyteBullet,
-            (int)(player.Unbidden().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 2),
+            (int)(player.Providence().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 2),
             currProj.knockBack,
             player.whoAmI
             );
@@ -257,7 +257,7 @@ namespace UnbiddenMod
           affectedProjs++;
         }
       }
-      player.Unbidden().parriedProjs += affectedProjs;
+      player.Providence().parriedProjs += affectedProjs;
     }
 
     /// <summary>
@@ -283,7 +283,7 @@ namespace UnbiddenMod
           affectedProjs++;
         }
       }
-      player.Unbidden().parriedProjs += affectedProjs;
+      player.Providence().parriedProjs += affectedProjs;
       // player.statLife += HPBoost;
       // if (HPBoost > 0)
       // {
@@ -297,7 +297,7 @@ namespace UnbiddenMod
     /// <param name="radiusBoost">The distance modifier for the aura's effective range.</param>
     public static void GenerateAuraField(Player player, int dust, float radiusBoost)
     {
-      UnbiddenPlayer mP = player.Unbidden();
+      ProvidencePlayer mP = player.Providence();
       for (float rotation = 0f; rotation < 360f; rotation += 8f)
       {
         Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius + radiusBoost).RotatedBy(rotation.InRadians());
@@ -378,12 +378,12 @@ namespace UnbiddenMod
     /// <param name="weakElDef">The amount of elemental defense lowered in the element given to "weakElID". Defaults to 0.</param>
     public static void SetElementalTraits(this Item item, int elID, int elDef = 0, int weakElID = -1, int weakElDef = 0)
     {
-      item.Unbidden().element = elID;
-      item.Unbidden().elementDef = elDef;
+      item.Providence().element = elID;
+      item.Providence().elementDef = elDef;
       if (weakElID != -1)
       {
-        item.Unbidden().weakEl = weakElID;
-        item.Unbidden().weakElDef = weakElDef;
+        item.Providence().weakEl = weakElID;
+        item.Providence().weakElDef = weakElDef;
       }
     }
     /// <summary>Returns if there is a boss, and if there is, their ID in "Main.npc".</summary>
@@ -402,7 +402,7 @@ namespace UnbiddenMod
     /// <summary>Returns the player's bonuses originated from their focus. In a tuple for ease of access.</summary>
     public static Tuple<int, decimal, decimal, decimal> FocusBonuses(this Player player)
     {
-      UnbiddenPlayer mP = player.Unbidden();
+      ProvidencePlayer mP = player.Providence();
       int focusPercent = (int)(mP.focus * 100);
       int damageBoost = focusPercent / 5;
       decimal DR = (decimal)((mP.focus / 4 >= 0.25f ? 0.25f : mP.focus / 4) * 100);
@@ -456,8 +456,8 @@ namespace UnbiddenMod
       Texture2D glowmaskTexture = null;
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
       {
-        if (player.HeldItem.Unbidden().glowmask)
-          glowmaskTexture = player.HeldItem.Unbidden().glowmaskTexture;
+        if (player.HeldItem.Providence().glowmask)
+          glowmaskTexture = player.HeldItem.Providence().glowmaskTexture;
         Main.playerDrawData.Add(
           new DrawData(
             glowmaskTexture,
@@ -482,9 +482,9 @@ namespace UnbiddenMod
       Rectangle frame = default;
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
       {
-        if (player.HeldItem.Unbidden().glowmask)
+        if (player.HeldItem.Providence().glowmask)
         {
-          animationTexture = player.HeldItem.Unbidden().animationTexture;
+          animationTexture = player.HeldItem.Providence().animationTexture;
           frame = Main.itemAnimations[player.HeldItem.type].GetFrame(animationTexture);
         }
         Main.playerDrawData.Add(
@@ -519,7 +519,7 @@ namespace UnbiddenMod
     public static void Homing(this Projectile projectile, Entity entity, float speed = 8f, float gain = 0.1f, float slow = 0.1f, float turn = 1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 5f, bool courseAdjust = false, float courseRange = 5f)
     {
       Vector2 target = entity == null ? default : entity.Hitbox.Center.ToVector2() - projectile.position;
-      switch (projectile.Unbidden().homingID)
+      switch (projectile.Providence().homingID)
       {
         case HomingID.Smart:
           if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))

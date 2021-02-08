@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using UnbiddenMod.Projectiles.Summon;
+using ProvidenceMod.Projectiles.Summon;
 
-namespace UnbiddenMod.Items.Weapons.Summon
+namespace ProvidenceMod.Items.Weapons.Summon
 {
   public class ShieldProjector : ModItem
   {

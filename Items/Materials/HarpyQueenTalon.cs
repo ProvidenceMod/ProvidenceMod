@@ -1,6 +1,6 @@
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Items.Materials
+namespace ProvidenceMod.Items.Materials
 {
   public class HarpyQueenTalon : ModItem
   {

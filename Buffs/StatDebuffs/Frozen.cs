@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs.StatDebuffs
+namespace ProvidenceMod.Buffs.StatDebuffs
 {
   public class Frozen : ModBuff
   {
@@ -16,7 +16,7 @@ namespace UnbiddenMod.Buffs.StatDebuffs
     }
     public override void Update(NPC npc, ref int buffIndex)
     {
-      UnbiddenGlobalNPC modNPC = npc.Unbidden();
+      ProvidenceGlobalNPC modNPC = npc.Providence();
       modNPC.frozen = true;
     }
   }

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class Crimsword : ModItem
   {
@@ -19,7 +19,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.Unbidden().element = 7; // Necrotic
+      item.Providence().element = 7; // Necrotic
       item.autoReuse = true;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }

@@ -1,9 +1,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using UnbiddenMod.Projectiles.Melee;
+using ProvidenceMod.Projectiles.Melee;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class LightningSword : ModItem
   {
@@ -16,7 +16,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.Unbidden().element = 2; // Lightning
+      item.Providence().element = 2; // Lightning
       item.autoReuse = true;
       item.shootSpeed = 10f;
       // item.shoot = true; // Commenting this until we have a projectile to shoot

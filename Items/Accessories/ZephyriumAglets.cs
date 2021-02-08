@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Items.Materials;
-using static UnbiddenMod.UnbiddenUtils;
+using ProvidenceMod.Items.Materials;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   public class ZephyriumAglets : ModItem
   {
@@ -25,9 +25,9 @@ namespace UnbiddenMod.Items.Accessories
     public override void UpdateEquip(Player player)
     {
       player.jumpBoost = true;
-      UnbiddenPlayer unbiddenPlayer = player.Unbidden();
-      unbiddenPlayer.resists[ElementID.Air] += 2;
-      unbiddenPlayer.zephyriumAglet = true;
+      ProvidencePlayer ProvidencePlayer = player.Providence();
+      ProvidencePlayer.resists[ElementID.Air] += 2;
+      ProvidencePlayer.zephyriumAglet = true;
     }
     public override void AddRecipes()
     {

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-namespace UnbiddenMod.Projectiles.Ranged
+namespace ProvidenceMod.Projectiles.Ranged
 {
   public class AttractorSphere : ModProjectile
   {
@@ -17,7 +17,7 @@ namespace UnbiddenMod.Projectiles.Ranged
     public override void SetDefaults()
     {
       projectile.CloneDefaults(ProjectileID.Flames);
-      projectile.Unbidden().inverseKB = true;
+      projectile.Providence().inverseKB = true;
     }
     public override Color? GetAlpha(Color lightColor)
     {

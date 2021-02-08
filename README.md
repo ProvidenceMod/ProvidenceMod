@@ -1,4 +1,4 @@
-# Unbidden
+# Providence
 
 You've destroyed Golem, you've assaulted the Lunatic Cultist, halted the Lunar events, and destroyed the Moon Lord, the Destroyer of Worlds. Now what? Do you just sit back and enjoy your boundless power as if nothing happened?
 
@@ -6,9 +6,9 @@ Hells no! You've got a lot left to do. Moon Lord was only the beginning. The cal
 
 **_Are you ready?_**
 
-## Unbidden Mod
+## Providence Mod
 
-This is the source-code for the UnbiddenMod project; A mod for Terraria via tModLoader.
+This is the source-code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
 A large-scale project planned to be an overhaul mod for Terraria. It delves into the deeper mechanics of Terraria while adding its own flares, big and small. We have several mechanics implemented right now (Elements, Auras, Parries, etc), as well as a new class called a Cleric, and we have big plans for future additions the scale of which you've most likely seen in other big Terraria mods. It's a passion project and so far our very small community of people have been helping us better our mod bit by bit with new content suggestions and other tidbits here and there. While we might just be starting off, there is a lot of promise and potential in our mod so far, and we are a dedicated team of Devs working on making the dream a reality.
 
@@ -44,7 +44,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves into
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 
 
-Please note we have a [code of conduct](https://github.com/UnbiddenMod/UnbiddenMod/blob/master/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+Please note we have a [code of conduct](https://github.com/ProvidenceMod/ProvidenceMod/blob/master/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 <a name="installation"></a>
 ## Installation
@@ -57,7 +57,7 @@ In order to install our mod, simply follow these steps:
 <a name="pull_request_process"></a>
 ## Pull Request Process
 
-- Please follow the [pull request template](https://github.com/UnbiddenMod/UnbiddenMod/blob/master/PULL_REQUEST_TEMPLATE.md).
+- Please follow the [pull request template](https://github.com/ProvidenceMod/ProvidenceMod/blob/master/PULL_REQUEST_TEMPLATE.md).
 - You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
 - Please follow proper formatting. This includes using two-space indentation, placing files in the correct folders, using Camel Case for variables, and Pascal Case for file names, folder names, and method names.
 
@@ -86,7 +86,7 @@ In order to install our mod, simply follow these steps:
 ## Credits
    > _Thank you to the Dev team for toughing out the beginning, and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone in the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to ReLogic for creating such a wonderful game._
 > 
-> _-SnowyStarfall and the UnbiddenMod Dev Team_
+> _-SnowyStarfall and the ProvidenceMod Dev Team_
 
 
 

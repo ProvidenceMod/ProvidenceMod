@@ -1,13 +1,13 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using UnbiddenMod.Projectiles;
+using ProvidenceMod.Projectiles;
 using static Terraria.ModLoader.ModContent;
 using Terraria;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class StellarTransfusion : ModItem
   {

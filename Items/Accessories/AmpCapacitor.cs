@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   public class AmpCapacitor : ModItem
   {
@@ -18,8 +18,8 @@ namespace UnbiddenMod.Items.Accessories
 
     public override void UpdateEquip(Player player)
     {
-      UnbiddenPlayer unbiddenPlayer = player.Unbidden();
-      unbiddenPlayer.ampCapacitor = true;
+      ProvidencePlayer ProvidencePlayer = player.Providence();
+      ProvidencePlayer.ampCapacitor = true;
     }
   }
 }

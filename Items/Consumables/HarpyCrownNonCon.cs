@@ -2,11 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static UnbiddenMod.UnbiddenUtils;
-using UnbiddenMod.Items.Materials;
-using UnbiddenMod.NPCs.HarpyQueen;
+using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Items.Materials;
+using ProvidenceMod.NPCs.HarpyQueen;
 
-namespace UnbiddenMod.Items.Consumables
+namespace ProvidenceMod.Items.Consumables
 {
   public class NonConsumableHarpyCrown : ModItem
   {

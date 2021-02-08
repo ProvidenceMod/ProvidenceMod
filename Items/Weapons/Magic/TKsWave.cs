@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Projectiles.Magic;
+using ProvidenceMod.Projectiles.Magic;
 
-namespace UnbiddenMod.Items.Weapons.Magic
+namespace ProvidenceMod.Items.Weapons.Magic
 {
   public class TKsWave : ModItem
   {

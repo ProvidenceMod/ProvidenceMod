@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs.StatBuffs
+namespace ProvidenceMod.Buffs.StatBuffs
 {
   public class BoosterShot : ModBuff
   {
@@ -16,7 +16,7 @@ namespace UnbiddenMod.Buffs.StatBuffs
 
     public override void Update(Player player, ref int buffIndex)
     {
-      UnbiddenPlayer modPlayer = player.Unbidden();
+      ProvidencePlayer modPlayer = player.Providence();
       modPlayer.boosterShot = true;
     }
   }

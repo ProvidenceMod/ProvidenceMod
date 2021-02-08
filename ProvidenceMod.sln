@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnbiddenMod", "UnbiddenMod.csproj", "{A72B1CE8-11F5-4502-8826-EB01549D8145}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvidenceMod", "ProvidenceMod.csproj", "{A72B1CE8-11F5-4502-8826-EB01549D8145}"
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution

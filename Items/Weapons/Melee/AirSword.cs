@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class AirSword : ModItem
   {
@@ -13,7 +13,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.Unbidden().element = 5; // Acid
+      item.Providence().element = 5; // Acid
       item.shoot = mod.ProjectileType("AcidBlob");
       item.shootSpeed = 8f;
       item.autoReuse = true;

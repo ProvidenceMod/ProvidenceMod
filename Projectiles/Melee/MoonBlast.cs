@@ -3,10 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Projectiles.Melee
+namespace ProvidenceMod.Projectiles.Melee
 {
   public class MoonBlast : ModProjectile
   {
@@ -28,7 +28,7 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
       projectile.scale = 1f;
-      projectile.Unbidden().homingID = HomingID.Natural;
+      projectile.Providence().homingID = HomingID.Natural;
     }
     public override void AI()
     {
@@ -46,9 +46,9 @@ namespace UnbiddenMod.Projectiles.Melee
 
     public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
     {
-      Texture2D tex = GetTexture("UnbiddenMod/Projectiles/Melee/MoonBlast");
+      Texture2D tex = GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast");
       const int counter = 5;
-      UnbiddenGlobalProjectile.AfterImage(projectile, lightColor, tex, counter);
+      ProvidenceGlobalProjectile.AfterImage(projectile, lightColor, tex, counter);
 
       return false;
     }
@@ -64,7 +64,7 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.penetrate--;
       target.immune[projectile.owner] = 3;
 
-      int trueDmg = crit ? damage * 2 : damage;
+      // int trueDmg = crit ? damage * 2 : damage;
       // if (target.life - trueDmg <= 0)
       // {
       //   NPC newTarget = ClosestEnemyNPC(projectile);

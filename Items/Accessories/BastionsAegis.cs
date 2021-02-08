@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameInput;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   public class BastionsAegis : ModItem
   {
@@ -20,11 +20,11 @@ namespace UnbiddenMod.Items.Accessories
 
     public override void UpdateEquip(Player player)
     {
-      UnbiddenPlayer unbiddenPlayer = player.Unbidden();
-      unbiddenPlayer.bastionsAegis = true;
-      unbiddenPlayer.hasClericSet = true;
-      unbiddenPlayer.burnAura = true;
-      unbiddenPlayer.dashMod = 1;
+      ProvidencePlayer ProvidencePlayer = player.Providence();
+      ProvidencePlayer.bastionsAegis = true;
+      ProvidencePlayer.hasClericSet = true;
+      ProvidencePlayer.burnAura = true;
+      ProvidencePlayer.dashMod = 1;
     }
   }
 }

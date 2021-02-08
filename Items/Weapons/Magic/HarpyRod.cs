@@ -2,12 +2,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Projectiles.Magic;
-using UnbiddenMod.Items.Materials;
+using ProvidenceMod.Projectiles.Magic;
+using ProvidenceMod.Items.Materials;
 
-namespace UnbiddenMod.Items.Weapons.Magic
+namespace ProvidenceMod.Items.Weapons.Magic
 {
   public class HarpyRod : ModItem
   {
@@ -33,7 +33,7 @@ namespace UnbiddenMod.Items.Weapons.Magic
       item.magic = true;
       item.mana = 6;
       item.autoReuse = true;
-      item.Unbidden().element = ElementID.Air; // Fire
+      item.Providence().element = ElementID.Air; // Fire
       item.shoot = ProjectileType<FriendlyHarpyFeather>();
       item.shootSpeed = 6f;
     }

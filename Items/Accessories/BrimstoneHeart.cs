@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   public class BrimstoneHeart : ModItem
   {
@@ -19,9 +19,9 @@ namespace UnbiddenMod.Items.Accessories
     }
     public override void UpdateEquip(Player player)
     {
-      player.Unbidden().brimHeart = true;
-      player.Unbidden().resists[0] += 15;
-      player.Unbidden().affinities[0]++;
+      player.Providence().brimHeart = true;
+      player.Providence().resists[0] += 15;
+      player.Providence().affinities[0]++;
     }
     public override void AddRecipes()
     {

@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs.StatBuffs
+namespace ProvidenceMod.Buffs.StatBuffs
 {
   public class TankParryBoost : ModBuff
   {
@@ -14,7 +14,7 @@ namespace UnbiddenMod.Buffs.StatBuffs
     }
     public override void Update(Player player, ref int buffIndex)
     {
-      player.Unbidden().tankParryOn = true;
+      player.Providence().tankParryOn = true;
     }
   }
 }

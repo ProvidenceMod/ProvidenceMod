@@ -2,12 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SubworldLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Entities
+namespace ProvidenceMod.Entities
 {
   public class Portal : Entity
   {

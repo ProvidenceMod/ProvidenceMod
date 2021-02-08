@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UnbiddenMod.Projectiles;
+using ProvidenceMod.Projectiles;
 
-namespace UnbiddenMod
+namespace ProvidenceMod
 {
-  public class UnbiddenGlobalProjectile : GlobalProjectile
+  public class ProvidenceGlobalProjectile : GlobalProjectile
   {
     // Elemental variables for Projectiles
 
@@ -59,21 +59,21 @@ namespace UnbiddenMod
         {
           if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
           {
-            if (projectile.Unbidden().element == 0)
+            if (projectile.Providence().element == 0)
               Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-            else if (projectile.Unbidden().element == 1)
+            else if (projectile.Providence().element == 1)
               Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-            else if (projectile.Unbidden().element == 2)
+            else if (projectile.Providence().element == 2)
               Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-            else if (projectile.Unbidden().element == 3)
+            else if (projectile.Providence().element == 3)
               Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-            else if (projectile.Unbidden().element == 4)
+            else if (projectile.Providence().element == 4)
               Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-            else if (projectile.Unbidden().element == 5)
+            else if (projectile.Providence().element == 5)
               Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-            else if (projectile.Unbidden().element == 6)
+            else if (projectile.Providence().element == 6)
               Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-            else if (projectile.Unbidden().element == 7)
+            else if (projectile.Providence().element == 7)
               Main.combatText[combatIndex2].color = new Color(96, 0, 188);
           }
         }
@@ -88,21 +88,21 @@ namespace UnbiddenMod
         {
           if (combatText.color == CombatText.DamagedFriendly || combatText.color == CombatText.DamagedFriendlyCrit)
           {
-            if (projectile.Unbidden().element == 0)
+            if (projectile.Providence().element == 0)
               Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-            else if (projectile.Unbidden().element == 1)
+            else if (projectile.Providence().element == 1)
               Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-            else if (projectile.Unbidden().element == 2)
+            else if (projectile.Providence().element == 2)
               Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-            else if (projectile.Unbidden().element == 3)
+            else if (projectile.Providence().element == 3)
               Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-            else if (projectile.Unbidden().element == 4)
+            else if (projectile.Providence().element == 4)
               Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-            else if (projectile.Unbidden().element == 5)
+            else if (projectile.Providence().element == 5)
               Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-            else if (projectile.Unbidden().element == 6)
+            else if (projectile.Providence().element == 6)
               Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-            else if (projectile.Unbidden().element == 7)
+            else if (projectile.Providence().element == 7)
               Main.combatText[combatIndex2].color = new Color(96, 0, 188);
           }
         }
@@ -113,7 +113,7 @@ namespace UnbiddenMod
       switch (projectile.type)
       {
         case ProjectileID.Flames:
-          projectile.Unbidden().element = 0; // Fire
+          projectile.Providence().element = 0; // Fire
           break;
       }
     }

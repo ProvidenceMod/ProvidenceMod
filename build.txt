@@ -1,7 +1,7 @@
-displayName = UnbiddenMod
-author = SnowyStarfall and the UnbiddenMod Dev Team
+displayName = ProvidenceMod
+author = SnowyStarfall and the ProvidenceMod Dev Team
 version = 0.2.2.14
-homepage = https://github.com/Unbidden-Dev-Team/UnbiddenMod
+homepage = https://github.com/Providence-Dev-Team/ProvidenceMod
 hideCode = false
 hideResources = true
 includePDB = true

@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Items
+namespace ProvidenceMod.Items
 {
-  public abstract class UnbiddenItemNameHere : ModItem
+  public abstract class ProvidenceItemNameHere : ModItem
   {
     public override void SetStaticDefaults()
     {

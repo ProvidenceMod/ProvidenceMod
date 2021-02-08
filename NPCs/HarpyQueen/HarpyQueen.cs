@@ -5,13 +5,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using UnbiddenMod.Items.Materials;
-using UnbiddenMod.Items.Placeable;
-using UnbiddenMod.Items.TreasureBags;
-using UnbiddenMod.Projectiles.Boss;
+using ProvidenceMod.Items.Materials;
+using ProvidenceMod.Items.Placeable;
+using ProvidenceMod.Items.TreasureBags;
+using ProvidenceMod.Projectiles.Boss;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.NPCs.HarpyQueen
+namespace ProvidenceMod.NPCs.HarpyQueen
 {
   public class HarpyQueen : ModNPC
   {
@@ -68,7 +68,7 @@ namespace UnbiddenMod.NPCs.HarpyQueen
       npc.buffImmune[BuffID.OnFire] = true;
       npc.buffImmune[mod.BuffType("Freezing")] = true;
       npc.buffImmune[mod.BuffType("Frozen")] = true;
-      npc.Unbidden().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
+      npc.Providence().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
     }
     public override void AI()
     {
@@ -299,9 +299,9 @@ namespace UnbiddenMod.NPCs.HarpyQueen
 
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
     {
-      if (!UnbiddenWorld.downedHarpyQueen)
+      if (!ProvidenceWorld.downedHarpyQueen)
       {
-        UnbiddenWorld.downedHarpyQueen = true;
+        ProvidenceWorld.downedHarpyQueen = true;
       }
 
       if (Main.expertMode)

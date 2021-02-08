@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class CounterSwing : ModItem
   {
@@ -34,7 +34,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void MeleeEffects(Player player, Rectangle hitbox)
     {
       // Run the parry util (In TynUtils)
-      StandardParry(player, hitbox, ref player.Unbidden().parryProjID);
+      StandardParry(player, hitbox, ref player.Providence().parryProjID);
     }
     public override void AddRecipes()
     {

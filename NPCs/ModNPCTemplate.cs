@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.NPCs
+namespace ProvidenceMod.NPCs
 {
-  public abstract class UnbiddenNPCNameHere : ModNPC
+  public abstract class ProvidenceNPCNameHere : ModNPC
   {
     public override void SetStaticDefaults()
     {

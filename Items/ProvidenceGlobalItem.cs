@@ -2,15 +2,15 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using System;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 using System.Collections.Generic;
 using System.Linq;
-using UnbiddenMod;
+using ProvidenceMod;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace UnbiddenMod
+namespace ProvidenceMod
 {
-  public class UnbiddenGlobalItem : GlobalItem
+  public class ProvidenceGlobalItem : GlobalItem
   {
     // Elemental variables for Items
     public bool cleric;
@@ -22,7 +22,7 @@ namespace UnbiddenMod
     public Texture2D glowmaskTexture;
     public Texture2D animationTexture;
     public override bool InstancePerEntity => true;
-    public UnbiddenGlobalItem()
+    public ProvidenceGlobalItem()
     {
       element = -1;
       elementDef = 0;
@@ -33,7 +33,7 @@ namespace UnbiddenMod
 
     public override GlobalItem Clone(Item item, Item itemClone)
     {
-      UnbiddenGlobalItem myClone = (UnbiddenGlobalItem)base.Clone(item, itemClone);
+      ProvidenceGlobalItem myClone = (ProvidenceGlobalItem)base.Clone(item, itemClone);
       myClone.element = element;
       myClone.elementDef = elementDef;
       myClone.weakEl = weakEl;
@@ -394,9 +394,9 @@ namespace UnbiddenMod
                        item.magic ? "magic" :
                        item.summon ? "summon" :
                        item.thrown ? "throwing" :
-                       item.Unbidden().cleric ? "cleric" :
+                       item.Providence().cleric ? "cleric" :
                        "";
-      switch (item.Unbidden().element)
+      switch (item.Providence().element)
       {
         case ElementID.Fire:
           el = "fire ";
@@ -450,10 +450,10 @@ namespace UnbiddenMod
 
     public override void UpdateEquip(Item item, Player player)
     {
-      if (item.Unbidden().element != -1)
-        player.Unbidden().resists[item.Unbidden().element] += item.Unbidden().elementDef;
-      if (item.Unbidden().weakEl != -1)
-        player.Unbidden().resists[item.Unbidden().weakEl] -= item.Unbidden().weakElDef;
+      if (item.Providence().element != -1)
+        player.Providence().resists[item.Providence().element] += item.Providence().elementDef;
+      if (item.Providence().weakEl != -1)
+        player.Providence().resists[item.Providence().weakEl] -= item.Providence().weakElDef;
 
       base.UpdateEquip(item, player);
     }

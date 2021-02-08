@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace UnbiddenMod.Items.Materials
+namespace ProvidenceMod.Items.Materials
 {
   public class LuminousFragment : ModItem
   {

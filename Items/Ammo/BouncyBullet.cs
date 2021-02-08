@@ -2,9 +2,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod;
+using ProvidenceMod;
 
-namespace UnbiddenMod.Items.Ammo
+namespace ProvidenceMod.Items.Ammo
 {
   public class BouncyBullet : ModItem
   {

@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static UnbiddenMod.UnbiddenUtils;
-using UnbiddenMod.Dusts;
+using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Dusts;
 
-namespace UnbiddenMod.Items.Armor
+namespace ProvidenceMod.Items.Armor
 {
   [AutoloadEquip(EquipType.Body)]
   public class AcolyteChest : ClericItem
@@ -27,7 +27,7 @@ namespace UnbiddenMod.Items.Armor
     public override void UpdateEquip(Player player)
     {
       player.lifeRegen++;
-      player.Unbidden().resists[6] += 2;
+      player.Providence().resists[6] += 2;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)

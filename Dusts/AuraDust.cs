@@ -3,7 +3,7 @@ using Terraria;
 using static Terraria.Lighting;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Dusts
+namespace ProvidenceMod.Dusts
 {
   public class AuraDust : ModDust
   {

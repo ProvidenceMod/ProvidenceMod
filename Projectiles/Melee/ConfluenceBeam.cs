@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Projectiles.Melee
+namespace ProvidenceMod.Projectiles.Melee
 {
   public class ConfluenceBeam : ModProjectile
   {
@@ -55,7 +55,7 @@ namespace UnbiddenMod.Projectiles.Melee
       if (!elDetermined)
       {
         el = Main.rand.Next(-1, 8);
-        projectile.Unbidden().element = el;
+        projectile.Providence().element = el;
 
         elDetermined = true;
       }

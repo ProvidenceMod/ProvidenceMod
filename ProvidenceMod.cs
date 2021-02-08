@@ -7,13 +7,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using UnbiddenMod.NPCs.FireAncient;
-using UnbiddenMod.UI;
-using static UnbiddenMod.UnbiddenUtils;
+using ProvidenceMod.NPCs.FireAncient;
+using ProvidenceMod.UI;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod
+namespace ProvidenceMod
 {
-  public class UnbiddenMod : Mod
+  public class ProvidenceMod : Mod
   {
     private UserInterface elemDefUI, focusUI, bossHealthUI;
     internal ElemDefUI ElemDefUI;
@@ -72,34 +72,34 @@ namespace UnbiddenMod
       int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
       if (accbarIndex != -1)
       {
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("UnbiddenMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
     {
-      UnbiddenModMessageType msgType = (UnbiddenModMessageType)reader.ReadByte();
+      ProvidenceModMessageType msgType = (ProvidenceModMessageType)reader.ReadByte();
       switch (msgType)
       {
-        case UnbiddenModMessageType.FireAncient:
+        case ProvidenceModMessageType.FireAncient:
           if (Main.npc[reader.ReadInt32()].modNPC is FireAncient ancient && ancient.npc.active)
           {
             ancient.HandlePacket(reader);
           }
           break;
 
-        // This message syncs UnbiddenPlayer.tearCount
-        case UnbiddenModMessageType.UnbiddenPlayerSyncPlayer:
+        // This message syncs ProvidencePlayer.tearCount
+        case ProvidenceModMessageType.ProvidencePlayerSyncPlayer:
           byte playernumber = reader.ReadByte();
-          UnbiddenPlayer unbiddenPlayer = Main.player[playernumber].Unbidden();
+          ProvidencePlayer ProvidencePlayer = Main.player[playernumber].Providence();
           int tearCount = reader.ReadInt32();
-          unbiddenPlayer.tearCount = tearCount;
+          ProvidencePlayer.tearCount = tearCount;
           // SyncPlayer will be called automatically, so there is no need to forward this data to other clients.
           break;
 
         default:
-          Logger.WarnFormat("UnbiddenMod: Unknown Message type: {0}", msgType);
+          Logger.WarnFormat("ProvidenceMod: Unknown Message type: {0}", msgType);
           break;
       }
     }
@@ -113,12 +113,12 @@ namespace UnbiddenMod
           10.5f,
           new List<int> { ModContent.NPCType<FireAncient>() },
           this, // Mod
-          "$Mods.UnbiddenMod.NPCName.FireAncient",
-          (Func<bool>)(() => UnbiddenWorld.downedFireAncient),
+          "$Mods.ProvidenceMod.NPCName.FireAncient",
+          (Func<bool>)(() => ProvidenceWorld.downedFireAncient),
           ModContent.ItemType<Items.Weapons.Melee.AirSword>(),
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },
-          "$Mods.UnbiddenMod.BossSpawnInfo.FireAncient"
+          "$Mods.ProvidenceMod.BossSpawnInfo.FireAncient"
         );
       Mod magicStorage = ModLoader.GetMod("MagicStorage");
       if (magicStorage != null)
@@ -192,9 +192,9 @@ namespace UnbiddenMod
     }
   }
 
-  internal enum UnbiddenModMessageType : byte
+  internal enum ProvidenceModMessageType : byte
   {
     FireAncient,
-    UnbiddenPlayerSyncPlayer
+    ProvidencePlayerSyncPlayer
   }
 }

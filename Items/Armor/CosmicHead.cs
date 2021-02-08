@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Items.Armor;
+using ProvidenceMod.Items.Armor;
 
-namespace UnbiddenMod.Items.Armor
+namespace ProvidenceMod.Items.Armor
 {
   [AutoloadEquip(EquipType.Head)]
   public class CosmicHead : ModItem

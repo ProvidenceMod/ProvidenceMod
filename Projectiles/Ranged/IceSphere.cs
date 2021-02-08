@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-namespace UnbiddenMod.Projectiles.Ranged
+namespace ProvidenceMod.Projectiles.Ranged
 {
   public class IceSphere : ModProjectile
   {
@@ -17,7 +17,7 @@ namespace UnbiddenMod.Projectiles.Ranged
     public override void SetDefaults()
     {
       projectile.CloneDefaults(ProjectileID.Flames);
-      projectile.Unbidden().element = 1; // Ice
+      projectile.Providence().element = 1; // Ice
     }
 
     public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -26,7 +26,7 @@ namespace UnbiddenMod.Projectiles.Ranged
       // If they're slowed for long enough, they'll freeze outright!
       if (0 == 0)
       { // 100% chance
-        if (target.Unbidden().freezing && !target.Unbidden().frozen)
+        if (target.Providence().freezing && !target.Providence().frozen)
         {
           int buffChill = target.FindBuffIndex(mod.BuffType("Freezing"));
           if (target.buffTime[buffChill] > 600)

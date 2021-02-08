@@ -8,7 +8,7 @@ using System.Linq;
 using System;
 using Terraria.Localization;
 
-namespace UnbiddenMod.Items.Weapons.Ranged
+namespace ProvidenceMod.Items.Weapons.Ranged
 {
   public class BulletMixer : ModItem
   {

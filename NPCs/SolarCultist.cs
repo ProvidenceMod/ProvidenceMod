@@ -4,13 +4,13 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace UnbiddenMod.NPCs
+namespace ProvidenceMod.NPCs
 {
   // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
   [AutoloadHead]
   public class SolarCultist : ModNPC
   {
-    public override string Texture => "UnbiddenMod/NPCs/SolarCultist";
+    public override string Texture => "ProvidenceMod/NPCs/SolarCultist";
 
     public override bool Autoload(ref string name)
     {

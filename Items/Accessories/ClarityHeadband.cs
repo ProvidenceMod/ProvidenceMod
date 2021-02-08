@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Items.Accessories
+namespace ProvidenceMod.Items.Accessories
 {
   public class ClarityHeadband : ModItem
   {
@@ -20,8 +20,8 @@ namespace UnbiddenMod.Items.Accessories
     }
     public override void UpdateEquip(Player player)
     {
-      player.Unbidden().bonusFocusGain += 0.005f;
-      player.Unbidden().focusMax += 0.2f;
+      player.Providence().bonusFocusGain += 0.005f;
+      player.Providence().focusMax += 0.2f;
     }
     public override void AddRecipes()
     {

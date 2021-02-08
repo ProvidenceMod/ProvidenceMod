@@ -2,10 +2,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
-using UnbiddenMod.Projectiles.Melee;
+using ProvidenceMod.Projectiles.Melee;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class EightGodsBlade : ModItem
   {

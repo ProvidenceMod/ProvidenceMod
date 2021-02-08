@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
 
-namespace UnbiddenMod.Projectiles.Magic
+namespace ProvidenceMod.Projectiles.Magic
 {
   public class TKWave : ModProjectile
   {

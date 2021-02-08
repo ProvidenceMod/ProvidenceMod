@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Tiles
+namespace ProvidenceMod.Tiles
 {
 	public class ZephyriumOre : ModTile
 	{

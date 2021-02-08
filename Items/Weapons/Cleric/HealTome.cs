@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace UnbiddenMod.Items.Weapons.Cleric
+namespace ProvidenceMod.Items.Weapons.Cleric
 {
   public class HealTome : ClericItem
   {
@@ -33,7 +33,7 @@ namespace UnbiddenMod.Items.Weapons.Cleric
       item.useTurn = true;
       item.UseSound = SoundID.Item1;
       item.mana = 2;
-      item.Unbidden().cleric = true;
+      item.Providence().cleric = true;
     }
 
     public override bool CanRightClick()

@@ -1,9 +1,9 @@
 using Terraria.ModLoader;
 using Terraria;
-using UnbiddenMod.Dusts;
-using static UnbiddenMod.UnbiddenUtils;
+using ProvidenceMod.Dusts;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Items
+namespace ProvidenceMod.Items
 {
   public abstract class ClericItem : ModItem
   {
@@ -14,14 +14,14 @@ namespace UnbiddenMod.Items
       item.magic = false;
       item.summon = false;
       item.thrown = false;
-      item.Unbidden().cleric = true;
+      item.Providence().cleric = true;
     }
 
     // The most you'll need to edit is what's in the conditional.
-    // Also make sure for line 42 you're "using static UnbiddenMod.UnbiddenUtils;"
+    // Also make sure for line 42 you're "using static ProvidenceMod.ProvidenceUtils;"
     protected virtual void GenerateAuraEffect(Player player)
     {
-      UnbiddenPlayer mP = player.Unbidden();
+      ProvidencePlayer mP = player.Providence();
       if (mP.hasClericSet)
       {
         GenerateAuraField(player, ModContent.DustType<AuraDust>(), 0f);
@@ -32,12 +32,12 @@ namespace UnbiddenMod.Items
     // 99% of the time you should use base.UpdateArmorSet on inherited classes
     public override void UpdateArmorSet(Player player)
     {
-      player.Unbidden().hasClericSet = true;
+      player.Providence().hasClericSet = true;
       GenerateAuraEffect(player);
     }
     public virtual void ModifyWeaponDamage(Player player, ref int damage)
     {
-      UnbiddenPlayer modPlayer = player.Unbidden();
+      ProvidencePlayer modPlayer = player.Providence();
       int originalDmg = damage;
       damage = (int)(damage * modPlayer.cleric);
       float globalDmg = player.meleeDamage - 1;

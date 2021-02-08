@@ -1,9 +1,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using UnbiddenMod.Items.Placeable;
+using ProvidenceMod.Items.Placeable;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Items.Materials
+namespace ProvidenceMod.Items.Materials
 {
 	public class ZephyriumBar : ModItem
 	{

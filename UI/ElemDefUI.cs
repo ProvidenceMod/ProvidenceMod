@@ -5,7 +5,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.UI
+namespace ProvidenceMod.UI
 {
   internal class ElemDefUI : UIState
   {
@@ -41,7 +41,7 @@ namespace UnbiddenMod.UI
       float currentTop = 0;
       const float left = 0;
       // Fire111`
-      elemDefFire = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefFireUI"));
+      elemDefFire = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefFireUI"));
       elemDefFire.Top.Set(currentTop, 0f);
       elemDefFire.Left.Set(left, 0f);
       elemDefFire.Width.Set(36, 0f);
@@ -54,7 +54,7 @@ namespace UnbiddenMod.UI
       fireText.Width.Set(18, 0f);
       fireText.Height.Set(18, 0f);
       // Ice
-      elemDefIce = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefIceUI"));
+      elemDefIce = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefIceUI"));
       elemDefIce.Top.Set(currentTop, 0f);
       elemDefIce.Left.Set(left, 0f);
       elemDefIce.Width.Set(36, 0f);
@@ -67,7 +67,7 @@ namespace UnbiddenMod.UI
       iceText.Width.Set(18, 0f);
       iceText.Height.Set(18, 0f);
       // Lightning
-      elemDefLightning = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefLightningUI"));
+      elemDefLightning = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefLightningUI"));
       elemDefLightning.Top.Set(currentTop, 0f);
       elemDefLightning.Left.Set(left, 0f);
       elemDefLightning.Width.Set(36, 0f);
@@ -80,7 +80,7 @@ namespace UnbiddenMod.UI
       lightningText.Width.Set(18, 0f);
       lightningText.Height.Set(18, 0f);
       // Water
-      elemDefWater = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefWaterUI"));
+      elemDefWater = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefWaterUI"));
       elemDefWater.Top.Set(currentTop, 0f);
       elemDefWater.Left.Set(left, 0f);
       elemDefWater.Width.Set(36, 0f);
@@ -93,7 +93,7 @@ namespace UnbiddenMod.UI
       waterText.Width.Set(18, 0f);
       waterText.Height.Set(18, 0f);
       // Earth
-      elemDefEarth = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefEarthUI"));
+      elemDefEarth = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefEarthUI"));
       elemDefEarth.Top.Set(currentTop, 0f);
       elemDefEarth.Left.Set(left, 0f);
       elemDefEarth.Width.Set(36, 0f);
@@ -106,7 +106,7 @@ namespace UnbiddenMod.UI
       earthText.Width.Set(18, 0f);
       earthText.Height.Set(18, 0f);
       // Air
-      elemDefAir = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefAirUI"));
+      elemDefAir = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefAirUI"));
       elemDefAir.Top.Set(currentTop, 0f);
       elemDefAir.Left.Set(left, 0f);
       elemDefAir.Width.Set(36, 0f);
@@ -119,7 +119,7 @@ namespace UnbiddenMod.UI
       airText.Width.Set(18, 0f);
       airText.Height.Set(18, 0f);
       // Radiant
-      elemDefRadiant = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefRadiantUI"));
+      elemDefRadiant = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefRadiantUI"));
       elemDefRadiant.Top.Set(currentTop, 0f);
       elemDefRadiant.Left.Set(left, 0f);
       elemDefRadiant.Width.Set(36, 0f);
@@ -132,7 +132,7 @@ namespace UnbiddenMod.UI
       radiantText.Width.Set(18, 0f);
       radiantText.Height.Set(18, 0f);
       // Necrotic
-      elemDefNecrotic = new UIImage(GetTexture("UnbiddenMod/UI/ElemDefNecroticUI"));
+      elemDefNecrotic = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefNecroticUI"));
       elemDefNecrotic.Top.Set(currentTop, 0f);
       elemDefNecrotic.Left.Set(left, 0f);
       elemDefNecrotic.Width.Set(36, 0f);
@@ -167,7 +167,7 @@ namespace UnbiddenMod.UI
     }
     public override void Update(GameTime gameTime)
     {
-      UnbiddenPlayer unPlayer = Main.player[0].Unbidden();
+      ProvidencePlayer unPlayer = Main.player[0].Providence();
       fireText.SetText(unPlayer.resists[0].ToString());
       iceText.SetText(unPlayer.resists[1].ToString());
       lightningText.SetText(unPlayer.resists[2].ToString());

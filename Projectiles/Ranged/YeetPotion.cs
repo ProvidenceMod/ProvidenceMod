@@ -4,10 +4,10 @@ using Terraria;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UnbiddenMod.Dusts;
-using static UnbiddenMod.UnbiddenUtils;
+using ProvidenceMod.Dusts;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.Projectiles.Ranged
+namespace ProvidenceMod.Projectiles.Ranged
 {
   public class YeetPotion : ModProjectile
   {

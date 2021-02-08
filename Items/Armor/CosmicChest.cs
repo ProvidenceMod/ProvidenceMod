@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Items.Armor;
+using ProvidenceMod.Items.Armor;
 
-namespace UnbiddenMod.Items.Armor
+namespace ProvidenceMod.Items.Armor
 {
   [AutoloadEquip(EquipType.Body)]
   public class CosmicChest : ModItem

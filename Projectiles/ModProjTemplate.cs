@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace UnbiddenMod.Projectiles
+namespace ProvidenceMod.Projectiles
 {
-  public abstract class UnbiddenProjectileNameHere : ModProjectile
+  public abstract class ProvidenceProjectileNameHere : ModProjectile
   {
     public override void SetStaticDefaults()
     {

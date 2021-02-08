@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Items.Materials;
+using ProvidenceMod.Items.Materials;
 
-namespace UnbiddenMod.Items.Consumables
+namespace ProvidenceMod.Items.Consumables
 {
   public class Antidote : ModItem
   {

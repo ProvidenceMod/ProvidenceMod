@@ -1,24 +1,24 @@
 *.mdp
 *.psd
-Unbidden Sprites/desktop.ini
+Providence Sprites/desktop.ini
 bin/
 .git/
 .Sprites/
 .vs/
 .vscode/
 .obj/
-obj/Debug/net45/UnbiddenMod.assets.cache
-obj/Debug/net45/UnbiddenMod.assets.cache
-obj/UnbiddenMod.csproj.nuget.g.props
-obj/UnbiddenMod.csproj.nuget.dgspec.json
+obj/Debug/net45/ProvidenceMod.assets.cache
+obj/Debug/net45/ProvidenceMod.assets.cache
+obj/ProvidenceMod.csproj.nuget.g.props
+obj/ProvidenceMod.csproj.nuget.dgspec.json
 obj/project.nuget.cache
 obj/project.assets.json
-obj/Debug/net45/UnbiddenMod.csprojAssemblyReference.cache
-obj/Debug/net45/UnbiddenMod.assets.cache
+obj/Debug/net45/ProvidenceMod.csprojAssemblyReference.cache
+obj/Debug/net45/ProvidenceMod.assets.cache
 obj/Debug/net45/.NETFramework,Version=v4.5.AssemblyAttributes.cs
-obj/Debug/net45/UnbiddenMod.AssemblyInfo.cs
-obj/Debug/net45/UnbiddenMod.AssemblyInfoInputs.cache
-obj/UnbiddenMod.csproj.nuget.g.targets
+obj/Debug/net45/ProvidenceMod.AssemblyInfo.cs
+obj/Debug/net45/ProvidenceMod.AssemblyInfoInputs.cache
+obj/ProvidenceMod.csproj.nuget.g.targets
 desktop.ini
 .vscode/settings.json
 .vscode/settings.json

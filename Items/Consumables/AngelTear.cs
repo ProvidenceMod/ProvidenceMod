@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Items.Materials;
+using ProvidenceMod.Items.Materials;
 
-namespace UnbiddenMod.Items.Consumables
+namespace ProvidenceMod.Items.Consumables
 {
   public class AngelTear : ModItem
   {
@@ -22,7 +22,7 @@ namespace UnbiddenMod.Items.Consumables
 
     public override bool CanUseItem(Player player)
     {
-      return player.statLifeMax2 >= 500 && player.Unbidden().tearCount < 25; // If you have all life fruits AND haven't gained up to 500 extra HP total from it
+      return player.statLifeMax2 >= 500 && player.Providence().tearCount < 25; // If you have all life fruits AND haven't gained up to 500 extra HP total from it
     }
 
     public override bool UseItem(Player player)
@@ -32,8 +32,8 @@ namespace UnbiddenMod.Items.Consumables
         player.statLifeMax2 += 20;
         player.statLife += 20;
         player.HealEffect(20, true);
-        player.Unbidden().angelTear = true;
-        player.Unbidden().tearCount++;
+        player.Providence().angelTear = true;
+        player.Providence().tearCount++;
         return true;
       }
       else

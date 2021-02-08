@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Buffs.Cooldowns
+namespace ProvidenceMod.Buffs.Cooldowns
 {
   public class CantDeflect : ModBuff
   {
@@ -16,7 +16,7 @@ namespace UnbiddenMod.Buffs.Cooldowns
     }
     public override void Update(Player player, ref int buffIndex)
     {
-      player.Unbidden().cantdeflect = true;
+      player.Providence().cantdeflect = true;
     }
   }
 }

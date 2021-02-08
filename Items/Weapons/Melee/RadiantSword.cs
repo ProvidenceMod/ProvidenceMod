@@ -2,7 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace UnbiddenMod.Items.Weapons.Melee
+namespace ProvidenceMod.Items.Weapons.Melee
 {
   public class RadiantSword : ModItem
   {
@@ -15,7 +15,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.Unbidden().element = 6; // Radiant
+      item.Providence().element = 6; // Radiant
       item.autoReuse = true;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }

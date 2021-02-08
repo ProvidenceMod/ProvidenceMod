@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Items;
+using ProvidenceMod.Items;
 
-namespace UnbiddenMod.Items.Armor
+namespace ProvidenceMod.Items.Armor
 {
   [AutoloadEquip(EquipType.Head)]
   public class AcolyteHead : ClericItem
@@ -23,7 +23,7 @@ namespace UnbiddenMod.Items.Armor
     }
     public override void UpdateEquip(Player player)
     {
-      player.Unbidden().cleric += 0.05f;
+      player.Providence().cleric += 0.05f;
     }
 
     public override void AddRecipes()

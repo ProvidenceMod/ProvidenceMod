@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.NPCs
+namespace ProvidenceMod.NPCs
 {
   // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
   public class FireSlime : ModNPC
@@ -20,8 +20,8 @@ namespace UnbiddenMod.NPCs
 
     public override void SetDefaults()
     {
-      npc.Unbidden().resists = new float[8] { 0.25f, 1.5f, 0.25f, 0.5f, 1f, 1f, 1f, 1f };
-      npc.Unbidden().contactDamageEl = 0; // Fire
+      npc.Providence().resists = new float[8] { 0.25f, 1.5f, 0.25f, 0.5f, 1f, 1f, 1f, 1f };
+      npc.Providence().contactDamageEl = 0; // Fire
       npc.townNPC = false;
       npc.width = 24;
       npc.height = 18;

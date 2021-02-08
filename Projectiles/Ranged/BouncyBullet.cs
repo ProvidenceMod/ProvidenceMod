@@ -2,12 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace UnbiddenMod.Projectiles.Ranged
+namespace ProvidenceMod.Projectiles.Ranged
 {
   public class BouncyBullet : ModProjectile
   {

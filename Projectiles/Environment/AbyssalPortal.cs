@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UnbiddenMod.Projectiles.Environment
+namespace ProvidenceMod.Projectiles.Environment
 {
   public class AbyssalPortal : ModProjectile
   {
@@ -11,14 +11,13 @@ namespace UnbiddenMod.Projectiles.Environment
     }
     public override void SetDefaults()
     {
-      projectile.Unbidden().deflectableOverride = true;
+      projectile.Providence().deflectableOverride = true;
       projectile.damage = 9;
       projectile.friendly = false;
       projectile.hostile = false;
     }
     public override void AI()
     {
-      
     }
   }
 }

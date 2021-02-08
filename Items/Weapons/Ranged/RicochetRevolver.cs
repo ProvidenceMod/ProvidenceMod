@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Terraria.Localization;
-using UnbiddenMod.Projectiles.Ranged;
+using ProvidenceMod.Projectiles.Ranged;
 using Terraria.Audio;
 
-namespace UnbiddenMod.Items.Weapons.Ranged
+namespace ProvidenceMod.Items.Weapons.Ranged
 {
   public class RicochetRevolver : ModItem
   {

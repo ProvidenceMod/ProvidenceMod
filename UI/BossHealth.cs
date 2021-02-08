@@ -6,9 +6,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using static UnbiddenMod.UnbiddenUtils;
+using static ProvidenceMod.ProvidenceUtils;
 
-namespace UnbiddenMod.UI
+namespace ProvidenceMod.UI
 {
   internal class BossHealth : UIState
   {
@@ -17,7 +17,7 @@ namespace UnbiddenMod.UI
     public float oldScale = Main.inventoryScale;
     //
     //
-    // This allows us to turn our UI on and off as needed, as it is the variable that is checked before drawing is performed in UnbiddenMod.cs
+    // This allows us to turn our UI on and off as needed, as it is the variable that is checked before drawing is performed in ProvidenceMod.cs
     public static bool visible = true;
     //
     //
@@ -82,7 +82,7 @@ namespace UnbiddenMod.UI
       area.Width.Set(1120f, 0f);
       area.Height.Set(60f, 0f);
 
-      frame = new UIImage(GetTexture("UnbiddenMod/UI/BossHealthUIFrame"));
+      frame = new UIImage(GetTexture("ProvidenceMod/UI/BossHealthUIFrame"));
       frame.Top.Set(0, 0f);
       frame.Left.Set(0, 0f);
       frame.Width.Set(1120f, 0f);
@@ -90,14 +90,14 @@ namespace UnbiddenMod.UI
 
       // We give the rectangle the same dimensions as our health bar so that it always draws all of it unless told otherwise
       mainBarRect = new Rectangle(0, 0, 1000, 40);
-      mainBar = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthUIBar"), mainBarRect);
+      mainBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHealthUIBar"), mainBarRect);
       mainBar.Top.Set(10f, 0f);
       mainBar.Left.Set(60f, 0f);
       mainBar.Width.Set(1000f, 0f);
       mainBar.Height.Set(40f, 0f);
 
       barAfterImageRect = new Rectangle(0, 0, 1000, 40);
-      barAfterImage = new UIImageFramed(GetTexture("UnbiddenMod/UI/BossHealthUIHit"), barAfterImageRect);
+      barAfterImage = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHealthUIHit"), barAfterImageRect);
       barAfterImage.Top.Set(10f, 0f);
       barAfterImage.Left.Set(60f, 0f);
       barAfterImage.Width.Set(1000f, 0f);

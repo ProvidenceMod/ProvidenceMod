@@ -380,7 +380,7 @@ namespace UnbiddenMod
       if (brimHeart)
       {
         player.buffImmune[BuffID.OnFire] = true;
-        if (item.GetGlobalItem<UnbiddenGlobalItem>().element == 0) // If the weapon is fire-based
+        if (item.Unbidden().element == 0) // If the weapon is fire-based
         {
           // Reduce cost by 15%
           reduce -= 0.15f;

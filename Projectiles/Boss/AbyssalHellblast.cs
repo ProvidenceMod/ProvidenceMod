@@ -28,7 +28,7 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.scale = 1f;
       projectile.damage = 100;
       projectile.hostile = true;
-      projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Fire
+      projectile.Unbidden().element = 0; // Fire
       projectile.tileCollide = false;
       projectile.Unbidden().homingID = HomingID.Natural;
     }

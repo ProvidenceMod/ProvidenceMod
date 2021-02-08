@@ -15,7 +15,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.GetGlobalItem<UnbiddenGlobalItem>().element = 6; // Radiant
+      item.Unbidden().element = 6; // Radiant
       item.autoReuse = true;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }

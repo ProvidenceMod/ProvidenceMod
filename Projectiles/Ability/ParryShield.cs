@@ -33,7 +33,7 @@ namespace UnbiddenMod.Projectiles.Ability
       projectile.penetrate = 1;
       projectile.scale = 1f;
       projectile.hide = false;
-      projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Acid
+      projectile.Unbidden().element = 0; // Acid
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,7 +15,8 @@ namespace UnbiddenMod.UI
     public float oldScale = Main.inventoryScale;
     private FocusElement area;
     private UIText currFocus, breakSlash, maxFocus;
-    private UIImage focusFrame;
+    private UIImageFramed focusFrame;
+    private Rectangle frameRect;
     private UIImage focusBackground;
     private Rectangle focusBarRect;
     private Rectangle focusUseRect;
@@ -26,6 +28,12 @@ namespace UnbiddenMod.UI
     private bool boss;
     private bool barSet = false;
     private NPC bossNPC;
+
+    // private int frame = 0;
+    // private int frameCounter = 10;
+    // private readonly int frameTime = 10;
+    // private readonly int frameAmount = 2;
+    // private readonly bool frameCounterUp = true;
 
     public override void OnInitialize()
     {
@@ -45,7 +53,8 @@ namespace UnbiddenMod.UI
       breakSlash.Left.Set(0, 0.5f);
       maxFocus.Left.Set(-50, 1f);
 
-      focusFrame = new UIImage(GetTexture("UnbiddenMod/UI/FocusUIFrame"));
+      frameRect = new Rectangle(0, 0, 130, 30);
+      focusFrame = new UIImageFramed(GetTexture("UnbiddenMod/UI/FocusUIFrame"), frameRect);
       focusFrame.Top.Set(0, 0f);
       focusFrame.Left.Set(0, 0f);
       focusFrame.Width.Set(130f, 0f);
@@ -107,6 +116,16 @@ namespace UnbiddenMod.UI
           focusUse.SetFrame(focusBarRect);
           barSet = true;
         }
+        // if (frameCounter >= frameTime)
+        // {
+        //   frameCounter = -1;
+        //   frame = frame == frameAmount - 1 ? 0 : frame + 1;
+        // }
+        // if (frameCounterUp)
+        //   frameCounter++;
+        // frameRect.Y = 34 * frame;
+        // focusFrame.SetFrame(frameRect);
+
         area.Append(focusBackground);
         area.Append(focusUse);
         area.Append(focusBar);

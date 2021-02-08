@@ -20,8 +20,8 @@ namespace UnbiddenMod.NPCs
 
     public override void SetDefaults()
     {
-      npc.GetGlobalNPC<UnbiddenGlobalNPC>().resists = new float[8] { 0.25f, 1.5f, 0.25f, 0.5f, 1f, 1f, 1f, 1f };
-      npc.GetGlobalNPC<UnbiddenGlobalNPC>().contactDamageEl = 0; // Fire
+      npc.Unbidden().resists = new float[8] { 0.25f, 1.5f, 0.25f, 0.5f, 1f, 1f, 1f, 1f };
+      npc.Unbidden().contactDamageEl = 0; // Fire
       npc.townNPC = false;
       npc.width = 24;
       npc.height = 18;

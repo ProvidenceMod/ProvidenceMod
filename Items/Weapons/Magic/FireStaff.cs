@@ -30,7 +30,7 @@ namespace UnbiddenMod.Items.Weapons.Magic
       item.mana = 7;
       item.autoReuse = true;
       item.useTurn = true;
-      item.GetGlobalItem<UnbiddenGlobalItem>().element = 0; // Fire
+      item.Unbidden().element = 0; // Fire
       item.shoot = mod.ProjectileType("MoonBlast");
       item.shootSpeed = 16f;
     }

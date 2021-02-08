@@ -15,7 +15,7 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.GetGlobalItem<UnbiddenGlobalItem>().element = 7; // Necrotic
+      item.Unbidden().element = 7; // Necrotic
       item.autoReuse = true;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }

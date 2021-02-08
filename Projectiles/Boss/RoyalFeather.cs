@@ -26,7 +26,7 @@ namespace UnbiddenMod.Projectiles.Boss
       projectile.scale = 1f;
       projectile.damage = 25;
       projectile.hostile = true;
-      projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = -1; // Typeless
+      projectile.Unbidden().element = -1; // Typeless
       projectile.Unbidden().homingID = HomingID.Gravity;
     }
 

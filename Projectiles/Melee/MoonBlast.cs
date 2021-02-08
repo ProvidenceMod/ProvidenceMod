@@ -1,11 +1,10 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static UnbiddenMod.UnbiddenUtils;
 using static Terraria.ModLoader.ModContent;
-using UnbiddenMod.Dusts;
 
 namespace UnbiddenMod.Projectiles.Melee
 {
@@ -31,7 +30,6 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.scale = 1f;
       projectile.Unbidden().homingID = HomingID.Natural;
     }
-
     public override void AI()
     {
       Lighting.AddLight(projectile.Center, (float)Main.DiscoR / 400f, (float)Main.DiscoG / 400f, (float)Main.DiscoB / 400f);

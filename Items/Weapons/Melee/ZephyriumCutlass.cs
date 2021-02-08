@@ -13,13 +13,13 @@ namespace UnbiddenMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Zephyrium Cutlass");
-      Tooltip.SetDefault("\"The talons on the hilt are the only things keeping this from floating away.\"");
+      Tooltip.SetDefault("The talons on the hilt are the only things keeping this from floating away.");
     }
 
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.BeeKeeper);
-      item.GetGlobalItem<UnbiddenGlobalItem>().element = ElementID.Air;
+      item.Unbidden().element = ElementID.Air;
       item.damage = 34;
       item.width = 41;
       item.height = 42;

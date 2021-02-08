@@ -1,8 +1,8 @@
 displayName = UnbiddenMod
-author = Unbidden Dev Team
-version = 0.2.2.11
+author = SnowyStarfall and the UnbiddenMod Dev Team
+version = 0.2.2.14
 homepage = https://github.com/Unbidden-Dev-Team/UnbiddenMod
 hideCode = false
 hideResources = true
 includePDB = true
-buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
+buildIgnore = *.csproj, *.user, *.md, obj\*, bin\*, .vs\*, Sprites\*

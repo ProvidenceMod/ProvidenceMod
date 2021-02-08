@@ -15,9 +15,8 @@ namespace UnbiddenMod
     public bool inverseKB;
     // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
-    public bool Deflectable {
-      get => homingID == -1;
-    }
+    public bool Deflectable { get => homingID == -1 && !deflectableOverride; }
+    public bool deflectableOverride = false;
     public bool deflected;
     public bool amped;
     public int homingID = -1;

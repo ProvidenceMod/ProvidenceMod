@@ -14,7 +14,7 @@ namespace UnbiddenMod.Items.Consumables
   {
     public int frame;
     public int frameNumber;
-    public int frameCounter;
+    public int frameTick;
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Scintillating Obsidian");
@@ -52,12 +52,12 @@ namespace UnbiddenMod.Items.Consumables
     public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {
       Texture2D texture = GetTexture("UnbiddenMod/Items/Consumables/ScintillatingObsidianAnimated");
-      spriteBatch.Draw(texture, position, item.AnimationFrame(ref frameNumber, ref frameCounter, 8, 13, true), Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
+      spriteBatch.Draw(texture, position, item.AnimationFrame(ref frameNumber, ref frameTick, 8, 13, true), Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
     }
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {
       Texture2D texture = GetTexture("UnbiddenMod/Items/Consumables/ScintillatingObsidianGlow");
-      spriteBatch.Draw(texture, new Vector2(item.position.X - Main.screenPosition.X, item.position.Y - Main.screenPosition.Y + 2), item.AnimationFrame(ref frame, ref frameCounter, 8, 13, true), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+      spriteBatch.Draw(texture, new Vector2(item.position.X - Main.screenPosition.X, item.position.Y - Main.screenPosition.Y + 2), item.AnimationFrame(ref frame, ref frameTick, 8, 13, true), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
     }
     public override void AddRecipes()
     {

@@ -92,7 +92,7 @@ namespace UnbiddenMod
         // This message syncs UnbiddenPlayer.tearCount
         case UnbiddenModMessageType.UnbiddenPlayerSyncPlayer:
           byte playernumber = reader.ReadByte();
-          UnbiddenPlayer unbiddenPlayer = Main.player[playernumber].GetModPlayer<UnbiddenPlayer>();
+          UnbiddenPlayer unbiddenPlayer = Main.player[playernumber].Unbidden();
           int tearCount = reader.ReadInt32();
           unbiddenPlayer.tearCount = tearCount;
           // SyncPlayer will be called automatically, so there is no need to forward this data to other clients.

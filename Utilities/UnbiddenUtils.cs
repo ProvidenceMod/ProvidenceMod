@@ -65,7 +65,7 @@ namespace UnbiddenMod
     /// <summary>Calculates the elemental defense of the player based on their affinities, and any accessories and armor providing such defense.</summary>
     public static void CalcElemDefense(this Player player)
     {
-      UnbiddenPlayer unPlayer = player.GetModPlayer<UnbiddenPlayer>();
+      UnbiddenPlayer unPlayer = player.Unbidden();
       for (int k = 0; k < 8; k++)
       {
         int index = unPlayer.affinities[k] - 1;
@@ -425,18 +425,18 @@ namespace UnbiddenMod
     }
     /// <summary>Provides the animation frame for given parameters.</summary>
     /// <param name="frame">The frame that this item is currently on. Use "public int frame;" in your item file.</param>
-    /// <param name="frameCounter">The frame coutner for this item. Use "public int frameCounter;" in your item file.</param>
+    /// <param name="frameTick">The frame tick for this item. Use "public int frameTick;" in your item file.</param>
     /// <param name="frameTime">How many frames (ticks) you are spending on a single frame.</param>
-    /// <param name="frameAmount">How many frames this animation has.</param>
-    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameCounter, int frameTime, int frameAmount, bool frameCounterUp)
+    /// <param name="frameCount">How many frames this animation has.</param>
+    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease)
     {
-      if (frameCounter >= frameTime)
+      if (frameTick >= frameTime)
       {
-        frameCounter = -1;
-        frame = frame == frameAmount - 1 ? 0 : frame + 1;
+        frameTick = -1;
+        frame = frame == frameCount - 1 ? 0 : frame + 1;
       }
-      if (frameCounterUp)
-        frameCounter++;
+      if (frameTickIncrease)
+        frameTick++;
       return new Rectangle(0, item.height * frame, item.width, item.height);
     }
     /// <summary>Draws a glowmask for the given item.</summary>

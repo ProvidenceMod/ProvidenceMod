@@ -30,7 +30,7 @@ namespace UnbiddenMod.Projectiles.Melee
       projectile.timeLeft = 300;
       projectile.penetrate = 1;
       projectile.scale = 1f;
-      projectile.GetGlobalProjectile<UnbiddenGlobalProjectile>().element = 0; // Acid
+      projectile.Unbidden().element = 0; // Acid
     }
 
     public override void AI()

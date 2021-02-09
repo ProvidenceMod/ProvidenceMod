@@ -9,16 +9,14 @@ namespace ProvidenceMod
 {
   public class ProvidenceGlobalProjectile : GlobalProjectile
   {
-    // Elemental variables for Projectiles
-
-    public int element = -1; // -1 means Typeless, meaning we don't worry about this in the first place
-    public bool inverseKB;
-    // Elemental variables also contained within GlobalItem, GlobalNPC, and Player
     public override bool InstancePerEntity => true;
+    public bool amped;
+    public bool bloodAmpBoosted;
     public bool Deflectable { get => homingID == -1 && !deflectableOverride; }
     public bool deflectableOverride = false;
     public bool deflected;
-    public bool amped;
+    public bool inverseKB;
+    public int element = -1;
     public int homingID = -1;
     public Item shotBy;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)

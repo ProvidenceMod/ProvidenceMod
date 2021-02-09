@@ -383,6 +383,117 @@ namespace ProvidenceMod
         case ItemID.SolarFlareLeggings:
           item.SetElementalTraits(ElementID.Fire, item.defense, ElementID.Water, item.defense / 2);
           break;
+
+        ///// VANILLA WEAPON ELEMENTS /////
+        case ItemID.Flamarang:
+        case ItemID.FieryGreatsword:
+        case ItemID.HelFire:
+        case ItemID.DayBreak:
+        case ItemID.SolarEruption:
+        case ItemID.MolotovCocktail:
+        case ItemID.HellwingBow:
+        case ItemID.MoltenFury:
+        case ItemID.DD2PhoenixBow:
+        case ItemID.PhoenixBlaster:
+        case ItemID.FlareGun:
+        case ItemID.Flamethrower:
+        case ItemID.EldMelter:
+        case ItemID.WandofSparking:
+        case ItemID.Flamelash:
+        case ItemID.FlowerofFire:
+        case ItemID.ApprenticeStaffT3:
+        case ItemID.SpiritFlame:
+        case ItemID.ImpStaff:
+        case ItemID.DD2FlameburstTowerT1Popper:
+        case ItemID.DD2FlameburstTowerT2Popper:
+        case ItemID.DD2FlameburstTowerT3Popper:
+        case ItemID.DD2SquireDemonSword:
+        case ItemID.Sunfury:
+        case ItemID.HeatRay:
+          item.SetElementalTraits(ElementID.Fire);
+          break;
+
+        case ItemID.IceBlade:
+        case ItemID.Frostbrand:
+        case ItemID.IceSickle:
+        case ItemID.Amarok:
+        case ItemID.NorthPole:
+        case ItemID.IceBoomerang:
+        case ItemID.IceBow:
+        case ItemID.SnowballCannon:
+        case ItemID.SnowmanCannon:
+        case ItemID.Snowball:
+        case ItemID.FlowerofFrost:
+        case ItemID.IceRod:
+        case ItemID.FrostStaff:
+        case ItemID.BlizzardStaff:
+        case ItemID.StaffoftheFrostHydra:
+        case ItemID.FrostDaggerfish:
+        case ItemID.SnowballLauncher:
+          item.SetElementalTraits(ElementID.Ice);
+          break;
+
+        case ItemID.DD2LightningAuraT1Popper:
+        case ItemID.DD2LightningAuraT2Popper:
+        case ItemID.DD2LightningAuraT3Popper:
+          item.SetElementalTraits(ElementID.Lightning);
+          break;
+
+        case ItemID.Muramasa:
+        case ItemID.WaterBolt:
+        case ItemID.PurpleClubberfish:
+        case ItemID.Kraken:
+        case ItemID.Swordfish:
+        case ItemID.ObsidianSwordfish:
+        case ItemID.BlueMoon:
+        case ItemID.Flairon:
+        case ItemID.BubbleGun:
+        case ItemID.AquaScepter:
+        case ItemID.NimbusRod:
+        case ItemID.RazorbladeTyphoon:
+        case ItemID.TempestStaff:
+          item.SetElementalTraits(ElementID.Water);
+          break;
+
+        case ItemID.BeeKeeper:
+        case ItemID.AntlionClaw:
+        case ItemID.BladeofGrass:
+        case ItemID.ChlorophyteSaber:
+        case ItemID.ChlorophyteClaymore:
+        case ItemID.ChlorophytePartisan:
+        case ItemID.Seedler:
+        case ItemID.JungleYoyo:
+        case ItemID.Yelets:
+        case ItemID.MushroomSpear:
+        case ItemID.ThornChakram:
+        case ItemID.PoisonDart:
+        case ItemID.PoisonedKnife:
+        case ItemID.Beenade:
+        case ItemID.VenusMagnum:
+        case ItemID.Stynger:
+        case ItemID.JackOLanternLauncher:
+        case ItemID.Blowgun:
+        case ItemID.Blowpipe:
+        case ItemID.PoisonStaff:
+        case ItemID.StaffofEarth:
+        case ItemID.BeeGun:
+        case ItemID.WaspGun:
+        case ItemID.LeafBlower:
+        case ItemID.ToxicFlask:
+        case ItemID.SlimeStaff:
+        case ItemID.HornetStaff:
+        case ItemID.SpiderStaff:
+        case ItemID.PygmyStaff:
+        case ItemID.QueenSpiderStaff:
+        case ItemID.BoneJavelin:
+        case ItemID.BoneDagger:
+        // case ItemID.BoneSword:
+          item.SetElementalTraits(ElementID.Earth);
+          break;
+
+        // case ItemID.BoneDagger:
+        //   item.SetElementalTraits(ElementID.Air);
+        //   break;
       }
     }
 

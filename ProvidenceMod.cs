@@ -23,15 +23,6 @@ namespace ProvidenceMod
 
     public override void Load()
     {
-      // this makes sure that the UI doesn't get opened on the server
-      // the server can't see UI, can it? it's just a command prompt
-      /*if (!Main.dedServ)
-      {
-          HealthUI = new HealthUI();
-          somethingUI.Initialize();
-          somethingInterface = new UserInterface();
-          somethingInterface.SetState(somethingUI);
-      }*/
       ElemDefUI = new ElemDefUI();
       ElemDefUI.Initialize();
       elemDefUI = new UserInterface();
@@ -48,6 +39,16 @@ namespace ProvidenceMod
       bossHealthUI.SetState(BossHealth);
 
       ParryHotkey = RegisterHotKey("Parry", "F");
+    }
+    public override void Unload()
+    {
+      ElemDefUI = null;
+      elemDefUI = null;
+      focusBar = null;
+      focusUI = null;
+      BossHealth = null;
+      bossHealthUI = null;
+      ParryHotkey = null;
     }
     private bool DrawElemDefUI()
     {

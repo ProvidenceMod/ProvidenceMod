@@ -20,8 +20,8 @@ namespace ProvidenceMod.Items.Weapons.Melee
     {
       item.CloneDefaults(ItemID.BeeKeeper);
       item.Providence().element = ElementID.Air;
-      item.damage = 34;
-      item.width = 41;
+      item.damage = 46;
+      item.width = 46;
       item.height = 42;
       item.useTime = 20;
       item.useAnimation = 20;

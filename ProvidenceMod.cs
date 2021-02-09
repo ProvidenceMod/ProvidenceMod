@@ -15,11 +15,12 @@ namespace ProvidenceMod
 {
   public class ProvidenceMod : Mod
   {
-    private UserInterface elemDefUI, focusUI, bossHealthUI;
+    public static ModHotKey ParryHotkey, UseBlood;
+    private UserInterface elemDefUI, focusUI, bossHealthUI, bloodLevelUI;
+    internal BloodLevel bloodLevel;
     internal ElemDefUI ElemDefUI;
     internal Focus focusBar;
     internal BossHealth BossHealth;
-    public static ModHotKey ParryHotkey;
 
     public override void Load()
     {
@@ -48,6 +49,13 @@ namespace ProvidenceMod
       bossHealthUI.SetState(BossHealth);
 
       ParryHotkey = RegisterHotKey("Parry", "F");
+
+      bloodLevel = new BloodLevel();
+      bloodLevel.Initialize();
+      bloodLevelUI = new UserInterface();
+      bloodLevelUI.SetState(bloodLevel);
+
+      UseBlood = RegisterHotKey("Use Blood Magic", "G");
     }
     private bool DrawElemDefUI()
     {
@@ -67,6 +75,11 @@ namespace ProvidenceMod
         bossHealthUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
+    private bool DrawBloodLevelUI()
+    {
+      if (BloodLevel.visible) bloodLevelUI.Draw(Main.spriteBatch, new GameTime());
+      return true;
+    }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
       int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
@@ -75,6 +88,7 @@ namespace ProvidenceMod
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("TynyransMod: Blood Level", DrawBloodLevelUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -120,61 +134,83 @@ namespace ProvidenceMod
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },
           "$Mods.ProvidenceMod.BossSpawnInfo.FireAncient"
         );
-      Mod magicStorage = ModLoader.GetMod("MagicStorage");
-      if (magicStorage != null)
-      {
-        ModItem craftingAccess = magicStorage.GetItem("CraftingAccess");
-        ModItem creativeStorageUnit = magicStorage.GetItem("CreativeStorageUnit");
-        ModItem radiantJewel = magicStorage.GetItem("RadiantJewel");
-        ModItem shadowDiamond = magicStorage.GetItem("ShadowDiamond");
-        ModItem storageAccess = magicStorage.GetItem("StorageAccess");
-        ModItem storageComponent = magicStorage.GetItem("StorageComponent");
-        ModItem storageConnector = magicStorage.GetItem("StorageConnector");
-        ModItem storageHeart = magicStorage.GetItem("StorageHeart");
-        ModItem storageUnit = magicStorage.GetItem("StorageUnit");
-        ModItem storageUnitBlueChlorophyte = magicStorage.GetItem("StorageUnitBlueChlorophyte");
-        ModItem storageUnitCrimtane = magicStorage.GetItem("StorageUnitCrimtane");
-        ModItem storageUnitDemonite = magicStorage.GetItem("StorageUnitDemonite");
-        ModItem storageUnitHallowed = magicStorage.GetItem("StorageUnitHallowed");
-        ModItem storageUnitHellstone = magicStorage.GetItem("StorageUnitHellstone");
-        ModItem storageUnitLuminite = magicStorage.GetItem("StorageUnitLuminite");
-        ModItem storageUnitTerra = magicStorage.GetItem("StorageUnitTerra");
-        ModItem storageUnitTiny = magicStorage.GetItem("StorageUnitTiny");
-        ModItem upgradeBlueChlorophyte = magicStorage.GetItem("UpgradeBlueChlorophyte");
-        ModItem upgradeCrimtane = magicStorage.GetItem("UpgradeCrimtane");
-        ModItem upgradeDemonite = magicStorage.GetItem("UpgradeDemonite");
-        ModItem upgradeHallowed = magicStorage.GetItem("UpgradeHallowed");
-        ModItem upgradeHellstone = magicStorage.GetItem("UpgradeHellstone");
-        ModItem upgradeLuminite = magicStorage.GetItem("UpgradeLuminite");
-        ModItem upgradeTerra = magicStorage.GetItem("UpgradeTerra");
-        if (upgradeTerra != null)
-        {
-          craftingAccess.item.maxStack = 999;
-          creativeStorageUnit.item.maxStack = 999;
-          radiantJewel.item.maxStack = 999;
-          shadowDiamond.item.maxStack = 999;
-          storageAccess.item.maxStack = 999;
-          storageComponent.item.maxStack = 999;
-          storageConnector.item.maxStack = 999;
-          storageHeart.item.maxStack = 999;
-          storageUnit.item.maxStack = 999;
-          storageUnitBlueChlorophyte.item.maxStack = 999;
-          storageUnitCrimtane.item.maxStack = 999;
-          storageUnitDemonite.item.maxStack = 999;
-          storageUnitHallowed.item.maxStack = 999;
-          storageUnitHellstone.item.maxStack = 999;
-          storageUnitLuminite.item.maxStack = 999;
-          storageUnitTerra.item.maxStack = 999;
-          storageUnitTiny.item.maxStack = 999;
-          upgradeBlueChlorophyte.item.maxStack = 999;
-          upgradeCrimtane.item.maxStack = 999;
-          upgradeDemonite.item.maxStack = 999;
-          upgradeHallowed.item.maxStack = 999;
-          upgradeHellstone.item.maxStack = 999;
-          upgradeLuminite.item.maxStack = 999;
-          upgradeTerra.item.maxStack = 999;
-        }
-      }
+      // Mod magicStorage = ModLoader.GetMod("MagicStorage");
+      // if (magicStorage != null)
+      // {
+      //   ModItem craftingAccess = magicStorage.GetItem("CraftingAccess");
+      //   ModItem creativeStorageUnit = magicStorage.GetItem("CreativeStorageUnit");
+      //   ModItem radiantJewel = magicStorage.GetItem("RadiantJewel");
+      //   ModItem shadowDiamond = magicStorage.GetItem("ShadowDiamond");
+      //   ModItem storageAccess = magicStorage.GetItem("StorageAccess");
+      //   ModItem storageComponent = magicStorage.GetItem("StorageComponent");
+      //   ModItem storageConnector = magicStorage.GetItem("StorageConnector");
+      //   ModItem storageHeart = magicStorage.GetItem("StorageHeart");
+      //   ModItem storageUnit = magicStorage.GetItem("StorageUnit");
+      //   ModItem storageUnitBlueChlorophyte = magicStorage.GetItem("StorageUnitBlueChlorophyte");
+      //   ModItem storageUnitCrimtane = magicStorage.GetItem("StorageUnitCrimtane");
+      //   ModItem storageUnitDemonite = magicStorage.GetItem("StorageUnitDemonite");
+      //   ModItem storageUnitHallowed = magicStorage.GetItem("StorageUnitHallowed");
+      //   ModItem storageUnitHellstone = magicStorage.GetItem("StorageUnitHellstone");
+      //   ModItem storageUnitLuminite = magicStorage.GetItem("StorageUnitLuminite");
+      //   ModItem storageUnitTerra = magicStorage.GetItem("StorageUnitTerra");
+      //   ModItem storageUnitTiny = magicStorage.GetItem("StorageUnitTiny");
+      //   ModItem upgradeBlueChlorophyte = magicStorage.GetItem("UpgradeBlueChlorophyte");
+      //   ModItem upgradeCrimtane = magicStorage.GetItem("UpgradeCrimtane");
+      //   ModItem upgradeDemonite = magicStorage.GetItem("UpgradeDemonite");
+      //   ModItem upgradeHallowed = magicStorage.GetItem("UpgradeHallowed");
+      //   ModItem upgradeHellstone = magicStorage.GetItem("UpgradeHellstone");
+      //   ModItem upgradeLuminite = magicStorage.GetItem("UpgradeLuminite");
+      //   ModItem upgradeTerra = magicStorage.GetItem("UpgradeTerra");
+      //   if (upgradeTerra != null)
+      //   {
+      //     craftingAccess.item.maxStack = 999;
+      //     craftingAccess.item.SetDefaults();
+      //     creativeStorageUnit.item.maxStack = 999;
+      //     creativeStorageUnit.item.SetDefaults();
+      //     radiantJewel.item.maxStack = 999;
+      //     radiantJewel.item.SetDefaults();
+      //     shadowDiamond.item.maxStack = 999;
+      //     shadowDiamond.item.SetDefaults();
+      //     storageAccess.item.maxStack = 999;
+      //     storageAccess.item.SetDefaults();
+      //     storageConnector.item.maxStack = 999;
+      //     storageComponent.item.SetDefaults();
+      //     storageHeart.item.maxStack = 999;
+      //     storageHeart.item.SetDefaults();
+      //     storageUnit.item.maxStack = 999;
+      //     storageUnit.item.SetDefaults();
+      //     storageUnitBlueChlorophyte.item.maxStack = 999;
+      //     storageUnitBlueChlorophyte.item.SetDefaults();
+      //     storageUnitCrimtane.item.maxStack = 999;
+      //     storageUnitCrimtane.item.SetDefaults();
+      //     storageUnitDemonite.item.maxStack = 999;
+      //     storageUnitDemonite.item.SetDefaults();
+      //     storageUnitHallowed.item.maxStack = 999;
+      //     storageUnitHallowed.item.SetDefaults();
+      //     storageUnitHellstone.item.maxStack = 999;
+      //     storageUnitHellstone.item.SetDefaults();
+      //     storageUnitLuminite.item.maxStack = 999;
+      //     storageUnitLuminite.item.SetDefaults();
+      //     storageUnitTerra.item.maxStack = 999;
+      //     storageUnitTerra.item.SetDefaults();
+      //     storageUnitTiny.item.maxStack = 999;
+      //     storageUnitTiny.item.SetDefaults();
+      //     upgradeBlueChlorophyte.item.maxStack = 999;
+      //     upgradeBlueChlorophyte.item.SetDefaults();
+      //     upgradeCrimtane.item.maxStack = 999;
+      //     upgradeCrimtane.item.SetDefaults();
+      //     upgradeDemonite.item.maxStack = 999;
+      //     upgradeDemonite.item.SetDefaults();
+      //     upgradeHallowed.item.maxStack = 999;
+      //     upgradeHallowed.item.SetDefaults();
+      //     upgradeHellstone.item.maxStack = 999;
+      //     upgradeHellstone.item.SetDefaults();
+      //     upgradeLuminite.item.maxStack = 999;
+      //     upgradeLuminite.item.SetDefaults();
+      //     upgradeTerra.item.maxStack = 999;
+      //     upgradeTerra.item.SetDefaults();
+      //   }
+      // }
     }
     public override void UpdateMusic(ref int music, ref MusicPriority priority)
     {
@@ -189,6 +225,7 @@ namespace ProvidenceMod
       elemDefUI?.Update(gameTime);
       focusUI?.Update(gameTime);
       bossHealthUI?.Update(gameTime);
+      bloodLevelUI?.Update(gameTime);
     }
   }
 

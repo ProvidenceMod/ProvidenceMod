@@ -20,27 +20,22 @@ namespace ProvidenceMod
 {
   public class ProvidencePlayer : ModPlayer
   {
-    // Elemental variables for Player
-    // Testing commit
-    public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
-    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 },
-                 affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     //  affExp = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     // public int affExpCooldown = 0;
-
-    // Elemental variables also contained within GlobalItem, GlobalNPC, and GlobalProjectile
     public Projectile parryProj;
 
     public bool allowFocus;
     public bool ampCapacitor;
     public bool angelTear;
     public bool bastionsAegis;
+    public bool bloodAmp;
     public bool brimHeart;
     public bool boosterShot;
     public bool burnAura;
     public bool cantdeflect;
     public bool cFlameAura;
     public bool hasClericSet;
+    public bool hemomancy;
     public bool micitBangle;
     public bool intimidated;
     public bool parryActive;
@@ -60,15 +55,25 @@ namespace ProvidenceMod
     public float focus;
     public float focusLoss = 0.15f;
     public float focusMax = 1f;
+    public float hemoDamage;
     public float tankingItemCount;
 
     // This should NEVER be changed.
     public const int maxParryActiveTime = 90;
+    public readonly int maxGainPerSecond = 10;
+    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int bloodCollectionCooldown;
+    public int bloodConsumedOnUse = 25;
+    public int bloodGained;
+    public int bloodLevel;
     public int dashMod;
     public int dashTimeMod;
     public int dashModDelay = 60;
     public int focusLossCooldown;
     public int focusLossCooldownMax = 20;
+    public int hemoCrit;
+    public int maxBloodLevel = 100;
     public int parriedProjs;
     public int parryActiveTime;
     public int parryProjID;
@@ -77,6 +82,7 @@ namespace ProvidenceMod
     public int tearCount;
 
     // TODO: Make this have use (see tooltip in the item of same name)
+    public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public string dashDir = "";
 
     public override TagCompound Save()
@@ -93,6 +99,8 @@ namespace ProvidenceMod
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       allowFocus = IsThereABoss().Item1;
       ampCapacitor = false;
+      bloodConsumedOnUse = 25;
+      bloodLevel = hemomancy ? bloodLevel : 0;
       brimHeart = false;
       bonusFocusGain = 0f;
       boosterShot = false;
@@ -104,6 +112,9 @@ namespace ProvidenceMod
       dashTimeMod = 0;
       focusMax = 1f;
       hasClericSet = false;
+      hemoCrit = 0;
+      hemoDamage = 1f;
+      hemomancy = false;
       intimidated = false;
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
@@ -127,6 +138,11 @@ namespace ProvidenceMod
         int p = Projectile.NewProjectile(player.position, new Vector2(0, 0), ProjectileType<ParryShield>(), 0, 0, player.whoAmI);
         parryProj = Main.projectile[p];
         parryProjID = p;
+      }
+      if (hemomancy && !bloodAmp && ProvidenceMod.UseBlood.JustPressed && bloodLevel >= bloodConsumedOnUse)
+      {
+        bloodLevel -= bloodConsumedOnUse;
+        bloodAmp = true;
       }
     }
     public override void Load(TagCompound tag)
@@ -442,8 +458,13 @@ namespace ProvidenceMod
           focusLossCooldown = focusLossCooldownMax;
         }
       }
-
       damage -= damage * (tankParryPWR / 100);
+
+      if (player.Providence().bloodAmp)
+      {
+        player.Providence().bloodAmp = false;
+        damage = (int)(damage * hemoDamage);
+      }
     }
 
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -517,6 +538,14 @@ namespace ProvidenceMod
               Main.combatText[combatIndex2].color = new Color(96, 0, 188);
           }
         }
+      }
+      if (target.active && !target.townNPC && !target.friendly && hemomancy && bloodGained < maxGainPerSecond)
+      {
+        bloodLevel++;
+        bloodGained++;
+        if (bloodCollectionCooldown is 0) bloodCollectionCooldown = 60;
+
+        if (bloodLevel > maxBloodLevel) bloodLevel = maxBloodLevel;
       }
     }
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

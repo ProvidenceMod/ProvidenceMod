@@ -25,6 +25,7 @@ namespace ProvidenceMod.Items.Accessories
       player.Providence().micitBangle = true;
       player.Providence().parryCapable = true;
       player.Providence().parryType = ParryTypeID.Support;
+      player.Providence().hemomancy = true;
     }
     public override void AddRecipes()
     {

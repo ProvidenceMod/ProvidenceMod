@@ -57,6 +57,9 @@ namespace ProvidenceMod
       BossHealth = null;
       bossHealthUI = null;
       ParryHotkey = null;
+      bloodLevel = null;
+      bloodLevelUI = null;
+      UseBlood = null;
     }
     private bool DrawElemDefUI()
     {

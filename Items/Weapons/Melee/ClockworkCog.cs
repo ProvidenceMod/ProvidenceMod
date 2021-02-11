@@ -19,11 +19,11 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.WoodenBoomerang);
-      item.damage = 30;
+      item.damage = 35;
       item.width = 46;
       item.height = 46;
-      item.useTime = 20;
-      item.useAnimation = 20;
+      item.useTime = 13;
+      item.useAnimation = 13;
       item.rare = ItemRarityID.Orange;
       item.autoReuse = true;
       item.shoot = ProjectileType<Projectiles.Melee.ClockworkCog>();

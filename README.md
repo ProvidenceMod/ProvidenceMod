@@ -19,12 +19,17 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves into
 - Parry System
 - Vertical Dashing
 - A new class: Cleric
+- Hemomancy (Blood Magic)
 
 ### Planned Content:
 - Dash Dodging
 - Dash Attacks
 - New Subworlds
 - New Biomes
+- Shielding
+- Elemental Armor (Elemenatl Health Bars)
+- New Ores
+- New Weapons
 - Lots and lots of bosses
 - Post Moonlord Content
 - And much more

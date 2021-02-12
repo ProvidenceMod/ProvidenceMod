@@ -10,7 +10,7 @@ Hells no! You've got a lot left to do. Moon Lord was only the beginning. The cal
 
 This is the source-code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
-A large-scale project planned to be an overhaul mod for Terraria. It delves into the deeper mechanics of Terraria while adding its own flares, big and small. We have several mechanics implemented right now (Elements, Auras, Parries, etc), as well as a new class called a Cleric, and we have big plans for future additions the scale of which you've most likely seen in other big Terraria mods. It's a passion project and so far our very small community of people have been helping us better our mod bit by bit with new content suggestions and other tidbits here and there. While we might just be starting off, there is a lot of promise and potential in our mod so far, and we are a dedicated team of Devs working on making the dream a reality.
+A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its own flares, big and small. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting off, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated team of Devs working on making this dream a reality.
 
 ### Added content:
 - Focus System

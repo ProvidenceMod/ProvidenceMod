@@ -3,7 +3,6 @@
 Providence Sprites/desktop.ini
 bin/
 .git/
-.Sprites/
 .vs/
 .vscode/
 .obj/
@@ -28,3 +27,4 @@ Items/Weapons/Melee/MoonCleaverGlow.png
 Items/Weapons/Melee/MoonCleaverAnimated.png
 Items/Weapons/Melee/MoonCleaver2.png
 *.ico
+Sprites/

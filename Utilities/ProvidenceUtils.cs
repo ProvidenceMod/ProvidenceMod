@@ -762,6 +762,31 @@ namespace ProvidenceMod
     public static void ComplexHoming()
     {
     }
+    public static int ArmorCalculation(NPC npc, ref int damage, ref bool crit)
+    {
+      int armorDamage = 0;
+      // If the NPC is armored
+      if (npc.Providence().Armored)
+      {
+        crit = false;
+        // Deduct the damage from the armor
+        armorDamage += (int)(damage * npc.Providence().armorEfficiency);
+        npc.Providence().armor -= armorDamage;
+        damage = (int)(damage * (1f - npc.Providence().armorEfficiency));
+        // If the armor ends up being less than 0
+        if (npc.Providence().armor < 0)
+        {
+          // Signify that as "overflow damage" by deducting the abs of the remainder from the NPC's life
+          armorDamage += npc.Providence().armor;
+          // Subtracting negative == adding positive
+          npc.life += npc.Providence().armor;
+          damage -= npc.Providence().armor;
+          npc.Providence().armor = 0;
+        }
+        CombatText.NewText(npc.Hitbox, Color.White, armorDamage);
+      }
+      return damage;
+    }
 
     public static class ParryTypeID
     {

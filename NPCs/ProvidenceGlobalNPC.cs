@@ -65,8 +65,8 @@ namespace ProvidenceMod
     }
     public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
     {
-      ProvidencePlayer unPlayer = player.Providence();
-      if (unPlayer.intimidated)
+      ProvidencePlayer proPlayer = player.Providence();
+      if (proPlayer.intimidated)
       {
         if (!maxSpawnsTempSet)
         {
@@ -77,7 +77,7 @@ namespace ProvidenceMod
         maxSpawns = 0;
         spawnReset = false;
       }
-      if (!unPlayer.intimidated && !spawnReset)
+      if (!proPlayer.intimidated && !spawnReset)
       {
         if(maxSpawnsTempSet)
         {

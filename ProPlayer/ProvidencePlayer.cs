@@ -48,6 +48,8 @@ namespace ProvidenceMod
     public bool zephyriumAglet;
 
     public const float defaultFocusGain = 0.005f;
+    public float bloodGained;
+    public int bloodLevel;
     public float bonusFocusGain;
     public float cleric = 1f;
     public float clericAuraRadius = 300f;
@@ -56,6 +58,7 @@ namespace ProvidenceMod
     public float focusLoss = 0.15f;
     public float focusMax = 1f;
     public float hemoDamage;
+    public int maxBloodLevel = 100;
     public float tankingItemCount;
 
     // This should NEVER be changed.
@@ -65,15 +68,12 @@ namespace ProvidenceMod
     public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int bloodCollectionCooldown;
     public int bloodConsumedOnUse = 25;
-    public int bloodGained;
-    public int bloodLevel;
     public int dashMod;
     public int dashTimeMod;
     public int dashModDelay = 60;
     public int focusLossCooldown;
     public int focusLossCooldownMax = 20;
     public int hemoCrit;
-    public int maxBloodLevel = 100;
     public int parriedProjs;
     public int parryActiveTime;
     public int parryProjID;
@@ -207,6 +207,9 @@ namespace ProvidenceMod
       tankingItemCount = (int)Math.Floor((decimal)(player.statDefense / 15));
       // Max 15%, min 5%
       focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
+
+      if (bloodCollectionCooldown > 0) bloodCollectionCooldown--;
+      if (bloodCollectionCooldown is 0) bloodGained = 0;
 
       // Safeguard against weird ass number overflowing
       player.CalcElemDefense();
@@ -411,6 +414,11 @@ namespace ProvidenceMod
         focus += defaultFocusGain + bonusFocusGain;
         if (focus > focusMax) focus = focusMax;
       }
+      if (bloodAmp)
+      {
+        bloodAmp = false;
+        damage = (int)(damage * hemoDamage);
+      }
       // Determined at the end of everything so any focus gained within a tick is retroactive
       damage += (int)(damage * (focus / 5));
     }
@@ -500,15 +508,15 @@ namespace ProvidenceMod
     {
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask)
       {
-      void layerTarget(PlayerDrawInfo s) => DrawGlowmask(s);
-      PlayerLayer layer = new PlayerLayer("ProvidenceMod", "Sword Glowmask", layerTarget);
-      layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer);
+        void layerTarget(PlayerDrawInfo s) => DrawGlowmask(s);
+        PlayerLayer layer = new PlayerLayer("ProvidenceMod", "Sword Glowmask", layerTarget);
+        layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer);
       }
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask && player.HeldItem.Providence().animated)
       {
-      void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
-      PlayerLayer layer2 = new PlayerLayer("ProvidenceMod", "Sword Animation", layerTarget2);
-      layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
+        void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
+        PlayerLayer layer2 = new PlayerLayer("ProvidenceMod", "Sword Animation", layerTarget2);
+        layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
       }
     }
     public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
@@ -545,7 +553,7 @@ namespace ProvidenceMod
         bloodGained++;
         if (bloodCollectionCooldown is 0) bloodCollectionCooldown = 60;
 
-        if (bloodLevel > maxBloodLevel) bloodLevel = maxBloodLevel;
+        bloodLevel = Utils.Clamp(bloodLevel, 0, maxBloodLevel);
       }
     }
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

@@ -27,6 +27,7 @@ namespace ProvidenceMod.UI
     private bool arraySet;
     private bool boss;
     private bool barSet = false;
+    private bool appended = false;
     private NPC bossNPC;
 
     // private int frame = 0;
@@ -84,16 +85,18 @@ namespace ProvidenceMod.UI
 
     public override void Update(GameTime gameTime)
     {
-      ProvidencePlayer unPlayer = Main.player[0].Providence();
-      currFocus.SetText(((int)(unPlayer.focus * 100)).ToString());
-      float quotient = unPlayer.focus / unPlayer.focusMax;
+      base.Update(gameTime);
+      area.visible = appended;
+      ProvidencePlayer proPlayer = Main.player[0].Providence();
+      currFocus.SetText(((int)(proPlayer.focus * 100)).ToString());
+      float quotient = proPlayer.focus / proPlayer.focusMax;
       quotient = Utils.Clamp(quotient, 0f, 1f);
       focusBarRect.Width = (int)(100 * quotient);
       focusBar.SetFrame(focusBarRect);
       // Minor optimization so it doesn't have to run as much.
       // ONLY RECOMMENDED FOR SMALLER CHANGING ITEMS LIKE MAX VALUES.
-      if (maxFocus.Text != unPlayer.focusMax.ToString())
-        maxFocus.SetText((unPlayer.focusMax * 100).ToString());
+      if (maxFocus.Text != proPlayer.focusMax.ToString())
+        maxFocus.SetText((proPlayer.focusMax * 100).ToString());
       base.Update(gameTime);
       if (oldScale != Main.inventoryScale)
       {
@@ -133,21 +136,22 @@ namespace ProvidenceMod.UI
         area.Append(currFocus);
         area.Append(breakSlash);
         area.Append(maxFocus);
+        appended = true;
         if (!arraySet)
         {
           focusArray[2] = focusArray[1];
           focusArray[1] = focusArray[0];
-          focusArray[0] = (int)(unPlayer.focus * 100);
+          focusArray[0] = (int)(proPlayer.focus * 100);
           arraySet = true;
         }
-        if (unPlayer.focus < focusArray[0])
+        if (proPlayer.focus < focusArray[0])
         {
           focusArray[2] = focusArray[1];
           focusArray[1] = focusArray[0];
-          focusArray[0] = (int)(unPlayer.focus * 100);
+          focusArray[0] = (int)(proPlayer.focus * 100);
           cooldown = 30;
         }
-        else if (unPlayer.focus == focusArray[0])
+        else if (proPlayer.focus == focusArray[0])
         {
           if (cooldown > 0) cooldown--;
         }
@@ -171,6 +175,7 @@ namespace ProvidenceMod.UI
         if (bossNPC.life <= 0)
         {
           area.RemoveAllChildren();
+          appended = false;
           boss = false;
           bossNPC = null;
           barSet = false;

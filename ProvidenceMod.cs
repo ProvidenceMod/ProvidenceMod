@@ -16,8 +16,8 @@ namespace ProvidenceMod
   public class ProvidenceMod : Mod
   {
     public static ModHotKey ParryHotkey, UseBlood;
-    private UserInterface elemDefUI, focusUI, bossHealthUI, bloodLevelUI;
-    internal BloodLevel bloodLevel;
+    private UserInterface elemDefUI, focusUI, bossHealthUI, BloodUIUI;
+    internal BloodUI BloodUI;
     internal ElemDefUI ElemDefUI;
     internal Focus focusBar;
     internal BossHealth BossHealth;
@@ -41,10 +41,10 @@ namespace ProvidenceMod
 
       ParryHotkey = RegisterHotKey("Parry", "F");
 
-      bloodLevel = new BloodLevel();
-      bloodLevel.Initialize();
-      bloodLevelUI = new UserInterface();
-      bloodLevelUI.SetState(bloodLevel);
+      BloodUI = new BloodUI();
+      BloodUI.Initialize();
+      BloodUIUI = new UserInterface();
+      BloodUIUI.SetState(BloodUI);
 
       UseBlood = RegisterHotKey("Use Blood Magic", "G");
     }
@@ -57,8 +57,8 @@ namespace ProvidenceMod
       BossHealth = null;
       bossHealthUI = null;
       ParryHotkey = null;
-      bloodLevel = null;
-      bloodLevelUI = null;
+      BloodUI = null;
+      BloodUIUI = null;
       UseBlood = null;
     }
     private bool DrawElemDefUI()
@@ -79,9 +79,9 @@ namespace ProvidenceMod
         bossHealthUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
-    private bool DrawBloodLevelUI()
+    private bool DrawBloodUIUI()
     {
-      if (BloodLevel.visible) bloodLevelUI.Draw(Main.spriteBatch, new GameTime());
+      if (BloodUI.visible) BloodUIUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -92,7 +92,7 @@ namespace ProvidenceMod
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("TynyransMod: Blood Level", DrawBloodLevelUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("TynyransMod: Blood Level", DrawBloodUIUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -229,7 +229,7 @@ namespace ProvidenceMod
       elemDefUI?.Update(gameTime);
       focusUI?.Update(gameTime);
       bossHealthUI?.Update(gameTime);
-      bloodLevelUI?.Update(gameTime);
+      BloodUIUI?.Update(gameTime);
     }
   }
 

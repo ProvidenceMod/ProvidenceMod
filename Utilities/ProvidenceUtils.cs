@@ -65,12 +65,12 @@ namespace ProvidenceMod
     /// <summary>Calculates the elemental defense of the player based on their affinities, and any accessories and armor providing such defense.</summary>
     public static void CalcElemDefense(this Player player)
     {
-      ProvidencePlayer unPlayer = player.Providence();
+      ProvidencePlayer proPlayer = player.Providence();
       for (int k = 0; k < 8; k++)
       {
-        int index = unPlayer.affinities[k] - 1;
+        int index = proPlayer.affinities[k] - 1;
         if (index != -1)
-          unPlayer.resists[k] += (int)elemAffDef[0, index];
+          proPlayer.resists[k] += (int)elemAffDef[0, index];
       }
     }
     public static float[] GetAffinityBonuses(this Player player, int e)

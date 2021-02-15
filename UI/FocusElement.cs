@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.UI
 {
@@ -15,9 +16,10 @@ namespace ProvidenceMod.UI
   internal class FocusElement : UIElement
   {
     private string HoverText;
+    public bool visible;
     private void SetHoverText()
     {
-      Player player = Main.player[0];
+      Player player = LocalPlayer();
       Tuple<int, decimal, decimal, decimal> playerFocus = player.FocusBonuses();
       HoverText = $"{playerFocus.Item1}% Damage\n{playerFocus.Item2}% Damage Reduction\n{playerFocus.Item3}% Health Regen\n{playerFocus.Item4}% Walk Speed";
     }
@@ -25,7 +27,7 @@ namespace ProvidenceMod.UI
     {
       base.DrawSelf(spriteBatch);
 
-      if (IsMouseHovering)
+      if (IsMouseHovering && visible)
       {
         Main.hoverItemName = HoverText;
       }
@@ -33,7 +35,8 @@ namespace ProvidenceMod.UI
     public override void Update(GameTime gameTime)
     {
       base.Update(gameTime);
-      SetHoverText();
+      if(visible)
+        SetHoverText();
     }
   }
 }

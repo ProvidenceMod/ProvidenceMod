@@ -15,8 +15,8 @@ namespace ProvidenceMod.Buffs.StatDebuffs
     }
     public override void Update(Player player, ref int buffIndex)
     {
-      ProvidencePlayer unPlayer = player.Providence();
-      unPlayer.intimidated = true;
+      ProvidencePlayer proPlayer = player.Providence();
+      proPlayer.intimidated = true;
     }
   }
 }

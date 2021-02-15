@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod
@@ -20,6 +21,11 @@ namespace ProvidenceMod
     public bool spawnReset = true;
     public bool maxSpawnsTempSet;
     public int maxSpawnsTemp;
+    // public int armor = 10000;
+    // public bool Armored
+    // {
+    //   get => armor > 0;
+    // }
     public override void ResetEffects(NPC npc)
     {
       npc.Providence().hypodermia = false;
@@ -48,6 +54,28 @@ namespace ProvidenceMod
       }
 
       damage = item.CalcEleDamage(npc, ref damage);
+
+      // if (npc.Providence().Armored)
+      // {
+      //   npc.Providence().armor -= damage;
+      //   if (!crit)
+      //   {
+      //     npc.life++;
+      //   }
+      //   else if (crit)
+      //   {
+      //     npc.life += 2;
+      //   }
+      //   for (int index = 0; index < 100; index++)
+      //   {
+      //     CombatText combatText = Main.combatText[index];
+      //     if(combatText.text == "1" || combatText.text == "2")
+      //       combatText.active = false;
+      //   }
+      //   CombatText.UpdateCombatText();
+      //   CombatText.NewText(new Rectangle((int)npc.position.X, (int)npc.position.Y - 10, default, default), Color.White, damage, false, false);
+      //   damage = 0;
+      // }
     }
 
     public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -79,7 +107,7 @@ namespace ProvidenceMod
       }
       if (!proPlayer.intimidated && !spawnReset)
       {
-        if(maxSpawnsTempSet)
+        if (maxSpawnsTempSet)
         {
           maxSpawns = maxSpawnsTemp;
           maxSpawnsTemp = 0;

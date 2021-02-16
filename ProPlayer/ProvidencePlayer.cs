@@ -46,6 +46,7 @@ namespace ProvidenceMod
     public bool spawnReset = true;
     public bool tankParryOn;
     public bool zephyriumAglet;
+    public bool vampFang;
 
     public const float defaultFocusGain = 0.005f;
     public float bloodGained;
@@ -116,6 +117,7 @@ namespace ProvidenceMod
       hemoDamage = 1f;
       hemomancy = false;
       intimidated = false;
+      maxBloodLevel = 100;
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryCapable = false;
@@ -127,6 +129,7 @@ namespace ProvidenceMod
       tankParryPWR = player.HasBuff(BuffType<TankParryBoost>()) || parryActive ? tankParryPWR : 0;
       tankParryOn = false;
       tankParryPWR = tankParryOn ? tankParryPWR : 0;
+      vampFang = false;
       zephyriumAglet = false;
     }
 
@@ -143,6 +146,17 @@ namespace ProvidenceMod
       {
         bloodLevel -= bloodConsumedOnUse;
         bloodAmp = true;
+        Main.PlaySound(SoundID.Item112, player.position);
+        return;
+      }
+      if (hemomancy && bloodAmp && ProvidenceMod.UseBlood.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
+      {
+        bloodAmp = false;
+        int healing = (int)(player.statLifeMax2 * 0.35f);
+        player.statLife += healing;
+        player.HealEffect(healing);
+        player.AddBuff(BuffID.PotionSickness, 30.InTicks());
+        Main.PlaySound(SoundID.Item3);
       }
     }
     public override void Load(TagCompound tag)

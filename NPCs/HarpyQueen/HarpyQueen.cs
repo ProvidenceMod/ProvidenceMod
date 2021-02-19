@@ -60,10 +60,11 @@ namespace ProvidenceMod.NPCs.HarpyQueen
       npc.lifeMax = 3400;
       npc.townNPC = false;
       npc.boss = true;
-      npc.scale = 2f;
+      npc.scale = 1f;
       npc.HitSound = SoundID.NPCHit1;
       npc.chaseable = true;
-      npc.Hitbox = new Rectangle((int)npc.Center.X, (int)npc.Center.Y, 140, 72);
+      npc.width = 148;
+      npc.height = 54;
       npc.knockBackResist = 0f;
       npc.buffImmune[BuffID.OnFire] = true;
       npc.buffImmune[mod.BuffType("Freezing")] = true;

@@ -34,6 +34,7 @@ namespace ProvidenceMod
     public bool burnAura;
     public bool cantdeflect;
     public bool cFlameAura;
+    public bool dashing;
     public bool hasClericSet;
     public bool hemomancy;
     public bool micitBangle;
@@ -315,9 +316,10 @@ namespace ProvidenceMod
     {
       if (dashMod == 1 && player.dash == 0)
       {
+        player.eocDash = player.dashTime;
+        player.armorEffectDrawShadowEOCShield = true;
         const float dashStrength = 12f;
         const int delayTime = 60;
-        bool dashing = false;
         if (!dashing && player.dashTime == 0)
           dashDir = "";
         if (player.dashTime > 0)

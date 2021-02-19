@@ -28,6 +28,7 @@ namespace ProvidenceMod.UI
     //
     // This is the image for the frame around the health bar
     private UIImage frame;
+    private UIImage background;
     //
     //
     // This is the health bar. It is a framed UIImage to allow us to crop it down to the correct size
@@ -77,31 +78,37 @@ namespace ProvidenceMod.UI
       // My assumption is that this is because of how it renders the UI, it may blur the edges when the dimensions are uneven
       area = new UIElement();
       // The first valoe is the pixel count fron the left or top, the second value is the percentage in case that's easier to use
-      area.Left.Set(250f, 0f);
-      area.Top.Set(700f, 0f);
-      area.Width.Set(1120f, 0f);
-      area.Height.Set(60f, 0f);
+      area.Left.Set(Main.screenWidth - 549, 0f);
+      area.Top.Set(Main.screenHeight - 200, 0f);
+      area.Width.Set(549f, 0f);
+      area.Height.Set(87f, 0f);
 
       frame = new UIImage(GetTexture("ProvidenceMod/UI/BossHealthUIFrame"));
       frame.Top.Set(0, 0f);
       frame.Left.Set(0, 0f);
-      frame.Width.Set(1120f, 0f);
-      frame.Height.Set(60f, 0f);
+      frame.Width.Set(549f, 0f);
+      frame.Height.Set(87f, 0f);
+
+      background = new UIImage(GetTexture("ProvidenceMod/UI/BossHealthUIBackground"));
+      frame.Top.Set(0, 0f);
+      frame.Left.Set(0, 0f);
+      frame.Width.Set(549f, 0f);
+      frame.Height.Set(87f, 0f);
 
       // We give the rectangle the same dimensions as our health bar so that it always draws all of it unless told otherwise
-      mainBarRect = new Rectangle(0, 0, 1000, 40);
+      mainBarRect = new Rectangle(0, 0, 519, 9);
       mainBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHealthUIBar"), mainBarRect);
-      mainBar.Top.Set(10f, 0f);
-      mainBar.Left.Set(60f, 0f);
-      mainBar.Width.Set(1000f, 0f);
-      mainBar.Height.Set(40f, 0f);
+      mainBar.Top.Set(36f, 0f);
+      mainBar.Left.Set(9f, 0f);
+      mainBar.Width.Set(519f, 0f);
+      mainBar.Height.Set(9f, 0f);
 
-      barAfterImageRect = new Rectangle(0, 0, 1000, 40);
+      barAfterImageRect = new Rectangle(0, 0, 519, 9);
       barAfterImage = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHealthUIHit"), barAfterImageRect);
-      barAfterImage.Top.Set(10f, 0f);
-      barAfterImage.Left.Set(60f, 0f);
-      barAfterImage.Width.Set(1000f, 0f);
-      barAfterImage.Height.Set(40f, 0f);
+      barAfterImage.Top.Set(36f, 0f);
+      barAfterImage.Left.Set(9f, 0f);
+      barAfterImage.Width.Set(519f, 0f);
+      barAfterImage.Height.Set(9f, 0f);
 
       // Don't forget to append the area, otherwise your UI wont draw
       // You should also append any type that starts with UI (Like UIImage or UIImageFramed)
@@ -118,6 +125,7 @@ namespace ProvidenceMod.UI
       if (IsThereABoss().Item1)
       {
         // If there is a boss, we append our UI chilren so that it displays the boss health bar 
+        area.Append(background);
         area.Append(barAfterImage);
         area.Append(mainBar);
         area.Append(frame);
@@ -133,6 +141,14 @@ namespace ProvidenceMod.UI
       if (oldScale != Main.inventoryScale)
       {
         oldScale = Main.inventoryScale;
+        Recalculate();
+      }
+      var parentSpace = area.Parent.GetDimensions().ToRectangle();
+      if (!GetDimensions().ToRectangle().Intersects(parentSpace))
+      {
+        Left.Pixels = Utils.Clamp(Left.Pixels, 0, parentSpace.Right - Width.Pixels);
+        Top.Pixels = Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
+        // Recalculate forces the UI system to do the positioning math again.
         Recalculate();
       }
       // Here we check the entire NPC array, this lets us set our boss variables from earlier
@@ -221,7 +237,7 @@ namespace ProvidenceMod.UI
           bossNPC = null;
           bossHealth = 0;
           bossHealthMax = 0;
-          barAfterImageRect.Width = 1000;
+          barAfterImageRect.Width = 519;
           barAfterImage.SetFrame(barAfterImageRect);
           cooldown = 30;
           lifeArray[0] = 0;
@@ -232,7 +248,7 @@ namespace ProvidenceMod.UI
       }
       // Main Bar
       quotient = Utils.Clamp(quotient, 0f, 1f);
-      mainBarRect.Width = (int)(1000 * quotient);
+      mainBarRect.Width = (int)(519 * quotient);
       mainBar.SetFrame(mainBarRect);
     }
   }

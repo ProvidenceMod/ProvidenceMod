@@ -8,26 +8,21 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.UI
 {
-  // This DragableUIPanel class inherits from UIPanel. 
-  // Inheriting is a great tool for UI design. By inheriting, we get the background drawing for free from UIPanel
-  // We've added some code to allow the panel to be dragged around. 
-  // We've also added some code to ensure that the panel will bounce back into bounds if it is dragged outside or the screen resizes.
-  // UIPanel does not prevent the player from using items when the mouse is clicked, so we've added that as well.
   internal class BloodElement : UIElement
   {
-    private string HoverText;
+    private string hoverText;
     private Vector2 offset;
     public bool dragging;
     public bool visible;
     private void SetHoverText()
     {
-      HoverText = $"{LocalPlayer().Providence().bloodLevel} / {LocalPlayer().Providence().maxBloodLevel}";
+      hoverText = $"{LocalPlayer().Providence().bloodLevel} / {LocalPlayer().Providence().maxBloodLevel}";
     }
     protected override void DrawSelf(SpriteBatch spriteBatch)
     {
       base.DrawSelf(spriteBatch);
 
-      if (IsMouseHovering) Main.hoverItemName = HoverText;
+      if (IsMouseHovering) Main.hoverItemName = hoverText;
     }
 
     public override void MouseDown(UIMouseEvent evt)

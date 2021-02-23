@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Radiant Sword");
-      Tooltip.SetDefault("\"An exalted sword\"");
+      Tooltip.SetDefault("An exalted sword");
     }
 
     public override void SetDefaults()

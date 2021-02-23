@@ -12,7 +12,7 @@ namespace ProvidenceMod.Items.Armor
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Cosmic Greaves");
-      Tooltip.SetDefault("\"The power of the cosmos emboldens you.\"\n+50% movement speed\n+20 mana, +1 Max Minions");
+      Tooltip.SetDefault("The power of the cosmos emboldens you.\n+50% movement speed\n+20 mana, +1 Max Minions");
     }
 
     public override void SetDefaults()

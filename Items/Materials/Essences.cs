@@ -32,7 +32,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Fire Essence");
-      Tooltip.SetDefault("\"This rune is scorching hot. Careful not to burn yourself!\"");
+      Tooltip.SetDefault("This rune is scorching hot. Careful not to burn yourself!");
     }
 
     public override void SetDefaults()
@@ -81,7 +81,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Ice Essence");
-      Tooltip.SetDefault("\"This rune is freezing cold. Don't get frostbite!\"");
+      Tooltip.SetDefault("This rune is freezing cold. Don't get frostbite!");
     }
 
     public override void SetDefaults()
@@ -127,7 +127,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Lightning Essence");
-      Tooltip.SetDefault("\"This rune makes your hair stand on end. Shocking!\"");
+      Tooltip.SetDefault("This rune makes your hair stand on end. Shocking!");
     }
 
     public override void SetDefaults()
@@ -175,7 +175,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Water Essence");
-      Tooltip.SetDefault("\"This rune is permanantly drenched for whatever reason.\"");
+      Tooltip.SetDefault("This rune is permanantly drenched for whatever reason.");
     }
 
     public override void SetDefaults()
@@ -217,7 +217,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Earth Essence");
-      Tooltip.SetDefault("\"This rune is extraordinarily heavy.\"");
+      Tooltip.SetDefault("This rune is extraordinarily heavy.");
     }
 
     public override void SetDefaults()
@@ -259,7 +259,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Air Essence");
-      Tooltip.SetDefault("\"This rune is amazingly light!\"");
+      Tooltip.SetDefault("This rune is amazingly light!");
     }
 
     public override void SetDefaults()
@@ -301,7 +301,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Radiant Essence");
-      Tooltip.SetDefault("\"This rune makes you feel like the sun is basking on your arm.\"");
+      Tooltip.SetDefault("This rune makes you feel like the sun is basking on your arm.");
     }
 
     public override void SetDefaults()
@@ -342,7 +342,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Necrotic Essence");
-      Tooltip.SetDefault("\"This rune makes your skin itchy and irritable, like it's rotting away.\"");
+      Tooltip.SetDefault("This rune makes your skin itchy and irritable, like it's rotting away.");
     }
 
     public override void SetDefaults()

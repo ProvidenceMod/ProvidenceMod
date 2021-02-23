@@ -13,7 +13,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Luminous Fragment");
-      Tooltip.SetDefault("\"It shimmers with luminous energy.\"");
+      Tooltip.SetDefault("It shimmers with luminous energy.");
       item.maxStack = 999;
       ItemID.Sets.ItemNoGravity[item.type] = true;
       Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(8, 5));

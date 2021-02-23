@@ -8,7 +8,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Air Sword");
-      Tooltip.SetDefault("\"A sword that flings acid\"");
+      Tooltip.SetDefault("A sword that flings acid");
     }
     public override void SetDefaults()
     {

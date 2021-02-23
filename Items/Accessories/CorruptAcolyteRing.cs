@@ -10,7 +10,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Corrupt Acolyte's Ring");
-      Tooltip.SetDefault("Creates a small aura that inflicts Cursed Flames.\n\"The ring of an acolyte whose interests have wandered elsewhere.\"");
+      Tooltip.SetDefault("Creates a small aura that inflicts Cursed Flames.\nThe ring of an acolyte whose interests have wandered elsewhere.");
     }
 
     public override void SetDefaults()

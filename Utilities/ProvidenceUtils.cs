@@ -1,16 +1,14 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Buffs.Cooldowns;
-using ProvidenceMod.Projectiles.Healing;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using ProvidenceMod;
 using ProvidenceMod.Dusts;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using ProvidenceMod.Buffs.Cooldowns;
+using Microsoft.Xna.Framework.Graphics;
+using ProvidenceMod.Projectiles.Healing;
+using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod
 {
@@ -72,6 +70,14 @@ namespace ProvidenceMod
         if (index != -1)
           proPlayer.resists[k] += (int)elemAffDef[0, index];
       }
+    }
+    public static Vector3 ColorIntToFloat(Vector3 vector3)
+    {
+      const double conversion = 100 / 255;
+      vector3.X = (float)(vector3.X * conversion);
+      vector3.Y = (float)(vector3.Y * conversion);
+      vector3.Z = (float)(vector3.Z * conversion);
+      return vector3;
     }
     public static float[] GetAffinityBonuses(this Player player, int e)
     {
@@ -293,17 +299,30 @@ namespace ProvidenceMod
 
     /// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
     /// <param name="player">The active player acting as the point of origin.</param>
-    /// <param name="dust">The ID of the dust particle to use for the aura. By convention, this dust should have no gravity or light, and should have AI set to dissipate within 3-5 ticks.</param>
+    /// <param name="style">The visual style that the aura will use.</param>
     /// <param name="radiusBoost">The distance modifier for the aura's effective range.</param>
-    public static void GenerateAuraField(Player player, int dust, float radiusBoost)
+    /// <param name="dust">The ID of the dust particle to use for the aura. By convention, this dust should have no gravity or light, and should have AI set to dissipate within 3-5 ticks.</param>
+    /// <param name="custom">Whether or not to use a custom aura.</param>
+    public static void GenerateAuraField(Player player, int style, float radiusBoost, int dust = 0, bool custom = false)
     {
-      ProvidencePlayer mP = player.Providence();
-      for (float rotation = 0f; rotation < 360f; rotation += 8f)
+      ProvidencePlayer proPlayer = player.Providence();
+      if (custom)
       {
-        Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, mP.clericAuraRadius + radiusBoost).RotatedBy(rotation.InRadians());
-        Dust d = Dust.NewDustPerfect(spawnPosition, dust, null, 90, new Color(255, 255, 255), 1f);
-        d.noLight = true;
-        d.noGravity = true;
+        for (float rotation = 0f; rotation < 360f; rotation += 8f)
+        {
+          Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, proPlayer.clericAuraRadius + radiusBoost).RotatedBy(rotation.InRadians());
+          Dust d = Dust.NewDustPerfect(spawnPosition, dust, null, 90, new Color(255, 255, 255), 1f);
+          d.noLight = true;
+          d.noGravity = true;
+        }
+      }
+      else
+      {
+        switch (style)
+        {
+          case 0:
+            break;
+        }
       }
     }
     /// <summary>Finds and returns the hostile NPC closest to the provided projectile. Actively disregards Target Dummies.</summary>
@@ -428,7 +447,7 @@ namespace ProvidenceMod
     /// <param name="frameTick">The frame tick for this item. Use "public int frameTick;" in your item file.</param>
     /// <param name="frameTime">How many frames (ticks) you are spending on a single frame.</param>
     /// <param name="frameCount">How many frames this animation has.</param>
-    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease)
+    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease, bool overrideHeight = false, int overrideH = 0)
     {
       if (frameTick >= frameTime)
       {
@@ -437,7 +456,14 @@ namespace ProvidenceMod
       }
       if (frameTickIncrease)
         frameTick++;
-      return new Rectangle(0, item.height * frame, item.width, item.height);
+      if (overrideHeight)
+      {
+        return new Rectangle(0, overrideH * frame, item.width, item.height);
+      }
+      else
+      {
+        return new Rectangle(0, item.height * frame, item.width, item.height);
+      }
     }
     /// <summary>Draws a glowmask for the given item.</summary>
     /// <param name="spriteBatch">The spriteBatch instance for this glowmask. Passed with "PostDraw" or "PreDraw" item methods.</param>
@@ -816,6 +842,14 @@ namespace ProvidenceMod
       public const int Natural = 4;
       public const int Smooth = 5;
       public const int Complex = 6;
+    }
+    public static class AuraStyle
+    {
+      public const int CerberusStyle = 0;
+    }
+    public static class AuraType
+    {
+      public const int CerberusAura = 0;
     }
     public static class EntityType
     {

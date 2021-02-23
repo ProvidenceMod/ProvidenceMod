@@ -72,10 +72,6 @@ namespace ProvidenceMod.UI
     public override void OnInitialize()
     {
       // Here we initialize the area and set our variables
-      // Never use odd numbers for placement, or sprite dimensions
-      // For some odd reason, Terraria does not like odd numbers when it comes to UI 
-      // The first thing you'll notice when you use them is that your UI looks nowhere near as crisp as vanilla UI
-      // My assumption is that this is because of how it renders the UI, it may blur the edges when the dimensions are uneven
       area = new UIElement();
       // The first valoe is the pixel count fron the left or top, the second value is the percentage in case that's easier to use
       area.Left.Set(Main.screenWidth - 549, 0f);
@@ -196,8 +192,7 @@ namespace ProvidenceMod.UI
         {
           bossHealth = bossNPC.life;
         }
-        // Don't change this please, it works, Roslynator is wack
-        quotient = ((float)bossHealth) / ((float)bossHealthMax);
+        quotient = ((float)bossHealth) / bossHealthMax;
         if (!arraySet)
         {
           lifeArray[2] = lifeArray[1];

@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Necrotic Sword");
-      Tooltip.SetDefault("\"A depraved sword\"");
+      Tooltip.SetDefault("A depraved sword");
     }
 
     public override void SetDefaults()

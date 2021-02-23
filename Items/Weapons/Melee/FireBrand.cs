@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Fire Brand");
-      Tooltip.SetDefault("\"A sword of pure flame\"");
+      Tooltip.SetDefault("A sword of pure flame");
     }
 
     public override void SetDefaults()

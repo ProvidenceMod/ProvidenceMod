@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Ice Sword");
-      Tooltip.SetDefault("\"A sword of pure ice\"");
+      Tooltip.SetDefault("A sword of pure ice");
     }
 
     public override void SetDefaults()

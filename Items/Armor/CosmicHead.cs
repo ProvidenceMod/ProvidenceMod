@@ -12,7 +12,7 @@ namespace ProvidenceMod.Items.Armor
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Cosmic Helmet");
-      Tooltip.SetDefault("\"The power of the cosmos enlightens you.\"\n+20 Mana, +1 Max Minion");
+      Tooltip.SetDefault("The power of the cosmos enlightens you.\n+20 Mana, +1 Max Minion");
     }
 
     public override void SetDefaults()

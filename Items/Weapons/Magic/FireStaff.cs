@@ -10,7 +10,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Fire Staff");
-      Tooltip.SetDefault("\"A staff of immolation\"");
+      Tooltip.SetDefault("A staff of immolation");
       Item.staff[item.type] = true;
     }
 

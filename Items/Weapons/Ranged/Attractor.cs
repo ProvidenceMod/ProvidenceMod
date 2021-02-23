@@ -15,7 +15,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Attractor");
-      Tooltip.SetDefault("\"Gimme a hug!\"");
+      Tooltip.SetDefault("Gimme a hug!");
     }
 
     public override void SetDefaults()

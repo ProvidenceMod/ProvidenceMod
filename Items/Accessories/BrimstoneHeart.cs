@@ -10,7 +10,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Brimstone Heart");
-      Tooltip.SetDefault("\"A stone-like heart that pulses with lava.\"\n+15 resistance to fire damage\nImmune to lava, as well as \"On Fire!\" debuff\nReduces mana cost for fire magic by 15%");
+      Tooltip.SetDefault("A stone-like heart that pulses with lava.\n+15 resistance to fire damage\nImmune to lava, as well as On Fire! debuff\nReduces mana cost for fire magic by 15%");
     }
 
     public override void SetDefaults()

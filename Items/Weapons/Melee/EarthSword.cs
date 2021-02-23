@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Earth Sword");
-      Tooltip.SetDefault("\"A sword to poison your enemies\"");
+      Tooltip.SetDefault("A sword to poison your enemies");
     }
 
     public override void SetDefaults()

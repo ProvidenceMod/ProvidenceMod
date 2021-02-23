@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("The Amethyst Demise");
-      Tooltip.SetDefault("\"A sword of pure flame\"");
+      Tooltip.SetDefault("A sword of pure flame");
     }
 
     public override void SetDefaults()

@@ -7,7 +7,7 @@ namespace ProvidenceMod.Items.Materials
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Harpy Queen Talon");
-      Tooltip.SetDefault("\"The point is really, REALLY sharp!\"");
+      Tooltip.SetDefault("The point is really, REALLY sharp!");
     }
 
     public override void SetDefaults()

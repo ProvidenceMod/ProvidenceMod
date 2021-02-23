@@ -12,7 +12,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Eight-God Blade");
-      Tooltip.SetDefault("\"This sword was made from the tears of the eight fallen angels.\"");
+      Tooltip.SetDefault("This sword was made from the tears of the eight fallen angels.");
     }
 
     public override void SetDefaults()

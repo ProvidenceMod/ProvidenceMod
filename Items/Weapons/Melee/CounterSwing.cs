@@ -11,7 +11,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("The Counterswing"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-      Tooltip.SetDefault("\"Swing at projectiles to bounce them back!\"");
+      Tooltip.SetDefault("Swing at projectiles to bounce them back!");
     }
     public override void SetDefaults()
     {

@@ -14,7 +14,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Harpy Rod");
-      Tooltip.SetDefault("Shoots slow-moving but homing harpy feathers.\n\"The down you used to make the crown is heavier then the rod itself.\"");
+      Tooltip.SetDefault("Shoots slow-moving but homing harpy feathers.\nThe down you used to make the crown is heavier then the rod itself.");
       Item.staff[item.type] = true;
     }
 

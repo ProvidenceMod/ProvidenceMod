@@ -10,7 +10,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Lightning Sword");
-      Tooltip.SetDefault("\"A sword of pure Lightning\"");
+      Tooltip.SetDefault("A sword of pure Lightning");
     }
 
     public override void SetDefaults()

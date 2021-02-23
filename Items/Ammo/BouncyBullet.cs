@@ -11,7 +11,7 @@ namespace ProvidenceMod.Items.Ammo
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Bouncy Bullet");
-      Tooltip.SetDefault("\"Pinball, anyone?\"");
+      Tooltip.SetDefault("Pinball, anyone?");
     }
 
     public override void SetDefaults()

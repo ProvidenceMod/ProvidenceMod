@@ -11,7 +11,7 @@ namespace ProvidenceMod.Items.Materials
 		public override void SetStaticDefaults()
 		{
       DisplayName.SetDefault("Zephyrium Bar");
-      Tooltip.SetDefault("\"Even condensed, it's still as light as air.\"");
+      Tooltip.SetDefault("Even condensed, it's still as light as air.");
 		}
 
 		public override void SetDefaults()

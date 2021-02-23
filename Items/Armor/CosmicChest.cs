@@ -13,7 +13,7 @@ namespace ProvidenceMod.Items.Armor
     {
       base.SetStaticDefaults();
       DisplayName.SetDefault("Cosmic Cuirass");
-      Tooltip.SetDefault("\"The power of the cosmos protects you.\"\n+40 Mana, +2 Max Minions");
+      Tooltip.SetDefault("The power of the cosmos protects you.\n+40 Mana, +2 Max Minions");
     }
 
     public override void SetDefaults()

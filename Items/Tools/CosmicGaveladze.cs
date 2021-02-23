@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Tools
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Cosmic Gavel-Adze");
-      Tooltip.SetDefault("\"A hamaxe forged from the pure essence of the Cosmos\"");
+      Tooltip.SetDefault("A hamaxe forged from the pure essence of the Cosmos");
     }
 
     public override void SetDefaults()

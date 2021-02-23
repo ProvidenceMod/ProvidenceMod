@@ -13,7 +13,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Necrotic Sword");
-      Tooltip.SetDefault("\"A depraved sword\"\nCan very rarely deal triple damage!");
+      Tooltip.SetDefault("A depraved sword\nCan very rarely deal triple damage!");
     }
 
     public override void SetDefaults()

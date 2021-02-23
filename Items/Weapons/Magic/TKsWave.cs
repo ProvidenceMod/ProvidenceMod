@@ -13,7 +13,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("TK's Wave");
-      Tooltip.SetDefault("\"Ride the wave, dude!\"");
+      Tooltip.SetDefault("Ride the wave, dude!");
     }
 
     public override void SetDefaults()

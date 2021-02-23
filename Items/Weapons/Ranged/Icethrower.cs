@@ -15,7 +15,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Icethrower");
-      Tooltip.SetDefault("\"The latest in endothermic reactant propulsion systems!\"");
+      Tooltip.SetDefault("The latest in endothermic reactant propulsion systems!");
     }
 
     public override void SetDefaults()

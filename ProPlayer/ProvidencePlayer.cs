@@ -27,12 +27,14 @@ namespace ProvidenceMod
     public bool allowFocus;
     public bool ampCapacitor;
     public bool angelTear;
-    public bool bastionsAegis;
     public bool bloodAmp;
     public bool brimHeart;
     public bool boosterShot;
     public bool burnAura;
     public bool cantdeflect;
+    public bool cerberus;
+    public bool cerberusAura;
+    public bool cerberusAuraSpawned;
     public bool cFlameAura;
     public bool dashing;
     public bool hasClericSet;
@@ -51,7 +53,6 @@ namespace ProvidenceMod
 
     public const float defaultFocusGain = 0.005f;
     public float bloodGained;
-    public int bloodLevel;
     public float bonusFocusGain;
     public float cleric = 1f;
     public float clericAuraRadius = 300f;
@@ -60,22 +61,25 @@ namespace ProvidenceMod
     public float focusLoss = 0.15f;
     public float focusMax = 1f;
     public float hemoDamage;
-    public int maxBloodLevel = 100;
     public float tankingItemCount;
 
     // This should NEVER be changed.
     public const int maxParryActiveTime = 90;
     public readonly int maxGainPerSecond = 10;
-    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int auraStyle = -1;
+    public int auraType = -1;
     public int bloodCollectionCooldown;
     public int bloodConsumedOnUse = 25;
+    public int bloodLevel;
     public int dashMod;
     public int dashTimeMod;
     public int dashModDelay = 60;
     public int focusLossCooldown;
     public int focusLossCooldownMax = 20;
     public int hemoCrit;
+    public int maxBloodLevel = 100;
     public int parriedProjs;
     public int parryActiveTime;
     public int parryProjID;
@@ -100,6 +104,8 @@ namespace ProvidenceMod
     {
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
       allowFocus = IsThereABoss().Item1;
+      auraStyle = -1;
+      auraType = -1;
       ampCapacitor = false;
       bloodConsumedOnUse = 25;
       bloodLevel = hemomancy ? bloodLevel : 0;
@@ -107,6 +113,8 @@ namespace ProvidenceMod
       bonusFocusGain = 0f;
       boosterShot = false;
       burnAura = false;
+      cerberus = false;
+      cerberusAura = false;
       cFlameAura = false;
       cleric = 1f;
       clericAuraRadius = 300f;
@@ -200,6 +208,16 @@ namespace ProvidenceMod
       if (!allowFocus)
         focus = 0;
 
+      if (!cerberus)
+      {
+        cerberusAura = false;
+        cerberusAuraSpawned = false;
+      }
+      if (cerberus)
+      {
+        cerberusAura = true;
+      }
+
       if (parryCapable && parryActive)
       {
         if (parryActiveTime > 0)
@@ -247,7 +265,7 @@ namespace ProvidenceMod
         if (burnAura)
         {
           const float burnRadiusBoost = -100f;
-          GenerateAuraField(player, DustType<AuraDust>(), burnRadiusBoost);
+          GenerateAuraField(player, DustType<BurnDust>(), burnRadiusBoost);
           foreach (NPC npc in Main.npc)
           {
             if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
@@ -291,6 +309,10 @@ namespace ProvidenceMod
             }
           }
         }
+      }
+      if (cerberusAura)
+      {
+        GenerateAuraField(player, AuraStyle.CerberusStyle, 0f);
       }
     }
 
@@ -544,22 +566,33 @@ namespace ProvidenceMod
         {
           if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
           {
-            if (player.HeldItem.Providence().element == 0)
-              Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-            else if (player.HeldItem.Providence().element == 1)
-              Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-            else if (player.HeldItem.Providence().element == 2)
-              Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-            else if (player.HeldItem.Providence().element == 3)
-              Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-            else if (player.HeldItem.Providence().element == 4)
-              Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-            else if (player.HeldItem.Providence().element == 5)
-              Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-            else if (player.HeldItem.Providence().element == 6)
-              Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-            else if (player.HeldItem.Providence().element == 7)
-              Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+            switch (player.HeldItem.Providence().element)
+            {
+              case 0:
+                Main.combatText[combatIndex2].color = new Color(238, 74, 89);
+                break;
+              case 1:
+                Main.combatText[combatIndex2].color = new Color(238, 74, 204);
+                break;
+              case 2:
+                Main.combatText[combatIndex2].color = new Color(238, 226, 74);
+                break;
+              case 3:
+                Main.combatText[combatIndex2].color = new Color(74, 95, 238);
+                break;
+              case 4:
+                Main.combatText[combatIndex2].color = new Color(74, 238, 137);
+                break;
+              case 5:
+                Main.combatText[combatIndex2].color = new Color(145, 74, 238);
+                break;
+              case 6:
+                Main.combatText[combatIndex2].color = new Color(255, 216, 117);
+                break;
+              case 7:
+                Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+                break;
+            }
           }
         }
       }

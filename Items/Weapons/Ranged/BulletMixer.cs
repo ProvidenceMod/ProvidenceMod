@@ -16,7 +16,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Bullet Mixer");
-      Tooltip.SetDefault("\"Every bullet fired is a random choice of the bullets you have in your inventory.\"");
+      Tooltip.SetDefault("Every bullet fired is a random choice of the bullets you have in your inventory.");
     }
 
     public override void SetDefaults()

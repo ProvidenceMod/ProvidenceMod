@@ -12,7 +12,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Confluence");
-      Tooltip.SetDefault("\"The culmination of the wild energies of the elements.\"");
+      Tooltip.SetDefault("The culmination of the wild energies of the elements.");
     }
 
     public override string Texture => $"Terraria/Item_{ItemID.TerraBlade}";

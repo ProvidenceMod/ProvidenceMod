@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Materials
 		public override void SetStaticDefaults()
 		{
       DisplayName.SetDefault("Bronze Bar");
-      Tooltip.SetDefault("\"It smells faintly of ozone. And, well, metal.\"");
+      Tooltip.SetDefault("It smells faintly of ozone. And, well, metal.");
 		}
 
 		public override void SetDefaults()

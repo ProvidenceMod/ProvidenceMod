@@ -33,15 +33,10 @@ namespace ProvidenceMod.Items.Accessories
     {
       ModRecipe r = new ModRecipe(mod);
       r.AddIngredient(ItemID.AnkletoftheWind);
+      r.AddIngredient(ItemID.Aglet);
       r.AddIngredient(ItemType<ZephyriumBar>(), 5);
       r.SetResult(this);
       r.AddRecipe();
-
-      ModRecipe r2 = new ModRecipe(mod);
-      r2.AddIngredient(ItemID.Aglet);
-      r2.AddIngredient(ItemType<ZephyriumBar>(), 5);
-      r2.SetResult(this);
-      r2.AddRecipe();
     }
   }
 }

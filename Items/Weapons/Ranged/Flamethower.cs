@@ -15,7 +15,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Flamethrower");
-      Tooltip.SetDefault("\"No, alt-fire does NOT airblast.\"");
+      Tooltip.SetDefault("No, alt-fire does NOT airblast.");
     }
 
     public override void SetDefaults()

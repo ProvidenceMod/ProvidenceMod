@@ -11,7 +11,7 @@ namespace ProvidenceMod.Items.Consumables
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Angel's Tear");
-      Tooltip.SetDefault("\"The physical manifest of an angel's suffering.\"\n+20 max Health, to a limit of 1000\nMust have consumed all life fruits first");
+      Tooltip.SetDefault("The physical manifest of an angel's suffering.\n+20 max Health, to a limit of 1000\nMust have consumed all life fruits first");
     }
 
     public override void SetDefaults()

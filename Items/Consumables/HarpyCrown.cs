@@ -14,7 +14,7 @@ namespace ProvidenceMod.Items.Consumables
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Harpy's Crown");
-      Tooltip.SetDefault("\"You feel the looming presence of Her Majesty holding this crown.\"");
+      Tooltip.SetDefault("You feel the looming presence of Her Majesty holding this crown.");
     }
 
     public override void SetDefaults()

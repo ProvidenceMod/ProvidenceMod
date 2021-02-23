@@ -11,7 +11,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Clockwork Wings");
-      Tooltip.SetDefault("\"Wings made with plates, cogs, and chains of bronze.\"\n\"One of Hephanis's earlier inventions. They seem to work well despite the immense tarnish.\"");
+      Tooltip.SetDefault("Wings made with plates, cogs, and chains of bronze.\nOne of Hephanis's earlier inventions. They seem to work well despite the immense tarnish.");
     }
 
     public override void SetDefaults()

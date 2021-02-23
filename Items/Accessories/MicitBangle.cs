@@ -10,7 +10,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Micit Bangle"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-      Tooltip.SetDefault("Increases parried projectile damage by 250%.\n\"A bangle made of Micit. It exudes immense power.\"");
+      Tooltip.SetDefault("Increases parried projectile damage by 250%.\nA bangle made of Micit. It exudes immense power.");
     }
     public override void SetDefaults()
     {

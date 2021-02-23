@@ -12,7 +12,7 @@ namespace ProvidenceMod.Items.Materials
 		public override void SetStaticDefaults()
 		{
       DisplayName.SetDefault("Clockwork Gear");
-      Tooltip.SetDefault("\"You can hear a faint clock ticking if you put this to your ear.\"");
+      Tooltip.SetDefault("You can hear a faint clock ticking if you put this to your ear.");
       Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(15, 4));
 		}
 

@@ -26,6 +26,7 @@ namespace ProvidenceMod
       float rotation = projectile.rotation;
       Rectangle rectangle = new Rectangle(0, y, texture.Width, height);
       Vector2 origin = rectangle.Size() / 2f;
+      float alpha = 1f;
       for (int i = projectile.oldPos.Length - 1; i > 0; i--)
       {
         projectile.oldPos[i] = projectile.oldPos[i - 1];
@@ -33,14 +34,14 @@ namespace ProvidenceMod
       projectile.oldPos[0] = projectile.position;
       for (int k = 0; k < counter; k++)
       {
-        float alpha;
         if (k == 0)
         {
           alpha = 1f;
         }
         else
         {
-          alpha = 1f - (k * (1f / counter / 2));
+          // alpha = 1f - (k * (1f / counter / 2));
+          alpha -= 0.1f;
         }
         Color color = projectile.GetAlpha(lightColor) * alpha;
         Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition;

@@ -9,7 +9,7 @@ namespace ProvidenceMod.Items.Tools
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Cosmic Terraformer");
-      Tooltip.SetDefault("\"A pickaxe forged from the pure essence of the Cosmos\"");
+      Tooltip.SetDefault("A pickaxe forged from the pure essence of the Cosmos");
     }
 
     public override void SetDefaults()

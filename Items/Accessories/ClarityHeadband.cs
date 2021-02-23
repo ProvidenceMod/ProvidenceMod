@@ -11,7 +11,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Clarity Headband");
-      Tooltip.SetDefault("\"A headband to help clear the mind, and focus\"\nBoosts focus gain and max focus");
+      Tooltip.SetDefault("A headband to help clear the mind, and focus\nBoosts focus gain and max focus");
     }
 
     public override void SetDefaults()

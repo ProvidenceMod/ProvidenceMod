@@ -8,7 +8,7 @@ using ProvidenceMod.Projectiles.Aura;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Items.Accessories
+namespace ProvidenceMod.Items.Materials
 {
   public class LightningRelic : ModItem
   {

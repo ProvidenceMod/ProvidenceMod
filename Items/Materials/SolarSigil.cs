@@ -8,9 +8,9 @@ using ProvidenceMod.Projectiles.Aura;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Items.Accessories
+namespace ProvidenceMod.Items.Materials
 {
-  public class SolarSigl : ModItem
+  public class SolarSigil : ModItem
   {
     public override void SetStaticDefaults()
     {

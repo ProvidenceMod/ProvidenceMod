@@ -71,13 +71,73 @@ namespace ProvidenceMod
           proPlayer.resists[k] += (int)elemAffDef[0, index];
       }
     }
-    public static Vector3 ColorIntToFloat(Vector3 vector3)
+    public static Vector3 ColorRGBIntToFloat(this Vector3 vector3)
     {
       const double conversion = 100 / 255;
       vector3.X = (float)(vector3.X * conversion);
       vector3.Y = (float)(vector3.Y * conversion);
       vector3.Z = (float)(vector3.Z * conversion);
       return vector3;
+    }
+    public static Color ColorRGBIntToFloat(this Color color)
+    {
+      const double conversion = 100 / 255;
+      color.R = (byte)(color.R * conversion);
+      color.G = (byte)(color.G * conversion);
+      color.B = (byte)(color.B * conversion);
+      return color;
+    }
+    public static Vector4 ColorRGBAIntToFloat(this Vector4 vector4)
+    {
+      const double conversion = 100 / 255;
+      vector4.X = (float)(vector4.X * conversion);
+      vector4.Y = (float)(vector4.Y * conversion);
+      vector4.Z = (float)(vector4.Z * conversion);
+      vector4.W = (float)(vector4.W * conversion);
+      return vector4;
+    }
+    public static Color ColorRGBAIntToFloat(this Color color)
+    {
+      const double conversion = 100 / 255;
+      color.R = (byte)(color.R * conversion);
+      color.G = (byte)(color.G * conversion);
+      color.B = (byte)(color.B * conversion);
+      color.A = (byte)(color.A * conversion);
+      return color;
+    }
+    public static Vector3 ColorRGBFloatToInt(this Vector3 vector3)
+    {
+      const double conversion = 100 / 255;
+      vector3.X = (float)(vector3.X / conversion);
+      vector3.Y = (float)(vector3.Y / conversion);
+      vector3.Z = (float)(vector3.Z / conversion);
+      return vector3;
+    }
+    public static Color ColorRGBFloatToInt(this Color color)
+    {
+      const double conversion = 100 / 255;
+      color.R = (byte)(color.R / conversion);
+      color.G = (byte)(color.G / conversion);
+      color.B = (byte)(color.B / conversion);
+      return color;
+    }
+    public static Vector4 ColorRGBAFloatToInt(this Vector4 vector4)
+    {
+      const double conversion = 100 / 255;
+      vector4.X = (float)(vector4.X / conversion);
+      vector4.Y = (float)(vector4.Y / conversion);
+      vector4.Z = (float)(vector4.Z / conversion);
+      vector4.W = (float)(vector4.W / conversion);
+      return vector4;
+    }
+    public static Color ColorRGBAFloatToInt(this Color color)
+    {
+      const double conversion = 100 / 255;
+      color.R = (byte)(color.R / conversion);
+      color.G = (byte)(color.G / conversion);
+      color.B = (byte)(color.B / conversion);
+      color.A = (byte)(color.A / conversion);
+      return color;
     }
     public static float[] GetAffinityBonuses(this Player player, int e)
     {

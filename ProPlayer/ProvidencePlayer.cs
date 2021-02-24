@@ -315,7 +315,6 @@ namespace ProvidenceMod
         GenerateAuraField(player, AuraStyle.CerberusStyle, 0f);
       }
     }
-
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
     {
       items.Add(createItem(mod.ItemType("StarterBag")));

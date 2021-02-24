@@ -41,16 +41,15 @@ namespace ProvidenceMod.Items.Materials
       recipe.SetResult(this);
       recipe.AddRecipe();
     }
-    // public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-    // {
-    //   Texture2D texture = GetTexture("ProvidenceMod/Items/Materials/FireEssence");
-    //   spriteBatch.Draw(texture, position, item.AnimationFrame(ref frameNumber, ref frameTick, 6, 10, true), Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
-    // }
-    public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+    public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {
-      Texture2D texture = GetTexture("ProvidenceMod/Items/Materials/FireEssence");
-      spriteBatch.Draw(texture, new Vector2(item.position.X - Main.screenPosition.X, item.position.Y - Main.screenPosition.Y + 2), item.AnimationFrame(ref frame, ref frameTick, 6, 10, true), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
-      return false;
+      Texture2D texture = GetTexture("ProvidenceMod/Items/Materials/StarfiberAnimated");
+      spriteBatch.Draw(texture, position, item.AnimationFrame(ref frameNumber, ref frameTick, frameTime, 5, true), Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
+    }
+    public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+    {
+      Texture2D texture = GetTexture("ProvidenceMod/Items/Materials/StarfiberGlow");
+      spriteBatch.Draw(texture, new Vector2(item.position.X - Main.screenPosition.X, item.position.Y - Main.screenPosition.Y + 2), item.AnimationFrame(ref frame, ref frameTick, frameTime, 5, true), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
     }
   }
 }

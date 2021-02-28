@@ -69,6 +69,7 @@ namespace ProvidenceMod.Items.Accessories
       // hellstone bar
       // gold bar or platinum bar
       // ectoplasm
+      // chaos catalyst
 
       // Combine Elemental Essence with Ectoplasm to create am Elemental Catalyst of the same type as the Essence used to craft it. 
       // Combine Elemental Catalysts of opposing elemental types to get Chaos Relics. 

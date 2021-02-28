@@ -194,6 +194,7 @@ namespace ProvidenceMod
     }
     public override void PreUpdate()
     {
+
       if (IsThereABoss().Item1)
         allowFocus = true;
       player.AddBuff(BuffType<Intimidated>(), 2);

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ProvidenceMod.ProvidenceUtils;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ProvidenceMod
 {
@@ -23,6 +24,7 @@ namespace ProvidenceMod
     public int maxSpawnsTemp;
     public int armorMax = 1000;
     public int armor = 1000;
+    public int buffCount;
     public float armorEfficiency = 0.5f;
     public bool Armored
     {
@@ -46,6 +48,11 @@ namespace ProvidenceMod
         npc.velocity.X = 0; // Frozen in place. Keep in mind they can still shoot if they could already.
         npc.velocity.Y = 0;
       }
+    }
+    public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
+    {
+      drawColor = Color.White;
+      spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Materials/FireEssence"), new Vector2(npc.position.X - 20f, npc.position.Y - 20f), new Rectangle(0, 0, 32, 32), drawColor, 0f, npc.position, 1f, SpriteEffects.None, 4f);
     }
 
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)

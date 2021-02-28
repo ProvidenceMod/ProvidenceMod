@@ -30,7 +30,7 @@ namespace ProvidenceMod.Dusts
     }
     public override bool Update(Dust dust)
     {
-      AddLight(dust.position, ColorIntToFloat(new Vector3(227, 79, 79)));
+      AddLight(dust.position, ProvidenceUtils.ColorRGBIntToFloat(new Vector3(227, 79, 79)));
       if (cooldown > 0)
       {
         cooldown--;

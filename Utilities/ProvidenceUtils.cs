@@ -425,7 +425,6 @@ namespace ProvidenceMod
     }
     /// <summary>Shorthanding of distance testing involving Vector2's, for readability.</summary>
     public static bool IsInRadiusOf(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
-
     /// <summary>Provides how many instances of the projectile type currently exist.</summary>
     public static int GrabProjCount(int type)
     {
@@ -449,6 +448,25 @@ namespace ProvidenceMod
       float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
       return Color.Lerp(firstColor, secondColor, amount);
     }
+    // public static Color ColorShiftThree(Color firstColor, Color secondColor, Color thirdColor, float seconds, int phase)
+    // {
+    //   if(phase == 0)
+    //   {
+    //     return ColorShift(firstColor, secondColor, seconds);
+    //   }
+    //   if(phase == 1)
+    //   {
+    //     return ColorShift(secondColor, thirdColor, seconds);
+    //   }
+    //   if(phase == 2)
+    //   {
+    //     return ColorShift(thirdColor, firstColor, seconds);
+    //   }
+    //   else
+    //   {
+    //     return ColorShift(firstColor, secondColor, seconds);
+    //   }
+    // }
     /// <summary>For use in setting defaults in items.</summary>
     /// <param name="item">The item being set.</param>
     /// <param name="elID">The element of a weapon's attacks, or additional elemental defense of accessories and armor.</param>
@@ -872,6 +890,23 @@ namespace ProvidenceMod
         CombatText.NewText(npc.Hitbox, Color.White, armorDamage);
       }
       return damage;
+    }
+    public static void DrawEnemyDebuffs(this NPC nPC)
+    {
+      nPC.Providence().buffCount = 0;
+      Vector2 drawPos = new Vector2(0f, nPC.position.Y + 10f);
+      int[] buffTypeArray = new int[5] {0, 0, 0, 0, 0};
+      foreach(int num in nPC.buffType)
+      {
+        buffTypeArray[nPC.Providence().buffCount] = num;
+        nPC.Providence().buffCount++;
+      }
+      for(int i = 0 ; i < nPC.Providence().buffCount ; i++)
+      {
+        drawPos.X = nPC.position.X - 10f + (i * 5f);
+        Texture2D texture = GetTexture("Terraria/Buff_" + buffTypeArray[i].ToString());
+        Main.spriteBatch.Draw(texture, drawPos, Color.White);
+      }
     }
 
     public static class ParryTypeID

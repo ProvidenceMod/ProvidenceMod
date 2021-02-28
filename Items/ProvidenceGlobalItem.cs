@@ -8,6 +8,8 @@ using System.Linq;
 using ProvidenceMod;
 using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ItemHelper;
+using ProvidenceMod.Items.Weapons.Melee;
+using Microsoft.Xna.Framework;
 
 namespace ProvidenceMod
 {
@@ -17,6 +19,7 @@ namespace ProvidenceMod
     public bool cleric;
     public bool glowmask;
     public bool animated;
+    public int customRarity;
     public int element = -1, weakEl = -1; // -1 means Typeless, meaning we don't worry about this in the first place
     // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
     public int elementDef, weakElDef;
@@ -101,12 +104,25 @@ namespace ProvidenceMod
     }
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
-      var tt = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
-      if (tt != null)
+      TooltipLine tooltip1 = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
+      if (tooltip1 != null)
       {
-        string[] split = tt.text.Split(' ');
-        tt.text = split[0] + DetermineDamagetip(item) + split.Last();
+        string[] split = tooltip1.text.Split(' ');
+        tooltip1.text = split[0] + DetermineDamagetip(item) + split.Last();
       }
+      TooltipLine tooltip2 = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
+      if(tooltip2 != null)
+      {
+        if(item.type == ModContent.ItemType<MoonCleaver>())
+          tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 2f);
+        switch(customRarity)
+        {
+          case (int) ProvidenceRarity.Developer:
+            tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 1000f);
+            break;
+        }
+      }
+
     }
     public override void AddRecipes()
     {

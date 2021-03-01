@@ -15,9 +15,7 @@ namespace ProvidenceMod.UI
     public float oldScale = Main.inventoryScale;
     private FocusElement area;
     private UIText currFocus, breakSlash, maxFocus;
-    private UIImageFramed focusFrame;
-    private Rectangle frameRect;
-    private UIImage focusBackground;
+    private UIImage focusFrame;
     private Rectangle focusBarRect;
     private Rectangle focusUseRect;
     private UIImageFramed focusBar;
@@ -54,18 +52,11 @@ namespace ProvidenceMod.UI
       breakSlash.Left.Set(0, 0.5f);
       maxFocus.Left.Set(-50, 1f);
 
-      frameRect = new Rectangle(0, 0, 130, 30);
-      focusFrame = new UIImageFramed(GetTexture("ProvidenceMod/UI/FocusUIFrame"), frameRect);
+      focusFrame = new UIImage(GetTexture("ProvidenceMod/UI/FocusUIFrame"));
       focusFrame.Top.Set(0, 0f);
       focusFrame.Left.Set(0, 0f);
       focusFrame.Width.Set(130f, 0f);
       focusFrame.Height.Set(30f, 0f);
-
-      focusBackground = new UIImage(GetTexture("ProvidenceMod/UI/FocusUIBackground"));
-      focusBackground.Top.Set(8f, 0f);
-      focusBackground.Left.Set(15f, 0f);
-      focusBackground.Width.Set(100f, 0f);
-      focusBackground.Height.Set(20f, 0f);
 
       focusBarRect = new Rectangle(0, 0, 100, 20);
       focusBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/FocusUIBar"), focusBarRect);
@@ -129,10 +120,9 @@ namespace ProvidenceMod.UI
         // frameRect.Y = 34 * frame;
         // focusFrame.SetFrame(frameRect);
 
-        area.Append(focusBackground);
+        area.Append(focusFrame);
         area.Append(focusUse);
         area.Append(focusBar);
-        area.Append(focusFrame);
         area.Append(currFocus);
         area.Append(breakSlash);
         area.Append(maxFocus);

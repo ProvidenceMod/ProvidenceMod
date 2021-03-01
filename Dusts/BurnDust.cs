@@ -31,43 +31,8 @@ namespace ProvidenceMod.Dusts
     public override bool Update(Dust dust)
     {
       AddLight(dust.position, ProvidenceUtils.ColorRGBIntToFloat(new Vector3(227, 79, 79)));
-      if (cooldown > 0)
-      {
-        cooldown--;
-      }
-      if (cooldown == 0)
-      {
-        if(color.Y > 0 && lowering)
-        {
-          color.Y--;
-          if(color.Y == 0)
-          {
-            lowering = false;
-            rising = true;
-          }
-        }
-        if(color.Y < 128 && rising)
-        {
-          color.Y++;
-          if(color.Y == 128)
-          {
-            lowering = true;
-            rising = false;
-          }
-        }
-        cooldown = 60;
-      }
       return true;
     }
-    public override Color? GetAlpha(Dust dust, Color lightColor)
-    {
-      return new Color(0, 0, 0, 0)
-      {
-        R = (byte)color.X,
-        G = (byte)color.Y,
-        B = (byte)color.Z,
-        A = (byte)color.W
-      };
-    }
+    public override Color? GetAlpha(Dust dust, Color lightColor) => ColorShift(new Color(255, 255, 0), new Color(255, 0, 0), 5f);
   }
 }

@@ -85,6 +85,6 @@ namespace ProvidenceMod.Projectiles.Aura
       // projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * dist) - (projectile.width / 2);
       // projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist) - (projectile.height / 2);
     }
-    public override Color? GetAlpha(Color lightColor) => Color.White;
+    public override Color? GetAlpha(Color lightColor) => ColorShift(new Color(255, 255, 0), new Color(255, 0, 0), 5f);
   }
 }

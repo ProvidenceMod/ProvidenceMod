@@ -34,6 +34,14 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - Post Moonlord Content
 - And much more
 
+## FAQ
+**Why is this mod Open Source?**
+   
+   _One of our biggest hurdles when beginning to mod was finding accurate resources outside of the tModLoader GitHub, the tModLoader Discord, or Example Mod. Many forums or other resources were simply outdated or inaccurate. This inspired us to make our mod Open Source, not only because we want to act as a form of Example Mod in the sense that it is an example for people to follow, but also because this will be an overhaul mod, so there are plenty of examples to follow. We are also completely open to helping new modders learn CSharp and the tModLoader API._
+
+**Where are the best places to contact the Developers?**
+   
+   _You may contact us through email or through Github Issues. However, the best place to contact is is through our [Discord server](https://discord.gg/bhCuppRdVF)._
 
 ## Table of Contents
 - [Contributing](#contributing)

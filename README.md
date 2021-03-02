@@ -43,6 +43,10 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
    
    _You may contact us through email or through Github Issues. However, the best place to contact is is through our [Discord server](https://discord.gg/bhCuppRdVF)._
 
+**How can I contribute?**
+
+   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters in order to work with them to ensure that your sprite fits the theme and quality standard. If you want to suggest music, we suggest contacting our team's music artists to ensure that your music fits the theme and quality standard. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team, since writing lore will affect the theme of the mod, which will affect the three afforementioned forms of contribution._
+
 ## Table of Contents
 - [Contributing](#contributing)
 - [Installation](#installation)

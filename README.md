@@ -38,6 +38,12 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 **Why is this mod Open Source?**
    
    _One of our biggest hurdles when beginning to mod was finding accurate resources outside of the tModLoader GitHub, the tModLoader Discord, or Example Mod. Many forums or other resources were simply outdated or inaccurate. This inspired us to make our mod Open Source, not only because we want to act as a form of Example Mod in the sense that it is an example for people to follow, but also because this will be an overhaul mod, so there are plenty of examples to follow. We are also completely open to helping new modders learn CSharp and the tModLoader API._
+   
+**When am I allowed to adapt code from this mod?**
+
+   _It should be mentioned that although this mod is open source, plagiarism is not okay. As cited in the tModLoader Wiki page about Open Source Mods:
+>Remember, you can't just copy code from these mods unless the licence they are under specifically allows it. If there is no licence, the owner reserves all ownership and >opyright of the code, so you need to contact the owner and ask permission to utilize certain parts. Don't worry, most will be happy to allow you to use portions of their code, >ut you still need to ask.
+   While we might allow most utilities to be copied, it is still important to ask us which code is safe to copy and which code is not. Remember, this is a mod that you use to LEARN, not copy and paste. If you learn the code you will never need to copy and paste from outside sources and we are more than willing to help you understand the code. There are bits of code, however, that we do list as "Free To Use", which means we are giving you permission to use that code in your own personal projects. That does not, however, pass off ownership of the code to you. So if someone asks about how it works or if you wrote it yourself, do not say "Yes", instead, link them to this repository, because the chances are that they will benefit from seeing the original if they are asking those questions. You are doing yourself, them, and us a favor!
 
 **Where are the best places to contact the Developers?**
    
@@ -45,7 +51,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 
 **How can I contribute?**
 
-   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters in order to work with them to ensure that your sprite fits the theme and quality standard. If you want to suggest music, we suggest contacting our team's music artists to ensure that your music fits the theme and quality standard. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team, since writing lore will affect the theme of the mod, which will affect the three afforementioned forms of contribution._
+   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters in order to work with them to ensure that your sprite fits the theme and quality standard. If you want to suggest music, we suggest contacting our team's music artists to ensure that your music fits the theme and quality standard. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team, since writing lore will affect the theme of the mod, which will affect the three aforementioned forms of contribution._
 
 ## Table of Contents
 - [Contributing](#contributing)

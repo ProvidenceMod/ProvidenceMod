@@ -32,7 +32,7 @@ namespace ProvidenceMod.Items.TreasureBags
     public override void RightClick(Player player)
     {
       // 26 to 74 ore spawned
-      player.QuickSpawnItem(ItemType<ZephyriumOre>(), Main.rand.Next(26, 75));
+      player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(26, 75));
       player.QuickSpawnItem(ItemType<HarpyQueenTalon>(), Main.rand.Next(2, 6));
       player.QuickSpawnItem(ItemType<HarpyQueenFeather>(), Main.rand.Next(3, 6));
     }

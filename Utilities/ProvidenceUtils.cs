@@ -2,13 +2,13 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ProvidenceMod.Dusts;
 using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
-using ProvidenceMod.Buffs.Cooldowns;
-using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Projectiles.Healing;
 using static Terraria.ModLoader.ModContent;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ProvidenceMod.Dusts;
+using ProvidenceMod.Buffs.Cooldowns;
+using ProvidenceMod.Projectiles.Healing;
 
 namespace ProvidenceMod
 {
@@ -23,17 +23,17 @@ namespace ProvidenceMod
     /// <summary>References the ProvidenceGlobalProjectile instance. Shorthand for ease of use.</summary>
     public static ProvidenceGlobalProjectile Providence(this Projectile proj) => proj.GetGlobalProjectile<ProvidenceGlobalProjectile>();
     /// <summary>References the ProvidenceGlobalWall instance. Shorthand for ease of use.</summary>
-    public static ProvidenceWall ProvidenceWall(this Mod wall) => (ProvidenceWall)wall.GetGlobalWall("ProvidenceMod");
+    public static ProvidenceWall ProvidenceWall(this Mod wall) => (ProvidenceWall)wall.GetGlobalWall("ProvidenceGlobalWall");
     /// <summary>References the ProvidenceWorld instance. Shorthand for ease of use.</summary>
-    public static ProvidenceWorld ProvidenceWorld(this Mod world) => (ProvidenceWorld)world.GetModWorld("ProvidenceMod");
+    public static ProvidenceWorld ProvidenceWorld(this Mod world) => (ProvidenceWorld)world.GetModWorld("ProvidenceWorld");
     /// <summary>References the ProvidenceGlobalBuff instance. Shorthand for ease of use.</summary>
-    public static ProvidenceBuff ProvidenceBuff(this Mod buff) => (ProvidenceBuff)buff.GetGlobalBuff("ProvidenceMod");
+    public static ProvidenceBuff ProvidenceBuff(this Mod buff) => (ProvidenceBuff)buff.GetGlobalBuff("ProvidenceBuff");
     /// <summary>References the ProvidenceGlobalTile instance. Shorthand for ease of use.</summary>
-    public static ProvidenceTile ProvidenceTile(this Mod tile) => (ProvidenceTile)tile.GetGlobalTile("ProvidenceMod");
+    public static ProvidenceTile ProvidenceTile(this Mod tile) => (ProvidenceTile)tile.GetGlobalTile("ProvidenceTile");
     /// <summary>References the ProvidenceGlobalBigStyle instance. Shorthand for ease of use.</summary>
-    public static ProvidenceBigStyle ProvidenceStyle(this Mod style) => (ProvidenceBigStyle)style.GetGlobalBgStyle("ProvidenceMod");
+    public static ProvidenceBigStyle ProvidenceStyle(this Mod style) => (ProvidenceBigStyle)style.GetGlobalBgStyle("ProvidenceBigStyle");
     /// <summary>References the ProvidenceGlobalRecipes instance. Shorthand for ease of use.</summary>
-    public static ProvidenceRecipes ProvidenceRecipes(this Mod recipe) => (ProvidenceRecipes)recipe.GetGlobalRecipe("ProvidenceMod");
+    public static ProvidenceRecipes ProvidenceRecipes(this Mod recipe) => (ProvidenceRecipes)recipe.GetGlobalRecipe("ProvidenceRecipe");
     /// <summary>References the Player owner of a projectile instance. Shorthand for ease of use.</summary>
     public static Player OwnerPlayer(this Projectile projectile) => Main.player[projectile.owner];
     /// <summary>References the NPC owner of a projectile instance. Shorthand for ease of use.</summary>
@@ -382,6 +382,56 @@ namespace ProvidenceMod
         {
           case 0:
             break;
+          case 1:
+            if (proPlayer.hasClericSet)
+            {
+              const float burnRadiusBoost = -100f;
+              GenerateAuraField(player, DustType<BurnDust>(), burnRadiusBoost);
+              foreach (NPC npc in Main.npc)
+              {
+                if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + burnRadiusBoost))
+                {
+                  npc.AddBuff(BuffID.OnFire, 1);
+                }
+              }
+            }
+            break;
+          case 2:
+            if (proPlayer.hasClericSet)
+            {
+              const float cFRadiusBoost = -150f;
+              GenerateAuraField(player, DustType<AuraDust>(), cFRadiusBoost);
+              foreach (NPC npc in Main.npc)
+              {
+                if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + cFRadiusBoost))
+                {
+                  npc.AddBuff(BuffID.CursedInferno, 180);
+                }
+              }
+            }
+            break;
+          case 3:
+            const float ampRadiusBoost = 0;
+            GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
+            foreach (Projectile projectile in Main.projectile)
+            {
+              if (projectile.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + ampRadiusBoost) && !projectile.Providence().amped)
+              {
+                if (projectile.friendly)
+                {
+                  projectile.damage = (int)(projectile.damage * 1.15);
+                  projectile.velocity *= 1.15f;
+                  projectile.Providence().amped = true;
+                }
+                else if (projectile.hostile)
+                {
+                  projectile.damage = (int)(projectile.damage * 0.85);
+                  projectile.velocity *= 0.85f;
+                  projectile.Providence().amped = true;
+                }
+              }
+            }
+            break;
         }
       }
     }
@@ -525,7 +575,7 @@ namespace ProvidenceMod
     /// <param name="frameTick">The frame tick for this item. Use "public int frameTick;" in your item file.</param>
     /// <param name="frameTime">How many frames (ticks) you are spending on a single frame.</param>
     /// <param name="frameCount">How many frames this animation has.</param>
-    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease, bool overrideHeight = false, int overrideH = 0)
+    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease, int overrideHeight = 0)
     {
       if (frameTick >= frameTime)
       {
@@ -534,9 +584,9 @@ namespace ProvidenceMod
       }
       if (frameTickIncrease)
         frameTick++;
-      if (overrideHeight)
+      if (overrideHeight > 0 || overrideHeight < 0)
       {
-        return new Rectangle(0, overrideH * frame, item.width, item.height);
+        return new Rectangle(0, overrideHeight * frame, item.width, item.height);
       }
       else
       {
@@ -612,7 +662,7 @@ namespace ProvidenceMod
     /// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
     /// </summary>
     /// <param name="projectile">The projectile being worked with.</param>
-    /// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
+    /// <param name="speed">How fast the projectile can go in a straight line. Defaults at 6f.</param>
     /// <param name="gain">How quickly the projectile will gain speed. Defaults at 0.1f </param>
     /// <param name="slow">How quickly the projectile will slow down. Defaults at 0.1f.</param>
     /// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
@@ -941,10 +991,16 @@ namespace ProvidenceMod
     public static class AuraStyle
     {
       public const int CerberusStyle = 0;
+      public const int BurnStyle = 1;
+      public const int CFlameStyle = 2;
+      public const int AmpStyle = 3;
     }
     public static class AuraType
     {
       public const int CerberusAura = 0;
+      public const int BurnAura = 1;
+      public const int CFlameAura = 2;
+      public const int AmpCapacitorAura = 3;
     }
     public static class EntityType
     {

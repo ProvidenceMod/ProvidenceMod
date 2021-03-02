@@ -8,11 +8,11 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
-  public class ZephyriumCutlass : ModItem
+  public class ZephyrCutlass : ModItem
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Zephyrium Cutlass");
+      DisplayName.SetDefault("Zephyr Cutlass");
       Tooltip.SetDefault("The talons on the hilt are the only things keeping this from floating away.");
     }
 
@@ -32,7 +32,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     {
       ModRecipe r = new ModRecipe(mod);
 
-      r.AddIngredient(ItemType<ZephyriumBar>(), 10);
+      r.AddIngredient(ItemType<ZephyrBar>(), 10);
       r.AddIngredient(ItemType<HarpyQueenFeather>(), 3);
       r.AddIngredient(ItemType<HarpyQueenTalon>(), 2);
       r.AddTile(TileID.SkyMill);

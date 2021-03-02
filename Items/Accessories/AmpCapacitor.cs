@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items.Accessories
 {
@@ -19,7 +20,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void UpdateEquip(Player player)
     {
       ProvidencePlayer ProvidencePlayer = player.Providence();
-      ProvidencePlayer.ampCapacitor = true;
+      ProvidencePlayer.auraType = AuraType.AmpCapacitorAura;
     }
   }
 }

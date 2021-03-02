@@ -3,10 +3,11 @@ using Terraria.ModLoader;
 
 namespace ProvidenceMod.Items.Placeable
 {
-	public class ZephyriumOre : ModItem
+	public class ZephyrOre : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
+      DisplayName.SetDefault("Zephyr Ore");
 			ItemID.Sets.SortingPriorityMaterials[item.type] = 58;
 		}
 
@@ -19,7 +20,7 @@ namespace ProvidenceMod.Items.Placeable
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.ZephyriumOre>();
+			item.createTile = ModContent.TileType<Tiles.ZephyrOre>();
 			item.width = 12;
 			item.height = 12;
 			item.value = 3000;

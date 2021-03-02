@@ -1,11 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using Microsoft.Xna.Framework;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Projectiles.Magic;
 using ProvidenceMod.Items.Materials;
+using ProvidenceMod.Projectiles.Boss;
 
 namespace ProvidenceMod.Items.Weapons.Magic
 {
@@ -22,8 +21,8 @@ namespace ProvidenceMod.Items.Weapons.Magic
     {
       item.CloneDefaults(ItemID.RubyStaff);
       item.damage = 25;
-      item.width = 90;
-      item.height = 90;
+      item.width = 40;
+      item.height = 40;
       item.value = Item.buyPrice(0, 10, 0, 0);
       item.rare = 12;
       item.useStyle = ItemUseStyleID.HoldingOut;
@@ -34,7 +33,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
       item.mana = 6;
       item.autoReuse = true;
       item.Providence().element = ElementID.Air; // Fire
-      item.shoot = ProjectileType<FriendlyHarpyFeather>();
+      item.shoot = ProjectileType<RoyalFeather>();
       item.shootSpeed = 6f;
     }
 
@@ -43,7 +42,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
       // Recipes here. See Basic Recipe Guide2
       ModRecipe r = new ModRecipe(mod);
 
-      r.AddIngredient(ItemType<ZephyriumBar>(), 10);
+      r.AddIngredient(ItemType<ZephyrBar>(), 10);
       r.AddIngredient(ItemType<HarpyQueenFeather>(), 3);
       r.AddIngredient(ItemType<HarpyQueenTalon>(), 3);
       r.AddTile(TileID.SkyMill);

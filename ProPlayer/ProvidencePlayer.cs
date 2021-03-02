@@ -48,7 +48,7 @@ namespace ProvidenceMod
     public bool regenAura;
     public bool spawnReset = true;
     public bool tankParryOn;
-    public bool zephyriumAglet;
+    public bool ZephyrAglet;
     public bool vampFang;
 
     public const float defaultFocusGain = 0.005f;
@@ -62,8 +62,6 @@ namespace ProvidenceMod
     public float focusMax = 1f;
     public float hemoDamage;
     public float tankingItemCount;
-
-    // This should NEVER be changed.
     public const int maxParryActiveTime = 90;
     public readonly int maxGainPerSecond = 10;
     public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -139,7 +137,7 @@ namespace ProvidenceMod
       tankParryOn = false;
       tankParryPWR = tankParryOn ? tankParryPWR : 0;
       vampFang = false;
-      zephyriumAglet = false;
+      ZephyrAglet = false;
     }
 
     public override void ProcessTriggers(TriggersSet triggersSet)
@@ -173,7 +171,109 @@ namespace ProvidenceMod
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
     }
+    public override void PreUpdate()
+    {
+      BuffHelper();
+      FocusHelper(false);
+      base.PreUpdate();
+    }
+    public override void PostUpdate()
+    {
+      FocusHelper(true);
+      AuraHelper();
+      ParryHelper(true);
+      player.CalcElemDefense();
+      BloodHelper();
+    }
+    public void BuffHelper()
+    {
+      if (IsThereABoss().Item1)
+        allowFocus = true;
+      player.AddBuff(BuffType<Intimidated>(), 2);
+      intimidated = true;
+      if (!IsThereABoss().Item1)
+        player.ClearBuff(BuffType<Intimidated>());
+      intimidated = false;
+    }
+    public void FocusHelper(bool postUpdate = false)
+    {
+      if (!postUpdate)
+      {
+        if (focusLossCooldown > 0)
+          focusLossCooldown--;
+        if (!allowFocus)
+          focus = 0;
+        focus = Utils.Clamp(focus, 0, focusMax);
+      }
+      else
+      {
+        tankingItemCount = (int)Math.Floor((decimal)(player.statDefense / 15));
+        // Max 15%, min 5%
+        focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
+      }
+    }
+    public void AuraHelper()
+    {
+      if (!cerberus)
+      {
+        cerberusAura = false;
+        cerberusAuraSpawned = false;
+      }
+      if (cerberus)
+      {
+        cerberusAura = true;
+      }
+      switch (auraStyle)
+      {
+        case 0:
+          GenerateAuraField(player, AuraStyle.CerberusStyle, 0f);
+          break;
+        case 1:
+          GenerateAuraField(player, AuraStyle.BurnStyle, -100f);
+          break;
+        case 2:
+          GenerateAuraField(player, AuraStyle.CFlameStyle, -150f);
+          break;
+        case 3:
+          GenerateAuraField(player, AuraStyle.AmpStyle, 0f);
+          break;
+      }
+    }
+    public void ParryHelper(bool postUpdate = false)
+    {
+      if (!postUpdate)
+      {
+        if (parryCapable && parryActive)
+        {
+          if (parryActiveTime > 0)
+            parryActiveTime--;
+          // Setting an "oldX" bool for PostUpdate
+          parryWasActive = parryActive;
+          ActivateParry();
 
+          if (parryType == ParryTypeID.Tank && tankParryPWR != 0 && !player.HasBuff(BuffType<TankParryBoost>()))
+          {
+            // 5 secs of time, -1 second for each hit tanked with this active
+            player.AddBuff(BuffType<TankParryBoost>(), 300);
+          }
+        }
+      }
+      else
+      {
+        if (parryCapable)
+        {
+          // This shouldn't just be when unequal, it specifically needs to be when it's not active anymore, but was within this tick
+          if (parryWasActive && !parryActive)
+          {
+            player.AddBuff(BuffType<CantDeflect>(), 180 + (parriedProjs * 60), true);
+            parryWasActive = false;
+            parriedProjs = 0;
+            parryProj = null;
+            parryProjID = 255;
+          }
+        }
+      }
+    }
     public void ActivateParry()
     {
       switch (parryType)
@@ -192,129 +292,10 @@ namespace ProvidenceMod
           break;
       }
     }
-    public override void PreUpdate()
+    public void BloodHelper()
     {
-
-      if (IsThereABoss().Item1)
-        allowFocus = true;
-      player.AddBuff(BuffType<Intimidated>(), 2);
-      intimidated = true;
-
-      if (!IsThereABoss().Item1)
-        player.ClearBuff(BuffType<Intimidated>());
-      intimidated = false;
-
-      if (focusLossCooldown > 0)
-        focusLossCooldown--;
-      if (!allowFocus)
-        focus = 0;
-
-      if (!cerberus)
-      {
-        cerberusAura = false;
-        cerberusAuraSpawned = false;
-      }
-      if (cerberus)
-      {
-        cerberusAura = true;
-      }
-
-      if (parryCapable && parryActive)
-      {
-        if (parryActiveTime > 0)
-          parryActiveTime--;
-        // Setting an "oldX" bool for PostUpdate
-        parryWasActive = parryActive;
-        ActivateParry();
-
-        if (parryType == ParryTypeID.Tank && tankParryPWR != 0 && !player.HasBuff(BuffType<TankParryBoost>()))
-        {
-          // 5 secs of time, -1 second for each hit tanked with this active
-          player.AddBuff(BuffType<TankParryBoost>(), 300);
-        }
-      }
-      focus = Utils.Clamp(focus, 0, focusMax);
-      base.PreUpdate();
-    }
-    public override void PostUpdate()
-    {
-      tankingItemCount = (int)Math.Floor((decimal)(player.statDefense / 15));
-      // Max 15%, min 5%
-      focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
-
       if (bloodCollectionCooldown > 0) bloodCollectionCooldown--;
       if (bloodCollectionCooldown is 0) bloodGained = 0;
-
-      // Safeguard against weird ass number overflowing
-      player.CalcElemDefense();
-
-      if (parryCapable)
-      {
-        // This shouldn't just be when unequal, it specifically needs to be when it's not active anymore, but was within this tick
-        if (parryWasActive && !parryActive)
-        {
-          player.AddBuff(BuffType<CantDeflect>(), 180 + (parriedProjs * 60), true);
-          parryWasActive = false;
-          parriedProjs = 0;
-          parryProj = null;
-          parryProjID = 255;
-        }
-      }
-
-      if (hasClericSet)
-      {
-        if (burnAura)
-        {
-          const float burnRadiusBoost = -100f;
-          GenerateAuraField(player, DustType<BurnDust>(), burnRadiusBoost);
-          foreach (NPC npc in Main.npc)
-          {
-            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + burnRadiusBoost))
-            {
-              npc.AddBuff(BuffID.OnFire, 1);
-            }
-          }
-        }
-        if (cFlameAura)
-        {
-          const float cFRadiusBoost = -150f;
-          GenerateAuraField(player, DustType<AuraDust>(), cFRadiusBoost);
-          foreach (NPC npc in Main.npc)
-          {
-            if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + cFRadiusBoost))
-            {
-              npc.AddBuff(BuffID.CursedInferno, 180);
-            }
-          }
-        }
-      }
-      if (ampCapacitor)
-      {
-        const float ampRadiusBoost = 0;
-        GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
-        foreach (Projectile projectile in Main.projectile)
-        {
-          if (projectile.position.IsInRadiusOf(player.MountedCenter, clericAuraRadius + ampRadiusBoost) && !projectile.Providence().amped)
-          {
-            if (projectile.friendly)
-            {
-              projectile.damage = (int)(projectile.damage * 1.15);
-              projectile.velocity *= 1.15f;
-              projectile.Providence().amped = true;
-            }
-            else if (projectile.hostile)
-            {
-              projectile.damage = (int)(projectile.damage * 0.85);
-              projectile.velocity *= 0.85f;
-              projectile.Providence().amped = true;
-            }
-          }
-        }
-      }
-      if (cerberusAura)
-      {
-        GenerateAuraField(player, AuraStyle.CerberusStyle, 0f);
-      }
     }
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
     {

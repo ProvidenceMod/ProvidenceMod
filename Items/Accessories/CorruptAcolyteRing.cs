@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameInput;
+using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items.Accessories
 {
@@ -22,7 +23,7 @@ namespace ProvidenceMod.Items.Accessories
     {
       ProvidencePlayer ProvidencePlayer = player.Providence();
       ProvidencePlayer.hasClericSet = true;
-      ProvidencePlayer.cFlameAura = true;
+      ProvidencePlayer.auraType = AuraType.CFlameAura;
       player.dash = 20;
     }
   }

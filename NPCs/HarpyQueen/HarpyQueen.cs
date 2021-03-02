@@ -314,7 +314,7 @@ namespace ProvidenceMod.NPCs.HarpyQueen
       else
       {
         _ = Item.NewItem(npc.position, ItemID.GoldCoin, 5);
-        _ = Item.NewItem(npc.position, ItemType<ZephyriumOre>(), Main.rand.Next(16, 51));
+        _ = Item.NewItem(npc.position, ItemType<ZephyrOre>(), Main.rand.Next(16, 51));
         _ = Item.NewItem(npc.position, ItemType<HarpyQueenTalon>(), Main.rand.Next(1, 6));
         _ = Item.NewItem(npc.position, ItemType<HarpyQueenFeather>(), Main.rand.Next(2, 6));
       }

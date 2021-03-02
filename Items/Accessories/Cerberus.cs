@@ -38,6 +38,7 @@ namespace ProvidenceMod.Items.Accessories
     {
       ProvidencePlayer proPlayer = player.Providence();
       player.fireWalk = true;
+      proPlayer.auraType = AuraType.CerberusAura;
       proPlayer.cerberus = true;
       proPlayer.hasClericSet = true;
       proPlayer.cerberusAura = true;

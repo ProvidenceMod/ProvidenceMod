@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ProvidenceMod.Projectiles;
+using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod
 {
@@ -18,7 +19,8 @@ namespace ProvidenceMod
     public bool inverseKB;
     public int element = -1;
     public int homingID = -1;
-    public Item shotBy;
+    public int shotBy;
+    public bool shotBySet;
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / Main.projFrames[projectile.type];
@@ -46,6 +48,15 @@ namespace ProvidenceMod
         Color color = projectile.GetAlpha(lightColor) * alpha;
         Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition;
         Main.spriteBatch.Draw(texture, drawPos, rectangle, color, rotation, origin, 1f, SpriteEffects.None, 0f);
+      }
+    }
+
+    public override void AI(Projectile projectile)
+    {
+      if(!shotBySet)
+      {
+        shotBy = projectile.OwnerPlayer().HeldItem.type;
+        shotBySet = true;
       }
     }
 

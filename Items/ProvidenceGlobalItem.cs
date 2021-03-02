@@ -122,7 +122,6 @@ namespace ProvidenceMod
             break;
         }
       }
-
     }
     public override void AddRecipes()
     {

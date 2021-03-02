@@ -1,33 +1,34 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Items.Weapons.Magic;
+using ProvidenceMod.Dusts;
 
-namespace ProvidenceMod.Projectiles.Boss
+namespace ProvidenceMod.Projectiles.Magic
 {
-  public class RoyalFeather : ModProjectile
+  public class ZephyrSpirit : ModProjectile
   {
     public Vector4 color = new Vector4(0f, 0f, 0f, 0f);
+    public Color lighting = new Color(0, 255, 255);
+    public Color lighting2 = new Color(0, 192, 255);
+    public Color lighting3;
+    public int cooldown = 5;
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Royal Feather");
-      // Main.projFrames[projectile.type] = 9;
+      DisplayName.SetDefault("Zephyr Spirit");
+      Main.projFrames[projectile.type] = 5;
     }
 
     public override void SetDefaults()
     {
-      projectile.width = 50;
-      projectile.height = 22;
-      projectile.tileCollide = false;
+      projectile.width = 64;
+      projectile.height = 34;
+      projectile.tileCollide = true;
       projectile.ignoreWater = true;
       projectile.timeLeft = 300;
       projectile.penetrate = 1;
       projectile.scale = 0.75f;
       projectile.damage = 25;
-      projectile.hostile = false;
       projectile.friendly = true;
       projectile.Opacity = 0f;
       projectile.Providence().element = -1; // Typeless
@@ -38,9 +39,9 @@ namespace ProvidenceMod.Projectiles.Boss
     {
       projectile.ai[1]++;
       projectile.localAI[0]++;
-      const float speedCap = 8f, turnStrength = 20f;
-      Player player = ClosestPlayer(projectile);
-      projectile.Homing(player, speedCap, default, default, turnStrength, 1500);
+      NPC npc = ClosestEnemyNPC(projectile);
+      projectile.Homing(npc, 16f, default, default, 25f, 300f);
+
       if (projectile.Opacity < 1f)
       {
         projectile.Opacity += 0.05f;
@@ -49,20 +50,24 @@ namespace ProvidenceMod.Projectiles.Boss
         color.Z += 0.05f;
         color.W += 0.05f;
       }
-      if (projectile.Opacity == 1)
-      {
-        projectile.hostile = true;
-        projectile.friendly = false;
-      }
       projectile.rotation = projectile.velocity.ToRotation();
-      // if (++projectile.frameCounter >= 3) // Frame time
-      // {
-      //   projectile.frameCounter = 0;
-      //   if (++projectile.frame >= 9) //Frame number
-      //   {
-      //     projectile.frame = 0;
-      //   }
-      // }
+      if (++projectile.frameCounter >= 5) // Frame time
+      {
+        projectile.frameCounter = 0;
+        if (++projectile.frame >= 5) //Frame number
+        {
+          projectile.frame = 0;
+        }
+      }
+      Dust.NewDust(projectile.Center  , 6, 6, ModContent.DustType<AirDust>());
+      if (cooldown > 0)
+        cooldown--;
+      if (cooldown == 0)
+      {
+        cooldown = 5;
+      }
+      lighting3 = ColorShift(lighting, lighting2, 3f);
+      Lighting.AddLight(projectile.Center, lighting3.ToVector3());
     }
     public override void OnHitPlayer(Player target, int damage, bool crit)
     {

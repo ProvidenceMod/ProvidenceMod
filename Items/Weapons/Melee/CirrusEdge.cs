@@ -8,11 +8,11 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
-  public class ZephyrCutlass : ModItem
+  public class CirrusEdge : ModItem
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Zephyr Cutlass");
+      DisplayName.SetDefault("Cirrus Edge");
       Tooltip.SetDefault("The talons on the hilt are the only things keeping this from floating away.");
     }
 

@@ -51,15 +51,6 @@ namespace ProvidenceMod
       }
     }
 
-    public override void AI(Projectile projectile)
-    {
-      if(!shotBySet)
-      {
-        shotBy = projectile.OwnerPlayer().HeldItem.type;
-        shotBySet = true;
-      }
-    }
-
     public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
     {
       for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)

@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Dusts;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ProvidenceMod.Projectiles.Magic
 {
@@ -13,6 +14,8 @@ namespace ProvidenceMod.Projectiles.Magic
     public Color lighting2 = new Color(0, 192, 255);
     public Color lighting3;
     public int cooldown = 5;
+    public int frame;
+    public int frameTick;
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Zephyr Spirit");
@@ -27,7 +30,7 @@ namespace ProvidenceMod.Projectiles.Magic
       projectile.ignoreWater = true;
       projectile.timeLeft = 300;
       projectile.penetrate = 1;
-      projectile.scale = 0.75f;
+      projectile.scale = 1f;
       projectile.damage = 25;
       projectile.friendly = true;
       projectile.Opacity = 0f;
@@ -59,7 +62,8 @@ namespace ProvidenceMod.Projectiles.Magic
           projectile.frame = 0;
         }
       }
-      Dust.NewDust(projectile.Center  , 6, 6, ModContent.DustType<AirDust>());
+      Dust.NewDust(projectile.Center, 6, 6, ModContent.DustType<ColdDust>());
+      Dust.NewDust(projectile.Center, 6, 6, ModContent.DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
       if (cooldown > 0)
         cooldown--;
       if (cooldown == 0)
@@ -69,6 +73,12 @@ namespace ProvidenceMod.Projectiles.Magic
       lighting3 = ColorShift(lighting, lighting2, 3f);
       Lighting.AddLight(projectile.Center, lighting3.ToVector3());
     }
+    // public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+    // {
+    //   Texture2D texture = ModContent.GetTexture("ProvidenceMod/Projectiles/Magic/ZephyrSpirit");
+    //   spriteBatch.Draw(texture, projectile.position - Main.screenPosition, projectile.AnimationFrame(ref frame, ref frameTick, 6, 5, true), Color.White, projectile.rotation, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+    //   return false;
+    // }
     public override void OnHitPlayer(Player target, int damage, bool crit)
     {
       base.OnHitPlayer(target, damage, crit);

@@ -575,7 +575,7 @@ namespace ProvidenceMod
     /// <param name="frameTick">The frame tick for this item. Use "public int frameTick;" in your item file.</param>
     /// <param name="frameTime">How many frames (ticks) you are spending on a single frame.</param>
     /// <param name="frameCount">How many frames this animation has.</param>
-    public static Rectangle AnimationFrame(this Item item, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease, int overrideHeight = 0)
+    public static Rectangle AnimationFrame(this Entity entity, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease, int overrideHeight = 0)
     {
       if (frameTick >= frameTime)
       {
@@ -586,11 +586,11 @@ namespace ProvidenceMod
         frameTick++;
       if (overrideHeight > 0 || overrideHeight < 0)
       {
-        return new Rectangle(0, overrideHeight * frame, item.width, item.height);
+        return new Rectangle(0, overrideHeight * frame, entity.width, entity.height);
       }
       else
       {
-        return new Rectangle(0, item.height * frame, item.width, item.height);
+        return new Rectangle(0, entity.height * frame, entity.width, entity.height);
       }
     }
     /// <summary>Draws a glowmask for the given item.</summary>

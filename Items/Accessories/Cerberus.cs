@@ -31,7 +31,7 @@ namespace ProvidenceMod.Items.Accessories
       item.maxStack = 999;
       item.noUseGraphic = true;
       frameNumber = frame;
-      item.rare = ItemRarityID.Lime;
+      item.Providence().customRarity = (int) ProvidenceRarity.Celestial;
     }
 
     public override void UpdateEquip(Player player)

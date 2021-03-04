@@ -111,27 +111,28 @@ namespace ProvidenceMod
         tooltip1.text = split[0] + DetermineDamagetip(item) + split.Last();
       }
       TooltipLine tooltip2 = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
-      if(tooltip2 != null)
+      if (tooltip2 != null)
       {
-        if(item.type == ModContent.ItemType<MoonCleaver>())
-          tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 2f);
-        switch(customRarity)
+        switch (customRarity)
         {
-          case (int) ProvidenceRarity.Developer:
-            tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 1000f);
+          case (int)ProvidenceRarity.Celestial:
+            tooltip2.overrideColor = ColorShift(new Color(119, 37, 100), new Color(246, 121, 133), 5f);
+            break;
+          case (int)ProvidenceRarity.Developer:
+            tooltip2.overrideColor = ColorShift(new Color(166, 46, 61), new Color(227, 79, 79), 5f);
             break;
         }
       }
     }
     public override void AddRecipes()
     {
-      ModRecipe skymillR = new ModRecipe(mod);
-      skymillR.AddIngredient(ItemID.SunplateBlock, 15);
-      skymillR.AddIngredient(ItemID.Cloud, 10);
-      skymillR.AddIngredient(ItemID.RainCloud, 5);
-      skymillR.AddTile(TileID.WorkBenches);
-      skymillR.SetResult(ItemID.SkyMill, 1);
-      skymillR.AddRecipe();
+      ModRecipe skymill = new ModRecipe(mod);
+      skymill.AddIngredient(ItemID.SunplateBlock, 15);
+      skymill.AddIngredient(ItemID.Cloud, 10);
+      skymill.AddIngredient(ItemID.RainCloud, 5);
+      skymill.AddTile(TileID.WorkBenches);
+      skymill.SetResult(ItemID.SkyMill, 1);
+      skymill.AddRecipe();
     }
 
     public override void UpdateEquip(Item item, Player player)

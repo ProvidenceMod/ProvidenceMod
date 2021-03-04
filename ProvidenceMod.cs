@@ -10,6 +10,7 @@ using Terraria.UI;
 using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.UI;
 using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Items.Weapons.Melee;
 
 namespace ProvidenceMod
 {
@@ -138,6 +139,7 @@ namespace ProvidenceMod
           new List<int> { ModContent.ItemType<Items.Weapons.Melee.AirSword>(), ModContent.ItemType<Items.Weapons.Melee.AirSword>() },
           "$Mods.ProvidenceMod.BossSpawnInfo.FireAncient"
         );
+
       // Mod magicStorage = ModLoader.GetMod("MagicStorage");
       // if (magicStorage != null)
       // {

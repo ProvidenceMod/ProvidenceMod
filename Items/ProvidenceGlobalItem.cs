@@ -104,15 +104,11 @@ namespace ProvidenceMod
     }
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
-      TooltipLine tooltip1 = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
-      if (tooltip1 != null)
-      {
-        string[] split = tooltip1.text.Split(' ');
-        tooltip1.text = split[0] + DetermineDamagetip(item) + split.Last();
-      }
       TooltipLine tooltip2 = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
       if (tooltip2 != null)
       {
+        // if(item.type == ModContent.ItemType<MoonCleaver>())
+        //   tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 2f);
         switch (customRarity)
         {
           case (int)ProvidenceRarity.Celestial:
@@ -122,6 +118,12 @@ namespace ProvidenceMod
             tooltip2.overrideColor = ColorShift(new Color(166, 46, 61), new Color(227, 79, 79), 5f);
             break;
         }
+      }
+      TooltipLine tooltip1 = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
+      if (tooltip1 != null)
+      {
+        string[] split = tooltip1.text.Split(' ');
+        tooltip1.text = split[0] + DetermineDamagetip(item) + split.Last();
       }
     }
     public override void AddRecipes()

@@ -19,7 +19,6 @@ namespace ProvidenceMod
     public bool cleric;
     public bool glowmask;
     public bool animated;
-    public int customRarity;
     public int element = -1, weakEl = -1; // -1 means Typeless, meaning we don't worry about this in the first place
     // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
     public int elementDef, weakElDef;
@@ -550,7 +549,7 @@ namespace ProvidenceMod
       {
         // if(item.type == ModContent.ItemType<MoonCleaver>())
         //   tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 2f);
-        switch (customRarity)
+        switch (item.rare)
         {
           case (int)ProvidenceRarity.Celestial:
             tooltip2.overrideColor = ColorShift(new Color(119, 37, 100), new Color(246, 121, 133), 5f);

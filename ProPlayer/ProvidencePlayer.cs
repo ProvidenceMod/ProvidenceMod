@@ -184,9 +184,9 @@ namespace ProvidenceMod
       ParryHelper(true);
       player.CalcElemDefense();
       BloodHelper();
-      Mod mod = ModLoader.GetMod("ProvidenceMod");
-      Item item = player.HeldItem;
-      mod.Logger.InfoFormat($"{item.Providence().customRarity}", "ProvidenceMod");
+      // Mod mod = ModLoader.GetMod("ProvidenceMod");
+      // Item item = player.HeldItem;
+      // mod.Logger.InfoFormat($"{item.Providence().customRarity}", "ProvidenceMod");
     }
     public void BuffHelper()
     {

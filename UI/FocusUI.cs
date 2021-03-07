@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.UI
 {
-  internal class Focus : UIState
+  internal class FocusUI : UIState
   {
     public static bool visible = true;
     public float oldScale = Main.inventoryScale;

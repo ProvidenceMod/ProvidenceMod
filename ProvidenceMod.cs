@@ -17,11 +17,13 @@ namespace ProvidenceMod
   public class ProvidenceMod : Mod
   {
     public static ModHotKey ParryHotkey, UseBlood;
-    private UserInterface elemDefUI, focusUI, bossHealthUI, BloodUIUI;
+    private UserInterface elemDefUI, focusUI, bossHealthUI, bloodUI;
     internal BloodUI BloodUI;
     internal ElemDefUI ElemDefUI;
-    internal Focus focusBar;
+    internal FocusUI FocusUI;
     internal BossHealth BossHealth;
+    public bool texturePackEnabled;
+
 
     public override void Load()
     {
@@ -30,10 +32,10 @@ namespace ProvidenceMod
       elemDefUI = new UserInterface();
       elemDefUI.SetState(ElemDefUI);
 
-      focusBar = new Focus();
-      focusBar.Initialize();
+      FocusUI = new FocusUI();
+      FocusUI.Initialize();
       focusUI = new UserInterface();
-      focusUI.SetState(focusBar);
+      focusUI.SetState(FocusUI);
 
       BossHealth = new BossHealth();
       BossHealth.Initialize();
@@ -44,22 +46,27 @@ namespace ProvidenceMod
 
       BloodUI = new BloodUI();
       BloodUI.Initialize();
-      BloodUIUI = new UserInterface();
-      BloodUIUI.SetState(BloodUI);
+      bloodUI = new UserInterface();
+      bloodUI.SetState(BloodUI);
 
       UseBlood = RegisterHotKey("Use Blood Magic", "G");
+
+      if(texturePackEnabled)
+      {
+        
+      }
     }
     public override void Unload()
     {
       ElemDefUI = null;
       elemDefUI = null;
-      focusBar = null;
+      FocusUI = null;
       focusUI = null;
       BossHealth = null;
       bossHealthUI = null;
       ParryHotkey = null;
       BloodUI = null;
-      BloodUIUI = null;
+      bloodUI = null;
       UseBlood = null;
     }
     private bool DrawElemDefUI()
@@ -70,7 +77,7 @@ namespace ProvidenceMod
     }
     private bool DrawFocusUI()
     {
-      if (Focus.visible)
+      if (FocusUI.visible)
         focusUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
@@ -80,9 +87,9 @@ namespace ProvidenceMod
         bossHealthUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
-    private bool DrawBloodUIUI()
+    private bool DrawBloodUI()
     {
-      if (BloodUI.visible) BloodUIUI.Draw(Main.spriteBatch, new GameTime());
+      if (BloodUI.visible) bloodUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -93,7 +100,7 @@ namespace ProvidenceMod
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("TynyransMod: Blood Level", DrawBloodUIUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Blood Level", DrawBloodUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -231,7 +238,7 @@ namespace ProvidenceMod
       elemDefUI?.Update(gameTime);
       focusUI?.Update(gameTime);
       bossHealthUI?.Update(gameTime);
-      BloodUIUI?.Update(gameTime);
+      bloodUI?.Update(gameTime);
     }
   }
 

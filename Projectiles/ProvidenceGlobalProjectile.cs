@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ProvidenceMod.Projectiles;
 using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.TexturePack;
 
 namespace ProvidenceMod
 {
@@ -21,6 +22,16 @@ namespace ProvidenceMod
     public int homingID = -1;
     public int shotBy;
     public bool shotBySet;
+    public bool texturePackEnabled;
+
+    public override void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
+    {
+      if(!texturePackEnabled)
+      {
+        ProjectileManager.InitializeProjectileGlowMasks();
+        texturePackEnabled = true;
+      }
+    }
     public static void AfterImage(Projectile projectile, Color lightColor, Texture2D texture, int counter)
     {
       int height = texture.Height / Main.projFrames[projectile.type];

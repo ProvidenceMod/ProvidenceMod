@@ -519,18 +519,18 @@ namespace ProvidenceMod
     // }
     /// <summary>For use in setting defaults in items.</summary>
     /// <param name="item">The item being set.</param>
-    /// <param name="elID">The element of a weapon's attacks, or additional elemental defense of accessories and armor.</param>
-    /// <param name="elDef">The amount of elemental defense provided in the element given to "elID" Defaults to 0.</param>
-    /// <param name="weakElID">The element of a weapon's weakness. Only really used for armor. Defaults to -1 (Typeless).</param>
-    /// <param name="weakElDef">The amount of elemental defense lowered in the element given to "weakElID". Defaults to 0.</param>
-    public static void SetElementalTraits(this Item item, int elID, int elDef = 0, int weakElID = -1, int weakElDef = 0)
+    /// <param name="elementID">The element of a weapon's attacks, or additional elemental defense of accessories and armor.</param>
+    /// <param name="elementDefense">The amount of elemental defense provided in the element given to "elementID" Defaults to 0.</param>
+    /// <param name="weakElementID">The element of a weapon's weakness. Only really used for armor. Defaults to -1 (Typeless).</param>
+    /// <param name="weakElementDefense">The amount of elemental defense lowered in the element given to "weakElementID". Defaults to 0.</param>
+    public static void SetElementalTraits(this Item item, int elementID, int elementDefense = 0, int weakElementID = -1, int weakElementDefense = 0)
     {
-      item.Providence().element = elID;
-      item.Providence().elementDef = elDef;
-      if (weakElID != -1)
+      item.Providence().element = elementID;
+      item.Providence().elementDefense = elementDefense;
+      if (weakElementID != -1)
       {
-        item.Providence().weakEl = weakElID;
-        item.Providence().weakElDef = weakElDef;
+        item.Providence().weakElement = weakElementID;
+        item.Providence().weakElementDefense = weakElementDefense;
       }
     }
     /// <summary>Returns if there is a boss, and if there is, their ID in "Main.npc".</summary>
@@ -945,13 +945,13 @@ namespace ProvidenceMod
     {
       nPC.Providence().buffCount = 0;
       Vector2 drawPos = new Vector2(0f, nPC.position.Y + 10f);
-      int[] buffTypeArray = new int[5] {0, 0, 0, 0, 0};
-      foreach(int num in nPC.buffType)
+      int[] buffTypeArray = new int[5] { 0, 0, 0, 0, 0 };
+      foreach (int num in nPC.buffType)
       {
         buffTypeArray[nPC.Providence().buffCount] = num;
         nPC.Providence().buffCount++;
       }
-      for(int i = 0 ; i < nPC.Providence().buffCount ; i++)
+      for (int i = 0; i < nPC.Providence().buffCount; i++)
       {
         drawPos.X = nPC.position.X - 10f + (i * 5f);
         Texture2D texture = GetTexture("Terraria/Buff_" + buffTypeArray[i].ToString());

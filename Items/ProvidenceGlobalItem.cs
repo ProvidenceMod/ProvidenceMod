@@ -10,37 +10,73 @@ using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ItemHelper;
 using ProvidenceMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework;
+using ProvidenceMod.TexturePack.UI;
+using static Terraria.ModLoader.ModContent;
+using ProvidenceMod.Items.Materials;
 
 namespace ProvidenceMod
 {
   public class ProvidenceGlobalItem : GlobalItem
   {
-    // Elemental variables for Items
+    public bool   animated;
     public bool cleric;
     public bool glowmask;
-    public bool animated;
-    public int element = -1, weakEl = -1; // -1 means Typeless, meaning we don't worry about this in the first place
-    // Elemental variables also contained within GlobalProjectile, GlobalNPC, and Player
-    public int elementDef, weakElDef;
+    public bool texturePackEnabled;
+    public bool frameTickIncrease;
+    public int element = -1;
+    public int weakElement = -1;
+    public int elementDefense;
+    public int frame;
+    public int frameTick;
+    public int frameNumber;
+    public int frameTime;
+    public int frameCount;
+    public int overrideGlowmaskPositionX;
+    public int overrideGlowmaskPositionY;
+    public int weakElementDefense;
     public Texture2D glowmaskTexture;
     public Texture2D animationTexture;
     public override bool InstancePerEntity => true;
     public ProvidenceGlobalItem()
     {
       element = -1;
-      elementDef = 0;
-      weakEl = -1;
-      weakElDef = 0;
+      elementDefense = 0;
+      weakElement = -1;
+      weakElementDefense = 0;
       cleric = false;
+    }
+
+    public override void PostUpdate(Item item)
+    {
+      if (!texturePackEnabled)
+      {
+        item.InitializeItemGlowMasks();
+        texturePackEnabled = true;
+      }
+    }
+    public override void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+    {
+      if (item.Providence().glowmask && !item.Providence().animated)
+      {
+        spriteBatch.Draw(glowmaskTexture, new Vector2(item.position.X - Main.screenPosition.X + overrideGlowmaskPositionX, item.position.Y - Main.screenPosition.Y + 2 + overrideGlowmaskPositionY), new Rectangle(0, 0, item.width, item.height), Color.White, rotation, item.Center, 1f, SpriteEffects.None, 0.0f);
+      }
+      if(item.Providence().glowmask && item.Providence().animated)
+      {
+        spriteBatch.Draw(glowmaskTexture, new Vector2(item.position.X - Main.screenPosition.X + overrideGlowmaskPositionX, item.position.Y - Main.screenPosition.Y + 2 + overrideGlowmaskPositionY), item.AnimationFrame(ref frameNumber, ref frameTick, frameTime, frameCount, frameTickIncrease), Color.White, rotation, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+      }
+      if(item.type == ItemType<Starfiber>() && glowmaskTexture != null)
+      {
+        spriteBatch.Draw(glowmaskTexture, new Vector2(item.position.X - Main.screenPosition.X + overrideGlowmaskPositionX, item.position.Y - Main.screenPosition.Y + 2 + overrideGlowmaskPositionY), item.AnimationFrame(ref frameNumber, ref frameTick, frameTime, frameCount, frameTickIncrease), Color.White, rotation, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+      }
     }
 
     public override GlobalItem Clone(Item item, Item itemClone)
     {
       ProvidenceGlobalItem myClone = (ProvidenceGlobalItem)base.Clone(item, itemClone);
       myClone.element = element;
-      myClone.elementDef = elementDef;
-      myClone.weakEl = weakEl;
-      myClone.weakElDef = weakElDef;
+      myClone.elementDefense = elementDefense;
+      myClone.weakElement = weakElement;
+      myClone.weakElementDefense = weakElementDefense;
       myClone.cleric = cleric;
       return myClone;
     }
@@ -580,9 +616,9 @@ namespace ProvidenceMod
     public override void UpdateEquip(Item item, Player player)
     {
       if (item.Providence().element != -1)
-        player.Providence().resists[item.Providence().element] += item.Providence().elementDef;
-      if (item.Providence().weakEl != -1)
-        player.Providence().resists[item.Providence().weakEl] -= item.Providence().weakElDef;
+        player.Providence().resists[item.Providence().element] += item.Providence().elementDefense;
+      if (item.Providence().weakElement != -1)
+        player.Providence().resists[item.Providence().weakElement] -= item.Providence().weakElementDefense;
 
       base.UpdateEquip(item, player);
     }

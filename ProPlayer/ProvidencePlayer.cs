@@ -15,6 +15,7 @@ using ProvidenceMod.Projectiles.Ability;
 using ProvidenceMod.Buffs.StatBuffs;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
+using ProvidenceMod.TexturePack;
 
 namespace ProvidenceMod
 {
@@ -48,6 +49,7 @@ namespace ProvidenceMod
     public bool regenAura;
     public bool spawnReset = true;
     public bool tankParryOn;
+    public bool texturePackEnabled;
     public bool ZephyrAglet;
     public bool vampFang;
 
@@ -88,16 +90,6 @@ namespace ProvidenceMod
     // TODO: Make this have use (see tooltip in the item of same name)
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public string dashDir = "";
-
-    public override TagCompound Save()
-    {
-      return new TagCompound {
-        {"angelTear", angelTear},
-        {"tearCount", tearCount},
-        // {"affExp", this.affExp}
-      };
-    }
-
     public override void ResetEffects()
     {
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -139,7 +131,6 @@ namespace ProvidenceMod
       vampFang = false;
       ZephyrAglet = false;
     }
-
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
       if (player.Providence().parryCapable && ProvidenceMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
@@ -171,6 +162,15 @@ namespace ProvidenceMod
       angelTear = tag.GetBool("angelTear");
       tearCount = tag.GetInt("tearCount");
     }
+    public override TagCompound Save()
+    {
+      return new TagCompound {
+        {"angelTear", angelTear},
+        {"tearCount", tearCount},
+        // {"affExp", this.affExp}
+      };
+    }
+
     public override void PreUpdate()
     {
       BuffHelper();
@@ -179,6 +179,11 @@ namespace ProvidenceMod
     }
     public override void PostUpdate()
     {
+      if(!texturePackEnabled)
+      {
+        PlayerManager.InitializePlayerGlowMasks();
+        texturePackEnabled = true;
+      }
       FocusHelper(true);
       AuraHelper();
       ParryHelper(true);
@@ -496,7 +501,6 @@ namespace ProvidenceMod
         damage = (int)(damage * hemoDamage);
       }
     }
-
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromProj(proj, ref damage);
@@ -516,7 +520,6 @@ namespace ProvidenceMod
 
       damage -= damage * (tankParryPWR / 100);
     }
-
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {
       if (boosterShot && item.potion)
@@ -525,7 +528,6 @@ namespace ProvidenceMod
         player.ClearBuff(BuffType<BoosterShot>()); // Immediately deletes it from buff bar
       }
     }
-
     public override void ModifyDrawLayers(List<PlayerLayer> layers)
     {
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask)

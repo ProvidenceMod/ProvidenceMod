@@ -18,13 +18,14 @@ namespace ProvidenceMod.Items.Weapons.Melee
 
     public override void SetDefaults()
     {
-      item.CloneDefaults(ItemID.BeeKeeper);
       item.Providence().element = ElementID.Air;
       item.damage = 46;
-      item.width = 46;
-      item.height = 42;
+      item.width = 44;
+      item.height = 44;
       item.useTime = 20;
       item.useAnimation = 20;
+      item.scale = 1.5f;
+      item.useStyle = ItemUseStyleID.SwingThrow;
       item.rare = ItemRarityID.Orange;
       item.autoReuse = true;
     }

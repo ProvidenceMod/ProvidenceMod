@@ -9,8 +9,8 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.UI;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Items.Weapons.Melee;
+using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
+using ProvidenceMod.TexturePack;
 
 namespace ProvidenceMod
 {
@@ -23,7 +23,6 @@ namespace ProvidenceMod
     internal FocusUI FocusUI;
     internal BossHealth BossHealth;
     public bool texturePackEnabled;
-
 
     public override void Load()
     {
@@ -50,11 +49,6 @@ namespace ProvidenceMod
       bloodUI.SetState(BloodUI);
 
       UseBlood = RegisterHotKey("Use Blood Magic", "G");
-
-      if(texturePackEnabled)
-      {
-        
-      }
     }
     public override void Unload()
     {
@@ -68,6 +62,7 @@ namespace ProvidenceMod
       BloodUI = null;
       bloodUI = null;
       UseBlood = null;
+      ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
     }
     private bool DrawElemDefUI()
     {
@@ -132,6 +127,11 @@ namespace ProvidenceMod
 
     public override void PostSetupContent()
     {
+      if(texturePackEnabled)
+      {
+        Initialize();
+      }
+
       // Showcases mod support with Boss Checklist without referencing the mod
       Mod bossChecklist = ModLoader.GetMod("BossChecklist");
       bossChecklist?.Call(

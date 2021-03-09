@@ -14,8 +14,8 @@ namespace ProvidenceMod
 
     [BackgroundColor(101, 31, 51)]
     [Label("Use the custom texture pack")]
-    [Tooltip("Enables the custom texture pack that comes packaged with ProvidenceMod. Requires a Reload. ")]
-    [DefaultValue(false)]
+    [Tooltip("Enables the custom texture pack that comes packaged with ProvidenceMod. Requires a Reload. (Must be in Main Menu)")]
+    [DefaultValue(true)]
     [ReloadRequired]
     public bool texturePackEnabled;
 

@@ -11,7 +11,6 @@ using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.UI;
 using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
 using ProvidenceMod.TexturePack;
-
 namespace ProvidenceMod
 {
   public class ProvidenceMod : Mod
@@ -63,6 +62,14 @@ namespace ProvidenceMod
       bloodUI = null;
       UseBlood = null;
       ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
+      ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;
+      ModContent.GetInstance<ProvidenceGlobalProjectile>().texturePackEnabled = false;
+      ModContent.GetInstance<ProvidenceGlobalNPC>().texturePackEnabled = false;
+      ModContent.GetInstance<ProvidenceGlobalItem>().texturePackEnabled = false;
+      ModContent.GetInstance<ProvidenceWall>().texturePackEnabled = false;
+      ItemManager.Unload();
+      UIManager.Unload();
+      base.Unload();
     }
     private bool DrawElemDefUI()
     {
@@ -127,7 +134,7 @@ namespace ProvidenceMod
 
     public override void PostSetupContent()
     {
-      if(texturePackEnabled)
+      if (texturePackEnabled)
       {
         Initialize();
       }

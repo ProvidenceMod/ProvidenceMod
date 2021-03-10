@@ -42,7 +42,7 @@ namespace ProvidenceMod.UI
     //
     //
     // This is the cooldown timer (in frames) for how long to wait after the health changes before beginning to decrease
-    private int cooldown = 90;
+    private int cooldown = 180;
     //
     //
     // This is a life array, you can see how the life values are written to it in the Update method
@@ -207,7 +207,7 @@ namespace ProvidenceMod.UI
           lifeArray[2] = lifeArray[1];
           lifeArray[1] = lifeArray[0];
           lifeArray[0] = bossHealth;
-          cooldown = 30;
+          cooldown = 180;
         }
         else if (bossHealth == lifeArray[0])
         {

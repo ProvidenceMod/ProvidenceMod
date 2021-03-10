@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using ProvidenceMod;
 using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.TexturePack.UI;
+using ProvidenceMod.TexturePack;
 
 namespace ProvidenceMod.TexturePack
 {

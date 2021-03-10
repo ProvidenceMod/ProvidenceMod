@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ProvidenceMod.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
+using ProvidenceMod.TexturePack;
 
 namespace ProvidenceMod
 {
@@ -20,6 +21,7 @@ namespace ProvidenceMod
     public bool freezing;
     public bool frozen;
     public bool spawnReset = true;
+    public bool texturePackEnabled;
     public bool maxSpawnsTempSet;
     public int maxSpawnsTemp;
     public int armorMax = 1000;
@@ -51,6 +53,11 @@ namespace ProvidenceMod
     }
     public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
     {
+      if (!texturePackEnabled)
+      {
+        NPCManager.InitializeNPCTextures();
+        texturePackEnabled = true;
+      }
       drawColor = Color.White;
       spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Materials/FireEssence"), new Vector2(npc.position.X - 20f, npc.position.Y - 20f), new Rectangle(0, 0, 32, 32), drawColor, 0f, npc.position, 1f, SpriteEffects.None, 4f);
     }

@@ -108,8 +108,10 @@ namespace ProvidenceMod
     //     Eleven (11)\n
     //     This tier consists of Cyan and Red items that have high-level modifiers. No items currently have this as a base rarity.
     Purple = 11,
-    
     Celestial = 12,
+    // Summary:
+    //     20 (Twenty)\n
+    //     This tier consists of items that are attributed to Developers.
     Developer = 999,
   }
 }

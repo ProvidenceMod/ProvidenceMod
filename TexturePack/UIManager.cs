@@ -69,6 +69,7 @@ namespace ProvidenceMod.TexturePack
         Main.inventoryBack15Texture = originalTextures[15];
         Main.inventoryBack16Texture = originalTextures[16];
       }
+      originalTextures[0] = null;
       originalTextures[1] = null;
       originalTextures[2] = null;
       originalTextures[3] = null;
@@ -85,6 +86,7 @@ namespace ProvidenceMod.TexturePack
       originalTextures[14] = null;
       originalTextures[15] = null;
       originalTextures[16] = null;
+      originalTextures[17] = null;
     }
   }
 }

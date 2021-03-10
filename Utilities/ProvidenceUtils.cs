@@ -958,6 +958,8 @@ namespace ProvidenceMod
         Main.spriteBatch.Draw(texture, drawPos, Color.White);
       }
     }
+    /// <summary>A slightly modified Vector2 based on the Center of the Entity given. There's some weirdness to what is considered the center in the computer's eyes; this fixes that.</summary>
+    public static Vector2 TrueCenter(this Entity ent) => new Vector2(ent.Center.X - 3, ent.Center.Y - 3);
 
     public static class ParryTypeID
     {

@@ -62,8 +62,8 @@ namespace ProvidenceMod.Projectiles.Magic
           projectile.frame = 0;
         }
       }
-      Dust.NewDust(projectile.Center, 6, 6, ModContent.DustType<ColdDust>());
-      Dust.NewDust(projectile.Center, 6, 6, ModContent.DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
+      Dust.NewDust(projectile.TrueCenter(), 6, 6, ModContent.DustType<ColdDust>());
+      Dust.NewDust(projectile.TrueCenter(), 6, 6, ModContent.DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
       if (cooldown > 0)
         cooldown--;
       if (cooldown == 0)

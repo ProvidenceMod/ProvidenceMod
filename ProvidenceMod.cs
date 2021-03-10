@@ -53,15 +53,12 @@ namespace ProvidenceMod
     public override void Unload()
     {
       ElemDefUI = null;
-      elemDefUI = null;
       FocusUI = null;
-      focusUI = null;
       BossHealth = null;
-      bossHealthUI = null;
-      ParryHotkey = null;
       BloodUI = null;
-      bloodUI = null;
-      UseBlood = null;
+      elemDefUI = focusUI = bossHealthUI = bloodUI = null;
+      ParryHotkey = UseBlood = null;
+
       ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
     }
     private bool DrawElemDefUI()

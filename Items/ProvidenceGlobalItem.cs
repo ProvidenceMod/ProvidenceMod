@@ -622,5 +622,9 @@ namespace ProvidenceMod
 
       base.UpdateEquip(item, player);
     }
+
+    public void Unload()
+    {
+    }
   }
 }

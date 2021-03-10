@@ -9,8 +9,8 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.UI;
-using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
 using ProvidenceMod.TexturePack;
+using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
 namespace ProvidenceMod
 {
   public class ProvidenceMod : Mod
@@ -21,10 +21,12 @@ namespace ProvidenceMod
     internal ElemDefUI ElemDefUI;
     internal FocusUI FocusUI;
     internal BossHealth BossHealth;
+    internal static ProvidenceMod Instance;
     public bool texturePackEnabled;
 
     public override void Load()
     {
+      Instance = this;
       ElemDefUI = new ElemDefUI();
       ElemDefUI.Initialize();
       elemDefUI = new UserInterface();
@@ -57,15 +59,17 @@ namespace ProvidenceMod
       BloodUI = null;
       elemDefUI = focusUI = bossHealthUI = bloodUI = null;
       ParryHotkey = UseBlood = null;
-
       ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceGlobalProjectile>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceGlobalNPC>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceGlobalItem>().texturePackEnabled = false;
+      ModContent.GetInstance<ProvidenceGlobalItem>().Unload();
       ModContent.GetInstance<ProvidenceWall>().texturePackEnabled = false;
+      ProvidenceUtils.elememtalAffinityDefense = null;
       ItemManager.Unload();
       UIManager.Unload();
+      Instance = null;
       base.Unload();
     }
     private bool DrawElemDefUI()

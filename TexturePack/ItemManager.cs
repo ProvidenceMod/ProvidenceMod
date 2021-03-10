@@ -9,10 +9,9 @@ namespace ProvidenceMod.TexturePack
 {
   public static class ItemManager
   {
-    public static Texture2D[] originalTextures = new Texture2D[1] { null };
+    public static Texture2D[] originalTextures = (Texture2D[])Main.itemTexture.Clone();
     public static void InitializeItemTextures()
     {
-      originalTextures[0] = Main.itemTexture[ItemID.MagmaStone];
       Main.itemTexture[ItemID.MagmaStone] = GetTexture("ProvidenceMod/TexturePack/Items/Accessories/MagmaStone");
     }
 
@@ -30,9 +29,7 @@ namespace ProvidenceMod.TexturePack
 
     public static void Unload()
     {
-      //Main.itemTexture[ItemID.MagmaStone] = originalTextures[0];
-      //Main.item[ItemID.MagmaStone].Providence().glowmaskTexture = null;
-      originalTextures[0] = null;
+      originalTextures = null;
     }
   }
 }

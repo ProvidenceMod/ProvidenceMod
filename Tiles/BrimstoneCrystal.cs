@@ -36,6 +36,7 @@ namespace ProvidenceMod.Tiles
       Main.tileFrameImportant[Type] = true;
       Main.tileObsidianKill[Type] = true;
       Main.tileNoFail[Type] = true;
+      animationFrameHeight = 18;
     }
     public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
     {
@@ -43,10 +44,22 @@ namespace ProvidenceMod.Tiles
 				time = 3f;
 			}
 			if (i % 3 == 0) {
-				time = 5f;
+				time = 4f;
 			}
 			if (i % 4 == 0) {
+				time = 5f;
+			}
+      if (i % 5 == 0) {
+				time = 6f;
+			}
+      if (i % 6 == 0) {
 				time = 7f;
+			}
+      if (i % 7 == 0) {
+				time = 8f;
+			}
+      if (i % 8 == 0) {
+				time = 9f;
 			}
       color = ColorShift(new Color(54, 30, 53), new Color(166, 46, 61), time).ToVector3();
       color.ColorRGBIntToFloat();
@@ -61,31 +74,30 @@ namespace ProvidenceMod.Tiles
     public override void PlaceInWorld(int i, int j, Item item)
     {
       if (Main.tile[i, j + 1].active() && Main.tileSolid[Main.tile[i, j + 1].type] && Main.tile[i, j + 1].slope() == 0 && !Main.tile[i, j + 1].halfBrick())
-        Main.tile[i, j].frameY = (short)(0 * frame);
+        Main.tile[i, j].frameY = 0;
       else if (Main.tile[i, j - 1].active() && Main.tileSolid[Main.tile[i, j - 1].type] && Main.tile[i, j - 1].slope() == 0 && !Main.tile[i, j - 1].halfBrick())
-        Main.tile[i, j].frameY = (short)(18 * frame);
+        Main.tile[i, j].frameY = 18;
       else if (Main.tile[i + 1, j].active() && Main.tileSolid[Main.tile[i + 1, j].type] && Main.tile[i + 1, j].slope() == 0 && !Main.tile[i + 1, j].halfBrick())
-        Main.tile[i, j].frameY = (short)(36 * frame);
+        Main.tile[i, j].frameY = 36;
       else if (Main.tile[i - 1, j].active() && Main.tileSolid[Main.tile[i - 1, j].type] && Main.tile[i - 1, j].slope() == 0 && !Main.tile[i - 1, j].halfBrick())
-        Main.tile[i, j].frameY = (short)(54 * frame);
+        Main.tile[i, j].frameY = 54;
       type = Main.tile[i, j].frameX = (short)(WorldGen.genRand.Next(9) * 18);
     }
     // public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
     // {
-    //   frameXOffset = Main.tile[i, j].frameX;
-    //   frameYOffset = (short)(frame * 72);
+    //   frameYOffset = (short)(Main.tileFrame[type] * 72);
     // }
 
     // public override void AnimateTile(ref int frame, ref int frameCounter)
     // {
-    //   frameCounter++;
-		// 	if (frameCounter > time * 60)
+    //   Main.tileFrameCounter[type]++;
+		// 	if (Main.tileFrameCounter[type] > time * 60)
 		// 	{
-		// 		frameCounter = 0;
-		// 		frame++;
-		// 		if (frame > 3 )
+		// 		Main.tileFrameCounter[type] = 0;
+		// 		Main.tileFrame[type]++;
+		// 		if (Main.tileFrame[type] > 3 )
 		// 		{
-		// 			frame = 0;
+		// 			Main.tileFrame[type] = 0;
 		// 		}
 		// 	}
     // }

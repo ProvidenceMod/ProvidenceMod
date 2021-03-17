@@ -58,8 +58,7 @@ namespace ProvidenceMod
         NPCManager.InitializeNPCTextures();
         texturePackEnabled = true;
       }
-      drawColor = Color.White;
-      spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Materials/FireEssence"), new Vector2(npc.position.X - 20f, npc.position.Y - 20f), new Rectangle(0, 0, 32, 32), drawColor, 0f, npc.position, 1f, SpriteEffects.None, 4f);
+      spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), npc.Center - Main.screenPosition + new Vector2(0.0f, npc.gfxOffY), new Rectangle(0, 0, 44, 44), Color.White, 0f, npc.Center, 1f, SpriteEffects.None, 0f);
     }
 
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
@@ -568,8 +567,6 @@ namespace ProvidenceMod
           break;
         case NPCID.Crawdad:
         case NPCID.Crawdad2:
-          npc.Providence().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };
-          break;
         case NPCID.GiantShelly:
         case NPCID.GiantShelly2:
           npc.Providence().resists = new float[8] { 0.5f, 1f, 1.5f, 0.25f, 1f, 0.25f, 1f, 1f };

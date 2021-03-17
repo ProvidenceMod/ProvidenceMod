@@ -10,7 +10,7 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items
 {
-  public abstract class HemoItem : ModItem
+  public abstract class ShadowItem : ModItem
   {
     public override void SetDefaults()
     {
@@ -28,7 +28,7 @@ namespace ProvidenceMod.Items
       {
         tooltips.Insert(
           tooltips.FindIndex(x => x.Name == "Damage" && x.mod == "Terraria"),
-          new TooltipLine(mod, "Hemomancy", "Hemomancer's item")
+          new TooltipLine(mod, "Shadowmancy", "Shadowmancer's item")
           );
       }
     }
@@ -36,7 +36,7 @@ namespace ProvidenceMod.Items
     {
       ProvidencePlayer modPlayer = player.Providence();
       int originalDmg = damage;
-      damage = (int)(damage * modPlayer.hemoDamage);
+      damage = (int)(damage * modPlayer.shadowDamage);
       float globalDmg = player.meleeDamage - 1;
       if (player.magicDamage - 1 < globalDmg) { globalDmg = player.magicDamage - 1; }
       if (player.rangedDamage - 1 < globalDmg) { globalDmg = player.rangedDamage - 1; }

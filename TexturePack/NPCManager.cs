@@ -8,11 +8,9 @@ namespace ProvidenceMod.TexturePack
   {
     public static void InitializeNPCTextures()
     {
-
     }
     public static void InitializeNPCGlowMasks()
     {
-      
     }
   }
 }

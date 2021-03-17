@@ -8,11 +8,9 @@ namespace ProvidenceMod.TexturePack
   {
     public static void InitializePlayerTextures()
     {
-
     }
     public static void InitializePlayerGlowMasks()
     {
-
     }
   }
 }

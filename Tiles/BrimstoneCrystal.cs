@@ -83,24 +83,24 @@ namespace ProvidenceMod.Tiles
         Main.tile[i, j].frameY = 54;
       type = Main.tile[i, j].frameX = (short)(WorldGen.genRand.Next(9) * 18);
     }
-    // public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
-    // {
-    //   frameYOffset = (short)(Main.tileFrame[type] * 72);
-    // }
+    public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
+    {
+      
+    }
 
-    // public override void AnimateTile(ref int frame, ref int frameCounter)
-    // {
-    //   Main.tileFrameCounter[type]++;
-		// 	if (Main.tileFrameCounter[type] > time * 60)
-		// 	{
-		// 		Main.tileFrameCounter[type] = 0;
-		// 		Main.tileFrame[type]++;
-		// 		if (Main.tileFrame[type] > 3 )
-		// 		{
-		// 			Main.tileFrame[type] = 0;
-		// 		}
-		// 	}
-    // }
+    public override void AnimateTile(ref int frame, ref int frameCounter)
+    {
+      Main.tileFrameCounter[type]++;
+			if (Main.tileFrameCounter[type] > time * 60)
+			{
+				Main.tileFrameCounter[type] = 0;
+				Main.tileFrame[type]++;
+				if (Main.tileFrame[type] > 3 )
+				{
+					Main.tileFrame[type] = 0;
+				}
+			}
+    }
     public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
     {
       drawColor = Color.White;

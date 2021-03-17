@@ -35,7 +35,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
     }
 
     public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-    {   
+    {
         Main.PlaySound(SoundID.Item45, player.position);
         Vector2 velocity = new Vector2(speedX, speedY);
         Projectile.NewProjectile(position, velocity, ProjectileType<ZephyrSpirit>(), 25 + (damage / 2), 0.0f, player.whoAmI);

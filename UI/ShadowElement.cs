@@ -8,7 +8,7 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.UI
 {
-  internal class BloodElement : UIElement
+  internal class ShadowElement : UIElement
   {
     private string hoverText;
     private Vector2 offset;
@@ -16,7 +16,7 @@ namespace ProvidenceMod.UI
     public bool visible;
     private void SetHoverText()
     {
-      hoverText = $"{LocalPlayer().Providence().bloodLevel} / {LocalPlayer().Providence().maxBloodLevel}";
+      hoverText = $"{LocalPlayer().Providence().ShadowStacks} / {LocalPlayer().Providence().maxShadowStacks}";
     }
     protected override void DrawSelf(SpriteBatch spriteBatch)
     {

@@ -17,9 +17,6 @@ namespace ProvidenceMod.Tiles
 			Main.tileMergeDirt[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-      Main.tileFrameImportant[Type] = true;
-
-
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Zephyr Ore");
 			AddMapEntry(new Color(152, 255, 241), name);

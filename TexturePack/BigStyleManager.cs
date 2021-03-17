@@ -8,7 +8,6 @@ namespace ProvidenceMod.TexturePack
   {
     public static void InitializeBigStyleTextures()
     {
-
     }
   }
 }

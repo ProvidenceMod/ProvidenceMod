@@ -19,7 +19,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - Parry System
 - Vertical Dashing
 - A new class: Cleric
-- Hemomancy (Blood Magic)
+- Shadowmancy (Shadow Magic / Blood Magic)
 
 ### Planned Content:
 - Dash Dodging

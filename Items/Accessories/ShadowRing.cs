@@ -5,12 +5,12 @@ using ProvidenceMod.Items;
 
 namespace ProvidenceMod.Items.Accessories
 {
-	public class BloodRing : HemoItem
+	public class ShadowRing : ShadowItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blood Ring");
-			Tooltip.SetDefault("Increases hemomancy power by 25% and blood capacity by 10.\nReduces blood consumed on Blood Amp usage by 5.\nOnly equippable when hemomancy is enabled.");
+			Tooltip.SetDefault("Increases shadowmancy power by 25% and shadow capacity by 10.\nReduces shadow consumed on Shadow Amp usage by 5.\nOnly equippable when shadowmancy is enabled.");
 		}
 
 		public override void SetDefaults()
@@ -22,12 +22,12 @@ namespace ProvidenceMod.Items.Accessories
       item.accessory = true;
 		}
 
-    public override bool CanEquipAccessory(Player player, int slot) => player.Providence().hemomancy;
+    public override bool CanEquipAccessory(Player player, int slot) => player.Providence().shadowmancy;
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-      player.Providence().hemoDamage++;
-      player.Providence().bloodConsumedOnUse -= 5;
-      player.Providence().maxBloodLevel += 10;
+      player.Providence().shadowDamage++;
+      player.Providence().shadowConsumedOnUse -= 5;
+      player.Providence().maxShadowStacks += 10;
     }
 
 		public override void AddRecipes()

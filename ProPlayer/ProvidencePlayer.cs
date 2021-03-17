@@ -28,7 +28,7 @@ namespace ProvidenceMod
     public bool allowFocus;
     public bool ampCapacitor;
     public bool angelTear;
-    public bool bloodAmp;
+    public bool shadowAmp;
     public bool brimHeart;
     public bool boosterShot;
     public bool burnAura;
@@ -39,13 +39,14 @@ namespace ProvidenceMod
     public bool cFlameAura;
     public bool dashing;
     public bool hasClericSet;
-    public bool hemomancy;
+    public bool shadowmancy;
     public bool micitBangle;
     public bool intimidated;
     public bool parryActive;
     public bool parryActiveCooldown;
     public bool parryCapable;
     public bool parryWasActive;
+    public bool radiance;
     public bool regenAura;
     public bool spawnReset = true;
     public bool tankParryOn;
@@ -54,7 +55,6 @@ namespace ProvidenceMod
     public bool vampFang;
 
     public const float defaultFocusGain = 0.005f;
-    public float bloodGained;
     public float bonusFocusGain;
     public float cleric = 1f;
     public float clericAuraRadius = 300f;
@@ -62,28 +62,31 @@ namespace ProvidenceMod
     public float focus;
     public float focusLoss = 0.15f;
     public float focusMax = 1f;
-    public float hemoDamage;
+    public float shadowDamage;
+    public float shadowGained;
     public float tankingItemCount;
+
     public const int maxParryActiveTime = 90;
     public readonly int maxGainPerSecond = 10;
     public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int auraStyle = -1;
     public int auraType = -1;
-    public int bloodCollectionCooldown;
-    public int bloodConsumedOnUse = 25;
-    public int bloodLevel;
+    public int shadowCollectionCooldown;
+    public int shadowConsumedOnUse = 25;
+    public int ShadowStacks;
     public int dashMod;
     public int dashTimeMod;
     public int dashModDelay = 60;
     public int focusLossCooldown;
     public int focusLossCooldownMax = 20;
-    public int hemoCrit;
-    public int maxBloodLevel = 100;
+    public int shadowCrit;
+    public int maxShadowStacks = 100;
     public int parriedProjs;
     public int parryActiveTime;
     public int parryProjID;
     public int parryType;
+    public int radianceStacks;
     public int tankParryPWR;
     public int tearCount;
 
@@ -97,8 +100,8 @@ namespace ProvidenceMod
       auraStyle = -1;
       auraType = -1;
       ampCapacitor = false;
-      bloodConsumedOnUse = 25;
-      bloodLevel = hemomancy ? bloodLevel : 0;
+      shadowConsumedOnUse = 25;
+      ShadowStacks = shadowmancy ? ShadowStacks : 0;
       brimHeart = false;
       bonusFocusGain = 0f;
       boosterShot = false;
@@ -112,11 +115,11 @@ namespace ProvidenceMod
       dashTimeMod = 0;
       focusMax = 1f;
       hasClericSet = false;
-      hemoCrit = 0;
-      hemoDamage = 1f;
-      hemomancy = false;
+      shadowCrit = 0;
+      shadowDamage = 1f;
+      shadowmancy = false;
       intimidated = false;
-      maxBloodLevel = 100;
+      maxShadowStacks = 100;
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryCapable = false;
@@ -140,16 +143,16 @@ namespace ProvidenceMod
         parryProj = Main.projectile[p];
         parryProjID = p;
       }
-      if (hemomancy && !bloodAmp && ProvidenceMod.UseBlood.JustPressed && bloodLevel >= bloodConsumedOnUse)
+      if (shadowmancy && !shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && ShadowStacks >= shadowConsumedOnUse)
       {
-        bloodLevel -= bloodConsumedOnUse;
-        bloodAmp = true;
+        ShadowStacks -= shadowConsumedOnUse;
+        shadowAmp = true;
         Main.PlaySound(SoundID.Item112, player.position);
         return;
       }
-      if (hemomancy && bloodAmp && ProvidenceMod.UseBlood.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
+      if (shadowmancy && shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
       {
-        bloodAmp = false;
+        shadowAmp = false;
         int healing = (int)(player.statLifeMax2 * 0.35f);
         player.statLife += healing;
         player.HealEffect(healing);
@@ -170,7 +173,6 @@ namespace ProvidenceMod
         // {"affExp", this.affExp}
       };
     }
-
     public override void PreUpdate()
     {
       BuffHelper();
@@ -179,7 +181,7 @@ namespace ProvidenceMod
     }
     public override void PostUpdate()
     {
-      if(!texturePackEnabled)
+      if (!texturePackEnabled)
       {
         PlayerManager.InitializePlayerGlowMasks();
         texturePackEnabled = true;
@@ -188,11 +190,15 @@ namespace ProvidenceMod
       AuraHelper();
       ParryHelper(true);
       player.CalcElemDefense();
-      BloodHelper();
+      ShadowHelper();
       // Mod mod = ModLoader.GetMod("ProvidenceMod");
       // Item item = player.HeldItem;
       // mod.Logger.InfoFormat($"{item.Providence().customRarity}", "ProvidenceMod");
     }
+    public void RadiantCleric()
+    { }
+    public void ShadowCleric()
+    { }
     public void BuffHelper()
     {
       if (IsThereABoss().Item1)
@@ -300,10 +306,10 @@ namespace ProvidenceMod
           break;
       }
     }
-    public void BloodHelper()
+    public void ShadowHelper()
     {
-      if (bloodCollectionCooldown > 0) bloodCollectionCooldown--;
-      if (bloodCollectionCooldown is 0) bloodGained = 0;
+      if (shadowCollectionCooldown > 0) shadowCollectionCooldown--;
+      if (shadowCollectionCooldown is 0) shadowGained = 0;
     }
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
     {
@@ -441,10 +447,10 @@ namespace ProvidenceMod
         focus += defaultFocusGain + bonusFocusGain;
         if (focus > focusMax) focus = focusMax;
       }
-      if (bloodAmp)
+      if (shadowAmp)
       {
-        bloodAmp = false;
-        damage = (int)(damage * hemoDamage);
+        shadowAmp = false;
+        damage = (int)(damage * shadowDamage);
       }
       // Determined at the end of everything so any focus gained within a tick is retroactive
       damage += (int)(damage * (focus / 5));
@@ -475,8 +481,6 @@ namespace ProvidenceMod
       }
       damage += (int)(damage * (focus / 5));
     }
-
-    // If the Player is hit by an NPC's contact damage...
     public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromNPC(npc, ref damage);
@@ -495,10 +499,10 @@ namespace ProvidenceMod
       }
       damage -= damage * (tankParryPWR / 100);
 
-      if (player.Providence().bloodAmp)
+      if (player.Providence().shadowAmp)
       {
-        player.Providence().bloodAmp = false;
-        damage = (int)(damage * hemoDamage);
+        player.Providence().shadowAmp = false;
+        damage = (int)(damage * shadowDamage);
       }
     }
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -582,13 +586,13 @@ namespace ProvidenceMod
           }
         }
       }
-      if (target.active && !target.townNPC && !target.friendly && hemomancy && bloodGained < maxGainPerSecond)
+      if (target.active && !target.townNPC && !target.friendly && shadowmancy && shadowGained < maxGainPerSecond)
       {
-        bloodLevel++;
-        bloodGained++;
-        if (bloodCollectionCooldown is 0) bloodCollectionCooldown = 60;
+        ShadowStacks++;
+        shadowGained++;
+        if (shadowCollectionCooldown is 0) shadowCollectionCooldown = 60;
 
-        bloodLevel = Utils.Clamp(bloodLevel, 0, maxBloodLevel);
+        ShadowStacks = Utils.Clamp(ShadowStacks, 0, maxShadowStacks);
       }
     }
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

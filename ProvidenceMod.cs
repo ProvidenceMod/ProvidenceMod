@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using log4net;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -15,13 +14,17 @@ namespace ProvidenceMod
 {
   public class ProvidenceMod : Mod
   {
-    public static ModHotKey ParryHotkey, UseBlood;
-    private UserInterface elemDefUI, focusUI, bossHealthUI, bloodUI;
-    internal BloodUI BloodUI;
+    internal static ProvidenceMod Instance;
+    public static ModHotKey ParryHotkey;
+    public static ModHotKey UseShadowStacks;
+    private UserInterface elemDefUI;
+    private UserInterface focusUI;
+    private UserInterface bossHealthUI;
+    private UserInterface shadowUI;
+    internal ShadowUI ShadowUI;
     internal ElemDefUI ElemDefUI;
     internal FocusUI FocusUI;
     internal BossHealth BossHealth;
-    internal static ProvidenceMod Instance;
     public bool texturePackEnabled;
 
     public override void Load()
@@ -44,21 +47,21 @@ namespace ProvidenceMod
 
       ParryHotkey = RegisterHotKey("Parry", "F");
 
-      BloodUI = new BloodUI();
-      BloodUI.Initialize();
-      bloodUI = new UserInterface();
-      bloodUI.SetState(BloodUI);
+      ShadowUI = new ShadowUI();
+      ShadowUI.Initialize();
+      shadowUI = new UserInterface();
+      shadowUI.SetState(ShadowUI);
 
-      UseBlood = RegisterHotKey("Use Blood Magic", "G");
+      UseShadowStacks = RegisterHotKey("Use Shadow Magic", "G");
     }
     public override void Unload()
     {
       ElemDefUI = null;
       FocusUI = null;
       BossHealth = null;
-      BloodUI = null;
-      elemDefUI = focusUI = bossHealthUI = bloodUI = null;
-      ParryHotkey = UseBlood = null;
+      ShadowUI = null;
+      elemDefUI = focusUI = bossHealthUI = shadowUI = null;
+      ParryHotkey = UseShadowStacks = null;
       ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceGlobalProjectile>().texturePackEnabled = false;
@@ -90,9 +93,9 @@ namespace ProvidenceMod
         bossHealthUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
-    private bool DrawBloodUI()
+    private bool DrawShadowUI()
     {
-      if (BloodUI.visible) bloodUI.Draw(Main.spriteBatch, new GameTime());
+      if (ShadowUI.visible) shadowUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -103,7 +106,7 @@ namespace ProvidenceMod
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Blood Level", DrawBloodUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Shadow Level", DrawShadowUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -246,7 +249,7 @@ namespace ProvidenceMod
       elemDefUI?.Update(gameTime);
       focusUI?.Update(gameTime);
       bossHealthUI?.Update(gameTime);
-      bloodUI?.Update(gameTime);
+      shadowUI?.Update(gameTime);
     }
   }
 

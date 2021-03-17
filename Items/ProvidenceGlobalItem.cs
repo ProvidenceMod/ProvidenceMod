@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ProvidenceMod;
 using Microsoft.Xna.Framework.Graphics;
-using static ProvidenceMod.ItemHelper;
 using ProvidenceMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework;
 using ProvidenceMod.TexturePack;

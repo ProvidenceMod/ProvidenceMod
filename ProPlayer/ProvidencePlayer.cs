@@ -29,7 +29,6 @@ namespace ProvidenceMod
     public bool allowFocus;
     public bool ampCapacitor;
     public bool angelTear;
-    public bool shadowAmp;
     public bool brimHeart;
     public bool boosterShot;
     public bool burnAura;
@@ -39,15 +38,12 @@ namespace ProvidenceMod
     public bool cerberusAuraSpawned;
     public bool cFlameAura;
     public bool dashing;
-    public bool hasClericSet;
-    public bool shadow;
     public bool micitBangle;
     public bool intimidated;
     public bool parryActive;
     public bool parryActiveCooldown;
     public bool parryCapable;
     public bool parryWasActive;
-    public bool radiance;
     public bool regenAura;
     public bool spawnReset = true;
     public bool tankParryOn;
@@ -57,37 +53,26 @@ namespace ProvidenceMod
 
     public const float defaultFocusGain = 0.005f;
     public float bonusFocusGain;
-    public float cleric = 1f;
-    public float clericAuraRadius = 300f;
     public float defaultFocusLoss = 0.25f;
     public float focus;
     public float focusLoss = 0.15f;
     public float focusMax = 1f;
-    public float shadowDamage;
-    public float shadowGained;
     public float tankingItemCount;
 
     public const int maxParryActiveTime = 90;
-    public readonly int maxGainPerSecond = 10;
     public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int auraStyle = -1;
     public int auraType = -1;
-    public int shadowCollectionCooldown;
-    public int shadowConsumedOnUse = 25;
-    public int ShadowStacks;
     public int dashMod;
     public int dashTimeMod;
     public int dashModDelay = 60;
     public int focusLossCooldown;
     public int focusLossCooldownMax = 20;
-    public int shadowCrit;
-    public int maxShadowStacks = 100;
     public int parriedProjs;
     public int parryActiveTime;
     public int parryProjID;
     public int parryType;
-    public int radianceStacks;
     public int tankParryPWR;
     public int tearCount;
     // TODO: Sort later
@@ -97,6 +82,22 @@ namespace ProvidenceMod
     // TODO: Make this have use (see tooltip in the item of same name)
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
     public string dashDir = "";
+
+    // -- Cleric --
+    public bool hasClericSet;
+    public float cleric = 1f;
+    public float clericAuraRadius = 300f;
+
+    // Cleric Radiance
+    public bool radiance;
+    public int radianceStacks;
+
+    // Cleric Shadow
+    public bool shadow;
+    public int shadowStacks;
+    public int maxShadowStacks = 100;
+    // ------------
+
     public override void ResetEffects()
     {
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -104,8 +105,6 @@ namespace ProvidenceMod
       auraStyle = -1;
       auraType = -1;
       ampCapacitor = false;
-      shadowConsumedOnUse = 25;
-      ShadowStacks = shadow ? ShadowStacks : 0;
       brimHeart = false;
       bonusFocusGain = 0f;
       boosterShot = false;
@@ -119,11 +118,7 @@ namespace ProvidenceMod
       dashTimeMod = 0;
       focusMax = 1f;
       hasClericSet = false;
-      shadowCrit = 0;
-      shadowDamage = 1f;
-      shadow = false;
       intimidated = false;
-      maxShadowStacks = 100;
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryCapable = false;
@@ -138,6 +133,14 @@ namespace ProvidenceMod
       tankParryPWR = tankParryOn ? tankParryPWR : 0;
       vampFang = false;
       ZephyrAglet = false;
+
+      // -- Cleric --
+
+      // Cleric Shadow
+      shadow = false;
+      maxShadowStacks = 100;
+      shadowStacks = shadow ? shadowStacks : 0;
+      // ------------
     }
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
@@ -148,16 +151,12 @@ namespace ProvidenceMod
         parryProj = Main.projectile[p];
         parryProjID = p;
       }
-      if (shadow && !shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && ShadowStacks >= shadowConsumedOnUse)
+      if (shadow && ProvidenceMod.UseShadowStacks.JustPressed)
       {
-        ShadowStacks -= shadowConsumedOnUse;
-        shadowAmp = true;
         Main.PlaySound(SoundID.Item112, player.position);
-        return;
       }
-      if (shadow && shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
+      if (shadow && ProvidenceMod.UseShadowStacks.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
       {
-        shadowAmp = false;
         int healing = (int)(player.statLifeMax2 * 0.35f);
         player.statLife += healing;
         player.HealEffect(healing);
@@ -314,8 +313,7 @@ namespace ProvidenceMod
     }
     public void ShadowHelper()
     {
-      if (shadowCollectionCooldown > 0) shadowCollectionCooldown--;
-      if (shadowCollectionCooldown is 0) shadowGained = 0;
+
     }
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
     {
@@ -453,11 +451,6 @@ namespace ProvidenceMod
         focus += defaultFocusGain + bonusFocusGain;
         if (focus > focusMax) focus = focusMax;
       }
-      if (shadowAmp)
-      {
-        shadowAmp = false;
-        damage = (int)(damage * shadowDamage);
-      }
       // Determined at the end of everything so any focus gained within a tick is retroactive
       damage += (int)(damage * (focus / 5));
     }
@@ -504,12 +497,6 @@ namespace ProvidenceMod
         }
       }
       damage -= damage * (tankParryPWR / 100);
-
-      if (player.Providence().shadowAmp)
-      {
-        player.Providence().shadowAmp = false;
-        damage = (int)(damage * shadowDamage);
-      }
     }
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
@@ -591,14 +578,6 @@ namespace ProvidenceMod
             }
           }
         }
-      }
-      if (target.active && !target.townNPC && !target.friendly && shadow && shadowGained < maxGainPerSecond)
-      {
-        ShadowStacks++;
-        shadowGained++;
-        if (shadowCollectionCooldown is 0) shadowCollectionCooldown = 60;
-
-        ShadowStacks = Utils.Clamp(ShadowStacks, 0, maxShadowStacks);
       }
     }
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

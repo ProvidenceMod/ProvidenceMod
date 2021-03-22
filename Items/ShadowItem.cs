@@ -34,9 +34,7 @@ namespace ProvidenceMod.Items
     }
     public virtual void ModifyWeaponDamage(Player player, ref int damage)
     {
-      ProvidencePlayer modPlayer = player.Providence();
       int originalDmg = damage;
-      damage = (int)(damage * modPlayer.shadowDamage);
       float globalDmg = player.meleeDamage - 1;
       if (player.magicDamage - 1 < globalDmg) { globalDmg = player.magicDamage - 1; }
       if (player.rangedDamage - 1 < globalDmg) { globalDmg = player.rangedDamage - 1; }

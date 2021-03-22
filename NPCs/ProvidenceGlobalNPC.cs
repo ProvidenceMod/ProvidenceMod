@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using static ProvidenceMod.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.TexturePack;
+using ProvidenceMod.Items.Weapons.Joke;
+using Terraria.Audio;
 
 namespace ProvidenceMod
 {
@@ -57,6 +59,10 @@ namespace ProvidenceMod
 
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
     {
+      // if (player.HeldItem == Main.item[ModContent.ItemType<BonkStick>()])
+      // {
+      //   npc.HitSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.NPCHit, "Sounds/NPCHit/bonk");
+      // }
       if (hypodermia)
       {
         damage = (int)(damage * 1.20f); // 20% damage increase

@@ -36,8 +36,12 @@ namespace ProvidenceMod.Items.Weapons.Melee
       ProvidencePlayer p = player.Providence();
       if (player.altFunctionUse == 2)
       {
-        if (p.petalCount == 8) damage = int.MaxValue;
-        else damage += item.damage * p.petalCount;
+        crit = true;
+        if (p.petalCount == 8)
+        {
+          damage = int.MaxValue;
+        }
+        else { damage += item.damage * p.petalCount; }
         p.petalCount = 0;
       }
     }

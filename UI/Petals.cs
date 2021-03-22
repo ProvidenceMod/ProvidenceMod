@@ -18,7 +18,7 @@ namespace ProvidenceMod.UI
     {
       area = new UIElement();
       area.Top.Set(100, 0f);
-      area.Left.Set(500, 0f);
+      area.Left.Set(-200, 1f);
       area.Width.Set(54, 0f);
       area.Height.Set(54, 0f);
 

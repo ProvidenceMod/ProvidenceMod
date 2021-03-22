@@ -16,6 +16,7 @@ using ProvidenceMod.Buffs.StatBuffs;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using ProvidenceMod.TexturePack;
+using ProvidenceMod.Items.Weapons.Melee;
 
 namespace ProvidenceMod
 {
@@ -89,6 +90,9 @@ namespace ProvidenceMod
     public int radianceStacks;
     public int tankParryPWR;
     public int tearCount;
+    // TODO: Sort later
+    public bool petal;
+    public byte petalCount;
 
     // TODO: Make this have use (see tooltip in the item of same name)
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
@@ -124,6 +128,7 @@ namespace ProvidenceMod
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryCapable = false;
       parryType = ParryTypeID.Support;
+      petal = player.HeldItem.type == ItemType<Ugadachi>();
       player.moveSpeed += focus / 2;
       player.statLifeMax2 += tearCount * 20;
       regenAura = false;
@@ -191,6 +196,7 @@ namespace ProvidenceMod
       ParryHelper(true);
       player.CalcElemDefense();
       ShadowHelper();
+      if (petalCount > 8) petalCount = 8;
       // Mod mod = ModLoader.GetMod("ProvidenceMod");
       // Item item = player.HeldItem;
       // mod.Logger.InfoFormat($"{item.Providence().customRarity}", "ProvidenceMod");

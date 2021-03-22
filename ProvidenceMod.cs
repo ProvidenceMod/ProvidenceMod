@@ -21,10 +21,12 @@ namespace ProvidenceMod
     private UserInterface focusUI;
     private UserInterface bossHealthUI;
     private UserInterface shadowUI;
+    private UserInterface petalsUI;
     internal ShadowUI ShadowUI;
     internal ElemDefUI ElemDefUI;
     internal FocusUI FocusUI;
     internal BossHealth BossHealth;
+    internal Petals Petals;
     public bool texturePackEnabled;
 
     public override void Load()
@@ -52,6 +54,11 @@ namespace ProvidenceMod
       shadowUI = new UserInterface();
       shadowUI.SetState(ShadowUI);
 
+      Petals = new Petals();
+      Petals.Initialize();
+      petalsUI = new UserInterface();
+      petalsUI.SetState(Petals);
+
       UseShadowStacks = RegisterHotKey("Use Shadow Magic", "G");
     }
     public override void Unload()
@@ -60,7 +67,8 @@ namespace ProvidenceMod
       FocusUI = null;
       BossHealth = null;
       ShadowUI = null;
-      elemDefUI = focusUI = bossHealthUI = shadowUI = null;
+      Petals = null;
+      elemDefUI = focusUI = bossHealthUI = shadowUI = petalsUI = null;
       ParryHotkey = UseShadowStacks = null;
       ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;
@@ -98,6 +106,11 @@ namespace ProvidenceMod
       if (ShadowUI.visible) shadowUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
+    private bool DrawPetalsUI()
+    {
+      petalsUI.Draw(Main.spriteBatch, new GameTime());
+      return true;
+    }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
       int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
@@ -107,6 +120,7 @@ namespace ProvidenceMod
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Shadow Level", DrawShadowUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Petal Mode", DrawPetalsUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -250,6 +264,7 @@ namespace ProvidenceMod
       focusUI?.Update(gameTime);
       bossHealthUI?.Update(gameTime);
       shadowUI?.Update(gameTime);
+      petalsUI?.Update(gameTime);
     }
   }
 

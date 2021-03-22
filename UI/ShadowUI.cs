@@ -61,62 +61,62 @@ namespace ProvidenceMod.UI
 
     public override void Update(GameTime gameTime)
     {
-      base.Update(gameTime);
-      area.visible = visible;
-      if (oldScale != Main.inventoryScale) { oldScale = Main.inventoryScale; Recalculate(); }
-      ProvidencePlayer proPlayer = LocalPlayer().Providence();
-      visible = proPlayer.shadow;
-      if (visible)
-      {
-        float quotient = (float)LocalPlayer().Providence().ShadowStacks / (float)LocalPlayer().Providence().maxShadowStacks;
-        quotient = Utils.Clamp(quotient, 0f, 1f);
-        shadowBarRect.Width = (int)(124 * quotient);
-        shadowBar.SetFrame(shadowBarRect);
-        if (!set)
-        {
-          shadowUseRect.Width = 0;
-          shadowUse.SetFrame(shadowBarRect);
-          set = true;
-        }
-        if (!arraySet)
-        {
-          shadowArray[2] = shadowArray[1];
-          shadowArray[1] = shadowArray[0];
-          shadowArray[0] = proPlayer.ShadowStacks;
-          arraySet = true;
-        }
-        if (proPlayer.ShadowStacks < shadowArray[0])
-        {
-          shadowArray[2] = shadowArray[1];
-          shadowArray[1] = shadowArray[0];
-          shadowArray[0] = proPlayer.ShadowStacks;
-          cooldown = 30;
-        }
-        else if (proPlayer.ShadowStacks == shadowArray[0])
-        {
-          if (cooldown > 0) cooldown--;
-        }
-        if (cooldown == 0 && shadowUseRect.Width != shadowBarRect.Width)
-        {
-          if ((shadowUseRect.Width - shadowBarRect.Width) * 0.05f < 1)
-          {
-            shadowUseRect.Width--;
-          }
-          else
-          {
-            shadowUseRect.Width -= (int)((shadowUseRect.Width - shadowBarRect.Width) * 0.05f);
-          }
-          shadowUse.SetFrame(shadowUseRect);
-        }
-        if (shadowBarRect.Width > shadowUseRect.Width)
-        {
-          shadowUseRect.Width = shadowBarRect.Width;
-          shadowUse.SetFrame(shadowUseRect);
-        }
-
-        // if (prov.shadowAmp) bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ShadowUIFrameAmp"));
-        // else bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ShadowUIFrame"));
-      }
+      // base.Update(gameTime);
+      // area.visible = visible;
+      // if (oldScale != Main.inventoryScale) { oldScale = Main.inventoryScale; Recalculate(); }
+      // ProvidencePlayer proPlayer = LocalPlayer().Providence();
+      // visible = proPlayer.shadow;
+      // if (visible)
+      // {
+      //   float quotient = (float)LocalPlayer().Providence().ShadowStacks / (float)LocalPlayer().Providence().maxShadowStacks;
+      //   quotient = Utils.Clamp(quotient, 0f, 1f);
+      //   shadowBarRect.Width = (int)(124 * quotient);
+      //   shadowBar.SetFrame(shadowBarRect);
+      //   if (!set)
+      //   {
+      //     shadowUseRect.Width = 0;
+      //     shadowUse.SetFrame(shadowBarRect);
+      //     set = true;
+      //   }
+      //   if (!arraySet)
+      //   {
+      //     shadowArray[2] = shadowArray[1];
+      //     shadowArray[1] = shadowArray[0];
+      //     shadowArray[0] = proPlayer.ShadowStacks;
+      //     arraySet = true;
+      //   }
+      //   if (proPlayer.ShadowStacks < shadowArray[0])
+      //   {
+      //     shadowArray[2] = shadowArray[1];
+      //     shadowArray[1] = shadowArray[0];
+      //     shadowArray[0] = proPlayer.ShadowStacks;
+      //     cooldown = 30;
+      //   }
+      //   else if (proPlayer.ShadowStacks == shadowArray[0])
+      //   {
+      //     if (cooldown > 0) cooldown--;
+      //   }
+      //   if (cooldown == 0 && shadowUseRect.Width != shadowBarRect.Width)
+      //   {
+      //     if ((shadowUseRect.Width - shadowBarRect.Width) * 0.05f < 1)
+      //     {
+      //       shadowUseRect.Width--;
+      //     }
+      //     else
+      //     {
+      //       shadowUseRect.Width -= (int)((shadowUseRect.Width - shadowBarRect.Width) * 0.05f);
+      //     }
+      //     shadowUse.SetFrame(shadowUseRect);
+      //   }
+      //   if (shadowBarRect.Width > shadowUseRect.Width)
+      //   {
+      //     shadowUseRect.Width = shadowBarRect.Width;
+      //     shadowUse.SetFrame(shadowUseRect);
+      //   }
+  
+      //   // if (prov.shadowAmp) bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ShadowUIFrameAmp"));
+      //   // else bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ShadowUIFrame"));
+      // }
     }
   }
 }

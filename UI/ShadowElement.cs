@@ -16,7 +16,7 @@ namespace ProvidenceMod.UI
     public bool visible;
     private void SetHoverText()
     {
-      hoverText = $"{LocalPlayer().Providence().ShadowStacks} / {LocalPlayer().Providence().maxShadowStacks}";
+      // hoverText = $"{LocalPlayer().Providence().ShadowStacks} / {LocalPlayer().Providence().maxShadowStacks}";
     }
     protected override void DrawSelf(SpriteBatch spriteBatch)
     {

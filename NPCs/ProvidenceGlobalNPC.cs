@@ -59,6 +59,10 @@ namespace ProvidenceMod
         texturePackEnabled = true;
       }
       spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), npc.Center - Main.screenPosition + new Vector2(0.0f, npc.gfxOffY), new Rectangle(0, 0, 44, 44), Color.White, 0f, npc.Center, 1f, SpriteEffects.None, 0f);
+      SpriteBatch spriteBatch2 = new SpriteBatch(Main.graphics.GraphicsDevice);
+      spriteBatch2.Begin();
+      spriteBatch2.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), npc.Center - Main.screenPosition + new Vector2(0.0f, npc.gfxOffY), new Rectangle(0, 0, 44, 44), Color.White, 0f, npc.Center, 1f, SpriteEffects.None, 0f);
+      spriteBatch2.End();
     }
 
     public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)

@@ -25,8 +25,6 @@ namespace ProvidenceMod.Items.Accessories
     public override bool CanEquipAccessory(Player player, int slot) => player.Providence().shadow;
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-      player.Providence().shadowDamage++;
-      player.Providence().shadowConsumedOnUse -= 5;
       player.Providence().maxShadowStacks += 10;
     }
 

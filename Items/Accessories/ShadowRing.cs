@@ -10,7 +10,7 @@ namespace ProvidenceMod.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blood Ring");
-			Tooltip.SetDefault("Increases shadowmancy power by 25% and shadow capacity by 10.\nReduces shadow consumed on Shadow Amp usage by 5.\nOnly equippable when shadowmancy is enabled.");
+			Tooltip.SetDefault("Increases shadow power by 25% and shadow capacity by 10.\nReduces shadow consumed on Shadow Amp usage by 5.\nOnly equippable when shadow is enabled.");
 		}
 
 		public override void SetDefaults()
@@ -22,7 +22,7 @@ namespace ProvidenceMod.Items.Accessories
       item.accessory = true;
 		}
 
-    public override bool CanEquipAccessory(Player player, int slot) => player.Providence().shadowmancy;
+    public override bool CanEquipAccessory(Player player, int slot) => player.Providence().shadow;
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
       player.Providence().shadowDamage++;

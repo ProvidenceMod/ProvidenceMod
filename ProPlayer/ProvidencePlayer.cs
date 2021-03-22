@@ -39,7 +39,7 @@ namespace ProvidenceMod
     public bool cFlameAura;
     public bool dashing;
     public bool hasClericSet;
-    public bool shadowmancy;
+    public bool shadow;
     public bool micitBangle;
     public bool intimidated;
     public bool parryActive;
@@ -101,7 +101,7 @@ namespace ProvidenceMod
       auraType = -1;
       ampCapacitor = false;
       shadowConsumedOnUse = 25;
-      ShadowStacks = shadowmancy ? ShadowStacks : 0;
+      ShadowStacks = shadow ? ShadowStacks : 0;
       brimHeart = false;
       bonusFocusGain = 0f;
       boosterShot = false;
@@ -117,7 +117,7 @@ namespace ProvidenceMod
       hasClericSet = false;
       shadowCrit = 0;
       shadowDamage = 1f;
-      shadowmancy = false;
+      shadow = false;
       intimidated = false;
       maxShadowStacks = 100;
       parryActive = parryActiveTime > 0;
@@ -143,14 +143,14 @@ namespace ProvidenceMod
         parryProj = Main.projectile[p];
         parryProjID = p;
       }
-      if (shadowmancy && !shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && ShadowStacks >= shadowConsumedOnUse)
+      if (shadow && !shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && ShadowStacks >= shadowConsumedOnUse)
       {
         ShadowStacks -= shadowConsumedOnUse;
         shadowAmp = true;
         Main.PlaySound(SoundID.Item112, player.position);
         return;
       }
-      if (shadowmancy && shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
+      if (shadow && shadowAmp && ProvidenceMod.UseShadowStacks.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
       {
         shadowAmp = false;
         int healing = (int)(player.statLifeMax2 * 0.35f);
@@ -586,7 +586,7 @@ namespace ProvidenceMod
           }
         }
       }
-      if (target.active && !target.townNPC && !target.friendly && shadowmancy && shadowGained < maxGainPerSecond)
+      if (target.active && !target.townNPC && !target.friendly && shadow && shadowGained < maxGainPerSecond)
       {
         ShadowStacks++;
         shadowGained++;

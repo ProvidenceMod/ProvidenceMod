@@ -28,7 +28,7 @@ namespace ProvidenceMod.Items
       {
         tooltips.Insert(
           tooltips.FindIndex(x => x.Name == "Damage" && x.mod == "Terraria"),
-          new TooltipLine(mod, "Shadowmancy", "Shadowmancer's item")
+          new TooltipLine(mod, "shadow", "Shadowmancer's item")
           );
       }
     }

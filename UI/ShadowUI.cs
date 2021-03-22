@@ -65,7 +65,7 @@ namespace ProvidenceMod.UI
       area.visible = visible;
       if (oldScale != Main.inventoryScale) { oldScale = Main.inventoryScale; Recalculate(); }
       ProvidencePlayer proPlayer = LocalPlayer().Providence();
-      visible = proPlayer.shadowmancy;
+      visible = proPlayer.shadow;
       if (visible)
       {
         float quotient = (float)LocalPlayer().Providence().ShadowStacks / (float)LocalPlayer().Providence().maxShadowStacks;

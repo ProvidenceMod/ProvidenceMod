@@ -52,6 +52,10 @@ namespace ProvidenceMod
         item.InitializeItemGlowMasks();
         texturePackEnabled = true;
       }
+      // if(!LocalPlayer().HeldItem.IsAir && LocalPlayer().HeldItem.type == item.type)
+      // {
+      //   item.ChangeFrameToElement();
+      // }
     }
     public override void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {

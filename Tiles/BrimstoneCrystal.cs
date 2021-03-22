@@ -68,9 +68,9 @@ namespace ProvidenceMod.Tiles
       b = color.Z;
     }
     public override bool CanPlace(int i, int j) => (Main.tile[i, j + 1].slope() == 0 && !Main.tile[i, j + 1].halfBrick() && Main.tile[i, j + 1].active())
-                                               || (Main.tile[i, j - 1].slope() == 0 && !Main.tile[i, j - 1].halfBrick() && Main.tile[i, j - 1].active())
-                                               || (Main.tile[i + 1, j].slope() == 0 && !Main.tile[i + 1, j].halfBrick() && Main.tile[i + 1, j].active())
-                                               || (Main.tile[i - 1, j].slope() == 0 && !Main.tile[i - 1, j].halfBrick() && Main.tile[i - 1, j].active());
+                                                || (Main.tile[i, j - 1].slope() == 0 && !Main.tile[i, j - 1].halfBrick() && Main.tile[i, j - 1].active())
+                                                || (Main.tile[i + 1, j].slope() == 0 && !Main.tile[i + 1, j].halfBrick() && Main.tile[i + 1, j].active())
+                                                || (Main.tile[i - 1, j].slope() == 0 && !Main.tile[i - 1, j].halfBrick() && Main.tile[i - 1, j].active());
     public override void PlaceInWorld(int i, int j, Item item)
     {
       if (Main.tile[i, j + 1].active() && Main.tileSolid[Main.tile[i, j + 1].type] && Main.tile[i, j + 1].slope() == 0 && !Main.tile[i, j + 1].halfBrick())
@@ -83,24 +83,24 @@ namespace ProvidenceMod.Tiles
         Main.tile[i, j].frameY = 54;
       type = Main.tile[i, j].frameX = (short)(WorldGen.genRand.Next(9) * 18);
     }
-    public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
-    {
-      
-    }
+    // public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
+    // {
 
-    public override void AnimateTile(ref int frame, ref int frameCounter)
-    {
-      Main.tileFrameCounter[type]++;
-			if (Main.tileFrameCounter[type] > time * 60)
-			{
-				Main.tileFrameCounter[type] = 0;
-				Main.tileFrame[type]++;
-				if (Main.tileFrame[type] > 3 )
-				{
-					Main.tileFrame[type] = 0;
-				}
-			}
-    }
+    // }
+
+    // public override void AnimateTile(ref int frame, ref int frameCounter)
+    // {
+    //   Main.tileFrameCounter[type]++;
+		// 	if (Main.tileFrameCounter[type] > time * 60)
+		// 	{
+		// 		Main.tileFrameCounter[type] = 0;
+		// 		Main.tileFrame[type]++;
+		// 		if (Main.tileFrame[type] > 3 )
+		// 		{
+		// 			Main.tileFrame[type] = 0;
+		// 		}
+		// 	}
+    // }
     public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
     {
       drawColor = Color.White;

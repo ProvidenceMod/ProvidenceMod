@@ -52,6 +52,40 @@ namespace ProvidenceMod.TexturePack
       Main.manaTexture = GetTexture("ProvidenceMod/TexturePack/UI/Mana");
     }
 
+    // public static void ChangeFrameToElement(this Item item)
+    // {
+    //   switch (item.Providence().element)
+    //   {
+    //     case -1:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/HeldItemPanel");
+    //       break;
+    //     case 0:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //     case 1:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //     case 2:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //     case 3:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //     case 4:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //     case 5:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //     case 6:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //     case 7:
+    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
+    //       break;
+    //   }
+    // }
+
     public static void Unload()
     {
       if (Main.dedServ)

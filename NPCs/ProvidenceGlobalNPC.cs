@@ -24,14 +24,8 @@ namespace ProvidenceMod
     public bool texturePackEnabled;
     public bool maxSpawnsTempSet;
     public int maxSpawnsTemp;
-    public int armorMax = 1000;
-    public int armor = 1000;
     public int buffCount;
     public float armorEfficiency = 0.5f;
-    public bool Armored
-    {
-      get => armor > 0;
-    }
     public override void ResetEffects(NPC npc)
     {
       npc.Providence().hypodermia = false;
@@ -69,7 +63,6 @@ namespace ProvidenceMod
       }
 
       damage = item.CalcEleDamage(npc, ref damage);
-      damage = ArmorCalculation(npc, ref damage, ref crit);
       // if (npc.Providence().Armored)
       // {
       //   npc.Providence().armor -= damage;
@@ -101,7 +94,6 @@ namespace ProvidenceMod
       }
 
       damage = projectile.CalcEleDamage(npc, ref damage);
-      damage = ArmorCalculation(npc, ref damage, ref crit);
       if (projectile.Providence().inverseKB)
       {
         npc.StrikeNPC(0, knockback, -projectile.direction, crit);

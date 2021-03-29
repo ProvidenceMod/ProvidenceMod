@@ -14,7 +14,7 @@ namespace ProvidenceMod
   {
     // Elemental variables for NPC's
     public int contactDamageEl = -1; // Contact damage element, -1 by default for typeless
-    public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f }; // Fire, Ice, Lightning, Water, Earth, Air, Radiant, Necrotic
+    public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f }; // Fire, Ice, Lightning, Water, Earth, Air, Order, Chaos
     // Elemental variables also contained within GlobalItem, GlobalProjectile, and Player
     public override bool InstancePerEntity => true;
     public override bool CloneNewInstances => true;

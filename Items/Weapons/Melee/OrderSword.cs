@@ -4,18 +4,18 @@ using Terraria;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
-  public class RadiantSword : ModItem
+  public class OrderSword : ModItem
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Radiant Sword");
+      DisplayName.SetDefault("Order Sword");
       Tooltip.SetDefault("An exalted sword");
     }
 
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.Providence().element = 6; // Radiant
+      item.Providence().element = 6; // Order
       item.autoReuse = true;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }

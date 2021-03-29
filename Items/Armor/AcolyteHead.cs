@@ -23,7 +23,7 @@ namespace ProvidenceMod.Items.Armor
     }
     public override void UpdateEquip(Player player)
     {
-      player.Providence().cleric += 0.05f;
+      player.Providence().clericMultiplier += 0.05f;
     }
 
     public override void AddRecipes()

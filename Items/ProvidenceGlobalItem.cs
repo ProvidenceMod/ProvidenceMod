@@ -285,15 +285,15 @@ namespace ProvidenceMod
         /// VANILLA ELEMENTAL DEFENSES ///
         // Prehardmode
         case ItemID.EbonwoodHelmet:
-          // Provides a boost to Necrotic and a penalty to Radiant (defenses)
-          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          // Provides a boost to Chaos and a penalty to Order (defenses)
+          item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense);
           break;
         case ItemID.EbonwoodBreastplate:
         case ItemID.EbonwoodGreaves:
         case ItemID.ShadewoodHelmet:
         case ItemID.ShadewoodBreastplate:
         case ItemID.ShadewoodGreaves:
-          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense);
+          item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense);
           break;
         case ItemID.RainCoat:
         case ItemID.RainHat:
@@ -345,7 +345,7 @@ namespace ProvidenceMod
         case ItemID.CrimsonHelmet:
         case ItemID.CrimsonScalemail:
         case ItemID.CrimsonGreaves:
-          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense / 2);
           break;
 
         case ItemID.MoltenHelmet:
@@ -358,7 +358,7 @@ namespace ProvidenceMod
         case ItemID.PearlwoodHelmet:
         case ItemID.PearlwoodBreastplate:
         case ItemID.PearlwoodGreaves:
-          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense);
+          item.SetElementalTraits(ElementID.Order, item.defense, ElementID.Chaos, item.defense);
           break;
 
         case ItemID.SpiderMask:
@@ -384,7 +384,7 @@ namespace ProvidenceMod
         case ItemID.HallowedHeadgear:
         case ItemID.HallowedHelmet:
         case ItemID.HallowedMask:
-          item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Necrotic, item.defense / 2);
+          item.SetElementalTraits(ElementID.Order, item.defense, ElementID.Chaos, item.defense / 2);
           break;
 
         case ItemID.ChlorophytePlateMail:
@@ -417,7 +417,7 @@ namespace ProvidenceMod
         case ItemID.SpookyBreastplate:
         case ItemID.SpookyLeggings:
         case ItemID.SpookyHelmet:
-          item.SetElementalTraits(ElementID.Necrotic, item.defense, ElementID.Radiant, item.defense / 2);
+          item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense / 2);
           break;
 
         case ItemID.SolarFlareHelmet:
@@ -569,11 +569,11 @@ namespace ProvidenceMod
         case ElementID.Air:
           el = "air ";
           break;
-        case ElementID.Radiant:
-          el = "radiant ";
+        case ElementID.Order:
+          el = "order ";
           break;
-        case ElementID.Necrotic:
-          el = "necrotic ";
+        case ElementID.Chaos:
+          el = "chaos ";
           break;
         default:
           el = "";

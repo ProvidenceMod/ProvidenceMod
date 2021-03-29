@@ -38,7 +38,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
       // recipe.AddIngredient(ItemType<WaterSword>());
       recipe.AddIngredient(ItemType<EarthSword>());
       recipe.AddIngredient(ItemType<AirSword>());
-      recipe.AddIngredient(ItemType<RadiantSword>());
+      recipe.AddIngredient(ItemType<OrderSword>());
       recipe.AddIngredient(ItemType<CorruptSword>());
       recipe.AddTile(TileID.Anvils);
       recipe.SetResult(this);
@@ -52,7 +52,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
       // recipe.AddIngredient(ItemType<WaterSword>());
       recipe2.AddIngredient(ItemType<EarthSword>());
       recipe2.AddIngredient(ItemType<AirSword>());
-      recipe2.AddIngredient(ItemType<RadiantSword>());
+      recipe2.AddIngredient(ItemType<OrderSword>());
       recipe2.AddIngredient(ItemType<Crimsword>());
       recipe2.AddTile(TileID.Anvils);
       recipe2.SetResult(this);

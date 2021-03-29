@@ -43,13 +43,13 @@ namespace ProvidenceMod.Prefixes
       mod.AddPrefix("Zephyr", new ElementalPrefix(20, ElementID.Air));
       mod.AddPrefix("Tempest", new ElementalPrefix(30, ElementID.Air));
 
-      mod.AddPrefix("Pious", new ElementalPrefix(10, ElementID.Radiant));
-      mod.AddPrefix("Cleansing", new ElementalPrefix(20, ElementID.Radiant));
-      mod.AddPrefix("Purging", new ElementalPrefix(30, ElementID.Radiant));
+      mod.AddPrefix("Pious", new ElementalPrefix(10, ElementID.Order));
+      mod.AddPrefix("Cleansing", new ElementalPrefix(20, ElementID.Order));
+      mod.AddPrefix("Purging", new ElementalPrefix(30, ElementID.Order));
 
-      mod.AddPrefix("Afflicting", new ElementalPrefix(10, ElementID.Necrotic));
-      mod.AddPrefix("Pestilent", new ElementalPrefix(20, ElementID.Necrotic));
-      mod.AddPrefix("Abhorrent", new ElementalPrefix(30, ElementID.Necrotic));
+      mod.AddPrefix("Afflicting", new ElementalPrefix(10, ElementID.Chaos));
+      mod.AddPrefix("Pestilent", new ElementalPrefix(20, ElementID.Chaos));
+      mod.AddPrefix("Abhorrent", new ElementalPrefix(30, ElementID.Chaos));
       return false;
     }
     public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)

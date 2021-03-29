@@ -10,11 +10,11 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Items.Materials
 {
-  public class RadiantRelic : ModItem
+  public class ChaosRelic : ModItem
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Radiant Relic");
+      DisplayName.SetDefault("Chaos Relic");
       Tooltip.SetDefault("Material\nA primal substance which forms the base building blocks of the universe");
     }
     public override void SetDefaults()

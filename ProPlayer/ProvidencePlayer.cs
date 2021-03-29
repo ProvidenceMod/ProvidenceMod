@@ -80,22 +80,27 @@ namespace ProvidenceMod
     public byte petalCount;
 
     // TODO: Make this have use (see tooltip in the item of same name)
-    public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "radiant", "necrotic" };
+    public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "order", "chaos" };
     public string dashDir = "";
 
     // -- Cleric --
     public bool hasClericSet;
-    public float cleric = 1f;
+    public bool cleric;
+    public float clericMultiplier = 1f;
     public float clericAuraRadius = 300f;
+    public float maxParityStacks = 100;
+    public float parityStackGeneration;
+    public float parityCyclePenalty = 40;
+    public bool paritySigil;
+    public bool paritySigilSet;
 
-    // Cleric Radiance
-    public bool radiance;
-    public int radianceStacks;
+    // Cleric Order
+    public bool order;
+    public float orderStacks;
 
-    // Cleric Shadow
-    public bool shadow;
-    public int shadowStacks;
-    public int maxShadowStacks = 100;
+    // Cleric Chaos
+    public bool chaos;
+    public float chaosStacks;
     // ------------
 
     public override void ResetEffects()
@@ -112,7 +117,7 @@ namespace ProvidenceMod
       cerberus = false;
       cerberusAura = false;
       cFlameAura = false;
-      cleric = 1f;
+      clericMultiplier = 1f;
       clericAuraRadius = 300f;
       dashMod = 0;
       dashTimeMod = 0;
@@ -136,10 +141,13 @@ namespace ProvidenceMod
 
       // -- Cleric --
 
-      // Cleric Shadow
-      shadow = false;
-      maxShadowStacks = 100;
-      shadowStacks = shadow ? shadowStacks : 0;
+      // Cleric Chaos
+      chaos = false;
+      order = false;
+      maxParityStacks = 0;
+      parityStackGeneration = 0;
+      // chaosStacks = chaos ? chaosStacks : 0;
+      // orderStacks = order ? orderStacks : 0;
       // ------------
     }
     public override void ProcessTriggers(TriggersSet triggersSet)
@@ -151,18 +159,31 @@ namespace ProvidenceMod
         parryProj = Main.projectile[p];
         parryProjID = p;
       }
-      if (shadow && ProvidenceMod.UseShadowStacks.JustPressed)
+      if (cleric && ProvidenceMod.CycleParity.JustPressed)
       {
-        Main.PlaySound(SoundID.Item112, player.position);
+        if (chaos && chaosStacks >= parityCyclePenalty)
+        {
+          chaosStacks -= parityCyclePenalty;
+          order = true;
+          chaos = false;
+          Main.PlaySound(SoundID.Item112, player.position);
+        }
+        if (order && orderStacks >= parityCyclePenalty)
+        {
+          orderStacks -= parityCyclePenalty;
+          order = false;
+          chaos = true;
+          Main.PlaySound(SoundID.Item112, player.position);
+        }
       }
-      if (shadow && ProvidenceMod.UseShadowStacks.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
-      {
-        int healing = (int)(player.statLifeMax2 * 0.35f);
-        player.statLife += healing;
-        player.HealEffect(healing);
-        player.AddBuff(BuffID.PotionSickness, 30.InTicks());
-        Main.PlaySound(SoundID.Item3);
-      }
+      // if (cleric && ProvidenceMod.CycleParity.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
+      // {
+      //   int healing = (int)(player.statLifeMax2 * 0.35f);
+      //   player.statLife += healing;
+      //   player.HealEffect(healing);
+      //   player.AddBuff(BuffID.PotionSickness, 30.InTicks());
+      //   Main.PlaySound(SoundID.Item3);
+      // }
     }
     public override void Load(TagCompound tag)
     {
@@ -179,6 +200,35 @@ namespace ProvidenceMod
     }
     public override void PreUpdate()
     {
+      Utils.Clamp(orderStacks, 0, maxParityStacks);
+      Utils.Clamp(chaosStacks, 0, maxParityStacks);
+      if (order && (orderStacks + parityStackGeneration) <= maxParityStacks)
+        orderStacks += parityStackGeneration;
+      if (chaos && (chaosStacks + parityStackGeneration) <= maxParityStacks)
+        chaosStacks += parityStackGeneration;
+      if(!paritySigilSet && paritySigil)
+      {
+        order = true;
+        paritySigilSet = true;
+      }
+      if(!paritySigil)
+      {
+        order = false;
+        chaos = false;
+        orderStacks = 0;
+        chaosStacks = 0;
+        maxParityStacks = 0;
+        parityStackGeneration = 0;
+        paritySigilSet = false;
+      }
+      // if(order)
+      // {
+      //   OrderCleric();
+      // }
+      // else if(chaos)
+      // {
+      //   ChaosCleric();
+      // }
       BuffHelper();
       FocusHelper(false);
       base.PreUpdate();
@@ -194,16 +244,20 @@ namespace ProvidenceMod
       AuraHelper();
       ParryHelper(true);
       player.CalcElemDefense();
-      ShadowHelper();
+      ChaosHelper();
       if (petalCount > 8) petalCount = 8;
       // Mod mod = ModLoader.GetMod("ProvidenceMod");
       // Item item = player.HeldItem;
       // mod.Logger.InfoFormat($"{item.Providence().customRarity}", "ProvidenceMod");
     }
-    public void RadiantCleric()
-    { }
-    public void ShadowCleric()
-    { }
+    public void OrderCleric()
+    {
+
+    }
+    public void ChaosCleric()
+    {
+
+    }
     public void BuffHelper()
     {
       if (IsThereABoss().Item1)
@@ -311,7 +365,7 @@ namespace ProvidenceMod
           break;
       }
     }
-    public void ShadowHelper()
+    public void ChaosHelper()
     {
 
     }
@@ -462,7 +516,7 @@ namespace ProvidenceMod
         {
           if (targetPlayer.MountedCenter.IsInRadiusOf(player.MountedCenter, clericAuraRadius))
           {
-            targetPlayer.lifeRegen += (int)(cleric * 2);
+            targetPlayer.lifeRegen += (int)(clericMultiplier * 2);
           }
         }
       }

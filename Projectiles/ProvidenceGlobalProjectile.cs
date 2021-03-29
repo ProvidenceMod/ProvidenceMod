@@ -13,7 +13,7 @@ namespace ProvidenceMod
   {
     public override bool InstancePerEntity => true;
     public bool amped;
-    public bool shadowAmpBoosted;
+    public bool ChaosAmpBoosted;
     public bool Deflectable { get => homingID == -1 && !deflectableOverride; }
     public bool deflectableOverride = false;
     public bool deflected;

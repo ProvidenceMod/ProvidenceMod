@@ -13,7 +13,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Vampire's Fang");
-      Tooltip.SetDefault("While this is equipped and visible, double-tap your 'Use Shadow Magic' hotkey to consume shadow.\nConsuming shadow restores 35% of your max HP with reduced potion sickness.");
+      Tooltip.SetDefault("While this is equipped and visible, double-tap your 'Use Chaos Magic' hotkey to consume Chaos.\nConsuming Chaos restores 35% of your max HP with reduced potion sickness.");
     }
 
     public override void SetDefaults()

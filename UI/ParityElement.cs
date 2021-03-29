@@ -8,7 +8,7 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.UI
 {
-  internal class ShadowElement : UIElement
+  internal class ParityElement : UIElement
   {
     private string hoverText;
     private Vector2 offset;
@@ -16,7 +16,7 @@ namespace ProvidenceMod.UI
     public bool visible;
     private void SetHoverText()
     {
-      // hoverText = $"{LocalPlayer().Providence().ShadowStacks} / {LocalPlayer().Providence().maxShadowStacks}";
+      hoverText = $"Chaos Stacks : {LocalPlayer().Providence().chaosStacks} / {LocalPlayer().Providence().maxParityStacks}\nOrder Stacks : {LocalPlayer().Providence().orderStacks} / {LocalPlayer().Providence().maxParityStacks}\nStack Generation : {LocalPlayer().Providence().parityStackGeneration}\nCycle Penalty : {LocalPlayer().Providence().parityCyclePenalty}\nOrder? : {LocalPlayer().Providence().order}\nChaos? : {LocalPlayer().Providence().chaos}\nCleric? : {LocalPlayer().Providence().cleric}";
     }
     protected override void DrawSelf(SpriteBatch spriteBatch)
     {

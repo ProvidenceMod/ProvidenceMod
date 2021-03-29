@@ -16,13 +16,13 @@ namespace ProvidenceMod
   {
     internal static ProvidenceMod Instance;
     public static ModHotKey ParryHotkey;
-    public static ModHotKey UseShadowStacks;
+    public static ModHotKey CycleParity;
     private UserInterface elemDefUI;
     private UserInterface focusUI;
     private UserInterface bossHealthUI;
-    private UserInterface shadowUI;
+    private UserInterface parityUI;
     private UserInterface petalsUI;
-    internal ShadowUI ShadowUI;
+    internal ParityUI ParityUI;
     internal ElemDefUI ElemDefUI;
     internal FocusUI FocusUI;
     internal BossHealth BossHealth;
@@ -47,29 +47,28 @@ namespace ProvidenceMod
       bossHealthUI = new UserInterface();
       bossHealthUI.SetState(BossHealth);
 
-      ParryHotkey = RegisterHotKey("Parry", "F");
-
-      ShadowUI = new ShadowUI();
-      ShadowUI.Initialize();
-      shadowUI = new UserInterface();
-      shadowUI.SetState(ShadowUI);
+      ParityUI = new ParityUI();
+      ParityUI.Initialize();
+      parityUI = new UserInterface();
+      parityUI.SetState(ParityUI);
 
       Petals = new Petals();
       Petals.Initialize();
       petalsUI = new UserInterface();
       petalsUI.SetState(Petals);
 
-      UseShadowStacks = RegisterHotKey("Use Shadow Magic", "G");
+      ParryHotkey = RegisterHotKey("Parry", "F");
+      CycleParity = RegisterHotKey("Cycle Parity Element", "C");
     }
     public override void Unload()
     {
       ElemDefUI = null;
       FocusUI = null;
       BossHealth = null;
-      ShadowUI = null;
+      ParityUI = null;
       Petals = null;
-      elemDefUI = focusUI = bossHealthUI = shadowUI = petalsUI = null;
-      ParryHotkey = UseShadowStacks = null;
+      elemDefUI = focusUI = bossHealthUI = parityUI = petalsUI = null;
+      ParryHotkey = CycleParity = null;
       ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceGlobalProjectile>().texturePackEnabled = false;
@@ -101,9 +100,9 @@ namespace ProvidenceMod
         bossHealthUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
-    private bool DrawShadowUI()
+    private bool DrawParityUI()
     {
-      if (ShadowUI.visible) shadowUI.Draw(Main.spriteBatch, new GameTime());
+      if (ParityUI.visible) parityUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
     private bool DrawPetalsUI()
@@ -119,7 +118,7 @@ namespace ProvidenceMod
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Elemental Affinities", DrawElemDefUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Shadow Level", DrawShadowUI, InterfaceScaleType.UI));
+        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity Meter", DrawParityUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Petal Mode", DrawPetalsUI, InterfaceScaleType.UI));
       }
     }
@@ -177,8 +176,8 @@ namespace ProvidenceMod
       // {
       //   ModItem craftingAccess = magicStorage.GetItem("CraftingAccess");
       //   ModItem creativeStorageUnit = magicStorage.GetItem("CreativeStorageUnit");
-      //   ModItem radiantJewel = magicStorage.GetItem("RadiantJewel");
-      //   ModItem shadowDiamond = magicStorage.GetItem("ShadowDiamond");
+      //   ModItem orderJewel = magicStorage.GetItem("OrderJewel");
+      //   ModItem ChaosDiamond = magicStorage.GetItem("ChaosDiamond");
       //   ModItem storageAccess = magicStorage.GetItem("StorageAccess");
       //   ModItem storageComponent = magicStorage.GetItem("StorageComponent");
       //   ModItem storageConnector = magicStorage.GetItem("StorageConnector");
@@ -205,10 +204,10 @@ namespace ProvidenceMod
       //     craftingAccess.item.SetDefaults();
       //     creativeStorageUnit.item.maxStack = 999;
       //     creativeStorageUnit.item.SetDefaults();
-      //     radiantJewel.item.maxStack = 999;
-      //     radiantJewel.item.SetDefaults();
-      //     shadowDiamond.item.maxStack = 999;
-      //     shadowDiamond.item.SetDefaults();
+      //     orderJewel.item.maxStack = 999;
+      //     orderJewel.item.SetDefaults();
+      //     ChaosDiamond.item.maxStack = 999;
+      //     ChaosDiamond.item.SetDefaults();
       //     storageAccess.item.maxStack = 999;
       //     storageAccess.item.SetDefaults();
       //     storageConnector.item.maxStack = 999;
@@ -263,7 +262,7 @@ namespace ProvidenceMod
       elemDefUI?.Update(gameTime);
       focusUI?.Update(gameTime);
       bossHealthUI?.Update(gameTime);
-      shadowUI?.Update(gameTime);
+      parityUI?.Update(gameTime);
       petalsUI?.Update(gameTime);
     }
   }

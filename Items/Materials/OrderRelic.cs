@@ -10,11 +10,11 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Items.Materials
 {
-  public class NecroticRelic : ModItem
+  public class OrderRelic : ModItem
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Necrotic Relic");
+      DisplayName.SetDefault("Order Relic");
       Tooltip.SetDefault("Material\nA primal substance which forms the base building blocks of the universe");
     }
     public override void SetDefaults()

@@ -15,8 +15,8 @@
 //     WaterEssence = 3,
 //     EarthEssence = 4,
 //     AirEssence = 5,
-//     RadiantEssence = 6,
-//     NecroticEssence = 7
+//     OrderEssence = 6,
+//     ChaosEssence = 7
 //   }
 
 //   public class IceEssence : ModItem
@@ -244,15 +244,15 @@
 //     }
 //   }
 
-//   public class RadiantEssence : ModItem
+//   public class OrderEssence : ModItem
 //   {
 //     // {ID of item, amount of essence recieved}
 //     private readonly int[,] smeltableItems = new int[,] {
 //       };
-//     public override string Texture => "ProvidenceMod/Items/Materials/Essences/RadiantEssence";
+//     public override string Texture => "ProvidenceMod/Items/Materials/Essences/OrderEssence";
 //     public override void SetStaticDefaults()
 //     {
-//       DisplayName.SetDefault("Radiant Essence");
+//       DisplayName.SetDefault("Order Essence");
 //       Tooltip.SetDefault("This rune makes you feel like the sun is basking on your arm.");
 //     }
 
@@ -285,15 +285,15 @@
 //       }
 //     }
 //   }
-//   public class NecroticEssence : ModItem
+//   public class ChaosEssence : ModItem
 //   {
 //     // {ID of item, amount of essence recieved}
 //     private readonly int[,] smeltableItems = new int[,] {
 //       };
-//     public override string Texture => "ProvidenceMod/Items/Materials/Essences/NecroticEssence";
+//     public override string Texture => "ProvidenceMod/Items/Materials/Essences/ChaosEssence";
 //     public override void SetStaticDefaults()
 //     {
-//       DisplayName.SetDefault("Necrotic Essence");
+//       DisplayName.SetDefault("Chaos Essence");
 //       Tooltip.SetDefault("This rune makes your skin itchy and irritable, like it's rotting away.");
 //     }
 

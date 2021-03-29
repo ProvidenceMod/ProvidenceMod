@@ -17,8 +17,8 @@ namespace ProvidenceMod.UI
     private UIText earthText;
     private UIText lightningText;
     private UIText waterText;
-    private UIText radiantText;
-    private UIText necroticText;
+    private UIText orderText;
+    private UIText chaosText;
     private UIElement area;
     private UIImage elemDefFire;
     private UIImage elemDefIce;
@@ -26,8 +26,8 @@ namespace ProvidenceMod.UI
     private UIImage elemDefEarth;
     private UIImage elemDefLightning;
     private UIImage elemDefWater;
-    private UIImage elemDefRadiant;
-    private UIImage elemDefNecrotic;
+    private UIImage elemDefOrder;
+    private UIImage elemDefChaos;
 
     public override void OnInitialize()
     {
@@ -118,32 +118,32 @@ namespace ProvidenceMod.UI
       airText.Left.Set(left + 8, 0f);
       airText.Width.Set(18, 0f);
       airText.Height.Set(18, 0f);
-      // Radiant
-      elemDefRadiant = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefRadiantUI"));
-      elemDefRadiant.Top.Set(currentTop, 0f);
-      elemDefRadiant.Left.Set(left, 0f);
-      elemDefRadiant.Width.Set(36, 0f);
-      elemDefRadiant.Height.Set(36, 0f);
+      // Order
+      elemDefOrder = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefOrderUI"));
+      elemDefOrder.Top.Set(currentTop, 0f);
+      elemDefOrder.Left.Set(left, 0f);
+      elemDefOrder.Width.Set(36, 0f);
+      elemDefOrder.Height.Set(36, 0f);
       currentTop += 43;
 
-      radiantText = new UIText("0", 1f); // text to show stat
-      radiantText.Top.Set(currentTop - 35, 0f);
-      radiantText.Left.Set(left + 8, 0f);
-      radiantText.Width.Set(18, 0f);
-      radiantText.Height.Set(18, 0f);
-      // Necrotic
-      elemDefNecrotic = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefNecroticUI"));
-      elemDefNecrotic.Top.Set(currentTop, 0f);
-      elemDefNecrotic.Left.Set(left, 0f);
-      elemDefNecrotic.Width.Set(36, 0f);
-      elemDefNecrotic.Height.Set(36, 0f);
+      orderText = new UIText("0", 1f); // text to show stat
+      orderText.Top.Set(currentTop - 35, 0f);
+      orderText.Left.Set(left + 8, 0f);
+      orderText.Width.Set(18, 0f);
+      orderText.Height.Set(18, 0f);
+      // Chaos
+      elemDefChaos = new UIImage(GetTexture("ProvidenceMod/UI/ElemDefChaosUI"));
+      elemDefChaos.Top.Set(currentTop, 0f);
+      elemDefChaos.Left.Set(left, 0f);
+      elemDefChaos.Width.Set(36, 0f);
+      elemDefChaos.Height.Set(36, 0f);
       currentTop += 43;
 
-      necroticText = new UIText("0", 1f); // text to show stat
-      necroticText.Top.Set(currentTop - 35, 0f);
-      necroticText.Left.Set(left + 8, 0f);
-      necroticText.Width.Set(18, 0f);
-      necroticText.Height.Set(18, 0f);
+      chaosText = new UIText("0", 1f); // text to show stat
+      chaosText.Top.Set(currentTop - 35, 0f);
+      chaosText.Left.Set(left + 8, 0f);
+      chaosText.Width.Set(18, 0f);
+      chaosText.Height.Set(18, 0f);
       /*
       area.Append(elemDefFire);
       area.Append(elemDefIce);
@@ -151,8 +151,8 @@ namespace ProvidenceMod.UI
       area.Append(elemDefWater);
       area.Append(elemDefEarth);
       area.Append(elemDefAir);
-      area.Append(elemDefRadiant);
-      area.Append(elemDefNecrotic);
+      area.Append(elemDefOrder);
+      area.Append(elemDefChaos);
 
       area.Append(fireText);
       area.Append(iceText);
@@ -160,8 +160,8 @@ namespace ProvidenceMod.UI
       area.Append(waterText);
       area.Append(earthText);
       area.Append(airText);
-      area.Append(radiantText);
-      area.Append(necroticText);
+      area.Append(orderText);
+      area.Append(chaosText);
       */
       Append(area);
     }
@@ -174,8 +174,8 @@ namespace ProvidenceMod.UI
       waterText.SetText(proPlayer.resists[3].ToString());
       earthText.SetText(proPlayer.resists[4].ToString());
       airText.SetText(proPlayer.resists[5].ToString());
-      radiantText.SetText(proPlayer.resists[6].ToString());
-      necroticText.SetText(proPlayer.resists[7].ToString());
+      orderText.SetText(proPlayer.resists[6].ToString());
+      chaosText.SetText(proPlayer.resists[7].ToString());
       base.Update(gameTime);
       if (oldScale != Main.inventoryScale)
       {
@@ -257,25 +257,25 @@ namespace ProvidenceMod.UI
       else
         area.RemoveChild(airText);
 
-      // Radiant
+      // Order
       if (proPlayer.resists[6] != 0)
-        area.Append(elemDefRadiant);
+        area.Append(elemDefOrder);
       else
-        area.RemoveChild(elemDefRadiant);
+        area.RemoveChild(elemDefOrder);
       if (proPlayer.resists[6] != 0)
-        area.Append(radiantText);
+        area.Append(orderText);
       else
-        area.RemoveChild(radiantText);
+        area.RemoveChild(orderText);
 
-      // Necrotic
+      // Chaos
       if (proPlayer.resists[7] != 0)
-        area.Append(elemDefNecrotic);
+        area.Append(elemDefChaos);
       else
-        area.RemoveChild(elemDefNecrotic);
+        area.RemoveChild(elemDefChaos);
       if (proPlayer.resists[7] != 0)
-        area.Append(necroticText);
+        area.Append(chaosText);
       else
-        area.RemoveChild(necroticText);
+        area.RemoveChild(chaosText);
     }
   }
 }

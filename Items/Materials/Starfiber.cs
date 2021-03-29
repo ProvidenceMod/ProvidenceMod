@@ -30,14 +30,14 @@ namespace ProvidenceMod.Items.Materials
       item.noUseGraphic = true;
       frameNumber = frame;
       item.rare = ItemRarityID.Lime;
-      item.Providence().glowmaskTexture = GetTexture("ProvidenceMod/Items/Materials/StarfiberGlow");
-      item.Providence().glowmask = true;
-      item.Providence().animated = true;
-      item.Providence().frameTime = 20;
-      item.Providence().frameCount = 5;
-      item.Providence().frameTickIncrease = true;
-      item.Providence().overrideGlowmaskPositionX = 0;
-      item.Providence().overrideGlowmaskPositionY = 0;
+      // item.Providence().glowmaskTexture = GetTexture("ProvidenceMod/Items/Materials/StarfiberGlow");
+      // item.Providence().glowmask = true;
+      // item.Providence().animated = true;
+      // item.Providence().frameTime = 20;
+      // item.Providence().frameCount = 5;
+      // item.Providence().frameTickIncrease = true;
+      // item.Providence().overrideGlowmaskPositionX = 0;
+      // item.Providence().overrideGlowmaskPositionY = 0;
     }
 
     public override void AddRecipes()
@@ -53,6 +53,11 @@ namespace ProvidenceMod.Items.Materials
     {
       Texture2D texture = GetTexture("ProvidenceMod/Items/Materials/StarfiberAnimated");
       spriteBatch.Draw(texture, position, item.AnimationFrame(ref frameNumber, ref frameTick, frameTime, 5, true), Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
+    }
+    public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+    {
+      Texture2D texture = GetTexture("ProvidenceMod/Items/Materials/StarfiberGlow");
+      spriteBatch.Draw(texture, new Vector2(item.position.X - Main.screenPosition.X, item.position.Y - Main.screenPosition.Y + 2), item.AnimationFrame(ref frame, ref frameTick, frameTime, 5, true), Color.White, 0.0f, Vector2.Zero , 1f, SpriteEffects.None, 0.0f);
     }
   }
 }

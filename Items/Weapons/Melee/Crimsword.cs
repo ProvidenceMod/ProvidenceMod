@@ -12,14 +12,14 @@ namespace ProvidenceMod.Items.Weapons.Melee
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Necrotic Sword");
+      DisplayName.SetDefault("Chaos Sword");
       Tooltip.SetDefault("A depraved sword\nCan very rarely deal triple damage!");
     }
 
     public override void SetDefaults()
     {
       item.CloneDefaults(ItemID.PlatinumBroadsword);
-      item.Providence().element = 7; // Necrotic
+      item.Providence().element = 7; // Chaos
       item.autoReuse = true;
       // item.shoot = true; // Commenting this until we have a projectile to shoot
     }

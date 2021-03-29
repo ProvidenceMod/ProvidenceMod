@@ -977,8 +977,8 @@ namespace ProvidenceMod
       public const int Water = 3;
       public const int Earth = 4;
       public const int Air = 5;
-      public const int Radiant = 6;
-      public const int Necrotic = 7;
+      public const int Order = 6;
+      public const int Chaos = 7;
     }
     public static class HomingID
     {

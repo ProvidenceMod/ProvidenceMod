@@ -25,7 +25,7 @@ namespace ProvidenceMod.Items.Accessories
       player.Providence().micitBangle = true;
       player.Providence().parryCapable = true;
       player.Providence().parryType = (int)ParryTypeID.Support;
-      player.Providence().shadow = true;
+      player.Providence().chaos = true;
     }
     public override void AddRecipes()
     {

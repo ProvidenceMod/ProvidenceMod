@@ -5,12 +5,12 @@ using ProvidenceMod.Items;
 
 namespace ProvidenceMod.Items.Accessories
 {
-	public class ShadowRing : ShadowItem
+	public class ShadowRing : ChaosItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blood Ring");
-			Tooltip.SetDefault("Increases shadow power by 25% and shadow capacity by 10.\nReduces shadow consumed on Shadow Amp usage by 5.\nOnly equippable when shadow is enabled.");
+			Tooltip.SetDefault("Increases Chaos power by 25% and Chaos capacity by 10.\nReduces Chaos consumed on Chaos Amp usage by 5.\nOnly equippable when Chaos is enabled.");
 		}
 
 		public override void SetDefaults()
@@ -22,10 +22,10 @@ namespace ProvidenceMod.Items.Accessories
       item.accessory = true;
 		}
 
-    public override bool CanEquipAccessory(Player player, int slot) => player.Providence().shadow;
+    public override bool CanEquipAccessory(Player player, int slot) => player.Providence().chaos;
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-      player.Providence().maxShadowStacks += 10;
+      player.Providence().maxParityStacks += 10;
     }
 
 		public override void AddRecipes()

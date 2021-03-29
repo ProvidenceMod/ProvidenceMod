@@ -28,9 +28,9 @@ namespace ProvidenceMod.Projectiles.Melee
           return new Color(101, 67, 33);
         case 5: // Air
           return new Color(162, 44, 209);
-        case 6: // Radiant
+        case 6: // Order
           return new Color(232, 232, 132);
-        case 7: // Necrotic
+        case 7: // Chaos
           return new Color(43, 30, 61);
         default: // Typeless
           return null;

@@ -10,7 +10,7 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items
 {
-  public abstract class ShadowItem : ModItem
+  public abstract class ChaosItem : ModItem
   {
     public override void SetDefaults()
     {
@@ -28,7 +28,7 @@ namespace ProvidenceMod.Items
       {
         tooltips.Insert(
           tooltips.FindIndex(x => x.Name == "Damage" && x.mod == "Terraria"),
-          new TooltipLine(mod, "shadow", "Shadowmancer's item")
+          new TooltipLine(mod, "Chaos", "Chaosmancer's item")
           );
       }
     }

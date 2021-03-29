@@ -142,8 +142,6 @@ namespace ProvidenceMod
       // -- Cleric --
 
       // Cleric Chaos
-      chaos = false;
-      order = false;
       maxParityStacks = 0;
       parityStackGeneration = 0;
       // chaosStacks = chaos ? chaosStacks : 0;

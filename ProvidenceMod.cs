@@ -21,12 +21,10 @@ namespace ProvidenceMod
     private UserInterface focusUI;
     private UserInterface bossHealthUI;
     private UserInterface parityUI;
-    private UserInterface petalsUI;
     internal ParityUI ParityUI;
     internal ElemDefUI ElemDefUI;
     internal FocusUI FocusUI;
     internal BossHealth BossHealth;
-    internal Petals Petals;
     public bool texturePackEnabled;
 
     public override void Load()
@@ -52,11 +50,6 @@ namespace ProvidenceMod
       parityUI = new UserInterface();
       parityUI.SetState(ParityUI);
 
-      Petals = new Petals();
-      Petals.Initialize();
-      petalsUI = new UserInterface();
-      petalsUI.SetState(Petals);
-
       ParryHotkey = RegisterHotKey("Parry", "F");
       CycleParity = RegisterHotKey("Cycle Parity Element", "C");
     }
@@ -66,8 +59,7 @@ namespace ProvidenceMod
       FocusUI = null;
       BossHealth = null;
       ParityUI = null;
-      Petals = null;
-      elemDefUI = focusUI = bossHealthUI = parityUI = petalsUI = null;
+      elemDefUI = focusUI = bossHealthUI = parityUI = null;
       ParryHotkey = CycleParity = null;
       ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
       ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;
@@ -105,11 +97,6 @@ namespace ProvidenceMod
       if (ParityUI.visible) parityUI.Draw(Main.spriteBatch, new GameTime());
       return true;
     }
-    private bool DrawPetalsUI()
-    {
-      petalsUI.Draw(Main.spriteBatch, new GameTime());
-      return true;
-    }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
       int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
@@ -119,7 +106,6 @@ namespace ProvidenceMod
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Focus Meter", DrawFocusUI, InterfaceScaleType.UI));
         layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity Meter", DrawParityUI, InterfaceScaleType.UI));
-        layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Petal Mode", DrawPetalsUI, InterfaceScaleType.UI));
       }
     }
     public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -263,7 +249,6 @@ namespace ProvidenceMod
       focusUI?.Update(gameTime);
       bossHealthUI?.Update(gameTime);
       parityUI?.Update(gameTime);
-      petalsUI?.Update(gameTime);
     }
   }
 

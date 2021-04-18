@@ -498,6 +498,14 @@ namespace ProvidenceMod
       float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
       return Color.Lerp(firstColor, secondColor, amount);
     }
+    // public static Color ColorShift(Color[] colors, float seconds)
+    // {
+    //   Mod mod = ModLoader.GetMod("ProvidenceMod");
+    //   mod.Logger.InfoFormat($"{Main.GlobalTime}, {Main.GameUpdateCount}", "ProvidenceMod");
+    //   float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
+		// 	int index = (int)(Main.GlobalTime / 60 % colors.Length);
+    //   return Color.Lerp(colors[index], colors[(index + 1) % colors.Length], amount);
+    // }
     // public static Color ColorShiftThree(Color firstColor, Color secondColor, Color thirdColor, float seconds, int phase)
     // {
     //   if(phase == 0)

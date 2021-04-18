@@ -55,10 +55,6 @@ namespace ProvidenceMod.Projectiles.Boss
       target.CalcEleDamageFromProj(projectile, ref damage);
     }
 
-    public override Color? GetAlpha(Color lightColor)
-    {
-      Color color = Color.White;
-      return color;
-    }
+    public override Color? GetAlpha(Color lightColor) => Color.White;
   }
 }

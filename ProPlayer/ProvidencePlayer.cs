@@ -128,7 +128,6 @@ namespace ProvidenceMod
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryCapable = false;
       parryType = ParryTypeID.Support;
-      petal = player.HeldItem.type == ItemType<Ugadachi>();
       player.moveSpeed += focus / 2;
       player.statLifeMax2 += tearCount * 20;
       regenAura = false;

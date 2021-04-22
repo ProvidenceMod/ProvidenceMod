@@ -124,8 +124,7 @@ namespace ProvidenceMod
         case ProvidenceModMessageType.ProvidencePlayerSyncPlayer:
           byte playernumber = reader.ReadByte();
           ProvidencePlayer ProvidencePlayer = Main.player[playernumber].Providence();
-          int tearCount = reader.ReadInt32();
-          ProvidencePlayer.tearCount = tearCount;
+          ProvidencePlayer.tearCount = reader.ReadInt32();
           // SyncPlayer will be called automatically, so there is no need to forward this data to other clients.
           break;
 

@@ -1012,8 +1012,8 @@ namespace ProvidenceMod
     /// <summary>A slightly modified Vector2 based on the Center of the Entity given. There's some weirdness to what is considered the center in the computer's eyes; this fixes that.</summary>
     public static Vector2 TrueCenter(this Entity ent) => new Vector2(ent.Center.X - 3, ent.Center.Y - 3);
     public static LegacySoundStyle AsLegacy(this int id, int style = 1) => new LegacySoundStyle(id, style);
-    public static LegacySoundStyle AsLegacy(this string filename, Mod mod, int soundType = (int)Terraria.ModLoader.SoundType.NPCHit)
-    => mod.GetLegacySoundSlot((Terraria.ModLoader.SoundType)soundType, filename);
+    public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
+    => mod.GetLegacySoundSlot(soundType, filename);
 
     public static class ParryTypeID
     {

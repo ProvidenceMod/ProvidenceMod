@@ -2,6 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.Audio;
+using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items.Weapons.Joke
 {
@@ -37,7 +38,7 @@ namespace ProvidenceMod.Items.Weapons.Joke
     }
     public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
     {
-      LegacySoundStyle bonk = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.NPCHit, "Sounds/NPCHit/bonk");
+      LegacySoundStyle bonk = "Sounds/NPCHit/bonk".AsLegacy(mod);
       Main.PlaySound(bonk, target.position);
     }
   }

@@ -43,7 +43,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
         item.shoot = ModContent.ProjectileType<RicoCoin>();
         item.useAmmo = AmmoID.None;
         item.shootSpeed = 5f;
-        item.UseSound = new LegacySoundStyle(38, 1, Terraria.Audio.SoundType.Sound); // Coin Pickup sound
+        item.UseSound = SoundID.CoinPickup.AsLegacy();
       }
       else
       {

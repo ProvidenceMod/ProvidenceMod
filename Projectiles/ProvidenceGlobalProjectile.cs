@@ -26,7 +26,7 @@ namespace ProvidenceMod
 
     public override void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
     {
-      if(!texturePackEnabled)
+      if (!texturePackEnabled)
       {
         ProjectileManager.InitializeProjectileGlowMasks();
         texturePackEnabled = true;
@@ -71,22 +71,33 @@ namespace ProvidenceMod
         {
           if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
           {
-            if (projectile.Providence().element == 0)
-              Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-            else if (projectile.Providence().element == 1)
-              Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-            else if (projectile.Providence().element == 2)
-              Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-            else if (projectile.Providence().element == 3)
-              Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-            else if (projectile.Providence().element == 4)
-              Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-            else if (projectile.Providence().element == 5)
-              Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-            else if (projectile.Providence().element == 6)
-              Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-            else if (projectile.Providence().element == 7)
-              Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+            switch (projectile.Providence().element)
+            {
+              case 0:
+                Main.combatText[combatIndex2].color = new Color(238, 74, 89);
+                break;
+              case 1:
+                Main.combatText[combatIndex2].color = new Color(238, 74, 204);
+                break;
+              case 2:
+                Main.combatText[combatIndex2].color = new Color(238, 226, 74);
+                break;
+              case 3:
+                Main.combatText[combatIndex2].color = new Color(74, 95, 238);
+                break;
+              case 4:
+                Main.combatText[combatIndex2].color = new Color(74, 238, 137);
+                break;
+              case 5:
+                Main.combatText[combatIndex2].color = new Color(145, 74, 238);
+                break;
+              case 6:
+                Main.combatText[combatIndex2].color = new Color(255, 216, 117);
+                break;
+              case 7:
+                Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+                break;
+            }
           }
         }
       }
@@ -100,22 +111,33 @@ namespace ProvidenceMod
         {
           if (combatText.color == CombatText.DamagedFriendly || combatText.color == CombatText.DamagedFriendlyCrit)
           {
-            if (projectile.Providence().element == 0)
-              Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-            else if (projectile.Providence().element == 1)
-              Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-            else if (projectile.Providence().element == 2)
-              Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-            else if (projectile.Providence().element == 3)
-              Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-            else if (projectile.Providence().element == 4)
-              Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-            else if (projectile.Providence().element == 5)
-              Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-            else if (projectile.Providence().element == 6)
-              Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-            else if (projectile.Providence().element == 7)
-              Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+            switch (projectile.Providence().element)
+            {
+              case 0:
+                Main.combatText[combatIndex2].color = new Color(238, 74, 89);
+                break;
+              case 1:
+                Main.combatText[combatIndex2].color = new Color(238, 74, 204);
+                break;
+              case 2:
+                Main.combatText[combatIndex2].color = new Color(238, 226, 74);
+                break;
+              case 3:
+                Main.combatText[combatIndex2].color = new Color(74, 95, 238);
+                break;
+              case 4:
+                Main.combatText[combatIndex2].color = new Color(74, 238, 137);
+                break;
+              case 5:
+                Main.combatText[combatIndex2].color = new Color(145, 74, 238);
+                break;
+              case 6:
+                Main.combatText[combatIndex2].color = new Color(255, 216, 117);
+                break;
+              case 7:
+                Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+                break;
+            }
           }
         }
       }

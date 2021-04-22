@@ -139,6 +139,48 @@ namespace ProvidenceMod
       color.A = (byte)(color.A / conversion);
       return color;
     }
+    public static string DetermineDamageTooltip(this Item item)
+    {
+      string el;
+      string dmgType = item.melee ? "melee" :
+                       item.ranged ? "ranged" :
+                       item.magic ? "magic" :
+                       item.summon ? "summon" :
+                       item.thrown ? "throwing" :
+                       item.Providence().cleric ? "cleric" :
+                       "";
+      switch (item.Providence().element)
+      {
+        case ElementID.Fire:
+          el = "fire ";
+          break;
+        case ElementID.Ice:
+          el = "ice ";
+          break;
+        case ElementID.Lightning:
+          el = "lightning ";
+          break;
+        case ElementID.Water:
+          el = "water ";
+          break;
+        case ElementID.Earth:
+          el = "earth ";
+          break;
+        case ElementID.Air:
+          el = "air ";
+          break;
+        case ElementID.Order:
+          el = "order ";
+          break;
+        case ElementID.Chaos:
+          el = "chaos ";
+          break;
+        default:
+          el = "";
+          break;
+      }
+      return $" {el}{dmgType} "; // The space between is added implicitly in el's assignment
+    }
     public static float[] GetAffinityBonuses(this Player player, int e)
     {
       return new float[2] { elememtalAffinityDefense[0, player.Providence().affinities[e]], elememtalAffinityDefense[1, player.Providence().affinities[e]] };

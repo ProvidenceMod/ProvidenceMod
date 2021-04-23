@@ -10,6 +10,8 @@ using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.UI;
 using ProvidenceMod.TexturePack;
 using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
+using ProvidenceMod.NPCs.HarpyQueen;
+
 namespace ProvidenceMod
 {
   public class ProvidenceMod : Mod
@@ -238,7 +240,12 @@ namespace ProvidenceMod
     {
       if (NPC.AnyNPCs(NPCID.BrainofCthulhu))
       {
-        music = GetSoundSlot(SoundType.Music, "Sounds/Music/Brainiac");
+        music = "Sounds/Music/Brainiac".AsMusicSlot(this);
+        priority = MusicPriority.BossMedium;
+      }
+      else if (NPC.AnyNPCs(ModContent.NPCType<HarpyQueen>()))
+      {
+        music = "Sounds/Music/HighInTheSky".AsMusicSlot(this);
         priority = MusicPriority.BossMedium;
       }
     }

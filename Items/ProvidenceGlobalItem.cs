@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework;
 using ProvidenceMod.TexturePack;
 using static Terraria.ModLoader.ModContent;
 using ProvidenceMod.Items.Materials;
-using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod
 {

@@ -1014,6 +1014,7 @@ namespace ProvidenceMod
     public static LegacySoundStyle AsLegacy(this int id, int style = 1) => new LegacySoundStyle(id, style);
     public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
     => mod.GetLegacySoundSlot(soundType, filename);
+    public static int AsMusicSlot(this string filename, Mod mod) => mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, filename);
 
     public static class ParryTypeID
     {

@@ -340,12 +340,5 @@ ASALocalRun/
 *.psd
 desktop.ini
 bin/
-Sprites/
 .vscode/
-.Developer/
-Providence Sprites/desktop.ini
-Items/Weapons/Melee/MoonCleaver.cs
-Items/Weapons/Melee/MoonCleaver.png
-Items/Weapons/Melee/MoonCleaverGlow.png
-Items/Weapons/Melee/MoonCleaverAnimated.png
-Items/Weapons/Melee/MoonCleaver2.png
+Developer/

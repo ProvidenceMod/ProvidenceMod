@@ -2,15 +2,15 @@
 
 You've destroyed Golem, you've assaulted the Lunatic Cultist, halted the Lunar events, and destroyed the Moon Lord, the Destroyer of Worlds. Now what? Do you just sit back and enjoy your boundless power as if nothing happened?
 
-Hells no! You've got a lot left to do. Moon Lord was only the beginning. The calamities you've faced, the hells you've endured, it's only the tip of the iceberg. The cosmos had reared its ugly head for but a moment, and you were nearly obliterated. Impossible odds are against you now as not only the cosmos, but beyond, in the Aether, face you in full and bring its worst down upon you. You're nearing your journey's end. The true question is:
+Hells no! You've got a lot left to do. Moon Lord was only the beginning. The calamities you've faced, the hells you've endured, it's only the tip of the iceberg. The cosmos had reared its ugly head for but a moment, and you were nearly obliterated. Impossible odds are against you now as not only the cosmos but beyond, in the Aether, face you in full and bring its worst down upon you. You're nearing your journey's end. The true question is:
 
 **_Are you ready?_**
 
 ## Providence Mod
 
-This is the source-code for the ProvidenceMod project; A mod for Terraria via tModLoader.
+This is the source code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
-A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its own flares, big and small. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting off, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated team of Devs working on making this dream a reality.
+A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its flares, big and small. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated team of Devs working on making this dream a reality.
 
 ### Added content:
 - Focus System
@@ -26,7 +26,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - New Subworlds
 - New Biomes
 - Shielding
-- Elemental Armor (Elemenatl Health Bars)
+- Elemental Armor (Elemental Health Bars)
 - New Ores
 - New Weapons
 - Lots and lots of bosses
@@ -42,17 +42,17 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 
    _It should be mentioned that although this mod is open source, plagiarism is not okay. As cited in the tModLoader Wiki page about Open Source Mods:_
 
-> _Remember, you can't just copy code from these mods unless the licence they are under specifically allows it. If there is no licence, the owner reserves all ownership and copyright of the code, so you need to contact the owner and ask permission to utilize certain parts. Don't worry, most will be happy to allow you to use portions of their code, but you still need to ask._
+> _Remember, you can't just copy code from these mods unless the license they are under specifically allows it. If there is no license, the owner reserves all ownership and copyright of the code, so you need to contact the owner and ask permission to utilize certain parts. Don't worry, most will be happy to allow you to use portions of their code, but you still need to ask._
 
-   _While we might allow most utilities to be copied, it is still important to ask us which code is safe to copy and which code is not. Remember, this is a mod that you use to LEARN, not copy and paste. If you learn the code you will never need to copy and paste from outside sources and we are more than willing to help you understand the code. There are bits of code, however, that we do list as "Free To Use", which means we are giving you permission to use that code in your own personal projects. That does not, however, pass off ownership of the code to you. So if someone asks about how it works or if you wrote it yourself, do not say "Yes", instead, link them to this repository, because the chances are that they will benefit from seeing the original if they are asking those questions. You are doing yourself, them, and us a favor!_
+   _While we might allow most utilities to be copied, it is still important to ask us which code is safe to copy and which code is not. Remember, this is a mod that you use to LEARN, not copy and paste. If you learn the code you will never need to copy and paste from outside sources and we are more than willing to help you understand the code. There are bits of code, however, that we do list as "Free To Use", which means we are permitting you to use that code in your projects. That does not, however, pass off ownership of the code to you. So if someone asks about how it works or if you wrote it yourself, do not say "Yes", instead, link them to this repository, because the chances are that they will benefit from seeing the original if they are asking those questions. You are doing yourself, them, and us a favor!_
 
 **Where are the best places to contact the Developers?**
    
-   _You may contact us through email or through Github Issues. However, the best place to contact is is through our [Discord server](https://discord.gg/bhCuppRdVF)._
+   _You may contact us through email or Github Issues. However, the best place to contact us is through our [Discord server](https://discord.gg/bhCuppRdVF)._
 
 **How can I contribute?**
 
-   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters in order to work with them to ensure that your sprite fits the theme and quality standard. If you want to suggest music, we suggest contacting our team's music artists to ensure that your music fits the theme and quality standard. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team, since writing lore will affect the theme of the mod, which will affect the three aforementioned forms of contribution._
+   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters to work with them to ensure that your sprite fits the theme and quality standard. If you want to suggest music, we suggest contacting our team's music artists to ensure that your music fits the theme and quality standard. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team since writing lore will affect the theme of the mod, which will affect the three aforementioned forms of contribution._
 
 ## Table of Contents
 - [Contributing](#contributing)
@@ -73,7 +73,7 @@ Please note we have a [code of conduct](https://github.com/ProvidenceMod/Provide
 <a name="installation"></a>
 ## Installation
 
-In order to install our mod, simply follow these steps:
+To install our mod, simply follow these steps:
 
 1. Copy the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/).
 2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) made by the tModLoader team.
@@ -108,7 +108,7 @@ In order to install our mod, simply follow these steps:
 
 <a name="credits"></a>
 ## Credits
-   > _Thank you to the Dev team for toughing out the beginning, and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone in the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to ReLogic for creating such a wonderful game._
+   > _Thank you to the Dev team for toughing out the beginning and helping make this distant hope into a reachable dream. Thank you to all of our supporters who helped make this reachable dream into reality. Thank you to the tModLoader team and everyone on the tModLoader server for helping us out when we were stumped. Thank you to the open-source mod developers who were our torchlight when we were lost. And most of all, thank you to Re-Logic for creating such a wonderful game._
 > 
 > _-SnowyStarfall and the ProvidenceMod Dev Team_
 
@@ -119,14 +119,14 @@ In order to install our mod, simply follow these steps:
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct
 
-Please follow this Code of Conduct when undertaking in any interaction in our GitHub repository, or any of its children.
+Please follow this Code of Conduct when undertaking any interaction in our GitHub repository, or any of its children.
 
 ### Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
+contributors and maintainers pledge to make participation in our project and
 our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, sex characteristics, gender identity and expression,
+size, disability, ethnicity, sex characteristics, gender identity, and expression,
 level of experience, education, socio-economic status, nationality, personal
 appearance, race, religion, or sexual identity and orientation.
 
@@ -169,7 +169,7 @@ threatening, offensive, or harmful.
 This Code of Conduct applies both within project spaces and in public spaces
 when an individual is representing the project or its community. Examples of
 representing a project or community include using an official project e-mail
-address, posting via an official social media account, or acting as an appointed
+address, posting via an official social media account or acting as an appointed
 representative at an online or offline event. Representation of a project may be
 further defined and clarified by project maintainers.
 
@@ -179,7 +179,7 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported by contacting the project team at snowystarfall.art@gmail.com. All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
+obligated to maintain confidentiality concerning the reporter of an incident.
 Further details of specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good

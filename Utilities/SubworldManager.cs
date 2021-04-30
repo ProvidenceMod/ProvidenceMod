@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProvidenceMod.Developer;
+using ProvidenceMod.Subworld;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ID;

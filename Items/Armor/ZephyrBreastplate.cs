@@ -26,7 +26,6 @@ namespace ProvidenceMod.Items.Armor
 
     public override void UpdateEquip(Player player)
     {
-
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -34,10 +33,6 @@ namespace ProvidenceMod.Items.Armor
       return body.type == ItemType<ZephyrBreastplate>() &&
         head.type == ItemType<ZephyrHelm>() &&
         legs.type == ItemType<ZephyrLeggings>();
-    }
-    public override void UpdateArmorSet(Player player)
-    {
-      base.UpdateArmorSet(player);
     }
     public override void AddRecipes()
     {

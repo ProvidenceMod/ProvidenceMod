@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.TexturePack;
 using ProvidenceMod.Items.Weapons.Joke;
 using Terraria.Audio;
+using System.Collections.Generic;
 
 namespace ProvidenceMod
 {
@@ -34,6 +35,14 @@ namespace ProvidenceMod
       npc.Providence().freezing = false;
       npc.Providence().frozen = false;
     }
+    public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+		{
+			//If any subworld from our mod is loaded, disable spawns
+			if (SubworldManager.AnyActive(mod) ?? false)
+			{
+				pool.Clear();
+			}
+		}
 
     public override void AI(NPC npc)
     {

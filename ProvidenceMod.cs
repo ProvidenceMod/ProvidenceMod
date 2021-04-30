@@ -54,6 +54,8 @@ namespace ProvidenceMod
 
       ParryHotkey = RegisterHotKey("Parry", "F");
       CycleParity = RegisterHotKey("Cycle Parity Element", "C");
+
+      SubworldManager.Load();
     }
     public override void Unload()
     {
@@ -73,6 +75,7 @@ namespace ProvidenceMod
       ProvidenceUtils.elememtalAffinityDefense = null;
       ItemManager.Unload();
       UIManager.Unload();
+      SubworldManager.Unload();
       Instance = null;
       base.Unload();
     }

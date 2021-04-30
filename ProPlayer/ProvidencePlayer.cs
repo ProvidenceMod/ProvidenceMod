@@ -249,11 +249,9 @@ namespace ProvidenceMod
     }
     public void OrderCleric()
     {
-
     }
     public void ChaosCleric()
     {
-
     }
     public void BuffHelper()
     {
@@ -364,7 +362,6 @@ namespace ProvidenceMod
     }
     public void ChaosHelper()
     {
-
     }
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
     {

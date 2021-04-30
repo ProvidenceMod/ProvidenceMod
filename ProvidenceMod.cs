@@ -54,8 +54,6 @@ namespace ProvidenceMod
 
       ParryHotkey = RegisterHotKey("Parry", "F");
       CycleParity = RegisterHotKey("Cycle Parity Element", "C");
-
-      SubworldManager.Load();
     }
     public override void Unload()
     {
@@ -145,6 +143,8 @@ namespace ProvidenceMod
       {
         Initialize();
       }
+
+      SubworldManager.Load();
 
       // Showcases mod support with Boss Checklist without referencing the mod
       Mod bossChecklist = ModLoader.GetMod("BossChecklist");

@@ -15,7 +15,7 @@ namespace ProvidenceMod
 		//How we identify our world
 		public static string mySubworldID = string.Empty; //An empty string will not cause any problems in Enter, IsActive etc. calls
 
-		public static Mod subworldLibrary = null;
+		public static Mod subworldLibrary;
 
 		public static bool Loaded => subworldLibrary != null;
 
@@ -53,9 +53,9 @@ namespace ProvidenceMod
 					"Register",
 					/*Mod mod*/ ModContent.GetInstance<ProvidenceMod>(),
 					/*string name*/ "MySubworld",
-					/*int width*/ 600,
-					/*int height*/ 400,
-					/*List<GenPass> tasks*/ MySubworldGenPassList(),
+					/*int width*/ 8400,
+					/*int height*/ 2400,
+					/*List<GenPass> tasks*/ TestingSubworldGenPass(),
 					/*the following ones are optional, I've included three here (technically two but since order matters, had to pass null for the unload argument)
 					/*Action load*/ (Action)LoadWorld,
 					/*Action unload*/ null,
@@ -84,7 +84,7 @@ namespace ProvidenceMod
 		}
 
 		//Called in subworldLibrary.Call()
-		public static List<GenPass> MySubworldGenPassList()
+		public static List<GenPass> TestingSubworldGenPass()
 		{
 			return new List<GenPass>
 			{

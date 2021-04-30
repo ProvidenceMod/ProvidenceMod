@@ -1,6 +1,6 @@
 displayName = ProvidenceMod
 author = SnowyStarfall and the ProvidenceMod Dev Team
-version = 0.2.5.13
+version = 0.2.5.15
 homepage = https://github.com/Providence-Dev-Team/ProvidenceMod
 hideCode = false
 hideResources = true

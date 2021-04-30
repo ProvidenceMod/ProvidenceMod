@@ -336,29 +336,16 @@ ASALocalRun/
 
 
 *.mdp
+*.ico
 *.psd
-Providence Sprites/desktop.ini
-bin/
-.vscode/
-obj/Debug/net45/ProvidenceMod.assets.cache
-obj/Debug/net45/ProvidenceMod.assets.cache
-obj/ProvidenceMod.csproj.nuget.g.props
-obj/ProvidenceMod.csproj.nuget.dgspec.json
-obj/project.nuget.cache
-obj/project.assets.json
-obj/Debug/net45/ProvidenceMod.csprojAssemblyReference.cache
-obj/Debug/net45/ProvidenceMod.assets.cache
-obj/Debug/net45/.NETFramework,Version=v4.5.AssemblyAttributes.cs
-obj/Debug/net45/ProvidenceMod.AssemblyInfo.cs
-obj/Debug/net45/ProvidenceMod.AssemblyInfoInputs.cache
-obj/ProvidenceMod.csproj.nuget.g.targets
 desktop.ini
-.vscode/settings.json
-.vscode/settings.json
+bin/
+Sprites/
+.vscode/
+.Developer/
+Providence Sprites/desktop.ini
 Items/Weapons/Melee/MoonCleaver.cs
 Items/Weapons/Melee/MoonCleaver.png
 Items/Weapons/Melee/MoonCleaverGlow.png
 Items/Weapons/Melee/MoonCleaverAnimated.png
 Items/Weapons/Melee/MoonCleaver2.png
-*.ico
-Sprites/

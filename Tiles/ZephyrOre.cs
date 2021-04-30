@@ -21,7 +21,7 @@ namespace ProvidenceMod.Tiles
 			name.SetDefault("Zephyr Ore");
 			AddMapEntry(new Color(152, 255, 241), name);
 
-			dustType = 84;
+			dustType = DustID.Platinum;
 			drop = ModContent.ItemType<Items.Placeable.ZephyrOre>();
 			soundType = SoundID.Tink;
 			soundStyle = 1;

@@ -22,7 +22,7 @@ namespace ProvidenceMod.Tiles
 			name.SetDefault("PracticeOreTile");
 			AddMapEntry(new Color(152, 171, 198), name);
 
-			dustType = 84;
+			dustType = DustID.Platinum;
 			drop = ModContent.ItemType<Items.Placeable.PracticeOre>();
 			soundType = SoundID.Tink;
 			soundStyle = 1;

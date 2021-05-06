@@ -1,15 +1,16 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ProvidenceMod.Items.Placeable
 {
-	public class PracticeOre : ModItem
-	{
-		public override void SetStaticDefaults()
+  public class Regolith : ModItem
+  {
+    public override void SetStaticDefaults()
 		{
+      DisplayName.SetDefault("Regolith");
 			ItemID.Sets.SortingPriorityMaterials[item.type] = 58;
 		}
-
 		public override void SetDefaults()
 		{
 			item.useStyle = ItemUseStyleID.SwingThrow;
@@ -19,11 +20,11 @@ namespace ProvidenceMod.Items.Placeable
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.PracticeOreTile>();
-			item.width = 12;
-			item.height = 12;
-			item.value = 3000;
+			item.createTile = ModContent.TileType<Tiles.Regolith>();
+			item.width = 16;
+			item.height = 16;
+			item.value = 30;
       item.rare = ItemRarityID.Orange;
 		}
-	}
+  }
 }

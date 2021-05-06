@@ -47,8 +47,7 @@ namespace ProvidenceMod
 		public static void Load()
 		{
 			subworldLibrary = ModLoader.GetMod("SubworldLibrary");
-			if (subworldLibrary != null)
-			{
+			if (subworldLibrary != null) {
 				object result = subworldLibrary.Call(
 					"Register",
 					/*Mod mod*/ ModContent.GetInstance<ProvidenceMod>(),
@@ -62,8 +61,7 @@ namespace ProvidenceMod
 					/*ModWorld modWorld*/ ModContent.GetInstance<TestingSubworld>()
 					);
 
-				if (result != null && result is string id)
-				{
+				if (result != null && result is string id) {
 					mySubworldID = id;
 				}
 			}
@@ -120,6 +118,17 @@ namespace ProvidenceMod
 						}
 					}
 				},
+				// new PassLegacy("AddingWater",
+				// (GenerationProgress progress) => {
+				// 	progress.Message = "Generating water";
+				// 	for (int i = 256 ; i < Main.maxTilesY ; i++)
+				// 	{
+				// 		for (int j = 0 ; j < Main.maxTilesX ; j++)
+        //     {
+        //       WorldGen.PlaceTile(i, j, TileID.Water)
+        //     }
+				// 	}
+				// }
 				1f)
 				//Add more passes here
 			};

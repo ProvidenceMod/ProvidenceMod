@@ -75,9 +75,6 @@ namespace ProvidenceMod
     public int parryType;
     public int tankParryPWR;
     public int tearCount;
-    // TODO: Sort later
-    public bool petal;
-    public byte petalCount;
 
     // TODO: Make this have use (see tooltip in the item of same name)
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "order", "chaos" };
@@ -242,7 +239,6 @@ namespace ProvidenceMod
       ParryHelper(true);
       player.CalcElemDefense();
       ChaosHelper();
-      if (petalCount > 8) petalCount = 8;
       // Mod mod = ModLoader.GetMod("ProvidenceMod");
       // Item item = player.HeldItem;
       // mod.Logger.InfoFormat($"{item.Providence().customRarity}", "ProvidenceMod");

@@ -574,14 +574,20 @@ namespace ProvidenceMod
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask)
       {
         void layerTarget(PlayerDrawInfo s) => DrawGlowmask(s);
-        PlayerLayer layer = new PlayerLayer("ProvidenceMod", "Sword Glowmask", layerTarget);
+        PlayerLayer layer = new PlayerLayer("ProvidenceMod", "Weapon Glowmask", layerTarget);
         layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer);
       }
-      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask && player.HeldItem.Providence().animated)
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().animated)
       {
-        void layerTarget2(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
-        PlayerLayer layer2 = new PlayerLayer("ProvidenceMod", "Sword Animation", layerTarget2);
+        void layerTarget2(PlayerDrawInfo s) => DrawAnimation(s);
+        PlayerLayer layer2 = new PlayerLayer("ProvidenceMod", "Weapon Animation", layerTarget2);
         layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
+      }
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().animatedGlowmask)
+      {
+        void layerTarget3(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
+        PlayerLayer layer3 = new PlayerLayer("ProvidenceMod", "Weapon Glowmask Animation", layerTarget3);
+        layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer3);
       }
     }
     public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)

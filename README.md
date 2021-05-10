@@ -2,11 +2,8 @@
 
 Providence is a saddening story about an unforgiving world, in which you will be forced to fight, and emerge victorious against all odds. An immersive, original story defines the world around you, and several thematic locations are spread throughout the world and its realms. Explore the orchestrated atmosphere of our world, combining elements and magical themes with technology, new game concepts, battle mechanics, new progression, new soundtracks, and our appealing spriting. Explore our subworlds, new and completely separate realms from the typical Terraria surroundings, extending the amount of new and unique areas to discover. Experience new dungeons, entire realms awaiting your attempts at delving into their depths for their most valuable treasures, and at killing their most hidden evils. Fight off new and unique bosses and experience the torment that is our bullet hell design, made even more challenging by our new difficulty modifiers. The world of Providence awaits your attempts at survival, and no matter how close you may come, there will always be another more difficult battle to fight.
 
-An unforgiving world with an unforgiving story.
-An invigorating journey yet to be taken, a saddening story yet to be told, and such a cruel fate for those who would stand in the way of change.
-Do you think you're truly prepared for what comes next?
-The faint of heart are turned away, those without courage will find no respite.
-You will endure an unforgiving challenge.
+An unforgiving world with an unforgiving story. An invigorating journey yet to be taken, a saddening story yet to be told, and such a cruel fate for those who would stand in the way of change. Do you think you're truly prepared for what comes next? The faint of heart are turned away, those without courage will find no respite. You will endure an unforgiving challenge.
+
 You will die.
 
 ## Providence Mod

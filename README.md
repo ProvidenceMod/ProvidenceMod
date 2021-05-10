@@ -1,16 +1,19 @@
 # Providence
 
-You've destroyed Golem, you've assaulted the Lunatic Cultist, halted the Lunar events, and destroyed the Moon Lord, the Destroyer of Worlds. Now what? Do you just sit back and enjoy your boundless power as if nothing happened?
+Providence is a saddening story about an unforgiving world, in which you will be forced to fight, and emerge victorious against all odds. An immersive, original story defines the world around you, and several thematic locations are spread throughout the world and its realms. Explore the orchestrated atmosphere of our world, combining elements and magical themes with technology, new game concepts, battle mechanics, new progression, new soundtracks, and our appealing spriting. Explore our subworlds, new and completely separate realms from the typical Terraria surroundings, extending the amount of new and unique areas to discover. Experience new dungeons, entire realms awaiting your attempts at delving into their depths for their most valuable treasures, and at killing their most hidden evils. Fight off new and unique bosses and experience the torment that is our bullet hell design, made even more challenging by our new difficulty modifiers. The world of Providence awaits your attempts at survival, and no matter how close you may come, there will always be another more difficult battle to fight.
 
-Hells no! You've got a lot left to do. Moon Lord was only the beginning. The calamities you've faced, the hells you've endured, it's only the tip of the iceberg. The cosmos had reared its ugly head for but a moment, and you were nearly obliterated. Impossible odds are against you now as not only the cosmos but beyond, in the Aether, face you in full and bring its worst down upon you. You're nearing your journey's end. The true question is:
-
-**_Are you ready?_**
+An unforgiving world with an unforgiving story.
+An invigorating journey yet to be taken, a saddening story yet to be told, and such a cruel fate for those who would stand in the way of change.
+Do you think you're truly prepared for what comes next?
+The faint of heart are turned away, those without courage will find no respite.
+You will endure an unforgiving challenge.
+You will die.
 
 ## Providence Mod
 
 This is the source code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
-A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its flares, big and small. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated team of Devs working on making this dream a reality.
+A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its own unique elements. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
 
 ### Added content:
 - Focus System

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using static ProvidenceMod.ProvidenceUtils;
 namespace ProvidenceMod.Projectiles.Ranged
 {
 	public class AntimatterBullet : ModProjectile
@@ -11,7 +12,7 @@ namespace ProvidenceMod.Projectiles.Ranged
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 40;
+			projectile.width = 100;
 			projectile.height = 2;
 			projectile.penetrate = 1;
 			projectile.friendly = true;
@@ -24,6 +25,7 @@ namespace ProvidenceMod.Projectiles.Ranged
 		public override void AI()
 		{
 			projectile.rotation = projectile.velocity.ToRotation();//this is a method, they have to have () <-- those things
+			Lighting.AddLight(projectile.position, new Vector3(109,242,196).ColorRGBIntToFloat());
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
@@ -33,10 +35,13 @@ namespace ProvidenceMod.Projectiles.Ranged
 					projectile.Kill();
 			}
 			foreach (NPC npc in Main.npc) {
-				float distance = Vector2.Distance(projectile.position, npc.position);
-				if (distance <= 128) {
-					Vector2 Succ = new Vector2(30f, 0f);
-					npc.velocity = Succ.RotateTo(npc.AngleTo(projectile.position));
+					if (!npc.friendly)
+				{
+						float distance = Vector2.Distance(projectile.position, npc.position);
+					if (distance <= 256) {
+						Vector2 Succ = new Vector2(30f, 0f);
+						npc.velocity = Succ.RotateTo(npc.AngleTo(projectile.position));
+					}
 				}
 			}
 		}
@@ -48,13 +53,18 @@ namespace ProvidenceMod.Projectiles.Ranged
 					projectile.Kill();
 			}
 			foreach (NPC npc in Main.npc) {
-				float distance = Vector2.Distance(projectile.position, npc.position);
-				if (distance <= 128) {
-					Vector2 Succ = new Vector2(30f, 0f);
-					npc.velocity = Succ.RotateTo(npc.AngleTo(projectile.position));
+				if (!npc.friendly)
+				{
+						float distance = Vector2.Distance(projectile.position, npc.position);
+					if (distance <= 256) {
+						Vector2 Succ = new Vector2(30f, 0f);
+						npc.velocity = Succ.RotateTo(npc.AngleTo(projectile.position));
+					}
 				}
+				
 			}
 			return false;
 		}
+		public override Color? GetAlpha(Color lightColor) => Color.White;
 	}
 }

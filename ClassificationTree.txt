@@ -1,0 +1,32 @@
+ui
+feature
+entity
+|-item
+|-|-gamestage
+|-  |-accessories
+|-  |-ammo
+|-  |-armor
+|-  |-|-class / all classes
+|-  |-consumables
+|-  |-materials
+|-  |-placeables
+|-  |-potions
+|-  |-|-gamestagea
+|-  |-tools
+|-  |-|-type
+|-  |-weapon
+|-    |-class
+|-      |-type
+|-npc
+|-|-gamestage
+|-  |-biome
+|-    |-critter / town / normal / miniboss / boss / environmental
+|-projectile
+|-|-source
+|-  |-gamestage
+|-tile
+|-|-source
+mechanic
+worldgen
+|-world type
+  |-addition / modification / subtraction

@@ -15,16 +15,16 @@ csharp_new_line_before_open_brace = types, methods
 
 #Style - expression bodied member options
 
-#prefer block bodies for constructors
-csharp_style_expression_bodied_constructors = false:suggestion
-#prefer expression-bodied members for methods when they will be a single line
-csharp_style_expression_bodied_methods = when_on_single_line:suggestion
-#prefer expression-bodied members for properties when they will be a single line
-csharp_style_expression_bodied_properties = when_on_single_line:suggestion
-#prefer expression-bodied members for indexers when they will be a single line
-csharp_style_expression_bodied_indexers = when_on_single_line:suggestion
-#prefer expression-bodied members for accessors when they will be a single line
-csharp_style_expression_bodied_accessors = when_on_single_line:suggestion
+# #prefer block bodies for constructors
+# csharp_style_expression_bodied_constructors = false:suggestion
+# #prefer expression-bodied members for methods when they will be a single line
+# csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+# #prefer expression-bodied members for properties when they will be a single line
+# csharp_style_expression_bodied_properties = when_on_single_line:suggestion
+# #prefer expression-bodied members for indexers when they will be a single line
+# csharp_style_expression_bodied_indexers = when_on_single_line:suggestion
+# #prefer expression-bodied members for accessors when they will be a single line
+# csharp_style_expression_bodied_accessors = when_on_single_line:suggestion
 
 #Style - expression level options
 

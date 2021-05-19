@@ -11,8 +11,6 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 {
 	public class OnyxDracolith : ModItem
 	{
-		public int frame;
-		public int frameCounter;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Onyx Dracolith");
@@ -38,16 +36,17 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 			item.shoot = ProjectileID.BlackBolt;
 			item.shootSpeed = 10f;
 			item.UseSound = SoundID.DD2_PhantomPhoenixShot;
-			// item.noUseGraphic = true;
+			item.noUseGraphic = true;
 			item.Providence().animated = true;
 			item.Providence().animationTexture = GetTexture("ProvidenceMod/Items/Weapons/Ranged/OnyxDracolithAnimated");
-      item.Providence().animatedGlowmask = true;
-      item.Providence().animatedGlowmaskTexture = GetTexture("ProvidenceMod/Items/Weapons/Ranged/OnyxDracolithGlow");
+			item.Providence().animatedGlowmask = true;
+			item.Providence().animatedGlowmaskTexture = GetTexture("ProvidenceMod/Items/Weapons/Ranged/OnyxDracolithGlow");
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-                                                                                                                                                  			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 5; i++)
+			{
 				_ = Projectile.NewProjectile(player.Center + new Vector2(150f, 0f).RotatedBy(player.AngleTo(Main.MouseWorld)), new Vector2(10f, 0f).RotateTo(player.AngleTo(Main.MouseWorld)).RotatedByRandom(10f.InRadians()), ProjectileID.BlackBolt, item.damage, 1f, player.whoAmI);
 			}
 			return false;

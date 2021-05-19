@@ -342,3 +342,5 @@ desktop.ini
 bin/
 .vscode/
 Developer/
+.vs/
+obj/

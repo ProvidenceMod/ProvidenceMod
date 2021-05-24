@@ -344,3 +344,5 @@ bin/
 Developer/
 .vs/
 obj/
+Properties/
+Properties/launchSettings.json

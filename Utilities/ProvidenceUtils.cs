@@ -47,12 +47,10 @@ namespace ProvidenceMod
 		public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
 		/// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
 		public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
-
 		/// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
 		public static int InTicks(this float seconds) => (int)(seconds * 60);
 		/// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
 		public static int InTicks(this int seconds) => seconds * 60;
-
 		public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);
 		public static float Round(this float f, int points) => (float)Math.Round(f, points);
 		public static double Round(this double d, int points) => Math.Round(d, points);
@@ -184,7 +182,6 @@ namespace ProvidenceMod
 		{
 			return new float[2] { elememtalAffinityDefense[0, player.Providence().affinities[e]], elememtalAffinityDefense[1, player.Providence().affinities[e]] };
 		}
-
 		/// <summary>
 		/// Elemental damage calculation for when the player hits an NPC with a melee weapon.
 		/// </summary>
@@ -231,7 +228,6 @@ namespace ProvidenceMod
 			}
 			return damage;
 		}
-
 		/// <summary>
 		/// Elemental damage calculation for when the player is hit by an NPC.
 		/// </summary>
@@ -244,7 +240,6 @@ namespace ProvidenceMod
 			}
 			return damage;
 		}
-
 		/// <summary>
 		/// Elemental damage calculation for when the player is hit by a projectile.
 		/// </summary>
@@ -269,7 +264,6 @@ namespace ProvidenceMod
 		{
 			return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Providence().Deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
 		}
-
 		/// <summary>
 		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
 		/// <para>Standard Parry is exactly what you would expect from a parry: bounce projectiles back towards enemies, keeping the damage off of you and on them.</para>
@@ -325,7 +319,6 @@ namespace ProvidenceMod
 			player.Providence().parriedProjs += affectedProjs;
 			return DRBoost;
 		}
-
 		/// <summary>
 		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
 		/// <para>DPS Parry turns all deflected projectiles into a chlorophyte bullet, with improved damage, almost always guaranteeing it will contact and deal substantial damage.</para>
@@ -355,7 +348,6 @@ namespace ProvidenceMod
 			}
 			player.Providence().parriedProjs += affectedProjs;
 		}
-
 		/// <summary>
 		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
 		/// <para>Support Parry is currently incomplete. Its expected effect is to heal the user, and if the user is at max HP, the closest player gains the benefit.<para>
@@ -384,7 +376,6 @@ namespace ProvidenceMod
 			//   player.HealEffect(HPBoost);
 			// }
 		}
-
 		/// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
 		/// <param name="player">The active player acting as the point of origin.</param>
 		/// <param name="style">The visual style that the aura will use.</param>
@@ -683,7 +674,7 @@ namespace ProvidenceMod
 						frame,
 						Color.White,
 						player.itemRotation,
-						new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height),
+						new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height) + new Vector2(-100f, -100f),
 						player.HeldItem.scale,
 						info.spriteEffects,
 						0
@@ -975,7 +966,6 @@ namespace ProvidenceMod
 		public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
 		=> mod.GetLegacySoundSlot(soundType, filename);
 		public static int AsMusicSlot(this string filename, Mod mod) => mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, filename);
-
 		public static class ParryTypeID
 		{
 			public const int Universal = 0;

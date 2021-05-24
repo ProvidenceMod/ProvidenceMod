@@ -1,14 +1,14 @@
 # root = true
 
-# [*.cs]
+[*.cs]
 
 #Core editorconfig formatting - indentation
 
 #use hard tabs for indentation
 
 
-# indent_style = tab
-# indent_size = 2
+indent_style = tab
+indent_size = 2
 
 
 #Formatting - new line options

@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace ProvidenceMod.Subworld
 {
-	public class TestingSubworld : ModWorld
+	public class EndlessSea : ModWorld
 	{
-		public static bool enteredWorld = false;
+		public static bool enteredWorld;
 
 		public override void Initialize() => enteredWorld = false;
 

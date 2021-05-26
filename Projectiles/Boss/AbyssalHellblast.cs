@@ -30,7 +30,7 @@ namespace ProvidenceMod.Projectiles.Boss
       projectile.hostile = true;
       projectile.Providence().element = 0; // Fire
       projectile.tileCollide = false;
-      projectile.Providence().homingID = HomingID.Natural;
+      projectile.Providence().homingID = (int)HomingID.Natural;
     }
 
     public override void AI()
@@ -46,7 +46,7 @@ namespace ProvidenceMod.Projectiles.Boss
           projectile.frame = 0;
         }
       }
-      Player player = ClosestPlayer(projectile);
+      Player player = (Player)ClosestEntity(projectile, false);
       projectile.Homing(player, 8f, default, default, 20);
     }
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Items.Materials;
-using ProvidenceMod.NPCs.HarpyQueen;
+using ProvidenceMod.NPCs.AirElemental;
 
 namespace ProvidenceMod.Items.Accessories
 {

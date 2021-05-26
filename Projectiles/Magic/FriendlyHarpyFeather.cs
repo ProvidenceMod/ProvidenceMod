@@ -26,8 +26,8 @@ namespace ProvidenceMod.Projectiles.Magic
       projectile.damage = 25;
       projectile.friendly = true;
       projectile.hostile = false;
-      projectile.Providence().element = ElementID.Air; // Typeless
-      projectile.Providence().homingID = HomingID.Gravity;
+      projectile.Providence().element = (int)ElementID.Air; // Typeless
+      projectile.Providence().homingID = (int)HomingID.Gravity;
     }
 
     public override void AI()
@@ -37,7 +37,7 @@ namespace ProvidenceMod.Projectiles.Magic
       projectile.rotation = projectile.velocity.ToRotation();
 
       const float speedCap = 6f, turnStrength = 0.3f;
-      NPC target = ClosestEnemyNPC(projectile);
+      NPC target = (NPC)ClosestEntity(projectile, true);
       if (target != null)
         projectile.Homing(target, speedCap, default, default, turnStrength);
     }

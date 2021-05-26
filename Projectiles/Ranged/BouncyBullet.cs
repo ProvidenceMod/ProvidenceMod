@@ -27,7 +27,7 @@ namespace ProvidenceMod.Projectiles.Ranged
       projectile.aiStyle = 0;
       projectile.ranged = true;
       projectile.restrikeDelay = 2;
-      projectile.timeLeft = 5.InTicks();
+      projectile.timeLeft = 5f.InTicks();
       projectile.extraUpdates = 1;
     }
     public override void AI()
@@ -39,7 +39,7 @@ namespace ProvidenceMod.Projectiles.Ranged
     {
       // Making sure the next closest NPC is found, not this one
       target.active = false;
-      NPC nextTarget = ClosestEnemyNPC(projectile);
+      NPC nextTarget = (NPC)ClosestEntity(projectile, true);
       if (nextTarget != null)
       {
         projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(nextTarget.position));

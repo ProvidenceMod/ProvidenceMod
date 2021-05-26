@@ -28,7 +28,7 @@ namespace ProvidenceMod.Projectiles.Melee
       projectile.timeLeft = 300;
       projectile.penetrate = 3;
       projectile.scale = 1f;
-      projectile.Providence().homingID = HomingID.Natural;
+      projectile.Providence().homingID = (int)HomingID.Natural;
     }
     public override void AI()
     {
@@ -40,7 +40,7 @@ namespace ProvidenceMod.Projectiles.Melee
         Main.PlaySound(SoundID.Item9, projectile.position);
       }
       projectile.rotation += projectile.velocity.X * 0.05f;
-      NPC target = ClosestEnemyNPC(projectile);
+			NPC target = (NPC)ClosestEntity(projectile, true);
       projectile.Homing(target, 20f, default, default, 15f, 300f, default, default, default, default);
     }
 
@@ -67,7 +67,7 @@ namespace ProvidenceMod.Projectiles.Melee
       // int trueDmg = crit ? damage * 2 : damage;
       // if (target.life - trueDmg <= 0)
       // {
-      //   NPC newTarget = ClosestEnemyNPC(projectile);
+      //   NPC newTarget = ClosestEntity(projectile);
       //   if (newTarget?.active == true)
       //     projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(newTarget.position));
       // }

@@ -59,11 +59,11 @@ namespace ProvidenceMod.Projectiles.Ranged
             ricocheted = true;
             projectile.velocity = Vector2.Add(projectile.velocity, proj2.velocity);
             projectile.timeLeft = 30;
-            if (ClosestEnemyNPC(proj2) != null)
+            if (ClosestEntity(proj2, true) != null)
             {
               Main.PlaySound(SoundID.Item37, proj2.position);
               proj2.damage += 600 - projectile.timeLeft > proj2.damage * 5 ? proj2.damage * 5 : 600 - projectile.timeLeft;
-              proj2.velocity = proj2.velocity.RotateTo(ClosestEnemyNPC(proj2).AngleFrom(proj2.position));
+              proj2.velocity = proj2.velocity.RotateTo(ClosestEntity(proj2, true).AngleFrom(proj2.position));
             }
             else
             {

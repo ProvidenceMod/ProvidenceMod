@@ -124,7 +124,7 @@ namespace ProvidenceMod
       parryActive = parryActiveTime > 0;
       parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
       parryCapable = false;
-      parryType = ParryTypeID.Support;
+      parryType = (int)ParryTypeID.Support;
       player.moveSpeed += focus / 2;
       player.statLifeMax2 += tearCount * 20;
       regenAura = false;
@@ -290,16 +290,16 @@ namespace ProvidenceMod
       switch (auraStyle)
       {
         case 0:
-          GenerateAuraField(player, AuraStyle.CerberusStyle, 0f);
+          GenerateAuraField(player, (int)AuraStyle.CerberusStyle, 0f);
           break;
         case 1:
-          GenerateAuraField(player, AuraStyle.BurnStyle, -100f);
+          GenerateAuraField(player, (int)AuraStyle.BurnStyle, -100f);
           break;
         case 2:
-          GenerateAuraField(player, AuraStyle.CFlameStyle, -150f);
+          GenerateAuraField(player, (int)AuraStyle.CFlameStyle, -150f);
           break;
         case 3:
-          GenerateAuraField(player, AuraStyle.AmpStyle, 0f);
+          GenerateAuraField(player, (int)AuraStyle.AmpStyle, 0f);
           break;
       }
     }
@@ -315,7 +315,7 @@ namespace ProvidenceMod
           parryWasActive = parryActive;
           ActivateParry();
 
-          if (parryType == ParryTypeID.Tank && tankParryPWR != 0 && !player.HasBuff(BuffType<TankParryBoost>()))
+          if (parryType == (int)ParryTypeID.Tank && tankParryPWR != 0 && !player.HasBuff(BuffType<TankParryBoost>()))
           {
             // 5 secs of time, -1 second for each hit tanked with this active
             player.AddBuff(BuffType<TankParryBoost>(), 300);
@@ -342,16 +342,16 @@ namespace ProvidenceMod
     {
       switch (parryType)
       {
-        case ParryTypeID.Universal:
+        case (int)ParryTypeID.Universal:
           StandardParry(player, parryProj.Hitbox, ref parryProjID);
           break;
-        case ParryTypeID.Tank:
+        case (int)ParryTypeID.Tank:
           tankParryPWR += TankParry(player, parryProj.Hitbox, ref parryProjID);
           break;
-        case ParryTypeID.DPS:
+        case (int)ParryTypeID.DPS:
           DPSParry(player, parryProj.Hitbox, ref parryProjID);
           break;
-        case ParryTypeID.Support:
+        case (int)ParryTypeID.Support:
           SupportParry(player, parryProj.Hitbox, ref parryProjID);
           break;
       }

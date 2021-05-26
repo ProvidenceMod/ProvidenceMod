@@ -21,7 +21,7 @@ namespace ProvidenceMod.Projectiles.Healing
       projectile.hostile = false;
       projectile.friendly = true;
       projectile.Providence().element = -1; // Typeless
-      projectile.Providence().homingID = HomingID.Natural;
+      projectile.Providence().homingID = (int)HomingID.Natural;
     }
 
     public override void AI()
@@ -29,7 +29,7 @@ namespace ProvidenceMod.Projectiles.Healing
       projectile.ai[1]++;
       projectile.localAI[0]++;
       Texture2D tex = ModContent.GetTexture("ProvidenceMod/Projectiles/Healing/HealProjectile");
-      Player player = ClosestPlayer(projectile);
+      Player player = (Player)ClosestEntity(projectile, false);
       Dust.NewDustPerfect(projectile.position, ModContent.DustType<ParryShieldDust>(), null, default, new Color(219, 240, 45), 1f);
       ProvidenceGlobalProjectile.AfterImage(projectile, Color.White, tex, 10);
       projectile.Homing(player, 30f, default, default, 20);

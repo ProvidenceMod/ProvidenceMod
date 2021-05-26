@@ -10,7 +10,7 @@ using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.UI;
 using ProvidenceMod.TexturePack;
 using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
-using ProvidenceMod.NPCs.HarpyQueen;
+using ProvidenceMod.NPCs.AirElemental;
 
 namespace ProvidenceMod
 {
@@ -246,7 +246,7 @@ namespace ProvidenceMod
         music = "Sounds/Music/Brainiac".AsMusicSlot(this);
         priority = MusicPriority.BossMedium;
       }
-      else if (NPC.AnyNPCs(ModContent.NPCType<HarpyQueen>()))
+      else if (NPC.AnyNPCs(ModContent.NPCType<AirELemental>()))
       {
         music = "Sounds/Music/HighInTheSky".AsMusicSlot(this);
         priority = MusicPriority.BossMedium;

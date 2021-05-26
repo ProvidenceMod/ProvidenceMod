@@ -20,7 +20,7 @@ namespace ProvidenceMod.Items.Accessories
     public override void UpdateEquip(Player player)
     {
       ProvidencePlayer ProvidencePlayer = player.Providence();
-      ProvidencePlayer.auraType = AuraType.AmpCapacitorAura;
+      ProvidencePlayer.auraType = (int)AuraType.AmpCapacitorAura;
     }
   }
 }

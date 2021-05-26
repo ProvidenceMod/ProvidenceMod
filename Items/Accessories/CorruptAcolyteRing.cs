@@ -23,7 +23,7 @@ namespace ProvidenceMod.Items.Accessories
     {
       ProvidencePlayer ProvidencePlayer = player.Providence();
       ProvidencePlayer.hasClericSet = true;
-      ProvidencePlayer.auraType = AuraType.CFlameAura;
+      ProvidencePlayer.auraType = (int)AuraType.CFlameAura;
       player.dash = 20;
     }
   }

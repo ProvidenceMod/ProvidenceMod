@@ -31,7 +31,7 @@ namespace ProvidenceMod.Projectiles.Boss
       projectile.friendly = true;
       projectile.Opacity = 0f;
       projectile.Providence().element = -1; // Typeless
-      projectile.Providence().homingID = HomingID.Natural;
+      projectile.Providence().homingID = (int)HomingID.Natural;
     }
 
     public override void AI()
@@ -39,7 +39,7 @@ namespace ProvidenceMod.Projectiles.Boss
       projectile.ai[1]++;
       projectile.localAI[0]++;
       const float speedCap = 8f, turnStrength = 20f;
-      Player player = ClosestPlayer(projectile);
+      Player player = (Player)ClosestEntity(projectile, false);
       projectile.Homing(player, speedCap, default, default, turnStrength, 1500);
       if (projectile.Opacity < 1f)
       {

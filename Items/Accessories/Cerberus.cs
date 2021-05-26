@@ -38,12 +38,12 @@ namespace ProvidenceMod.Items.Accessories
     {
       ProvidencePlayer proPlayer = player.Providence();
       player.fireWalk = true;
-      proPlayer.auraType = AuraType.CerberusAura;
+      proPlayer.auraType = (int)AuraType.CerberusAura;
       proPlayer.cerberus = true;
       proPlayer.hasClericSet = true;
       proPlayer.cerberusAura = true;
       proPlayer.dashMod = 1;
-      proPlayer.auraStyle = AuraStyle.CerberusStyle;
+      proPlayer.auraStyle = (int)AuraStyle.CerberusStyle;
       Vector2 spawnPosition = player.MountedCenter + new Vector2(proPlayer.clericAuraRadius, 0f);
       if (!proPlayer.cerberusAuraSpawned)
       {

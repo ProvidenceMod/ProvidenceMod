@@ -26,7 +26,7 @@ namespace ProvidenceMod.Items.Accessories
     {
       player.jumpBoost = true;
       ProvidencePlayer ProvidencePlayer = player.Providence();
-      ProvidencePlayer.resists[ElementID.Air] += 2;
+			ProvidencePlayer.resists[(int)ElementID.Air] += 2;
       ProvidencePlayer.ZephyrAglet = true;
     }
     public override void AddRecipes()

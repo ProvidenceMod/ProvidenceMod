@@ -29,11 +29,6 @@ namespace ProvidenceMod.NPCs.AirElemental
 		public int preBHTimer = 300;
 		public bool preSpawnText = false;
 		public int shootTimer = 20;
-		public int royalFeatherTimer = 150;
-		public int plusTimer = 25;
-		public int xTimer = 25;
-		public int radialTimer = 45;
-		public int flurryTimer = 10;
 		public int bulletHellTimer = 0;
 		public int phase = 0;
 		/*private int? PhaseChecker()
@@ -80,7 +75,16 @@ namespace ProvidenceMod.NPCs.AirElemental
 		{
 			if (!preSpawnText)
 			{
-				Talk("The Harpy Queen has spotted you...");
+				Talk("The winds begin to stir...");
+				Main.raining = true;
+				Main.cloudBGActive = 0.5f;
+				Main.numCloudsTemp = Main.cloudLimit;
+				Main.numClouds = Main.numCloudsTemp;
+				Main.windSpeedTemp = 0.75f;
+				Main.windSpeedSet = Main.windSpeedTemp;
+				Main.weatherCounter = 36000;
+				Main.rainTime = Main.weatherCounter;
+				Main.maxRaining = 1f;
 				preSpawnText = true;
 			}
 			if (--preBHTimer > 0 && npc.life == npc.lifeMax)
@@ -110,78 +114,9 @@ namespace ProvidenceMod.NPCs.AirElemental
 						const float speedY = 10f;
 						Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
 						//Vector2 directionTo = DirectionTo(target.Center);
-						int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
-						NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+						SprayAttack();
 						shootTimer = 30;
 					}
-				}
-				else if (npc.life <= npc.lifeMax / 2)
-				{
-					flurryTimer--;
-					royalFeatherTimer--;
-					Movement();
-					if (flurryTimer == 0)
-					{
-						FlurryAttack();
-						flurryTimer = 15;
-					}
-					if (royalFeatherTimer == 0)
-					{
-						Vector2 speed = new Vector2(0f, 8f).RotateTo(player.AngleFrom(npc.Center));
-						int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileType<RoyalFeather>(), 35, 0f, Main.myPlayer, npc.whoAmI);
-						NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-						royalFeatherTimer = 150;
-					}
-				}
-			}
-			else if (bulletHellTimer < 700f)
-			{
-				phase = 1;
-				plusTimer--;
-				Movement();
-				if (plusTimer == 0)
-				{
-					PlusAttack();
-					plusTimer = 25;
-				}
-			}
-			else if (bulletHellTimer < 800f)
-			{
-				xTimer--;
-				Movement();
-				if (xTimer == 0)
-				{
-					XAttack();
-					xTimer = 25;
-				}
-			}
-			else if (bulletHellTimer < 900f)
-			{
-				plusTimer--;
-				Movement();
-				if (plusTimer == 0)
-				{
-					PlusAttack();
-					plusTimer = 25;
-				}
-			}
-			else if (bulletHellTimer < 1000f)
-			{
-				xTimer--;
-				Movement();
-				if (xTimer == 0)
-				{
-					XAttack();
-					xTimer = 25;
-				}
-			}
-			else if (bulletHellTimer < 1300f)
-			{
-				radialTimer--;
-				if (radialTimer == 0)
-				{
-					RadialAttack();
-					radialTimer = 45;
 				}
 			}
 			else
@@ -203,45 +138,16 @@ namespace ProvidenceMod.NPCs.AirElemental
 				NetMessage.BroadcastChatMessage(text, new Color(241, 127, 82));
 			}
 		}
-		public void PlusAttack()
+
+		public void SprayAttack()
 		{
-			// Creates a projectile, whose speed is based on the current rotation (in degrees for simplicity)
-			// Same happens with XAttack and RadialAttack.
-			for (float rotation = 0f; rotation < 360f; rotation += 90f)
-			{
-				Vector2 speed = new Vector2(0f, -10f).RotatedBy(rotation.InRadians());
-				int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
-				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-			}
-		}
-		public void XAttack()
-		{
-			for (float rotation = 0f; rotation < 360f; rotation += 90f)
-			{
-				Vector2 speed = new Vector2(10f, -10f).RotatedBy(rotation.InRadians());
-				int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
-				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-			}
-		}
-		public void RadialAttack()
-		{
-			npc.velocity.X = 0f;
-			npc.velocity.Y = 0f;
-			for (float rotation = 0f; rotation < 360f; rotation += 45f)
-			{
-				Vector2 speed = new Vector2(0f, -10f).RotateTo(rotation.InRadians());
-				int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
-				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-			}
-		}
-		public void FlurryAttack()
-		{
-			Player player = Main.player[npc.target];
-			Vector2 speed = new Vector2(0f, -10f).RotateTo(npc.AngleTo(player.Center));
-			speed = speed.RotatedByRandom(5f.InRadians());
-			//Vector2 directionTo = DirectionTo(target.Center);
-			int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, ProjectileID.HarpyFeather, 25, 0f, Main.myPlayer, npc.whoAmI);
-			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+			Vector2 speed = new Vector2(8f, 0f).RotateTo(Main.player[npc.target].AngleFrom(npc.Center));
+			int proj1 = Projectile.NewProjectile(npc.Center, speed.RotatedBy(-5f.InRadians()), ProjectileType<ZephyrPierce>(), 0, 1f);
+			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj1);
+			int proj2 = Projectile.NewProjectile(npc.Center, speed, ProjectileType<ZephyrPierce>(), 0, 1f);
+			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj2);
+			int proj3 = Projectile.NewProjectile(npc.Center, speed.RotatedBy(5f.InRadians()), ProjectileType<ZephyrPierce>(), 0, 1f);
+			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj3);
 		}
 		public void Movement()
 		{
@@ -254,34 +160,31 @@ namespace ProvidenceMod.NPCs.AirElemental
 		public override void FindFrame(int frameheight)
 		{
 			Texture2D tex = GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental");
-			//npc.frame = npc.AnimationFrame(ref frame, ref frameTick, 6, 12, true);
-			if (npc.frameCounter + 1f > 12f)
-			{
+			if (npc.frameCounter + 0.125f >= 12f)
 				npc.frameCounter = 0f;
-			}
-			npc.frameCounter += 0.1f;
+			npc.frameCounter += 0.125f;
 			npc.frame.Y = (int)npc.frameCounter * (tex.Height / 12);
 		}
 
 		public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
 		{
-			if (!ProvidenceWorld.downedHarpyQueen)
+			if (!ProvidenceWorld.downedAirElemental)
 			{
-				ProvidenceWorld.downedHarpyQueen = true;
+				ProvidenceWorld.downedAirElemental = true;
 			}
-
+			Main.raining = false;
 			if (Main.expertMode)
 			{
-				_ = Item.NewItem(npc.position, ItemID.GoldCoin, 7);
-				_ = Item.NewItem(npc.position, ItemID.SilverCoin, 50);
-				_ = Item.NewItem(npc.position, ItemType<HarpyQueenBag>(), 1);
+				int item1 = Item.NewItem(npc.Center, ItemID.GoldCoin, 7);
+				int item2 = Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
+				int item3 = Item.NewItem(npc.Center, ItemType<AirElementalBag>(), 1);
 			}
 			else
 			{
-				_ = Item.NewItem(npc.position, ItemID.GoldCoin, 5);
-				_ = Item.NewItem(npc.position, ItemType<ZephyrOre>(), Main.rand.Next(16, 51));
-				_ = Item.NewItem(npc.position, ItemType<HarpyQueenTalon>(), Main.rand.Next(1, 6));
-				_ = Item.NewItem(npc.position, ItemType<HarpyQueenFeather>(), Main.rand.Next(2, 6));
+				int item4 = Item.NewItem(npc.Center, ItemID.GoldCoin, 5);
+				int item5 = Item.NewItem(npc.Center, ItemType<ZephyrOre>(), Main.rand.Next(16, 51));
+				int item6 = Item.NewItem(npc.Center, ItemType<HarpyQueenTalon>(), Main.rand.Next(1, 6));
+				int item7 = Item.NewItem(npc.Center, ItemType<HarpyQueenFeather>(), Main.rand.Next(2, 6));
 			}
 		}
 	}

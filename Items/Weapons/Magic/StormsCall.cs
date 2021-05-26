@@ -7,7 +7,7 @@ using ProvidenceMod.Items.Materials;
 using ProvidenceMod.Projectiles.Boss;
 using ProvidenceMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Projectiles.Magic;
+using ProvidenceMod.Projectiles.Boss;
 
 namespace ProvidenceMod.Items.Weapons.Magic
 {

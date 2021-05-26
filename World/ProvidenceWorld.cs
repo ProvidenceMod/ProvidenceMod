@@ -5,6 +5,6 @@ namespace ProvidenceMod
   public class ProvidenceWorld : ModWorld
   {
     public static bool downedFireAncient;
-    public static bool downedHarpyQueen;
+    public static bool downedAirElemental;
   }
 }

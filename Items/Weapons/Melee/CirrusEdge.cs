@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using ProvidenceMod.Items.Materials;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Projectiles.Magic;
+using ProvidenceMod.Projectiles.Boss;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {

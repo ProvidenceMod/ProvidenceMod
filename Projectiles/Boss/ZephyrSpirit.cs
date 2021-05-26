@@ -5,14 +5,11 @@ using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Dusts;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ProvidenceMod.Projectiles.Magic
+namespace ProvidenceMod.Projectiles.Boss
 {
 	public class ZephyrSpirit : ModProjectile
 	{
 		public Vector4 color = new Vector4(0f, 0f, 0f, 0f);
-		public Color lighting = new Color(0, 255, 255);
-		public Color lighting2 = new Color(0, 192, 255);
-		public Color lighting3;
 		public int cooldown = 5;
 		public int frame;
 		public int frameTick;
@@ -47,11 +44,7 @@ namespace ProvidenceMod.Projectiles.Magic
 
 			if (projectile.Opacity < 1f)
 			{
-				projectile.Opacity += 0.05f;
-				color.X += 0.05f;
-				color.Y += 0.05f;
-				color.Z += 0.05f;
-				color.W += 0.05f;
+				projectile.Opacity += color.X += color.Y += color.Z += color.W += 0.05f;
 			}
 			projectile.rotation = projectile.velocity.ToRotation();
 			if (++projectile.frameCounter >= 5) // Frame time
@@ -70,8 +63,8 @@ namespace ProvidenceMod.Projectiles.Magic
 			{
 				cooldown = 5;
 			}
-			lighting3 = ColorShift(lighting, lighting2, 3f);
-			Lighting.AddLight(projectile.Center, lighting3.ToVector3());
+			Color lighting = ColorShift(new Color(0, 255, 255), new Color(0, 192, 255), 3f);
+			Lighting.AddLight(projectile.Center, lighting.ToVector3());
 		}
 		// public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		// {

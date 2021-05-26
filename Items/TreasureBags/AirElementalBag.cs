@@ -7,12 +7,11 @@ using ProvidenceMod.Items.Materials;
 
 namespace ProvidenceMod.Items.TreasureBags
 {
-  public class HarpyQueenBag : ModItem
+  public class AirElementalBag : ModItem
   {
-    public override string Texture => $"Terraria/Item_{ItemID.EyeOfCthulhuBossBag}";
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Harpy Queen Bag");
+      DisplayName.SetDefault("Air Elemental Bag");
       Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
     }
 

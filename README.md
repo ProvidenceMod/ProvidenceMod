@@ -115,7 +115,7 @@ To install our mod, simply follow these steps:
 
 <a name="special_thanks"></a>
 ## Special Thanks
-_Special thanks to Lance, Zackfox, Faelink Angel, Lythane, Daken000, GildedLily, AmyTheRogue, Keithixix197, and GenesisFuz for all of the ideas, suggestions, contributions, and support._
+_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Daken000, GildedLily, AmyTheRogue, Keithixix197, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
 
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct

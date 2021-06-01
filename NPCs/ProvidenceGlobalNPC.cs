@@ -19,9 +19,6 @@ namespace ProvidenceMod
 		public override bool InstancePerEntity => true;
 
 		// Status effect bools
-		public bool hypodermia;
-		public bool freezing;
-		public bool frozen;
 		public bool spawnReset = true;
 		public bool texturePackEnabled;
 		public bool maxSpawnsTempSet;
@@ -30,9 +27,6 @@ namespace ProvidenceMod
 		public float armorEfficiency = 0.5f;
 		public override void ResetEffects(NPC npc)
 		{
-			npc.Providence().hypodermia = false;
-			npc.Providence().freezing = false;
-			npc.Providence().frozen = false;
 		}
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
@@ -45,15 +39,6 @@ namespace ProvidenceMod
 
 		public override void AI(NPC npc)
 		{
-			if (npc.Providence().freezing)
-			{
-				npc.velocity.X /= 1.1f;
-			}
-			if (npc.Providence().frozen)
-			{
-				npc.velocity.X = 0; // Frozen in place. Keep in mind they can still shoot if they could already.
-				npc.velocity.Y = 0;
-			}
 		}
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
 		{
@@ -74,51 +59,12 @@ namespace ProvidenceMod
 
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
 		{
-			// if (player.HeldItem == Main.item[ModContent.ItemType<BonkStick>()])
-			// {
-			//   npc.HitSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.NPCHit, "Sounds/NPCHit/bonk");
-			// }
-			if (hypodermia)
-			{
-				damage = (int)(damage * 1.20f); // 20% damage increase
-			}
-
 			damage = item.CalcEleDamage(npc, ref damage);
-			// if (npc.Providence().Armored)
-			// {
-			//   npc.Providence().armor -= damage;
-			//   if (!crit)
-			//   {
-			//     npc.life++;
-			//   }
-			//   else if (crit)
-			//   {
-			//     npc.life += 2;
-			//   }
-			//   for (int index = 0; index < 100; index++)
-			//   {
-			//     CombatText combatText = Main.combatText[index];
-			//     if(combatText.text == "1" || combatText.text == "2")
-			//       combatText.active = false;
-			//   }
-			//   CombatText.UpdateCombatText();
-			//   CombatText.NewText(new Rectangle((int)npc.position.X, (int)npc.position.Y - 10, default, default), Color.White, damage, false, false);
-			//   damage = 0;
-			// }
 		}
 
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			if (hypodermia)
-			{
-				damage = (int)(damage * 1.20f); // 20% damage increase
-			}
-
 			damage = projectile.CalcEleDamage(npc, ref damage);
-			if (projectile.Providence().inverseKB)
-			{
-				npc.StrikeNPC(0, knockback, -projectile.direction, crit);
-			}
 		}
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{

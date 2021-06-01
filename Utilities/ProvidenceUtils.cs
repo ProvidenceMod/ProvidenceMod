@@ -213,12 +213,6 @@ namespace ProvidenceMod
 				{
 					damage = 1;
 				}
-				// ProvidencePlayer modPlayer = Main.player[item.owner].Providence();
-				// if (modPlayer.affExpCooldown <= 0)
-				// {
-				//   modPlayer.affExp[weapEl] += 1;
-				//   modPlayer.affExpCooldown = 120;
-				// }
 			}
 			return damage;
 		}
@@ -527,48 +521,6 @@ namespace ProvidenceMod
 		}
 
 		/// <summary>
-		/// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
-		/// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
-		/// </summary>
-		/// <param name="projectile">The projectile being worked with.</param>
-		/// <param name="speed">How fast the projectile can go in a straight line. Defaults at 6f.</param>
-		/// <param name="gain">How quickly the projectile will gain speed. Defaults at 0.1f </param>
-		/// <param name="slow">How quickly the projectile will slow down. Defaults at 0.1f.</param>
-		/// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
-		/// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
-		/// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
-		/// <param name="courseAdjust">Whether or not the projectile should never overshoot the axis. Defaults to false.</param>
-		/// <param name="courseRange">If courseAdjust is true, provides the range which will activate course adjustment. The range is centered around the axis of the target. Defaults to 5f.</param>
-		public static void Homing(this Projectile projectile, Entity entity, float speed = 8f, float gain = 0.1f, float slow = 0.1f, float turn = 1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 5f, bool courseAdjust = false, float courseRange = 5f)
-		{
-			Vector2 target = entity == null ? default : entity.Hitbox.Center.ToVector2() - projectile.position;
-			switch (projectile.Providence().homingID)
-			{
-				case (int)HomingID.Smart:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						projectile.velocity = projectile.velocity.SmartHoming(projectile, entity, target, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speed);
-					break;
-				case (int)HomingID.Gravity:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						GravityHoming(projectile, entity, speed, turn, trackingRadius, overshotPrevention, overshotThreshold);
-					break;
-				case (int)HomingID.Sine:
-					break;
-				case (int)HomingID.Linear:
-					break;
-				case (int)HomingID.Natural:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						NaturalHoming(projectile, entity, turn, speed);
-					break;
-				case (int)HomingID.Smooth:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						SmoothHoming(projectile);
-					break;
-				case (int)HomingID.Complex:
-					break;
-			}
-		}
-		/// <summary>
 		/// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
 		/// </summary>
 		/// <param name="v">The velocity being gravitized.</param>
@@ -844,16 +796,6 @@ namespace ProvidenceMod
 			Air = 5,
 			Order = 6,
 			Chaos = 7
-		}
-		public enum HomingID
-		{
-			Smart = 0,
-			Gravity = 1,
-			Sine = 2,
-			Linear = 3,
-			Natural = 4,
-			Smooth = 5,
-			Complex = 6
 		}
 		public enum AuraStyle
 		{

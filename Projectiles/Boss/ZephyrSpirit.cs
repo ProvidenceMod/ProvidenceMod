@@ -31,16 +31,12 @@ namespace ProvidenceMod.Projectiles.Boss
 			projectile.friendly = true;
 			projectile.Opacity = 0f;
 			projectile.Providence().element = -1; // Typeless
-			projectile.Providence().homingID = (int)HomingID.Natural;
 		}
 
 		public override void AI()
 		{
 			projectile.ai[1]++;
 			projectile.localAI[0]++;
-			NPC npc = (NPC)ClosestEntity(projectile, true);
-			projectile.Homing(npc, 16f, default, default, 25f, 300f);
-
 			if (projectile.Opacity < 1f)
 			{
 				projectile.Opacity += color.X += color.Y += color.Z += color.W += 0.05f;
@@ -57,6 +53,12 @@ namespace ProvidenceMod.Projectiles.Boss
 			Dust.NewDust(projectile.TrueCenter(), 6, 6, ModContent.DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
 			Color lighting = ColorShift(new Color(0, 255, 255), new Color(0, 192, 255), 3f);
 			Lighting.AddLight(projectile.Center, lighting.ToVector3());
+			NPC npc = (NPC)ClosestEntity(projectile, true);
+			if (npc.Distance(projectile.Center) <= 300f)
+			{
+				Vector2 unitY = projectile.DirectionTo(npc.Center);
+				projectile.velocity = ((projectile.velocity * 16f) + (unitY * 25f)) / (16f + 1f);
+			}
 		}
 		// public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		// {

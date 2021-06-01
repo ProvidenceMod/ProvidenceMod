@@ -54,8 +54,6 @@ namespace ProvidenceMod.Items.Weapons.Magic
       ModRecipe r = new ModRecipe(mod);
 
       r.AddIngredient(ItemType<ZephyrBar>(), 10);
-      r.AddIngredient(ItemType<HarpyQueenFeather>(), 3);
-      r.AddIngredient(ItemType<HarpyQueenTalon>(), 3);
       r.AddTile(TileID.SkyMill);
       r.SetResult(this);
       r.AddRecipe();

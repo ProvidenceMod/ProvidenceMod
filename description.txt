@@ -1,1 +1,10 @@
-Providence is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Providence is a saddening story about an unforgiving world, in which you will be forced to fight, and emerge victorious against all odds. An immersive, original story defines the world around you, and several thematic locations are spread throughout the world and its realms. Explore the orchestrated atmosphere of our world, combining elements and magical themes with technology, new game concepts, battle mechanics, new progression, new soundtracks, and our appealing spriting. Explore our subworlds, new and completely separate realms from the typical Terraria surroundings, extending the amount of new and unique areas to discover. Experience new dungeons, entire realms awaiting your attempts at delving into their depths for their most valuable treasures, and at killing their most hidden evils. Fight off new and unique bosses and experience the torment that is our bullet hell design, made even more challenging by our new difficulty modifiers. The world of Providence awaits your attempts at survival, and no matter how close you may come, there will always be another more difficult battle to fight.
+
+An unforgiving world with an unforgiving story. An invigorating journey yet to be taken, a saddening story yet to be told, and such a cruel fate for those who would stand in the way of change. Do you think you're truly prepared for what comes next? The faint of heart are turned away, those without courage will find no respite. You will endure an unforgiving challenge.
+
+You will die.
+
+Hey all! If you're looking at this mod with interest, thank you! I've worked hard with my wonderful team for about a year and a half now to get this mod to where it is now. There isn't much content as of yet, but as we gain more support and more developers (spriters, coders, music artists, game designers), we hope to be able to produce much more. Our mod is open-source, so for any modders new to the modding community, or modders looking for assistance with code, our repository is public on GitHub, and we're always willing to help with code in our Discord server!
+
+https://github.com/ProvidenceMod/ProvidenceMod
+https://discord.gg/bhCuppRdVF

@@ -7,24 +7,24 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Projectiles.Boss
 {
-	public class ZephyrPierce : ModProjectile
+	public class ZephyrSlash : ModProjectile
 	{
 		public bool fadeOut;
 		public Vector4 color = new Vector4(0f, 0f, 0f, 0f);
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zephyr Pierce");
-			Main.projFrames[projectile.type] = 10;
+			DisplayName.SetDefault("Zephyr Slash");
+			Main.projFrames[projectile.type] = 11;
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 56;
-			projectile.height = 18;
+			projectile.width = 78;
+			projectile.height = 28;
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
 			projectile.timeLeft = 300;
 			projectile.penetrate = 1;
-			projectile.scale = 1f;
+			projectile.scale = 2f;
 			projectile.damage = 0;
 			projectile.hostile = true;
 			projectile.friendly = false;
@@ -37,7 +37,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			if (projectile.ai[0] == 3)
 			{
 				projectile.ai[0] = 0;
-				Dust.NewDust(projectile.Center, 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
+				Dust.NewDust(new Vector2(projectile.Hitbox.X + Main.rand.NextFloat(0, projectile.Hitbox.Width + 1), projectile.Hitbox.Y + Main.rand.NextFloat(0, projectile.Hitbox.Height + 1)), 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
 			}
 			projectile.rotation = projectile.velocity.ToRotation();
 			Lighting.AddLight(projectile.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
@@ -52,7 +52,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			}
 			if (projectile.ai[1] == 20)
 			{
-				projectile.damage = 20;
+				projectile.damage = 50;
 			}
 			if(projectile.timeLeft == 20)
 			{
@@ -70,7 +70,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			if (++projectile.frameCounter >= 6) // Frame time
 			{
 				projectile.frameCounter = 0;
-				if (++projectile.frame >= 10) //Frame number
+				if (++projectile.frame >= 11) //Frame number
 				{
 					projectile.frame = 0;
 				}

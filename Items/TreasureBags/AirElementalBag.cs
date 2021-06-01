@@ -19,8 +19,8 @@ namespace ProvidenceMod.Items.TreasureBags
     {
       item.maxStack = 999;
       item.consumable = true;
-      item.width = 24;
-      item.height = 24;
+      item.width = 56;
+      item.height = 32;
       item.expertOnly = true;
       item.expert = true;
       item.rare = ItemRarityID.Expert;
@@ -32,8 +32,6 @@ namespace ProvidenceMod.Items.TreasureBags
     {
       // 26 to 74 ore spawned
       player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(26, 75));
-      player.QuickSpawnItem(ItemType<HarpyQueenTalon>(), Main.rand.Next(2, 6));
-      player.QuickSpawnItem(ItemType<HarpyQueenFeather>(), Main.rand.Next(3, 6));
     }
   }
 }

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using static ProvidenceMod.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.TexturePack;
-using ProvidenceMod.Items.Weapons.Joke;
 using Terraria.Audio;
 using System.Collections.Generic;
 
@@ -18,7 +17,7 @@ namespace ProvidenceMod
 		public float[] resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f }; // Fire, Ice, Lightning, Water, Earth, Air, Order, Chaos
 																																							// Elemental variables also contained within GlobalItem, GlobalProjectile, and Player
 		public override bool InstancePerEntity => true;
-		public override bool CloneNewInstances => true;
+
 		// Status effect bools
 		public bool hypodermia;
 		public bool freezing;
@@ -70,7 +69,7 @@ namespace ProvidenceMod
 			Vector2 drawPos = npc.Center - Main.screenPosition;
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
-			Main.spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), drawPos - Main.screenPosition, new Rectangle(0, 0, 44, 44), Color.White, 0f, npcCen - Main.screenPosition, 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), drawPos - Main.screenPosition, new Rectangle(22, 22, 44, 44), Color.White, 0f, npcCen - Main.screenPosition, 1f, SpriteEffects.None, 0f);
 		}
 
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)

@@ -33,9 +33,6 @@ namespace ProvidenceMod.Items.TreasureBags
       player.QuickSpawnItem(ItemID.IronPickaxe);
       player.QuickSpawnItem(ItemID.IronAxe);
       player.QuickSpawnItem(ItemID.IronHammer);
-      player.QuickSpawnItem(ItemID.IronHelmet);
-      player.QuickSpawnItem(ItemID.IronChainmail);
-      player.QuickSpawnItem(ItemID.IronGreaves);
       player.QuickSpawnItem(ItemID.SwiftnessPotion, 5);
       player.QuickSpawnItem(ItemID.IronskinPotion, 5);
       player.QuickSpawnItem(ItemID.BuilderPotion, 5);
@@ -46,7 +43,7 @@ namespace ProvidenceMod.Items.TreasureBags
       player.QuickSpawnItem(ItemID.LesserHealingPotion, 5);
       player.QuickSpawnItem(ItemID.Torch, 100);
       player.QuickSpawnItem(ItemID.WoodenArrow, 100);
-      player.QuickSpawnItem(ItemID.Bomb, 20);
+      player.QuickSpawnItem(ItemID.Bomb, 10);
     }
   }
 }

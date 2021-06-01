@@ -10,7 +10,6 @@ namespace ProvidenceMod.Projectiles.Boss
 	public class ZephyrSpirit : ModProjectile
 	{
 		public Vector4 color = new Vector4(0f, 0f, 0f, 0f);
-		public int cooldown = 5;
 		public int frame;
 		public int frameTick;
 		public override void SetStaticDefaults()
@@ -55,14 +54,7 @@ namespace ProvidenceMod.Projectiles.Boss
 					projectile.frame = 0;
 				}
 			}
-			Dust.NewDust(projectile.TrueCenter(), 6, 6, ModContent.DustType<ColdDust>());
 			Dust.NewDust(projectile.TrueCenter(), 6, 6, ModContent.DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
-			if (cooldown > 0)
-				cooldown--;
-			if (cooldown == 0)
-			{
-				cooldown = 5;
-			}
 			Color lighting = ColorShift(new Color(0, 255, 255), new Color(0, 192, 255), 3f);
 			Lighting.AddLight(projectile.Center, lighting.ToVector3());
 		}

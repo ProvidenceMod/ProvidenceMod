@@ -12,39 +12,46 @@ using ProvidenceMod.Projectiles.Boss;
 using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Dusts;
 
 namespace ProvidenceMod.NPCs.AirElemental
 {
-	public class AirELemental : ModNPC
+	public class AirElemental : ModNPC
 	{
-		public int frame;
-		public int frameTick;
-		private bool spawnText = false;
-		public readonly IList<int> targets = new List<int>();
-		public override bool Autoload(ref string name)
-		{
-			name = "AirElemental";
-			return mod.Properties.Autoload;
-		}
-		public int preBHTimer = 300;
-		public bool preSpawnText = false;
-		public int shootTimer = 20;
-		public int bulletHellTimer = 0;
+		public Vector4 color = new Vector4(1f, 1f, 1f, 1f);
+		public Vector2[] oldPos = new Vector2[10] { Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero };
+
+		public bool preSpawnText;
+		private bool spawnText;
+
 		public int phase = 0;
-		/*private int? PhaseChecker()
-    {
-      float pLifeLeft = npc.life / npc.lifeMax * 100;
-      if (pLifeLeft >= 50)
-        return 0;
-      else if (pLifeLeft < 50)
-        return 1;
-      else return null;
-    }*/
+
+		// Movement
+		int direction;
+
+		// Bullet hell
+		public int preBulletHellTimer = 300;
+		public int bulletHellTimer;
+
+		// Pierce
+		public int sprayTimer = 30;
+		public int sprayDelay = 18;
+
+		// Zephyr Spirit
+		public int stunTimer = 180;
+		public int spiritTimer = 30;
+		public int[] spiritArray = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public bool stunned;
+		public int stunCounter;
+
+		// Dash
+		public bool isDashing;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harpy Queen");
+			DisplayName.SetDefault("Air Elemental");
 			NPCID.Sets.MustAlwaysDraw[npc.type] = true;
+			NPCID.Sets.NeedsExpertScaling[npc.type] = true;
 			Main.npcFrameCount[npc.type] = 12;
 		}
 
@@ -73,9 +80,33 @@ namespace ProvidenceMod.NPCs.AirElemental
 		}
 		public override void AI()
 		{
+			// Old position array
+			oldPos[9] = oldPos[8];
+			oldPos[8] = oldPos[7];
+			oldPos[7] = oldPos[6];
+			oldPos[6] = oldPos[5];
+			oldPos[5] = oldPos[4];
+			oldPos[4] = oldPos[3];
+			oldPos[3] = oldPos[2];
+			oldPos[2] = oldPos[1];
+			oldPos[1] = oldPos[0];
+			oldPos[0] = npc.Center;
+
+			// Phase gate quotient
+			double quotient = npc.life / 6800d;
+
+			npc.ai[0]++; // Dust AI
+			if (npc.ai[0] == 3)
+			{
+				npc.ai[0] = 0;
+				Dust.NewDust(new Vector2(npc.Hitbox.X + Main.rand.NextFloat(0, npc.Hitbox.Width + 1), npc.Hitbox.Y + Main.rand.NextFloat(0, npc.Hitbox.Height + 1)), 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
+			}
+			Lighting.AddLight(npc.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
+
+			// Spawn text
 			if (!preSpawnText)
 			{
-				Talk("The winds begin to stir...");
+				Talk("The wind begins to stir...", new Color(71, 74, 145), npc);
 				Main.raining = true;
 				Main.cloudBGActive = 0.5f;
 				Main.numCloudsTemp = Main.cloudLimit;
@@ -87,74 +118,249 @@ namespace ProvidenceMod.NPCs.AirElemental
 				Main.maxRaining = 1f;
 				preSpawnText = true;
 			}
-			if (--preBHTimer > 0 && npc.life == npc.lifeMax)
+
+			// Pre-phase pause 
+			if (--preBulletHellTimer > 0 && npc.life == npc.lifeMax)
 			{
 				return;
 			}
+
+			// Phase 1 text
 			if (!spawnText)
 			{
-				Talk("The Harpy Queen has awoken!");
+				Talk("The Air Elemental has awoken!", new Color(71, 74, 145), npc);
 				spawnText = true;
 			}
-			// int? phase = PhaseChecker();
-			bulletHellTimer++;
-			npc.ai[0]++;
-			npc.TargetClosest(false);
-			Player player = Main.player[npc.target];
-			if (bulletHellTimer < 600)
+
+			for (int i = 0; i < 10; i++)
 			{
-				if (npc.life > npc.lifeMax / 2)
+				if (spiritArray[i] != 0)
 				{
-					phase = 0;
-					shootTimer--;
-					Movement();
-					if (shootTimer == 0)
+					NPC npc = Main.npc[spiritArray[i]];
+					if (npc == null || npc.life <= 0)
 					{
-						const float speedX = 0f;
-						const float speedY = 10f;
-						Vector2 speed = new Vector2(speedX, speedY).RotateTo(player.AngleFrom(npc.Center));
-						//Vector2 directionTo = DirectionTo(target.Center);
-						SprayAttack();
-						shootTimer = 30;
+						stunCounter++;
+						spiritArray[i] = 0;
 					}
+				}
+			}
+			if (stunCounter == (quotient > 0.6d ? 5 : 10))
+			{
+				stunned = true;
+			}
+			if (stunned)
+			{
+				float alpha = (float)((float)(0.25d * Math.Sin(Main.GlobalTime * 20d)) + 0.75d);
+				npc.Opacity = alpha;
+				color.X = alpha;
+				color.Y = alpha;
+				color.Z = alpha;
+				color.W = alpha;
+				stunTimer--;
+				npc.velocity.X = 0;
+				npc.velocity.Y = 0;
+				if (stunTimer == 0)
+				{
+					npc.Opacity = 1f;
+					color.X = 1f;
+					color.Y = 1f;
+					color.Z = 1f;
+					color.W = 1f;
+					stunCounter = 0;
+					stunned = false;
+					stunTimer = 180;
 				}
 			}
 			else
 			{
-				bulletHellTimer = 0;
+				bulletHellTimer++;
+				npc.TargetClosest(false);
 			}
+
+			// Phase 1 gate
+			if (quotient > 0.6d && !stunned)
+			{
+				if (bulletHellTimer == 1)
+				{
+					direction = Main.rand.Next(0, 2) == 0 ? -1 : 1;
+				}
+				if(bulletHellTimer == 576)
+				{
+					direction *= -1;
+					Movement();
+				}
+				if (bulletHellTimer < 960)
+				{
+					Movement();
+					if (sprayTimer != 0)
+						sprayTimer--;
+					if (sprayTimer == 0)
+					{
+						sprayDelay--;
+						if (sprayDelay == 12)
+						{
+							int proj1 = Projectile.NewProjectile(npc.Center, new Vector2(8f, 0f).RotateTo(Main.player[npc.target].AngleFrom(npc.Center)).RotatedBy(Main.player[npc.target].position.X > npc.position.X ? 10f.InRadians() : -10f.InRadians()), ProjectileType<ZephyrPierce>(), 0, 1f);
+							NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj1);
+						}
+						if (sprayDelay == 6)
+						{
+							int proj2 = Projectile.NewProjectile(npc.Center, new Vector2(8f, 0f).RotateTo(Main.player[npc.target].AngleFrom(npc.Center)), ProjectileType<ZephyrPierce>(), 0, 1f);
+							NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj2);
+						}
+						if (sprayDelay == 0)
+						{
+							int proj3 = Projectile.NewProjectile(npc.Center, new Vector2(8f, 0f).RotateTo(Main.player[npc.target].AngleFrom(npc.Center)).RotatedBy(Main.player[npc.target].position.X > npc.position.X ? -10f.InRadians() : 10f.InRadians()), ProjectileType<ZephyrPierce>(), 0, 1f);
+							NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj3);
+							sprayDelay = 18;
+							sprayTimer = 30;
+						}
+					}
+				}
+				if (bulletHellTimer == 192 || bulletHellTimer == 384 || bulletHellTimer == 576 || bulletHellTimer == 768 || bulletHellTimer == 960)
+				{
+					Movement();
+					int proj4 = Projectile.NewProjectile(npc.Center, new Vector2(6f, 0f).RotateTo(Main.player[npc.target].AngleFrom(npc.Center)).RotatedBy(Main.player[npc.target].position.X > npc.position.X ? -10f.InRadians() : 10f.InRadians()), ProjectileType<ZephyrWhirlwind>(), 0, 1f);
+					NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj4);
+				}
+				if (bulletHellTimer > 960 && bulletHellTimer < 1020)
+				{
+					float alpha = (float)((float)(0.25d * Math.Sin(Main.GlobalTime * 20d)) + 0.75d);
+					npc.Opacity = alpha;
+					color.X = alpha;
+					color.Y = alpha;
+					color.Z = alpha;
+					color.W = alpha;
+				}
+				if (bulletHellTimer == 1020)
+				{
+					isDashing = true;
+					npc.Opacity = 1f;
+					color.X = 1f;
+					color.Y = 1f;
+					color.Z = 1f;
+					color.W = 1f;
+					npc.velocity = new Vector2(16f, 0f).RotatedBy(npc.AngleTo(Main.player[npc.target].position));
+				}
+				if (bulletHellTimer >= 1080 && bulletHellTimer < 1110)
+				{
+					npc.velocity.X = 0;
+					npc.velocity.Y = 0;
+					isDashing = false;
+					spiritTimer--;
+					Vector2 position = new Vector2(npc.Center.X + 300f, npc.Center.Y + 100f);
+					if (spiritArray[0] != 0)
+					{
+						Main.npc[spiritArray[0]].life = 0;
+						spiritArray[0] = 0;
+						stunCounter = 0;
+					}
+					if (spiritTimer == 0)
+					{
+						spiritArray[0] = NPC.NewNPC((int)position.X, (int)position.Y, NPCType<ZephyrSpirit>());
+						spiritTimer = 30;
+					}
+				}
+				if (bulletHellTimer >= 1110 && bulletHellTimer < 1140)
+				{
+					if (spiritArray[1] != 0)
+					{
+						Main.npc[spiritArray[1]].life = 0;
+						spiritArray[1] = 0;
+						stunCounter = 0;
+					}
+					spiritTimer--;
+					Vector2 position = new Vector2(npc.Center.X + 150f, npc.Center.Y - 150f);
+					if (spiritTimer == 0)
+					{
+						spiritArray[1] = NPC.NewNPC((int)position.X, (int)position.Y, NPCType<ZephyrSpirit>());
+						spiritTimer = 30;
+					}
+				}
+				if (bulletHellTimer >= 1140 && bulletHellTimer < 1170)
+				{
+					if (spiritArray[2] != 0)
+					{
+						Main.npc[spiritArray[2]].life = 0;
+						spiritArray[2] = 0;
+						stunCounter = 0;
+					}
+					spiritTimer--;
+					Vector2 position = new Vector2(npc.Center.X - 150f, npc.Center.Y - 150f);
+					if (spiritTimer == 0)
+					{
+						spiritArray[2] = NPC.NewNPC((int)position.X, (int)position.Y, NPCType<ZephyrSpirit>());
+						spiritTimer = 30;
+					}
+				}
+				if (bulletHellTimer >= 1170 && bulletHellTimer < 1200)
+				{
+					if (spiritArray[3] != 0)
+					{
+						Main.npc[spiritArray[3]].life = 0;
+						spiritArray[3] = 0;
+						stunCounter = 0;
+					}
+					spiritTimer--;
+					Vector2 position = new Vector2(npc.Center.X - 300f, npc.Center.Y + 100f);
+					if (spiritTimer == 0)
+					{
+						spiritArray[3] = NPC.NewNPC((int)position.X, (int)position.Y, NPCType<ZephyrSpirit>());
+						spiritTimer = 30;
+					}
+				}
+				if (bulletHellTimer >= 1200 && bulletHellTimer < 1230)
+				{
+					if (spiritArray[4] != 0)
+					{
+						Main.npc[spiritArray[4]].life = 0;
+						spiritArray[4] = 0;
+						stunCounter = 0;
+					}
+					spiritTimer--;
+					Vector2 position = new Vector2(npc.Center.X, npc.Center.Y + 300);
+					if (spiritTimer == 0)
+					{
+						spiritArray[4] = NPC.NewNPC((int)position.X, (int)position.Y, NPCType<ZephyrSpirit>());
+						spiritTimer = 30;
+					}
+				}
+				if (bulletHellTimer > 1230)
+				{
+					bulletHellTimer = 0;
+				}
+			}
+			if (quotient <= 0.6d)
+			{
+
+			}
+
 		}
 
-		private void Talk(string message)
-		{
-			if (Main.netMode != NetmodeID.Server)
-			{
-				string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
-				Main.NewText(text, 4, 127, 82);
-			}
-			else
-			{
-				NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
-				NetMessage.BroadcastChatMessage(text, new Color(241, 127, 82));
-			}
-		}
+		//private void Talk(string message)
+		//{
+		//	if (Main.netMode != NetmodeID.Server)
+		//	{
+		//		string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
+		//		Main.NewText(text, 71, 74, 145);
+		//	}
+		//	else
+		//	{
+		//		NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
+		//		NetMessage.BroadcastChatMessage(text, new Color(71, 74, 145));
+		//	}
+		//}
 
 		public void SprayAttack()
 		{
-			Vector2 speed = new Vector2(8f, 0f).RotateTo(Main.player[npc.target].AngleFrom(npc.Center));
-			int proj1 = Projectile.NewProjectile(npc.Center, speed.RotatedBy(-5f.InRadians()), ProjectileType<ZephyrPierce>(), 0, 1f);
-			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj1);
-			int proj2 = Projectile.NewProjectile(npc.Center, speed, ProjectileType<ZephyrPierce>(), 0, 1f);
-			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj2);
-			int proj3 = Projectile.NewProjectile(npc.Center, speed.RotatedBy(5f.InRadians()), ProjectileType<ZephyrPierce>(), 0, 1f);
-			NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj3);
+
 		}
 		public void Movement()
 		{
 			Player player = Main.player[npc.target];
 			const float speedCap = 6f;
 			npc.spriteDirection = npc.direction;
-			Vector2 unitY = npc.DirectionTo(new Vector2(player.Center.X, player.Center.Y - 200f));
+			
+			Vector2 unitY = npc.DirectionTo(new Vector2(player.Center.X + (direction == -1 ? -400 : 400), player.Center.Y - 200f));
 			npc.velocity = ((npc.velocity * 15f) + (unitY * speedCap)) / (15f + 1f);
 		}
 		public override void FindFrame(int frameheight)
@@ -165,27 +371,64 @@ namespace ProvidenceMod.NPCs.AirElemental
 			npc.frameCounter += 0.125f;
 			npc.frame.Y = (int)npc.frameCounter * (tex.Height / 12);
 		}
+		public void DrawAfterImage(SpriteBatch spriteBatch)
+		{
+			if (isDashing)
+			{
+				float alpha = 1f;
+				for (int i = 0; i < 10; i++)
+				{
+					alpha = 1f - (i * 0.1f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				}
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+
+			}
+			if (!isDashing)
+			{
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+			}
+		}
+		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		{
+			DrawAfterImage(Main.spriteBatch);
+			return false;
+		}
 
 		public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
 		{
+			ProvidenceWorld world = GetInstance<ProvidenceWorld>();
 			if (!ProvidenceWorld.downedAirElemental)
 			{
 				ProvidenceWorld.downedAirElemental = true;
 			}
 			Main.raining = false;
+			Main.cloudBGActive = 0f;
+			Main.numCloudsTemp = 4;
+			Main.numClouds = Main.numCloudsTemp;
+			Main.windSpeedTemp = 0.25f;
+			Main.windSpeedSet = Main.windSpeedTemp;
+			Main.weatherCounter = 0;
+			Main.rainTime = Main.weatherCounter;
+			Main.maxRaining = 0f;
+			preSpawnText = true;
 			if (Main.expertMode)
 			{
 				int item1 = Item.NewItem(npc.Center, ItemID.GoldCoin, 7);
+				world.itemList.Add(Main.item[item1]);
 				int item2 = Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
+				world.itemList.Add(Main.item[item2]);
 				int item3 = Item.NewItem(npc.Center, ItemType<AirElementalBag>(), 1);
+				world.itemList.Add(Main.item[item3]);
 			}
 			else
 			{
 				int item4 = Item.NewItem(npc.Center, ItemID.GoldCoin, 5);
+				world.itemList.Add(Main.item[item4]);
 				int item5 = Item.NewItem(npc.Center, ItemType<ZephyrOre>(), Main.rand.Next(16, 51));
-				int item6 = Item.NewItem(npc.Center, ItemType<HarpyQueenTalon>(), Main.rand.Next(1, 6));
-				int item7 = Item.NewItem(npc.Center, ItemType<HarpyQueenFeather>(), Main.rand.Next(2, 6));
+				world.itemList.Add(Main.item[item5]);
 			}
 		}
+		public override Color? GetAlpha(Color drawColor) => new Color(color.X, color.Y, color.Z, color.W);
 	}
 }

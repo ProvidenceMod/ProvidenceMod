@@ -61,18 +61,6 @@ namespace ProvidenceMod
 			//   item.ChangeFrameToElement();
 			// }
 		}
-		public override void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-		{
-			if (item.Providence().glowmask && !item.Providence().animated) {
-				spriteBatch.Draw(glowmaskTexture, new Vector2(item.position.X - Main.screenPosition.X + overrideGlowmaskPositionX, item.position.Y - Main.screenPosition.Y + 2 + overrideGlowmaskPositionY), new Rectangle(0, 0, item.width, item.height), Color.White, rotation, item.Center, 1f, SpriteEffects.None, 0.0f);
-			}
-			if (item.Providence().glowmask && item.Providence().animated) {
-				spriteBatch.Draw(glowmaskTexture, new Vector2(item.position.X - Main.screenPosition.X + overrideGlowmaskPositionX, item.position.Y - Main.screenPosition.Y + 2 + overrideGlowmaskPositionY), item.AnimationFrame(ref frameNumber, ref frameTick, frameTime, frameCount, frameTickIncrease), Color.White, rotation, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
-			}
-			if (item.type == ItemType<Starfiber>() && glowmaskTexture != null) {
-				spriteBatch.Draw(glowmaskTexture, new Vector2(item.position.X - Main.screenPosition.X + overrideGlowmaskPositionX, item.position.Y - Main.screenPosition.Y + 2 + overrideGlowmaskPositionY), item.AnimationFrame(ref frameNumber, ref frameTick, frameTime, frameCount, frameTickIncrease), Color.White, rotation, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
-			}
-		}
 
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{

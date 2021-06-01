@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ProvidenceMod.Dusts;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 using static ProvidenceMod.ProvidenceUtils;
@@ -7,18 +8,18 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Projectiles.Boss
 {
-	public class ZephyrPierce : ModProjectile
+	public class ZephyrWhirlwind : ModProjectile
 	{
 		public bool fadeOut;
 		public Vector4 color = new Vector4(0f, 0f, 0f, 0f);
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zephyr Pierce");
-			Main.projFrames[projectile.type] = 10;
+			DisplayName.SetDefault("Zephyr Whirlwind");
+			Main.projFrames[projectile.type] = 7;
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 56;
+			projectile.width = 58;
 			projectile.height = 18;
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
@@ -34,13 +35,18 @@ namespace ProvidenceMod.Projectiles.Boss
 		public override void AI()
 		{
 			projectile.ai[0]++;
-			if (projectile.ai[0] == 3)
+			if (projectile.ai[0] == 2)
 			{
 				projectile.ai[0] = 0;
-				Dust.NewDust(projectile.Center, 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
+				float sin1 = (float)((float)(Math.Sin(Main.GlobalTime * 6d))) * 30f;
+				float sin2 = ((float)((float)(Math.Sin(Main.GlobalTime * 6d))) * 30f) * -1f;
+				Vector2 alpha1 = new Vector2(0f, sin1).RotatedBy(projectile.rotation);
+				Vector2 alpha2 = new Vector2(0f, sin2).RotatedBy(projectile.rotation);
+				Dust.NewDust(new Vector2(projectile.Center.X + alpha1.X, projectile.Center.Y + alpha1.Y), 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
+				Dust.NewDust(new Vector2(projectile.Center.X + alpha2.X, projectile.Center.Y + alpha2.Y), 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
 			}
 			projectile.rotation = projectile.velocity.ToRotation();
-			Lighting.AddLight(projectile.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
+			Lighting.AddLight(projectile.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 1f).ToVector3());
 			if (projectile.ai[1] < 20)
 			{
 				projectile.ai[1]++;
@@ -50,9 +56,9 @@ namespace ProvidenceMod.Projectiles.Boss
 				color.Z += 0.05f;
 				color.W += 0.05f;
 			}
-			if (projectile.ai[1] == 20)
+			if (projectile.ai[1] == 15)
 			{
-				projectile.damage = 20;
+				projectile.damage = 35;
 			}
 			if(projectile.timeLeft == 20)
 			{
@@ -70,7 +76,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			if (++projectile.frameCounter >= 6) // Frame time
 			{
 				projectile.frameCounter = 0;
-				if (++projectile.frame >= 10) //Frame number
+				if (++projectile.frame >= 7) //Frame number
 				{
 					projectile.frame = 0;
 				}

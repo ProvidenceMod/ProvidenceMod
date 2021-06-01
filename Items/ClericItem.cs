@@ -24,7 +24,7 @@ namespace ProvidenceMod.Items
       ProvidencePlayer mP = player.Providence();
       if (mP.hasClericSet)
       {
-        GenerateAuraField(player, ModContent.DustType<AuraDust>(), 0f);
+        GenerateAuraField(player, ModContent.DustType<CloudDust>(), 0f);
         mP.regenAura = true;
       }
     }
@@ -39,7 +39,7 @@ namespace ProvidenceMod.Items
     {
       ProvidencePlayer modPlayer = player.Providence();
       int originalDmg = damage;
-      damage = (int)(damage * modPlayer.clericMultiplier);
+      //damage = (int)(damage * modPlayer.clericMultiplier);
       float globalDmg = player.meleeDamage - 1;
       if (player.magicDamage - 1 < globalDmg) { globalDmg = player.magicDamage - 1; }
       if (player.rangedDamage - 1 < globalDmg) { globalDmg = player.rangedDamage - 1; }

@@ -7,25 +7,24 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Projectiles.Boss
 {
-	public class ZephyrPierce : ModProjectile
+	public class ZephyrTempest : ModProjectile
 	{
 		public bool fadeOut;
 		public Vector4 color = new Vector4(0f, 0f, 0f, 0f);
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zephyr Pierce");
-			Main.projFrames[projectile.type] = 10;
+			DisplayName.SetDefault("Zephyr Tempest");
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 56;
-			projectile.height = 18;
+			projectile.width = 90;
+			projectile.height = 90;
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
-			projectile.timeLeft = 300;
+			projectile.timeLeft = 600;
 			projectile.penetrate = 1;
-			projectile.scale = 1f;
-			projectile.damage = 0;
+			projectile.scale = 2f;
+			projectile.damage = 35;
 			projectile.hostile = true;
 			projectile.friendly = false;
 			projectile.Opacity = 0f;
@@ -33,7 +32,9 @@ namespace ProvidenceMod.Projectiles.Boss
 		}
 		public override void AI()
 		{
+			projectile.rotation += 0.1f;
 			projectile.ai[0]++;
+			projectile.ai[2]++;
 			if (projectile.ai[0] == 3)
 			{
 				projectile.ai[0] = 0;
@@ -41,7 +42,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			}
 			projectile.rotation = projectile.velocity.ToRotation();
 			Lighting.AddLight(projectile.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
-			if (projectile.ai[1] < 20)
+			if (projectile.ai[1] < 15)
 			{
 				projectile.ai[1]++;
 				projectile.Opacity += 0.05f;
@@ -50,11 +51,11 @@ namespace ProvidenceMod.Projectiles.Boss
 				color.Z += 0.05f;
 				color.W += 0.05f;
 			}
-			if (projectile.ai[1] == 20)
+			if (projectile.ai[1] == 15)
 			{
-				projectile.damage = 20;
+				projectile.damage = 40;
 			}
-			if(projectile.timeLeft == 20)
+			if(projectile.timeLeft == 15)
 			{
 				fadeOut = true;
 			}
@@ -67,23 +68,10 @@ namespace ProvidenceMod.Projectiles.Boss
 				color.Z -= 0.05f;
 				color.W -= 0.05f;
 			}
-			if (++projectile.frameCounter >= 6) // Frame time
-			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame >= 10) //Frame number
-				{
-					projectile.frame = 0;
-				}
-			}
 			if (color.W == 0f)
 			{
 				projectile.Kill();
 			}
-		}
-		public override void OnHitPlayer(Player target, int damage, bool crit)
-		{
-			projectile.damage = 0;
-			fadeOut = true;
 		}
 		public override Color? GetAlpha(Color lightColor) => new Color(color.X, color.Y, color.Z, color.W);
 	}

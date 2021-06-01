@@ -31,7 +31,7 @@ namespace ProvidenceMod.Items.Consumables
 
     public override bool UseItem(Player player)
     {
-      _ = NPC.NewNPC((int)player.position.X, (int)(player.position.Y - (37 * 16)), NPCType<AirELemental>());
+      _ = NPC.NewNPC((int)player.position.X, (int)(player.position.Y - (37 * 16)), NPCType<AirElemental>());
       return true;
     }
     public override bool ConsumeItem(Player player)

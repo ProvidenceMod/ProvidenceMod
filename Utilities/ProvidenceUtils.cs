@@ -7,9 +7,8 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.Dusts;
-using ProvidenceMod.Buffs.Cooldowns;
-using ProvidenceMod.Projectiles.Healing;
 using Terraria.Audio;
+using Terraria.Localization;
 
 namespace ProvidenceMod
 {
@@ -136,6 +135,19 @@ namespace ProvidenceMod
 			color.A = (byte)(color.A / conversion);
 			return color;
 		}
+		public static void Talk(string message, Color color, NPC npc)
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
+				Main.NewText(text, color.R, color.G, color.B);
+			}
+			else
+			{
+				NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
+				NetMessage.BroadcastChatMessage(text, new Color(color.R, color.G, color.B));
+			}
+		}
 		public static string DetermineDamageTooltip(this Item item)
 		{
 			string el;
@@ -258,137 +270,6 @@ namespace ProvidenceMod
 			}
 			return damage;
 		}
-		/// <summary>
-		/// Shorthanding for the conditional in the Parry methods.
-		/// </summary>
-		/// <param name="currProj">The projectile being tested.</param>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static bool IsParry(this Projectile currProj, Player player, Rectangle hitbox, ref int parryShield)
-		{
-			return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Providence().Deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
-		}
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>Standard Parry is exactly what you would expect from a parry: bounce projectiles back towards enemies, keeping the damage off of you and on them.</para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static void StandardParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			foreach (Projectile currProj in Main.projectile)
-			{
-				if (currProj.IsParry(player, hitbox, ref parryShield))
-				{
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-					// Add your melee damage multiplier to the damage so it has a little more oomph
-					currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
-
-					// If Micit Bangle is equipped, add that multiplier.
-					currProj.damage = player.Providence().micitBangle ? (int)(currProj.damage * 2.5) : currProj.damage;
-					// Convert the proj so you own it and reverse its trajectory
-					currProj.owner = player.whoAmI;
-					currProj.hostile = false;
-					currProj.friendly = true;
-					currProj.Providence().deflected = true;
-					currProj.velocity.X = -currProj.velocity.X;
-					currProj.velocity.Y = -currProj.velocity.Y;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-		}
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>Tank Parry absorbs projectiles, instead of deflecting them. Each projectile absorbed provides a Damage Reduction boost, based on the damage of the projectile, which it then returns.</para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static int TankParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			int DRBoost = 0;
-			foreach (Projectile currProj in Main.projectile)
-			{
-				if (currProj.IsParry(player, hitbox, ref parryShield))
-				{
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-
-					DRBoost += currProj.damage / 10;
-					currProj.active = false;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-			return DRBoost;
-		}
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>DPS Parry turns all deflected projectiles into a chlorophyte bullet, with improved damage, almost always guaranteeing it will contact and deal substantial damage.</para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static void DPSParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			foreach (Projectile currProj in Main.projectile)
-			{
-				if (currProj.IsParry(player, hitbox, ref parryShield))
-				{
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-					_ = Projectile.NewProjectile(
-						currProj.position,
-						Vector2.Negate(currProj.velocity),
-						ProjectileID.ChlorophyteBullet,
-						(int)(player.Providence().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 2),
-						currProj.knockBack,
-						player.whoAmI
-						);
-
-					currProj.active = false;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-		}
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>Support Parry is currently incomplete. Its expected effect is to heal the user, and if the user is at max HP, the closest player gains the benefit.<para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static void SupportParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			int HPBoost = 0;
-			foreach (Projectile currProj in Main.projectile)
-			{
-				if (currProj.IsParry(player, hitbox, ref parryShield))
-				{
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-					_ = Projectile.NewProjectile(new Vector2(player.position.X + 35, 0), new Vector2(0, 0), ProjectileType<HealProjectile>(), 0, 0);
-					HPBoost += currProj.damage / 10;
-					currProj.active = false;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-			// player.statLife += HPBoost;
-			// if (HPBoost > 0)
-			// {
-			//   player.HealEffect(HPBoost);
-			// }
-		}
 		/// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
 		/// <param name="player">The active player acting as the point of origin.</param>
 		/// <param name="style">The visual style that the aura will use.</param>
@@ -398,74 +279,6 @@ namespace ProvidenceMod
 		public static void GenerateAuraField(Player player, int style, float radiusBoost, int dust = 0, bool custom = false)
 		{
 			ProvidencePlayer proPlayer = player.Providence();
-			if (custom)
-			{
-				for (float rotation = 0f; rotation < 360f; rotation += 8f)
-				{
-					Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, proPlayer.clericAuraRadius + radiusBoost).RotatedBy(rotation.InRadians());
-					Dust d = Dust.NewDustPerfect(spawnPosition, dust, null, 90, new Color(255, 255, 255), 1f);
-					d.noLight = true;
-					d.noGravity = true;
-				}
-			}
-			else
-			{
-				switch (style)
-				{
-					case 0:
-						break;
-					case 1:
-						if (proPlayer.hasClericSet)
-						{
-							const float burnRadiusBoost = -100f;
-							GenerateAuraField(player, DustType<BurnDust>(), burnRadiusBoost);
-							foreach (NPC npc in Main.npc)
-							{
-								if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + burnRadiusBoost))
-								{
-									npc.AddBuff(BuffID.OnFire, 1);
-								}
-							}
-						}
-						break;
-					case 2:
-						if (proPlayer.hasClericSet)
-						{
-							const float cFRadiusBoost = -150f;
-							GenerateAuraField(player, DustType<AuraDust>(), cFRadiusBoost);
-							foreach (NPC npc in Main.npc)
-							{
-								if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + cFRadiusBoost))
-								{
-									npc.AddBuff(BuffID.CursedInferno, 180);
-								}
-							}
-						}
-						break;
-					case 3:
-						const float ampRadiusBoost = 0;
-						GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
-						foreach (Projectile projectile in Main.projectile)
-						{
-							if (projectile.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + ampRadiusBoost) && !projectile.Providence().amped)
-							{
-								if (projectile.friendly)
-								{
-									projectile.damage = (int)(projectile.damage * 1.15);
-									projectile.velocity *= 1.15f;
-									projectile.Providence().amped = true;
-								}
-								else if (projectile.hostile)
-								{
-									projectile.damage = (int)(projectile.damage * 0.85);
-									projectile.velocity *= 0.85f;
-									projectile.Providence().amped = true;
-								}
-							}
-						}
-						break;
-				}
-			}
 		}
 		/// <summary>Finds and returns the entity to the provided entity. Actively disregards Target Dummies.</summary>
 		public static Entity ClosestEntity(Entity entity, bool hostile)
@@ -487,7 +300,7 @@ namespace ProvidenceMod
 					}
 				}
 			}
-			if(!hostile)
+			if (!hostile)
 			{
 				foreach (Player player in Main.player)
 				{
@@ -585,17 +398,6 @@ namespace ProvidenceMod
 			}
 			return Tuple.Create(bossExists, bossID);
 		}
-		/// <summary>Returns the player's bonuses originated from their focus. In a tuple for ease of access.</summary>
-		public static Tuple<int, decimal, decimal, decimal> FocusBonuses(this Player player)
-		{
-			ProvidencePlayer mP = player.Providence();
-			int focusPercent = (int)(mP.focus * 100);
-			int damageBoost = focusPercent / 5;
-			decimal DR = (decimal)((mP.focus / 4 >= 0.25f ? 0.25f : mP.focus / 4) * 100);
-			decimal regen = focusPercent;
-			decimal moveSpeedBoost = focusPercent / 2;
-			return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR.Round(2), regen.Round(2), moveSpeedBoost.Round(2));
-		}
 		/// <summary>Provides a random point near the Vector2 you call this on.</summary>
 		/// <param name="v">The origin point.</param>
 		/// <param name="maxDist">The distance in pixels away from the origin to move. Defaults at 16f, or 1 tile.</param>
@@ -605,9 +407,9 @@ namespace ProvidenceMod
 		}
 		public static Vector2 RandomPointInHitbox(this Rectangle hitbox)
 		{
-			int hBounds = Main.rand.Next(hitbox.Left, hitbox.Right),
-					vBounds = Main.rand.Next(hitbox.Top, hitbox.Bottom);
-			return Vector2.Add(hitbox.Center.ToVector2(), new Vector2(hBounds, vBounds));
+			float hBounds = Main.rand.Next(hitbox.Left, hitbox.Right),
+					  vBounds = Main.rand.Next(hitbox.Top, hitbox.Bottom);
+			return Vector2.Add(hitbox.Center.ToVector2(), new Vector2(hBounds / 2, vBounds / 2));
 		}
 		/// <summary>Provides the animation frame for given parameters.</summary>
 		/// <param name="frame">The frame that this item is currently on. Use "public int frame;" in your item file.</param>
@@ -1031,13 +833,6 @@ namespace ProvidenceMod
 		public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
 		=> mod.GetLegacySoundSlot(soundType, filename);
 		public static int AsMusicSlot(this string filename, Mod mod) => mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, filename);
-		public enum ParryTypeID
-		{
-			Universal = 0,
-			Tank = 1,
-			DPS = 2,
-			Support = 3
-		}
 		public enum ElementID
 		{
 			Typeless = -1,

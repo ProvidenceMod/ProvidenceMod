@@ -10,12 +10,12 @@ namespace ProvidenceMod.Items.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Antimatter Bullet");
-			Tooltip.SetDefault("Stabilized Barionic matter in a vial. Shoot it at things to anhiliate them.");
+			Tooltip.SetDefault("Stabilized Anti-Baryonic matter in a vial. Shoot it at things to anhiliate them.");
 		}
 		public override void SetDefaults()
 		{
-			item.height = 12;
-			item.width = 12;
+			item.height = 16;
+			item.width = 8;
 			item.value = Item.buyPrice(0, 0, 7, 53);
       item.shootSpeed = 32f;
       item.damage = 69;

@@ -54,7 +54,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			Color lighting = ColorShift(new Color(0, 255, 255), new Color(0, 192, 255), 3f);
 			Lighting.AddLight(projectile.Center, lighting.ToVector3());
 			NPC npc = (NPC)ClosestEntity(projectile, true);
-			if (npc.Distance(projectile.Center) <= 300f)
+			if (npc != null && npc.Distance(projectile.Center) <= 300f)
 			{
 				Vector2 unitY = projectile.DirectionTo(npc.Center);
 				projectile.velocity = ((projectile.velocity * 16f) + (unitY * 25f)) / (16f + 1f);

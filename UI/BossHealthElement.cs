@@ -21,7 +21,7 @@ namespace ProvidenceMod.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			percentage = quotient * 100f;
-			if (percentage > 0 && boss != null)
+			if (percentage > 0 && boss != null && boss.life > 0)
 			{
 				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.providenceFont ?? Main.fontItemStack, PercentageFormatter(percentage), Left.Pixels + 500, Top.Pixels - 30, new Color(104, 237, 195), new Color(55, 62, 106), Vector2.Zero, 0.5f);
 				//Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.providenceFont, $"11111111", Left.Pixels, Top.Pixels + 40, Color.White, Color.Black, new Vector2(0.3f), 0.75f);

@@ -60,6 +60,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - [Pull Request Process](#pull_request_process)
 - [Contributors](#contributors)
 - [Credits](#credits)
+- [Credits](#special_thanks)
 - [Contributor Covenant Code of Conduct](#code_of_conduct)
 
 <a name="ccontributing"></a>
@@ -112,9 +113,9 @@ To install our mod, simply follow these steps:
 > 
 > _-SnowyStarfall and the ProvidenceMod Dev Team_
 
-
-
-
+<a name="special_thanks"></a>
+## Special Thanks
+_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Daken000, GildedLily, AmyTheRogue, Keithixix197, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
 
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct

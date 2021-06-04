@@ -7,9 +7,8 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.Dusts;
-using ProvidenceMod.Buffs.Cooldowns;
-using ProvidenceMod.Projectiles.Healing;
 using Terraria.Audio;
+using Terraria.Localization;
 
 namespace ProvidenceMod
 {
@@ -47,12 +46,8 @@ namespace ProvidenceMod
 		public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
 		/// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
 		public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
-
 		/// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
 		public static int InTicks(this float seconds) => (int)(seconds * 60);
-		/// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
-		public static int InTicks(this int seconds) => seconds * 60;
-
 		public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);
 		public static float Round(this float f, int points) => (float)Math.Round(f, points);
 		public static double Round(this double d, int points) => Math.Round(d, points);
@@ -65,7 +60,8 @@ namespace ProvidenceMod
 		public static void CalcElemDefense(this Player player)
 		{
 			ProvidencePlayer proPlayer = player.Providence();
-			for (int k = 0; k < 8; k++) {
+			for (int k = 0; k < 8; k++)
+			{
 				int index = proPlayer.affinities[k] - 1;
 				if (index != -1)
 					proPlayer.resists[k] += (int)elememtalAffinityDefense[0, index];
@@ -139,6 +135,19 @@ namespace ProvidenceMod
 			color.A = (byte)(color.A / conversion);
 			return color;
 		}
+		public static void Talk(string message, Color color, NPC npc)
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
+				Main.NewText(text, color.R, color.G, color.B);
+			}
+			else
+			{
+				NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
+				NetMessage.BroadcastChatMessage(text, new Color(color.R, color.G, color.B));
+			}
+		}
 		public static string DetermineDamageTooltip(this Item item)
 		{
 			string el;
@@ -149,29 +158,30 @@ namespace ProvidenceMod
 											 item.thrown ? "throwing" :
 											 item.Providence().cleric ? "cleric" :
 											 "";
-			switch (item.Providence().element) {
-				case ElementID.Fire:
+			switch (item.Providence().element)
+			{
+				case (int)ElementID.Fire:
 					el = "fire ";
 					break;
-				case ElementID.Ice:
+				case (int)ElementID.Ice:
 					el = "ice ";
 					break;
-				case ElementID.Lightning:
+				case (int)ElementID.Lightning:
 					el = "lightning ";
 					break;
-				case ElementID.Water:
+				case (int)ElementID.Water:
 					el = "water ";
 					break;
-				case ElementID.Earth:
+				case (int)ElementID.Earth:
 					el = "earth ";
 					break;
-				case ElementID.Air:
+				case (int)ElementID.Air:
 					el = "air ";
 					break;
-				case ElementID.Order:
+				case (int)ElementID.Order:
 					el = "order ";
 					break;
-				case ElementID.Chaos:
+				case (int)ElementID.Chaos:
 					el = "chaos ";
 					break;
 				default:
@@ -184,7 +194,6 @@ namespace ProvidenceMod
 		{
 			return new float[2] { elememtalAffinityDefense[0, player.Providence().affinities[e]], elememtalAffinityDefense[1, player.Providence().affinities[e]] };
 		}
-
 		/// <summary>
 		/// Elemental damage calculation for when the player hits an NPC with a melee weapon.
 		/// </summary>
@@ -195,19 +204,15 @@ namespace ProvidenceMod
 			{
 				float damageFloat = damage, // And the damage we already have, converted to float
 					resistMod = npc.Providence().resists[weapEl];
-				if (resistMod > 0f) {
+				if (resistMod > 0f)
+				{
 					damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
 					damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
 				}
-				else {
+				else
+				{
 					damage = 1;
 				}
-				// ProvidencePlayer modPlayer = Main.player[item.owner].Providence();
-				// if (modPlayer.affExpCooldown <= 0)
-				// {
-				//   modPlayer.affExp[weapEl] += 1;
-				//   modPlayer.affExpCooldown = 120;
-				// }
 			}
 			return damage;
 		}
@@ -221,30 +226,31 @@ namespace ProvidenceMod
 			{
 				float damageFloat = damage, // And the damage we already have, converted to float
 					resistMod = npc.Providence().resists[projEl];
-				if (resistMod > 0f) {
+				if (resistMod > 0f)
+				{
 					damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
 					damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
 				}
-				else {
+				else
+				{
 					damage = 1;
 				}
 			}
 			return damage;
 		}
-
 		/// <summary>
 		/// Elemental damage calculation for when the player is hit by an NPC.
 		/// </summary>
 		public static int CalcEleDamageFromNPC(this Player player, NPC npc, ref int damage)
 		{
 			int npcEl = npc.Providence().contactDamageEl;
-			if (npcEl != -1) {
+			if (npcEl != -1)
+			{
 				int resistMod = player.Providence().resists[npcEl];
 				damage -= (int)(Main.expertMode ? resistMod * 0.75 : resistMod * 0.5);
 			}
 			return damage;
 		}
-
 		/// <summary>
 		/// Elemental damage calculation for when the player is hit by a projectile.
 		/// </summary>
@@ -258,133 +264,6 @@ namespace ProvidenceMod
 			}
 			return damage;
 		}
-		/// <summary>
-		/// Shorthanding for the conditional in the Parry methods.
-		/// </summary>
-		/// <param name="currProj">The projectile being tested.</param>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static bool IsParry(this Projectile currProj, Player player, Rectangle hitbox, ref int parryShield)
-		{
-			return currProj.active && currProj.whoAmI != parryShield && !player.HasBuff(BuffType<CantDeflect>()) && currProj.Providence().Deflectable && currProj.hostile && hitbox.Intersects(currProj.Hitbox);
-		}
-
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>Standard Parry is exactly what you would expect from a parry: bounce projectiles back towards enemies, keeping the damage off of you and on them.</para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static void StandardParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			foreach (Projectile currProj in Main.projectile) {
-				if (currProj.IsParry(player, hitbox, ref parryShield)) {
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-					// Add your melee damage multiplier to the damage so it has a little more oomph
-					currProj.damage = (int)(currProj.damage * player.meleeDamageMult);
-
-					// If Micit Bangle is equipped, add that multiplier.
-					currProj.damage = player.Providence().micitBangle ? (int)(currProj.damage * 2.5) : currProj.damage;
-					// Convert the proj so you own it and reverse its trajectory
-					currProj.owner = player.whoAmI;
-					currProj.hostile = false;
-					currProj.friendly = true;
-					currProj.Providence().deflected = true;
-					currProj.velocity.X = -currProj.velocity.X;
-					currProj.velocity.Y = -currProj.velocity.Y;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-		}
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>Tank Parry absorbs projectiles, instead of deflecting them. Each projectile absorbed provides a Damage Reduction boost, based on the damage of the projectile, which it then returns.</para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static int TankParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			int DRBoost = 0;
-			foreach (Projectile currProj in Main.projectile) {
-				if (currProj.IsParry(player, hitbox, ref parryShield)) {
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-
-					DRBoost += currProj.damage / 10;
-					currProj.active = false;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-			return DRBoost;
-		}
-
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>DPS Parry turns all deflected projectiles into a chlorophyte bullet, with improved damage, almost always guaranteeing it will contact and deal substantial damage.</para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static void DPSParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			foreach (Projectile currProj in Main.projectile) {
-				if (currProj.IsParry(player, hitbox, ref parryShield)) {
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-					_ = Projectile.NewProjectile(
-						currProj.position,
-						Vector2.Negate(currProj.velocity),
-						ProjectileID.ChlorophyteBullet,
-						(int)(player.Providence().micitBangle ? currProj.damage * 2 * 2.5 : currProj.damage * 2),
-						currProj.knockBack,
-						player.whoAmI
-						);
-
-					currProj.active = false;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-		}
-
-		/// <summary>
-		/// Generates the mechanical effects of a parry. Called every tick while a player is parrying.
-		/// <para>Support Parry is currently incomplete. Its expected effect is to heal the user, and if the user is at max HP, the closest player gains the benefit.<para>
-		/// </summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="hitbox">The hitbox of the parry shield projectile.</param>
-		/// <param name="parryShield">The ID in "Main.projectile" the parry shield projectile is.</param>
-		public static void SupportParry(Player player, Rectangle hitbox, ref int parryShield)
-		{
-			int affectedProjs = 0;
-			int HPBoost = 0;
-			foreach (Projectile currProj in Main.projectile) {
-				if (currProj.IsParry(player, hitbox, ref parryShield)) {
-					for (float i = 0; i < 10; i++)
-						_ = Dust.NewDustPerfect(currProj.position, DustType<MoonBlastDust>(), new Vector2(4f, 0f).RotatedBy((i * 36).InRadians()), 0, Color.White, 5f);
-					_ = Projectile.NewProjectile(new Vector2(player.position.X + 35, 0), new Vector2(0, 0), ProjectileType<HealProjectile>(), 0, 0);
-					HPBoost += currProj.damage / 10;
-					currProj.active = false;
-					affectedProjs++;
-				}
-			}
-			player.Providence().parriedProjs += affectedProjs;
-			// player.statLife += HPBoost;
-			// if (HPBoost > 0)
-			// {
-			//   player.HealEffect(HPBoost);
-			// }
-		}
-
 		/// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
 		/// <param name="player">The active player acting as the point of origin.</param>
 		/// <param name="style">The visual style that the aura will use.</param>
@@ -394,92 +273,43 @@ namespace ProvidenceMod
 		public static void GenerateAuraField(Player player, int style, float radiusBoost, int dust = 0, bool custom = false)
 		{
 			ProvidencePlayer proPlayer = player.Providence();
-			if (custom) {
-				for (float rotation = 0f; rotation < 360f; rotation += 8f) {
-					Vector2 spawnPosition = player.MountedCenter + new Vector2(0f, proPlayer.clericAuraRadius + radiusBoost).RotatedBy(rotation.InRadians());
-					Dust d = Dust.NewDustPerfect(spawnPosition, dust, null, 90, new Color(255, 255, 255), 1f);
-					d.noLight = true;
-					d.noGravity = true;
-				}
-			}
-			else {
-				switch (style) {
-					case 0:
-						break;
-					case 1:
-						if (proPlayer.hasClericSet) {
-							const float burnRadiusBoost = -100f;
-							GenerateAuraField(player, DustType<BurnDust>(), burnRadiusBoost);
-							foreach (NPC npc in Main.npc) {
-								if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + burnRadiusBoost)) {
-									npc.AddBuff(BuffID.OnFire, 1);
-								}
-							}
-						}
-						break;
-					case 2:
-						if (proPlayer.hasClericSet) {
-							const float cFRadiusBoost = -150f;
-							GenerateAuraField(player, DustType<AuraDust>(), cFRadiusBoost);
-							foreach (NPC npc in Main.npc) {
-								if (!npc.townNPC && !npc.friendly && npc.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + cFRadiusBoost)) {
-									npc.AddBuff(BuffID.CursedInferno, 180);
-								}
-							}
-						}
-						break;
-					case 3:
-						const float ampRadiusBoost = 0;
-						GenerateAuraField(player, DustType<ParryShieldDust>(), ampRadiusBoost);
-						foreach (Projectile projectile in Main.projectile) {
-							if (projectile.position.IsInRadiusOf(player.MountedCenter, proPlayer.clericAuraRadius + ampRadiusBoost) && !projectile.Providence().amped) {
-								if (projectile.friendly) {
-									projectile.damage = (int)(projectile.damage * 1.15);
-									projectile.velocity *= 1.15f;
-									projectile.Providence().amped = true;
-								}
-								else if (projectile.hostile) {
-									projectile.damage = (int)(projectile.damage * 0.85);
-									projectile.velocity *= 0.85f;
-									projectile.Providence().amped = true;
-								}
-							}
-						}
-						break;
-				}
-			}
 		}
-		/// <summary>Finds and returns the hostile NPC closest to the provided projectile. Actively disregards Target Dummies.</summary>
-		public static NPC ClosestEnemyNPC(Projectile projectile)
+		/// <summary>Finds and returns the entity to the provided entity. Actively disregards Target Dummies.</summary>
+		public static Entity ClosestEntity(Entity entity, bool hostile)
 		{
 			float shortest = -1f;
-			NPC chosenNPC = null;
-			foreach (NPC npc in Main.npc) {
-				if (npc.active && !npc.townNPC && !npc.friendly && npc.type != NPCID.TargetDummy) {
-					float dist = Vector2.Distance(projectile.position, npc.position);
-					if (dist < shortest || shortest == -1f) {
-						shortest = dist;
-						chosenNPC = npc;
+			Entity chosenEntity = null;
+			if (hostile)
+			{
+				foreach (NPC npc in Main.npc)
+				{
+					if (npc.active && !npc.townNPC && !npc.friendly && npc.type != NPCID.TargetDummy)
+					{
+						float dist = Vector2.Distance(entity.position, npc.Center);
+						if (dist < shortest || shortest == -1f)
+						{
+							shortest = dist;
+							chosenEntity = npc;
+						}
 					}
 				}
 			}
-			return chosenNPC;
-		}
-		/// <summary>Finds and returns the player closest to the provided projectile.</summary>
-		public static Player ClosestPlayer(Projectile projectile)
-		{
-			float shortest = -1f;
-			Player chosenPC = null;
-			foreach (Player player in Main.player) {
-				if (player.active) {
-					float dist = Vector2.Distance(projectile.position, player.position);
-					if (dist < shortest || shortest == -1f) {
-						shortest = dist;
-						chosenPC = player;
+			if (!hostile)
+			{
+				foreach (Player player in Main.player)
+				{
+					if (player.active)
+					{
+						float dist = Vector2.Distance(entity.position, player.Center);
+						if (dist < shortest || shortest == -1f)
+						{
+							shortest = dist;
+							chosenEntity = player;
+						}
 					}
 				}
 			}
-			return chosenPC;
+			return chosenEntity;
 		}
 		/// <summary>Shorthanding of distance testing involving Vector2's, for readability.</summary>
 		public static bool IsInRadiusOf(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
@@ -487,7 +317,8 @@ namespace ProvidenceMod
 		public static int GrabProjCount(int type)
 		{
 			int count = 0;
-			foreach (Projectile proj in Main.projectile) {
+			foreach (Projectile proj in Main.projectile)
+			{
 				if (proj.type == type)
 					count++;
 			}
@@ -542,7 +373,8 @@ namespace ProvidenceMod
 		{
 			item.Providence().element = elementID;
 			item.Providence().elementDefense = elementDefense;
-			if (weakElementID != -1) {
+			if (weakElementID != -1)
+			{
 				item.Providence().weakElement = weakElementID;
 				item.Providence().weakElementDefense = weakElementDefense;
 			}
@@ -552,23 +384,13 @@ namespace ProvidenceMod
 		{
 			bool bossExists = false;
 			int bossID = -1;
-			foreach (NPC npc in Main.npc) {
+			foreach (NPC npc in Main.npc)
+			{
 				if (npc.active && npc.boss)
 					bossExists = true;
 				bossID = npc.type;
 			}
 			return Tuple.Create(bossExists, bossID);
-		}
-		/// <summary>Returns the player's bonuses originated from their focus. In a tuple for ease of access.</summary>
-		public static Tuple<int, decimal, decimal, decimal> FocusBonuses(this Player player)
-		{
-			ProvidencePlayer mP = player.Providence();
-			int focusPercent = (int)(mP.focus * 100);
-			int damageBoost = focusPercent / 5;
-			decimal DR = (decimal)((mP.focus / 4 >= 0.25f ? 0.25f : mP.focus / 4) * 100);
-			decimal regen = focusPercent;
-			decimal moveSpeedBoost = focusPercent / 2;
-			return new Tuple<int, decimal, decimal, decimal>(damageBoost, DR.Round(2), regen.Round(2), moveSpeedBoost.Round(2));
 		}
 		/// <summary>Provides a random point near the Vector2 you call this on.</summary>
 		/// <param name="v">The origin point.</param>
@@ -579,9 +401,9 @@ namespace ProvidenceMod
 		}
 		public static Vector2 RandomPointInHitbox(this Rectangle hitbox)
 		{
-			int hBounds = Main.rand.Next(hitbox.Left, hitbox.Right),
-					vBounds = Main.rand.Next(hitbox.Top, hitbox.Bottom);
-			return Vector2.Add(hitbox.Center.ToVector2(), new Vector2(hBounds, vBounds));
+			float hBounds = Main.rand.Next(hitbox.Left, hitbox.Right),
+					  vBounds = Main.rand.Next(hitbox.Top, hitbox.Bottom);
+			return Vector2.Add(hitbox.Center.ToVector2(), new Vector2(hBounds / 2, vBounds / 2));
 		}
 		/// <summary>Provides the animation frame for given parameters.</summary>
 		/// <param name="frame">The frame that this item is currently on. Use "public int frame;" in your item file.</param>
@@ -590,16 +412,19 @@ namespace ProvidenceMod
 		/// <param name="frameCount">How many frames this animation has.</param>
 		public static Rectangle AnimationFrame(this Entity entity, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease, int overrideHeight = 0)
 		{
-			if (frameTick >= frameTime) {
+			if (frameTick >= frameTime)
+			{
 				frameTick = -1;
 				frame = frame == frameCount - 1 ? 0 : frame + 1;
 			}
 			if (frameTickIncrease)
 				frameTick++;
-			if (overrideHeight > 0 || overrideHeight < 0) {
+			if (overrideHeight > 0 || overrideHeight < 0)
+			{
 				return new Rectangle(0, overrideHeight * frame, entity.width, entity.height);
 			}
-			else {
+			else
+			{
 				return new Rectangle(0, entity.height * frame, entity.width, entity.height);
 			}
 		}
@@ -618,7 +443,8 @@ namespace ProvidenceMod
 		{
 			Player player = info.drawPlayer;
 			Texture2D glowmaskTexture = null;
-			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir) {
+			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
+			{
 				if (player.HeldItem.Providence().glowmask)
 					glowmaskTexture = player.HeldItem.Providence().glowmaskTexture;
 				Main.playerDrawData.Add(
@@ -643,8 +469,10 @@ namespace ProvidenceMod
 			Player player = info.drawPlayer;
 			Texture2D animationTexture = null;
 			Rectangle frame = default;
-			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir) {
-				if (player.HeldItem.Providence().animated) {
+			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
+			{
+				if (player.HeldItem.Providence().animated)
+				{
 					animationTexture = player.HeldItem.Providence().animationTexture;
 					frame = Main.itemAnimations[player.HeldItem.type].GetFrame(animationTexture);
 				}
@@ -664,15 +492,15 @@ namespace ProvidenceMod
 			}
 		}
 
-    public static void DrawGlowmaskAnimation(PlayerDrawInfo info)
+		public static void DrawGlowmaskAnimation(PlayerDrawInfo info)
 		{
 			Player player = info.drawPlayer;
 			Texture2D animatedGlowmaskTexture = null;
 			Rectangle frame = default;
 			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
-      {
+			{
 				if (player.HeldItem.Providence().animatedGlowmask)
-        {
+				{
 					animatedGlowmaskTexture = player.HeldItem.Providence().animatedGlowmaskTexture;
 					frame = Main.itemAnimations[player.HeldItem.type].GetFrame(animatedGlowmaskTexture);
 				}
@@ -683,7 +511,7 @@ namespace ProvidenceMod
 						frame,
 						Color.White,
 						player.itemRotation,
-						new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height),
+						new Vector2(player.direction == 1 ? 0 : frame.Width, frame.Height) + new Vector2(-100f, -100f),
 						player.HeldItem.scale,
 						info.spriteEffects,
 						0
@@ -692,47 +520,6 @@ namespace ProvidenceMod
 			}
 		}
 
-		/// <summary>
-		/// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
-		/// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
-		/// </summary>
-		/// <param name="projectile">The projectile being worked with.</param>
-		/// <param name="speed">How fast the projectile can go in a straight line. Defaults at 6f.</param>
-		/// <param name="gain">How quickly the projectile will gain speed. Defaults at 0.1f </param>
-		/// <param name="slow">How quickly the projectile will slow down. Defaults at 0.1f.</param>
-		/// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
-		/// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
-		/// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
-		/// <param name="courseAdjust">Whether or not the projectile should never overshoot the axis. Defaults to false.</param>
-		/// <param name="courseRange">If courseAdjust is true, provides the range which will activate course adjustment. The range is centered around the axis of the target. Defaults to 5f.</param>
-		public static void Homing(this Projectile projectile, Entity entity, float speed = 8f, float gain = 0.1f, float slow = 0.1f, float turn = 1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 5f, bool courseAdjust = false, float courseRange = 5f)
-		{
-			Vector2 target = entity == null ? default : entity.Hitbox.Center.ToVector2() - projectile.position;
-			switch (projectile.Providence().homingID) {
-				case HomingID.Smart:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						projectile.velocity = projectile.velocity.SmartHoming(projectile, entity, target, gain, slow, courseAdjust, courseRange, overshotPrevention, overshotThreshold, speed);
-					break;
-				case HomingID.Gravity:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						GravityHoming(projectile, entity, speed, turn, trackingRadius, overshotPrevention, overshotThreshold);
-					break;
-				case HomingID.Sine:
-					break;
-				case HomingID.Linear:
-					break;
-				case HomingID.Natural:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						NaturalHoming(projectile, entity, turn, speed);
-					break;
-				case HomingID.Smooth:
-					if (entity?.active == true && entity.position.IsInRadiusOf(projectile.position, trackingRadius))
-						SmoothHoming(projectile);
-					break;
-				case HomingID.Complex:
-					break;
-			}
-		}
 		/// <summary>
 		/// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
 		/// </summary>
@@ -760,7 +547,8 @@ namespace ProvidenceMod
 		/// <param name="speedCap">The max speed this projectile can reach.</param>
 		public static Vector2 SmartHoming(this Vector2 velocity, Projectile projectile, Entity target, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
 		{
-			if (offset.X > 0) {
+			if (offset.X > 0)
+			{
 				if (velocity.X < 0)
 					velocity.X /= slow;
 				if (velocity.X < speedCap)
@@ -768,7 +556,8 @@ namespace ProvidenceMod
 				if (velocity.X > speedCap)
 					velocity.X = speedCap;
 			}
-			if (offset.X < 0) {
+			if (offset.X < 0)
+			{
 				if (velocity.X > 0)
 					velocity.X /= slow;
 				if (velocity.X > -speedCap)
@@ -776,7 +565,8 @@ namespace ProvidenceMod
 				if (velocity.X < -speedCap)
 					velocity.X = -speedCap;
 			}
-			if (offset.Y > 0) {
+			if (offset.Y > 0)
+			{
 				if (velocity.Y < 0)
 					velocity.Y /= slow;
 				if (velocity.Y < speedCap)
@@ -784,7 +574,8 @@ namespace ProvidenceMod
 				if (velocity.Y > speedCap)
 					velocity.Y = speedCap;
 			}
-			if (offset.Y < 0) {
+			if (offset.Y < 0)
+			{
 				if (velocity.Y > 0)
 					velocity.Y /= slow;
 				if (velocity.Y > -speedCap)
@@ -792,33 +583,39 @@ namespace ProvidenceMod
 				if (velocity.Y < -speedCap)
 					velocity.Y = -speedCap;
 			}
-			if (courseAdjust) {
-				if (offset.X <= courseRange && !(offset.X < 0)) {
+			if (courseAdjust)
+			{
+				if (offset.X <= courseRange && !(offset.X < 0))
+				{
 					if (!(offset.X < 1))
 						velocity.X /= slow;
 					if (offset.X < 1)
 						velocity.X = 0f;
 				}
-				if (offset.X >= -courseRange && !(offset.X > 0)) {
+				if (offset.X >= -courseRange && !(offset.X > 0))
+				{
 					if (!(offset.X > -1))
 						velocity.X /= slow;
 					if (offset.X > -1)
 						velocity.X = 0f;
 				}
-				if (offset.Y <= courseRange && !(offset.Y < 0)) {
+				if (offset.Y <= courseRange && !(offset.Y < 0))
+				{
 					if (!(offset.Y < 1))
 						velocity.Y /= slow;
 					if (offset.Y < 1)
 						velocity.Y = 0f;
 				}
-				if (offset.Y >= -courseRange && !(offset.Y > 0)) {
+				if (offset.Y >= -courseRange && !(offset.Y > 0))
+				{
 					if (!(offset.Y > -1))
 						velocity.Y /= slow;
 					if (offset.Y > -1)
 						velocity.Y = 0f;
 				}
 			}
-			if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold)) {
+			if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold))
+			{
 				velocity.RotateTo(projectile.AngleTo(target.position));
 			}
 			return velocity;
@@ -837,7 +634,8 @@ namespace ProvidenceMod
 		public static void GravityHoming(this Projectile projectile, Entity entity, float speedCap = 6f, float turnStrength = 0.1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f)
 		{
 			// Slightly different tracking methods between hostile and friendly AIs. Not much, but enough.
-			if (projectile.friendly) {
+			if (projectile.friendly)
+			{
 				if (entity?.position.IsInRadiusOf(projectile.position, trackingRadius) == true)
 					projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(entity.position), turnStrength);
 				// If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
@@ -859,7 +657,8 @@ namespace ProvidenceMod
 		{
 			float velocityTriangle = (float)Math.Sqrt((projectile.velocity.X * (double)projectile.velocity.X) + (projectile.velocity.Y * (double)projectile.velocity.Y));
 			float localAI = projectile.localAI[0];
-			if ((double)localAI == 0.0) {
+			if ((double)localAI == 0.0)
+			{
 				projectile.localAI[0] = velocityTriangle;
 				localAI = velocityTriangle;
 			}
@@ -868,13 +667,17 @@ namespace ProvidenceMod
 			float range = 1000f;
 			bool tracking = false;
 			int ai = 0;
-			if (projectile.ai[1] == 0.0) {
-				for (int index = 0; index < 200; ++index) {
-					if (Main.npc[index].CanBeChasedBy(projectile) && (projectile.ai[1] == 0.0 || projectile.ai[1] == (double)(index + 1))) {
+			if (projectile.ai[1] == 0.0)
+			{
+				for (int index = 0; index < 200; ++index)
+				{
+					if (Main.npc[index].CanBeChasedBy(projectile) && (projectile.ai[1] == 0.0 || projectile.ai[1] == (double)(index + 1)))
+					{
 						float npcCenterX = Main.npc[index].position.X + (Main.npc[index].width / 2);
 						float npcCenterY = Main.npc[index].position.Y + (Main.npc[index].height / 2);
 						float totalOffset = Math.Abs(projectile.position.X + (projectile.width / 2) - npcCenterX) + Math.Abs(projectile.position.Y + (projectile.height / 2) - npcCenterY);
-						if (totalOffset < range && Collision.CanHit(new Vector2(projectile.position.X + (projectile.width / 2), projectile.position.Y + (projectile.height / 2)), 1, 1, Main.npc[index].position, Main.npc[index].width, Main.npc[index].height)) {
+						if (totalOffset < range && Collision.CanHit(new Vector2(projectile.position.X + (projectile.width / 2), projectile.position.Y + (projectile.height / 2)), 1, 1, Main.npc[index].position, Main.npc[index].width, Main.npc[index].height))
+						{
 							range = totalOffset;
 							posX = npcCenterX;
 							posY = npcCenterY;
@@ -887,24 +690,29 @@ namespace ProvidenceMod
 					projectile.ai[1] = ai + 1;
 				tracking = false;
 			}
-			if (projectile.ai[1] > 0.0) {
+			if (projectile.ai[1] > 0.0)
+			{
 				int index = (int)(projectile.ai[1] - 1.0);
-				if (Main.npc[index].active && Main.npc[index].CanBeChasedBy(projectile, true) && !Main.npc[index].dontTakeDamage) {
+				if (Main.npc[index].active && Main.npc[index].CanBeChasedBy(projectile, true) && !Main.npc[index].dontTakeDamage)
+				{
 					float npcCenterX = Main.npc[index].position.X + (Main.npc[index].width / 2);
 					float npcCenterY = Main.npc[index].position.Y + (Main.npc[index].height / 2);
-					if (Math.Abs(projectile.position.X + (projectile.width / 2) - npcCenterX) + (double)Math.Abs(projectile.position.Y + (projectile.height / 2) - npcCenterY) < 1000.0) {
+					if (Math.Abs(projectile.position.X + (projectile.width / 2) - npcCenterX) + (double)Math.Abs(projectile.position.Y + (projectile.height / 2) - npcCenterY) < 1000.0)
+					{
 						tracking = true;
 						posX = Main.npc[index].position.X + (Main.npc[index].width / 2);
 						posY = Main.npc[index].position.Y + (Main.npc[index].height / 2);
 					}
 				}
-				else {
+				else
+				{
 					projectile.ai[1] = 0.0f;
 				}
 			}
 			if (!projectile.friendly)
 				tracking = false;
-			if (tracking) {
+			if (tracking)
+			{
 				double npcCenterX = localAI;
 				Vector2 projCenter = new Vector2(projectile.position.X + (projectile.width * 0.5f), projectile.position.Y + (projectile.height * 0.5f));
 				float npcCenterY = posX - projCenter.X;
@@ -959,11 +767,13 @@ namespace ProvidenceMod
 			nPC.Providence().buffCount = 0;
 			Vector2 drawPos = new Vector2(0f, nPC.position.Y + 10f);
 			int[] buffTypeArray = new int[5] { 0, 0, 0, 0, 0 };
-			foreach (int num in nPC.buffType) {
+			foreach (int num in nPC.buffType)
+			{
 				buffTypeArray[nPC.Providence().buffCount] = num;
 				nPC.Providence().buffCount++;
 			}
-			for (int i = 0; i < nPC.Providence().buffCount; i++) {
+			for (int i = 0; i < nPC.Providence().buffCount; i++)
+			{
 				drawPos.X = nPC.position.X - 10f + (i * 5f);
 				Texture2D texture = GetTexture("Terraria/Buff_" + buffTypeArray[i].ToString());
 				Main.spriteBatch.Draw(texture, drawPos, Color.White);
@@ -975,56 +785,31 @@ namespace ProvidenceMod
 		public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
 		=> mod.GetLegacySoundSlot(soundType, filename);
 		public static int AsMusicSlot(this string filename, Mod mod) => mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, filename);
-
-		public static class ParryTypeID
+		public enum ElementID
 		{
-			public const int Universal = 0;
-			public const int Tank = 1;
-			public const int DPS = 2;
-			public const int Support = 3;
+			Typeless = -1,
+			Fire = 0,
+			Ice = 1,
+			Lightning = 2,
+			Water = 3,
+			Earth = 4,
+			Air = 5,
+			Order = 6,
+			Chaos = 7
 		}
-		public static class ElementID
+		public enum AuraStyle
 		{
-			public const int Typeless = -1;
-			public const int Fire = 0;
-			public const int Ice = 1;
-			public const int Lightning = 2;
-			public const int Water = 3;
-			public const int Earth = 4;
-			public const int Air = 5;
-			public const int Order = 6;
-			public const int Chaos = 7;
+			CerberusStyle = 0,
+			BurnStyle = 1,
+			CFlameStyle = 2,
+			AmpStyle = 3
 		}
-		public static class HomingID
+		public enum AuraType
 		{
-			public const int Smart = 0;
-			public const int Gravity = 1;
-			public const int Sine = 2;
-			public const int Linear = 3;
-			public const int Natural = 4;
-			public const int Smooth = 5;
-			public const int Complex = 6;
-		}
-		public static class AuraStyle
-		{
-			public const int CerberusStyle = 0;
-			public const int BurnStyle = 1;
-			public const int CFlameStyle = 2;
-			public const int AmpStyle = 3;
-		}
-		public static class AuraType
-		{
-			public const int CerberusAura = 0;
-			public const int BurnAura = 1;
-			public const int CFlameAura = 2;
-			public const int AmpCapacitorAura = 3;
-		}
-		public static class EntityType
-		{
-			public const int NPC = 0;
-			public const int Player = 1;
-			public const int Projectile = 2;
-			public const int Entity = 3;
+			CerberusAura = 0,
+			BurnAura = 1,
+			CFlameAura = 2,
+			AmpCapacitorAura = 3
 		}
 	}
 }

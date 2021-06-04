@@ -32,7 +32,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
       item.rare = ItemRarityID.Orange;
       item.value = Item.buyPrice(0, 10, 0, 0);
       item.useStyle = ItemUseStyleID.HoldingOut;
-      item.Providence().element = ElementID.Air;
+      item.Providence().element = (int)ElementID.Air;
       item.shoot = ProjectileID.WoodenArrowFriendly;
     }
   }

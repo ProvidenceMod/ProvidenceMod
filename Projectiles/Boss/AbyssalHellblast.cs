@@ -30,7 +30,6 @@ namespace ProvidenceMod.Projectiles.Boss
       projectile.hostile = true;
       projectile.Providence().element = 0; // Fire
       projectile.tileCollide = false;
-      projectile.Providence().homingID = HomingID.Natural;
     }
 
     public override void AI()
@@ -46,9 +45,10 @@ namespace ProvidenceMod.Projectiles.Boss
           projectile.frame = 0;
         }
       }
-      Player player = ClosestPlayer(projectile);
-      projectile.Homing(player, 8f, default, default, 20);
-    }
+      Player player = (Player)ClosestEntity(projectile, false);
+			Vector2 unitY = projectile.DirectionTo(player.Center);
+			projectile.velocity = ((projectile.velocity * 8f) + (unitY * 20f)) / (8f + 1f);
+		}
     public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
     {
       target.AddBuff(BuffID.OnFire, 10);

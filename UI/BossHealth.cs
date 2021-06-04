@@ -23,12 +23,13 @@ namespace ProvidenceMod.UI
     //
     // This is the UIElement that we will append our UI children to
     // You can alternatively use a UIPanel if you would like a panel background
-    private UIElement area;
+    private BossHealthElement area;
+		private UIText bossNameUI;
+		private UIText HPAmount;
     //
     //
     // This is the image for the frame around the health bar
     private UIImage frame;
-    private UIImage background;
     //
     //
     // This is the health bar. It is a framed UIImage to allow us to crop it down to the correct size
@@ -43,14 +44,10 @@ namespace ProvidenceMod.UI
     //
     // This is the cooldown timer (in frames) for how long to wait after the health changes before beginning to decrease
     private int cooldown = 180;
-    //
-    //
-    // This is a life array, you can see how the life values are written to it in the Update method
-    private readonly int[] lifeArray = new int[3] { 0, 0, 0 };
-    //
-    //
-    // This is the quotient, or, the value from 0.0f to 1.0f that we use to determine how much of the health bar to render
-    private float quotient;
+		//
+		//
+		// This is a life array, you can see how the life values are written to it in the Update method
+		private readonly int[] lifeArray = new int[3] { 0, 0, 0 };
     //
     //
     // This is the variable that allows our boss health bar to run, but only if there is a boss
@@ -72,39 +69,41 @@ namespace ProvidenceMod.UI
     public override void OnInitialize()
     {
       // Here we initialize the area and set our variables
-      area = new UIElement();
+      area = new BossHealthElement();
       // The first valoe is the pixel count fron the left or top, the second value is the percentage in case that's easier to use
-      area.Left.Set(Main.screenWidth - 549, 0f);
-      area.Top.Set(Main.screenHeight - 200, 0f);
-      area.Width.Set(549f, 0f);
-      area.Height.Set(87f, 0f);
+      area.Left.Set(Main.screenWidth - 732f, 0f);
+      area.Top.Set(Main.screenHeight - 100, 0f);
+      area.Width.Set(732f, 0f);
+      area.Height.Set(84f, 0f);
 
       frame = new UIImage(GetTexture("ProvidenceMod/UI/BossHealthUIFrame"));
       frame.Top.Set(0, 0f);
       frame.Left.Set(0, 0f);
-      frame.Width.Set(549f, 0f);
-      frame.Height.Set(87f, 0f);
-
-      background = new UIImage(GetTexture("ProvidenceMod/UI/BossHealthUIBackground"));
-      frame.Top.Set(0, 0f);
-      frame.Left.Set(0, 0f);
-      frame.Width.Set(549f, 0f);
-      frame.Height.Set(87f, 0f);
+      frame.Width.Set(732f, 0f);
+      frame.Height.Set(84f, 0f);
 
       // We give the rectangle the same dimensions as our health bar so that it always draws all of it unless told otherwise
-      mainBarRect = new Rectangle(0, 0, 519, 9);
-      mainBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHealthUIBar"), mainBarRect);
-      mainBar.Top.Set(36f, 0f);
-      mainBar.Left.Set(9f, 0f);
-      mainBar.Width.Set(519f, 0f);
-      mainBar.Height.Set(9f, 0f);
+      mainBarRect = new Rectangle(0, 0, 696, 26);
+      mainBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHealthUIHP"), mainBarRect);
+      mainBar.Top.Set(30f, 0f);
+      mainBar.Left.Set(8f, 0f);
+      mainBar.Width.Set(696f, 0f);
+      mainBar.Height.Set(26f, 0f);
 
-      barAfterImageRect = new Rectangle(0, 0, 519, 9);
+      barAfterImageRect = new Rectangle(0, 0, 696, 26);
       barAfterImage = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHealthUIHit"), barAfterImageRect);
-      barAfterImage.Top.Set(36f, 0f);
-      barAfterImage.Left.Set(9f, 0f);
-      barAfterImage.Width.Set(519f, 0f);
-      barAfterImage.Height.Set(9f, 0f);
+      barAfterImage.Top.Set(30f, 0f);
+      barAfterImage.Left.Set(8f, 0f);
+      barAfterImage.Width.Set(696f, 0f);
+      barAfterImage.Height.Set(26f, 0f);
+
+			bossNameUI = new UIText(string.Empty, 0.8f);
+			bossNameUI.Top.Set(37f, 0f);
+			bossNameUI.Left.Set(320f, 0f);
+
+			HPAmount = new UIText(string.Empty, 0.8f);
+			HPAmount.Top.Set(68, 0f);
+			HPAmount.Left.Set(570f, 0f);
 
       // Don't forget to append the area, otherwise your UI wont draw
       // You should also append any type that starts with UI (Like UIImage or UIImageFramed)
@@ -120,11 +119,12 @@ namespace ProvidenceMod.UI
       // but you can ask for a certain value to be returned instead of being limited to one
       if (IsThereABoss().Item1)
       {
-        // If there is a boss, we append our UI chilren so that it displays the boss health bar 
-        area.Append(background);
-        area.Append(barAfterImage);
-        area.Append(mainBar);
+        // If there is a boss, we append our UI children so that it displays the boss health bar 
         area.Append(frame);
+        area.Append(barAfterImage);
+				area.Append(mainBar);
+				area.Append(bossNameUI);
+				area.Append(HPAmount);
       }
       else if (!IsThereABoss().Item1)
       {
@@ -156,6 +156,7 @@ namespace ProvidenceMod.UI
           bossHealth = npc.life;
           bossHealthMax = npc.lifeMax;
           boss = true;
+					area.boss = npc;
         }
         if (npc.type == NPCID.MoonLordHead)
         {
@@ -175,12 +176,13 @@ namespace ProvidenceMod.UI
           bossHealthMax = npc.lifeMax;
           bossNPC = npc;
           boss = true;
-        }
+					area.boss = npc;
+				}
       }
       // This only runs if there is a boss
       if (boss)
       {
-        if (bossNPC.type == NPCID.MoonLordCore || bossNPC.type == NPCID.MoonLordHead || bossNPC.type == NPCID.MoonLordHand)
+				if (bossNPC.type == NPCID.MoonLordCore || bossNPC.type == NPCID.MoonLordHead || bossNPC.type == NPCID.MoonLordHand)
         {
           if (bossNPC != null && head != null && hand != null && hand2 != null)
           {
@@ -192,7 +194,17 @@ namespace ProvidenceMod.UI
         {
           bossHealth = bossNPC.life;
         }
-        quotient = ((float)bossHealth) / bossHealthMax;
+				area.quotient = ((float)bossHealth) / bossHealthMax;
+				bossNameUI.SetText(bossNPC.FullName);
+				HPAmount.SetText($"{bossNPC.life} / {bossNPC.lifeMax}");
+				if(Main.playerInventory)
+				{
+					HPAmount.Left.Set(430f, 0f);
+				}
+				else
+				{
+					HPAmount.Left.Set(570f, 0f);
+				}
         if (!arraySet)
         {
           lifeArray[2] = lifeArray[1];
@@ -200,6 +212,10 @@ namespace ProvidenceMod.UI
           lifeArray[0] = bossHealth;
           arraySet = true;
         }
+				if(barAfterImageRect.Width < mainBarRect.Width)
+				{
+					barAfterImageRect.Width = mainBarRect.Width;
+				}
         // This checks if the current boss life is less than the previous recorded value
         // If it is, it resets the cooldown for the hit bar movement
         if (bossHealth < lifeArray[0])
@@ -226,13 +242,16 @@ namespace ProvidenceMod.UI
           barAfterImage.SetFrame(barAfterImageRect);
         }
         // Resetting everything after the boss is dead, make sure to do this if your UI is dependent on variables and changing things around
-        if (bossHealth <= 0)
+        if (bossHealth <= 0 || bossNPC == null)
         {
           boss = false;
           bossNPC = null;
-          bossHealth = 0;
+					area.boss = null;
+					bossNameUI.SetText(string.Empty);
+					HPAmount.SetText(string.Empty);
+					bossHealth = 0;
           bossHealthMax = 0;
-          barAfterImageRect.Width = 519;
+          barAfterImageRect.Width = 696;
           barAfterImage.SetFrame(barAfterImageRect);
           cooldown = 30;
           lifeArray[0] = 0;
@@ -242,8 +261,8 @@ namespace ProvidenceMod.UI
         }
       }
       // Main Bar
-      quotient = Utils.Clamp(quotient, 0f, 1f);
-      mainBarRect.Width = (int)(519 * quotient);
+      area.quotient = Utils.Clamp(area.quotient, 0f, 1f);
+      mainBarRect.Width = (int)(696 * area.quotient);
       mainBar.SetFrame(mainBarRect);
     }
   }

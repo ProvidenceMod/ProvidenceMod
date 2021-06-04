@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using ProvidenceMod.Items.Materials;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Projectiles.Magic;
+using ProvidenceMod.Projectiles.Boss;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
@@ -19,7 +19,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 
     public override void SetDefaults()
     {
-      item.Providence().element = ElementID.Air;
+      item.Providence().element = (int)ElementID.Air;
       item.damage = 46;
       item.width = 44;
       item.height = 44;
@@ -46,8 +46,6 @@ namespace ProvidenceMod.Items.Weapons.Melee
       ModRecipe r = new ModRecipe(mod);
 
       r.AddIngredient(ItemType<ZephyrBar>(), 10);
-      r.AddIngredient(ItemType<HarpyQueenFeather>(), 3);
-      r.AddIngredient(ItemType<HarpyQueenTalon>(), 2);
       r.AddTile(TileID.SkyMill);
       r.SetResult(this);
       r.AddRecipe();

@@ -175,28 +175,6 @@ namespace ProvidenceMod.NPCs.FireAncient
     }*/
     public void FindPlayers()
     {
-      if (Main.netMode != NetmodeID.MultiplayerClient)
-      {
-        int originalCount = targets.Count;
-        targets.Clear();
-        for (int k = 0; k < 255; k++)
-        {
-          if (Main.player[k].active)
-          {
-            targets.Add(k);
-          }
-        }
-        if (Main.netMode == NetmodeID.Server && targets.Count != originalCount)
-        {
-          ModPacket netMessage = GetPacket(FireAncientMessageType.TargetList);
-          netMessage.Write(targets.Count);
-          foreach (int target in targets)
-          {
-            netMessage.Write(target);
-          }
-          netMessage.Send();
-        }
-      }
     }
 
     public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
@@ -206,39 +184,6 @@ namespace ProvidenceMod.NPCs.FireAncient
         ProvidenceWorld.downedFireAncient = true;
       }
     }
-
-    private ModPacket GetPacket(FireAncientMessageType type)
-    {
-      ModPacket packet = mod.GetPacket();
-      packet.Write((byte)ProvidenceModMessageType.FireAncient);
-      packet.Write(npc.whoAmI);
-      packet.Write((byte)type);
-      return packet;
-    }
-
-    internal enum FireAncientMessageType : byte
-    {
-      HeroPlayer,
-      TargetList,
-      DontTakeDamage,
-      PlaySound,
-      Damage
-    }
-
-    public void HandlePacket(BinaryReader reader)
-    {
-      FireAncientMessageType type = (FireAncientMessageType)reader.ReadByte();
-      if (type == FireAncientMessageType.TargetList)
-      {
-        int numTargets = reader.ReadInt32();
-        targets.Clear();
-        for (int k = 0; k < numTargets; k++)
-        {
-          targets.Add(reader.ReadInt32());
-        }
-      }
-    }
-
     public override Color? GetAlpha(Color lightColor)
     {
       Color color = Color.White;

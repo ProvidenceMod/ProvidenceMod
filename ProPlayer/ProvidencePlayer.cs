@@ -10,9 +10,6 @@ using ProvidenceMod.Dusts;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Buffs.StatDebuffs;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Buffs.Cooldowns;
-using ProvidenceMod.Projectiles.Ability;
-using ProvidenceMod.Buffs.StatBuffs;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using ProvidenceMod.TexturePack;
@@ -24,42 +21,26 @@ namespace ProvidenceMod
   {
     //  affExp = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     // public int affExpCooldown = 0;
-    public Projectile parryProj;
 
-    public bool allowFocus;
-    public bool ampCapacitor;
-    public bool angelTear;
-    public bool brimHeart;
-    public bool boosterShot;
+    //public bool allowFocus;
     public bool burnAura;
-    public bool cantdeflect;
     public bool cerberus;
     public bool cerberusAura;
     public bool cerberusAuraSpawned;
-    public bool cFlameAura;
     public bool dashing;
-    public bool micitBangle;
     public bool intimidated;
-    public bool parryActive;
-    public bool parryActiveCooldown;
-    public bool parryCapable;
-    public bool parryWasActive;
     public bool regenAura;
     public bool spawnReset = true;
-    public bool tankParryOn;
     public bool texturePackEnabled;
-    public bool ZephyrAglet;
-    public bool vampFang;
 
-    public const float defaultFocusGain = 0.005f;
-    public float bonusFocusGain;
-    public float defaultFocusLoss = 0.25f;
-    public float focus;
-    public float focusLoss = 0.15f;
-    public float focusMax = 1f;
-    public float tankingItemCount;
+    //public const float defaultFocusGain = 0.005f;
+    //public float bonusFocusGain;
+    //public float defaultFocusLoss = 0.25f;
+    //public float focus;
+    //public float focusLoss = 0.15f;
+    //public float focusMax = 1f;
+    //public float tankingItemCount;
 
-    public const int maxParryActiveTime = 90;
     public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public int auraStyle = -1;
@@ -67,14 +48,6 @@ namespace ProvidenceMod
     public int dashMod;
     public int dashTimeMod;
     public int dashModDelay = 60;
-    public int focusLossCooldown;
-    public int focusLossCooldownMax = 20;
-    public int parriedProjs;
-    public int parryActiveTime;
-    public int parryProjID;
-    public int parryType;
-    public int tankParryPWR;
-    public int tearCount;
 
     // TODO: Make this have use (see tooltip in the item of same name)
     public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "order", "chaos" };
@@ -83,8 +56,6 @@ namespace ProvidenceMod
     // -- Cleric --
     public bool hasClericSet;
     public bool cleric;
-    public float clericMultiplier = 1f;
-    public float clericAuraRadius = 300f;
     public float maxParityStacks = 100;
     public float parityStackGeneration;
     public float parityCyclePenalty = 40;
@@ -103,37 +74,17 @@ namespace ProvidenceMod
     public override void ResetEffects()
     {
       affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-      allowFocus = IsThereABoss().Item1;
       auraStyle = -1;
       auraType = -1;
-      ampCapacitor = false;
-      brimHeart = false;
-      bonusFocusGain = 0f;
-      boosterShot = false;
       burnAura = false;
       cerberus = false;
       cerberusAura = false;
-      cFlameAura = false;
-      clericMultiplier = 1f;
-      clericAuraRadius = 300f;
       dashMod = 0;
       dashTimeMod = 0;
-      focusMax = 1f;
       hasClericSet = false;
       intimidated = false;
-      parryActive = parryActiveTime > 0;
-      parryActiveCooldown = parryActiveTime > 0 && parryActiveTime <= maxParryActiveTime;
-      parryCapable = false;
-      parryType = ParryTypeID.Support;
-      player.moveSpeed += focus / 2;
-      player.statLifeMax2 += tearCount * 20;
       regenAura = false;
       resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-      tankParryPWR = player.HasBuff(BuffType<TankParryBoost>()) || parryActive ? tankParryPWR : 0;
-      tankParryOn = false;
-      tankParryPWR = tankParryOn ? tankParryPWR : 0;
-      vampFang = false;
-      ZephyrAglet = false;
 
       // -- Cleric --
 
@@ -146,13 +97,6 @@ namespace ProvidenceMod
     }
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
-      if (player.Providence().parryCapable && ProvidenceMod.ParryHotkey.JustPressed && !player.HasBuff(BuffType<CantDeflect>()))
-      {
-        parryActiveTime = maxParryActiveTime;
-        int p = Projectile.NewProjectile(player.position, new Vector2(0, 0), ProjectileType<ParryShield>(), 0, 0, player.whoAmI);
-        parryProj = Main.projectile[p];
-        parryProjID = p;
-      }
       if (cleric && ProvidenceMod.CycleParity.JustPressed)
       {
         if (chaos && chaosStacks >= parityCyclePenalty)
@@ -181,14 +125,14 @@ namespace ProvidenceMod
     }
     public override void Load(TagCompound tag)
     {
-      angelTear = tag.GetBool("angelTear");
-      tearCount = tag.GetInt("tearCount");
+      //angelTear = tag.GetBool("angelTear");
+      //tearCount = tag.GetInt("tearCount");
     }
     public override TagCompound Save()
     {
       return new TagCompound {
-        {"angelTear", angelTear},
-        {"tearCount", tearCount},
+        //{"angelTear", angelTear},
+        //{"tearCount", tearCount},
         // {"affExp", this.affExp}
       };
     }
@@ -224,7 +168,6 @@ namespace ProvidenceMod
       //   ChaosCleric();
       // }
       BuffHelper();
-      FocusHelper(false);
       base.PreUpdate();
     }
     public override void PostUpdate()
@@ -234,9 +177,7 @@ namespace ProvidenceMod
         PlayerManager.InitializePlayerGlowMasks();
         texturePackEnabled = true;
       }
-      FocusHelper(true);
       AuraHelper();
-      ParryHelper(true);
       player.CalcElemDefense();
       ChaosHelper();
       // Mod mod = ModLoader.GetMod("ProvidenceMod");
@@ -251,30 +192,11 @@ namespace ProvidenceMod
     }
     public void BuffHelper()
     {
-      if (IsThereABoss().Item1)
-        allowFocus = true;
       player.AddBuff(BuffType<Intimidated>(), 2);
       intimidated = true;
       if (!IsThereABoss().Item1)
         player.ClearBuff(BuffType<Intimidated>());
       intimidated = false;
-    }
-    public void FocusHelper(bool postUpdate = false)
-    {
-      if (!postUpdate)
-      {
-        if (focusLossCooldown > 0)
-          focusLossCooldown--;
-        if (!allowFocus)
-          focus = 0;
-        focus = Utils.Clamp(focus, 0, focusMax);
-      }
-      else
-      {
-        tankingItemCount = (int)Math.Floor((decimal)(player.statDefense / 15));
-        // Max 15%, min 5%
-        focusLoss = 0.25f - (tankingItemCount / 100) < 0.05f ? 0.05f : 0.25f - (tankingItemCount / 100);
-      }
     }
     public void AuraHelper()
     {
@@ -286,74 +208,6 @@ namespace ProvidenceMod
       if (cerberus)
       {
         cerberusAura = true;
-      }
-      switch (auraStyle)
-      {
-        case 0:
-          GenerateAuraField(player, AuraStyle.CerberusStyle, 0f);
-          break;
-        case 1:
-          GenerateAuraField(player, AuraStyle.BurnStyle, -100f);
-          break;
-        case 2:
-          GenerateAuraField(player, AuraStyle.CFlameStyle, -150f);
-          break;
-        case 3:
-          GenerateAuraField(player, AuraStyle.AmpStyle, 0f);
-          break;
-      }
-    }
-    public void ParryHelper(bool postUpdate = false)
-    {
-      if (!postUpdate)
-      {
-        if (parryCapable && parryActive)
-        {
-          if (parryActiveTime > 0)
-            parryActiveTime--;
-          // Setting an "oldX" bool for PostUpdate
-          parryWasActive = parryActive;
-          ActivateParry();
-
-          if (parryType == ParryTypeID.Tank && tankParryPWR != 0 && !player.HasBuff(BuffType<TankParryBoost>()))
-          {
-            // 5 secs of time, -1 second for each hit tanked with this active
-            player.AddBuff(BuffType<TankParryBoost>(), 300);
-          }
-        }
-      }
-      else
-      {
-        if (parryCapable)
-        {
-          // This shouldn't just be when unequal, it specifically needs to be when it's not active anymore, but was within this tick
-          if (parryWasActive && !parryActive)
-          {
-            player.AddBuff(BuffType<CantDeflect>(), 180 + (parriedProjs * 60), true);
-            parryWasActive = false;
-            parriedProjs = 0;
-            parryProj = null;
-            parryProjID = 255;
-          }
-        }
-      }
-    }
-    public void ActivateParry()
-    {
-      switch (parryType)
-      {
-        case ParryTypeID.Universal:
-          StandardParry(player, parryProj.Hitbox, ref parryProjID);
-          break;
-        case ParryTypeID.Tank:
-          tankParryPWR += TankParry(player, parryProj.Hitbox, ref parryProjID);
-          break;
-        case ParryTypeID.DPS:
-          DPSParry(player, parryProj.Hitbox, ref parryProjID);
-          break;
-        case ParryTypeID.Support:
-          SupportParry(player, parryProj.Hitbox, ref parryProjID);
-          break;
       }
     }
     public void ChaosHelper()
@@ -477,97 +331,27 @@ namespace ProvidenceMod
     }
     public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
     {
-      if (brimHeart)
-      {
-        player.buffImmune[BuffID.OnFire] = true;
-        if (item.Providence().element == 0) // If the weapon is fire-based
-        {
-          // Reduce cost by 15%
-          reduce -= 0.15f;
-        }
-      }
     }
     public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
     {
-      if (target.boss && target.active)
-      {
-        // Should add to the focus bar
-        focus += defaultFocusGain + bonusFocusGain;
-        if (focus > focusMax) focus = focusMax;
-      }
-      // Determined at the end of everything so any focus gained within a tick is retroactive
-      damage += (int)(damage * (focus / 5));
     }
     public override void NaturalLifeRegen(ref float regen)
     {
-      if (regenAura)
-      {
-        foreach (Player targetPlayer in Main.player)
-        {
-          if (targetPlayer.MountedCenter.IsInRadiusOf(player.MountedCenter, clericAuraRadius))
-          {
-            targetPlayer.lifeRegen += (int)(clericMultiplier * 2);
-          }
-        }
-      }
-
-      // Focus regain
-      regen += regen * focus;
     }
     public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
     {
       // Item item = player.inventory[player.selectedItem];
-      if (target.boss && target.active)
-      {
-        focus += defaultFocusGain + bonusFocusGain;
-        if (focus > focusMax) focus = focusMax;
-      }
-      damage += (int)(damage * (focus / 5));
     }
     public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromNPC(npc, ref damage);
-
-      if (allowFocus)
-      {
-        float focusDR = focus / 4 >= 0.25f ? 0.25f : focus / 4;
-        damage -= (int)(damage * focusDR);
-
-        if (focusLossCooldown == 0)
-        {
-          focus -= focusLoss;
-          if (focus < 0f) focus = 0f;
-          focusLossCooldown = focusLossCooldownMax;
-        }
-      }
-      damage -= damage * (tankParryPWR / 100);
     }
     public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
     {
       damage = player.CalcEleDamageFromProj(proj, ref damage);
-
-      if (allowFocus)
-      {
-        float focusDR = focus / 4 >= 0.25f ? 0.25f : focus / 4;
-        damage -= (int)(damage * focusDR);
-
-        if (focusLossCooldown == 0)
-        {
-          focus -= focusLoss;
-          if (focus < 0f) focus = 0f;
-          focusLossCooldown = focusLossCooldownMax;
-        }
-      }
-
-      damage -= damage * (tankParryPWR / 100);
     }
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {
-      if (boosterShot && item.potion)
-      {
-        healValue *= 2; // Doubles potion power
-        player.ClearBuff(BuffType<BoosterShot>()); // Immediately deletes it from buff bar
-      }
     }
     public override void ModifyDrawLayers(List<PlayerLayer> layers)
     {
@@ -633,10 +417,8 @@ namespace ProvidenceMod
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
     {
       ModPacket packet = mod.GetPacket();
-      packet.Write((byte)ProvidenceModMessageType.ProvidencePlayerSyncPlayer);
       packet.Write((byte)player.whoAmI);
-      packet.Write(tearCount); // While we sync nonStopParty in SendClientChanges, we still need to send it here as well so newly joining players will receive the correct value.
-      packet.Send(toWho, fromWho);
+			packet.Send(toWho, fromWho);
     }
   }
 }

@@ -7,7 +7,7 @@ using ProvidenceMod.Items.Materials;
 using ProvidenceMod.Projectiles.Boss;
 using ProvidenceMod.Projectiles.Ranged;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Projectiles.Magic;
+using ProvidenceMod.Projectiles.Boss;
 
 namespace ProvidenceMod.Items.Weapons.Magic
 {
@@ -35,7 +35,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
       item.autoReuse = true;
       item.rare = ItemRarityID.Orange;
       item.UseSound = SoundID.Item45;
-      item.Providence().element = ElementID.Air; // Fire
+      item.Providence().element = (int)ElementID.Air; // Fire
       item.shoot = ProjectileType<ZephyrSpirit>();
       item.shootSpeed = 6f;
     }
@@ -54,8 +54,6 @@ namespace ProvidenceMod.Items.Weapons.Magic
       ModRecipe r = new ModRecipe(mod);
 
       r.AddIngredient(ItemType<ZephyrBar>(), 10);
-      r.AddIngredient(ItemType<HarpyQueenFeather>(), 3);
-      r.AddIngredient(ItemType<HarpyQueenTalon>(), 3);
       r.AddTile(TileID.SkyMill);
       r.SetResult(this);
       r.AddRecipe();

@@ -30,7 +30,24 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Buffs\Cooldowns\" />
+    <Folder Include="Buffs\StatBuffs\" />
+    <Folder Include="Items\Accessories\" />
+    <Folder Include="Items\Potions\" />
+    <Folder Include="Items\Tools\" />
+    <Folder Include="Items\Weapons\Cleric\" />
+    <Folder Include="Items\Weapons\Summon\" />
+    <Folder Include="Projectiles\Ability\" />
+    <Folder Include="Projectiles\Aura\" />
+    <Folder Include="Projectiles\Environment\" />
+    <Folder Include="Projectiles\Healing\" />
+    <Folder Include="Projectiles\Magic\" />
+    <Folder Include="Projectiles\Summon\" />
+    <Folder Include="Sounds\Music\" />
+    <Folder Include="Sounds\NPCHit\" />
+  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe&quot; -build &quot;$(ProjectDir)&quot; -eac &quot;$(TargetPath)&quot;" />
+    <Exec Command="&quot;C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe&quot; -build &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot;" />
   </Target>
 </Project>

@@ -47,21 +47,23 @@ namespace ProvidenceMod
 		public static void Load()
 		{
 			subworldLibrary = ModLoader.GetMod("SubworldLibrary");
-			if (subworldLibrary != null) {
+			if (subworldLibrary != null)
+			{
 				object result = subworldLibrary.Call(
 					"Register",
 					/*Mod mod*/ ModContent.GetInstance<ProvidenceMod>(),
 					/*string name*/ "MySubworld",
 					/*int width*/ 8400,
 					/*int height*/ 2400,
-					/*List<GenPass> tasks*/ TestingSubworldGenPass(),
+					/*List<GenPass> tasks*/ EndlessSeaGenPass(),
 					/*the following ones are optional, I've included three here (technically two but since order matters, had to pass null for the unload argument)
 					/*Action load*/ (Action)LoadWorld,
 					/*Action unload*/ null,
-					/*ModWorld modWorld*/ ModContent.GetInstance<TestingSubworld>()
+					/*ModWorld modWorld*/ ModContent.GetInstance<EndlessSea>()
 					);
 
-				if (result != null && result is string id) {
+				if (result != null && result is string id)
+				{
 					mySubworldID = id;
 				}
 			}
@@ -82,7 +84,7 @@ namespace ProvidenceMod
 		}
 
 		//Called in subworldLibrary.Call()
-		public static List<GenPass> TestingSubworldGenPass()
+		public static List<GenPass> EndlessSeaGenPass()
 		{
 			return new List<GenPass>
 			{
@@ -98,13 +100,11 @@ namespace ProvidenceMod
 				new PassLegacy("GeneratingBorders",
 				(GenerationProgress progress) => {
 					progress.Message = "Generating subworld borders";
-
 					//Create three tiles for the player to stand on when he spawns
 					for (int i = -1; i < 2; i++)
 					{
 						WorldGen.PlaceTile(Main.spawnTileX - i,  Main.spawnTileY + 2, TileID.Dirt, true, true);
 					}
-
 					//Create a wall of lihzard bricks around the world. 41, 42 and 43 are magic numbers from the game regarding world boundaries
 					for (int i = 0; i < Main.maxTilesX; i++)
 					{
@@ -118,17 +118,20 @@ namespace ProvidenceMod
 						}
 					}
 				},
-				// new PassLegacy("AddingWater",
-				// (GenerationProgress progress) => {
-				// 	progress.Message = "Generating water";
-				// 	for (int i = 256 ; i < Main.maxTilesY ; i++)
-				// 	{
-				// 		for (int j = 0 ; j < Main.maxTilesX ; j++)
-        //     {
-        //       WorldGen.PlaceTile(i, j, TileID.Water)
-        //     }
-				// 	}
-				// }
+				1f),
+				new PassLegacy("AddingWater",
+				(GenerationProgress progress) => {
+				 	progress.Message = "Generating water";
+				 	for (int i = 256 ; i < Main.maxTilesY ; i++)
+				 	{
+				 		for (int j = 0 ; j < Main.maxTilesX ; j++)
+						{
+							Main.tile[j, i].liquidType(0);
+							Main.tile[j, i].liquid = 255;
+							WorldGen.SquareTileFrame(j, i, false);
+						}
+				 	}
+				},
 				1f)
 				//Add more passes here
 			};

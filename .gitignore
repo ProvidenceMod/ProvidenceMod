@@ -342,3 +342,9 @@ desktop.ini
 bin/
 .vscode/
 Developer/
+.vs/
+obj/
+Properties/
+Fonts/FontGen
+Properties/launchSettings.json
+Properties/launchSettings.json

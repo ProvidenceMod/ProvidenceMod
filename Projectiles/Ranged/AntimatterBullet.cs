@@ -20,7 +20,7 @@ namespace ProvidenceMod.Projectiles.Ranged
 			projectile.hide = false;
 			projectile.aiStyle = 0;
 			projectile.ranged = true;
-			projectile.timeLeft = 30.InTicks();
+			projectile.timeLeft = 30f.InTicks();
 		}
 		public override void AI()
 		{

@@ -12,16 +12,7 @@ namespace ProvidenceMod
   public class ProvidenceGlobalProjectile : GlobalProjectile
   {
     public override bool InstancePerEntity => true;
-    public bool amped;
-    public bool ChaosAmpBoosted;
-    public bool Deflectable { get => homingID == -1 && !deflectableOverride; }
-    public bool deflectableOverride = false;
-    public bool deflected;
-    public bool inverseKB;
     public int element = -1;
-    public int homingID = -1;
-    public int shotBy;
-    public bool shotBySet;
     public bool texturePackEnabled;
 
     public override void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)

@@ -25,6 +25,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 
 		public int phase = 0;
 		double quotient;
+		public float rain = 1f;
 
 		// Movement
 		int direction;
@@ -180,6 +181,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 			// Phase 1 gate
 			if (quotient > 0.6d && !stunned)
 			{
+				rain = 1f;
 				RefreshRain();
 				if (bulletHellTimer == 1)
 				{
@@ -328,10 +330,12 @@ namespace ProvidenceMod.NPCs.AirElemental
 			}
 			if (quotient <= 0.6d && quotient > 0.3d)
 			{
+				rain = 1.5f;
 				Movement();
 			}
 			if(quotient <= 0.3d)
 			{
+				rain = 2f;
 				Movement();
 			}
 
@@ -343,14 +347,14 @@ namespace ProvidenceMod.NPCs.AirElemental
 		public void RefreshRain()
 		{
 			Main.raining = true;
-			Main.cloudBGActive = ;
+			Main.cloudBGActive = rain / 2f;
 			Main.numCloudsTemp = Main.cloudLimit;
 			Main.numClouds = Main.numCloudsTemp;
-			Main.windSpeedTemp = rainMult[0];
+			Main.windSpeedTemp = rain / 2f;
 			Main.windSpeedSet = Main.windSpeedTemp;
 			Main.weatherCounter = 36000;
 			Main.rainTime = Main.weatherCounter;
-			Main.maxRaining = rainMult[1];
+			Main.maxRaining = rain;
 		}
 		public void Movement()
 		{

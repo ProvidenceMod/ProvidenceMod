@@ -6,12 +6,12 @@ using static Terraria.ModLoader.ModContent;
 using ProvidenceMod.Projectiles.Ranged;
 namespace ProvidenceMod.Items.Weapons.Ranged
 {
-	public class TempestBlaster : ModItem
+	public class WindBreaker : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tempest Blaster");
-			Tooltip.SetDefault("haha blow. dont worry this text isn't perminant, i just cant think of anything better atm.");
+			DisplayName.SetDefault("Wind Breaker");
+			Tooltip.SetDefault("Breaks wind");
 		}
 		public override void SetDefaults()
 		{

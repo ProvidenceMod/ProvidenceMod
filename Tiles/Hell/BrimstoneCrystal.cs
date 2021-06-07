@@ -8,11 +8,11 @@ using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 
-namespace ProvidenceMod.Tiles
+namespace ProvidenceMod.Tiles.Hell
 {
   public class BrimstoneCrystal : ModTile
   {
-    public Texture2D texture = GetTexture("ProvidenceMod/Tiles/BrimstoneCrystal");
+    public Texture2D texture = GetTexture("ProvidenceMod/Tiles/Hell/BrimstoneCrystal");
     public Vector3 color;
     public float time;
     public int frame;
@@ -31,7 +31,7 @@ namespace ProvidenceMod.Tiles
       soundType = SoundID.Shatter;
       soundStyle = SoundID.Shatter;
       dustType = DustType<BurnDust>();
-      drop = ItemType<Items.Placeables.BrimstoneCrystal>();
+      drop = ItemType<Items.Placeables.Hell.BrimstoneCrystal>();
       Main.tileLighted[Type] = true;
       Main.tileFrameImportant[Type] = true;
       Main.tileObsidianKill[Type] = true;

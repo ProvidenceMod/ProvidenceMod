@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeabless
+namespace ProvidenceMod.Items.Placeables
 {
 	public class ZephyrOre : ModItem
 	{

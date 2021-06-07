@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables
+namespace ProvidenceMod.Items.Placeables.Moon
 {
   public class Anorthosite : ModItem
   {
@@ -20,7 +20,7 @@ namespace ProvidenceMod.Items.Placeables
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.Anorthosite>();
+			item.createTile = ModContent.TileType<Tiles.Moon.Anorthosite>();
 			item.width = 16;
 			item.height = 16;
 			item.value = 30;

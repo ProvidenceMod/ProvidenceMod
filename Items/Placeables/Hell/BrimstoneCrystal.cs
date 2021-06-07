@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables
+namespace ProvidenceMod.Items.Placeables.Hell
 {
 	public class BrimstoneCrystal : ModItem
 	{
@@ -20,7 +20,7 @@ namespace ProvidenceMod.Items.Placeables
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.BrimstoneCrystal>();
+			item.createTile = ModContent.TileType<Tiles.Hell.BrimstoneCrystal>();
 			item.width = 16;
 			item.height = 16;
 			item.value = 3000;

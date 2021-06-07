@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables
+namespace ProvidenceMod.Items.Placeables.Ores
 {
 	public class ZephyrOre : ModItem
 	{
@@ -20,7 +20,7 @@ namespace ProvidenceMod.Items.Placeables
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.ZephyrOre>();
+			item.createTile = ModContent.TileType<Tiles.Ores.ZephyrOre>();
 			item.width = 12;
 			item.height = 12;
 			item.value = 3000;

@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ProvidenceMod.Items.Materials;
-using ProvidenceMod.Items.Placeables;
+using ProvidenceMod.Items.Placeables.Ores;
 using ProvidenceMod.Items.TreasureBags;
 using ProvidenceMod.Projectiles.Boss;
 using static Terraria.ModLoader.ModContent;
@@ -28,7 +28,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 		public float rain = 1f;
 
 		// Movement
-		int direction;
+		public int direction;
 
 		// Bullet hell
 		public int preBulletHellTimer = 300;

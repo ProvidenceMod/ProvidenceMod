@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ProvidenceMod.Items.Materials;
-using ProvidenceMod.Items.Placeable;
+using ProvidenceMod.Items.Placeables;
 using ProvidenceMod.Items.TreasureBags;
 using ProvidenceMod.Projectiles.Boss;
 using static Terraria.ModLoader.ModContent;

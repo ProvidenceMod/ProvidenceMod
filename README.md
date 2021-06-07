@@ -13,20 +13,17 @@ This is the source code for the ProvidenceMod project; A mod for Terraria via tM
 A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its own unique elements. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
 
 ### Added content:
-- Focus System
-- Elemental System
-- Aura System
-- Parry System
-- Vertical Dashing
+- One boss
+- One new ore
+- One new set of items
+- One subworld (Incomplete)
 - A new class: Cleric
 
 ### Planned Content:
-- Dash Dodging
-- Dash Attacks
+- Elemental System
+- Parry System
 - New Subworlds
 - New Biomes
-- Shielding
-- Elemental Armor (Elemental Health Bars)
 - New Ores
 - New Weapons
 - Lots and lots of bosses

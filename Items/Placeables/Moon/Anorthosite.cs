@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables
+namespace ProvidenceMod.Items.Placeabless
 {
   public class Anorthosite : ModItem
   {

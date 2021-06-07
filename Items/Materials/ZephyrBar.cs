@@ -1,6 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using ProvidenceMod.Items.Placeables;
+using ProvidenceMod.Items.Placeabless;
 using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Items.Materials

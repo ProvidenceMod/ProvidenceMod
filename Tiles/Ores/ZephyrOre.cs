@@ -22,7 +22,7 @@ namespace ProvidenceMod.Tiles
 			AddMapEntry(new Color(152, 255, 241), name);
 
 			dustType = DustID.Platinum;
-			drop = ModContent.ItemType<Items.Placeables.ZephyrOre>();
+			drop = ModContent.ItemType<Items.Placeabless.ZephyrOre>();
 			soundType = SoundID.Tink;
 			soundStyle = 1;
 			//mineResist = 4f;

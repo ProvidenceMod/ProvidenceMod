@@ -16,7 +16,7 @@ namespace ProvidenceMod.Tiles.EndlessSea
 			name.SetDefault("Yellow Coral"); // Sets the map hover name
 			AddMapEntry(new Color(255, 236, 51), name); // Adds the map entry for this tile with a hover name
 			dustType = DustID.Platinum; // TODO: Make a dedicated dust for this tile // The type of dust to create when hit
-			drop = ModContent.ItemType<Items.Placeable.EndlessSea.YellowCoralBlock>(); // The item to drop when this tile is mined or broken
+			drop = ModContent.ItemType<Items.Placeables.EndlessSea.YellowCoralBlock>(); // The item to drop when this tile is mined or broken
 			soundType = SoundID.Tink; // The sound to play when this tile is mined
 			soundStyle = 0; // The same as sound type, basically
 											//mineResist = 4f;

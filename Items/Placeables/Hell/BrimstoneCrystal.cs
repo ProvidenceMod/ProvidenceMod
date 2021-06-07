@@ -1,13 +1,13 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeable
+namespace ProvidenceMod.Items.Placeables
 {
-	public class ZephyrOre : ModItem
+	public class BrimstoneCrystal : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-      DisplayName.SetDefault("Zephyr Ore");
+      DisplayName.SetDefault("Brimstone Crystal");
 			ItemID.Sets.SortingPriorityMaterials[item.type] = 58;
 		}
 
@@ -20,9 +20,9 @@ namespace ProvidenceMod.Items.Placeable
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.ZephyrOre>();
-			item.width = 12;
-			item.height = 12;
+			item.createTile = ModContent.TileType<Tiles.BrimstoneCrystal>();
+			item.width = 16;
+			item.height = 16;
 			item.value = 3000;
       item.rare = ItemRarityID.Orange;
 		}

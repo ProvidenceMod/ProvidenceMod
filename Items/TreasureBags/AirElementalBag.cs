@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Items.Placeable;
+using ProvidenceMod.Items.Placeables;
 using ProvidenceMod.Items.Materials;
 
 namespace ProvidenceMod.Items.TreasureBags

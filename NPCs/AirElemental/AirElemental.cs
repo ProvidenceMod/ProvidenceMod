@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ProvidenceMod.Items.Materials;
-using ProvidenceMod.Items.Placeable;
+using ProvidenceMod.Items.Placeables;
 using ProvidenceMod.Items.TreasureBags;
 using ProvidenceMod.Projectiles.Boss;
 using static Terraria.ModLoader.ModContent;
@@ -20,11 +20,12 @@ namespace ProvidenceMod.NPCs.AirElemental
 	{
 		public Vector4 color = new Vector4(1f, 1f, 1f, 1f);
 		public Vector2[] oldPos = new Vector2[10] { Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero };
-
 		public bool preSpawnText;
 		private bool spawnText;
 
 		public int phase = 0;
+		double quotient;
+		public float rain = 1f;
 
 		// Movement
 		int direction;
@@ -45,6 +46,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 		public int stunCounter;
 
 		// Dash
+		public bool preppingDash;
 		public bool isDashing;
 
 		public override void SetStaticDefaults()
@@ -93,7 +95,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 			oldPos[0] = npc.Center;
 
 			// Phase gate quotient
-			double quotient = npc.life / 6800d;
+			quotient = npc.life / 6800d;
 
 			npc.ai[0]++; // Dust AI
 			if (npc.ai[0] == 3)
@@ -107,15 +109,6 @@ namespace ProvidenceMod.NPCs.AirElemental
 			if (!preSpawnText)
 			{
 				Talk("The wind begins to stir...", new Color(71, 74, 145), npc);
-				Main.raining = true;
-				Main.cloudBGActive = 0.5f;
-				Main.numCloudsTemp = Main.cloudLimit;
-				Main.numClouds = Main.numCloudsTemp;
-				Main.windSpeedTemp = 0.75f;
-				Main.windSpeedSet = Main.windSpeedTemp;
-				Main.weatherCounter = 36000;
-				Main.rainTime = Main.weatherCounter;
-				Main.maxRaining = 1f;
 				preSpawnText = true;
 			}
 
@@ -129,6 +122,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 			if (!spawnText)
 			{
 				Talk("The Air Elemental has awoken!", new Color(71, 74, 145), npc);
+				RefreshRain();
 				spawnText = true;
 			}
 
@@ -157,8 +151,15 @@ namespace ProvidenceMod.NPCs.AirElemental
 				color.Z = alpha;
 				color.W = alpha;
 				stunTimer--;
+				if (Collision.SolidCollision(new Vector2(npc.Center.X, npc.Center.Y + (npc.height / 2)), 1, 1))
+				{
+					npc.velocity.Y = 0;
+				}
+				else
+				{
+					npc.velocity.Y = 5f;
+				}
 				npc.velocity.X = 0;
-				npc.velocity.Y = 0;
 				if (stunTimer == 0)
 				{
 					npc.Opacity = 1f;
@@ -180,11 +181,13 @@ namespace ProvidenceMod.NPCs.AirElemental
 			// Phase 1 gate
 			if (quotient > 0.6d && !stunned)
 			{
+				rain = 1f;
+				RefreshRain();
 				if (bulletHellTimer == 1)
 				{
 					direction = Main.rand.Next(0, 2) == 0 ? -1 : 1;
 				}
-				if(bulletHellTimer == 576)
+				if (bulletHellTimer == 576)
 				{
 					direction *= -1;
 					Movement();
@@ -224,15 +227,11 @@ namespace ProvidenceMod.NPCs.AirElemental
 				}
 				if (bulletHellTimer > 960 && bulletHellTimer < 1020)
 				{
-					float alpha = (float)((float)(0.25d * Math.Sin(Main.GlobalTime * 20d)) + 0.75d);
-					npc.Opacity = alpha;
-					color.X = alpha;
-					color.Y = alpha;
-					color.Z = alpha;
-					color.W = alpha;
+					preppingDash = true;
 				}
 				if (bulletHellTimer == 1020)
 				{
+					preppingDash = false;
 					isDashing = true;
 					npc.Opacity = 1f;
 					color.X = 1f;
@@ -329,37 +328,40 @@ namespace ProvidenceMod.NPCs.AirElemental
 					bulletHellTimer = 0;
 				}
 			}
-			if (quotient <= 0.6d)
+			if (quotient <= 0.6d && quotient > 0.3d)
 			{
-
+				rain = 1.5f;
+				Movement();
+			}
+			if(quotient <= 0.3d)
+			{
+				rain = 2f;
+				Movement();
 			}
 
 		}
-
-		//private void Talk(string message)
-		//{
-		//	if (Main.netMode != NetmodeID.Server)
-		//	{
-		//		string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
-		//		Main.NewText(text, 71, 74, 145);
-		//	}
-		//	else
-		//	{
-		//		NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
-		//		NetMessage.BroadcastChatMessage(text, new Color(71, 74, 145));
-		//	}
-		//}
-
 		public void SprayAttack()
 		{
 
+		}
+		public void RefreshRain()
+		{
+			Main.raining = true;
+			Main.cloudBGActive = rain / 2f;
+			Main.numCloudsTemp = Main.cloudLimit;
+			Main.numClouds = Main.numCloudsTemp;
+			Main.windSpeedTemp = rain / 2f;
+			Main.windSpeedSet = Main.windSpeedTemp;
+			Main.weatherCounter = 36000;
+			Main.rainTime = Main.weatherCounter;
+			Main.maxRaining = rain;
 		}
 		public void Movement()
 		{
 			Player player = Main.player[npc.target];
 			const float speedCap = 6f;
 			npc.spriteDirection = npc.direction;
-			
+
 			Vector2 unitY = npc.DirectionTo(new Vector2(player.Center.X + (direction == -1 ? -400 : 400), player.Center.Y - 200f));
 			npc.velocity = ((npc.velocity * 15f) + (unitY * speedCap)) / (15f + 1f);
 		}
@@ -373,20 +375,46 @@ namespace ProvidenceMod.NPCs.AirElemental
 		}
 		public void DrawAfterImage(SpriteBatch spriteBatch)
 		{
-			if (isDashing)
+			if (!isDashing && !stunned && !preppingDash)
 			{
-				float alpha = 1f;
+				for (int i = 1; i <= 3; i++)
+				{
+					float alpha = 1f - (i * 0.25f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				}
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+			}
+			if (preppingDash)
+			{
 				for (int i = 0; i < 10; i++)
 				{
-					alpha = 1f - (i * 0.1f);
+					float alpha = (float)((float)(0.25d * Math.Sin(Main.GlobalTime * 20d)) + 0.75d) - (1f - (i * 0.1f));
+					npc.Opacity = alpha;
+					color.X = alpha;
+					color.Y = alpha;
+					color.Z = alpha;
+					color.W = alpha;
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				}
+			}
+			if (isDashing)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					float alpha = 1f - (i * 0.1f);
 					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 				}
 				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 
 			}
-			if (!isDashing)
+			if (stunned)
 			{
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				for (int i = 0; i < 10; i++)
+				{
+					float alpha = (1f - (i * 0.1f)) * (float)((float)(0.375d * Math.Sin(Main.GlobalTime * 20d)) + 0.625d);
+					float scale = (2f - (i * 0.025f)) * (float)((float)(0.025d * Math.Sin(Main.GlobalTime * 20d)) + 1.025d);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, scale, SpriteEffects.None, 0f);
+				}
 			}
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)

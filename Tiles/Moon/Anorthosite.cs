@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ProvidenceMod.Tiles
 {
-  public class Regolith : ModTile
+  public class Anorthosite : ModTile
   {
     public override void SetDefaults()
 		{
@@ -13,10 +13,10 @@ namespace ProvidenceMod.Tiles
 			Main.tileSolid[Type] = true; // Makes sure the tile counts as solid
 			// Main.tileBlockLight[Type] = true;
 			ModTranslation name = CreateMapEntryName(); // Gives the tile a name to display when hovered over on the map
-			name.SetDefault("Regolith"); // Sets the map hover name
+			name.SetDefault("Anorthosite"); // Sets the map hover name
 			AddMapEntry(new Color(152, 255, 241), name); // Adds the map entry for this tile with a hover name
       dustType = DustID.Platinum; // TODO: Make a dedicated dust for this tile // The type of dust to create when hit
-			drop = ModContent.ItemType<Items.Placeable.Regolith>(); // The item to drop when this tile is mined or broken
+			drop = ModContent.ItemType<Items.Placeables.Anorthosite>(); // The item to drop when this tile is mined or broken
 			soundType = SoundID.Tink; // The sound to play when this tile is mined
 			soundStyle = 1; // The same as sound type, basically
 			//mineResist = 4f;

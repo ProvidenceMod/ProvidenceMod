@@ -46,6 +46,7 @@
     <Folder Include="Projectiles\Summon\" />
     <Folder Include="Sounds\Music\" />
     <Folder Include="Sounds\NPCHit\" />
+    <Folder Include="Tiles\EndlessSea\" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe&quot; -build &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot;" />

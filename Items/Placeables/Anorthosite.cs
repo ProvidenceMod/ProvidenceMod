@@ -2,14 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeable.EndlessSea
+namespace ProvidenceMod.Items.Placeables
 {
-	public class YellowCoralBlock : ModItem
-	{
-		public override void SetStaticDefaults()
+  public class Anorthosite : ModItem
+  {
+    public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Yellow Coral Block");
-			Tooltip.SetDefault("Yellow (Gold) Coral like this are said to be among the most rare types.");
+      DisplayName.SetDefault("Anorthosite");
 			ItemID.Sets.SortingPriorityMaterials[item.type] = 58;
 		}
 		public override void SetDefaults()
@@ -21,11 +20,11 @@ namespace ProvidenceMod.Items.Placeable.EndlessSea
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.EndlessSea.YellowCoralBlock>();
+			item.createTile = ModContent.TileType<Tiles.Anorthosite>();
 			item.width = 16;
 			item.height = 16;
 			item.value = 30;
-			item.rare = ItemRarityID.Orange;
+      item.rare = ItemRarityID.Orange;
 		}
-	}
+  }
 }

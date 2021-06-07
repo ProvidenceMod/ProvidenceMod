@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeable.EndlessSea
+namespace ProvidenceMod.Items.Placeables.EndlessSea
 {
 	public class RedCoralBlock : ModItem
 	{

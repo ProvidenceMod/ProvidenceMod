@@ -1,16 +1,16 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeable
+namespace ProvidenceMod.Items.Placeables
 {
-  public class Regolith : ModItem
-  {
-    public override void SetStaticDefaults()
+	public class ZephyrOre : ModItem
+	{
+		public override void SetStaticDefaults()
 		{
-      DisplayName.SetDefault("Regolith");
+      DisplayName.SetDefault("Zephyr Ore");
 			ItemID.Sets.SortingPriorityMaterials[item.type] = 58;
 		}
+
 		public override void SetDefaults()
 		{
 			item.useStyle = ItemUseStyleID.SwingThrow;
@@ -20,11 +20,11 @@ namespace ProvidenceMod.Items.Placeable
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.Regolith>();
-			item.width = 16;
-			item.height = 16;
-			item.value = 30;
+			item.createTile = ModContent.TileType<Tiles.ZephyrOre>();
+			item.width = 12;
+			item.height = 12;
+			item.value = 3000;
       item.rare = ItemRarityID.Orange;
 		}
-  }
+	}
 }

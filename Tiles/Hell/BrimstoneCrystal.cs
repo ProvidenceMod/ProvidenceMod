@@ -31,7 +31,7 @@ namespace ProvidenceMod.Tiles
       soundType = SoundID.Shatter;
       soundStyle = SoundID.Shatter;
       dustType = DustType<BurnDust>();
-      drop = ItemType<Items.Placeable.BrimstoneCrystal>();
+      drop = ItemType<Items.Placeables.BrimstoneCrystal>();
       Main.tileLighted[Type] = true;
       Main.tileFrameImportant[Type] = true;
       Main.tileObsidianKill[Type] = true;

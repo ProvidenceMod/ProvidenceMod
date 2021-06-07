@@ -1,14 +1,13 @@
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.Audio;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.DataStructures;
-using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
-using Terraria.Audio;
-using Terraria.Localization;
+using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod
 {

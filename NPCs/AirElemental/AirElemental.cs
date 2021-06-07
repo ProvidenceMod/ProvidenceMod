@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using ProvidenceMod.Items.Materials;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ProvidenceMod.Dusts;
+using ProvidenceMod.Projectiles.Boss;
 using ProvidenceMod.Items.Placeables.Ores;
 using ProvidenceMod.Items.TreasureBags;
-using ProvidenceMod.Projectiles.Boss;
 using static Terraria.ModLoader.ModContent;
-using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Dusts;
 
 namespace ProvidenceMod.NPCs.AirElemental
 {

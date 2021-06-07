@@ -1,22 +1,20 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using static ProvidenceMod.ProvidenceUtils;
-using static Terraria.ModLoader.ModContent;
+using Microsoft.Xna.Framework;
 using ProvidenceMod.Items.Materials;
 using ProvidenceMod.Projectiles.Boss;
-using ProvidenceMod.Projectiles.Ranged;
-using Microsoft.Xna.Framework;
-using ProvidenceMod.Projectiles.Boss;
+using static Terraria.ModLoader.ModContent;
+using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items.Weapons.Magic
 {
-  public class StormsCall : ModItem
+  public class Cumulus : ModItem
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Storm's Call");
-      Tooltip.SetDefault("Shoots slow-moving but homing harpy feathers.\nThe down you used to make the crown is heavier then the rod itself.");
+      DisplayName.SetDefault("Cumulus");
+      Tooltip.SetDefault("Conjures a localized tempest that steadily follows the cursor and slowly pulls in enemies");
       Item.staff[item.type] = true;
     }
 

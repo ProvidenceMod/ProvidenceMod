@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using ProvidenceMod.Items.Materials;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ProvidenceMod.Dusts;
+using ProvidenceMod.Projectiles.Boss;
 using ProvidenceMod.Items.Placeables.Ores;
 using ProvidenceMod.Items.TreasureBags;
-using ProvidenceMod.Projectiles.Boss;
 using static Terraria.ModLoader.ModContent;
-using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Dusts;
 
 namespace ProvidenceMod.NPCs.AirElemental
 {
@@ -77,9 +74,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 			npc.knockBackResist = 0f;
 			npc.buffImmune[BuffID.OnFire] = true;
 			npc.buffImmune[mod.BuffType("Freezing")] = true;
-			npc.buffImmune[mod.BuffType("Frozen")] = true;
-			npc.Providence().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
-		}
+			npc.buffImmune[mod.BuffType("Frozen")] = true;		}
 		public override void AI()
 		{
 			// Old position array
@@ -333,7 +328,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 				rain = 1.5f;
 				Movement();
 			}
-			if(quotient <= 0.3d)
+			if (quotient <= 0.3d)
 			{
 				rain = 2f;
 				Movement();
@@ -422,7 +417,22 @@ namespace ProvidenceMod.NPCs.AirElemental
 			DrawAfterImage(Main.spriteBatch);
 			return false;
 		}
-
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			if (npc.life <= 0)
+			{
+				for (int i = 0; i < 100; i++)
+				{
+					float angle = Main.rand.NextFloat(0, 360);
+					Vector2 speed = new Vector2(Main.rand.NextFloat(2f, 12f), Main.rand.NextFloat(2f, 12f)).RotatedBy(angle.InRadians());
+					float scale = Main.rand.NextFloat(1f, 2f);
+					int dust = Dust.NewDust(npc.Hitbox.RandomPointInHitbox(), 5, 5, DustType<CloudDust>(), speed.X, speed.Y, 255, default, scale);
+					Main.dust[dust].scale = scale;
+					Main.dust[dust].noGravity = false;
+					
+				}
+			}
+		}
 		public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
 		{
 			ProvidenceWorld world = GetInstance<ProvidenceWorld>();

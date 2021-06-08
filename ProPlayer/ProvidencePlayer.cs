@@ -19,8 +19,6 @@ namespace ProvidenceMod
 {
   public class ProvidencePlayer : ModPlayer
   {
-    //  affExp = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-    // public int affExpCooldown = 0;
 
     //public bool allowFocus;
     public bool burnAura;
@@ -41,17 +39,9 @@ namespace ProvidenceMod
     //public float focusMax = 1f;
     //public float tankingItemCount;
 
-    public int[] affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-    public int[] resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-    public int auraStyle = -1;
-    public int auraType = -1;
     public int dashMod;
     public int dashTimeMod;
     public int dashModDelay = 60;
-
-    // TODO: Make this have use (see tooltip in the item of same name)
-    public string[] elements = new string[8] { "fire", "ice", "lightning", "water", "earth", "air", "order", "chaos" };
-    public string dashDir = "";
 
     // -- Cleric --
     public bool hasClericSet;
@@ -73,9 +63,6 @@ namespace ProvidenceMod
 
     public override void ResetEffects()
     {
-      affinities = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-      auraStyle = -1;
-      auraType = -1;
       burnAura = false;
       cerberus = false;
       cerberusAura = false;
@@ -84,8 +71,6 @@ namespace ProvidenceMod
       hasClericSet = false;
       intimidated = false;
       regenAura = false;
-      resists = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-
       // -- Cleric --
 
       // Cleric Chaos
@@ -178,7 +163,6 @@ namespace ProvidenceMod
         texturePackEnabled = true;
       }
       AuraHelper();
-      player.CalcElemDefense();
       ChaosHelper();
       // Mod mod = ModLoader.GetMod("ProvidenceMod");
       // Item item = player.HeldItem;
@@ -233,6 +217,7 @@ namespace ProvidenceMod
     }
     public void ModDashMovement()
     {
+			string dashDir = string.Empty;
       if (dashMod == 1 && player.dash == 0)
       {
         player.eocDash = player.dashTime;
@@ -271,34 +256,34 @@ namespace ProvidenceMod
             player.dashTime = 15;
           }
         }
-        else if (player.controlUp && player.releaseUp)
-        {
-          if (player.dashTime > 0 && dashDir == "up")
-          {
-            player.dashTime = 0;
-            dashModDelay = delayTime;
-            dashing = true;
-          }
-          else
-          {
-            dashDir = "up";
-            player.dashTime = 15;
-          }
-        }
-        else if (player.controlDown && player.releaseDown)
-        {
-          if (player.dashTime > 0 && dashDir == "down")
-          {
-            player.dashTime = 0;
-            dashModDelay = delayTime;
-            dashing = true;
-          }
-          else
-          {
-            dashDir = "down";
-            player.dashTime = 15;
-          }
-        }
+        //else if (player.controlUp && player.releaseUp)
+        //{
+        //  if (player.dashTime > 0 && dashDir == "up")
+        //  {
+        //    player.dashTime = 0;
+        //    dashModDelay = delayTime;
+        //    dashing = true;
+        //  }
+        //  else
+        //  {
+        //    dashDir = "up";
+        //    player.dashTime = 15;
+        //  }
+        //}
+        //else if (player.controlDown && player.releaseDown)
+        //{
+        //  if (player.dashTime > 0 && dashDir == "down")
+        //  {
+        //    player.dashTime = 0;
+        //    dashModDelay = delayTime;
+        //    dashing = true;
+        //  }
+        //  else
+        //  {
+        //    dashDir = "down";
+        //    player.dashTime = 15;
+        //  }
+        //}
         if (dashing)
         {
           switch (dashDir)
@@ -309,12 +294,12 @@ namespace ProvidenceMod
             case "right":
               player.velocity.X = dashStrength;
               break;
-            case "up":
-              player.velocity.Y = -dashStrength;
-              break;
-            case "down":
-              player.velocity.Y = dashStrength;
-              break;
+            //case "up":
+            //  player.velocity.Y = -dashStrength;
+            //  break;
+            //case "down":
+            //  player.velocity.Y = dashStrength;
+            //  break;
           }
           player.dashDelay = 60;
         }
@@ -322,9 +307,9 @@ namespace ProvidenceMod
         {
           return;
         }
-        int dashDirInt = dashDir == "left" || dashDir == "up" ? -1 : dashDir == "right" || dashDir == "down" ? 1 : 0;
-        Point tileCoordinates1 = (player.Center + new Vector2((float)((dashDirInt * player.width / 2) + 2), (float)(((double)player.gravDir * (double)-player.height / 2.0) + ((double)player.gravDir * 2.0)))).ToTileCoordinates();
-        Point tileCoordinates2 = (player.Center + new Vector2((float)((dashDirInt * player.width / 2) + 2), 0.0f)).ToTileCoordinates();
+        int dashDirInt = dashDir == "left" || dashDir == "right" ? 1 : 0;
+        Point tileCoordinates1 = (player.Center + new Vector2((dashDirInt * player.width / 2) + 2, (float)(((double)player.gravDir * (double)-player.height / 2.0) + ((double)player.gravDir * 2.0)))).ToTileCoordinates();
+        Point tileCoordinates2 = (player.Center + new Vector2((dashDirInt * player.width / 2) + 2, 0.0f)).ToTileCoordinates();
         if (WorldGen.SolidOrSlopedTile(tileCoordinates1.X, tileCoordinates1.Y) || WorldGen.SolidOrSlopedTile(tileCoordinates2.X, tileCoordinates2.Y))
           player.velocity.X /= 2f;
       }
@@ -341,14 +326,6 @@ namespace ProvidenceMod
     public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
     {
       // Item item = player.inventory[player.selectedItem];
-    }
-    public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
-    {
-      damage = player.CalcEleDamageFromNPC(npc, ref damage);
-    }
-    public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
-    {
-      damage = player.CalcEleDamageFromProj(proj, ref damage);
     }
     public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
     {
@@ -374,46 +351,46 @@ namespace ProvidenceMod
         layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer3);
       }
     }
-    public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-    {
-      for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)
-      {
-        CombatText combatText = Main.combatText[combatIndex2];
-        if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
-        {
-          if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
-          {
-            switch (player.HeldItem.Providence().element)
-            {
-              case 0:
-                Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-                break;
-              case 1:
-                Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-                break;
-              case 2:
-                Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-                break;
-              case 3:
-                Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-                break;
-              case 4:
-                Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-                break;
-              case 5:
-                Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-                break;
-              case 6:
-                Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-                break;
-              case 7:
-                Main.combatText[combatIndex2].color = new Color(96, 0, 188);
-                break;
-            }
-          }
-        }
-      }
-    }
+    //public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+    //{
+    //  for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)
+    //  {
+    //    CombatText combatText = Main.combatText[combatIndex2];
+    //    if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
+    //    {
+    //      if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
+    //      {
+    //        switch (player.HeldItem.Providence().element)
+    //        {
+    //          case 0:
+    //            Main.combatText[combatIndex2].color = new Color(238, 74, 89);
+    //            break;
+    //          case 1:
+    //            Main.combatText[combatIndex2].color = new Color(238, 74, 204);
+    //            break;
+    //          case 2:
+    //            Main.combatText[combatIndex2].color = new Color(238, 226, 74);
+    //            break;
+    //          case 3:
+    //            Main.combatText[combatIndex2].color = new Color(74, 95, 238);
+    //            break;
+    //          case 4:
+    //            Main.combatText[combatIndex2].color = new Color(74, 238, 137);
+    //            break;
+    //          case 5:
+    //            Main.combatText[combatIndex2].color = new Color(145, 74, 238);
+    //            break;
+    //          case 6:
+    //            Main.combatText[combatIndex2].color = new Color(255, 216, 117);
+    //            break;
+    //          case 7:
+    //            Main.combatText[combatIndex2].color = new Color(96, 0, 188);
+    //            break;
+    //        }
+    //      }
+    //    }
+    //  }
+    //}
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
     {
       ModPacket packet = mod.GetPacket();

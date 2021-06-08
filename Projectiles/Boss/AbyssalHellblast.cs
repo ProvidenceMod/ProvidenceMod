@@ -55,7 +55,6 @@ namespace ProvidenceMod.Projectiles.Boss
 		public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
 		{
 			target.AddBuff(BuffID.OnFire, 10);
-			target.CalcEleDamageFromProj(projectile, ref damage);
 		}
 
 		public override Color? GetAlpha(Color lightColor) => Color.White;

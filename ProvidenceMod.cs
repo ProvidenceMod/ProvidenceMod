@@ -83,7 +83,6 @@ namespace ProvidenceMod
 			ModContent.GetInstance<ProvidenceGlobalItem>().texturePackEnabled = false;
 			ModContent.GetInstance<ProvidenceGlobalItem>().Unload();
 			ModContent.GetInstance<ProvidenceWall>().texturePackEnabled = false;
-			ProvidenceUtils.elememtalAffinityDefense = null;
 			ItemManager.Unload();
 			UIManager.Unload();
 			SubworldManager.Unload();

@@ -50,22 +50,6 @@ namespace ProvidenceMod
 		public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);
 		public static float Round(this float f, int points) => (float)Math.Round(f, points);
 		public static double Round(this double d, int points) => Math.Round(d, points);
-		public static float[,] elememtalAffinityDefense = new float[2, 15]
-		{ // Defense score (middle), Damage mult (bottom)
-      {     1,      2,      3,      5,      7,      9,     12,     15,     18,     22,     26,     30,     35,     45,     50},
-			{1.010f, 1.022f, 1.037f, 1.056f, 1.080f, 1.110f, 5.000f, 1.192f, 1.246f, 1.310f, 1.397f, 1.497f, 1.611f, 1.740f, 1.885f}
-		};
-		/// <summary>Calculates the elemental defense of the player based on their affinities, and any accessories and armor providing such defense.</summary>
-		public static void CalcElemDefense(this Player player)
-		{
-			ProvidencePlayer proPlayer = player.Providence();
-			for (int k = 0; k < 8; k++)
-			{
-				int index = proPlayer.affinities[k] - 1;
-				if (index != -1)
-					proPlayer.resists[k] += (int)elememtalAffinityDefense[0, index];
-			}
-		}
 		public static Vector3 ColorRGBIntToFloat(this Vector3 vector3)
 		{
 			const double conversion = 1f / 255f;
@@ -147,122 +131,48 @@ namespace ProvidenceMod
 				NetMessage.BroadcastChatMessage(text, new Color(color.R, color.G, color.B));
 			}
 		}
-		public static string DetermineDamageTooltip(this Item item)
-		{
-			string el;
-			string dmgType = item.melee ? "melee" :
-											 item.ranged ? "ranged" :
-											 item.magic ? "magic" :
-											 item.summon ? "summon" :
-											 item.thrown ? "throwing" :
-											 item.Providence().cleric ? "cleric" :
-											 "";
-			switch (item.Providence().element)
-			{
-				case (int)ElementID.Fire:
-					el = "fire ";
-					break;
-				case (int)ElementID.Ice:
-					el = "ice ";
-					break;
-				case (int)ElementID.Lightning:
-					el = "lightning ";
-					break;
-				case (int)ElementID.Water:
-					el = "water ";
-					break;
-				case (int)ElementID.Earth:
-					el = "earth ";
-					break;
-				case (int)ElementID.Air:
-					el = "air ";
-					break;
-				case (int)ElementID.Order:
-					el = "order ";
-					break;
-				case (int)ElementID.Chaos:
-					el = "chaos ";
-					break;
-				default:
-					el = "";
-					break;
-			}
-			return $" {el}{dmgType} "; // The space between is added implicitly in el's assignment
-		}
-		public static float[] GetAffinityBonuses(this Player player, int e)
-		{
-			return new float[2] { elememtalAffinityDefense[0, player.Providence().affinities[e]], elememtalAffinityDefense[1, player.Providence().affinities[e]] };
-		}
-		/// <summary>
-		/// Elemental damage calculation for when the player hits an NPC with a melee weapon.
-		/// </summary>
-		public static int CalcEleDamage(this Item item, NPC npc, ref int damage)
-		{
-			int weapEl = item.Providence().element; // Determine the element (will always be between 0-6 for array purposes)
-			if (weapEl != -1) // if not typeless (and implicitly within 0-6)
-			{
-				float damageFloat = damage, // And the damage we already have, converted to float
-					resistMod = npc.Providence().resists[weapEl];
-				if (resistMod > 0f)
-				{
-					damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
-					damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
-				}
-				else
-				{
-					damage = 1;
-				}
-			}
-			return damage;
-		}
-		/// <summary>
-		/// Elemental damage calculation for when the player hits an NPC with a projectile.
-		/// </summary>
-		public static int CalcEleDamage(this Projectile projectile, NPC npc, ref int damage)
-		{
-			int projEl = projectile.Providence().element; // Determine the element (will always be between 0-6 for array purposes)
-			if (projEl != -1) // if not typeless (and implicitly within 0-6)
-			{
-				float damageFloat = damage, // And the damage we already have, converted to float
-					resistMod = npc.Providence().resists[projEl];
-				if (resistMod > 0f)
-				{
-					damageFloat *= resistMod; // Multiply by the relevant resistance, divided by 100 (this is why we needed floats)
-					damage = (int)damageFloat; // set the damage to the int version of the new float, implicitly rounding down to the lower int
-				}
-				else
-				{
-					damage = 1;
-				}
-			}
-			return damage;
-		}
-		/// <summary>
-		/// Elemental damage calculation for when the player is hit by an NPC.
-		/// </summary>
-		public static int CalcEleDamageFromNPC(this Player player, NPC npc, ref int damage)
-		{
-			int npcEl = npc.Providence().contactDamageEl;
-			if (npcEl != -1)
-			{
-				int resistMod = player.Providence().resists[npcEl];
-				damage -= (int)(Main.expertMode ? resistMod * 0.75 : resistMod * 0.5);
-			}
-			return damage;
-		}
-		/// <summary>
-		/// Elemental damage calculation for when the player is hit by a projectile.
-		/// </summary>
-		public static int CalcEleDamageFromProj(this Player player, Projectile proj, ref int damage)
-		{
-			int projEl = proj.Providence().element; // Determine the element (will always be between 0-6 for array purposes)
-			if (projEl != -1) // if not typeless (and implicitly within 0-6)
-			{
-				int resistMod = player.Providence().resists[projEl];
-				damage -= (int)(Main.expertMode ? resistMod * 0.75 : resistMod * 0.5); // set the damage to the int version of the new float, implicitly rounding down to the lower int
-			}
-			return damage;
-		}
+		//public static string DetermineDamageTooltip(this Item item)
+		//{
+		//	string el;
+		//	string dmgType = item.melee ? "melee" :
+		//									 item.ranged ? "ranged" :
+		//									 item.magic ? "magic" :
+		//									 item.summon ? "summon" :
+		//									 item.thrown ? "throwing" :
+		//									 item.Providence().cleric ? "cleric" :
+		//									 "";
+		//	switch (item.Providence().element)
+		//	{
+		//		case (int)ElementID.Fire:
+		//			el = "fire ";
+		//			break;
+		//		case (int)ElementID.Ice:
+		//			el = "ice ";
+		//			break;
+		//		case (int)ElementID.Lightning:
+		//			el = "lightning ";
+		//			break;
+		//		case (int)ElementID.Water:
+		//			el = "water ";
+		//			break;
+		//		case (int)ElementID.Earth:
+		//			el = "earth ";
+		//			break;
+		//		case (int)ElementID.Air:
+		//			el = "air ";
+		//			break;
+		//		case (int)ElementID.Order:
+		//			el = "order ";
+		//			break;
+		//		case (int)ElementID.Chaos:
+		//			el = "chaos ";
+		//			break;
+		//		default:
+		//			el = "";
+		//			break;
+		//	}
+		//	return $" {el}{dmgType} "; // The space between is added implicitly in el's assignment
+		//}
 		/// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
 		/// <param name="player">The active player acting as the point of origin.</param>
 		/// <param name="style">The visual style that the aura will use.</param>
@@ -362,22 +272,6 @@ namespace ProvidenceMod
 		//     return ColorShift(firstColor, secondColor, seconds);
 		//   }
 		// }
-		/// <summary>For use in setting defaults in items.</summary>
-		/// <param name="item">The item being set.</param>
-		/// <param name="elementID">The element of a weapon's attacks, or additional elemental defense of accessories and armor.</param>
-		/// <param name="elementDefense">The amount of elemental defense provided in the element given to "elementID" Defaults to 0.</param>
-		/// <param name="weakElementID">The element of a weapon's weakness. Only really used for armor. Defaults to -1 (Typeless).</param>
-		/// <param name="weakElementDefense">The amount of elemental defense lowered in the element given to "weakElementID". Defaults to 0.</param>
-		public static void SetElementalTraits(this Item item, int elementID, int elementDefense = 0, int weakElementID = -1, int weakElementDefense = 0)
-		{
-			item.Providence().element = elementID;
-			item.Providence().elementDefense = elementDefense;
-			if (weakElementID != -1)
-			{
-				item.Providence().weakElement = weakElementID;
-				item.Providence().weakElementDefense = weakElementDefense;
-			}
-		}
 		/// <summary>Returns if there is a boss, and if there is, their ID in "Main.npc".</summary>
 		public static Tuple<bool, int> IsThereABoss()
 		{
@@ -400,9 +294,9 @@ namespace ProvidenceMod
 		}
 		public static Vector2 RandomPointInHitbox(this Rectangle hitbox)
 		{
-			float hBounds = Main.rand.Next(hitbox.Left, hitbox.Right),
-					  vBounds = Main.rand.Next(hitbox.Top, hitbox.Bottom);
-			return Vector2.Add(hitbox.Center.ToVector2(), new Vector2(hBounds / 2, vBounds / 2));
+			float x = Main.rand.Next(hitbox.Left, hitbox.Right + 1);
+			float y = Main.rand.Next(hitbox.Top, hitbox.Bottom + 1);
+			return new Vector2(x, y);
 		}
 		/// <summary>Provides the animation frame for given parameters.</summary>
 		/// <param name="frame">The frame that this item is currently on. Use "public int frame;" in your item file.</param>

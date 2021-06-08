@@ -48,10 +48,6 @@ namespace ProvidenceMod.NPCs.FireAncient
       npc.Hitbox = new Rectangle((int)npc.Center.X, (int)npc.Center.Y - 100, 178, 224);
       npc.knockBackResist = 0f;
       npc.buffImmune[BuffID.OnFire] = true;
-      npc.buffImmune[mod.BuffType("Freezing")] = true;
-      npc.buffImmune[mod.BuffType("Frozen")] = true;
-      npc.Providence().resists = new float[8] { 0.25f, 1f, 1f, 1.5f, 0.25f, 1.5f, 1f, 1f };
-      npc.Providence().contactDamageEl = 0;
     }
 
     public override void AI() //this is where you program your AI

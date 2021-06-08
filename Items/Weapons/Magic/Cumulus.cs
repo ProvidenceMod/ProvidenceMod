@@ -33,7 +33,6 @@ namespace ProvidenceMod.Items.Weapons.Magic
       item.autoReuse = true;
       item.rare = ItemRarityID.Orange;
       item.UseSound = SoundID.Item45;
-      item.Providence().element = (int)ElementID.Air; // Fire
       item.shoot = ProjectileType<ZephyrSpirit>();
       item.shootSpeed = 6f;
     }

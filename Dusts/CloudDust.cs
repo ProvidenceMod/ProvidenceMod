@@ -12,8 +12,6 @@ namespace ProvidenceMod.Dusts
     {
       dust.scale = 1.5f;
       dust.noGravity = true;
-      dust.velocity.X = Main.rand.NextFloat(-1f, 2f);
-      dust.velocity.Y = Main.rand.NextFloat(-1f, 2f);
     }
 
     public override bool Update(Dust dust)
@@ -21,7 +19,12 @@ namespace ProvidenceMod.Dusts
       if (dust.scale <= 0)
         dust.active = false;
 			AddLight(dust.position, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3().ColorRGBIntToFloat());
-      return true;
+			if (!Collision.EmptyTile((int)(dust.position.X / 16), (int)(dust.position.Y / 16)))
+			{
+				Main.dust[dust.type].velocity.X = 0;
+				Main.dust[dust.type].velocity.Y = 0;
+			}
+			return true;
     }
 
     public override Color? GetAlpha(Dust dust, Color lightColor) => Color.White;

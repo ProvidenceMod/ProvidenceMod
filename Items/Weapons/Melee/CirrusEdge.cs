@@ -19,7 +19,6 @@ namespace ProvidenceMod.Items.Weapons.Melee
 
     public override void SetDefaults()
     {
-      item.Providence().element = (int)ElementID.Air;
       item.damage = 46;
       item.width = 44;
       item.height = 44;

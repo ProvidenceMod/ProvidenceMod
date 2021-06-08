@@ -11,7 +11,6 @@ namespace ProvidenceMod.Items.Weapons.Melee
 	public class FuzzyDiceItem : ModItem
 	{
 		public override void SetStaticDefaults() {
-            
 			DisplayName.SetDefault("Fuzzy Dice");
 			Tooltip.SetDefault("Yo, yo these would look great hanging from a rear view mirror!");
 

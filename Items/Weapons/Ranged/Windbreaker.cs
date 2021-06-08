@@ -6,7 +6,11 @@ using static Terraria.ModLoader.ModContent;
 using ProvidenceMod.Projectiles.Ranged;
 namespace ProvidenceMod.Items.Weapons.Ranged
 {
+<<<<<<< Updated upstream
 	public class TempestBlaster : ModItem
+=======
+	public class Windbreaker : ModItem
+>>>>>>> Stashed changes
 	{
 		public override void SetStaticDefaults()
 		{
@@ -20,7 +24,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 			item.height = 10;
 			item.value = Item.buyPrice(0, 10, 0, 0);
 			item.rare = (int)ProvidenceRarity.Purple;
-			item.useTime = 13;
+			item.useTime = 16;
 			item.useAnimation = 26;
 			item.useTurn = false;
 			item.useStyle = ItemUseStyleID.HoldingOut;

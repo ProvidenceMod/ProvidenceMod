@@ -31,7 +31,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - And much more
 
 ### Discord Server
-<iframe src="https://ptb.discord.com/widget?id=757480831886426282&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+https://img.shields.io/discord/757480831886426282.svg?style=for-the-badge
 
 ## FAQ
 **Why is this mod Open Source?**

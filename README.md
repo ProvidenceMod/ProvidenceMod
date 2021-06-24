@@ -30,6 +30,9 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - Post Moonlord Content
 - And much more
 
+### Discord Server
+<iframe src="https://ptb.discord.com/widget?id=757480831886426282&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
 ## FAQ
 **Why is this mod Open Source?**
    

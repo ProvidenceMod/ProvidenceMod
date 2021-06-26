@@ -30,7 +30,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - Post Moonlord Content
 - And much more
 
-### Discord Server
+### Discord Server:
 <img src="https://discordapp.com/api/guilds/757480831886426282/widget.png?style=banner3" alt="Discord Banner 3"/>
 
 ## FAQ

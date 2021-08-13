@@ -12,5 +12,10 @@ namespace ProvidenceMod.TexturePack
     public static void InitializeNPCGlowMasks()
     {
     }
-  }
+
+		public static void Unload()
+		{
+
+		}
+	}
 }

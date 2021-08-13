@@ -11,6 +11,10 @@ namespace ProvidenceMod.TexturePack
     }
     public static void InitializeProjectileGlowMasks()
     {
-    }
-  }
+		}
+		public static void Unload()
+		{
+
+		}
+	}
 }

@@ -20,5 +20,18 @@ namespace ProvidenceMod.TexturePack
       UIManager.InitializeUITextures();
       WallManager.InitializeWallTextures();
     }
+
+		public static void Unload()
+		{
+			BigStyleManager.Unload();
+			BuffManager.Unload();
+			PlayerManager.Unload();
+			ItemManager.Unload();
+			NPCManager.Unload();
+			ProjectileManager.Unload();
+			TileManager.Unload();
+			UIManager.Unload();
+			WallManager.Unload();
+		}
   }
 }

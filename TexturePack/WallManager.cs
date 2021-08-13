@@ -12,5 +12,9 @@ namespace ProvidenceMod.TexturePack
     public static void InitializeWallGlowMasks()
     {
     }
-  }
+		public static void Unload()
+		{
+
+		}
+	}
 }

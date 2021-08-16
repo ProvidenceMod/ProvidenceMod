@@ -2,11 +2,14 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.UI;
 using Terraria.ModLoader;
+using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Effects;
 using ProvidenceMod.UI;
 using ProvidenceMod.TexturePack;
 using ProvidenceMod.NPCs.FireAncient;
@@ -18,12 +21,16 @@ namespace ProvidenceMod
 	public class ProvidenceMod : Mod
 	{
 		internal static ProvidenceMod Instance;
-		public static DynamicSpriteFont providenceFont;
-		public static ModHotKey CycleParity;
+
 		private UserInterface bossHealthUI;
 		private UserInterface parityUI;
-		internal ParityUI ParityUI;
 		internal BossHealth BossHealth;
+		internal ParityUI ParityUI;
+
+		public static DynamicSpriteFont providenceFont;
+
+		public static ModHotKey CycleParity;
+
 		public bool texturePackEnabled;
 
 		public override void Load()
@@ -48,13 +55,19 @@ namespace ProvidenceMod
 					providenceFont = GetFont("Fonts/ProvidenceFont");
 				}
 			}
+			if(Main.netMode != NetmodeID.Server)
+			{
+				Ref<Effect> forcefield = new Ref<Effect>(GetEffect("Effects/Forcefield")); // The path to the compiled shader file.
+				Filters.Scene["Forcefield"] = new Filter(new ScreenShaderData(forcefield, "Forcefield"), EffectPriority.VeryHigh);
+				Filters.Scene["Forcefield"].Load();
+			}
 		}
 		public override void Unload()
 		{
-			BossHealth = null;
 			ParityUI = null;
-			bossHealthUI = null;
 			parityUI = null;
+			BossHealth = null;
+			bossHealthUI = null;
 			CycleParity = null;
 			ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
 			ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;

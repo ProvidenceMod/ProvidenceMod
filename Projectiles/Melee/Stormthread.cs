@@ -1,11 +1,13 @@
 using Microsoft.Xna.Framework;
+using ProvidenceMod.Dusts;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Projectiles.Melee
 {
-	public class StormThreadProj : ModProjectile
+	public class Stormthread : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -43,6 +45,12 @@ namespace ProvidenceMod.Projectiles.Melee
 		public override void AI()
 		{
 			projectile.ai[1]++;
+			if(projectile.ai[1] % 30 == 0)
+			{
+				Vector2 position = new Vector2(projectile.position.X + Main.rand.NextFloat(-128f, 129f), projectile.position.Y + Main.rand.NextFloat(-128f, 129f));
+				Vector2 speed = new Vector2(2f, 0f).RotatedBy(projectile.AngleFrom(position));
+				Dust.NewDust(position, 5, 5, DustType<CloudDust>(), speed.X, speed.Y, default, default, 2.01f);
+			}
 			foreach (NPC npc in Main.npc)
 			{
 				if (!npc.friendly && !npc.boss)
@@ -50,12 +58,12 @@ namespace ProvidenceMod.Projectiles.Melee
 					float distance = Vector2.Distance(projectile.position, npc.position);
 					if (distance <= 128)
 					{
-						if (npc.ai[1] % 20 == 0)
+						if (projectile.ai[1] % 60 == 0)
 						{
 							npc.StrikeNPC(10, 5, 0);
 						}
-						Vector2 Succ = new Vector2(4f, 0f);
-						npc.velocity = Succ.RotateTo(npc.AngleTo(projectile.position));
+						Vector2 direction = npc.DirectionTo(projectile.Center);
+						npc.velocity = ((npc.velocity * 10f) + (direction * 10f)) / (10f + 1f);
 					}
 				}
 			}

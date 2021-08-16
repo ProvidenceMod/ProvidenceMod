@@ -27,8 +27,8 @@ namespace ProvidenceMod.NPCs.EndlessSea
 			npc.scale = 1f;
 			npc.HitSound = SoundID.NPCHit1;
 			npc.chaseable = true;
-			npc.width = 42;
-			npc.height = 34;
+			npc.width = 70;
+			npc.height = 28;
 			npc.Opacity = 0f;
 			npc.knockBackResist = 5f;
 		}

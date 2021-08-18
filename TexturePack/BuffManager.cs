@@ -9,5 +9,9 @@ namespace ProvidenceMod.TexturePack
     public static void InitializeBuffTextures()
     {
     }
-  }
+		public static void Unload()
+		{
+
+		}
+	}
 }

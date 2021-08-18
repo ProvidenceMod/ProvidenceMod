@@ -12,6 +12,10 @@ namespace ProvidenceMod.TexturePack
 
     public static void InitializeTileGlowMasks()
     {
-    }
-  }
+		}
+		public static void Unload()
+		{
+
+		}
+	}
 }

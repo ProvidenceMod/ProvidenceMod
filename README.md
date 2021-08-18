@@ -21,13 +21,20 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 
 ### Planned Content:
 - Elemental System
-- Parry System
 - New Subworlds
 - New Biomes
 - New Ores
 - New Weapons
 - Lots and lots of bosses
-- Post Moonlord Content
+- Much Post-Moonlord Content
+- World Fluff ( To make it feel more alive )
+- Quests for existing NPCs
+- Elaborated NPC lore
+- A new class: Rogue
+- Class Gimmicks
+- New Achievements
+- Interactive and Passive Cutscenes
+- Interactive and Passive Lore Elaboration
 - And much more
 
 ### Discord Server:
@@ -44,7 +51,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 
 > _Remember, you can't just copy code from these mods unless the license they are under specifically allows it. If there is no license, the owner reserves all ownership and copyright of the code, so you need to contact the owner and ask permission to utilize certain parts. Don't worry, most will be happy to allow you to use portions of their code, but you still need to ask._
 
-   _While we might allow most utilities to be copied, it is still important to ask us which code is safe to copy and which code is not. Remember, this is a mod that you use to LEARN, not copy and paste. If you learn the code you will never need to copy and paste from outside sources and we are more than willing to help you understand the code. There are bits of code, however, that we do list as "Free To Use", which means we are permitting you to use that code in your projects. That does not, however, pass off ownership of the code to you. So if someone asks about how it works or if you wrote it yourself, do not say "Yes", instead, link them to this repository, because the chances are that they will benefit from seeing the original if they are asking those questions. You are doing yourself, them, and us a favor!_
+   _While we might allow most utilities to be copied, it is still important to ask us which code is safe to copy and which code is not. Remember, this is a mod that you use to LEARN, not copy and paste. If you learn the code you will never need to copy and paste from outside sources and we are more than willing to help you understand the code. There are bits of code, however, that we do list as "Free To Use", which means we are permitting you to use that code in your projects. That does not, however, pass off ownership of the code to you. So if someone asks about how it works or if you wrote it yourself, link them to this repository, because the chances are that they will benefit from seeing the original if they are asking those questions. You are doing yourself, them, and us a favor!_
 
 **Where are the best places to contact the Developers?**
    
@@ -52,7 +59,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 
 **How can I contribute?**
 
-   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters to work with them to ensure that your sprite fits the theme and quality standard. If you want to suggest music, we suggest contacting our team's music artists to ensure that your music fits the theme and quality standard. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team since writing lore will affect the theme of the mod, which will affect the three aforementioned forms of contribution._
+   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters to work with them. If you want to suggest music, we suggest contacting our team's music artists to work with them. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code formatting before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team since writing lore needs to be concise and sound with the rest of existing lore._
 
 ## Table of Contents
 - [Contributing](#contributing)
@@ -77,7 +84,7 @@ Please note we have a [code of conduct](https://github.com/ProvidenceMod/Provide
 To install our mod, simply follow these steps:
 
 1. Copy the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/).
-2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) made by the tModLoader team.
+2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) on the tModLoadker Wiki.
 
 <a name="pull_request_process"></a>
 ## Pull Request Process
@@ -115,7 +122,7 @@ To install our mod, simply follow these steps:
 
 <a name="special_thanks"></a>
 ## Special Thanks
-_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Daken000, GildedLily, AmyTheRogue, Keithixix197, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
+_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Keithixix197, Daken000, GildedLily, AmyTheRogue, FloofLeo, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
 
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct

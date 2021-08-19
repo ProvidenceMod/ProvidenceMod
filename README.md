@@ -1,16 +1,32 @@
 # Providence
 
-Providence is a saddening story about an unforgiving world, in which you will be forced to fight, and emerge victorious against all odds. An immersive, original story defines the world around you, and several thematic locations are spread throughout the world and its realms. Explore the orchestrated atmosphere of our world, combining elements and magical themes with technology, new game concepts, battle mechanics, new progression, new soundtracks, and our appealing spriting. Explore our subworlds, new and completely separate realms from the typical Terraria surroundings, extending the amount of new and unique areas to discover. Experience new dungeons, entire realms awaiting your attempts at delving into their depths for their most valuable treasures, and at killing their most hidden evils. Fight off new and unique bosses and experience the torment that is our bullet hell design, made even more challenging by our new difficulty modifiers. The world of Providence awaits your attempts at survival, and no matter how close you may come, there will always be another more difficult battle to fight.
+Providence is a remorseful story about an unforgiving world. A world in which you must fight and emerge victorious against all odds. An immersive and original tale permeates the world around you, with thematic locations spread throughout Terraria, the Universe, and its realms. Explore the mystical atmosphere of our world, introducing an elemental system, new mechanics, new progression, new soundtracks, and our crafted visuals. Explore our subworlds; completely separate realms from the typical Terraria surroundings, extending the number of unique areas to discover. Experience entire realms with hidden treasures and evils, awaiting your discovery. Fight off new and unique bosses and experience the challenge that is our bullet hell design, optionally made even more challenging by our difficulty modifiers. 
 
-An unforgiving world with an unforgiving story. An invigorating journey yet to be taken, a saddening story yet to be told, and such a cruel fate for those who would stand in the way of change. Do you think you're truly prepared for what comes next? The faint of heart are turned away, those without courage will find no respite. You will endure an unforgiving challenge.
+**Warriors**, wielders of the **Primordial Flame**, infused with its wrath and resilience.
 
-You will die.
+**Rangers**, wielders of the **Cosmos**, who uses the stars to imbue their attacks with untold power.
+
+**Mages**, wielders of the **Prismatic Flare**, a master of all six elemental forces that they use to obliterate their foes.
+
+**Summoners**, wielders of **Astrum**, who infuses their servants with the power of creation.
+
+**Clerics**, wielders of **Parity Reality**, who bend the universe to their will to alternate between heal and harm.
+
+**Rogues**, wielders of **Quantum Flux**, who bend space-time to inflict serious harm upon their foes and effortlessly evade attacks.
+
+The world of Providence anticipates your attempts at survival, and despite how close you may come, there will always be another more unforgiving battle to fight.
+
+Providence is a cruel world with an unforgiving story wreathed in flame and looming shadow. Your invigorating journey awaits you. The saddening story of the world has yet to reveal itself. Such a cruel fate for those who would stand in the way of change. Are you truly prepared for what lies ahead? The faint of heart should turn away, for those who lack courage will find no respite here. You will endure an unforgiving challenge.
+
+You will suffer or die trying.
 
 ## Providence Mod
 
 This is the source code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
-A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its own unique elements. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
+A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its own unique elements. We have several mechanics planned for implementation, as well two new classes; Cleric, and Rogue, and we have big plans for future additions, the scale of which you've likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
+
+For many of us, myself included, this is our first project in CSharp. We've been learning the language over time and have grown very fond of it. We plan on seeing this project through, if not out of dedication, simply out of passion. We hope to influence others to learn with us as we take this project and its community to the next level.
 
 ### Added content:
 - One boss
@@ -18,6 +34,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - One new set of items
 - One subworld (Incomplete)
 - A new class: Cleric
+- A new class: Rogue
 
 ### Planned Content:
 - Elemental System

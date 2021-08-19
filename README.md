@@ -4,11 +4,11 @@ Providence is a remorseful story about an unforgiving world. A world in which yo
 
 **Warriors**, wielders of the **Primordial Flame**, infused with its wrath and resilience.
 
-**Rangers**, wielders of the **Cosmos**, who uses the stars to imbue their attacks with untold power.
+**Rangers**, wielders of the **Cosmos**, who use the stars to imbue their attacks with untold power.
 
-**Mages**, wielders of the **Prismatic Flare**, a master of all six elemental forces that they use to obliterate their foes.
+**Mages**, wielders of the **Prismatic Flare**, masters of all six elemental forces that they use to obliterate their foes.
 
-**Summoners**, wielders of **Astrum**, who infuses their servants with the power of creation.
+**Summoners**, wielders of **Astrum**, who infuse their servants with the power of creation.
 
 **Clerics**, wielders of **Parity Reality**, who bend the universe to their will to alternate between heal and harm.
 

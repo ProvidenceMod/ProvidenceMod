@@ -18,42 +18,60 @@ namespace ProvidenceMod.UI
 		public float quotient;
 		public float percentage;
 		public NPC boss;
+		public int comboDMG;
+		public bool comboVisible;
+		public Vector2 comboPos;
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			percentage = quotient * 100f;
-			if (percentage > 0 && boss != null && boss.life > 0)
+			if (percentage > 0 && boss?.life > 0)
 			{
-				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.providenceFont ?? Main.fontItemStack, PercentageFormatter(percentage), Left.Pixels + 500, Top.Pixels - 30, new Color(104, 237, 195), new Color(55, 62, 106), Vector2.Zero, 0.5f);
-				//Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.providenceFont, $"11111111", Left.Pixels, Top.Pixels + 40, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
-				spriteBatch.Draw(GetTexture("ProvidenceMod/UI/BossHealthUIAccent"), new Vector2(Left.Pixels + 12, Top.Pixels + 14), new Rectangle(0, 0, 654, 2), new Color(255, 255, 255, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+				Vector2 vPercent = ProvidenceMod.bossHealthFont.MeasureString(PercentageFormatter(percentage));
+				Vector2 vTitle = ProvidenceMod.bossHealthFont.MeasureString(boss.Providence().GetBossTitle(boss.FullName));
+				Vector2 vName = ProvidenceMod.bossHealthFont.MeasureString(boss.FullName);
+				//spriteBatch.Draw(GetTexture("ProvidenceMod/UI/BossUnderline"), new Vector2(Left.Pixels + 500f - (vTitle.X / 2f), Top.Pixels), new Rectangle(0, 0, (int) vTitle.X, 3), Color.White);
+				SpriteBatch spriteBatch1 = new SpriteBatch(Main.graphics.GraphicsDevice);
+				spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+				spriteBatch1.Draw(GetTexture("ProvidenceMod/UI/BossShadow"), new Vector2(Left.Pixels, Top.Pixels - 13), new Color(255, 255, 255, 255f));
+				spriteBatch1.End();
+				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, PercentageFormatter(percentage), Left.Pixels + 970f - vPercent.X, Top.Pixels, new Color(200, 200, 200), new Color(23, 23, 23), Vector2.Zero, 0.8f);
+				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, $"{boss?.life} / {boss?.lifeMax}", Left.Pixels + 50f, Top.Pixels + 3f, new Color(220, 220, 220), new Color(23, 23, 23), Vector2.Zero, 0.5f);
+				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss?.Providence().GetBossTitle(boss.FullName), Left.Pixels + 500f - (vTitle.X * 0.75f * 0.5f), Top.Pixels + 50, new Color(200, 200, 200), new Color(23, 23, 23), Vector2.Zero, 0.75f);
+				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss.FullName, Left.Pixels + 500f - (vName.X * 0.40f * 0.5f), Top.Pixels + 5, new Color(220, 220, 220), new Color(23, 23, 23), Vector2.Zero, 0.40f);
+				if (comboVisible)
+				{
+					spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+					spriteBatch1.Draw(GetTexture("ProvidenceMod/UI/BossCShadow"), new Vector2(comboPos.X - 55 + 15, comboPos.Y - 10), new Color(255, 255, 255));
+					spriteBatch1.End();
+					Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont, $"{comboDMG}", comboPos.X, comboPos.Y, new Color(220, 220, 220), new Color(23, 23, 23), Vector2.Zero, 0.5f);
+				}
 			}
 		}
 		public string PercentageFormatter(float percentage)
 		{
-			string percentageString;
-			if(percentage == 100f)
+			if (percentage == 100f)
 			{
-				return percentageString = "100.0%";
+				return "100.0%";
 			}
-			else if(percentage.Round(1) < 100f && percentage.Round(1) > 10f && percentage.Round(1) % 1 != 0)
+			else if (percentage.Round(1) < 100f && percentage.Round(1) > 10f && percentage.Round(1) % 1 != 0)
 			{
-				return percentageString = $"    {percentage.Round(1)}%";
+				return $"{percentage.Round(1)}%";
 			}
-			else if(percentage.Round(1) < 100f && percentage.Round(1) > 10f && percentage.Round(1) % 1 == 0)
+			else if (percentage.Round(1) < 100f && percentage.Round(1) > 10f && percentage.Round(1) % 1 == 0)
 			{
-				return percentageString = $"    {percentage.Round(1)}.0%";
+				return $"{percentage.Round(1)}.0%";
 			}
-			else if(percentage.Round(1) < 10f && percentage.Round(1) % 1 != 0)
+			else if (percentage.Round(1) < 10f && percentage.Round(1) % 1 != 0)
 			{
-				return percentageString = $"        {percentage.Round(1)}%";
+				return $"{percentage.Round(1)}%";
 			}
-			else if(percentage.Round(1) < 10f && percentage.Round(1) % 1 == 0)
+			else if (percentage.Round(1) < 10f && percentage.Round(1) % 1 == 0)
 			{
-				return percentageString = $"        {percentage.Round(1)}.0%";
+				return $"{percentage.Round(1)}.0%";
 			}
 			else
 			{
-				return percentageString = $"{percentage.Round(1)}%";
+				return $"{percentage.Round(1)}%";
 			}
 		}
 	}

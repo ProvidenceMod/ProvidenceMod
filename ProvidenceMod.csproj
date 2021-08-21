@@ -48,6 +48,11 @@
     <Folder Include="Sounds\NPCHit\" />
     <Folder Include="Tiles\EndlessSea\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SubworldLibrary">
+      <HintPath>Subworld\SubworldLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe&quot; -build &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot;" />
   </Target>

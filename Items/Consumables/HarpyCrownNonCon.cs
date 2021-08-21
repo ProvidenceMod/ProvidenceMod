@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Items.Materials;
-using ProvidenceMod.NPCs.AirElemental;
+using ProvidenceMod.NPCs.Caelus;
 
 namespace ProvidenceMod.Items.Consumables
 {
@@ -31,7 +31,7 @@ namespace ProvidenceMod.Items.Consumables
 
     public override bool UseItem(Player player)
     {
-      _ = NPC.NewNPC((int)player.position.X, (int)(player.position.Y - (37 * 16)), NPCType<AirElemental>());
+      _ = NPC.NewNPC((int)player.position.X, (int)(player.position.Y - (37 * 16)), NPCType<Caelus>());
       return true;
     }
     public override bool ConsumeItem(Player player)

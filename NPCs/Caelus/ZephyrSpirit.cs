@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using ProvidenceMod.Dusts;
 using ProvidenceMod.Projectiles.Boss;
 
-namespace ProvidenceMod.NPCs.AirElemental
+namespace ProvidenceMod.NPCs.Caelus
 {
 	public class ZephyrSpirit : ModNPC
 	{
@@ -72,9 +72,9 @@ namespace ProvidenceMod.NPCs.AirElemental
 			for (int i = 0; i < 10; i++)
 			{
 				float alpha = 1f - (i * 0.1f);
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/ZephyrSpirit"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/ZephyrSpirit"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/ZephyrSpirit"), npc.Center - Main.screenPosition, npc.frame, new Color(1f, 1f, 1f, 1f), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/ZephyrSpirit"), npc.Center - Main.screenPosition, npc.frame, new Color(1f, 1f, 1f, 1f), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override Color? GetAlpha(Color drawColor) => Color.White;

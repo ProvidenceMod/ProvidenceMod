@@ -11,9 +11,9 @@ using ProvidenceMod.Items.TreasureBags;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 
-namespace ProvidenceMod.NPCs.AirElemental
+namespace ProvidenceMod.NPCs.Caelus
 {
-	public class AirElemental : ModNPC
+	public class Caelus : ModNPC
 	{
 		public Vector4 color = new Vector4(1f, 1f, 1f, 1f);
 		public Vector2[] oldPos = new Vector2[10] { Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero };
@@ -362,7 +362,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 		}
 		public override void FindFrame(int frameheight)
 		{
-			Texture2D tex = GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental");
+			Texture2D tex = GetTexture("ProvidenceMod/NPCs/Caelus/Caelus");
 			if (npc.frameCounter + 0.125f >= 12f)
 				npc.frameCounter = 0f;
 			npc.frameCounter += 0.125f;
@@ -375,9 +375,9 @@ namespace ProvidenceMod.NPCs.AirElemental
 				for (int i = 1; i <= 3; i++)
 				{
 					float alpha = 1f - (i * 0.25f);
-					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/Caelus"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 				}
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/Caelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 			}
 			if (preppingDash)
 			{
@@ -389,7 +389,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 					color.Y = alpha;
 					color.Z = alpha;
 					color.W = alpha;
-					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/Caelus"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 				}
 			}
 			if (isDashing)
@@ -397,9 +397,9 @@ namespace ProvidenceMod.NPCs.AirElemental
 				for (int i = 0; i < 10; i++)
 				{
 					float alpha = 1f - (i * 0.1f);
-					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/Caelus"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 				}
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/Caelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 
 			}
 			if (stunned)
@@ -408,7 +408,7 @@ namespace ProvidenceMod.NPCs.AirElemental
 				{
 					float alpha = (1f - (i * 0.1f)) * (float)((float)(0.375d * Math.Sin(Main.GlobalTime * 20d)) + 0.625d);
 					float scale = (2f - (i * 0.025f)) * (float)((float)(0.025d * Math.Sin(Main.GlobalTime * 20d)) + 1.025d);
-					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/AirElemental/AirElemental"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, scale, SpriteEffects.None, 0f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/Caelus"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, scale, SpriteEffects.None, 0f);
 				}
 			}
 		}
@@ -436,9 +436,9 @@ namespace ProvidenceMod.NPCs.AirElemental
 		public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
 		{
 			ProvidenceWorld world = GetInstance<ProvidenceWorld>();
-			if (!ProvidenceWorld.downedAirElemental)
+			if (!ProvidenceWorld.downedCaelus)
 			{
-				ProvidenceWorld.downedAirElemental = true;
+				ProvidenceWorld.downedCaelus = true;
 			}
 			Main.raining = false;
 			Main.cloudBGActive = 0f;

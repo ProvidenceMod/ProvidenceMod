@@ -28,6 +28,7 @@ namespace ProvidenceMod
 		internal ParityUI ParityUI;
 
 		public static DynamicSpriteFont providenceFont;
+		public static DynamicSpriteFont bossHealthFont;
 
 		public static ModHotKey CycleParity;
 
@@ -53,6 +54,10 @@ namespace ProvidenceMod
 				if (FontExists("Fonts/ProvidenceFont"))
 				{
 					providenceFont = GetFont("Fonts/ProvidenceFont");
+				}
+				if (FontExists("Fonts/BossHealthFont"))
+				{
+					bossHealthFont = GetFont("Fonts/BossHealthFont");
 				}
 			}
 			if(Main.netMode != NetmodeID.Server)
@@ -136,7 +141,7 @@ namespace ProvidenceMod
 			//	music = "Sounds/Music/Brainiac".AsMusicSlot(this);
 			//	priority = MusicPriority.BossMedium;
 			//}
-			//else if (NPC.AnyNPCs(ModContent.NPCType<AirElemental>()))
+			//else if (NPC.AnyNPCs(ModContent.NPCType<Caelus>()))
 			//{
 			//	music = "Sounds/Music/HighInTheSky".AsMusicSlot(this);
 			//	priority = MusicPriority.BossMedium;

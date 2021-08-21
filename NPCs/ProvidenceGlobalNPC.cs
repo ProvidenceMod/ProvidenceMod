@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.TexturePack;
 using Terraria.Audio;
 using System.Collections.Generic;
+using ProvidenceMod.NPCs.Caelus;
 
 namespace ProvidenceMod
 {
@@ -49,7 +50,17 @@ namespace ProvidenceMod
 			Vector2 drawPos = npc.Center - Main.screenPosition;
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
-			Main.spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), drawPos - Main.screenPosition, new Rectangle(22, 22, 44, 44), Color.White, 0f, npcCen - Main.screenPosition, 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), drawPos - Main.screenPosition, new Rectangle(22, 22, 44, 44), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+		}
+
+		public string GetBossTitle(string name)
+		{
+			switch (name)
+			{
+				case "Air Elemental":
+					return "Primordial Caelus";
+			}
+			return "";
 		}
 
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)

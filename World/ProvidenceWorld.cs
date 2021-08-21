@@ -11,7 +11,7 @@ namespace ProvidenceMod
 	{
 		// Downed Bosses
 		public static bool downedFireAncient;
-		public static bool downedAirElemental;
+		public static bool downedCaelus;
 
 		// Difficulty Modifiers
 		public bool ascension;

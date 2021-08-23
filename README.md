@@ -8,7 +8,7 @@ Providence is a remorseful story about an unforgiving world. A world in which yo
 
 **Mages**, wielders of the **Prismatic Flare**, masters of all six elemental forces which they use to obliterate their foes.
 
-**Summoners**, wielders of **Astrum**, who infuse their servants with the power of Astrid and call upon the aid of the cosmos.
+**Summoners**, wielders of **Astrum**, who infuse their servants with the power of the cosmos and call upon the aid of Astrid.
 
 **Clerics**, wielders of **Parity Reality**, who bend the universe to their will to alternate between heal and harm.
 

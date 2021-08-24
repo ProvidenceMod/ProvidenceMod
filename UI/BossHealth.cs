@@ -214,7 +214,7 @@ namespace ProvidenceMod.UI
 				if (comboDMG >= 0)
 				{
 					area.comboDMG = comboDMG;
-					area.comboPos = new Vector2(area.Left.Pixels + 34 + healthRect.Width + ((afterimageRect.Width - healthRect.Width) / 2), area.Top.Pixels + 12);
+					area.comboPos = new Vector2(area.Left.Pixels + 34 + healthRect.Width + ((afterimageRect.Width - healthRect.Width) / 2), area.Top.Pixels + 7);
 				}
 				// This checks if the current boss life is less than the previous recorded value
 				// If it is, it resets the cooldown for the hit bar movement
@@ -223,7 +223,7 @@ namespace ProvidenceMod.UI
 					lifeArray[2] = lifeArray[1];
 					lifeArray[1] = lifeArray[0];
 					lifeArray[0] = bossHealth;
-					cooldown = 180;
+					cooldown = 75;
 					comboDMG += lifeArray[1] - lifeArray[0];
 					comboQuotient = comboDMG / (float)bossNPC.lifeMax;
 					area.comboVisible = true;
@@ -247,17 +247,6 @@ namespace ProvidenceMod.UI
 				}
 				if ((cooldown == 0 && comboDMG != 0) || (healthRect.Width == afterimageRect.Width && comboDMG != 0))
 				{
-					//if (comboDMG - (int)(bossNPC.lifeMax / 924f) > 0)
-					//{
-					//	comboDMG -= (int)(bossNPC.lifeMax / 924f);
-					//	comboQuotient = comboDMG / (float)bossNPC.lifeMax;
-					//}
-					//else
-					//{
-					//	comboDMG -= (int)((comboQuotient * bossNPC.lifeMax) * 5f - comboQuotient);
-					//	comboDMG--;
-					//	comboQuotient = comboDMG / (float)bossNPC.lifeMax;
-					//}
 					comboDMG -= (int)(comboDMG * 0.05f);
 					comboDMG--;
 					comboQuotient = comboDMG / (float)bossNPC.lifeMax;
@@ -277,11 +266,10 @@ namespace ProvidenceMod.UI
 					bossNPC = null;
 					area.boss = null;
 					bossHealth = 0;
-					Main.GlobalTime = 27000;
 					bossHealthMax = 0;
 					afterimageRect.Width = 924;
 					afterimage.SetFrame(afterimageRect);
-					cooldown = 30;
+					cooldown = 75;
 					lifeArray[0] = 0;
 					lifeArray[1] = 0;
 					lifeArray[2] = 0;

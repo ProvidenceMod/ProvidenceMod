@@ -6,23 +6,46 @@ using ProvidenceMod;
 
 namespace ProvidenceMod
 {
-  [BackgroundColor(54, 30, 53)]
+  [BackgroundColor(30, 58, 75)]
   [Label("Client Settings")]
-  public class ProvidenceConfig : ModConfig
+  public class ProvidenceClientConfig : ModConfig
   {
     public override ConfigScope Mode => ConfigScope.ClientSide;
 
-    [BackgroundColor(101, 31, 51)]
-    [Label("Use the custom texture pack")]
-    [Tooltip("Enables the custom texture pack that comes packaged with ProvidenceMod. Requires a Reload. (Must be in Main Menu)")]
-    [DefaultValue(true)]
+		[BackgroundColor(41, 122, 138)]
+		[Label("Texture Pack")]
+    [Tooltip("Enables the texture pack. Requires a Reload.")]
+    [DefaultValue(false)]
     [ReloadRequired]
-    public bool texturePackEnabled;
+    public bool texturePack;
 
-    public override void OnChanged()
-    {
-      ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>();
-      mod.texturePackEnabled = texturePackEnabled;
-    }
-  }
+		[BackgroundColor(41, 122, 138)]
+		[Label("Boss Health Bar HP / Percentage")]
+		[Tooltip("Enables HP percentage and amount to show above the boss health bar.")]
+		[DefaultValue(true)]
+		public bool bossHP;
+
+		public override void OnChanged()
+		{
+			ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>();
+			mod.texturePack = texturePack;
+			mod.bossHP = bossHP;
+		}
+	}
+	public class ProvidenceServerConfig : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ServerSide;
+
+		[BackgroundColor(41, 122, 138)]
+		[Label("Vote for Subworld Entrance")]
+		[Tooltip("Enables voting prior to entering a Subworld.")]
+		[DefaultValue(true)]
+		public bool subworldVote;
+
+		public override void OnChanged()
+		{
+			ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>();
+			mod.subworldVote = subworldVote;
+		}
+	}
 }

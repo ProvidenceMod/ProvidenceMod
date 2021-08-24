@@ -33,10 +33,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 			item.value = Item.buyPrice(0, 0, 5, 0);
 			item.shoot = ProjectileType<AirBullet>();
 		}
-		public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-4f, 0f);
-		}
+		public override Vector2? HoldoutOffset() => new Vector2(-4f, 0f);
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 spread = new Vector2(speedX, speedY).RotatedByRandom(2f.InRadians());

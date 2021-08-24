@@ -5,36 +5,13 @@ using Terraria.World.Generation;
 using System.Collections.Generic;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
-
 namespace ProvidenceMod.Subworld
 {
-	public class EndlessSea : ModWorld
+	public class EndlessSea : SubworldLibrary.Subworld
 	{
+		public override int height => 2400;
+		public override int width => 8400;
+		public override List<GenPass> tasks => SubworldManager.EndlessSeaGenPass();
 		public static bool enteredWorld;
-
-		public override void Initialize() => enteredWorld = false;
-
-		public override void PreUpdate()
-		{
-			//This hook also runs in the subworld if we choose to specify ExclusiveWorld for the "Register"
-		}
-
-		public override void PostUpdate()
-		{
-			//This hook also runs in the subworld if we choose to specify ExclusiveWorld for the "Register"
-
-			if (!(SubworldManager.IsActive(SubworldManager.mySubworldID) ?? false)) return; //No point executing the code below if we aren't in the subworld we want
-
-			if (!enteredWorld) {
-				enteredWorld = true;
-				string message = $"Hey, We successfully entered '{SubworldManager.mySubworldID}' and only the '{Name}' will update here!";
-				if (Main.netMode == NetmodeID.Server) {
-					NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(message), Color.Orange);
-				}
-				else {
-					Main.NewText(message, Color.Orange);
-				}
-			}
-		}
 	}
 }

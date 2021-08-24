@@ -32,7 +32,9 @@ namespace ProvidenceMod
 
 		public static ModHotKey CycleParity;
 
-		public bool texturePackEnabled;
+		public bool texturePack;
+		public bool bossHP;
+		public bool subworldVote;
 
 		public override void Load()
 		{
@@ -60,7 +62,7 @@ namespace ProvidenceMod
 					bossHealthFont = GetFont("Fonts/BossHealthFont");
 				}
 			}
-			if(Main.netMode != NetmodeID.Server)
+			if (Main.netMode != NetmodeID.Server)
 			{
 				Ref<Effect> forcefield = new Ref<Effect>(GetEffect("Effects/Forcefield")); // The path to the compiled shader file.
 				Filters.Scene["Forcefield"] = new Filter(new ScreenShaderData(forcefield, "Forcefield"), EffectPriority.VeryHigh);
@@ -74,13 +76,6 @@ namespace ProvidenceMod
 			BossHealth = null;
 			bossHealthUI = null;
 			CycleParity = null;
-			ModContent.GetInstance<ProvidencePlayer>().texturePackEnabled = false;
-			ModContent.GetInstance<ProvidenceTile>().texturePackEnabled = false;
-			ModContent.GetInstance<ProvidenceGlobalProjectile>().texturePackEnabled = false;
-			ModContent.GetInstance<ProvidenceGlobalNPC>().texturePackEnabled = false;
-			ModContent.GetInstance<ProvidenceGlobalItem>().texturePackEnabled = false;
-			ModContent.GetInstance<ProvidenceGlobalItem>().Unload();
-			ModContent.GetInstance<ProvidenceWall>().texturePackEnabled = false;
 			ProvidenceTextureManager.Unload();
 			SubworldManager.Unload();
 			Instance = null;
@@ -112,9 +107,12 @@ namespace ProvidenceMod
 
 		public override void PostSetupContent()
 		{
-			if (texturePackEnabled)
+			if (Main.netMode != NetmodeID.Server)
 			{
-				Initialize();
+				if (texturePack)
+				{
+					Load();
+				}
 			}
 
 			SubworldManager.Load();

@@ -6,74 +6,85 @@ using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
+using SubworldLibrary;
+using static ProvidenceMod.ProvidenceServerConfig;
 
 namespace ProvidenceMod
 {
-	//This class showcases how to organize your SubworldLibrary reference
+	// This class showcases how to organize your SubworldLibrary reference
+	// **
+	// For ProvidenceMod, we've implemented a strong mod reference. That
+	// means we've downloaded the DLL from the SubworldLibrary GitHub and
+	// added it to our mod solution, and included a modReference to
+	// SubworldLibrary in our build.txt. https://github.com/jjohnsnaill/SubworldLibrary
+	// If you would like this direct functionality without needing mod calls,
+	// first add this to your build.txt :
+	//
+	// modReferences = SubworldLibrary
+	//
+	// Then download the DLL in the GitHub, open your mod project in Visual Studio,
+	// right-click Dependencies at the top of the solution explorer, click
+	// " Add COM Reference ", then browse to the DLL and select it. You should
+	// now be able to use the SubworldLibrary functions without needing mod calls.
+	// It should be noted that this changes how you should register worlds.
+	//
+	// Instead of your Subworld inheriting from ModWorld, it should inherit from
+	// SubworldLibrary.Subworld. Then you must implement the abstract members of
+	// that class, which you can do by overriding them and assigning them a value.
+	// Reference our subworlds for these values.
+	// **
 	public static class SubworldManager
 	{
 		//How we identify our world
-		public static string mySubworldID = string.Empty; //An empty string will not cause any problems in Enter, IsActive etc. calls
+		public static string endlessSeaID = string.Empty; //An empty string will not cause any problems in Enter, IsActive etc. calls
 
-		public static Mod subworldLibrary;
-
-		public static bool Loaded => subworldLibrary != null;
-
-		public static bool? Enter(string id)
+		public static void Enter(string id)
 		{
-			if (!Loaded) return null;
-			return subworldLibrary.Call("Enter", id) as bool?;
+			SubworldLibrary.Subworld.Enter(id, ProvidenceMod.Instance.subworldVote);
 		}
 
-		public static bool? Exit()
+		public static void Exit()
 		{
-			if (!Loaded) return null;
-			return subworldLibrary.Call("Exit") as bool?;
+			SubworldLibrary.Subworld.Exit(ProvidenceMod.Instance.subworldVote);
 		}
 
-		public static bool? IsActive(string id)
+		public static void IsActive(string id)
 		{
-			if (!Loaded) return null;
-			return subworldLibrary.Call("IsActive", id) as bool?;
+			SubworldLibrary.Subworld.IsActive(id);
 		}
 
-		public static bool? AnyActive(Mod mod)
+		public static bool AnyActive()
 		{
-			if (!Loaded) return null;
-			return subworldLibrary.Call("AnyActive", mod) as bool?;
+			return SubworldLibrary.Subworld.AnyActive(ProvidenceMod.Instance);
 		}
 
 		//Call this in ProvidenceMod.PostSetupContent()
 		public static void Load()
 		{
-			subworldLibrary = ModLoader.GetMod("SubworldLibrary");
-			if (subworldLibrary != null)
-			{
-				object result = subworldLibrary.Call(
-					"Register",
-					/*Mod mod*/ ModContent.GetInstance<ProvidenceMod>(),
-					/*string name*/ "MySubworld",
-					/*int width*/ 8400,
-					/*int height*/ 2400,
-					/*List<GenPass> tasks*/ EndlessSeaGenPass(),
-					/*the following ones are optional, I've included three here (technically two but since order matters, had to pass null for the unload argument)
-					/*Action load*/ (Action)LoadWorld,
-					/*Action unload*/ null,
-					/*ModWorld modWorld*/ ModContent.GetInstance<EndlessSea>()
-					);
+			Mod subworldLibrary = ModLoader.GetMod("SubworldLibrary");
+			object result = subworldLibrary.Call(
+				"Register",
+				/*Mod mod*/ ModContent.GetInstance<ProvidenceMod>(),
+				/*string name*/ "MySubworld",
+				/*int width*/ 8400,
+				/*int height*/ 2400,
+				/*List<GenPass> tasks*/ EndlessSeaGenPass(),
+				/*the following ones are optional, I've included three here (technically two but since order matters, had to pass null for the unload argument)
+				/*Action load*/ (Action)LoadWorld,
+				/*Action unload*/ null,
+				/*ModWorld modWorld*/ ModContent.GetInstance<EndlessSea>()
+				);
 
-				if (result != null && result is string id)
-				{
-					mySubworldID = id;
-				}
+			if (result != null && result is string id)
+			{
+				endlessSeaID = id;
 			}
 		}
 
 		//Call this in ProvidenceMod.Unload()
 		public static void Unload()
 		{
-			subworldLibrary = null;
-			mySubworldID = string.Empty;
+			endlessSeaID = string.Empty;
 		}
 
 		//Passed into subworldLibrary.Call()

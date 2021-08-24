@@ -8,7 +8,7 @@ namespace ProvidenceMod.TexturePack
 {
   public static class ProvidenceTextureManager
   {
-    public static void Initialize()
+    public static void Load()
     {
       BigStyleManager.InitializeBigStyleTextures();
       BuffManager.InitializeBuffTextures();

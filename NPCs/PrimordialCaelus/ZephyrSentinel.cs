@@ -3,6 +3,7 @@ using ProvidenceMod.Projectiles.Boss;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ProvidenceMod.Projectiles.ProvidenceGlobalProjectileAI;
 using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.NPCs.PrimordialCaelus
@@ -42,7 +43,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				npc.Opacity = 1f;
 				if (npc.ai[0] % 120 == 0)
 				{
-					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(ProvidenceUtils.ClosestEntity(npc, false).position)), ProjectileType<ZephyrDart>(), 25, 2f, default, 1, 1);
+					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(ProvidenceUtils.ClosestEntity(npc, false).position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int) ZephyrDartAI.WeakHoming, 1);
 				}
 				npc.ai[0]++;
 			}

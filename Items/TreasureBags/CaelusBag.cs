@@ -7,11 +7,11 @@ using ProvidenceMod.Items.Materials;
 
 namespace ProvidenceMod.Items.TreasureBags
 {
-  public class AirElementalBag : ModItem
+  public class CaelusBag : ModItem
   {
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Air Elemental Bag");
+      DisplayName.SetDefault("Treasure Bag");
       Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
     }
 

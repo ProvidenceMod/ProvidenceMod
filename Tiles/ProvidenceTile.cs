@@ -11,11 +11,6 @@ namespace ProvidenceMod
 
     public override void PostDraw(int i, int j, int type, SpriteBatch spriteBatch)
     {
-      if(!texturePackEnabled)
-      {
-        TileManager.InitializeTileGlowMasks();
-        texturePackEnabled = true;
-      }
     }
   }
 }

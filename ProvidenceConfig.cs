@@ -6,7 +6,7 @@ using ProvidenceMod;
 
 namespace ProvidenceMod
 {
-  [BackgroundColor(30, 58, 75)]
+  [BackgroundColor(16, 23, 40)]
   [Label("Client Settings")]
   public class ProvidenceClientConfig : ModConfig
   {
@@ -27,16 +27,18 @@ namespace ProvidenceMod
 
 		public override void OnChanged()
 		{
-			ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>();
+			ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>(); 
 			mod.texturePack = texturePack;
 			mod.bossHP = bossHP;
 		}
 	}
+	[BackgroundColor(41, 16, 41)]
+	[Label("Server Settings")]
 	public class ProvidenceServerConfig : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ServerSide;
 
-		[BackgroundColor(41, 122, 138)]
+		[BackgroundColor(158, 47, 63)]
 		[Label("Vote for Subworld Entrance")]
 		[Tooltip("Enables voting prior to entering a Subworld.")]
 		[DefaultValue(true)]

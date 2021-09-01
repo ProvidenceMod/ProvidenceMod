@@ -43,13 +43,13 @@ namespace ProvidenceMod.Prefixes
     //  mod.AddPrefix("Zephyr", new ElementalPrefix(20, (byte)ElementID.Air));
     //  mod.AddPrefix("Tempest", new ElementalPrefix(30, (byte)ElementID.Air));
 
-    //  mod.AddPrefix("Pious", new ElementalPrefix(10, (byte)ElementID.Order));
-    //  mod.AddPrefix("Cleansing", new ElementalPrefix(20, (byte)ElementID.Order));
-    //  mod.AddPrefix("Purging", new ElementalPrefix(30, (byte)ElementID.Order));
+    //  mod.AddPrefix("Pious", new ElementalPrefix(10, (byte)ElementID.Radiant));
+    //  mod.AddPrefix("Cleansing", new ElementalPrefix(20, (byte)ElementID.Radiant));
+    //  mod.AddPrefix("Purging", new ElementalPrefix(30, (byte)ElementID.Radiant));
 
-    //  mod.AddPrefix("Afflicting", new ElementalPrefix(10, (byte)ElementID.Chaos));
-    //  mod.AddPrefix("Pestilent", new ElementalPrefix(20, (byte)ElementID.Chaos));
-    //  mod.AddPrefix("Abhorrent", new ElementalPrefix(30, (byte)ElementID.Chaos));
+    //  mod.AddPrefix("Afflicting", new ElementalPrefix(10, (byte)ElementID.Shadow));
+    //  mod.AddPrefix("Pestilent", new ElementalPrefix(20, (byte)ElementID.Shadow));
+    //  mod.AddPrefix("Abhorrent", new ElementalPrefix(30, (byte)ElementID.Shadow));
     //  return false;
     //}
     //public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)

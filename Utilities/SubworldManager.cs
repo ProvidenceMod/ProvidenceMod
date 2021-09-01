@@ -38,9 +38,9 @@ namespace ProvidenceMod
 		//How we identify our world
 		public static string endlessSeaID = string.Empty; //An empty string will not cause any problems in Enter, IsActive etc. calls
 
-		public static void Enter(string id)
+		public static void Enter<T>(bool noVote = false) where T : SubworldLibrary.Subworld
 		{
-			SubworldLibrary.Subworld.Enter(id, ProvidenceMod.Instance.subworldVote);
+			SubworldLibrary.Subworld.Enter<T>(noVote);
 		}
 
 		public static void Exit()
@@ -48,12 +48,12 @@ namespace ProvidenceMod
 			SubworldLibrary.Subworld.Exit(ProvidenceMod.Instance.subworldVote);
 		}
 
-		public static void IsActive(string id)
+		public static bool IsActive<T>() where T : SubworldLibrary.Subworld
 		{
-			SubworldLibrary.Subworld.IsActive(id);
+			return SubworldLibrary.Subworld.IsActive<T>();
 		}
 
-		public static bool AnyActive()
+		public static bool AnyActive<T>() where T : Mod
 		{
 			return SubworldLibrary.Subworld.AnyActive(ProvidenceMod.Instance);
 		}
@@ -61,24 +61,6 @@ namespace ProvidenceMod
 		//Call this in ProvidenceMod.PostSetupContent()
 		public static void Load()
 		{
-			Mod subworldLibrary = ModLoader.GetMod("SubworldLibrary");
-			object result = subworldLibrary.Call(
-				"Register",
-				/*Mod mod*/ ModContent.GetInstance<ProvidenceMod>(),
-				/*string name*/ "MySubworld",
-				/*int width*/ 8400,
-				/*int height*/ 2400,
-				/*List<GenPass> tasks*/ EndlessSeaGenPass(),
-				/*the following ones are optional, I've included three here (technically two but since order matters, had to pass null for the unload argument)
-				/*Action load*/ (Action)LoadWorld,
-				/*Action unload*/ null,
-				/*ModWorld modWorld*/ ModContent.GetInstance<EndlessSea>()
-				);
-
-			if (result != null && result is string id)
-			{
-				endlessSeaID = id;
-			}
 		}
 
 		//Call this in ProvidenceMod.Unload()
@@ -92,60 +74,6 @@ namespace ProvidenceMod
 		{
 			Main.dayTime = true;
 			Main.time = 27000;
-		}
-
-		//Called in subworldLibrary.Call()
-		public static List<GenPass> EndlessSeaGenPass()
-		{
-			return new List<GenPass>
-			{
-				//First pass
-				new PassLegacy("Adjusting",
-				(GenerationProgress progress) => {
-					progress.Message = "Adjusting world levels"; //Sets the text above the worldgen progress bar
-					Main.worldSurface = Main.maxTilesY - 42; //Hides the underground layer just out of bounds
-					Main.rockLayer = Main.maxTilesY; //Hides the cavern layer way out of bounds
-				},
-				1f),
-				//Second pass
-				new PassLegacy("GeneratingBorders",
-				(GenerationProgress progress) => {
-					progress.Message = "Generating subworld borders";
-					//Create three tiles for the player to stand on when he spawns
-					for (int i = -1; i < 2; i++)
-					{
-						WorldGen.PlaceTile(Main.spawnTileX - i,  Main.spawnTileY + 2, TileID.Dirt, true, true);
-					}
-					//Create a wall of lihzard bricks around the world. 41, 42 and 43 are magic numbers from the game regarding world boundaries
-					for (int i = 0; i < Main.maxTilesX; i++)
-					{
-						for (int j = 0; j < Main.maxTilesY; j++)
-						{
-							progress.Value = (((float)i * Main.maxTilesY) + j) / (Main.maxTilesX * Main.maxTilesY);
-							if (i < 42 || i >= Main.maxTilesX - 43 || j <= 41 || j >= Main.maxTilesY - 43)
-							{
-								WorldGen.PlaceTile(i, j, TileID.LihzahrdBrick, true, true);
-							}
-						}
-					}
-				},
-				1f),
-				new PassLegacy("AddingWater",
-				(GenerationProgress progress) => {
-				 	progress.Message = "Generating water";
-				 	for (int i = 256 ; i < Main.maxTilesY ; i++)
-				 	{
-				 		for (int j = 0 ; j < Main.maxTilesX ; j++)
-						{
-							Main.tile[j, i].liquidType(0);
-							Main.tile[j, i].liquid = 255;
-							WorldGen.SquareTileFrame(j, i, false);
-						}
-				 	}
-				},
-				1f)
-				//Add more passes here
-			};
 		}
 	}
 }

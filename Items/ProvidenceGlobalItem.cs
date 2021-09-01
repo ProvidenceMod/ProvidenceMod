@@ -18,43 +18,23 @@ namespace ProvidenceMod
 	public class ProvidenceGlobalItem : GlobalItem
 	{
 		public bool animated;
-		public bool animatedGlowmask;
+		public bool glowMask;
+		public bool animatedGlowMask;
 		public bool cleric;
-		public bool glowmask;
-		public bool texturePackEnabled;
-		public bool frameTickIncrease;
-		public int frame;
-		public int frameTick;
-		public int frameNumber;
-		public int frameTime;
-		public int frameCount;
-		public int overrideGlowmaskPositionX;
-		public int overrideGlowmaskPositionY;
-		public Texture2D glowmaskTexture;
+
+		public Texture2D glowMaskTexture;
 		public Texture2D animationTexture;
-		public Texture2D animatedGlowmaskTexture;
-		public Vector2 glowmaskAdjustment;
-		public Vector2 animationAdjustment;
-		public Vector2 animatedGlowmaskAdjustment;
+		public Texture2D animatedGlowMaskTexture;
+
+
 		public override bool InstancePerEntity => true;
 		public ProvidenceGlobalItem()
 		{
 			cleric = false;
 		}
-
 		public override void PostUpdate(Item item)
 		{
-			if (!texturePackEnabled)
-			{
-				item.InitializeItemGlowMasks();
-				texturePackEnabled = true;
-			}
-			// if(!LocalPlayer().HeldItem.IsAir && LocalPlayer().HeldItem.type == item.type)
-			// {
-			//   item.ChangeFrameToElement();
-			// }
 		}
-
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{
 			ProvidenceGlobalItem myClone = (ProvidenceGlobalItem)base.Clone(item, itemClone);
@@ -255,15 +235,15 @@ namespace ProvidenceMod
 			//   /// VANILLA ELEMENTAL DEFENSES ///
 			//   // Prehardmode
 			//   case ItemID.EbonwoodHelmet:
-			//     // Provides a boost to Chaos and a penalty to Order (defenses)
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense);
+			//     // Provides a boost to Shadow and a penalty to Radiant (defenses)
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense);
 			//     break;
 			//   case ItemID.EbonwoodBreastplate:
 			//   case ItemID.EbonwoodGreaves:
 			//   case ItemID.ShadewoodHelmet:
 			//   case ItemID.ShadewoodBreastplate:
 			//   case ItemID.ShadewoodGreaves:
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense);
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense);
 			//     break;
 			//   case ItemID.RainCoat:
 			//   case ItemID.RainHat:
@@ -315,7 +295,7 @@ namespace ProvidenceMod
 			//   case ItemID.CrimsonHelmet:
 			//   case ItemID.CrimsonScalemail:
 			//   case ItemID.CrimsonGreaves:
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense / 2);
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense / 2);
 			//     break;
 
 			//   case ItemID.MoltenHelmet:
@@ -328,7 +308,7 @@ namespace ProvidenceMod
 			//   case ItemID.PearlwoodHelmet:
 			//   case ItemID.PearlwoodBreastplate:
 			//   case ItemID.PearlwoodGreaves:
-			//     item.SetElementalTraits(ElementID.Order, item.defense, ElementID.Chaos, item.defense);
+			//     item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Shadow, item.defense);
 			//     break;
 
 			//   case ItemID.SpiderMask:
@@ -354,7 +334,7 @@ namespace ProvidenceMod
 			//   case ItemID.HallowedHeadgear:
 			//   case ItemID.HallowedHelmet:
 			//   case ItemID.HallowedMask:
-			//     item.SetElementalTraits(ElementID.Order, item.defense, ElementID.Chaos, item.defense / 2);
+			//     item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Shadow, item.defense / 2);
 			//     break;
 
 			//   case ItemID.ChlorophytePlateMail:
@@ -387,7 +367,7 @@ namespace ProvidenceMod
 			//   case ItemID.SpookyBreastplate:
 			//   case ItemID.SpookyLeggings:
 			//   case ItemID.SpookyHelmet:
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense / 2);
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense / 2);
 			//     break;
 
 			//   case ItemID.SolarFlareHelmet:
@@ -518,7 +498,7 @@ namespace ProvidenceMod
 				switch (item.rare)
 				{
 					case (int)ProvidenceRarity.Celestial:
-						tooltip2.overrideColor = ColorShift(new Color(119, 37, 100), new Color(246, 121, 133), 5f);
+						tooltip2.overrideColor = ColorShiftMultiple(new Color[2] { new Color(119, 37, 100), new Color(246, 121, 133) }, 5f);
 						break;
 					case (int)ProvidenceRarity.Developer:
 						tooltip2.overrideColor = ColorShift(new Color(166, 46, 61), new Color(227, 79, 79), 5f);

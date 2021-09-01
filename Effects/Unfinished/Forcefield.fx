@@ -20,7 +20,7 @@ float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
 
-// This vector should be in motion in order to achieve the desired effect.
+// This vector should be in motion in radiant to achieve the desired effect.
 float2 DisplacementMotionVector;
 float SampleWavelength;
 float Frequency; // .51  .3

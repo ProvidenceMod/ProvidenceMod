@@ -15,6 +15,7 @@ using ProvidenceMod.TexturePack;
 using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.Items.Weapons.Melee;
 using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
+using ProvidenceMod.Items.Dyes;
 
 namespace ProvidenceMod
 {
@@ -29,6 +30,7 @@ namespace ProvidenceMod
 
 		public static DynamicSpriteFont providenceFont;
 		public static DynamicSpriteFont bossHealthFont;
+		public static Effect divinityEffect;
 
 		public static ModHotKey CycleParity;
 
@@ -39,6 +41,10 @@ namespace ProvidenceMod
 		public override void Load()
 		{
 			Instance = this;
+
+			if (Main.netMode != NetmodeID.Server && texturePack)
+				ProvidenceTextureManager.Load();
+
 			if (!Main.dedServ)
 			{
 				BossHealth = new BossHealth();
@@ -51,7 +57,7 @@ namespace ProvidenceMod
 				parityUI = new UserInterface();
 				parityUI.SetState(ParityUI);
 
-				CycleParity = RegisterHotKey("Cycle Parity Element", "C");
+			CycleParity = RegisterHotKey("Cycle Parity Element", "C");
 
 				if (FontExists("Fonts/ProvidenceFont"))
 				{
@@ -64,9 +70,8 @@ namespace ProvidenceMod
 			}
 			if (Main.netMode != NetmodeID.Server)
 			{
-				Ref<Effect> forcefield = new Ref<Effect>(GetEffect("Effects/Forcefield")); // The path to the compiled shader file.
-				Filters.Scene["Forcefield"] = new Filter(new ScreenShaderData(forcefield, "Forcefield"), EffectPriority.VeryHigh);
-				Filters.Scene["Forcefield"].Load();
+				divinityEffect = Instance.GetEffect("Effects/DivinityShader");
+				divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
 			}
 		}
 		public override void Unload()
@@ -76,7 +81,8 @@ namespace ProvidenceMod
 			BossHealth = null;
 			bossHealthUI = null;
 			CycleParity = null;
-			ProvidenceTextureManager.Unload();
+			if(!Main.dedServ)
+				ProvidenceTextureManager.Unload();
 			SubworldManager.Unload();
 			Instance = null;
 			base.Unload();
@@ -101,23 +107,12 @@ namespace ProvidenceMod
 				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity Meter", DrawParityUI, InterfaceScaleType.UI));
 			}
 		}
-		public override void HandlePacket(BinaryReader reader, int whoAmI)
-		{
-		}
+		public override void HandlePacket(BinaryReader reader, int whoAmI) => ProvidenceNetcode.HandlePacket(this, reader, whoAmI);
 
 		public override void PostSetupContent()
 		{
-			if (Main.netMode != NetmodeID.Server)
-			{
-				if (texturePack)
-				{
-					Load();
-				}
-			}
-
 			SubworldManager.Load();
 
-			// Showcases mod support with Boss Checklist without referencing the mod
 			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 			bossChecklist?.Call(
 					"AddBoss",

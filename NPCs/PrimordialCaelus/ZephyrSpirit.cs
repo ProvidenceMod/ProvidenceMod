@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using ProvidenceMod.Dusts;
 using ProvidenceMod.Projectiles.Boss;
 
-namespace ProvidenceMod.NPCs.Caelus
+namespace ProvidenceMod.NPCs.PrimordialCaelus
 {
 	public class ZephyrSpirit : ModNPC
 	{
@@ -40,7 +40,8 @@ namespace ProvidenceMod.NPCs.Caelus
 
 		public override void AI()
 		{
-			npc.ai[0]++;
+			npc.UpdateCenterCache();
+			npc.UpdateRotationCache();
 			npc.rotation = npc.velocity.ToRotation();
 			if (npc.Opacity != 1f)
 			{
@@ -50,16 +51,6 @@ namespace ProvidenceMod.NPCs.Caelus
 				color.Z += 0.05f;
 				color.W += 0.05f;
 			}
-			oldPos[9] = oldPos[8];
-			oldPos[8] = oldPos[7];
-			oldPos[7] = oldPos[6];
-			oldPos[6] = oldPos[5];
-			oldPos[5] = oldPos[4];
-			oldPos[4] = oldPos[3];
-			oldPos[3] = oldPos[2];
-			oldPos[2] = oldPos[1];
-			oldPos[1] = oldPos[0];
-			oldPos[0] = npc.Center;
 			Player player = (Player)ClosestEntity(npc, false);
 			Vector2 unitY = npc.DirectionTo(new Vector2(player.Center.X, player.Center.Y));
 			npc.velocity = ((npc.velocity * 30f) + (unitY * 3f)) / (30f + 1f);
@@ -72,10 +63,19 @@ namespace ProvidenceMod.NPCs.Caelus
 			for (int i = 0; i < 10; i++)
 			{
 				float alpha = 1f - (i * 0.1f);
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/ZephyrSpirit"), oldPos[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+				 spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpirit"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.oldRot[i], npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/Caelus/ZephyrSpirit"), npc.Center - Main.screenPosition, npc.frame, new Color(1f, 1f, 1f, 1f), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpirit"), npc.Center - Main.screenPosition, npc.frame, new Color(1f, 1f, 1f, 1f), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
 			return false;
+		}
+
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			if (npc.life <= 0)
+			{
+				if(Main.npc[(int) npc.ai[0]] != null)
+					Main.npc[(int) npc.ai[0]].ai[2]++;
+			}
 		}
 		public override Color? GetAlpha(Color drawColor) => Color.White;
 	}

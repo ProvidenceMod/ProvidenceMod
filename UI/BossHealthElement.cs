@@ -31,8 +31,8 @@ namespace ProvidenceMod.UI
 			if (percentage > 0 && boss?.life > 0 && boss != null)
 			{
 				Vector2 vPercent = ProvidenceMod.bossHealthFont.MeasureString(PercentageFormatter(percentage));
-				Vector2 vTitle = ProvidenceMod.bossHealthFont.MeasureString(boss.Providence().GetBossTitle(boss.FullName));
-				Vector2 vName = ProvidenceMod.bossHealthFont.MeasureString(boss.FullName);
+				Vector2 vTitle = ProvidenceMod.bossHealthFont.MeasureString(boss.FullName);
+				Vector2 vName = ProvidenceMod.bossHealthFont.MeasureString(boss.Providence().GetBossTitle(boss.FullName));
 				//spriteBatch.Draw(GetTexture("ProvidenceMod/UI/BossUnderline"), new Vector2(Left.Pixels + 500f - (vTitle.X / 2f), Top.Pixels), new Rectangle(0, 0, (int) vTitle.X, 3), Color.White);
 				SpriteBatch spriteBatch1 = new SpriteBatch(Main.graphics.GraphicsDevice);
 				spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
@@ -41,8 +41,8 @@ namespace ProvidenceMod.UI
 				spriteBatch1.End();
 				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, PercentageFormatter(percentage), Left.Pixels + 970f - vPercent.X, Top.Pixels - 2, new Color(200, 200, 200), new Color(23, 23, 23), Vector2.Zero, 0.8f);
 				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, $"{boss?.life} / {boss?.lifeMax}", Left.Pixels + 50f, Top.Pixels + 3f, new Color(220, 220, 220), new Color(23, 23, 23), Vector2.Zero, 0.5f);
-				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss?.Providence().GetBossTitle(boss.FullName), Left.Pixels + 500f - (vTitle.X * 0.75f * 0.5f), Top.Pixels + 50, new Color(200, 200, 200), new Color(23, 23, 23), Vector2.Zero, 0.75f);
-				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss.FullName, Left.Pixels + 500f - (vName.X * 0.40f * 0.5f), Top.Pixels + 5, new Color(220, 220, 220), new Color(23, 23, 23), Vector2.Zero, 0.40f);
+				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss.FullName, Left.Pixels + 500f - (vTitle.X * 0.75f * 0.5f), Top.Pixels + 50, new Color(200, 200, 200), new Color(23, 23, 23), Vector2.Zero, 0.75f);
+				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss?.Providence().GetBossTitle(boss.FullName), Left.Pixels + 500f - (vName.X * 0.40f * 0.5f), Top.Pixels + 5, new Color(220, 220, 220), new Color(23, 23, 23), Vector2.Zero, 0.40f);
 				if (comboVisible)
 				{
 					spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);

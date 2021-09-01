@@ -1,26 +1,26 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System;
-using ProvidenceMod.Dusts;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Buffs.StatDebuffs;
 using static Terraria.ModLoader.ModContent;
-using Microsoft.Xna.Framework.Graphics;
+using ProvidenceMod.Dusts;
 using Terraria.DataStructures;
 using ProvidenceMod.TexturePack;
+using Terraria.Graphics.Effects;
+using ProvidenceMod.Buffs.StatDebuffs;
 using ProvidenceMod.Items.Weapons.Melee;
+using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod
 {
   public class ProvidencePlayer : ModPlayer
   {
 
-    //public bool allowFocus;
     public bool burnAura;
     public bool cerberus;
     public bool cerberusAura;
@@ -30,14 +30,6 @@ namespace ProvidenceMod
     public bool regenAura;
     public bool spawnReset = true;
     public bool texturePackEnabled;
-
-    //public const float defaultFocusGain = 0.005f;
-    //public float bonusFocusGain;
-    //public float defaultFocusLoss = 0.25f;
-    //public float focus;
-    //public float focusLoss = 0.15f;
-    //public float focusMax = 1f;
-    //public float tankingItemCount;
 
     public int dashMod;
     public int dashTimeMod;
@@ -52,13 +44,13 @@ namespace ProvidenceMod
     public bool paritySigil;
     public bool paritySigilSet;
 
-    // Cleric Order
-    public bool order;
-    public float orderStacks;
+    // Cleric Radiant
+    public bool radiant;
+    public float radiantStacks;
 
-    // Cleric Chaos
-    public bool chaos;
-    public float chaosStacks;
+    // Cleric Shadow
+    public bool shadow;
+    public float shadowStacks;
     // ------------
 
     public override void ResetEffects()
@@ -73,29 +65,29 @@ namespace ProvidenceMod
       regenAura = false;
       // -- Cleric --
 
-      // Cleric Chaos
+      // Cleric Shadow
       maxParityStacks = 0;
       parityStackGeneration = 0;
-      // chaosStacks = chaos ? chaosStacks : 0;
-      // orderStacks = order ? orderStacks : 0;
+      // shadowStacks = shadow ? shadowStacks : 0;
+      // radiantStacks = radiant ? radiantStacks : 0;
       // ------------
     }
     public override void ProcessTriggers(TriggersSet triggersSet)
     {
       if (cleric && ProvidenceMod.CycleParity.JustPressed)
       {
-        if (chaos && chaosStacks >= parityCyclePenalty)
+        if (shadow && shadowStacks >= parityCyclePenalty)
         {
-          chaosStacks -= parityCyclePenalty;
-          order = true;
-          chaos = false;
+          shadowStacks -= parityCyclePenalty;
+          radiant = true;
+          shadow = false;
           Main.PlaySound(SoundID.Item112, player.position);
         }
-        if (order && orderStacks >= parityCyclePenalty)
+        if (radiant && radiantStacks >= parityCyclePenalty)
         {
-          orderStacks -= parityCyclePenalty;
-          order = false;
-          chaos = true;
+          radiantStacks -= parityCyclePenalty;
+          radiant = false;
+          shadow = true;
           Main.PlaySound(SoundID.Item112, player.position);
         }
       }
@@ -123,34 +115,34 @@ namespace ProvidenceMod
     }
     public override void PreUpdate()
     {
-      Utils.Clamp(orderStacks, 0, maxParityStacks);
-      Utils.Clamp(chaosStacks, 0, maxParityStacks);
-      if (order && (orderStacks + parityStackGeneration) <= maxParityStacks)
-        orderStacks += parityStackGeneration;
-      if (chaos && (chaosStacks + parityStackGeneration) <= maxParityStacks)
-        chaosStacks += parityStackGeneration;
+			Utils.Clamp(radiantStacks, 0, maxParityStacks);
+      Utils.Clamp(shadowStacks, 0, maxParityStacks);
+      if (radiant && (radiantStacks + parityStackGeneration) <= maxParityStacks)
+        radiantStacks += parityStackGeneration;
+      if (shadow && (shadowStacks + parityStackGeneration) <= maxParityStacks)
+        shadowStacks += parityStackGeneration;
       if(!paritySigilSet && paritySigil)
       {
-        order = true;
+        radiant = true;
         paritySigilSet = true;
       }
       if(!paritySigil)
       {
-        order = false;
-        chaos = false;
-        orderStacks = 0;
-        chaosStacks = 0;
+        radiant = false;
+        shadow = false;
+        radiantStacks = 0;
+        shadowStacks = 0;
         maxParityStacks = 0;
         parityStackGeneration = 0;
         paritySigilSet = false;
       }
-      // if(order)
+      // if(radiant)
       // {
-      //   OrderCleric();
+      //   RadiantCleric();
       // }
-      // else if(chaos)
+      // else if(shadow)
       // {
-      //   ChaosCleric();
+      //   ShadowCleric();
       // }
       BuffHelper();
       base.PreUpdate();
@@ -163,15 +155,15 @@ namespace ProvidenceMod
         texturePackEnabled = true;
       }
       AuraHelper();
-      ChaosHelper();
+      ShadowHelper();
       // Mod mod = ModLoader.GetMod("ProvidenceMod");
       // Item item = player.HeldItem;
       // mod.Logger.InfoFormat($"{item.Providence().customRarity}", "ProvidenceMod");
     }
-    public void OrderCleric()
+    public void RadiantCleric()
     {
     }
-    public void ChaosCleric()
+    public void ShadowCleric()
     {
     }
     public void BuffHelper()
@@ -194,7 +186,7 @@ namespace ProvidenceMod
         cerberusAura = true;
       }
     }
-    public void ChaosHelper()
+    public void ShadowHelper()
     {
     }
     public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
@@ -332,10 +324,10 @@ namespace ProvidenceMod
     }
     public override void ModifyDrawLayers(List<PlayerLayer> layers)
     {
-      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowmask)
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowMask)
       {
-        void layerTarget(PlayerDrawInfo s) => DrawGlowmask(s);
-        PlayerLayer layer = new PlayerLayer("ProvidenceMod", "Weapon Glowmask", layerTarget);
+        void layerTarget(PlayerDrawInfo s) => DrawGlowMask(s);
+        PlayerLayer layer = new PlayerLayer("ProvidenceMod", "Weapon GlowMask", layerTarget);
         layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer);
       }
       if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().animated)
@@ -344,10 +336,10 @@ namespace ProvidenceMod
         PlayerLayer layer2 = new PlayerLayer("ProvidenceMod", "Weapon Animation", layerTarget2);
         layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer2);
       }
-      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().animatedGlowmask)
+      if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().animatedGlowMask)
       {
-        void layerTarget3(PlayerDrawInfo s) => DrawGlowmaskAnimation(s);
-        PlayerLayer layer3 = new PlayerLayer("ProvidenceMod", "Weapon Glowmask Animation", layerTarget3);
+        void layerTarget3(PlayerDrawInfo s) => DrawGlowMaskAnimation(s);
+        PlayerLayer layer3 = new PlayerLayer("ProvidenceMod", "Weapon GlowMask Animation", layerTarget3);
         layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer3);
       }
     }

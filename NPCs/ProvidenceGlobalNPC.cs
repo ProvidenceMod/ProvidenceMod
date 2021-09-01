@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.TexturePack;
 using Terraria.Audio;
 using System.Collections.Generic;
-using ProvidenceMod.NPCs.Caelus;
+using ProvidenceMod.NPCs.PrimordialCaelus;
 
 namespace ProvidenceMod
 {
@@ -15,19 +15,24 @@ namespace ProvidenceMod
 	{
 		public override bool InstancePerEntity => true;
 
+		public Vector2[] oldCen = new Vector2[10] { new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f) };
+
+		public float[] extraAI = new float[4] { 0, 0, 0, 0 };
+
 		// Status effect bools
 		public bool spawnReset = true;
 		public bool texturePackEnabled;
 		public bool maxSpawnsTempSet;
 		public int maxSpawnsTemp;
 		public int buffCount;
+
 		public override void ResetEffects(NPC npc)
 		{
 		}
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			//If any subworld from our mod is loaded, disable spawns
-			if (SubworldManager.AnyActive())
+			if (SubworldManager.AnyActive<ProvidenceMod>())
 			{
 				pool.Clear();
 			}
@@ -38,11 +43,6 @@ namespace ProvidenceMod
 		}
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
 		{
-			if (!texturePackEnabled)
-			{
-				NPCManager.InitializeNPCTextures();
-				texturePackEnabled = true;
-			}
 			Player player = LocalPlayer();
 			Vector2 playerPos = player.position;
 			Vector2 npcPos = npc.position;
@@ -57,8 +57,8 @@ namespace ProvidenceMod
 		{
 			switch (name)
 			{
-				case "Air Elemental":
-					return "Primordial Caelus";
+				case "Primordial Caelus":
+					return "Air Elemental";
 			}
 			return "";
 		}
@@ -425,7 +425,7 @@ namespace ProvidenceMod
 			//	case NPCID.DesertGhoulHallow:
 			//		npc.Providence().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
 			//		break;
-			//	case NPCID.ChaosElemental:
+			//	case NPCID.ShadowElemental:
 			//	case NPCID.EnchantedSword:
 			//		npc.Providence().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
 			//		break;

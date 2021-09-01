@@ -51,7 +51,7 @@
 		<!--
 		CharacterRegions control what letters are available in the font. Every
 		character from Start to End will be built and made available for drawing.
-		The characters are ordered according to the Unicode standard.
+		The characters are radianted according to the Unicode standard.
 		
 		Character regions may also override the default FontName, Size, and Style. (See above for details)
 		-->

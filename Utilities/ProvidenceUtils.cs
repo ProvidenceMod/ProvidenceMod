@@ -1,3 +1,4 @@
+// <image url="https://i.vgy.me/fiiTlx.png" scale="0.25" />
 using System;
 using Terraria;
 using Terraria.ID;
@@ -21,26 +22,12 @@ namespace ProvidenceMod
 		public static ProvidenceGlobalItem Providence(this Item item) => item.GetGlobalItem<ProvidenceGlobalItem>();
 		/// <summary>References the ProvidenceGlobalProjectile instance. Shorthand for ease of use.</summary>
 		public static ProvidenceGlobalProjectile Providence(this Projectile proj) => proj.GetGlobalProjectile<ProvidenceGlobalProjectile>();
-		/// <summary>References the ProvidenceGlobalWall instance. Shorthand for ease of use.</summary>
-		public static ProvidenceWall ProvidenceWall(this Mod wall) => (ProvidenceWall)wall.GetGlobalWall("ProvidenceGlobalWall");
-		/// <summary>References the ProvidenceWorld instance. Shorthand for ease of use.</summary>
-		public static ProvidenceWorld ProvidenceWorld(this Mod world) => (ProvidenceWorld)world.GetModWorld("ProvidenceWorld");
-		/// <summary>References the ProvidenceGlobalBuff instance. Shorthand for ease of use.</summary>
-		public static ProvidenceBuff ProvidenceBuff(this Mod buff) => (ProvidenceBuff)buff.GetGlobalBuff("ProvidenceBuff");
-		/// <summary>References the ProvidenceGlobalTile instance. Shorthand for ease of use.</summary>
-		public static ProvidenceTile ProvidenceTile(this Mod tile) => (ProvidenceTile)tile.GetGlobalTile("ProvidenceTile");
-		/// <summary>References the ProvidenceGlobalBigStyle instance. Shorthand for ease of use.</summary>
-		public static ProvidenceBigStyle ProvidenceStyle(this Mod style) => (ProvidenceBigStyle)style.GetGlobalBgStyle("ProvidenceBigStyle");
-		/// <summary>References the ProvidenceGlobalRecipes instance. Shorthand for ease of use.</summary>
-		public static ProvidenceRecipes ProvidenceRecipes(this Mod recipe) => (ProvidenceRecipes)recipe.GetGlobalRecipe("ProvidenceRecipe");
 		/// <summary>References the Player owner of a projectile instance. Shorthand for ease of use.</summary>
 		public static Player OwnerPlayer(this Projectile projectile) => Main.player[projectile.owner];
 		/// <summary>References the NPC owner of a projectile instance. Shorthand for ease of use.</summary>
 		public static NPC OwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
 		/// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
 		public static Player LocalPlayer() => Main.LocalPlayer;
-		/// <summary>Returns the position for an Entity. Shorthand for ease of use.</summary>
-		public static Vector2 EntityPosition(Entity entity) => entity.Center - Main.screenPosition;
 		/// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
 		public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
 		/// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
@@ -118,72 +105,68 @@ namespace ProvidenceMod
 			color.A = (byte)(color.A / conversion);
 			return color;
 		}
-		public static void Talk(string message, Color color, NPC npc)
+		public static void UpdatePositionCache(this Projectile projectile)
+		{
+			for (int i = projectile.oldPos.Length - 1; i > 0; i--)
+			{
+				projectile.oldPos[i] = projectile.oldPos[i - 1];
+			}
+			projectile.oldPos[0] = projectile.position;
+		}
+		public static void UpdatePositionCache(this NPC npc)
+		{
+			for (int i = npc.oldPos.Length - 1; i > 0; i--)
+			{
+				npc.oldPos[i] = npc.oldPos[i - 1];
+			}
+			npc.oldPos[0] = npc.position;
+		}
+		public static void UpdateRotationCache(this Projectile projectile)
+		{
+			for (int i = projectile.oldRot.Length - 1; i > 0; i--)
+			{
+				projectile.oldRot[i] = projectile.oldRot[i - 1];
+			}
+			projectile.oldRot[0] = projectile.rotation;
+		}
+		public static void UpdateRotationCache(this NPC npc)
+		{
+			for (int i = npc.oldRot.Length - 1; i > 0; i--)
+			{
+				npc.oldRot[i] = npc.oldRot[i - 1];
+			}
+			npc.oldRot[0] = npc.rotation;
+		}
+		public static void UpdateCenterCache(this Projectile projectile)
+		{
+			for (int i = projectile.Providence().oldCen.Length - 1; i > 0; i--)
+			{
+				projectile.Providence().oldCen[i] = projectile.Providence().oldCen[i - 1];
+			}
+			projectile.Providence().oldCen[0] = projectile.Center;
+		}
+		public static void UpdateCenterCache(this NPC npc)
+		{
+			for (int i = npc.Providence().oldCen.Length - 1; i > 0; i--)
+			{
+				npc.Providence().oldCen[i] = npc.Providence().oldCen[i - 1];
+			}
+			npc.Providence().oldCen[0] = npc.Center;
+		}
+		public static void Talk(string message, Color color, int npc)
 		{
 			if (Main.netMode != NetmodeID.Server)
 			{
-				string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
+				string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc), message);
 				Main.NewText(text, color.R, color.G, color.B);
 			}
 			else
 			{
-				NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
+				NetworkText text = NetworkText.FromKey(message, npc, message);
 				NetMessage.BroadcastChatMessage(text, new Color(color.R, color.G, color.B));
 			}
 		}
-		//public static string DetermineDamageTooltip(this Item item)
-		//{
-		//	string el;
-		//	string dmgType = item.melee ? "melee" :
-		//									 item.ranged ? "ranged" :
-		//									 item.magic ? "magic" :
-		//									 item.summon ? "summon" :
-		//									 item.thrown ? "throwing" :
-		//									 item.Providence().cleric ? "cleric" :
-		//									 "";
-		//	switch (item.Providence().element)
-		//	{
-		//		case (int)ElementID.Fire:
-		//			el = "fire ";
-		//			break;
-		//		case (int)ElementID.Ice:
-		//			el = "ice ";
-		//			break;
-		//		case (int)ElementID.Lightning:
-		//			el = "lightning ";
-		//			break;
-		//		case (int)ElementID.Water:
-		//			el = "water ";
-		//			break;
-		//		case (int)ElementID.Earth:
-		//			el = "earth ";
-		//			break;
-		//		case (int)ElementID.Air:
-		//			el = "air ";
-		//			break;
-		//		case (int)ElementID.Order:
-		//			el = "order ";
-		//			break;
-		//		case (int)ElementID.Chaos:
-		//			el = "chaos ";
-		//			break;
-		//		default:
-		//			el = "";
-		//			break;
-		//	}
-		//	return $" {el}{dmgType} "; // The space between is added implicitly in el's assignment
-		//}
-		/// <summary>Generates dust particles based on Aura size. Call when adding an Aura buff.</summary>
-		/// <param name="player">The active player acting as the point of origin.</param>
-		/// <param name="style">The visual style that the aura will use.</param>
-		/// <param name="radiusBoost">The distance modifier for the aura's effective range.</param>
-		/// <param name="dust">The ID of the dust particle to use for the aura. By convention, this dust should have no gravity or light, and should have AI set to dissipate within 3-5 ticks.</param>
-		/// <param name="custom">Whether or not to use a custom aura.</param>
-		public static void GenerateAuraField(Player player, int style, float radiusBoost, int dust = 0, bool custom = false)
-		{
-			ProvidencePlayer proPlayer = player.Providence();
-		}
-		/// <summary>Finds and returns the entity to the provided entity. Actively disregards Target Dummies.</summary>
+		/// <summary>Finds and returns the closesnt entity to the provided entity. Actively disregards Target Dummies.</summary>
 		public static Entity ClosestEntity(Entity entity, bool hostile)
 		{
 			float shortest = -1f;
@@ -194,7 +177,7 @@ namespace ProvidenceMod
 				{
 					if (npc.active && !npc.townNPC && !npc.friendly && npc.type != NPCID.TargetDummy)
 					{
-						float dist = Vector2.Distance(entity.position, npc.Center);
+						float dist = Vector2.Distance(entity.Center, npc.Center);
 						if (dist < shortest || shortest == -1f)
 						{
 							shortest = dist;
@@ -209,7 +192,7 @@ namespace ProvidenceMod
 				{
 					if (player.active)
 					{
-						float dist = Vector2.Distance(entity.position, player.Center);
+						float dist = Vector2.Distance(entity.Center, player.Center);
 						if (dist < shortest || shortest == -1f)
 						{
 							shortest = dist;
@@ -220,59 +203,55 @@ namespace ProvidenceMod
 			}
 			return chosenEntity;
 		}
-		/// <summary>Shorthanding of distance testing involving Vector2's, for readability.</summary>
-		public static bool IsInRadiusOf(this Vector2 targetPos, Vector2 center, float radius) => Vector2.Distance(center, targetPos) <= radius;
-		/// <summary>Provides how many instances of the projectile type currently exist.</summary>
-		public static int GrabProjCount(int type)
-		{
-			int count = 0;
-			foreach (Projectile proj in Main.projectile)
-			{
-				if (proj.type == type)
-					count++;
-			}
-			return count;
-		}
-		/// <summary>A simpler version of rotation control, just sets the rotation to the given value. This is deterministic, unlike "RotatedBy", which adds the rotation value to the current.</summary>
+		/// <summary>Vector distance shorthand.</summary>
+		public static bool IsInRadiusOf(this Vector2 position, Vector2 target, float radius) => Vector2.Distance(target, position) <= radius;
+		/// <summary>Rotates the given vector to the provided rotation.</summary>
 		public static Vector2 RotateTo(this Vector2 v, float rotation)
 		{
 			float oldVRotation = v.ToRotation();
 			return v.RotatedBy(rotation - oldVRotation);
 		}
-		/// <summary>Gradually shifts between two colors over ingame time.</summary>
+		/// <summary>Gradually shifts between two colors over time.</summary>
 		public static Color ColorShift(Color firstColor, Color secondColor, float seconds)
 		{
 			float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
 			return Color.Lerp(firstColor, secondColor, amount);
 		}
-		// public static Color ColorShift(Color[] colors, float seconds)
-		// {
-		//   Mod mod = ModLoader.GetMod("ProvidenceMod");
-		//   mod.Logger.InfoFormat($"{Main.GlobalTime}, {Main.GameUpdateCount}", "ProvidenceMod");
-		//   float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
-		// 	int index = (int)(Main.GlobalTime / 60 % colors.Length);
-		//   return Color.Lerp(colors[index], colors[(index + 1) % colors.Length], amount);
-		// }
-		// public static Color ColorShiftThree(Color firstColor, Color secondColor, Color thirdColor, float seconds, int phase)
-		// {
-		//   if(phase == 0)
-		//   {
-		//     return ColorShift(firstColor, secondColor, seconds);
-		//   }
-		//   if(phase == 1)
-		//   {
-		//     return ColorShift(secondColor, thirdColor, seconds);
-		//   }
-		//   if(phase == 2)
-		//   {
-		//     return ColorShift(thirdColor, firstColor, seconds);
-		//   }
-		//   else
-		//   {
-		//     return ColorShift(firstColor, secondColor, seconds);
-		//   }
-		// }
-		/// <summary>Returns if there is a boss, and if there is, their ID in "Main.npc".</summary>
+		/// <summary>Gradually shifts between multiple colors over time.</summary>
+		public static Color ColorShiftMultiple(Color[] colors, float seconds)
+		{
+			float fade = Main.GameUpdateCount % (int)(seconds * 60) / (seconds * 60f);
+			int index = (int)(Main.GameUpdateCount / (seconds * 60f) % colors.Length);
+			return Color.Lerp(colors[index], colors[(index + 1) % colors.Length], fade);
+		}
+		public static void NewProjectileExtraAI(Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner = 255, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0)
+		{
+			int type = Projectile.NewProjectile(position, velocity, Type, Damage, KnockBack, Owner, ai0, ai1);
+			Main.projectile[type].Providence().extraAI[0] = ai2;
+			Main.projectile[type].Providence().extraAI[1] = ai3;
+			Main.projectile[type].Providence().extraAI[2] = ai4;
+			Main.projectile[type].Providence().extraAI[3] = ai5;
+			Main.projectile[type].Providence().extraAI[4] = ai6;
+			Main.projectile[type].Providence().extraAI[5] = ai7;
+		}
+		public static void NewNPCExtraAI(int X, int Y, int Type, int Start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0, int Target = 255)
+		{
+			int type = NPC.NewNPC(X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+			Main.npc[type].Providence().extraAI[0] = ai4;
+			Main.npc[type].Providence().extraAI[0] = ai5;
+			Main.npc[type].Providence().extraAI[0] = ai6;
+			Main.npc[type].Providence().extraAI[0] = ai7;
+		}
+		public static void NewNPCExtraAI(Vector2 Position, int Type, int Start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0, int Target = 255)
+		{
+			Vector2 pos = new Vector2(Position.X, Position.Y);
+			int type = NPC.NewNPC((int) pos.X, (int) pos.Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+			Main.npc[type].Providence().extraAI[0] = ai4;
+			Main.npc[type].Providence().extraAI[0] = ai5;
+			Main.npc[type].Providence().extraAI[0] = ai6;
+			Main.npc[type].Providence().extraAI[0] = ai7;
+		}
+		/// <summary>Returns whether there is a boss, and if there is, their ID in "Main.npc".</summary>
 		public static Tuple<bool, int> IsThereABoss()
 		{
 			bool bossExists = false;
@@ -285,9 +264,9 @@ namespace ProvidenceMod
 			}
 			return Tuple.Create(bossExists, bossID);
 		}
-		/// <summary>Provides a random point near the Vector2 you call this on.</summary>
+		/// <summary>Provides a random point near the provided position.</summary>
 		/// <param name="v">The origin point.</param>
-		/// <param name="maxDist">The distance in pixels away from the origin to move. Defaults at 16f, or 1 tile.</param>
+		/// <param name="maxDist">Radius max.</param>
 		public static Vector2 RandomPointNearby(this Vector2 v, float maxDist = 16f)
 		{
 			return Vector2.Add(v, new Vector2(0, Main.rand.NextFloat(maxDist)).RotatedByRandom(180f.InRadians()));
@@ -321,33 +300,44 @@ namespace ProvidenceMod
 				return new Rectangle(0, entity.height * frame, entity.width, entity.height);
 			}
 		}
-		/// <summary>Draws a glowmask for the given item.</summary>
-		/// <param name="spriteBatch">The spriteBatch instance for this glowmask. Passed with "PostDraw" or "PreDraw" item methods.</param>
-		/// <param name="rotation">The rotation for this item. Passed with "PostDraw" item methods.</param>
-		/// <param name="glowmaskTexture">The texture to draw for this glowmask.</param>
-		public static void Glowmask(this Item item, SpriteBatch spriteBatch, float rotation, Texture2D glowmaskTexture)
+		public static void FindFrame(this Projectile projectile, int time, int number)
 		{
-			Vector2 origin = new Vector2(glowmaskTexture.Width / 2f, (float)((glowmaskTexture.Height / 2.0) - 2.0));
-			spriteBatch.Draw(glowmaskTexture, item.Center - Main.screenPosition, null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+			if (++projectile.frameCounter >= time) // Frame time
+			{
+				projectile.frameCounter = 0;
+				if (++projectile.frame >= number) //Frame number
+				{
+					projectile.frame = 0;
+				}
+			}
 		}
-		/// <summary>Draws a glowmask for the given item while the item is in use.</summary>
+		/// <summary>Draws a glowMask for the given item.</summary>
+		/// <param name="spriteBatch">The spriteBatch instance for this glowMask. Passed with "PostDraw" or "PreDraw" item methods.</param>
+		/// <param name="rotation">The rotation for this item. Passed with "PostDraw" item methods.</param>
+		/// <param name="glowMaskTexture">The texture to draw for this glowMask.</param>
+		public static void GlowMask(this Item item, SpriteBatch spriteBatch, float rotation, Texture2D glowMaskTexture)
+		{
+			Vector2 origin = new Vector2(glowMaskTexture.Width / 2f, (float)((glowMaskTexture.Height / 2.0) - 2.0));
+			spriteBatch.Draw(glowMaskTexture, item.Center - Main.screenPosition, null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+		}
+		/// <summary>Draws a glowMask for the given item while the item is in use.</summary>
 		/// <param name="info">The PlayerDrawInfo instance for this method. Use "PlayerDrawInfo info = new PlayerDrawInfo();" and pass it.</param>
-		public static void DrawGlowmask(PlayerDrawInfo info)
+		public static void DrawGlowMask(PlayerDrawInfo info)
 		{
 			Player player = info.drawPlayer;
-			Texture2D glowmaskTexture = null;
+			Texture2D glowMaskTexture = null;
 			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
 			{
-				if (player.HeldItem.Providence().glowmask)
-					glowmaskTexture = player.HeldItem.Providence().glowmaskTexture;
+				if (player.HeldItem.Providence().glowMask)
+					glowMaskTexture = player.HeldItem.Providence().glowMaskTexture;
 				Main.playerDrawData.Add(
 					new DrawData(
-						glowmaskTexture,
+						glowMaskTexture,
 						info.itemLocation - Main.screenPosition,
-						glowmaskTexture.Frame(),
+						glowMaskTexture.Frame(),
 						Color.White,
 						player.itemRotation,
-						new Vector2(player.direction == 1 ? 0 : glowmaskTexture.Width, glowmaskTexture.Height),
+						new Vector2(player.direction == 1 ? 0 : glowMaskTexture.Width, glowMaskTexture.Height),
 						player.HeldItem.scale,
 						info.spriteEffects,
 						0
@@ -355,7 +345,7 @@ namespace ProvidenceMod
 				);
 			}
 		}
-		/// <summary>Draws an animated glowmask for the given item while the item is in use.</summary>
+		/// <summary>Draws an animated glowMask for the given item while the item is in use.</summary>
 		/// <param name="info">The PlayerDrawInfo instance for this method. Use "PlayerDrawInfo info = new PlayerDrawInfo();" and pass it.</param>
 		public static void DrawAnimation(PlayerDrawInfo info)
 		{
@@ -384,22 +374,21 @@ namespace ProvidenceMod
 				);
 			}
 		}
-
-		public static void DrawGlowmaskAnimation(PlayerDrawInfo info)
+		public static void DrawGlowMaskAnimation(PlayerDrawInfo info)
 		{
 			Player player = info.drawPlayer;
-			Texture2D animatedGlowmaskTexture = null;
+			Texture2D animatedGlowMaskTexture = null;
 			Rectangle frame = default;
 			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir)
 			{
-				if (player.HeldItem.Providence().animatedGlowmask)
+				if (player.HeldItem.Providence().animatedGlowMask)
 				{
-					animatedGlowmaskTexture = player.HeldItem.Providence().animatedGlowmaskTexture;
-					frame = Main.itemAnimations[player.HeldItem.type].GetFrame(animatedGlowmaskTexture);
+					animatedGlowMaskTexture = player.HeldItem.Providence().animatedGlowMaskTexture;
+					frame = Main.itemAnimations[player.HeldItem.type].GetFrame(animatedGlowMaskTexture);
 				}
 				Main.playerDrawData.Add(
 					new DrawData(
-						animatedGlowmaskTexture,
+						animatedGlowMaskTexture,
 						info.itemLocation - Main.screenPosition,
 						frame,
 						Color.White,
@@ -412,139 +401,6 @@ namespace ProvidenceMod
 				);
 			}
 		}
-
-		/// <summary>
-		/// A function that gives a sort of "gravity" effect, pulling the Vector2 "v" towards the angle with the given amount.
-		/// </summary>
-		/// <param name="v">The velocity being gravitized.</param>
-		/// <param name="angleToTarget">The angle relative to v and the source of gravity.</param>
-		/// <param name="turnAMT">How strong the gravity is, and how fast the turning effect is.</param>
-		public static Vector2 TurnTowardsByX(this Vector2 v, float angleToTarget, float turnAMT)
-		{
-			Vector2 pull = new Vector2(turnAMT, 0f).RotateTo(angleToTarget);
-			return Vector2.Add(v, pull);
-		}
-
-		/// <summary>
-		/// A smart homing AI.
-		/// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
-		/// </summary>
-		/// <param name="velocity">The velocity of the projectile.</param>
-		/// <param name="offset">The offset from the projectile position to the target position.</param>
-		/// <param name="gain">How fast the projectile gains speed.</param>
-		/// <param name="slow">How fast the projectile loses speed</param>
-		/// <param name="courseAdjust">Whether or not the projectile will prevent overshooting the axes of the target.</param>
-		/// <param name="courseRange">The range that courseAdjust will activate within.</param>
-		/// <param name="overshotPrevention">Whether or not the projectile will guarentee a hit within a certain distnace.</param>
-		/// <param name="overshotThreshold">The range that overshotPrevention will guarantee a hit within.</param>
-		/// <param name="speedCap">The max speed this projectile can reach.</param>
-		public static Vector2 SmartHoming(this Vector2 velocity, Projectile projectile, Entity target, Vector2 offset, float gain = 0.1f, float slow = 0.1f, bool courseAdjust = true, float courseRange = 5f, bool overshotPrevention = false, float overshotThreshold = 10f, float speedCap = 8f)
-		{
-			if (offset.X > 0)
-			{
-				if (velocity.X < 0)
-					velocity.X /= slow;
-				if (velocity.X < speedCap)
-					velocity.X += gain;
-				if (velocity.X > speedCap)
-					velocity.X = speedCap;
-			}
-			if (offset.X < 0)
-			{
-				if (velocity.X > 0)
-					velocity.X /= slow;
-				if (velocity.X > -speedCap)
-					velocity.X -= gain;
-				if (velocity.X < -speedCap)
-					velocity.X = -speedCap;
-			}
-			if (offset.Y > 0)
-			{
-				if (velocity.Y < 0)
-					velocity.Y /= slow;
-				if (velocity.Y < speedCap)
-					velocity.Y += gain;
-				if (velocity.Y > speedCap)
-					velocity.Y = speedCap;
-			}
-			if (offset.Y < 0)
-			{
-				if (velocity.Y > 0)
-					velocity.Y /= slow;
-				if (velocity.Y > -speedCap)
-					velocity.Y -= gain;
-				if (velocity.Y < -speedCap)
-					velocity.Y = -speedCap;
-			}
-			if (courseAdjust)
-			{
-				if (offset.X <= courseRange && !(offset.X < 0))
-				{
-					if (!(offset.X < 1))
-						velocity.X /= slow;
-					if (offset.X < 1)
-						velocity.X = 0f;
-				}
-				if (offset.X >= -courseRange && !(offset.X > 0))
-				{
-					if (!(offset.X > -1))
-						velocity.X /= slow;
-					if (offset.X > -1)
-						velocity.X = 0f;
-				}
-				if (offset.Y <= courseRange && !(offset.Y < 0))
-				{
-					if (!(offset.Y < 1))
-						velocity.Y /= slow;
-					if (offset.Y < 1)
-						velocity.Y = 0f;
-				}
-				if (offset.Y >= -courseRange && !(offset.Y > 0))
-				{
-					if (!(offset.Y > -1))
-						velocity.Y /= slow;
-					if (offset.Y > -1)
-						velocity.Y = 0f;
-				}
-			}
-			if (overshotPrevention && target.position.IsInRadiusOf(projectile.position, overshotThreshold))
-			{
-				velocity.RotateTo(projectile.AngleTo(target.position));
-			}
-			return velocity;
-		}
-
-		/// <summary>
-		/// A smart homing AI for all projectiles to use in their AIs. A good cover-all to allow homing without constant retyping.
-		/// <para>This is a free-to-use code example for our open source, so adopt code as you need!</para>
-		/// </summary>
-		/// <param name="projectile">The projectile being worked with.</param>
-		/// <param name="speedCap">How fast the projectile can go in a straight line. Defaults at 6f.</param>
-		/// <param name="turnStrength">How quickly the projectile will gain turn. Defaults at 0.1f </param>
-		/// <param name="trackingRadius">How far away from its target it can be and still chase after. Defaults at 200f.</param>
-		/// <param name="overshotPrevention">Whether or not there should be a radius where it will guarantee its hit, even if hitboxes don't intersect. Defaults to false.</param>
-		/// <param name="overshotThreshold">If overshotPrevention is true, provides the radius which will guarantee the hit. Defaults to 0f.</param>
-		public static void GravityHoming(this Projectile projectile, Entity entity, float speedCap = 6f, float turnStrength = 0.1f, float trackingRadius = 200f, bool overshotPrevention = false, float overshotThreshold = 0f)
-		{
-			// Slightly different tracking methods between hostile and friendly AIs. Not much, but enough.
-			if (projectile.friendly)
-			{
-				if (entity?.position.IsInRadiusOf(projectile.position, trackingRadius) == true)
-					projectile.velocity = projectile.velocity.TurnTowardsByX(projectile.AngleTo(entity.position), turnStrength);
-				// If overshotPrevention is on, force the projectile to beeline right for the target if it's within threshold distance.
-				if (overshotPrevention && entity?.position.IsInRadiusOf(projectile.position, overshotThreshold) == true)
-					projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.AngleTo(entity.position));
-				// Force speed cap.
-				if (projectile.velocity.Length() > speedCap)
-					projectile.velocity = new Vector2(speedCap, 0f).RotateTo(projectile.velocity.ToRotation());
-			}
-		}
-		//TODO: Code this AI
-		public static void SineHoming()
-		{ }
-		//TODO: Code this AI
-		public static void LinearHoming()
-		{ }
 		//TODO: Clarify this AI
 		public static void SmoothHoming(Projectile projectile)
 		{
@@ -621,15 +477,12 @@ namespace ProvidenceMod
 				projectile.velocity.Y = ((projectile.velocity.Y * (num14 - 1)) + num13) / num14;
 			}
 		}
-		public static void NaturalHoming(Projectile projectile, Entity entity, float turn, float homing)
+		public static void NaturalHoming(Projectile projectile, Entity entity, float turn, float speed)
 		{
-			Vector2 unitY = projectile.DirectionTo(entity.Center);
-			projectile.velocity = ((projectile.velocity * turn) + (unitY * homing)) / (turn + 1f);
+			Vector2 dir = projectile.DirectionTo(entity.Center);
+			projectile.velocity = ((projectile.velocity * turn) + (dir * speed)) / (turn + 1f);
 		}
-		//TODO: Code this AI
-		public static void ComplexHoming()
-		{
-		}
+		//TODO: Implement this properly using StrikeNPC and StrikePlayer
 		// public static int ArmorCalculation(NPC npc, ref int damage, ref bool crit)
 		// {
 		//   int armorDamage = 0;
@@ -655,25 +508,6 @@ namespace ProvidenceMod
 		//   }
 		//   return damage;
 		// }
-		public static void DrawEnemyDebuffs(this NPC nPC)
-		{
-			nPC.Providence().buffCount = 0;
-			Vector2 drawPos = new Vector2(0f, nPC.position.Y + 10f);
-			int[] buffTypeArray = new int[5] { 0, 0, 0, 0, 0 };
-			foreach (int num in nPC.buffType)
-			{
-				buffTypeArray[nPC.Providence().buffCount] = num;
-				nPC.Providence().buffCount++;
-			}
-			for (int i = 0; i < nPC.Providence().buffCount; i++)
-			{
-				drawPos.X = nPC.position.X - 10f + (i * 5f);
-				Texture2D texture = GetTexture("Terraria/Buff_" + buffTypeArray[i].ToString());
-				Main.spriteBatch.Draw(texture, drawPos, Color.White);
-			}
-		}
-		/// <summary>A slightly modified Vector2 based on the Center of the Entity given. There's some weirdness to what is considered the center in the computer's eyes; this fixes that.</summary>
-		public static Vector2 TrueCenter(this Entity ent) => new Vector2(ent.Center.X - 3, ent.Center.Y - 3);
 		public static LegacySoundStyle AsLegacy(this int id, int style = 1) => new LegacySoundStyle(id, style);
 		public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
 		=> mod.GetLegacySoundSlot(soundType, filename);
@@ -687,22 +521,8 @@ namespace ProvidenceMod
 			Water = 3,
 			Earth = 4,
 			Air = 5,
-			Order = 6,
-			Chaos = 7
-		}
-		public enum AuraStyle
-		{
-			CerberusStyle = 0,
-			BurnStyle = 1,
-			CFlameStyle = 2,
-			AmpStyle = 3
-		}
-		public enum AuraType
-		{
-			CerberusAura = 0,
-			BurnAura = 1,
-			CFlameAura = 2,
-			AmpCapacitorAura = 3
+			Radiant = 6,
+			Shadow = 7
 		}
 	}
 }

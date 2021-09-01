@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using ProvidenceMod.Dusts;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,8 +16,8 @@ namespace ProvidenceMod
 		public static bool downedCaelus;
 
 		// Difficulty Modifiers
-		public bool ascension;
-		public bool torment;
+		public bool lament;
+		public bool wrath;
 
 		// Sparkly Boss Treasure
 		public List<Item> itemList = new List<Item>();

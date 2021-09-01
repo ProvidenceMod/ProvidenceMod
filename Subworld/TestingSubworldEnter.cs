@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModNet;
 
 namespace ProvidenceMod.Subworld
 {
@@ -27,9 +28,9 @@ namespace ProvidenceMod.Subworld
 		public override bool UseItem(Player player)
 		{
 			//Enter should be called on exactly one side, which here is either the singleplayer player, or the server
-			if (Main.netMode != NetmodeID.MultiplayerClient)
+			if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().Item1)
 			{
-				SubworldManager.Enter(SubworldManager.endlessSeaID);
+				SubworldManager.Enter<EndlessSeaSubworld>(!ProvidenceMod.Instance.subworldVote);
 			}
 			return true;
 		}

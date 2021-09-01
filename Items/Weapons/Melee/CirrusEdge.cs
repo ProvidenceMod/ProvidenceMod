@@ -6,6 +6,7 @@ using ProvidenceMod.Items.Materials;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Projectiles.Boss;
+using static ProvidenceMod.Projectiles.ProvidenceGlobalProjectileAI;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
@@ -30,15 +31,17 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			item.autoReuse = true;
 			item.shootSpeed = 6f;
 			item.UseSound = SoundID.Item1;
+			item.shoot = ProjectileType<ZephyrDart>();
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Main.PlaySound(SoundID.Item45, player.position);
-			Vector2 velocity = new Vector2(speedX, speedY);
-			return false;
-		}
-		public override void AddRecipes()
+	public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+	{
+	  Main.PlaySound(SoundID.Item45, player.position);
+	  Vector2 velocity = new Vector2(speedX, speedY);
+			Projectile.NewProjectile(position, velocity, type, damage, knockBack, player.whoAmI, (int)ZephyrDartAI.Friendly);
+	  return false;
+	}
+	public override void AddRecipes()
 		{
 			ModRecipe r = new ModRecipe(mod);
 

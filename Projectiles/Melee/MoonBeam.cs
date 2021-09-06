@@ -31,7 +31,7 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.ai[0]++;
 			if (projectile.ai[0] % 2.5f == 0)
 			{
-				Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Red, default, default, default, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB));
+				Dust.NewDust(projectile.Center, 6, 6, 130, default, default, default, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB));
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Green);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Blue);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Yellow);

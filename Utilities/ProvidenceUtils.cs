@@ -538,5 +538,6 @@ namespace ProvidenceMod
 				del(i);
 			}
 		}
+		public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
 	}
 }

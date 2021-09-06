@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ProvidenceMod.ProvidenceUtils;
+using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.Items.Weapons.Ranged
 {
@@ -12,7 +13,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Tempest");
-      Tooltip.SetDefault("The power of a storm resides within this weapom.");
+      Tooltip.SetDefault("The power of a storm resides within this weapon.");
     }
     public override void SetDefaults()
     {
@@ -32,7 +33,17 @@ namespace ProvidenceMod.Items.Weapons.Ranged
       item.rare = ItemRarityID.Orange;
       item.value = Item.buyPrice(0, 10, 0, 0);
       item.useStyle = ItemUseStyleID.HoldingOut;
-      item.shoot = ProjectileID.WoodenArrowFriendly;
+      item.shoot = ProjectileType<Airow>();
+    }
+
+    public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+    {
+      if (type == ProjectileID.WoodenArrowFriendly || type == ProjectileID.WoodenArrowHostile)
+      {
+        _ = Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileType<Airow>(), damage, knockBack, player.whoAmI);
+        return false;
+      }
+      return true;
     }
   }
 }

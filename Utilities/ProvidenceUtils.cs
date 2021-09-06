@@ -524,5 +524,19 @@ namespace ProvidenceMod
 			Radiant = 6,
 			Shadow = 7
 		}
+		public static void RepeatXTimes(int x, Action del)
+		{
+			for (int i = 0; i < x; i++)
+			{
+				del();
+			}
+		}
+		public static void RepeatXTimes(int x, Action<int> del)
+		{
+			for (int i = 0; i < x; i++)
+			{
+				del(i);
+			}
+		}
 	}
 }

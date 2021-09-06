@@ -29,7 +29,6 @@ namespace ProvidenceMod.NPCs.Brinewastes
 			npc.chaseable = true;
 			npc.width = 70;
 			npc.height = 28;
-			npc.Opacity = 0f;
 			npc.knockBackResist = 5f;
 		}
 		public override void AI()
@@ -37,15 +36,25 @@ namespace ProvidenceMod.NPCs.Brinewastes
 			npc.ai[0]++;
 			npc.spriteDirection = npc.direction;
 			npc.rotation = npc.velocity.X >= 0 && npc.velocity.Y <= 0 ? Utils.Clamp(npc.velocity.ToRotation(), 0f.InRadians(), 5F.InRadians()) : Utils.Clamp(npc.velocity.ToRotation(), 355f.InRadians(), 360F.InRadians());
-			Player player = (Player)ClosestEntity(npc, false);
-			bool isInRange = player.Center.IsInRadiusOf(npc.Center, 256);
-			if(isInRange)
-			{
+			// Player player = (Player)ClosestEntity(npc, false);
+			// if(player.Center.IsInRadiusOf(npc.Center, 256))
+			// {
 
+			// }
+			// else
+			// {
+
+			// }
+			if (!npc.wet)
+			{
+				npc.velocity.Y++;
 			}
-			else
+			foreach (Player player in Main.player)
 			{
-
+				if (npc.active && npc.wet && player.active && !player.dead && player.wet && player.Center.IsInRadiusOf(npc.Center, 50f))
+				{
+					npc.velocity = player.AngleTo(npc.Center).ToRotationVector2() * 16;
+				}
 			}
 		}
 	}

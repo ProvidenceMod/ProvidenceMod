@@ -270,11 +270,10 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 				}
 				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-
 			}
 			if (stunned)
 			{
-				for (int i = 0; i < 10; i++)
+				RepeatXTimes(10, i =>
 				{
 					float alpha = (1f - (i * 0.1f)) * (float)((float)(0.375d * Math.Sin(Main.GlobalTime * 20d)) + 0.625d);
 					float scale = (1f - (i * 0.025f)) * (float)((float)(0.025d * Math.Sin(Main.GlobalTime * 20d)) + 1.025d);
@@ -285,14 +284,14 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					colorV.W *= alpha;
 					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
 					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-				}
+				});
 			}
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			if (npc.life <= 0)
 			{
-				for (int i = 0; i < 100; i++)
+				RepeatXTimes(100, () =>
 				{
 					float angle = Main.rand.NextFloat(0, 360);
 					Vector2 speed = new Vector2(Main.rand.NextFloat(2f, 12f), Main.rand.NextFloat(2f, 12f)).RotatedBy(angle.InRadians());
@@ -300,8 +299,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					int dust = Dust.NewDust(npc.Hitbox.RandomPointInHitbox(), 5, 5, DustType<CloudDust>(), speed.X, speed.Y, 255, default, scale);
 					Main.dust[dust].scale = scale;
 					Main.dust[dust].noGravity = false;
-
-				}
+				});
 			}
 		}
 		public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text

@@ -36,7 +36,7 @@ namespace ProvidenceMod
 	public static class SubworldManager
 	{
 		//How we identify our world
-		public static string endlessSeaID = string.Empty; //An empty string will not cause any problems in Enter, IsActive etc. calls
+		public static string BrinewastesID = string.Empty; //An empty string will not cause any problems in Enter, IsActive etc. calls
 
 		public static void Enter<T>(bool noVote = false) where T : SubworldLibrary.Subworld
 		{
@@ -66,7 +66,7 @@ namespace ProvidenceMod
 		//Call this in ProvidenceMod.Unload()
 		public static void Unload()
 		{
-			endlessSeaID = string.Empty;
+			BrinewastesID = string.Empty;
 		}
 
 		//Passed into subworldLibrary.Call()

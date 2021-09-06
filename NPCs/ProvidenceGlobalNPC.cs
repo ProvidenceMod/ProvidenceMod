@@ -29,6 +29,14 @@ namespace ProvidenceMod
 		public override void ResetEffects(NPC npc)
 		{
 		}
+		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+		{
+			// Armor system possible? Certainly!
+			//if(armor <= 0)
+			//	return true;
+			//else
+			//	return false;
+		}
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			//If any subworld from our mod is loaded, disable spawns
@@ -37,7 +45,6 @@ namespace ProvidenceMod
 				pool.Clear();
 			}
 		}
-
 		public override void AI(NPC npc)
 		{
 		}

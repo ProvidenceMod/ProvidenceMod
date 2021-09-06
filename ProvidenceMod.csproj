@@ -46,7 +46,7 @@
     <Folder Include="Projectiles\Summon\" />
     <Folder Include="Sounds\Music\" />
     <Folder Include="Sounds\NPCHit\" />
-    <Folder Include="Tiles\EndlessSea\" />
+    <Folder Include="Tiles\Brinewastes\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SubworldLibrary">

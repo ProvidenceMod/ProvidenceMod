@@ -8,18 +8,19 @@ using Terraria.GameContent.Generation;
 
 namespace ProvidenceMod.Subworld
 {
-	public class EndlessSeaSubworld : SubworldLibrary.Subworld
+	public class BrinewastesSubworld : SubworldLibrary.Subworld
 	{
 		public override int height => 2400;
 		public override int width => 8400;
-		public override List<GenPass> tasks => EndlessSeaGenPass();
-		public override ModWorld modWorld => ModContent.GetInstance<EndlessSea>();
+		public override List<GenPass> tasks => BrinewastesGenPass();
+		public override ModWorld modWorld => ModContent.GetInstance<Brinewastes>();
 		public override ushort votingDuration => 600;
 		public override bool noWorldUpdate => false;
+		public override bool saveSubworld => true;
 		public static bool enteredWorld;
 
 		//Called in subworldLibrary.Call()
-		public static List<GenPass> EndlessSeaGenPass()
+		public static List<GenPass> BrinewastesGenPass()
 		{
 			return new List<GenPass>
 			{
@@ -31,29 +32,29 @@ namespace ProvidenceMod.Subworld
 					Main.rockLayer = Main.maxTilesY; //Hides the cavern layer way out of bounds
 				},
 				1f),
-				//Second pass
-				new PassLegacy("GeneratingBradiants",
-				(GenerationProgress progress) => {
-					progress.Message = "Generating subworld bradiants";
-					//Create three tiles for the player to stand on when he spawns
-					for (int i = -1; i < 2; i++)
-					{
-						WorldGen.PlaceTile(Main.spawnTileX - i,  Main.spawnTileY + 2, TileID.Dirt, true, true);
-					}
-					//Create a wall of lihzard bricks around the world. 41, 42 and 43 are magic numbers from the game regarding world boundaries
-					for (int i = 0; i < Main.maxTilesX; i++)
-					{
-						for (int j = 0; j < Main.maxTilesY; j++)
-						{
-							progress.Value = (((float)i * Main.maxTilesY) + j) / (Main.maxTilesX * Main.maxTilesY);
-							if (i < 42 || i >= Main.maxTilesX - 43 || j <= 41 || j >= Main.maxTilesY - 43)
-							{
-								WorldGen.PlaceTile(i, j, TileID.LihzahrdBrick, true, true);
-							}
-						}
-					}
-				},
-				1f),
+				////Second pass
+				//new PassLegacy("GeneratingBradiants",
+				//(GenerationProgress progress) => {
+				//	progress.Message = "Generating subworld bradiants";
+				//	//Create three tiles for the player to stand on when he spawns
+				//	for (int i = -1; i < 2; i++)
+				//	{
+				//		WorldGen.PlaceTile(Main.spawnTileX - i,  Main.spawnTileY + 2, TileID.Dirt, true, true);
+				//	}
+				//	//Create a wall of lihzard bricks around the world. 41, 42 and 43 are magic numbers from the game regarding world boundaries
+				//	for (int i = 0; i < Main.maxTilesX; i++)
+				//	{
+				//		for (int j = 0; j < Main.maxTilesY; j++)
+				//		{
+				//			progress.Value = (((float)i * Main.maxTilesY) + j) / (Main.maxTilesX * Main.maxTilesY);
+				//			if (i < 42 || i >= Main.maxTilesX - 43 || j <= 41 || j >= Main.maxTilesY - 43)
+				//			{
+				//				WorldGen.PlaceTile(i, j, TileID.LihzahrdBrick, true, true);
+				//			}
+				//		}
+				//	}
+				//},
+				//1f),
 				new PassLegacy("AddingWater",
 				(GenerationProgress progress) => {
 				 	progress.Message = "Generating water";

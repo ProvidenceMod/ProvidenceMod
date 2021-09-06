@@ -16,6 +16,7 @@ using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.Items.Weapons.Melee;
 using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
 using ProvidenceMod.Items.Dyes;
+using ProvidenceMod.Metaballs;
 
 namespace ProvidenceMod
 {
@@ -28,6 +29,8 @@ namespace ProvidenceMod
 		internal BossHealth BossHealth;
 		internal ParityUI ParityUI;
 
+		public static MaskManager Metaballs;
+
 		public static DynamicSpriteFont providenceFont;
 		public static DynamicSpriteFont bossHealthFont;
 		public static Effect divinityEffect;
@@ -36,15 +39,25 @@ namespace ProvidenceMod
 
 		public bool texturePack;
 		public bool bossHP;
+		public bool bossPercentage;
 		public bool subworldVote;
+
+		private Vector2 lastScreenSize;
+		private Vector2 lastViewSize;
 
 		public override void Load()
 		{
 			Instance = this;
 
+			MaskHandles.Initialize();
+
 			if (Main.netMode != NetmodeID.Server && texturePack)
 				ProvidenceTextureManager.Load();
-
+			if (Main.netMode != NetmodeID.Server)
+			{
+				Main.OnPreDraw += DrawMasks;
+				InitializeMasks();
+			}
 			if (!Main.dedServ)
 			{
 				BossHealth = new BossHealth();
@@ -81,11 +94,43 @@ namespace ProvidenceMod
 			BossHealth = null;
 			bossHealthUI = null;
 			CycleParity = null;
+			providenceFont = null;
+			bossHealthFont = null;
+			divinityEffect = null;
 			if(!Main.dedServ)
 				ProvidenceTextureManager.Unload();
+			MaskHandles.Unload();
 			SubworldManager.Unload();
 			Instance = null;
 			base.Unload();
+		}
+		public override void PreUpdateEntities()
+		{
+			if (!Main.dedServ)
+			{
+				if (lastViewSize != Main.ViewSize && Metaballs != null)
+					Metaballs.Initialize(Main.graphics.GraphicsDevice);
+
+				lastScreenSize = new Vector2(Main.screenWidth, Main.screenHeight);
+				lastViewSize = Main.ViewSize;
+			}
+		}
+		public static void InitializeMasks()
+		{
+			Metaballs = new MaskManager();
+			Metaballs.LoadContent();
+			Metaballs.Initialize(Main.graphics.GraphicsDevice);
+
+			var friendlyDust = (FriendlyMetaball)ModContent.GetModDust(ModContent.DustType<FriendlyMetaball>());
+			var enemyDust = (EnemyMetaball)ModContent.GetModDust(ModContent.DustType<EnemyMetaball>());
+
+			friendlyDust.Reset();
+			enemyDust.Reset();
+		}
+		private void DrawMasks(GameTime obj)
+		{
+			if (!Main.gameMenu && Metaballs != null && Main.graphics.GraphicsDevice != null && Main.spriteBatch != null)
+				Metaballs.DrawToTarget(Main.spriteBatch, Main.graphics.GraphicsDevice);
 		}
 		private bool DrawBossHealthUI()
 		{

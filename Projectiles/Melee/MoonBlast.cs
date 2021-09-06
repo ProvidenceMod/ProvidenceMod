@@ -1,14 +1,18 @@
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ProvidenceMod.Metaballs;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
+using ProvidenceMod.Metaballs;
+using static ProvidenceMod.Metaballs.MaskManager;
 
 namespace ProvidenceMod.Projectiles.Melee
 {
-	public class MoonBlast : ModProjectile
+	public class MoonBlast : ModProjectile, IGalaxySprite
 	{
 		public Vector4 color = new Vector4(Main.DiscoR, Main.DiscoG, Main.DiscoB, 255);
 		public Vector2[] oldPos = new Vector2[5] { Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero };
@@ -30,77 +34,92 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.timeLeft = 300;
 			projectile.penetrate = 3;
 			projectile.scale = 1f;
+			projectile.Opacity = 0f;
 		}
 		public override void AI()
 		{
-			oldPos[4] = oldPos[3];
-			oldPos[3] = oldPos[2];
-			oldPos[2] = oldPos[1];
-			oldPos[1] = oldPos[0];
-			oldPos[0] = projectile.Center;
-			Lighting.AddLight(projectile.Center, (float)Main.DiscoR / 400f, (float)Main.DiscoG / 400f, (float)Main.DiscoB / 400f);
+			projectile.UpdateCenterCache();
+			projectile.UpdatePositionCache();
+			projectile.UpdateRotationCache();
+			if(projectile.ai[0] == 0)
+				ProvidenceMod.Metaballs.FriendlyLayer.Sprites.Add(this);
+			Lighting.AddLight(projectile.Center, new Vector3(Main.DiscoR, Main.DiscoG, Main.DiscoB).ColorRGBIntToFloat());
 			projectile.ai[0]++;
+			if(projectile.ai[0] % 2.5 == 0)
+				Dust.NewDustPerfect(projectile.Center, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(1.4f, 1.8f));
+			if (projectile.ai[0] < 30)
+			{
+				projectile.Opacity += 1f / 30f;
+				if (projectile.Opacity >= 0)
+					projectile.Opacity = 1f;
+			}
 			if (projectile.soundDelay == 0)
 			{
 				projectile.soundDelay = 640;
 				Main.PlaySound(SoundID.Item9, projectile.position);
 			}
 			projectile.rotation += projectile.velocity.X * 0.05f;
+			//projectile.rotation = projectile.velocity.ToRotation();
 			NPC target = (NPC)ClosestEntity(projectile, true);
-			if (target?.Distance(projectile.Center) >= 300f)
+			if (target?.Distance(projectile.Center) <= 750f)
 			{
-				Vector2 unitY = projectile.DirectionTo(target.Center);
-				projectile.velocity = ((projectile.velocity * 15f) + (unitY * 20f)) / (15f + 1f);
+				if (projectile.timeLeft > 120)
+				{
+					if (projectile.position.IsInRadiusOf(target.position, 500f) && projectile.ai[0] % 25 == 0)
+					{
+						Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(projectile.AngleTo(target.Center)), ProjectileType<MoonBeam>(), 100, 0f);
+					}
+					Vector2 position = new Vector2(target.Center.X + ((float)Math.Cos(Main.GlobalTime * 6f) * 300f),
+																				 target.Center.Y + ((float)Math.Sin(Main.GlobalTime * 6f) * 300f));
+					Vector2 unitY = projectile.DirectionTo(position);
+					projectile.velocity = ((projectile.velocity * 25f) + (unitY * 50f)) / (25f + 1f);
+				}
+				else
+				{
+					Vector2 unitY = projectile.DirectionTo(target.position);
+					projectile.velocity = ((projectile.velocity * 15f) + (unitY * 20f)) / (15f + 1f);
+				}
 			}
 		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		//public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		//{
+		//	for (int i = 0; i < projectile.oldRot.Length; i++)
+		//	{
+		//		float alpha = 1f - (i * 0.1f);
+		//		Vector4 colorV = new Vector4(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0f).ColorRGBAIntToFloat();
+		//		colorV.X = colorV.X * projectile.Opacity * alpha;
+		//		colorV.Y = colorV.Y * projectile.Opacity * alpha;
+		//		colorV.Z = colorV.Z * projectile.Opacity * alpha;
+		//		//colorV.W = colorV.W * projectile.Opacity * alpha;
+		//		Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
+		//		spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), color, projectile.oldRot[i], new Vector2(projectile.width / 2, projectile.height / 2), 1f, SpriteEffects.None, 0f);
+		//	}
+		//	spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), new Color(Main.DiscoR * projectile.Opacity, Main.DiscoG * projectile.Opacity, Main.DiscoB * projectile.Opacity, 0f).ColorRGBAIntToFloat(), projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale, SpriteEffects.None, 0f);
+		//	return false;
+		//}
+		public override bool PreDraw(SpriteBatch sb, Color color) => false;
+		public void DrawGalaxyMappedSprite(SpriteBatch sB)
 		{
-			Texture2D tex = GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast");
-			const int counter = 5;
-			ProvidenceGlobalProjectile.AfterImage(projectile, lightColor, tex, counter);
-			//Color color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 255);
-			//float alpha = 1f;
-			//for (int i = 0; i <= 4; i++)
-			//{
-			//	alpha = 255 - (i * 51);
-			//	spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), oldPos[i] - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), new Color(alpha, alpha, alpha, alpha), projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale, SpriteEffects.None, 0f);
-			//}
-			//spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), new Color(255, 255, 255, color.W), projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale, SpriteEffects.None, 0f);
-			//Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-			//for (int k = 0; k < projectile.oldPos.Length; k++)
-			//{
-			//	float alpha = 1f - (k * (1f / projectile.oldPos.Length));
-			//	Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-			//	Color color = projectile.GetAlpha(lightColor * alpha);
-			//	spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
-			//}
-			return true;
-			////return true;
+			if (projectile.type == ProjectileType<MoonBlast>() && projectile.active)
+			{
+				Texture2D tex = GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast");
+				sB.Draw(tex, (projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY)) / 2, new Rectangle(0, 0, projectile.width, projectile.height), Color.White, projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale / 2f, SpriteEffects.None, 0);
+			}
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = projectile.OwnerPlayer();
-			// Caps potential healing at 1% of max health per hit.
-			int healingAmount = damage / 60 >= player.statLifeMax / 100 ? player.statLifeMax / 100 : damage / 60;
-			// Actually heals, and gives the little green numbers pop up
+			int healingAmount = damage / 60 >= player.statLifeMax * 0.5f ? player.statLifeMax / 2 : damage / 60;
 			player.statLife += healingAmount;
 			player.HealEffect(healingAmount, true);
-
 			projectile.penetrate--;
 			target.immune[projectile.owner] = 3;
-
-			// int trueDmg = crit ? damage * 2 : damage;
-			// if (target.life - trueDmg <= 0)
-			// {
-			//   NPC newTarget = ClosestEntity(projectile);
-			//   if (newTarget?.active == true)
-			//     projectile.velocity = projectile.velocity.RotateTo(projectile.AngleTo(newTarget.position));
-			// }
 		}
-		public override Color? GetAlpha(Color lightColor) => new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
 		public override void Kill(int timeLeft)
 		{
+			ProvidenceMod.Metaballs.FriendlyLayer.Sprites.Remove(this);
 		}
+		//public override Color? GetAlpha(Color lightColor) => new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0f);
+
 	}
 }

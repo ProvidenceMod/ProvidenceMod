@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables.EndlessSea
+namespace ProvidenceMod.Items.Placeables.Brinewastes
 {
 	public class RedCoralBlock : ModItem
 	{
@@ -21,7 +21,7 @@ namespace ProvidenceMod.Items.Placeables.EndlessSea
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.EndlessSea.RedCoralBlock>();
+			item.createTile = ModContent.TileType<Tiles.Brinewastes.RedCoralBlock>();
 			item.width = 16;
 			item.height = 16;
 			item.value = 30;

@@ -20,16 +20,23 @@ namespace ProvidenceMod
     public bool texturePack;
 
 		[BackgroundColor(41, 122, 138)]
-		[Label("Boss Health Bar HP / Percentage")]
-		[Tooltip("Enables HP percentage and amount to show above the boss health bar.")]
+		[Label("Boss Health Bar HP")]
+		[Tooltip("Enables HP amount to show above the boss health bar.")]
 		[DefaultValue(true)]
 		public bool bossHP;
+
+		[BackgroundColor(41, 122, 138)]
+		[Label("Boss Health Bar Percentage")]
+		[Tooltip("Enables percentage amount to show above the boss health bar.")]
+		[DefaultValue(true)]
+		public bool bossPercentage;
 
 		public override void OnChanged()
 		{
 			ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>(); 
 			mod.texturePack = texturePack;
 			mod.bossHP = bossHP;
+			mod.bossPercentage = bossPercentage;
 		}
 	}
 	[BackgroundColor(41, 16, 41)]

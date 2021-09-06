@@ -120,7 +120,7 @@ namespace ProvidenceMod.Projectiles.Boss
 				Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
 				spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Boss/ZephyrDart"), projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, 40, 14), color, projectile.oldRot[i], Vector2.Zero, 1.0f - (0.15f * (i / 10f)), SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Boss/ZephyrDart"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 40, 14), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity), projectile.rotation, Vector2.Zero, projectile.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Boss/ZephyrDart"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 40, 14), new Color(1f * opacity, 1f * opacity, 1f * opacity, 0f), projectile.rotation, Vector2.Zero, projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 	}

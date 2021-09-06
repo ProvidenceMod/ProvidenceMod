@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ProvidenceMod.World
 {
-	public class EndlessSea : ModWorld
+	public class Brinewastes : ModWorld
 	{
 		// Worldgen testing
 		public static bool JustPressed(Keys key)
@@ -26,12 +26,12 @@ namespace ProvidenceMod.World
 		//
 		public override void PostUpdate()
 		{
-			if (SubworldManager.IsActive<EndlessSeaSubworld>())
-			{
-				SubworldLibrary.SLWorld.noReturn = false;
-				SubworldLibrary.SLWorld.drawMenu = false;
-			}
-			// Worldgen testing
+			//if (SubworldManager.IsActive<BrinewastesSubworld>())
+			//{
+			//	SubworldLibrary.SLWorld.noReturn = false;
+			//	SubworldLibrary.SLWorld.drawMenu = false;
+			//}
+			//// Worldgen testing
 			if (JustPressed(Keys.D1))
 				TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);
 			//

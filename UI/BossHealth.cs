@@ -81,13 +81,13 @@ namespace ProvidenceMod.UI
 			area.Width.Set(1000f, 0f);
 			area.Height.Set(46f, 0f);
 
-			frame = new UIImage(GetTexture("ProvidenceMod/UI/BossFrame"));
+			frame = new UIImage(GetTexture("ProvidenceMod/ExtraTextures/UI/BossFrame"));
 			frame.Top.Set(0, 0f);
 			frame.Left.Set(0, 0f);
 			frame.Width.Set(1000f, 0f);
 			frame.Height.Set(46f, 0f);
 
-			bloom = new UIImage(GetTexture("ProvidenceMod/UI/BossBloom"));
+			bloom = new UIImage(GetTexture("ProvidenceMod/ExtraTextures/UI/BossBloom"));
 			bloom.Top.Set(19f, 0f);
 			bloom.Left.Set(31f, 0f);
 			bloom.Width.Set(7f, 0f);
@@ -95,14 +95,14 @@ namespace ProvidenceMod.UI
 
 			// We give the rectangle the same dimensions as our health bar so that it always draws all of it unless told otherwise
 			healthRect = new Rectangle(0, 0, 924, 6);
-			health = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossHP"), healthRect);
+			health = new UIImageFramed(GetTexture("ProvidenceMod/ExtraTextures/UI/BossHP"), healthRect);
 			health.Top.Set(22f, 0f);
 			health.Left.Set(34f, 0f);
 			health.Width.Set(924f, 0f);
 			health.Height.Set(6f, 0f);
 
 			afterimageRect = new Rectangle(0, 0, 924, 6);
-			afterimage = new UIImageFramed(GetTexture("ProvidenceMod/UI/BossCombo"), afterimageRect);
+			afterimage = new UIImageFramed(GetTexture("ProvidenceMod/ExtraTextures/UI/BossCombo"), afterimageRect);
 			afterimage.Top.Set(22f, 0f);
 			afterimage.Left.Set(34f, 0f);
 			afterimage.Width.Set(924f, 0f);

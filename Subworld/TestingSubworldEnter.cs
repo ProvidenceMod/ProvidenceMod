@@ -30,7 +30,7 @@ namespace ProvidenceMod.Subworld
 			//Enter should be called on exactly one side, which here is either the singleplayer player, or the server
 			if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().Item1)
 			{
-				SubworldManager.Enter<EndlessSeaSubworld>(!ProvidenceMod.Instance.subworldVote);
+				SubworldManager.Enter<BrinewastesSubworld>(!ProvidenceMod.Instance.subworldVote);
 			}
 			return true;
 		}

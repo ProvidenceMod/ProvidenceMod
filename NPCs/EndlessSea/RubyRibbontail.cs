@@ -9,7 +9,7 @@ using ProvidenceMod.Dusts;
 using ProvidenceMod.Projectiles.Boss;
 
 
-namespace ProvidenceMod.NPCs.EndlessSea
+namespace ProvidenceMod.NPCs.Brinewastes
 {
 	public class RubyRibbontail : ModNPC
 	{

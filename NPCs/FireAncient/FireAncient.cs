@@ -45,8 +45,10 @@ namespace ProvidenceMod.NPCs.FireAncient
       npc.boss = true;
       npc.HitSound = SoundID.NPCHit41;
       npc.chaseable = true;
-      npc.Hitbox = new Rectangle((int)npc.Center.X, (int)npc.Center.Y - 100, 178, 224);
-      npc.knockBackResist = 0f;
+			npc.width = 760;
+			npc.height = 484;
+			npc.Hitbox = new Rectangle(0, 0, 178, 336);
+			npc.knockBackResist = 0f;
       npc.buffImmune[BuffID.OnFire] = true;
     }
 
@@ -60,48 +62,48 @@ namespace ProvidenceMod.NPCs.FireAncient
       }
       FindPlayers();
       npc.TargetClosest(false);
-      Player player = Main.player[npc.target];
+      //Player player = Main.player[npc.target];
       // ProvidenceGlobalNPC ProvidenceNPC = npc.Providence();
-      Vector2 offset = npc.position - player.position;
-      const float speedCap = 8f;
-      const float gainStrength = 0.2f;
-      const float slowStrength = 1.1f;
-      if (player.active && !player.dead)
-      {
-        if (npc.Center.X < player.Center.X)
-        {
-          if (npc.velocity.X < 0)
-            npc.velocity.X /= slowStrength;
-          if (npc.velocity.X < speedCap)
-            npc.velocity.X += gainStrength;
-        }
-        if (npc.Center.X > player.Center.X)
-        {
-          if (npc.velocity.X > 0)
-            npc.velocity.X /= slowStrength;
-          if (npc.velocity.X > -speedCap)
-            npc.velocity.X -= gainStrength;
-        }
-        if (offset.X == 0)
-          npc.velocity.X = 0f;
-        /////
-        if (npc.position.Y < player.position.Y - 500f)
-        {
-          if (npc.velocity.Y < 0)
-            npc.velocity.Y /= slowStrength;
-          if (npc.velocity.Y < speedCap)
-            npc.velocity.Y += gainStrength;
-        }
-        if (npc.position.Y > player.position.Y - 500f)
-        {
-          if (npc.velocity.Y > 0)
-            npc.velocity.Y /= slowStrength;
-          if (npc.velocity.Y > -speedCap)
-            npc.velocity.Y -= gainStrength;
-        }
-        if (npc.position.Y == player.position.Y - 500f)
-          npc.velocity.Y = 0f;
-      }
+      //Vector2 offset = npc.position - player.position;
+      //const float speedCap = 8f;
+      //const float gainStrength = 0.2f;
+      //const float slowStrength = 1.1f;
+      //if (player.active && !player.dead)
+      //{
+      //  if (npc.Center.X < player.Center.X)
+      //  {
+      //    if (npc.velocity.X < 0)
+      //      npc.velocity.X /= slowStrength;
+      //    if (npc.velocity.X < speedCap)
+      //      npc.velocity.X += gainStrength;
+      //  }
+      //  if (npc.Center.X > player.Center.X)
+      //  {
+      //    if (npc.velocity.X > 0)
+      //      npc.velocity.X /= slowStrength;
+      //    if (npc.velocity.X > -speedCap)
+      //      npc.velocity.X -= gainStrength;
+      //  }
+      //  if (offset.X == 0)
+      //    npc.velocity.X = 0f;
+      //  /////
+      //  if (npc.position.Y < player.position.Y - 500f)
+      //  {
+      //    if (npc.velocity.Y < 0)
+      //      npc.velocity.Y /= slowStrength;
+      //    if (npc.velocity.Y < speedCap)
+      //      npc.velocity.Y += gainStrength;
+      //  }
+      //  if (npc.position.Y > player.position.Y - 500f)
+      //  {
+      //    if (npc.velocity.Y > 0)
+      //      npc.velocity.Y /= slowStrength;
+      //    if (npc.velocity.Y > -speedCap)
+      //      npc.velocity.Y -= gainStrength;
+      //  }
+      //  if (npc.position.Y == player.position.Y - 500f)
+      //    npc.velocity.Y = 0f;
+      //}
       if (timer == 0)
       {
         AbyssalHellblast();

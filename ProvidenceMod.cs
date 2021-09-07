@@ -11,12 +11,15 @@ using Terraria.ModLoader;
 using Terraria.Graphics.Shaders;
 using Terraria.Graphics.Effects;
 using ProvidenceMod.UI;
+using ProvidenceMod.Metaballs;
+using ProvidenceMod.Items.Dyes;
 using ProvidenceMod.TexturePack;
 using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.Items.Weapons.Melee;
+using static ProvidenceMod.ModSupport.ModCalls;
 using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
-using ProvidenceMod.Items.Dyes;
-using ProvidenceMod.Metaballs;
+using ProvidenceMod.NPCs.PrimordialCaelus;
+using ProvidenceMod.Items.BossSpawners;
 
 namespace ProvidenceMod
 {
@@ -97,6 +100,7 @@ namespace ProvidenceMod
 			providenceFont = null;
 			bossHealthFont = null;
 			divinityEffect = null;
+			Metaballs = null;
 			if(!Main.dedServ)
 				ProvidenceTextureManager.Unload();
 			MaskHandles.Unload();
@@ -157,20 +161,7 @@ namespace ProvidenceMod
 		public override void PostSetupContent()
 		{
 			SubworldManager.Load();
-
-			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-			bossChecklist?.Call(
-					"AddBoss",
-					10.5f,
-					new List<int> { ModContent.NPCType<FireAncient>() },
-					this, // Mod
-					"$Mods.ProvidenceMod.NPCName.FireAncient",
-					(Func<bool>)(() => ProvidenceWorld.downedFireAncient),
-					ModContent.ItemType<CirrusEdge>(),
-					new List<int> { ModContent.ItemType<CirrusEdge>(), ModContent.ItemType<CirrusEdge>() },
-					new List<int> { ModContent.ItemType<CirrusEdge>(), ModContent.ItemType<CirrusEdge>() },
-					"$Mods.ProvidenceMod.BossSpawnInfo.FireAncient"
-				);
+			BossChecklist();
 		}
 		public override void UpdateMusic(ref int music, ref MusicPriority priority)
 		{

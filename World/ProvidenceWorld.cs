@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod
@@ -16,13 +17,26 @@ namespace ProvidenceMod
 		public static bool downedCaelus;
 
 		// Difficulty Modifiers
-		public static bool lament;
-		public static bool wrath;
+		public static bool lament = false;
+		public static bool wrath = false;
 
 		// Sparkly Boss Treasure
 		public List<Item> itemList = new List<Item>();
 		public int dustDelay = 30;
 
+		public override TagCompound Save()
+		{
+			return new TagCompound
+			{
+				{"lament", lament },
+				{"wrath", wrath }
+			};
+		}
+		public override void Load(TagCompound tag)
+		{
+			lament = tag.GetBool("lament");
+			wrath = tag.GetBool("wrath");
+		}
 		public override void PostUpdate()
 		{
 			if (itemList != null)

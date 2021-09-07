@@ -43,10 +43,12 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 		public override bool UseItem(Player player)
 		{
 			Main.PlaySound(SoundID.DD2_BetsyDeath);
-			ProvidenceWorld.lament = !ProvidenceWorld.lament;
-			Brinewastes.lament = !Brinewastes.lament;
-			if (ProvidenceWorld.wrath && !ProvidenceWorld.lament) { ProvidenceWorld.wrath = false; Brinewastes.wrath = false; }
-			if (ProvidenceWorld.lament)
+			ProvidenceWorld provWrld = GetInstance<ProvidenceWorld>();
+			Brinewastes brine = GetInstance<Brinewastes>();
+			provWrld.lament = !provWrld.lament;
+			brine.lament = !brine.lament;
+			if (provWrld.wrath && !provWrld.lament) { provWrld.wrath = false; brine.wrath = false; }
+			if (provWrld.lament)
 				Talk("You gaze into the teardrop, and feel the unending dread of lament... (Lament Mode ON)", Color.Purple, player.whoAmI);
 			else
 				Talk("You gaze into the teardrop, and feel notably calmer. (Lament Mode OFF)", Color.Purple, player.whoAmI);

@@ -10,7 +10,7 @@ namespace ProvidenceMod.World
 {
 	public class Brinewastes : ModWorld
 	{
-		public static bool lament = false, wrath = false;
+		public bool lament = false, wrath = false;
 		// Worldgen testing
 		public static bool JustPressed(Keys key)
 		{

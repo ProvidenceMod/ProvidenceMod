@@ -10,6 +10,8 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 {
 	public class EyeOfWrath : ModItem
 	{
+		private ProvidenceWorld provWrld = GetInstance<ProvidenceWorld>();
+		private Brinewastes brine = GetInstance<Brinewastes>();
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Eye of Wrath");
@@ -28,7 +30,7 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 
 		public override bool CanUseItem(Player player)
 		{
-			if (Main.expertMode && !IsThereABoss().Item1 && !DownedAnyBoss() && ProvidenceWorld.lament) { return true; }
+			if (Main.expertMode && !IsThereABoss().Item1 && !DownedAnyBoss() && provWrld.lament) { return true; }
 			else
 			{
 				if (!Main.expertMode)
@@ -37,7 +39,7 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 					Talk("The eye is tarnished; this world has already been partially restored (Activate before killing any bosses).", Color.Red, player.whoAmI);
 				if (IsThereABoss().Item1)
 					Talk("The eye is searing; you are fighting the chaos already (Activate out of combat with a boss).", Color.Red, player.whoAmI);
-				if (!ProvidenceWorld.lament)
+				if (!provWrld.lament)
 					Talk("The eye is ready, but you don't dare gaze into it yet (Activate with Lament Mode active).", Color.Red, player.whoAmI);
 				return false;
 			}
@@ -45,9 +47,9 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 		public override bool UseItem(Player player)
 		{
 			Main.PlaySound(SoundID.DD2_BetsyDeath);
-			ProvidenceWorld.wrath = !ProvidenceWorld.wrath;
-			Brinewastes.wrath = !Brinewastes.wrath;
-			if (ProvidenceWorld.wrath)
+			provWrld.wrath = !provWrld.wrath;
+			brine.wrath = !brine.wrath;
+			if (provWrld.wrath)
 				Talk("You gaze into the eye, and your lament turns to wrath... (Wrath Mode ON)", Color.Purple, player.whoAmI);
 			else
 				Talk("You gaze into the eye, and you return to lamenting. (Wrath Mode OFF)", Color.Purple, player.whoAmI);

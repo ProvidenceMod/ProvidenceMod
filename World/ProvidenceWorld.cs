@@ -17,8 +17,8 @@ namespace ProvidenceMod
 		public static bool downedCaelus;
 
 		// Difficulty Modifiers
-		public static bool lament = false;
-		public static bool wrath = false;
+		public bool lament = false;
+		public bool wrath = false;
 
 		// Sparkly Boss Treasure
 		public List<Item> itemList = new List<Item>();

@@ -97,6 +97,7 @@ namespace ProvidenceMod
 			providenceFont = null;
 			bossHealthFont = null;
 			divinityEffect = null;
+			Metaballs = null;
 			if(!Main.dedServ)
 				ProvidenceTextureManager.Unload();
 			MaskHandles.Unload();

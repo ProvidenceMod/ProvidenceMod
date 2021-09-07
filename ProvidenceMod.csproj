@@ -37,7 +37,6 @@
     <Folder Include="Items\Potions\" />
     <Folder Include="Items\Tools\" />
     <Folder Include="Items\Weapons\Cleric\" />
-    <Folder Include="Items\Weapons\Summon\" />
     <Folder Include="Projectiles\Ability\" />
     <Folder Include="Projectiles\Aura\" />
     <Folder Include="Projectiles\Environment\" />

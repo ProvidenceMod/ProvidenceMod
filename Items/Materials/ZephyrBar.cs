@@ -7,7 +7,6 @@ namespace ProvidenceMod.Items.Materials
 {
 	public class ZephyrBar : ModItem
 	{
-    // Delete this later, when we have a texture
 		public override void SetStaticDefaults()
 		{
       DisplayName.SetDefault("Zephyr Bar");

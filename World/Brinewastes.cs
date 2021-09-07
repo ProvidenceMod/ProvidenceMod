@@ -9,6 +9,7 @@ namespace ProvidenceMod.World
 {
 	public class Brinewastes : ModWorld
 	{
+		public static bool lament, wrath;
 		// Worldgen testing
 		public static bool JustPressed(Keys key)
 		{

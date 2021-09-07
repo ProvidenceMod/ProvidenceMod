@@ -33,8 +33,8 @@ namespace ProvidenceMod.Items.Weapons.Magic
       item.autoReuse = true;
       item.rare = ItemRarityID.Orange;
       item.UseSound = SoundID.Item45;
-      //item.shoot = ProjectileType<ZephyrSpirit>();
-      item.shootSpeed = 6f;
+			//item.shoot = ProjectileType<ZephyrSpirit>();
+			item.shootSpeed = 6f;
     }
     public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
     {

@@ -31,11 +31,26 @@ namespace ProvidenceMod.Items.Weapons.Magic
 			item.magic = true;
 			item.mana = 8;
 			item.autoReuse = true;
+      item.noMelee = true;
 			item.damage = 10;
 			item.UseSound = Main.item[ItemID.WaterBolt].UseSound;
 			item.shoot = ProjectileType<Galeshot>();
 			item.shootSpeed = 10f;
 		}
+    public override bool CanUseItem(Player player)
+    {
+      if (player.altFunctionUse == 2)
+      {
+        item.useTime = 30;
+        item.useAnimation = 31;
+      }
+      else
+      {
+        item.useTime = 20;
+        item.useAnimation = 21;
+      }
+      return true;
+    }
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			// On a right-click, combine into one beam so higher defense targets can still be dealt with

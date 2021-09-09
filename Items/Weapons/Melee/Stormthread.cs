@@ -31,7 +31,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			item.shootSpeed = 16f;
 			item.knockBack = 2.5f;
 			item.damage = 55;
-			item.rare = (int) ProvidenceRarity.Celestial;
+			item.rare = (int) ProvidenceRarity.Orange;
 
 			item.melee = true;
 			item.channel = true;

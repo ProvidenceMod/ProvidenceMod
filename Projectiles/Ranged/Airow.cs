@@ -53,7 +53,10 @@ namespace ProvidenceMod.Projectiles.Ranged
 		}
 		public override void Kill(int timeLeft)
 		{
-			RepeatXTimes(5, () => Dust.NewDust(projectile.position, 4, 4, DustID.Ice, 0, 0, 255));
+			for (int i = 0; i < 5; i++)
+			{
+				Dust.NewDust(projectile.position, 4, 4, DustID.Ice, 0, 0, 255);
+			}
 		}
 		public override Color? GetAlpha(Color lightColor) => new Color(color.X, color.Y, color.Z, color.W);
 	}

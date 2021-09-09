@@ -23,7 +23,7 @@ namespace ProvidenceMod.Items.Ammo
       item.maxStack = 999;
       item.consumable = true;
       item.knockBack = 30f;
-      item.rare = (int)ProvidenceRarity.Celestial;
+      //item.rare = (int)ProvidenceRarity.Celestial;
       item.shoot = ProjectileType<Projectiles.Ranged.AntimatterBullet>();
       item.ammo = AmmoID.Bullet;
 		}

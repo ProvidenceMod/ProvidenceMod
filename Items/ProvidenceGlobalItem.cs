@@ -12,11 +12,15 @@ using Microsoft.Xna.Framework;
 using ProvidenceMod.TexturePack;
 using static Terraria.ModLoader.ModContent;
 using ProvidenceMod.Items.Materials;
+using Terraria.ModLoader.IO;
+using ProvidenceMod.Items.ToggleableModifiers;
 
 namespace ProvidenceMod
 {
 	public class ProvidenceGlobalItem : GlobalItem
 	{
+		public bool highlight;
+
 		public bool animated;
 		public bool glowMask;
 		public bool animatedGlowMask;
@@ -26,8 +30,10 @@ namespace ProvidenceMod
 		public Texture2D animationTexture;
 		public Texture2D animatedGlowMaskTexture;
 
+		public ProvidenceRarity customRarity;
 
 		public override bool InstancePerEntity => true;
+		public override bool CloneNewInstances => true;
 		public ProvidenceGlobalItem()
 		{
 			cleric = false;
@@ -40,6 +46,15 @@ namespace ProvidenceMod
 			ProvidenceGlobalItem myClone = (ProvidenceGlobalItem)base.Clone(item, itemClone);
 			myClone.cleric = cleric;
 			return myClone;
+		}
+		public override bool NeedsSaving(Item item) => true;
+		public override TagCompound Save(Item item) => new TagCompound
+			{
+				["customRarity"] = (int)customRarity,
+			};
+		public override void Load(Item item, TagCompound tag)
+		{
+			customRarity = (ProvidenceRarity)tag.GetInt("customRarity");
 		}
 		public override void SetDefaults(Item item)
 		{
@@ -490,18 +505,19 @@ namespace ProvidenceMod
 		}
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			TooltipLine tooltip2 = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
-			if (tooltip2 != null)
+			TooltipLine tooltip = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
+			if (tooltip != null)
 			{
-				// if(item.type == ModContent.ItemType<MoonCleaver>())
-				//   tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 2f);
-				switch (item.rare)
+				switch (customRarity)
 				{
-					case (int)ProvidenceRarity.Celestial:
-						tooltip2.overrideColor = ColorShiftMultiple(new Color[2] { new Color(119, 37, 100), new Color(246, 121, 133) }, 5f);
+					case ProvidenceRarity.Lament:
+						tooltip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(41, 122, 138), new Color(56, 196, 166), new Color(83, 242, 160), new Color(56, 196, 166) }, 0.5f);
 						break;
-					case (int)ProvidenceRarity.Developer:
-						tooltip2.overrideColor = ColorShift(new Color(166, 46, 61), new Color(227, 79, 79), 5f);
+					case ProvidenceRarity.Wrath:
+						tooltip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(158, 47, 63), new Color(218, 70, 70), new Color(243, 132, 95), new Color(218, 70, 70) }, 0.5f);
+						break;
+					case ProvidenceRarity.Developer:
+						tooltip.overrideColor = ColorShift(new Color(166, 46, 61), new Color(227, 79, 79), 5f);
 						break;
 				}
 			}

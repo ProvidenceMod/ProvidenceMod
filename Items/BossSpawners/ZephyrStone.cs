@@ -7,7 +7,7 @@ using ProvidenceMod.NPCs.PrimordialCaelus;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
-namespace ProvidenceMod.Items.Consumables
+namespace ProvidenceMod.Items.BossSpawners
 {
 	public class ZephyrStone : ModItem
 	{

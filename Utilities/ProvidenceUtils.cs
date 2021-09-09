@@ -217,7 +217,12 @@ namespace ProvidenceMod
 			float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
 			return Color.Lerp(firstColor, secondColor, amount);
 		}
-		/// <summary>Gradually shifts between multiple colors over time.</summary>
+		/// <summary>
+		/// <para>Gradually shifts between multiple colors over time.</para>
+		/// <para>Remember to provide the middle colors in reverse order for correct shifting.</para>
+		/// <param name="colors">The array of colors to shift between</param> 
+		/// <param name="seconds">The time to shift colors color</param> 
+		/// </summary>
 		public static Color ColorShiftMultiple(Color[] colors, float seconds)
 		{
 			float fade = Main.GameUpdateCount % (int)(seconds * 60) / (seconds * 60f);
@@ -404,12 +409,12 @@ namespace ProvidenceMod
 		//TODO: Clarify this AI
 		public static void SmoothHoming(Projectile projectile)
 		{
-			float velocityTriangle = (float)Math.Sqrt((projectile.velocity.X * (double)projectile.velocity.X) + (projectile.velocity.Y * (double)projectile.velocity.Y));
+			float speed = (float)Math.Sqrt((projectile.velocity.X * (double)projectile.velocity.X) + (projectile.velocity.Y * (double)projectile.velocity.Y));
 			float localAI = projectile.localAI[0];
 			if ((double)localAI == 0.0)
 			{
-				projectile.localAI[0] = velocityTriangle;
-				localAI = velocityTriangle;
+				projectile.localAI[0] = speed;
+				localAI = speed;
 			}
 			float posX = projectile.position.X;
 			float posY = projectile.position.Y;
@@ -524,22 +529,24 @@ namespace ProvidenceMod
 			Radiant = 6,
 			Shadow = 7
 		}
-		public static void RepeatXTimes(int x, Action del)
-		{
-			for (int i = 0; i < x; i++)
-			{
-				del();
-			}
-		}
-		public static void RepeatXTimes(int x, Action<int> del)
-		{
-			for (int i = 0; i < x; i++)
-			{
-				del(i);
-			}
-		}
-		public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
-
-		public static bool DownedAnyBoss() => NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 || NPC.downedFishron || NPC.downedAncientCultist || NPC.downedGolemBoss || NPC.downedPlantBoss || NPC.downedMechBossAny || NPC.downedMoonlord || NPC.downedSlimeKing || NPC.downedQueenBee;
+		//public static void RepeatXTimes(int x, Action del)
+		//{
+		//	for (int i = 0; i < x; i++)
+		//	{
+		//		del();
+		//	}
+		//}
+		//public static void RepeatXTimes(int x, Action<int> del)
+		//{
+		//	for (int i = 0; i < x; i++)
+		//	{
+		//		del(i);
+		//	}
+		//}
+		//public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
+		public static bool DownedAnyBoss() => NPC.downedBoss1     || NPC.downedBoss2          || NPC.downedBoss3     ||
+																					NPC.downedFishron   || NPC.downedAncientCultist || NPC.downedGolemBoss ||
+																					NPC.downedPlantBoss || NPC.downedMechBossAny    || NPC.downedMoonlord  ||
+																					NPC.downedSlimeKing || NPC.downedQueenBee;
 	}
 }

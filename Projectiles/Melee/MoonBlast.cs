@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.Metaballs;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Metaballs;
 using static ProvidenceMod.Metaballs.MaskManager;
 
 namespace ProvidenceMod.Projectiles.Melee
@@ -20,7 +19,6 @@ namespace ProvidenceMod.Projectiles.Melee
 		{
 			DisplayName.SetDefault("Moon Blast");
 		}
-
 		public override void SetDefaults()
 		{
 			projectile.width = 30;
@@ -41,12 +39,12 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.UpdateCenterCache();
 			projectile.UpdatePositionCache();
 			projectile.UpdateRotationCache();
-			if(projectile.ai[0] == 0)
+			if (projectile.ai[0] == 0)
 				ProvidenceMod.Metaballs.FriendlyLayer.Sprites.Add(this);
 			Lighting.AddLight(projectile.Center, new Vector3(Main.DiscoR, Main.DiscoG, Main.DiscoB).ColorRGBIntToFloat());
 			projectile.ai[0]++;
-			if(projectile.ai[0] % 2.5 == 0)
-				Dust.NewDustPerfect(projectile.Center, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(1.4f, 1.8f));
+			Dust.NewDustPerfect(projectile.Center, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(1.4f, 1.8f));
+			Dust.NewDustPerfect(projectile.Center, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(1.4f, 1.8f));
 			if (projectile.ai[0] < 30)
 			{
 				projectile.Opacity += 1f / 30f;
@@ -67,7 +65,7 @@ namespace ProvidenceMod.Projectiles.Melee
 				{
 					if (projectile.position.IsInRadiusOf(target.position, 500f) && projectile.ai[0] % 25 == 0)
 					{
-						Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(projectile.AngleTo(target.Center)), ProjectileType<MoonBeam>(), 100, 0f);
+						Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(projectile.AngleTo(target.Center)).RotatedBy(Main.rand.NextFloat(0f, MathHelper.TwoPi)), ProjectileType<MoonBeam>(), 100, 0f, projectile.owner);
 					}
 					Vector2 position = new Vector2(target.Center.X + ((float)Math.Cos(Main.GlobalTime * 6f) * 300f),
 																				 target.Center.Y + ((float)Math.Sin(Main.GlobalTime * 6f) * 300f));
@@ -76,7 +74,7 @@ namespace ProvidenceMod.Projectiles.Melee
 				}
 				else
 				{
-					Vector2 unitY = projectile.DirectionTo(target.position);
+					Vector2 unitY = projectile.DirectionTo(target.Center);
 					projectile.velocity = ((projectile.velocity * 15f) + (unitY * 20f)) / (15f + 1f);
 				}
 			}

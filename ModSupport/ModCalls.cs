@@ -36,7 +36,6 @@ namespace ProvidenceMod.ModSupport
 		public static void BossChecklist()
 		{
 			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-			ProvidenceWorld world = ModContent.GetInstance<ProvidenceWorld>();
 			List<int> caelusID = new List<int> { ModContent.NPCType<PrimordialCaelus>() };
 			List<int> caelusSummons = new List<int> { ModContent.ItemType<ZephyrStone>() };
 			List<int> caelusCollection = new List<int> { };
@@ -47,7 +46,7 @@ namespace ProvidenceMod.ModSupport
 					caelusID, // NPC ID
 					ProvidenceMod.Instance, // Mod
 					"Primordial Caelus", // Name
-					(Func<bool>)(() => world.downedCaelus), // Downed?
+					(Func<bool>)(() => ProvidenceWorld.downedCaelus), // Downed?
 					caelusSummons, // Spawn items
 					caelusCollection, // Trophies, collectables
 					caelusLoot, // Loot table

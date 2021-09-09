@@ -4,17 +4,19 @@ using Terraria;
 
 namespace ProvidenceMod.Metaballs
 {
+	// ===================================================== //
+	// Huge thank you to Spirit Mod for this implementation! //
+	// ===================================================== //
 	public class MaskManager
 	{
 		private readonly Color EnemyBorderColor = new Color(255, 171, 51);
 		private readonly Color FriendlyBorderColor = new Color(242, 240, 134);
 		public Mask FriendlyLayer { get; set; }
 		public Mask EnemyLayer { get; set; }
-		public Mask NebulaLayer { get; set; }
 		public RenderTarget2D TmpTarget { get; protected set; }
-		public Texture2D Galaxy0 { get; set; }
-		public Texture2D Galaxy1 { get; set; }
-		public Texture2D Galaxy2 { get; set; }
+		public Texture2D Nebula0 { get; set; }
+		public Texture2D Nebula1 { get; set; }
+		public Texture2D Nebula2 { get; set; }
 		public Texture2D Mask { get; set; }
 
 		public Effect metaballColorCode;
@@ -30,17 +32,17 @@ namespace ProvidenceMod.Metaballs
 		{
 			Mask = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Mask");
 
-			Galaxy0 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Galaxy0");
-			Galaxy1 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Galaxy1");
-			Galaxy2 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Galaxy2");
+			Nebula0 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Nebula0");
+			Nebula1 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Nebula1");
+			Nebula2 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Nebula2");
 
 			metaballColorCode = ProvidenceMod.Instance.GetEffect("Effects/MetaballColorCode");
 			metaballEdgeDetection = ProvidenceMod.Instance.GetEffect("Effects/MetaballEdgeDetection");
 			borderNoise = ProvidenceMod.Instance.GetEffect("Effects/BorderNoise");
 			galaxyParallax = ProvidenceMod.Instance.GetEffect("Effects/GalaxyParallax");
 
-			FriendlyLayer = new Mask(FriendlyBorderColor, Galaxy0, Galaxy1, Galaxy2);
-			EnemyLayer = new Mask(EnemyBorderColor, Galaxy0, Galaxy1, Galaxy2);
+			FriendlyLayer = new Mask(FriendlyBorderColor, Nebula0, Nebula1, Nebula2);
+			EnemyLayer = new Mask(EnemyBorderColor, Nebula0, Nebula1, Nebula2);
 		}
 
 		public void UpdateWindowSize(GraphicsDevice graphicsDevice, int width, int height)
@@ -50,32 +52,32 @@ namespace ProvidenceMod.Metaballs
 			TmpTarget = new RenderTarget2D(graphicsDevice, width, height);
 		}
 
-		public void DrawToTarget(SpriteBatch sB, GraphicsDevice graphicsDevice)
+		public void DrawToTarget(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
 		{
 			var prevTarget = graphicsDevice.GetRenderTargets();
 
 			if (FriendlyLayer.Metaballs.Count > 0 || FriendlyLayer.Sprites.Count > 0)
-				FriendlyLayer.DrawMetaballTarget(sB, graphicsDevice);
+				FriendlyLayer.DrawMetaballTarget(spriteBatch, graphicsDevice);
 
 			if (EnemyLayer.Metaballs.Count > 0 || EnemyLayer.Sprites.Count > 0)
-				EnemyLayer.DrawMetaballTarget(sB, graphicsDevice);
+				EnemyLayer.DrawMetaballTarget(spriteBatch, graphicsDevice);
 
 			graphicsDevice.SetRenderTargets(prevTarget);
 		}
 
-		public void DrawEnemyLayer(SpriteBatch sB)
+		public void DrawEnemyLayer(SpriteBatch spriteBatch)
 		{
 			if (EnemyLayer.Metaballs.Count > 0 || EnemyLayer.Sprites.Count > 0)
 			{
-				sB.End();
-				EnemyLayer.DrawLayer(sB);
-				sB.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
+				spriteBatch.End();
+				EnemyLayer.DrawLayer(spriteBatch);
+				spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
 			}
 		}
-		public void DrawFriendlyLayer(SpriteBatch sB)
+		public void DrawFriendlyLayer(SpriteBatch spriteBatch)
 		{
 			if (FriendlyLayer.Metaballs.Count > 0 || FriendlyLayer.Sprites.Count > 0)
-				FriendlyLayer.DrawLayer(sB);
+				FriendlyLayer.DrawLayer(spriteBatch);
 		}
 
 		public interface IGalaxySprite
@@ -83,8 +85,8 @@ namespace ProvidenceMod.Metaballs
 			/// <summary>
 			/// Draw parts of sprite that are color coded, and should be drawn with the metaball layer. Galaxy Parallax shader is active.
 			/// </summary>
-			/// <param name="sB"></param>
-			void DrawGalaxyMappedSprite(SpriteBatch sB);
+			/// <param name="spriteBatch"></param>
+			void DrawGalaxyMappedSprite(SpriteBatch spriteBatch);
 		}
 
 		public interface IMetaball
@@ -92,8 +94,8 @@ namespace ProvidenceMod.Metaballs
 			/// <summary>
 			/// Draws metaball masks on the metaball target. The borded noise shader is active.
 			/// </summary>
-			/// <param name="sB">SpriteBatch to draw to</param>
-			void DrawOnMetaballLayer(SpriteBatch sB);
+			/// <param name="spriteBatch">SpriteBatch to draw to</param>
+			void DrawOnMetaballLayer(SpriteBatch spriteBatch);
 		}
 	}
 }

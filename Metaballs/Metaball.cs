@@ -8,6 +8,9 @@ using static ProvidenceMod.Metaballs.MaskManager;
 
 namespace ProvidenceMod.Metaballs
 {
+	// ===================================================== //
+	// Huge thank you to Spirit Mod for this implementation! //
+	// ===================================================== //
 	public class Metaball : IMetaball
 	{
 		public Metaball(Vector2 position, float scale)

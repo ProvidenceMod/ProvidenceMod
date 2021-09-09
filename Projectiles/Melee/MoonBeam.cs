@@ -14,9 +14,10 @@ namespace ProvidenceMod.Projectiles.Melee
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 4;
-			projectile.height = 4;
+			projectile.width = 32;
+			projectile.height = 32;
 			projectile.friendly = true;
+			projectile.hostile = false;
 			projectile.melee = true;
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
@@ -25,6 +26,9 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.scale = 1f;
 			projectile.Opacity = 0f;
 			projectile.extraUpdates = 100;
+			projectile.aiStyle = 0;
+			aiType = 0;
+			projectile.penetrate = 3;
 		}
 		public override void AI()
 		{
@@ -37,12 +41,21 @@ namespace ProvidenceMod.Projectiles.Melee
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Yellow);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Pink);
 			}
+			NPC target = (NPC)ClosestEntity(projectile, true);
+			if (target?.Distance(projectile.Center) <= 750f)
+			{
+				Vector2 unitY = projectile.DirectionTo(target.Center);
+				projectile.velocity = ((projectile.velocity * 55f) + (unitY * 4f)) / (55f + 1f);
+			}
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
+			Player player = projectile.OwnerPlayer();
+			int healingAmount = damage / 60 >= player.statLifeMax * 0.5f ? player.statLifeMax / 2 : damage / 60;
+			player.statLife += healingAmount;
+			player.HealEffect(healingAmount, true);
 			projectile.penetrate--;
-			if (projectile.penetrate <= 0)
-				projectile.Kill();
+			target.immune[projectile.owner] = 3;
 		}
 	}
 }

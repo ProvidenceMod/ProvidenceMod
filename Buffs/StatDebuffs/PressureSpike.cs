@@ -14,9 +14,7 @@ namespace ProvidenceMod.Buffs.StatDebuffs
       Main.buffNoSave[Type] = true;
     }
 		public override void Update(NPC npc, ref int buffIndex)
-		{
-			ProvidenceGlobalNPC proNPC = npc.Providence();
-			
+		{			
 		}
 	}
 }

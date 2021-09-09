@@ -8,6 +8,9 @@ using static ProvidenceMod.Metaballs.MaskManager;
 
 namespace ProvidenceMod.Metaballs
 {
+	// ===================================================== //
+	// Huge thank you to Spirit Mod for this implementation! //
+	// ===================================================== //
 	public class MetaballParticle : ModDust, IMetaball
 	{
 		protected Dictionary<int, Vector2> positions = new Dictionary<int, Vector2>();

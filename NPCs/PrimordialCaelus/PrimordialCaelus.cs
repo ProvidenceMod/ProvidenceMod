@@ -273,7 +273,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			}
 			if (stunned)
 			{
-				RepeatXTimes(10, i =>
+				for (int i = 0; i < 10; i++)
 				{
 					float alpha = (1f - (i * 0.1f)) * (float)((float)(0.375d * Math.Sin(Main.GlobalTime * 20d)) + 0.625d);
 					float scale = (1f - (i * 0.025f)) * (float)((float)(0.025d * Math.Sin(Main.GlobalTime * 20d)) + 1.025d);
@@ -284,14 +284,14 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					colorV.W *= alpha;
 					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
 					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-				});
+				}
 			}
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			if (npc.life <= 0)
 			{
-				RepeatXTimes(100, () =>
+				for (int i = 0; i < 100; i++)
 				{
 					float angle = Main.rand.NextFloat(0, 360);
 					Vector2 speed = new Vector2(Main.rand.NextFloat(2f, 12f), Main.rand.NextFloat(2f, 12f)).RotatedBy(angle.InRadians());
@@ -299,15 +299,15 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					int dust = Dust.NewDust(npc.Hitbox.RandomPointInHitbox(), 5, 5, DustType<CloudDust>(), speed.X, speed.Y, 255, default, scale);
 					Main.dust[dust].scale = scale;
 					Main.dust[dust].noGravity = false;
-				});
+				}
 			}
 		}
 		public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
 		{
-			ProvidenceWorld world = GetInstance<ProvidenceWorld>();
-			if (!ProvidenceWorld.downedCaelus)
+			if (!ProvidenceWorld.downedCaelus || !BrinewastesWorld.downedCaelus)
 			{
 				ProvidenceWorld.downedCaelus = true;
+				BrinewastesWorld.downedCaelus = true;
 			}
 			Main.raining = false;
 			Main.cloudBGActive = 0f;
@@ -322,20 +322,15 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			if (Main.expertMode)
 			{
 				int item1 = Item.NewItem(npc.Center, ItemID.GoldCoin, 7);
-				world.itemList.Add(Main.item[item1]);
 				int item2 = Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
-				world.itemList.Add(Main.item[item2]);
 				int item3 = Item.NewItem(npc.Center, ItemType<CaelusBag>(), 1);
-				world.itemList.Add(Main.item[item3]);
+				Main.item[item3].Providence().highlight = true;
 			}
 			else
 			{
 				int item4 = Item.NewItem(npc.Center, ItemID.GoldCoin, 5);
-				world.itemList.Add(Main.item[item4]);
 				int item5 = Item.NewItem(npc.Center, ItemType<ZephyrOre>(), Main.rand.Next(16, 51));
-				world.itemList.Add(Main.item[item5]);
 			}
 		}
-		public override Color? GetAlpha(Color drawColor) => new Color(color.X, color.Y, color.Z, color.W);
 	}
 }

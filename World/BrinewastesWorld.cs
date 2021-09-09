@@ -6,11 +6,20 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ProvidenceMod.World
+namespace ProvidenceMod
 {
-	public class Brinewastes : ModWorld
+	public class BrinewastesWorld : ModWorld
 	{
-		public bool lament = false, wrath = false;
+		// Downed Bosses
+		public static bool downedCaelus = false;
+		public static bool downedVerglasLeviathan = false;
+		public static bool downedFireAncient = false;
+		public static bool downedAstrid = false;
+		public static bool downedLysandria = false;
+
+		// Difficulty Modifiers
+		public static bool lament = false;
+		public static bool wrath = false;
 		// Worldgen testing
 		public static bool JustPressed(Keys key)
 		{
@@ -21,13 +30,23 @@ namespace ProvidenceMod.World
 			return new TagCompound
 			{
 				{"lament", lament },
-				{"wrath", wrath }
+				{"wrath", wrath },
+				{"downedCaelus", downedCaelus },
+				{"downedVerglasLeviathan", downedVerglasLeviathan},
+				{"downedFireAncient", downedFireAncient },
+				{"downedAstrid", downedAstrid },
+				{"downedLysandria", downedLysandria }
 			};
 		}
 		public override void Load(TagCompound tag)
 		{
 			lament = tag.GetBool("lament");
 			wrath = tag.GetBool("wrath");
+			downedCaelus = tag.GetBool("downedCaelus");
+			downedVerglasLeviathan = tag.GetBool("downedVerglasLeviathan");
+			downedFireAncient = tag.GetBool("downedFireAncient");
+			downedAstrid = tag.GetBool("downedAstrid");
+			downedLysandria = tag.GetBool("downedLysandria");
 		}
 		private void TestMethod(int x, int y)
 		{

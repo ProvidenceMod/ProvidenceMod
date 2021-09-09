@@ -1,191 +1,140 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ProvidenceMod.Projectiles;
+using static ProvidenceMod.Metaballs.MaskManager;
+using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Metaballs;
+using System;
 
 namespace ProvidenceMod.NPCs.FireAncient
 {
-  public class FireAncient : ModNPC
-  {
-    private bool spawnText = false;
-    public readonly IList<int> targets = new List<int>();
-    public override bool Autoload(ref string name)
-    {
-      name = "FireAncient";
-      return mod.Properties.Autoload;
-    }
-    public int timer = 10;
-    public int radialAttack = -1;
+	public class FireAncient : ModNPC, IGalaxySprite
+	{
+		private bool spawnText = false;
+		public int frame;
+		public int frameTick;
+		Player player;
+		public override bool Autoload(ref string name)
+		{
+			name = "FireAncient";
+			return mod.Properties.Autoload;
+		}
+		public int timer = 10;
+		public int radialAttack = -1;
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Fire Ancient");
-      Main.npcFrameCount[npc.type] = 5;
-      NPCID.Sets.MustAlwaysDraw[npc.type] = true;
-    }
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Fire Ancient");
+			Main.npcFrameCount[npc.type] = 5;
+			NPCID.Sets.MustAlwaysDraw[npc.type] = true;
+		}
 
-    public override void SetDefaults()
-    {
-      music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths");
-      musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
-      npc.damage = 75;
-      npc.aiStyle = -1;
-      npc.lavaImmune = true;
-      npc.noGravity = true;
-      npc.noTileCollide = true;
-      npc.lifeMax = 100000;
-      npc.townNPC = false;
-      npc.boss = true;
-      npc.HitSound = SoundID.NPCHit41;
-      npc.chaseable = true;
+		public override void SetDefaults()
+		{
+			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/FromTheDepths");
+			musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
+			npc.damage = 75;
+			npc.aiStyle = -1;
+			npc.lavaImmune = true;
+			npc.noGravity = true;
+			npc.noTileCollide = true;
+			npc.lifeMax = 100000;
+			npc.townNPC = false;
+			npc.boss = true;
+			npc.HitSound = SoundID.NPCHit41;
+			npc.chaseable = true;
 			npc.width = 760;
 			npc.height = 484;
-			npc.Hitbox = new Rectangle(0, 0, 178, 336);
 			npc.knockBackResist = 0f;
-      npc.buffImmune[BuffID.OnFire] = true;
-    }
+			npc.buffImmune[BuffID.OnFire] = true;
+		}
 
-    public override void AI() //this is where you program your AI
-    {
-      npc.ai[0]++;
-      if (!spawnText)
-      {
-        Talk("A Fiery Ancient has awoken!");
-        spawnText = true;
-      }
-      FindPlayers();
-      npc.TargetClosest(false);
-      //Player player = Main.player[npc.target];
-      // ProvidenceGlobalNPC ProvidenceNPC = npc.Providence();
-      //Vector2 offset = npc.position - player.position;
-      //const float speedCap = 8f;
-      //const float gainStrength = 0.2f;
-      //const float slowStrength = 1.1f;
-      //if (player.active && !player.dead)
-      //{
-      //  if (npc.Center.X < player.Center.X)
-      //  {
-      //    if (npc.velocity.X < 0)
-      //      npc.velocity.X /= slowStrength;
-      //    if (npc.velocity.X < speedCap)
-      //      npc.velocity.X += gainStrength;
-      //  }
-      //  if (npc.Center.X > player.Center.X)
-      //  {
-      //    if (npc.velocity.X > 0)
-      //      npc.velocity.X /= slowStrength;
-      //    if (npc.velocity.X > -speedCap)
-      //      npc.velocity.X -= gainStrength;
-      //  }
-      //  if (offset.X == 0)
-      //    npc.velocity.X = 0f;
-      //  /////
-      //  if (npc.position.Y < player.position.Y - 500f)
-      //  {
-      //    if (npc.velocity.Y < 0)
-      //      npc.velocity.Y /= slowStrength;
-      //    if (npc.velocity.Y < speedCap)
-      //      npc.velocity.Y += gainStrength;
-      //  }
-      //  if (npc.position.Y > player.position.Y - 500f)
-      //  {
-      //    if (npc.velocity.Y > 0)
-      //      npc.velocity.Y /= slowStrength;
-      //    if (npc.velocity.Y > -speedCap)
-      //      npc.velocity.Y -= gainStrength;
-      //  }
-      //  if (npc.position.Y == player.position.Y - 500f)
-      //    npc.velocity.Y = 0f;
-      //}
-      if (timer == 0)
-      {
-        AbyssalHellblast();
-        timer = 50;
-      }
-      timer--;
-    }
+		public override void AI() //this is where you program your AI
+		{
+			player = Main.player[npc.target];
+			npc.ai[0]++;
+			Vector2 pos = npc.getRect().RandomPointInHitbox();
+			Dust.NewDustPerfect(pos, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(2.8f, 3.6f));
+			Dust.NewDustPerfect(pos, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(2.8f, 3.6f));
+			Dust.NewDustPerfect(pos, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(2.8f, 3.6f));
+			if (!spawnText)
+			{
+				Talk("A Fiery Ancient has awoken!");
+				spawnText = true;
+				ProvidenceMod.Metaballs.FriendlyLayer.Sprites.Add(this);
+			}
+			FindPlayers();
+			npc.TargetClosest(false);
+			Movement();
+		}
+		public void Movement()
+		{
+			npc.spriteDirection = npc.direction;
+			double wiggle = (Math.Sin(Main.GlobalTime * 3f) * 0.1f);
+			npc.velocity.Y += (float)wiggle;
+			Vector2 unitY = npc.DirectionTo(new Vector2(player.Center.X, player.Center.Y));
+			npc.velocity = ((npc.velocity * 15f) + (unitY * 8f)) / (15f + 1f);
+		}
+		//private void AbyssalHellblast()
+		//{
+		//	int type = mod.ProjectileType("AbyssalHellblast");
+		//	const float speedX = 0f;
+		//	const float speedY = 10f;
+		//	Vector2 speed = new Vector2(speedX, speedY);
+		//	int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
+		//	NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
+		//}
+		private void Talk(string message)
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
+				Main.NewText(text, 241, 127, 82);
+			}
+			else
+			{
+				NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
+				NetMessage.BroadcastChatMessage(text, new Color(241, 127, 82));
+			}
+		}
+		public override void FindFrame(int frameHeight)
+		{
+			Texture2D tex = mod.GetTexture("NPCs/FireAncient/FireAncient");
+			NPC npc = this.npc;
+			if (npc.frameCounter + 0.5f > 5f)
+			{
+				npc.frameCounter = 0f;
+			}
+			npc.frameCounter += 0.125f;
+			npc.frame.Y = (int)npc.frameCounter * (tex.Height / 5);
+		}
+		public override bool PreDraw(SpriteBatch sb, Color color) => false;
+		public void DrawGalaxyMappedSprite(SpriteBatch sB)
+		{
+			if (npc.type == NPCType<FireAncient>() && npc.active)
+			{
+				Texture2D tex = GetTexture("ProvidenceMod/NPCs/FireAncient/FireAncient");
+				sB.Draw(tex, (npc.Center - Main.screenPosition + new Vector2(0, npc.gfxOffY)) / 2, npc.AnimationFrame(ref frame, ref frameTick, 6, 5, true), Color.White, npc.rotation, new Vector2(npc.width / 2, npc.height / 2), npc.scale / 2f, SpriteEffects.None, 0);
+			}
+		}
+		public void FindPlayers()
+		{
+		}
 
-    private void AbyssalHellblast()
-    {
-      /*radialAttack += 1;
-      if(radialAttack == 21)
-          {radialAttack = 1;}*/
-      int type = mod.ProjectileType("AbyssalHellblast");
-      const float speedX = 0f;
-      const float speedY = 10f;
-      Vector2 speed = new Vector2(speedX, speedY);
-      //Vector2 directionTo = DirectionTo(target.Center);
-      int proj = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, speed.X, speed.Y, type, 50, 0f, Main.myPlayer, npc.whoAmI);
-      NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, proj);
-    }
-
-    private void Talk(string message)
-    {
-      if (Main.netMode != NetmodeID.Server)
-      {
-        string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc.type), message);
-        Main.NewText(text, 241, 127, 82);
-      }
-      else
-      {
-        NetworkText text = NetworkText.FromKey(message, Lang.GetNPCNameValue(npc.type), message);
-        NetMessage.BroadcastChatMessage(text, new Color(241, 127, 82));
-      }
-    }
-
-    /*public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
-    {
-        Texture2D tex = mod.GetTexture("NPCs/FireAncient/FireAncient");
-        Vector2 drawPos = npc.position - Main.screenPosition;
-        Vector2 drawCenter = new Vector2 (221f, 29f);
-        int animationFrame = (int)npc.frameCounter;
-        Rectangle frame = new Rectangle(0, 0, tex.Width, animationFrame * (tex.Height / Main.npcFrameCount[npc.type]));
-        spriteBatch.Draw(tex, drawPos, frame, Color.White, 0f, drawCenter, 1f, SpriteEffects.None, 0f);   
-    }*/
-
-    public override void FindFrame(int frameHeight)
-    {
-      Texture2D tex = mod.GetTexture("NPCs/FireAncient/FireAncient");
-      NPC npc = this.npc;
-      if (npc.frameCounter + 0.5f > 5f)
-      {
-        npc.frameCounter = 0f;
-      }
-      npc.frameCounter += 0.125f;
-      npc.frame.Y = (int)npc.frameCounter * (tex.Height / 5);
-    }
-
-    /*public override void HitEffect(int hitDirection, double damage, bool isDead) //This is for whenever your boss gets hit by an attack. Create dust or gore.
-    {
-
-    }
-
-    public override void SelectFrame(int frameSize) //This is for animating your boss, such as how Queen Bee changes between charging or hovering images, or how Pumpking rotates its face.
-    {
-
-    }*/
-    public void FindPlayers()
-    {
-    }
-
-    public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
-    {
-      if (!ProvidenceWorld.downedFireAncient)
-      {
-        ProvidenceWorld.downedFireAncient = true;
-      }
-    }
-    public override Color? GetAlpha(Color lightColor)
-    {
-      Color color = Color.White;
-      return color;
-    }
-  }
+		public override void NPCLoot()
+		{
+			ProvidenceMod.Metaballs.FriendlyLayer.Sprites.Remove(this);
+			if (!ProvidenceWorld.downedFireAncient || !BrinewastesWorld.downedFireAncient)
+			{
+				ProvidenceWorld.downedFireAncient = true;
+				BrinewastesWorld.downedFireAncient = true;
+			}
+		}
+		public override Color? GetAlpha(Color lightColor) => Color.White;
+	}
 }

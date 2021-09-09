@@ -9,11 +9,15 @@ namespace ProvidenceMod.Metaballs
 {
 	public static class MaskHandles
 	{
+
+		// Initialize subscribed methods
+		// These are ran every time the method they're subscribed to is run
 		public static void Initialize()
 		{
 			On.Terraria.Main.DrawNPCs += Main_DrawNPCs;
 			On.Terraria.Main.DrawPlayers += Main_DrawPlayers;
 		}
+		// Unload subscribed methods, aka unsubscribe methods
 		public static void Unload()
 		{
 			On.Terraria.Main.DrawNPCs -= Main_DrawNPCs;

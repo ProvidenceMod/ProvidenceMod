@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.World.Generation;
-using ProvidenceMod.World;
 using Terraria.GameContent.Generation;
 
 namespace ProvidenceMod.Subworld
@@ -13,7 +12,7 @@ namespace ProvidenceMod.Subworld
 		public override int height => 2400;
 		public override int width => 8400;
 		public override List<GenPass> tasks => BrinewastesGenPass();
-		public override ModWorld modWorld => ModContent.GetInstance<Brinewastes>();
+		public override ModWorld modWorld => ModContent.GetInstance<BrinewastesWorld>();
 		public override ushort votingDuration => 600;
 		public override bool noWorldUpdate => false;
 		public override bool saveSubworld => true;
@@ -60,6 +59,7 @@ namespace ProvidenceMod.Subworld
 				 	progress.Message = "Generating water";
 				 	for (int i = 256 ; i < Main.maxTilesY ; i++)
 				 	{
+						progress.Value = (float)((float) i - 256f) / (float)((float) Main.maxTilesY - 255f);
 				 		for (int j = 0 ; j < Main.maxTilesX ; j++)
 						{
 							Main.tile[j, i].liquidType(0);

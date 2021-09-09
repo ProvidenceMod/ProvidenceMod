@@ -48,9 +48,7 @@ namespace ProvidenceMod.Projectiles.Magic
 			{
 				projectile.velocity = new Vector2(6f, 0f).RotateTo(projectile.AngleTo(Main.MouseWorld));
 
-
-				magicTickCD--;
-				if (magicTickCD <= 0) { p.statMana -= 1; magicTickCD = 3; }
+				p.statMana--;
 			}
 			else
 			{
@@ -60,13 +58,7 @@ namespace ProvidenceMod.Projectiles.Magic
 			{
 				if (npc.Center.IsInRadiusOf(projectile.Center, 150f))
 				{
-					npc.velocity += new Vector2(0.15f, 0f).RotateTo(npc.AngleTo(projectile.Center));
-					if (npc.velocity.Length() > 8f)
-					{
-						// Limit speed to [length of] 8f in any direction
-						npc.velocity.Normalize();
-						npc.velocity *= 8;
-					}
+					npc.position += new Vector2(0.15f, 0f).RotateTo(npc.AngleTo(projectile.Center));
 				}
 			}
 		}

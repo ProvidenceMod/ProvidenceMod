@@ -82,6 +82,7 @@ For many of us, myself included, this is our first project in CSharp. We've been
 - [Contributing](#contributing)
 - [Installation](#installation)
 - [Pull Request Process](#pull_request_process)
+- [Developers](#developers)
 - [Contributors](#contributors)
 - [Credits](#credits)
 - [Credits](#special_thanks)
@@ -100,37 +101,50 @@ Please note we have a [code of conduct](https://github.com/ProvidenceMod/Provide
 
 To install our mod, simply follow these steps:
 
-1. Copy the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/).
-2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) on the tModLoadker Wiki.
+1. CLone the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/).
+2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment and do now have Mod SOurces, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) on the tModLoadker Wiki.
 
 <a name="pull_request_process"></a>
 ## Pull Request Process
 
 - Please follow the [pull request template](https://github.com/ProvidenceMod/ProvidenceMod/blob/master/PULL_REQUEST_TEMPLATE.md).
 - You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
-- Please follow proper formatting. This includes using two-space indentation, placing files in the correct folders, using Camel Case for variables, and Pascal Case for file names, folder names, and method names.
+
+<a name="developers"></a>
+## Developers
+<p float="left">
+   <a href="https://github.com/SnowyStarfall">
+      <img src="https://cdn.discordapp.com/avatars/402246856752627713/8f312f0775becd183469ffe45738e3ad.webp?size=128" width="100" title="SnowyStarfall" />
+   </a>
+   <a href="https://github.com/FenGoScrem">
+      <img src="https://cdn.discordapp.com/avatars/409768934196117504/0eb0087c6cd688bf456dd7ab0a608b01.webp?size=128" width="100" title="Faelink Angel" />
+   </a>
+   <a href="https://github.com/ZackFox0">
+      <img src="https://cdn.discordapp.com/avatars/249328472265195521/c434c794de40c9d38fcf0b7d46e54e0c.webp?size=128" width="100" title="ZackFox" />
+   </a>
+   <a href="https://github.com/LanceYosh">
+      <img src="https://cdn.discordapp.com/avatars/117819195432894466/df70de9ccd355d6db731d3fd67e01d79.webp?size=128" width="100" title="Lance, the Traveling Wizard" />
+   </a>
+   <a href="https://github.com/Lythane">
+      <img src="https://cdn.discordapp.com/avatars/246089579982094337/47ddcffa3cc074dd86098322f88df73c.webp?size=128" width="100" title="Lythane" />
+   </a>
+   <a href="https://github.com/DemonBoyDouble">
+      <img src="https://cdn.discordapp.com/avatars/515270807702732801/738009e56c03a19efcc2c47677336574.webp?size=128" width="100" title="Demon Boy Keith" />
+   </a>
+    <a>
+       <img src="https://cdn.discordapp.com/avatars/823804807172718613/9149e8f02db45e27f458d4e2e604ba58.webp?size=128" width="100" title="Makeeto" />
+   </a>
+   <a>
+      <img src="https://cdn.discordapp.com/avatars/299499464182464512/7b7c95aef7355e6e6bdbd319a326823c.webp?size=128" width="100" title="Derper WotB Leopard 1" />
+   </a>
+</p>
 
 <a name="contributors"></a>
 ## Contributors
 
 <p float="left">
-   <a href="https://github.com/FenGoScrem">
-      <img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="100" />
-   </a>
-   <a href="https://github.com/LanceYosh">
-      <img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="100" />
-   </a>
-   <a href="https://github.com/SnowyStarfall">
-      <img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="100" />
-   </a>
-   <a href="https://github.com/ZackFox0">
-      <img src="https://avatars1.githubusercontent.com/u/65053215?s=400&v=4" width="100" />
-   </a>
    <a href="https://github.com/FloofLeo">
-      <img src="https://avatars.githubusercontent.com/u/65053413?s=460&v=4" width="100" />
-   </a>
-   <a href="https://github.com/DemonBoyDouble">
-      <img src="https://avatars.githubusercontent.com/u/89934716?v=4" width="100" />
+      <img src="https://avatars.githubusercontent.com/u/65053413?s=460&v=4" width="100" title="FloofLeo" />
    </a>
 </p>
 
@@ -142,7 +156,7 @@ To install our mod, simply follow these steps:
 
 <a name="special_thanks"></a>
 ## Special Thanks
-_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Keithixix197, Daken000, GildedLily, AmyTheRogue, FloofLeo, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
+_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Keithixix197, Makeeto, Daken000, GildedLily, AmyTheRogue, FloofLeo, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
 
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct

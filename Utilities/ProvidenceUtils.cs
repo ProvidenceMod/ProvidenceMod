@@ -12,7 +12,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod
 {
-	public static class ProvidenceUtils
+	public static partial class ProvidenceUtils
 	{
 		/// <summary>References the ProvidencePlayer instance. Shorthand for ease of use.</summary>
 		public static ProvidencePlayer Providence(this Player player) => player.GetModPlayer<ProvidencePlayer>();
@@ -37,74 +37,7 @@ namespace ProvidenceMod
 		public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);
 		public static float Round(this float f, int points) => (float)Math.Round(f, points);
 		public static double Round(this double d, int points) => Math.Round(d, points);
-		public static Vector3 ColorRGBIntToFloat(this Vector3 vector3)
-		{
-			const double conversion = 1f / 255f;
-			vector3.X = (float)(vector3.X * conversion);
-			vector3.Y = (float)(vector3.Y * conversion);
-			vector3.Z = (float)(vector3.Z * conversion);
-			return vector3;
-		}
-		public static Color ColorRGBIntToFloat(this Color color)
-		{
-			const double conversion = 1f / 255f;
-			color.R = (byte)(color.R * conversion);
-			color.G = (byte)(color.G * conversion);
-			color.B = (byte)(color.B * conversion);
-			return color;
-		}
-		public static Vector4 ColorRGBAIntToFloat(this Vector4 vector4)
-		{
-			const double conversion = 1f / 255f;
-			vector4.X = (float)(vector4.X * conversion);
-			vector4.Y = (float)(vector4.Y * conversion);
-			vector4.Z = (float)(vector4.Z * conversion);
-			vector4.W = (float)(vector4.W * conversion);
-			return vector4;
-		}
-		public static Color ColorRGBAIntToFloat(this Color color)
-		{
-			const double conversion = 1f / 255f;
-			color.R = (byte)(color.R * conversion);
-			color.G = (byte)(color.G * conversion);
-			color.B = (byte)(color.B * conversion);
-			color.A = (byte)(color.A * conversion);
-			return color;
-		}
-		public static Vector3 ColorRGBFloatToInt(this Vector3 vector3)
-		{
-			const double conversion = 1f / 255f;
-			vector3.X = (float)(vector3.X / conversion);
-			vector3.Y = (float)(vector3.Y / conversion);
-			vector3.Z = (float)(vector3.Z / conversion);
-			return vector3;
-		}
-		public static Color ColorRGBFloatToInt(this Color color)
-		{
-			const double conversion = 1f / 255f;
-			color.R = (byte)(color.R / conversion);
-			color.G = (byte)(color.G / conversion);
-			color.B = (byte)(color.B / conversion);
-			return color;
-		}
-		public static Vector4 ColorRGBAFloatToInt(this Vector4 vector4)
-		{
-			const double conversion = 1f / 255f;
-			vector4.X = (float)(vector4.X / conversion);
-			vector4.Y = (float)(vector4.Y / conversion);
-			vector4.Z = (float)(vector4.Z / conversion);
-			vector4.W = (float)(vector4.W / conversion);
-			return vector4;
-		}
-		public static Color ColorRGBAFloatToInt(this Color color)
-		{
-			const double conversion = 1f / 255f;
-			color.R = (byte)(color.R / conversion);
-			color.G = (byte)(color.G / conversion);
-			color.B = (byte)(color.B / conversion);
-			color.A = (byte)(color.A / conversion);
-			return color;
-		}
+		
 		public static void UpdatePositionCache(this Projectile projectile)
 		{
 			for (int i = projectile.oldPos.Length - 1; i > 0; i--)
@@ -211,24 +144,7 @@ namespace ProvidenceMod
 			float oldVRotation = v.ToRotation();
 			return v.RotatedBy(rotation - oldVRotation);
 		}
-		/// <summary>Gradually shifts between two colors over time.</summary>
-		public static Color ColorShift(Color firstColor, Color secondColor, float seconds)
-		{
-			float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTime) + 1.0) * 0.5);
-			return Color.Lerp(firstColor, secondColor, amount);
-		}
-		/// <summary>
-		/// <para>Gradually shifts between multiple colors over time.</para>
-		/// <para>Remember to provide the middle colors in reverse order for correct shifting.</para>
-		/// <param name="colors">The array of colors to shift between</param> 
-		/// <param name="seconds">The time to shift colors color</param> 
-		/// </summary>
-		public static Color ColorShiftMultiple(Color[] colors, float seconds)
-		{
-			float fade = Main.GameUpdateCount % (int)(seconds * 60) / (seconds * 60f);
-			int index = (int)(Main.GameUpdateCount / (seconds * 60f) % colors.Length);
-			return Color.Lerp(colors[index], colors[(index + 1) % colors.Length], fade);
-		}
+
 		public static void NewProjectileExtraAI(Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner = 255, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0)
 		{
 			int type = Projectile.NewProjectile(position, velocity, Type, Damage, KnockBack, Owner, ai0, ai1);
@@ -517,18 +433,7 @@ namespace ProvidenceMod
 		public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
 		=> mod.GetLegacySoundSlot(soundType, filename);
 		public static int AsMusicSlot(this string filename, Mod mod) => mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, filename);
-		public enum ElementID
-		{
-			Typeless = -1,
-			Fire = 0,
-			Ice = 1,
-			Lightning = 2,
-			Water = 3,
-			Earth = 4,
-			Air = 5,
-			Radiant = 6,
-			Shadow = 7
-		}
+
 		//public static void RepeatXTimes(int x, Action del)
 		//{
 		//	for (int i = 0; i < x; i++)

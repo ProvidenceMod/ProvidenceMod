@@ -16,7 +16,7 @@ namespace ProvidenceMod.UI
     public bool visible;
     private void SetHoverText()
     {
-      hoverText = $"Shadow Stacks : {LocalPlayer().Providence().shadowStacks} / {LocalPlayer().Providence().maxParityStacks}\nRadiant Stacks : {LocalPlayer().Providence().radiantStacks} / {LocalPlayer().Providence().maxParityStacks}\nStack Generation : {LocalPlayer().Providence().parityStackGeneration}\nCycle Penalty : {LocalPlayer().Providence().parityCyclePenalty}\nRadiant? : {LocalPlayer().Providence().radiant}\nShadow? : {LocalPlayer().Providence().shadow}\nCleric? : {LocalPlayer().Providence().cleric}";
+      hoverText = $"Shadow Stacks : {LocalPlayer().Providence().shadowStacks} / {LocalPlayer().Providence().maxParityStacks}\nRadiant Stacks : {LocalPlayer().Providence().radiantStacks} / {LocalPlayer().Providence().maxParityStacks}\nStack Generation : {LocalPlayer().Providence().parityStackGeneration}\nRadiant? : {LocalPlayer().Providence().radiant}\nShadow? : {LocalPlayer().Providence().shadow}\nCleric? : {LocalPlayer().Providence().cleric}";
     }
     protected override void DrawSelf(SpriteBatch spriteBatch)
     {

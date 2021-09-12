@@ -20,7 +20,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 			item.height = 28;
 			item.useTime = 6;
 			item.useAnimation = 6;
-			item.useTurn = true;
+			item.useTurn = false;
 			item.autoReuse = true;
 			item.scale = 1.0f;
 			item.shootSpeed = 24f;

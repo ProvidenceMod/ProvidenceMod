@@ -38,9 +38,8 @@ namespace ProvidenceMod
     // -- Cleric --
     public bool hasClericSet;
     public bool cleric;
-    public float maxParityStacks = 100;
+    public int maxParityStacks = 100;
     public float parityStackGeneration;
-    public float parityCyclePenalty = 40;
     public bool paritySigil;
     public bool paritySigilSet;
 
@@ -76,21 +75,10 @@ namespace ProvidenceMod
     {
       if (cleric && ProvidenceMod.CycleParity.JustPressed)
       {
-        if (shadow && shadowStacks >= parityCyclePenalty)
-        {
-          shadowStacks -= parityCyclePenalty;
-          radiant = true;
-          shadow = false;
-          Main.PlaySound(SoundID.Item112, player.position);
-        }
-        if (radiant && radiantStacks >= parityCyclePenalty)
-        {
-          radiantStacks -= parityCyclePenalty;
-          radiant = false;
-          shadow = true;
-          Main.PlaySound(SoundID.Item112, player.position);
-        }
-      }
+				radiant = !radiant;
+				shadow = !shadow;
+				Main.PlaySound(SoundID.Item112, player.position);
+			}
       // if (cleric && ProvidenceMod.CycleParity.JustPressed && vampFang && !player.HasBuff(BuffID.PotionSickness))
       // {
       //   int healing = (int)(player.statLifeMax2 * 0.35f);

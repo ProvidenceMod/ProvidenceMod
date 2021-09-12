@@ -628,10 +628,10 @@ namespace ProvidenceMod
 		//		del(i);
 		//	}
 		//}
-		//public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
-		public static bool DownedAnyBoss() => NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 ||
-																					NPC.downedFishron || NPC.downedAncientCultist || NPC.downedGolemBoss ||
-																					NPC.downedPlantBoss || NPC.downedMechBossAny || NPC.downedMoonlord ||
+		public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
+		public static bool DownedAnyBoss() => NPC.downedBoss1     || NPC.downedBoss2          || NPC.downedBoss3     ||
+																					NPC.downedFishron   || NPC.downedAncientCultist || NPC.downedGolemBoss ||
+																					NPC.downedPlantBoss || NPC.downedMechBossAny    || NPC.downedMoonlord  ||
 																					NPC.downedSlimeKing || NPC.downedQueenBee;
 	}
 }

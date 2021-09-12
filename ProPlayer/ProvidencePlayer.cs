@@ -34,7 +34,6 @@ namespace ProvidenceMod
 		public bool cleric;
 		public float parityMaxStacks = 100;
 		public float parityStackGen;
-		public float parityCyclePen = 40;
 		public bool paritySigil;
 		public bool paritySigilSet;
 
@@ -64,22 +63,11 @@ namespace ProvidenceMod
 		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
-			if (cleric && ProvidenceMod.CycleParity.JustPressed)
-			{
-				if (shadow && shadowStacks >= parityCyclePen)
-				{
-					shadowStacks -= parityCyclePen;
-					radiant = true;
-					shadow = false;
-					Main.PlaySound(SoundID.Item112, player.position);
-				}
-				if (radiant && radiantStacks >= parityCyclePen)
-				{
-					radiantStacks -= parityCyclePen;
-					radiant = false;
-					shadow = true;
-					Main.PlaySound(SoundID.Item112, player.position);
-				}
+      if (cleric && ProvidenceMod.CycleParity.JustPressed)
+      {
+				radiant = !radiant;
+				shadow = !shadow;
+				Main.PlaySound(SoundID.Item112, player.position);
 			}
 		}
 		public override void Load(TagCompound tag)

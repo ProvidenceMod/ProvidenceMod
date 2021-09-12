@@ -4,6 +4,7 @@ const float4 codedColor = float4(0.0, 1.0, 0.0, 1.0);
 sampler2D SpriteTextureSampler;
 // Border color
 float4 border = float4(1.0, 0.67, 0.2, 1.0);
+float4 border2 = float4(1.0, 1.0, 1.0, 0.0);
 // Texture width
 float width;
 // Texture height
@@ -40,19 +41,19 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 
 	if (nearby[0] == 1.0 && color.g < 1.0)
 	{
-		return border;
+		return border2;
 	}
 	else if (nearby[1] == 1.0 && color.g < 1.0)
 	{
-		return border;
+		return border2;
 	}
 	else if (nearby[2] == 1.0 && color.g < 1.0)
 	{
-		return border;
+		return border2;
 	}
 	else if (nearby[3] == 1.0 && color.g < 1.0)
 	{
-		return border;
+		return border2;
 	}
 
 	return color;

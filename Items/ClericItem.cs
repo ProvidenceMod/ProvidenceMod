@@ -14,12 +14,6 @@ namespace ProvidenceMod.Items
 			item.magic = false;
 			item.summon = false;
 			item.thrown = false;
-			item.Providence().cleric = true;
-		}
-		// 99% of the time you should use base.UpdateArmorSet on inherited classes
-		public override void UpdateArmorSet(Player player)
-		{
-			player.Providence().hasClericSet = true;
 		}
 		public virtual void ModifyWeaponDamage(Player player, ref int damage)
 		{

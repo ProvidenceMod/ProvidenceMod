@@ -47,7 +47,7 @@ namespace ProvidenceMod.Metaballs
 			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
 
 			ProvidenceMod.Metaballs.borderNoise.CurrentTechnique.Passes[0].Apply();
-			foreach (var m in Metaballs)
+			foreach (IMetaball m in Metaballs)
 			{
 				m.DrawOnMetaballLayer(spriteBatch);
 			}
@@ -104,7 +104,7 @@ namespace ProvidenceMod.Metaballs
 
 			effect.CurrentTechnique.Passes[0].Apply();
 
-			spriteBatch.Draw(target, position: Vector2.Zero, color: Color.White);
+			spriteBatch.Draw(target, position: Vector2.Zero, color: new Color(1f, 1f, 1f, 0f));
 
 			spriteBatch.End();
 

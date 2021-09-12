@@ -5,13 +5,13 @@
 		<!--
 		Modify this string to change the default font that will be imported.
 		-->
-		<FontName>BossHealthFont</FontName>
+		<FontName>MouseTextFont</FontName>
 		
 		<!--
 		Size is a float value, measured in points. Modify this value to change
 		the size of the font.
 		-->
-		<Size>18</Size>
+		<Size>10</Size>
 		
 		<!--
 		Spacing is a float value, measured in pixels. Modify this value to change

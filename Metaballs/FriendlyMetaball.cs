@@ -15,7 +15,7 @@ namespace ProvidenceMod.Metaballs
 			dust.position += dust.velocity;
 			dust.scale *= 0.95f;
 			dust.velocity *= 0.9f;
-			dust.rotation += 0.1f;
+			//dust.rotation += 0.1f;
 
 			return base.Update(dust);
 		}

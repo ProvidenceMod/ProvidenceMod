@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
+using ReLogic.Graphics;
 
 namespace ProvidenceMod
 {
@@ -153,6 +154,90 @@ namespace ProvidenceMod
 			}
 			npc.Providence().oldCen[0] = npc.Center;
 		}
+		public static void UpdateLifeCache(this NPC npc)
+		{
+			for (int i = npc.Providence().oldLife.Length - 1; i > 0; i--)
+			{
+				npc.Providence().oldLife[i] = npc.Providence().oldLife[i - 1];
+			}
+			npc.Providence().oldLife[0] = npc.life;
+		}
+		public static void DrawHealthBarCustom(this NPC npc, ref int comboDMG, ref int comboBarCooldown, ref int comboDMGCooldown, ref int comboDMGCounter, ref float scale, ref Vector2 position)
+		{
+			float quotient = npc.life / (float)npc.lifeMax;
+			if (quotient > 1f)
+				quotient = 1f;
+
+			int width = (int)(36f * quotient);
+			float xPos = position.X - (24f * scale);
+			float yPos = position.Y;
+			if (Main.player[Main.myPlayer].gravDir == -1f)
+			{
+				yPos -= Main.screenPosition.Y;
+				yPos = Main.screenPosition.Y + Main.screenHeight - yPos;
+			}
+
+			Rectangle comboRect = new Rectangle(0, 0, width, 8);
+			Rectangle healthRect = new Rectangle(0, 0, (int)(width * quotient), 8);
+
+			if (comboRect.Width < healthRect.Width)
+			{
+				comboRect.Width = healthRect.Width;
+			}
+
+			if (npc.life < npc.Providence().oldLife[0])
+			{
+				comboBarCooldown = 75;
+				comboDMGCounter = 120;
+				npc.UpdateLifeCache();
+				comboDMG += npc.Providence().oldLife[1] - npc.Providence().oldLife[0];
+			}
+			else if (npc.life == npc.Providence().oldLife[0])
+			{
+				if (comboBarCooldown > 0) comboBarCooldown--;
+			}
+			if (comboBarCooldown == 0 && comboRect.Width != healthRect.Width)
+			{
+				if ((comboRect.Width - healthRect.Width) * 0.05f < 1)
+					comboRect.Width--;
+				else
+					comboRect.Width -= (int)((comboRect.Width - healthRect.Width) * 0.05f);
+			}
+			if ((comboBarCooldown == 0 && comboDMG != 0) || (healthRect.Width == comboRect.Width && comboDMG != 0))
+			{
+				comboDMG -= (int)(comboDMG * 0.05f);
+				comboDMG--;
+			}
+			if (comboDMG == 0 && comboDMGCooldown != 120 && comboDMGCounter != 0)
+			{
+				comboDMGCounter--;
+			}
+
+			if (comboDMGCounter > 0)
+			{
+				float opacity = comboDMGCounter > 61 ? 1f : comboDMGCounter / 120f;
+				SpriteBatch spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
+				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+				DrawBorderStringEightWay(spriteBatch, ProvidenceMod.bossHealthFont, $"{comboDMG}", new Vector2(xPos + (48f * scale) + 2f, yPos + 9f) - Main.screenPosition, new Color((int)(255 * opacity), (int)(255 * opacity), (int)(255 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.4f);
+				spriteBatch.End();
+			}
+			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB1"), new Vector2(xPos, yPos) - Main.screenPosition, new Rectangle(0, 0, 48, 20), Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB3"), new Vector2(xPos + 6f, yPos + 6f) - Main.screenPosition, comboRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB2"), new Vector2(xPos + 6f, yPos + 6f) - Main.screenPosition, healthRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+		}
+		public static void DrawBorderStringEightWay(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 position, Color color, Color border, float scale = 1f)
+		{
+			for (int x = -2; x <= 2; x++)
+			{
+				for (int y = -2; y <= 2; y++)
+				{
+					Vector2 vector2 = position + new Vector2(x, y);
+					if (x != 0 || y != 0)
+						spriteBatch.DrawString(font, text, vector2, border, 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
+				}
+			}
+			spriteBatch.DrawString(font, text, position, color, 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
+		}
 		public static void Talk(string message, Color color, int npc)
 		{
 			if (Main.netMode != NetmodeID.Server)
@@ -250,7 +335,7 @@ namespace ProvidenceMod
 		public static void NewNPCExtraAI(Vector2 Position, int Type, int Start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0, int Target = 255)
 		{
 			Vector2 pos = new Vector2(Position.X, Position.Y);
-			int type = NPC.NewNPC((int) pos.X, (int) pos.Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+			int type = NPC.NewNPC((int)pos.X, (int)pos.Y, Type, Start, ai0, ai1, ai2, ai3, Target);
 			Main.npc[type].Providence().extraAI[0] = ai4;
 			Main.npc[type].Providence().extraAI[0] = ai5;
 			Main.npc[type].Providence().extraAI[0] = ai6;
@@ -544,9 +629,9 @@ namespace ProvidenceMod
 		//	}
 		//}
 		//public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
-		public static bool DownedAnyBoss() => NPC.downedBoss1     || NPC.downedBoss2          || NPC.downedBoss3     ||
-																					NPC.downedFishron   || NPC.downedAncientCultist || NPC.downedGolemBoss ||
-																					NPC.downedPlantBoss || NPC.downedMechBossAny    || NPC.downedMoonlord  ||
+		public static bool DownedAnyBoss() => NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 ||
+																					NPC.downedFishron || NPC.downedAncientCultist || NPC.downedGolemBoss ||
+																					NPC.downedPlantBoss || NPC.downedMechBossAny || NPC.downedMoonlord ||
 																					NPC.downedSlimeKing || NPC.downedQueenBee;
 	}
 }

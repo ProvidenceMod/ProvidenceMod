@@ -7,7 +7,7 @@ using Terraria;
 
 namespace ProvidenceMod.Metaballs
 {
-	public static class MaskHandles
+	public static class MaskEvents
 	{
 
 		// Initialize subscribed methods

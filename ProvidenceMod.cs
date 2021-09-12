@@ -34,8 +34,10 @@ namespace ProvidenceMod
 
 		public static MaskManager Metaballs;
 
-		public static DynamicSpriteFont providenceFont;
+		public ProvidenceEvents providenceEvents;
+
 		public static DynamicSpriteFont bossHealthFont;
+		public static DynamicSpriteFont mouseTextFont;
 		public static Effect divinityEffect;
 
 		public static ModHotKey CycleParity;
@@ -52,7 +54,9 @@ namespace ProvidenceMod
 		{
 			Instance = this;
 
-			MaskHandles.Initialize();
+			MaskEvents.Initialize();
+			providenceEvents = new ProvidenceEvents();
+			providenceEvents.Initialize();
 
 			if (Main.netMode != NetmodeID.Server && texturePack)
 				ProvidenceTextureManager.Load();
@@ -73,16 +77,14 @@ namespace ProvidenceMod
 				parityUI = new UserInterface();
 				parityUI.SetState(ParityUI);
 
-			CycleParity = RegisterHotKey("Cycle Parity Element", "C");
+				CycleParity = RegisterHotKey("Cycle Parity Element", "C");
 
-				if (FontExists("Fonts/ProvidenceFont"))
-				{
-					providenceFont = GetFont("Fonts/ProvidenceFont");
-				}
 				if (FontExists("Fonts/BossHealthFont"))
-				{
 					bossHealthFont = GetFont("Fonts/BossHealthFont");
-				}
+				//if (FontExists("Fonts/MouseTextFont"))
+				//	mouseTextFont = GetFont("Fonts/MouseTextFont");
+
+				//ProvidenceTextureManager.LoadFonts();
 			}
 			if (Main.netMode != NetmodeID.Server)
 			{
@@ -97,13 +99,17 @@ namespace ProvidenceMod
 			BossHealth = null;
 			bossHealthUI = null;
 			CycleParity = null;
-			providenceFont = null;
 			bossHealthFont = null;
+			mouseTextFont = null;
 			divinityEffect = null;
 			Metaballs = null;
-			if(!Main.dedServ)
+			if (!Main.dedServ)
+			{
 				ProvidenceTextureManager.Unload();
-			MaskHandles.Unload();
+				//ProvidenceTextureManager.UnloadFonts();
+			}
+			MaskEvents.Unload();
+			providenceEvents.Unload();
 			SubworldManager.Unload();
 			Instance = null;
 			base.Unload();

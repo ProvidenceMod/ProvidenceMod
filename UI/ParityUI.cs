@@ -83,8 +83,8 @@ namespace ProvidenceMod.UI
       visible = proPlayer.cleric;
       if (visible)
       {
-        float radiantQuotient = LocalPlayer().Providence().radiantStacks / LocalPlayer().Providence().maxParityStacks;
-        float shadowQuotient = LocalPlayer().Providence().shadowStacks / LocalPlayer().Providence().maxParityStacks;
+        float radiantQuotient = LocalPlayer().Providence().radiantStacks / LocalPlayer().Providence().parityMaxStacks;
+        float shadowQuotient = LocalPlayer().Providence().shadowStacks / LocalPlayer().Providence().parityMaxStacks;
         radiantQuotient = Utils.Clamp(radiantQuotient, 0f, 1f);
         shadowQuotient = Utils.Clamp(shadowQuotient, 0f, 1f);
         RadiantBarRect.Width = (int)(68 * radiantQuotient);

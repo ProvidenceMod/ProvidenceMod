@@ -39,13 +39,13 @@ namespace ProvidenceMod.UI
 		//
 		//
 		// This is the hit bar. It is a framed UIImage for the same reason.
-		private UIImageFramed afterimage;
+		private UIImageFramed combo;
 		private Rectangle healthRect;
-		private Rectangle afterimageRect;
+		private Rectangle comboRect;
 		//
 		//
 		// This is the cooldown timer (in frames) for how long to wait after the health changes before beginning to decrease
-		private int cooldown = 180;
+		private int cooldown = 75;
 		//
 		//
 		// This is a life array, you can see how the life values are written to it in the Update method
@@ -69,7 +69,6 @@ namespace ProvidenceMod.UI
 		private int bossHealthMax;
 		private int comboDMG;
 		private int comboCounter;
-		private float comboQuotient;
 
 		public override void OnInitialize()
 		{
@@ -101,12 +100,12 @@ namespace ProvidenceMod.UI
 			health.Width.Set(924f, 0f);
 			health.Height.Set(6f, 0f);
 
-			afterimageRect = new Rectangle(0, 0, 924, 6);
-			afterimage = new UIImageFramed(GetTexture("ProvidenceMod/ExtraTextures/UI/BossCombo"), afterimageRect);
-			afterimage.Top.Set(22f, 0f);
-			afterimage.Left.Set(34f, 0f);
-			afterimage.Width.Set(924f, 0f);
-			afterimage.Height.Set(6f, 0f);
+			comboRect = new Rectangle(0, 0, 924, 6);
+			combo = new UIImageFramed(GetTexture("ProvidenceMod/ExtraTextures/UI/BossCombo"), comboRect);
+			combo.Top.Set(22f, 0f);
+			combo.Left.Set(34f, 0f);
+			combo.Width.Set(924f, 0f);
+			combo.Height.Set(6f, 0f);
 
 			// Don't forget to append the area, otherwise your UI wont draw
 			// You should also append any type that starts with UI (Like UIImage or UIImageFramed)
@@ -124,7 +123,7 @@ namespace ProvidenceMod.UI
 			{
 				// If there is a boss, we append our UI children so that it displays the boss health bar 
 				area.Append(frame);
-				area.Append(afterimage);
+				area.Append(combo);
 				area.Append(health);
 				area.Append(bloom);
 			}
@@ -207,14 +206,14 @@ namespace ProvidenceMod.UI
 					lifeArray[0] = bossHealth;
 					arraySet = true;
 				}
-				if (afterimageRect.Width < healthRect.Width)
+				if (comboRect.Width < healthRect.Width)
 				{
-					afterimageRect.Width = healthRect.Width;
+					comboRect.Width = healthRect.Width;
 				}
 				if (comboDMG >= 0)
 				{
 					area.comboDMG = comboDMG;
-					area.comboPos = new Vector2(area.Left.Pixels + 34 + healthRect.Width + ((afterimageRect.Width - healthRect.Width) / 2), area.Top.Pixels + 7);
+					area.comboPos = new Vector2(area.Left.Pixels + 34 + healthRect.Width + ((comboRect.Width - healthRect.Width) / 2), area.Top.Pixels + 7);
 				}
 				// This checks if the current boss life is less than the previous recorded value
 				// If it is, it resets the cooldown for the hit bar movement
@@ -225,7 +224,6 @@ namespace ProvidenceMod.UI
 					lifeArray[0] = bossHealth;
 					cooldown = 75;
 					comboDMG += lifeArray[1] - lifeArray[0];
-					comboQuotient = comboDMG / (float)bossNPC.lifeMax;
 					area.comboVisible = true;
 					comboCounter = 0;
 				}
@@ -233,23 +231,22 @@ namespace ProvidenceMod.UI
 				{
 					if (cooldown > 0) cooldown--;
 				}
-				if (cooldown == 0 && afterimageRect.Width != healthRect.Width)
+				if (cooldown == 0 && comboRect.Width != healthRect.Width)
 				{
-					if ((afterimageRect.Width - healthRect.Width) * 0.05f < 1)
+					if ((comboRect.Width - healthRect.Width) * 0.05f < 1)
 					{
-						afterimageRect.Width--;
+						comboRect.Width--;
 					}
 					else
 					{
-						afterimageRect.Width -= (int)((afterimageRect.Width - healthRect.Width) * 0.05f);
+						comboRect.Width -= (int)((comboRect.Width - healthRect.Width) * 0.05f);
 					}
-					afterimage.SetFrame(afterimageRect);
+					combo.SetFrame(comboRect);
 				}
-				if ((cooldown == 0 && comboDMG != 0) || (healthRect.Width == afterimageRect.Width && comboDMG != 0))
+				if ((cooldown == 0 && comboDMG != 0) || (healthRect.Width == comboRect.Width && comboDMG != 0))
 				{
 					comboDMG -= (int)(comboDMG * 0.05f);
 					comboDMG--;
-					comboQuotient = comboDMG / (float)bossNPC.lifeMax;
 				}
 				if (comboDMG == 0 && comboCounter != 120)
 				{
@@ -267,8 +264,8 @@ namespace ProvidenceMod.UI
 					area.boss = null;
 					bossHealth = 0;
 					bossHealthMax = 0;
-					afterimageRect.Width = 924;
-					afterimage.SetFrame(afterimageRect);
+					comboRect.Width = 924;
+					combo.SetFrame(comboRect);
 					cooldown = 75;
 					lifeArray[0] = 0;
 					lifeArray[1] = 0;

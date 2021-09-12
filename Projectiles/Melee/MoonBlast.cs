@@ -8,6 +8,7 @@ using ProvidenceMod.Metaballs;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.Metaballs.MaskManager;
+using ProvidenceMod.Buffs.StatDebuffs;
 
 namespace ProvidenceMod.Projectiles.Melee
 {
@@ -107,6 +108,17 @@ namespace ProvidenceMod.Projectiles.Melee
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = projectile.OwnerPlayer();
+			target.AddBuff(BuffID.OnFire, 600);
+			target.AddBuff(BuffID.Oiled, 600);
+			target.AddBuff(BuffID.Ichor, 600);
+			target.AddBuff(BuffID.CursedInferno, 600);
+			target.AddBuff(BuffID.Poisoned, 600);
+			target.AddBuff(BuffID.Venom, 600);
+			target.AddBuff(BuffType<PressureSpike>(), 600);
+			target.AddBuff(BuffID.Frostburn, 600);
+			target.AddBuff(BuffID.Electrified, 600);
+			target.AddBuff(BuffID.Daybreak, 600);
+
 			int healingAmount = damage / 60 >= player.statLifeMax * 0.5f ? player.statLifeMax / 2 : damage / 60;
 			player.statLife += healingAmount;
 			player.HealEffect(healingAmount, true);

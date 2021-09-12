@@ -25,6 +25,7 @@ namespace ProvidenceMod
 		public bool glowMask;
 		public bool animatedGlowMask;
 		public bool cleric;
+		public bool rogue;
 
 		public Texture2D glowMaskTexture;
 		public Texture2D animationTexture;
@@ -38,8 +39,10 @@ namespace ProvidenceMod
 		{
 			cleric = false;
 		}
-		public override void PostUpdate(Item item)
+		public override bool OnPickup(Item item, Player player)
 		{
+			highlight = false;
+			return true;
 		}
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{
@@ -517,7 +520,7 @@ namespace ProvidenceMod
 						tooltip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(158, 47, 63), new Color(218, 70, 70), new Color(243, 132, 95), new Color(218, 70, 70) }, 0.5f);
 						break;
 					case ProvidenceRarity.Developer:
-						tooltip.overrideColor = ColorShift(new Color(166, 46, 61), new Color(227, 79, 79), 5f);
+						tooltip.overrideColor = ColorShiftMultiple(new Color[6] { new Color(77, 40, 132), new Color(160, 16, 193), new Color(255, 25, 153), new Color(255, 181, 62), new Color(255, 25, 153), new Color(160, 16, 193) }, 0.5f);
 						break;
 				}
 			}

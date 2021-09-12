@@ -6,8 +6,10 @@ using static ProvidenceMod.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.TexturePack;
 using Terraria.Audio;
+using ReLogic.Graphics;
 using System.Collections.Generic;
 using ProvidenceMod.NPCs.PrimordialCaelus;
+using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod
 {
@@ -15,28 +17,35 @@ namespace ProvidenceMod
 	{
 		public override bool InstancePerEntity => true;
 
-		public Vector2[] oldCen = new Vector2[10] { new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f) };
+		public Vector2[] oldCen = new Vector2[10];
+		public int[] oldLife = new int[10];
+		public float[] extraAI = new float[4];
 
-		public float[] extraAI = new float[4] { 0, 0, 0, 0 };
-
-		// Status effect bools
 		public bool spawnReset = true;
-		public bool texturePackEnabled;
 		public bool maxSpawnsTempSet;
 		public int maxSpawnsTemp;
-		public int buffCount;
 
-		public override void ResetEffects(NPC npc)
+		public int comboDMG;
+		public int comboBarCooldown = 75;
+		public int comboDMGCooldown = 75;
+		public int comboDMGCounter = 120;
+		public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
 		{
+			if (ProvidenceMod.Instance.texturePack)
+			{
+				npc.DrawHealthBarCustom(ref comboDMG, ref comboBarCooldown, ref comboDMGCooldown, ref comboDMGCounter, ref scale, ref position);
+				return true;
+			}
+			return null;
 		}
-		// public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-		// {
-		// 	// Armor system possible? Certainly!
-		// 	//if(armor <= 0)
-		// 	//	return true;
-		// 	//else
-		// 	//	return false;
-		// }
+		//public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+		//{
+		////	Armor system possible? Certainly!
+		//	if (armor <= 0)
+		//		return true;
+		//	else
+		//		return false;
+		//}
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			//If any subworld from our mod is loaded, disable spawns
@@ -47,19 +56,16 @@ namespace ProvidenceMod
 		}
 		public override void AI(NPC npc)
 		{
+			if (oldLife[9] == 0)
+			{
+				for (int i = 0; i < oldLife.Length; i++)
+					oldLife[i] = npc.life;
+			}
 		}
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
 		{
-			Player player = LocalPlayer();
-			Vector2 playerPos = player.position;
-			Vector2 npcPos = npc.position;
-			Vector2 npcCen = npc.Center;
-			Vector2 drawPos = npc.Center - Main.screenPosition;
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
-			Main.spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), drawPos - Main.screenPosition, new Rectangle(22, 22, 44, 44), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.DrawString(Main.fontMouseText, $"{{ {npc.buffType[0]}, {npc.buffType[1]}, {npc.buffType[2]}, {npc.buffType[3]}, {npc.buffType[4]}\n{npc.buffType[5]}, {npc.buffType[6]}, {npc.buffType[7]}, {npc.buffType[8]}, {npc.buffType[9]}\n{npc.buffType[10]}, {npc.buffType[11]}, {npc.buffType[12]}, {npc.buffType[13]}, {npc.buffType[14]}\n{npc.buffType[15]}, {npc.buffType[16]}, {npc.buffType[17]}, {npc.buffType[18]}, {npc.buffType[19]} }}", new Vector2(npc.Center.X, npc.Center.Y + 200f) - Main.screenPosition, drawColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
-
 		public string GetBossTitle(string name)
 		{
 			switch (name)
@@ -68,14 +74,6 @@ namespace ProvidenceMod
 					return "Air Elemental";
 			}
 			return "";
-		}
-
-		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-		{
-		}
-
-		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
 		}
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{

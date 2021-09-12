@@ -30,7 +30,7 @@ namespace ProvidenceMod.Metaballs
 		}
 		public void LoadContent()
 		{
-			Mask = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Mask2");
+			Mask = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/HexagonMask");
 
 			Nebula0 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Nebula0");
 			Nebula1 = ProvidenceMod.Instance.GetTexture("ExtraTextures/Masks/Nebula1");

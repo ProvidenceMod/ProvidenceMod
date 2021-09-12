@@ -28,7 +28,7 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 			item.Providence().customRarity = ProvidenceRarity.Wrath;
 		}
 		public override bool ConsumeItem(Player player) => false;
-		public override bool CanUseItem(Player player) => Main.expertMode && ProvidenceWorld.wrath;
+		public override bool CanUseItem(Player player) => Main.expertMode && ProvidenceWorld.lament;
 		public override bool UseItem(Player player)
 		{
 			Main.PlaySound(SoundID.DD2_BetsyDeath);

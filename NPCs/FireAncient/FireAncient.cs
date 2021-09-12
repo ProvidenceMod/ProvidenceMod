@@ -51,7 +51,7 @@ namespace ProvidenceMod.NPCs.FireAncient
 			npc.width = 760;
 			npc.height = 484;
 			npc.knockBackResist = 0f;
-			npc.buffImmune[BuffID.OnFire] = true;
+			//npc.buffImmune[BuffID.OnFire] = true;
 		}
 
 		public override void AI() //this is where you program your AI

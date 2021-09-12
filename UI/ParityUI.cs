@@ -131,14 +131,14 @@ namespace ProvidenceMod.UI
           if ((ShadowUseRect.Width - ShadowBarRect.Width) * 0.05f < 1)
           {
             ShadowUseRect.Width--;
-            ShadowUseRect.X--;
-            ShadowUse.Left.Pixels++;
+						ShadowUseRect.X++;
+						ShadowUse.Left.Pixels++;
           }
           else
           {
-            ShadowUseRect.Width -= (int)((ShadowUseRect.Width - ShadowBarRect.Width) * 0.05f);
-            ShadowUseRect.X -= (int)((ShadowUseRect.X - ShadowBarRect.X) * 0.05f);
-            ShadowUse.Left.Pixels += (int)((ShadowUse.Left.Pixels - 120 - (ShadowUse.Left.Pixels - 120)) * 0.05f);
+						ShadowUseRect.Width -= (int)((ShadowUseRect.Width - ShadowBarRect.Width) * 0.05f);
+						ShadowUseRect.X += (int)((ShadowUseRect.X - ShadowBarRect.X) * 0.05f);
+            ShadowUse.Left.Pixels += (int)((ShadowUse.Left.Pixels - ShadowUse.Left.Pixels) * 0.05f);
           }
           ShadowUse.SetFrame(ShadowUseRect);
         }

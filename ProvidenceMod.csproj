@@ -34,7 +34,6 @@
   <ItemGroup>
     <Folder Include="Buffs\Cooldowns\" />
     <Folder Include="Buffs\StatBuffs\" />
-    <Folder Include="Items\Accessories\" />
     <Folder Include="Items\Potions\" />
     <Folder Include="Items\Tools\" />
     <Folder Include="Items\Weapons\Cleric\" />

@@ -53,7 +53,8 @@ namespace ProvidenceMod
 			cerberus = false;
 			intimidated = false;
 			// -- Cleric --
-
+			cleric = false;
+			paritySigil = false;
 			// Cleric Shadow
 			parityMaxStacks = 0;
 			parityStackGen = 0;
@@ -63,10 +64,17 @@ namespace ProvidenceMod
 		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
-      if (cleric && ProvidenceMod.CycleParity.JustPressed)
-      {
-				radiant = !radiant;
-				shadow = !shadow;
+			if (cleric && ProvidenceMod.CycleParity.JustPressed)
+			{
+				if (!radiant && !shadow)
+				{
+					radiant = true;
+				}
+				else
+				{
+					radiant = !radiant;
+					shadow = !shadow;
+				}
 				Main.PlaySound(SoundID.Item112, player.position);
 			}
 		}
@@ -83,14 +91,15 @@ namespace ProvidenceMod
 		{
 			Utils.Clamp(radiantStacks, 0, parityMaxStacks);
 			Utils.Clamp(shadowStacks, 0, parityMaxStacks);
-			if (radiant && (radiantStacks + parityStackGen) <= parityMaxStacks)
-				radiantStacks += parityStackGen;
-			if (shadow && (shadowStacks + parityStackGen) <= parityMaxStacks)
-				shadowStacks += parityStackGen;
-			if (!paritySigilSet && paritySigil)
+			if (radiant)
 			{
-				radiant = true;
-				paritySigilSet = true;
+				radiantStacks += parityStackGen;
+				if (radiantStacks > parityMaxStacks) radiantStacks = parityMaxStacks;
+			}
+			else if (shadow)
+			{
+				shadowStacks += parityStackGen;
+				if (shadowStacks > parityMaxStacks) shadowStacks = parityMaxStacks;
 			}
 			if (!paritySigil)
 			{

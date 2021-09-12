@@ -29,11 +29,12 @@ namespace ProvidenceMod
 		public int comboBarCooldown = 75;
 		public int comboDMGCooldown = 75;
 		public int comboDMGCounter = 120;
+		public Rectangle comboRect = new Rectangle(0, 0, 36, 8);
 		public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			if (ProvidenceMod.Instance.texturePack)
 			{
-				npc.DrawHealthBarCustom(ref comboDMG, ref comboBarCooldown, ref comboDMGCooldown, ref comboDMGCounter, ref scale, ref position);
+				npc.DrawHealthBarCustom(ref comboDMG, ref comboBarCooldown, ref comboDMGCooldown, ref comboDMGCounter, ref scale, ref position, ref comboRect);
 				return true;
 			}
 			return null;

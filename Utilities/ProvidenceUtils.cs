@@ -95,7 +95,7 @@ namespace ProvidenceMod
 			}
 			npc.Providence().oldLife[0] = npc.life;
 		}
-		public static void DrawHealthBarCustom(this NPC npc, ref int comboDMG, ref int comboBarCooldown, ref int comboDMGCooldown, ref int comboDMGCounter, ref float scale, ref Vector2 position)
+		public static void DrawHealthBarCustom(this NPC npc, ref int comboDMG, ref int comboBarCooldown, ref int comboDMGCooldown, ref int comboDMGCounter, ref float scale, ref Vector2 position, ref Rectangle comboRect)
 		{
 			float quotient = npc.life / (float)npc.lifeMax;
 			if (quotient > 1f)
@@ -110,8 +110,8 @@ namespace ProvidenceMod
 				yPos = Main.screenPosition.Y + Main.screenHeight - yPos;
 			}
 
-			Rectangle comboRect = new Rectangle(0, 0, width, 8);
-			Rectangle healthRect = new Rectangle(0, 0, (int)(width * quotient), 8);
+
+			Rectangle healthRect = new Rectangle(0, 0, (int)(width * quotient) < 1 ? 1 : (int)(width * quotient), 8);
 
 			if (comboRect.Width < healthRect.Width)
 			{
@@ -120,7 +120,7 @@ namespace ProvidenceMod
 
 			if (npc.life < npc.Providence().oldLife[0])
 			{
-				comboBarCooldown = 75;
+				comboBarCooldown = 120;
 				comboDMGCounter = 120;
 				npc.UpdateLifeCache();
 				comboDMG += npc.Providence().oldLife[1] - npc.Providence().oldLife[0];
@@ -131,10 +131,10 @@ namespace ProvidenceMod
 			}
 			if (comboBarCooldown == 0 && comboRect.Width != healthRect.Width)
 			{
-				if ((comboRect.Width - healthRect.Width) * 0.05f < 1)
 					comboRect.Width--;
-				else
-					comboRect.Width -= (int)((comboRect.Width - healthRect.Width) * 0.05f);
+				//if ((comboRect.Width - healthRect.Width) * 0.05f < 1)
+				//else
+				//	comboRect.Width -= (int)((comboRect.Width - healthRect.Width) * 0.05f);
 			}
 			if ((comboBarCooldown == 0 && comboDMG != 0) || (healthRect.Width == comboRect.Width && comboDMG != 0))
 			{

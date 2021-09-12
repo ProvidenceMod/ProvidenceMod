@@ -15,13 +15,13 @@ using Terraria.Graphics.Effects;
 using ProvidenceMod.Buffs.StatDebuffs;
 using ProvidenceMod.Items.Weapons.Melee;
 using static ProvidenceMod.ProvidenceUtils;
+using ProvidenceMod.Items.TreasureBags;
 
 namespace ProvidenceMod
 {
 	public class ProvidencePlayer : ModPlayer
 	{
 
-		public bool cerberus;
 		public bool dashing;
 		public bool intimidated;
 		public bool texturePackEnabled;
@@ -34,8 +34,7 @@ namespace ProvidenceMod
 		public bool cleric;
 		public float parityMaxStacks = 100;
 		public float parityStackGen;
-		public bool paritySigil;
-		public bool paritySigilSet;
+		public bool heartOfReality;
 
 		// Cleric Radiant
 		public bool radiant;
@@ -50,16 +49,15 @@ namespace ProvidenceMod
 		{
 			dashMod = 0;
 			dashTimeMod = 0;
-			cerberus = false;
 			intimidated = false;
 			// -- Cleric --
 			cleric = false;
-			paritySigil = false;
+			heartOfReality = false;
 			// Cleric Shadow
 			parityMaxStacks = 0;
 			parityStackGen = 0;
-			// shadowStacks = shadow ? shadowStacks : 0;
-			// radiantStacks = radiant ? radiantStacks : 0;
+			shadowStacks = shadow ? shadowStacks : 0;
+			radiantStacks = radiant ? radiantStacks : 0;
 			// ------------
 		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
@@ -94,22 +92,17 @@ namespace ProvidenceMod
 			if (radiant)
 			{
 				radiantStacks += parityStackGen;
-				if (radiantStacks > parityMaxStacks) radiantStacks = parityMaxStacks;
+				Utils.Clamp(radiantStacks, 0, parityMaxStacks);
 			}
 			else if (shadow)
 			{
 				shadowStacks += parityStackGen;
-				if (shadowStacks > parityMaxStacks) shadowStacks = parityMaxStacks;
+				Utils.Clamp(shadowStacks, 0, parityMaxStacks);
 			}
-			if (!paritySigil)
+			if (!cleric)
 			{
 				radiant = false;
 				shadow = false;
-				radiantStacks = 0;
-				shadowStacks = 0;
-				parityMaxStacks = 0;
-				parityStackGen = 0;
-				paritySigilSet = false;
 			}
 			if (IsThereABoss().Item1)
 			{
@@ -121,15 +114,6 @@ namespace ProvidenceMod
 				player.ClearBuff(BuffType<Intimidated>());
 				intimidated = false;
 			}
-			// if(radiant)
-			// {
-			//   RadiantCleric();
-			// }
-			// else if(shadow)
-			// {
-			//   ShadowCleric();
-			// }
-			base.PreUpdate();
 		}
 		public override void PostUpdate()
 		{
@@ -141,7 +125,7 @@ namespace ProvidenceMod
 		}
 		public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
 		{
-			items.Add(createItem(mod.ItemType("StarterBag")));
+			items.Add(createItem(ItemType<StarterBag>()));
 
 			Item createItem(int type)
 			{
@@ -255,22 +239,6 @@ namespace ProvidenceMod
 				if (WorldGen.SolidOrSlopedTile(tileCoordinates1.X, tileCoordinates1.Y) || WorldGen.SolidOrSlopedTile(tileCoordinates2.X, tileCoordinates2.Y))
 					player.velocity.X /= 2f;
 			}
-		}
-		public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
-		{
-		}
-		public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
-		{
-		}
-		public override void NaturalLifeRegen(ref float regen)
-		{
-		}
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			// Item item = player.inventory[player.selectedItem];
-		}
-		public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
-		{
 		}
 		public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{

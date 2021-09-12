@@ -17,9 +17,9 @@ namespace ProvidenceMod
 	{
 		public override bool InstancePerEntity => true;
 
-		public Vector2[] oldCen = new Vector2[10];
 		public int[] oldLife = new int[10];
 		public float[] extraAI = new float[4];
+		public Vector2[] oldCen = new Vector2[10];
 
 		public bool spawnReset = true;
 		public bool maxSpawnsTempSet;
@@ -65,7 +65,6 @@ namespace ProvidenceMod
 		}
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
 		{
-			spriteBatch.DrawString(Main.fontMouseText, $"{{ {npc.buffType[0]}, {npc.buffType[1]}, {npc.buffType[2]}, {npc.buffType[3]}, {npc.buffType[4]}\n{npc.buffType[5]}, {npc.buffType[6]}, {npc.buffType[7]}, {npc.buffType[8]}, {npc.buffType[9]}\n{npc.buffType[10]}, {npc.buffType[11]}, {npc.buffType[12]}, {npc.buffType[13]}, {npc.buffType[14]}\n{npc.buffType[15]}, {npc.buffType[16]}, {npc.buffType[17]}, {npc.buffType[18]}, {npc.buffType[19]} }}", new Vector2(npc.Center.X, npc.Center.Y + 200f) - Main.screenPosition, drawColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
 		public string GetBossTitle(string name)
 		{

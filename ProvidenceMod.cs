@@ -86,11 +86,11 @@ namespace ProvidenceMod
 
 				//ProvidenceTextureManager.LoadFonts();
 			}
-			if (Main.netMode != NetmodeID.Server)
-			{
-				divinityEffect = Instance.GetEffect("Effects/DivinityShader");
-				divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
-			}
+			//if (Main.netMode != NetmodeID.Server)
+			//{
+			//	divinityEffect = Instance.GetEffect("Effects/DivinityShader");
+			//	divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
+			//}
 		}
 		public override void Unload()
 		{

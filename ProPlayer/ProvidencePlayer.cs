@@ -56,8 +56,8 @@ namespace ProvidenceMod
 			// Cleric Shadow
 			parityMaxStacks = 0;
 			parityStackGen = 0;
-			shadowStacks = shadow ? shadowStacks : 0;
-			radiantStacks = radiant ? radiantStacks : 0;
+			//shadowStacks = shadow ? shadowStacks : 0;
+			//radiantStacks = radiant ? radiantStacks : 0;
 			// ------------
 		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
@@ -91,18 +91,24 @@ namespace ProvidenceMod
 			Utils.Clamp(shadowStacks, 0, parityMaxStacks);
 			if (radiant)
 			{
-				radiantStacks += parityStackGen;
-				Utils.Clamp(radiantStacks, 0, parityMaxStacks);
+				if (shadowStacks + parityStackGen > parityMaxStacks)
+					shadowStacks = parityMaxStacks;
+				else
+					shadowStacks += parityStackGen;
 			}
 			else if (shadow)
 			{
-				shadowStacks += parityStackGen;
-				Utils.Clamp(shadowStacks, 0, parityMaxStacks);
+				if (radiantStacks + parityStackGen > parityMaxStacks)
+					radiantStacks = parityMaxStacks;
+				else
+					radiantStacks += parityStackGen;
 			}
 			if (!cleric)
 			{
 				radiant = false;
+				radiantStacks = 0;
 				shadow = false;
+				shadowStacks = 0;
 			}
 			if (IsThereABoss().Item1)
 			{

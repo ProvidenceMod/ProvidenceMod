@@ -5,15 +5,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static ProvidenceMod.Metaballs.MaskManager;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Metaballs;
 using System;
 
 namespace ProvidenceMod.NPCs.FireAncient
 {
-	public class FireAncient : ModNPC, IGalaxySprite
+	public class FireAncient : ModNPC
 	{
 		private bool spawnText = false;
 		public int frame;
@@ -59,14 +57,10 @@ namespace ProvidenceMod.NPCs.FireAncient
 			player = Main.player[npc.target];
 			npc.ai[0]++;
 			Vector2 pos = npc.getRect().RandomPointInHitbox();
-			Dust.NewDustPerfect(pos, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(2.8f, 3.6f));
-			Dust.NewDustPerfect(pos, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(2.8f, 3.6f));
-			Dust.NewDustPerfect(pos, DustType<FriendlyMetaball>(), Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 3, Scale: Main.rand.NextFloat(2.8f, 3.6f));
 			if (!spawnText)
 			{
 				Talk("A Fiery Ancient has awoken!");
 				spawnText = true;
-				ProvidenceMod.Metaballs.FriendlyLayer.Sprites.Add(this);
 			}
 			FindPlayers();
 			npc.TargetClosest(false);
@@ -128,7 +122,6 @@ namespace ProvidenceMod.NPCs.FireAncient
 
 		public override void NPCLoot()
 		{
-			ProvidenceMod.Metaballs.FriendlyLayer.Sprites.Remove(this);
 			if (!ProvidenceWorld.downedFireAncient || !BrinewastesWorld.downedFireAncient)
 			{
 				ProvidenceWorld.downedFireAncient = true;

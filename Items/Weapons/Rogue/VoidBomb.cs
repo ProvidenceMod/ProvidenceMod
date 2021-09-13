@@ -4,14 +4,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Metaballs;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.Metaballs.MaskManager;
 
 namespace ProvidenceMod.Items.Weapons.Rogue
 {
-	public class VoidBomb : ModItem, IGalaxySprite
+	public class VoidBomb : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -38,21 +36,11 @@ namespace ProvidenceMod.Items.Weapons.Rogue
 		}
 		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			DrawGalaxyMappedSprite(spriteBatch);
 			return true;
 		}
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
-			DrawGalaxyMappedSprite(spriteBatch);
 			return true;
-		}
-		public void DrawGalaxyMappedSprite(SpriteBatch sB)
-		{
-			if (item.type == ItemType<VoidBomb>() && item.active)
-			{
-				Texture2D tex = GetTexture("ProvidenceMod/Projectiles/Rogue/VoidBomb");
-				sB.Draw(tex, (item.Center - Main.screenPosition + new Vector2(0, 0)) / 2, new Rectangle(0, 0, item.width, item.height), Color.White, default, new Vector2(item.width / 2, item.height / 2), item.scale / 2f, SpriteEffects.None, 0);
-			}
 		}
 	}
 }

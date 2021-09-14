@@ -12,7 +12,7 @@ Providence is a remorseful story about an unforgiving world. A world in which yo
 
 **Clerics**, wielders of **Parity Reality**, who bend the universe to their will to alternate between heal and harm.
 
-**Rogues**, wielders of **Quantum Flux**, who bend space-time to inflict serious harm upon their foes and effortlessly evade attacks.
+**Wraiths**, wielders of **Quantum Flux**, who bend space-time to inflict serious harm upon their foes and effortlessly evade attacks.
 
 The world of Providence anticipates your attempts at survival, and despite how close you may come, there will always be another more unrelenting battle to fight.
 
@@ -34,7 +34,7 @@ For many of us, myself included, this is our first project in CSharp. We've been
 - One new set of items
 - One subworld (Incomplete)
 - A new class: Cleric
-- A new class: Rogue
+- A new class: Wraith
 
 ### Planned Content:
 - Elemental System

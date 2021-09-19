@@ -14,6 +14,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 	{
 		public Vector4 color = new Vector4(0f, 0f, 0f, 0f);
 		public Vector2[] oldPos = new Vector2[10] { Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero };
+		public bool triggerStun = true;
 
 		public override void SetStaticDefaults()
 		{
@@ -40,6 +41,11 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 
 		public override void AI()
 		{
+			if (Main.npc[(int)npc.ai[0]].ai[3] == 1)
+			{
+				triggerStun = false;
+				npc.life = 0;
+			}
 			npc.UpdateCenterCache();
 			npc.UpdateRotationCache();
 			npc.rotation = npc.velocity.ToRotation();
@@ -73,7 +79,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		{
 			if (npc.life <= 0)
 			{
-				if(Main.npc[(int) npc.ai[0]] != null)
+				if(Main.npc[(int) npc.ai[0]] != null && triggerStun)
 					Main.npc[(int) npc.ai[0]].ai[2]++;
 			}
 		}

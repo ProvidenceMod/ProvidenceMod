@@ -65,6 +65,41 @@ namespace ProvidenceMod
 		}
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
 		{
+			// Initializations
+			byte buffCount = 0, buffArrCounter = 0, debuffArrCounter = 0;
+			Texture2D[] buffs = new Texture2D[10], debuffs = new Texture2D[10];
+			
+			// Run through NPC's buff list and mark down what they have
+			foreach (int buffID in npc.buffType)
+			{
+				if (buffID != 0)
+				{
+					Texture2D buffTexture = Main.buffTexture[buffID];
+					buffCount++;
+					if (Main.debuff[buffID]) { debuffs[debuffArrCounter] = buffTexture; debuffArrCounter++; }
+					else { buffs[buffArrCounter] = buffTexture; buffArrCounter++; }
+				}
+			}
+			
+			// Define bounds to cleanly draw everything
+			int offset = 0;
+			// Draw the buff textures, buffs first, then debuffs
+			foreach (Texture2D buffT in buffs)
+			{
+				if (buffT != null)
+				{
+					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(offset / 2, 0), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
+					offset += 32;
+				}
+			}
+			foreach (Texture2D buffT in debuffs)
+			{
+				if (buffT != null)
+				{
+					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(offset / 2, 0), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
+					offset += 32;
+				}
+			}
 		}
 		public string GetBossTitle(string name)
 		{

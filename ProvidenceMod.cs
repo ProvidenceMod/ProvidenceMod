@@ -31,7 +31,7 @@ namespace ProvidenceMod
 		internal BossHealth BossHealth;
 		internal ParityUI ParityUI;
 
-		public ProvidenceEvents providenceEvents;
+		public ProvidenceHooks providenceEvents;
 
 		public static DynamicSpriteFont bossHealthFont;
 		public static DynamicSpriteFont mouseTextFont;
@@ -51,7 +51,7 @@ namespace ProvidenceMod
 		{
 			Instance = this;
 
-			providenceEvents = new ProvidenceEvents();
+			providenceEvents = new ProvidenceHooks();
 			providenceEvents.Initialize();
 
 			if (Main.netMode != NetmodeID.Server && texturePack)

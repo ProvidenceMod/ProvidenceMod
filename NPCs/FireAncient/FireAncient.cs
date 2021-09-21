@@ -107,7 +107,7 @@ namespace ProvidenceMod.NPCs.FireAncient
 			npc.frameCounter += 0.125f;
 			npc.frame.Y = (int)npc.frameCounter * (tex.Height / 5);
 		}
-		public override bool PreDraw(SpriteBatch sb, Color color) => false;
+		//public override bool PreDraw(SpriteBatch sb, Color color) => false;
 		public void DrawGalaxyMappedSprite(SpriteBatch sB)
 		{
 			if (npc.type == NPCType<FireAncient>() && npc.active)

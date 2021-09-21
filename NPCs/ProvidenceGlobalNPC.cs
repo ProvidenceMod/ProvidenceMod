@@ -25,6 +25,10 @@ namespace ProvidenceMod
 		public bool maxSpawnsTempSet;
 		public int maxSpawnsTemp;
 
+		// Debuffs
+		public bool pressureSpike;
+
+		// Health Bars
 		public int comboDMG;
 		public int comboBarCooldown = 75;
 		public int comboDMGCooldown = 75;
@@ -38,6 +42,17 @@ namespace ProvidenceMod
 				return true;
 			}
 			return null;
+		}
+		public override void UpdateLifeRegen(NPC npc, ref int damage)
+		{
+			if(pressureSpike)
+			{
+				if(npc.lifeRegen > 0)
+				{
+					npc.lifeRegen = 0;
+				}
+				npc.lifeRegen -= 5;
+			}
 		}
 		//public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
 		//{

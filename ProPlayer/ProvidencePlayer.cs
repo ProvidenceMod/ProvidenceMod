@@ -30,6 +30,9 @@ namespace ProvidenceMod
 		public int dashTimeMod;
 		public int dashModDelay = 60;
 
+		// Debuffs
+		public bool pressureSpike;
+
 		// -- Cleric --
 		public bool cleric;
 		public float parityMaxStacks = 100;
@@ -127,6 +130,17 @@ namespace ProvidenceMod
 			{
 				PlayerManager.InitializePlayerGlowMasks();
 				texturePackEnabled = true;
+			}
+		}
+		public override void UpdateLifeRegen()
+		{
+			if (pressureSpike)
+			{
+				if (player.lifeRegen > 0)
+				{
+					player.lifeRegen = 0;
+				}
+				player.lifeRegen -= 3;
 			}
 		}
 		public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)

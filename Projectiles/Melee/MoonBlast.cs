@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Buffs.StatDebuffs;
+using ProvidenceMod.Buffs.DamageOverTime;
 
 namespace ProvidenceMod.Projectiles.Melee
 {
@@ -62,8 +62,8 @@ namespace ProvidenceMod.Projectiles.Melee
 					{
 						Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(projectile.AngleTo(target.Center)).RotatedBy(Main.rand.NextFloat(0f, MathHelper.TwoPi)), ProjectileType<MoonBeam>(), 100, 0f, projectile.owner);
 					}
-					Vector2 position = new Vector2(target.Center.X + ((float)Math.Cos(Main.GlobalTime * 6f) * 300f),
-																				 target.Center.Y + ((float)Math.Sin(Main.GlobalTime * 6f) * 300f));
+					Vector2 position = new Vector2(target.Center.X + ((float)Math.Sin(Main.GlobalTime) * 300f),
+																				 target.Center.Y + ((float)Math.Sin(Main.GlobalTime) * 300f));
 					Vector2 unitY = projectile.DirectionTo(position);
 					projectile.velocity = ((projectile.velocity * 25f) + (unitY * 50f)) / (25f + 1f);
 				}

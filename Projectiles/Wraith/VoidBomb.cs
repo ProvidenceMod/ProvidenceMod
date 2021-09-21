@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Projectiles.Rogue
+namespace ProvidenceMod.Projectiles.Wraith
 {
 	public class VoidBomb : ModProjectile
 	{

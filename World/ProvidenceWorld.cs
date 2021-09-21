@@ -11,6 +11,9 @@ namespace ProvidenceMod
 		public static bool downedAstrid = false;
 		public static bool downedLysandria = false;
 
+		// World Building
+		public static bool zephyrGenned = false;
+
 		// Difficulty Modifiers
 		public static bool lament = false;
 		public static bool wrath = false;
@@ -19,13 +22,14 @@ namespace ProvidenceMod
 		{
 			return new TagCompound
 			{
-				{"lament", lament },
-				{"wrath", wrath },
-				{"downedCaelus", downedCaelus },
-				{"downedVerglasLeviathan", downedVerglasLeviathan},
-				{"downedFireAncient", downedFireAncient },
-				{"downedAstrid", downedAstrid },
-				{"downedLysandria", downedLysandria }
+				["lament"] = lament,
+				["wrath"] = wrath,
+				["downedCaelus"] = downedCaelus,
+				["downedVerglasLeviathan"] = downedVerglasLeviathan,
+				["downedFireAncient"] = downedFireAncient,
+				["downedAstrid"] = downedAstrid,
+				["downedLysandria"] = downedLysandria,
+				["zephyrGenned"] = zephyrGenned,
 			};
 		}
 		public override void Load(TagCompound tag)
@@ -37,6 +41,7 @@ namespace ProvidenceMod
 			downedFireAncient = tag.GetBool("downedFireAncient");
 			downedAstrid = tag.GetBool("downedAstrid");
 			downedLysandria = tag.GetBool("downedLysandria");
+			zephyrGenned = tag.GetBool("zephyrGenned");
 		}
 	}
 }

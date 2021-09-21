@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Items.Weapons.Rogue
+namespace ProvidenceMod.Items.Weapons.Wraith
 {
 	public class VoidBomb : ModItem
 	{
@@ -25,7 +25,7 @@ namespace ProvidenceMod.Items.Weapons.Rogue
 			item.useAnimation = 10;
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.thrown = true;
-			item.shoot = ProjectileType<Projectiles.Rogue.VoidBomb>();
+			item.shoot = ProjectileType<Projectiles.Wraith.VoidBomb>();
 			item.shootSpeed = 12f;
 			item.autoReuse = true;
 			item.rare = (int)ProvidenceRarity.Developer;

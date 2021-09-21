@@ -27,6 +27,6 @@ namespace ProvidenceMod.Dusts
 			return true;
     }
 
-    public override Color? GetAlpha(Dust dust, Color lightColor) => Color.White;
+    public override Color? GetAlpha(Dust dust, Color lightColor) => new Color(1f, 1f, 1f, 0f);
   }
 }

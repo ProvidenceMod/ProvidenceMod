@@ -5,9 +5,9 @@ using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 namespace ProvidenceMod
 {
-	public class ProvidenceEvents
+	public class ProvidenceHooks
 	{
-		public ProvidenceEvents Instance;
+		public ProvidenceHooks Instance;
 		//public interface IProvidenceGlobalNPC
 		//{
 		//	int NPC_NewNPC(On.Terraria.NPC.orig_NewNPC orig, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target);
@@ -37,10 +37,10 @@ namespace ProvidenceMod
 		}
 		public virtual void NPC_AddBuff(On.Terraria.NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
 		{
-			if (self.buffType.Length != 20 || self.buffTime.Length != 20)
+			if (self.buffType.Length != 10 || self.buffTime.Length != 20)
 			{
-				self.buffType = new int[20];
-				self.buffTime = new int[20];
+				self.buffType = new int[10];
+				self.buffTime = new int[10];
 			}
 			if (self.buffImmune[type])
 			{
@@ -58,7 +58,7 @@ namespace ProvidenceMod
 				}
 			}
 			int num = -1;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				if (self.buffType[i] == type)
 				{
@@ -72,7 +72,7 @@ namespace ProvidenceMod
 			while (num == -1)
 			{
 				int num2 = -1;
-				for (int j = 0; j < 20; j++)
+				for (int j = 0; j < 10; j++)
 				{
 					if (!Main.debuff[self.buffType[j]])
 					{
@@ -84,7 +84,7 @@ namespace ProvidenceMod
 				{
 					return;
 				}
-				for (int k = num2; k < 20; k++)
+				for (int k = num2; k < 10; k++)
 				{
 					if (self.buffType[k] == 0)
 					{
@@ -106,7 +106,7 @@ namespace ProvidenceMod
 			{
 				return -1;
 			}
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				if (self.buffTime[i] >= 1 && self.buffType[i] == type)
 				{
@@ -119,11 +119,11 @@ namespace ProvidenceMod
 		{
 			self.buffTime[buffIndex] = 0;
 			self.buffType[buffIndex] = 0;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				if (self.buffTime[i] == 0 || self.buffType[i] == 0)
 				{
-					for (int j = i + 1; j < 20; j++)
+					for (int j = i + 1; j < 10; j++)
 					{
 						self.buffTime[j - 1] = self.buffTime[j];
 						self.buffType[j - 1] = self.buffType[j];
@@ -139,12 +139,12 @@ namespace ProvidenceMod
 		}
 		public virtual void NPC_UpdateNPC_BuffSetFlags(On.Terraria.NPC.orig_UpdateNPC_BuffSetFlags orig, NPC self)
 		{
-			if (self.buffType.Length != 20 || self.buffTime.Length != 20)
+			if (self.buffType.Length != 10 || self.buffTime.Length != 20)
 			{
-				self.buffType = new int[20];
-				self.buffTime = new int[20];
+				self.buffType = new int[10];
+				self.buffTime = new int[10];
 			}
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				if (self.buffType[i] > 0 && self.buffTime[i] > 0)
 				{
@@ -240,7 +240,7 @@ namespace ProvidenceMod
 		{
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				for (int i = 0; i < 20; i++)
+				for (int i = 0; i < 10; i++)
 				{
 					if (self.buffType[i] > 0 && self.buffTime[i] <= 0)
 					{

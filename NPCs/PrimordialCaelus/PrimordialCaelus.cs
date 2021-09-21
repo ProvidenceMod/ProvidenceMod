@@ -13,6 +13,7 @@ using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 using static ProvidenceMod.Projectiles.ProvidenceGlobalProjectileAI;
 using ProvidenceMod.Projectiles;
+using ProvidenceMod.World;
 
 namespace ProvidenceMod.NPCs.PrimordialCaelus
 {
@@ -23,7 +24,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		private bool spawnText;
 		public int Phase()
 		{
-			double quotient = (double)npc.life / (double)npc.lifeMax;
+			double quotient = (double)npc.life / npc.lifeMax;
 			if (quotient > 0.6d)
 				return 1;
 			else if (quotient > 0.3d && quotient <= 0.6d)
@@ -40,19 +41,15 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		// Bullet hell
 		public int preBulletHellTimer = 300;
 		public int bulletHellTimer;
-		public int tridentCooldown = 90;
-		public bool tridentSpawned;
-		public Projectile trident1;
-		public Projectile trident2;
-		public Projectile trident3;
 
 		// Stun
-		public int stunTimer = 180;
 		public bool stunned;
 		public int stunCounter;
+		public int stunTimer;
 
-		// Zephyr Arrow
-		public int dartCooldown, sentinelCooldown;
+		// Cooldowns
+		public int dartCooldown;
+		public int sentinelCooldown;
 
 		// Dash
 		public bool isDashing;
@@ -109,6 +106,8 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 
 			if (stunned)
 			{
+				if (stunTimer == 0)
+					stunTimer = 180;
 				stunTimer--;
 				if (Collision.SolidCollision(new Vector2(npc.Center.X, npc.Center.Y + (npc.height / 2)), 1, 1))
 					npc.velocity.Y = 0;
@@ -117,10 +116,10 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				npc.velocity.X = 0;
 				if (stunTimer == 0)
 				{
+					stunTimer = 180;
 					npc.ai[2] = 0;
 					stunCounter = 0;
 					stunned = false;
-					stunTimer = 180;
 				}
 				else
 				{
@@ -147,9 +146,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				{
 					for (float i = 0; i >= -MathHelper.Pi; i -= MathHelper.PiOver4)
 					{
-						Vector2 pos = new Vector2(128f, 0f).RotatedBy(i);
-						pos.X /= 16;
-						pos.Y /= 16;
+						Vector2 pos = new Vector2(640f, 0f).RotatedBy(i);
 						NewNPCExtraAI(new Vector2(npc.Center.X, npc.Center.Y) + pos, NPCType<ZephyrSpirit>(), default, npc.whoAmI);
 					}
 					npc.ai[3] = 600;
@@ -209,6 +206,9 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			Projectile.NewProjectile(npc.Center + new Vector2(300f, 0f).RotatedBy(-MathHelper.PiOver4), new Vector2(0f, 0f), ProjectileType<ZephyrTrident>(), 25, 2f, default, 0, 90);
 			Projectile.NewProjectile(npc.Center + new Vector2(300f, 0f).RotatedBy(-MathHelper.PiOver2), new Vector2(0f, 0f), ProjectileType<ZephyrTrident>(), 25, 2f, default, 0, 180);
 			Projectile.NewProjectile(npc.Center + new Vector2(300f, 0f).RotatedBy(-MathHelper.Pi + MathHelper.PiOver4), new Vector2(0f, 0f), ProjectileType<ZephyrTrident>(), 25, 2f, default, 0, 270);
+		}
+		public void SetAIVariables()
+		{
 		}
 		public void RefreshRain()
 		{
@@ -274,19 +274,25 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		}
 		public void DrawAfterImage(SpriteBatch spriteBatch)
 		{
+			SpriteBatch spriteBatch1 = new SpriteBatch(Main.graphics.GraphicsDevice);
+			spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 			if (!isDashing && !stunned)
 			{
-				for (int i = 1; i <= 3; i++)
-				{
-					float alpha = 1f - (i * 0.25f);
-					Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / 3f).ColorRGBAIntToFloat();
-					colorV.X *= alpha;
-					colorV.Y *= alpha;
-					colorV.Z *= alpha;
-					colorV.W *= alpha;
-					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
-					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-				}
+				//for (int i = 1; i <= 3; i++)
+				//{
+				//	float alpha = 1f - (i * 0.25f);
+
+				//	Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / 3f).ColorRGBAIntToFloat();
+
+				//	colorV.X *= alpha;
+				//	colorV.Y *= alpha;
+				//	colorV.Z *= alpha;
+				//	colorV.W *= alpha;
+
+				//	Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
+
+				//	spriteBatch1.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, new Color(alpha, alpha, alpha, alpha), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+				//}
 				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 			}
 			if (isDashing)
@@ -294,15 +300,12 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				for (int i = 0; i < 10; i++)
 				{
 					float alpha = 1f - (i * 0.1f);
-					Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / 9f).ColorRGBAIntToFloat();
-					colorV.X *= alpha;
-					colorV.Y *= alpha;
-					colorV.Z *= alpha;
-					colorV.W *= alpha;
-					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
-					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+
+					Color color = new Color(1f, 1f, 1f, alpha);
+
+					spriteBatch1.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 				}
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+				spriteBatch1.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 			}
 			if (stunned)
 			{
@@ -310,15 +313,20 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				{
 					float alpha = (1f - (i * 0.1f)) * (float)((float)(0.375d * Math.Sin(Main.GlobalTime * 20d)) + 0.625d);
 					float scale = (1f - (i * 0.025f)) * (float)((float)(0.025d * Math.Sin(Main.GlobalTime * 20d)) + 1.025d);
+
 					Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 128), new Vector4(83, 46, 99, 128), i / 9f).ColorRGBAIntToFloat();
+
 					colorV.X *= alpha;
 					colorV.Y *= alpha;
 					colorV.Z *= alpha;
 					colorV.W *= alpha;
+
 					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
+
 					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 				}
 			}
+			spriteBatch1.End();
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
@@ -341,6 +349,8 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			{
 				ProvidenceWorld.downedCaelus = true;
 				BrinewastesWorld.downedCaelus = true;
+				ProvidenceWorld.zephyrGenned = true;
+				WorldBuilding.BuildOre(TileType<Tiles.Ores.ZephyrOre>(), 0.00005f, 1, 10, 13, 0.35f, 0.6f);
 			}
 			Main.raining = false;
 			Main.cloudBGActive = 0f;
@@ -351,18 +361,27 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			Main.weatherCounter = 0;
 			Main.rainTime = Main.weatherCounter;
 			Main.maxRaining = 0f;
-			preSpawnText = true;
 			if (Main.expertMode)
 			{
-				int item1 = Item.NewItem(npc.Center, ItemID.GoldCoin, 7);
-				int item2 = Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
-				int item3 = Item.NewItem(npc.Center, ItemType<CaelusBag>(), 1);
-				Main.item[item3].Providence().highlight = true;
+				Main.item[Item.NewItem(npc.Center, ItemType<CaelusBag>(), 1)].Providence().highlight = true;
+				if (ProvidenceWorld.lament && !ProvidenceWorld.wrath)
+				{
+					Item.NewItem(npc.Center, ItemID.GoldCoin, 10);
+					return;
+				}
+				if (ProvidenceWorld.wrath)
+				{
+					Item.NewItem(npc.Center, ItemID.GoldCoin, 12);
+					Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
+					return;
+				}
+				Item.NewItem(npc.Center, ItemID.GoldCoin, 7);
+				Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
 			}
 			else
 			{
-				int item4 = Item.NewItem(npc.Center, ItemID.GoldCoin, 5);
-				int item5 = Item.NewItem(npc.Center, ItemType<ZephyrOre>(), Main.rand.Next(16, 51));
+				Item.NewItem(npc.Center, ItemID.GoldCoin, 5);
+				Item.NewItem(npc.Center, ItemType<ZephyrOre>(), Main.rand.Next(16, 51));
 			}
 		}
 	}

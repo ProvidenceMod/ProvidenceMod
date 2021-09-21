@@ -38,7 +38,7 @@ namespace ProvidenceMod
 		public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);
 		public static float Round(this float f, int points) => (float)Math.Round(f, points);
 		public static double Round(this double d, int points) => Math.Round(d, points);
-		
+
 		public static void UpdatePositionCache(this Projectile projectile)
 		{
 			for (int i = projectile.oldPos.Length - 1; i > 0; i--)
@@ -131,7 +131,7 @@ namespace ProvidenceMod
 			}
 			if (comboBarCooldown == 0 && comboRect.Width != healthRect.Width)
 			{
-					comboRect.Width--;
+				comboRect.Width--;
 				//if ((comboRect.Width - healthRect.Width) * 0.05f < 1)
 				//else
 				//	comboRect.Width -= (int)((comboRect.Width - healthRect.Width) * 0.05f);
@@ -171,17 +171,27 @@ namespace ProvidenceMod
 			}
 			spriteBatch.DrawString(font, text, position, color, 0.0f, new Vector2(), scale, SpriteEffects.None, 0.0f);
 		}
-		public static void Talk(string message, Color color, int npc)
+		public static void Talk(string message, Color color, int npc = -1)
 		{
 			if (Main.netMode != NetmodeID.Server)
 			{
-				string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc), message);
-				Main.NewText(text, color.R, color.G, color.B);
+				if (npc != -1)
+				{
+					string text = Language.GetTextValue(message, Lang.GetNPCNameValue(npc), message);
+					Main.NewText(text, color.R, color.G, color.B);
+					return;
+				}
+				Main.NewText(message, color.R, color.G, color.B);
 			}
 			else
 			{
-				NetworkText text = NetworkText.FromKey(message, npc, message);
-				NetMessage.BroadcastChatMessage(text, new Color(color.R, color.G, color.B));
+				if (npc != -1)
+				{
+					NetworkText text = NetworkText.FromKey(message, npc, message);
+					NetMessage.BroadcastChatMessage(text, new Color(color.R, color.G, color.B));
+					return;
+				}
+				NetMessage.BroadcastChatMessage(NetworkText.FromKey(message), new Color(color.R, color.G, color.B));
 			}
 		}
 		/// <summary>Finds and returns the closesnt entity to the provided entity. Actively disregards Target Dummies.</summary>
@@ -534,9 +544,9 @@ namespace ProvidenceMod
 		//	}
 		//}
 		public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
-		public static bool DownedAnyBoss() => NPC.downedBoss1     || NPC.downedBoss2          || NPC.downedBoss3     ||
-																					NPC.downedFishron   || NPC.downedAncientCultist || NPC.downedGolemBoss ||
-																					NPC.downedPlantBoss || NPC.downedMechBossAny    || NPC.downedMoonlord  ||
+		public static bool DownedAnyBoss() => NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 ||
+																					NPC.downedFishron || NPC.downedAncientCultist || NPC.downedGolemBoss ||
+																					NPC.downedPlantBoss || NPC.downedMechBossAny || NPC.downedMoonlord ||
 																					NPC.downedSlimeKing || NPC.downedQueenBee;
 	}
 }

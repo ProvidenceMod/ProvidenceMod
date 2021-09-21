@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Buffs.StatDebuffs
+namespace ProvidenceMod.Buffs.DamageOverTime
 {
   public class PressureSpike : ModBuff
   {
@@ -14,7 +14,12 @@ namespace ProvidenceMod.Buffs.StatDebuffs
       Main.buffNoSave[Type] = true;
     }
 		public override void Update(NPC npc, ref int buffIndex)
-		{			
+		{
+			npc.Providence().pressureSpike = true;
+		}
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.Providence().pressureSpike = true;
 		}
 	}
 }

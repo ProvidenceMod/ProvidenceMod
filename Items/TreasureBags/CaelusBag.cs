@@ -6,6 +6,7 @@ using ProvidenceMod.Items.Placeables.Ores;
 using ProvidenceMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using ProvidenceMod.Dusts;
 
 namespace ProvidenceMod.Items.TreasureBags
 {
@@ -32,11 +33,25 @@ namespace ProvidenceMod.Items.TreasureBags
 
 		public override void RightClick(Player player)
 		{
-			// 26 to 74 ore spawned
-			player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(26, 75));
+			if (ProvidenceWorld.lament && !ProvidenceWorld.wrath)
+			{
+				player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(36, 76));
+				return;
+			}
+			if (ProvidenceWorld.wrath)
+			{
+				player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(46, 91));
+				return;
+			}
+			player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(26, 61));
 		}
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
+			if(Main.GlobalTime % 30 == 0)
+			{
+				Vector2 pos = new Vector2(0f, 16f).RotatedBy(Main.rand.NextFloat(0f, MathHelper.TwoPi));
+				Dust.NewDustPerfect(item.Center + pos, DustType<CloudDust>(), -pos * 0.5f);
+			}
 			if (item.Providence().highlight)
 			{
 				for (int i = 0; i < 10; i++)
@@ -55,7 +70,9 @@ namespace ProvidenceMod.Items.TreasureBags
 				return false;
 			}
 			else
+			{
 				return true;
+			}
 		}
 	}
 }

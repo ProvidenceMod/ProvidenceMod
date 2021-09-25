@@ -60,16 +60,11 @@ namespace ProvidenceMod
 		//	if (armor <= 0)
 		//		return true;
 		//	else
+		// {
+		//		armor -= damage;
+		// }
 		//		return false;
 		//}
-		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
-		{
-			//If any subworld from our mod is loaded, disable spawns
-			if (SubworldManager.AnyActive<ProvidenceMod>())
-			{
-				pool.Clear();
-			}
-		}
 		public override void AI(NPC npc)
 		{
 			if (oldLife[9] == 0)
@@ -81,9 +76,10 @@ namespace ProvidenceMod
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
 		{
 			// Initializations
-			byte buffCount = 0, buffArrCounter = 0, debuffArrCounter = 0;
+			byte buffCount = 0;
+			byte buffArrCounter = 0;
+			byte debuffArrCounter = 0;
 			Texture2D[] buffs = new Texture2D[10], debuffs = new Texture2D[10];
-			
 			// Run through NPC's buff list and mark down what they have
 			foreach (int buffID in npc.buffType)
 			{
@@ -91,28 +87,37 @@ namespace ProvidenceMod
 				{
 					Texture2D buffTexture = Main.buffTexture[buffID];
 					buffCount++;
-					if (Main.debuff[buffID]) { debuffs[debuffArrCounter] = buffTexture; debuffArrCounter++; }
-					else { buffs[buffArrCounter] = buffTexture; buffArrCounter++; }
+					if (Main.debuff[buffID])
+					{
+						debuffs[debuffArrCounter] = buffTexture;
+						debuffArrCounter++;
+					}
+					else
+					{
+						buffs[buffArrCounter] = buffTexture;
+						buffArrCounter++;
+					}
 				}
 			}
-			
-			// Define bounds to cleanly draw everything
 			int offset = 0;
+			int counter = 0;
 			// Draw the buff textures, buffs first, then debuffs
 			foreach (Texture2D buffT in buffs)
 			{
 				if (buffT != null)
 				{
-					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(offset / 2, 0), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
-					offset += 32;
+					counter++;
+					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(counter < 6 ? ((npc.width - 80f) / 2f) + offset + 8f : ((npc.width - 80f) / 2f) + (offset - 80f) + 8f, counter < 6 ? npc.height + 40f : npc.height + 56f), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
+					offset += 16;
 				}
 			}
 			foreach (Texture2D buffT in debuffs)
 			{
 				if (buffT != null)
 				{
-					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(offset / 2, 0), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
-					offset += 32;
+					counter++;
+					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(counter < 6 ? ((npc.width - 80f) / 2f) + offset + 8f : ((npc.width - 80f) / 2f) + (offset - 80f) + 8f, counter < 6 ? npc.height + 40f : npc.height + 56f), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
+					offset += 16;
 				}
 			}
 		}
@@ -125,31 +130,16 @@ namespace ProvidenceMod
 			}
 			return "";
 		}
+		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+		{
+			// If any subworld from our mod is loaded, disable spawns
+			if (SubworldManager.AnyActive<ProvidenceMod>())
+				pool.Clear();
+		}
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
-			ProvidencePlayer proPlayer = player.Providence();
-			if (proPlayer.intimidated)
-			{
-				if (!maxSpawnsTempSet)
-				{
-					maxSpawnsTemp = maxSpawns;
-					maxSpawnsTempSet = true;
-				}
-				spawnRate = 2147483647;
+			if (player.Providence().intimidated)
 				maxSpawns = 0;
-				spawnReset = false;
-			}
-			if (!proPlayer.intimidated && !spawnReset)
-			{
-				if (maxSpawnsTempSet)
-				{
-					maxSpawns = maxSpawnsTemp;
-					maxSpawnsTemp = 0;
-					maxSpawnsTempSet = false;
-				}
-				spawnRate = 0;
-				spawnReset = true;
-			}
 		}
 		public override void SetDefaults(NPC npc)
 		{

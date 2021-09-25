@@ -111,6 +111,5 @@ namespace ProvidenceMod.Projectiles.Melee
 			target.immune[projectile.owner] = 3;
 		}
 		//public override Color? GetAlpha(Color lightColor) => new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0f);
-
 	}
 }

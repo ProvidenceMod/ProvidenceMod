@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using static Terraria.ModLoader.ModContent;
 namespace ProvidenceMod
 {
 	public class ProvidenceHooks
@@ -13,7 +10,7 @@ namespace ProvidenceMod
 		//	int NPC_NewNPC(On.Terraria.NPC.orig_NewNPC orig, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target);
 		//}
 		// Initialize subscribed methods
-		// These are ran every time the method they're subscribed to is run
+		// These are called every time the hooks they're subscribed to are called
 		public void Initialize()
 		{
 			Instance = this;
@@ -24,7 +21,7 @@ namespace ProvidenceMod
 			On.Terraria.NPC.UpdateNPC_BuffClearExpiredBuffs += NPC_UpdateNPC_BuffClearExpiredBuffs;
 			On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
 		}
-		// Unload subscribed methods, aka unsubscribe methods
+		// Unload hooks, aka unsubscribe methods
 		public void Unload()
 		{
 			Instance = null;
@@ -37,7 +34,7 @@ namespace ProvidenceMod
 		}
 		public virtual void NPC_AddBuff(On.Terraria.NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
 		{
-			if (self.buffType.Length != 10 || self.buffTime.Length != 20)
+			if (self.buffType.Length != 10 || self.buffTime.Length != 10)
 			{
 				self.buffType = new int[10];
 				self.buffTime = new int[10];
@@ -139,7 +136,7 @@ namespace ProvidenceMod
 		}
 		public virtual void NPC_UpdateNPC_BuffSetFlags(On.Terraria.NPC.orig_UpdateNPC_BuffSetFlags orig, NPC self)
 		{
-			if (self.buffType.Length != 10 || self.buffTime.Length != 20)
+			if (self.buffType.Length != 10 || self.buffTime.Length != 10)
 			{
 				self.buffType = new int[10];
 				self.buffTime = new int[10];
@@ -255,7 +252,6 @@ namespace ProvidenceMod
 		}
 		public virtual void Main_DrawHealthBar(On.Terraria.Main.orig_DrawHealthBar orig, Main self, float X, float Y, int Health, int MaxHealth, float alpha, float scale)
 		{
-			
 		}
 	}
 }

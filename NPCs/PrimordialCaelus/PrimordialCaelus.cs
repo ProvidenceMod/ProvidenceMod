@@ -240,8 +240,10 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			}
 			if (Phase() == 2)
 			{
-				Vector2 unitY = npc.DirectionTo(player.Center);
-				npc.velocity = ((npc.velocity * 15f) + (unitY * speedCap)) / (15f + 1f);
+
+				Vector2 position = player.Center + new Vector2(300f, 0f).RotatedBy((Math.Cos(Main.GlobalTime * 0.5f) * MathHelper.PiOver2) - MathHelper.PiOver2);
+				Vector2 unitY = npc.DirectionTo(position);
+				npc.velocity = ((npc.velocity * 45f) + (unitY * 4f)) / (45f + 1f);
 			}
 			if (Phase() == 3)
 			{

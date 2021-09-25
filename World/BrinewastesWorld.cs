@@ -20,11 +20,11 @@ namespace ProvidenceMod
 		// Difficulty Modifiers
 		public static bool lament = false;
 		public static bool wrath = false;
-		// Worldgen testing
-		public static bool JustPressed(Keys key)
-		{
-			return Main.keyState.IsKeyDown(key) && !Main.oldKeyState.IsKeyDown(key);
-		}
+		//// Worldgen testing
+		//public static bool JustPressed(Keys key)
+		//{
+		//	return Main.keyState.IsKeyDown(key) && !Main.oldKeyState.IsKeyDown(key);
+		//}
 		public override TagCompound Save()
 		{
 			return new TagCompound
@@ -48,14 +48,14 @@ namespace ProvidenceMod
 			downedAstrid = tag.GetBool("downedAstrid");
 			downedLysandria = tag.GetBool("downedLysandria");
 		}
-		private void TestMethod(int x, int y)
-		{
-			Dust.QuickBox(new Vector2(x, y) * 16, new Vector2(x + 1, y + 1) * 16, 2, Color.YellowGreen, null);
+		//private void TestMethod(int x, int y)
+		//{
+		//	Dust.QuickBox(new Vector2(x, y) * 16, new Vector2(x + 1, y + 1) * 16, 2, Color.YellowGreen, null);
 
-			// Code to test placed here:
-			//WorldGen.TileRunner(x - 1, y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8), TileID.CobaltBrick);
-			//WorldGen.TileRunner(x - 1, y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8), TileID.CobaltBrick, true);
-		}
+		//	// Code to test placed here:
+		//	//WorldGen.TileRunner(x - 1, y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8), TileID.CobaltBrick);
+		//	//WorldGen.TileRunner(x - 1, y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8), TileID.CobaltBrick, true);
+		//}
 		//
 		public override void PostUpdate()
 		{
@@ -65,8 +65,8 @@ namespace ProvidenceMod
 			//	SubworldLibrary.SLWorld.drawMenu = false;
 			//}
 			//// Worldgen testing
-			if (JustPressed(Keys.D1))
-				TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);
+			//if (JustPressed(Keys.D1))
+			//	TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);
 			//
 		}
 	}

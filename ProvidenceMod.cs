@@ -54,6 +54,8 @@ namespace ProvidenceMod
 			providenceEvents = new ProvidenceHooks();
 			providenceEvents.Initialize();
 
+			BossHealthBarManager.Initialize();
+
 			if (Main.netMode != NetmodeID.Server && texturePack)
 				ProvidenceTextureManager.Load();
 			if (!Main.dedServ)
@@ -145,6 +147,7 @@ namespace ProvidenceMod
 		}
 		public override void UpdateUI(GameTime gameTime)
 		{
+			BossHealthBarManager.Update();
 			bossHealthUI?.Update(gameTime);
 			parityUI?.Update(gameTime);
 		}

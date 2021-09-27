@@ -19,8 +19,8 @@ namespace ProvidenceMod.Items.BossSpawners
 		}
 		public override void SetDefaults()
 		{
-			item.width = 46;
-			item.height = 46;
+			item.width = 34;
+			item.height = 38;
 			item.maxStack = 1;
 			item.rare = (int)ProvidenceRarity.Orange;
 			item.useAnimation = 45;

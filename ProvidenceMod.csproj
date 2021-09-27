@@ -36,7 +36,6 @@
     <Folder Include="Buffs\StatBuffs\" />
     <Folder Include="Items\Potions\" />
     <Folder Include="Items\Tools\" />
-    <Folder Include="Items\Weapons\Cleric\" />
     <Folder Include="Projectiles\Environment\" />
     <Folder Include="Projectiles\Healing\" />
     <Folder Include="Projectiles\Magic\" />

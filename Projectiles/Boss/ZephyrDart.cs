@@ -44,10 +44,6 @@ namespace ProvidenceMod.Projectiles.Boss
 				case 1:
 					projectile.hostile = false;
 					projectile.friendly = true;
-					if (projectile.ai[1] == 0 && ClosestEntity(projectile, projectile.friendly) != null)
-					{
-						NaturalHoming(projectile, ClosestEntity(projectile, projectile.friendly), 55f, 20f);
-					}
 					break;
 				// Immediate weak homing
 				case 2:

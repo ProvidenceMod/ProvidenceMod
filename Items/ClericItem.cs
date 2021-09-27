@@ -2,6 +2,8 @@ using Terraria.ModLoader;
 using Terraria;
 using ProvidenceMod.Dusts;
 using static ProvidenceMod.ProvidenceUtils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ProvidenceMod.Items
 {
@@ -14,6 +16,16 @@ namespace ProvidenceMod.Items
 			item.magic = false;
 			item.summon = false;
 			item.thrown = false;
+		}
+		public override ModItem Clone(Item itemClone) => (ClericItem)base.Clone(itemClone);
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			TooltipLine damagetip = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
+			if (damagetip != null)
+			{
+				string[] array = damagetip.text.Split(' ');
+				damagetip.text = array[0] + " parity " + array.Last();
+			}
 		}
 		public virtual void ModifyWeaponDamage(Player player, ref int damage)
 		{

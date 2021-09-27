@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.Dusts;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -27,10 +28,14 @@ namespace ProvidenceMod.Projectiles.Boss
 		{
 			Dust.NewDustPerfect(projectile.Center, DustType<CloudDust>(), Vector2.Zero, default, default, 5f);
 			if (projectile.ai[1] == 1)
+			{
 				projectile.friendly = true;
+			}
 			else
+			{
 				projectile.hostile = true;
-			projectile.velocity.Y += 0.3f;
+				projectile.velocity.Y += 0.3f;
+			}
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
@@ -47,8 +52,17 @@ namespace ProvidenceMod.Projectiles.Boss
 			spriteBatch.Draw(tex, projectile.Center - Main.screenPosition, new Rectangle(0, 0, tex.Width, tex.Height), lightColor, projectile.ai[0] % 2 != 0 ? projectile.velocity.ToRotation() + MathHelper.PiOver4 : projectile.velocity.ToRotation(), tex.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 			return false;
 		}
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (projectile.friendly)
+			{
+				for (int i = 0; i < 3; i++)
+					Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, projectile.ai[1], Main.rand.Next(0, 3));
+			}
+		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
+			Main.PlaySound(SoundID.Item27);
 			for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
 			{
 				Vector2 speed = new Vector2(0f, 4f).RotatedBy(i);
@@ -56,10 +70,10 @@ namespace ProvidenceMod.Projectiles.Boss
 				Dust.NewDustPerfect(projectile.Center, DustType<CloudDust>(), speed.RotatedBy(i / 2f), default, default, 5f);
 				Dust.NewDustPerfect(projectile.Center, DustType<CloudDust>(), speed.RotatedBy(i / -2f), default, default, 5f);
 			}
-			if (ProvidenceWorld.wrath)
+			if (ProvidenceWorld.wrath || projectile.friendly)
 			{
 				for (int i = 0; i < 3; i++)
-					Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, 0f, Main.rand.Next(0, 3));
+					Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, projectile.ai[1], Main.rand.Next(0, 3));
 			}
 			return true;
 		}

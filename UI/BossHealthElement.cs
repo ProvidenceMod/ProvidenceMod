@@ -25,7 +25,7 @@ namespace ProvidenceMod.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			percentage = quotient * 100f;
-			if (percentage > 0 && boss != null)
+			if (percentage > 0 && boss?.active == true)
 			{
 				if (opacity < 1f)
 				{

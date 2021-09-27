@@ -508,19 +508,19 @@ namespace ProvidenceMod
 		}
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			TooltipLine tooltip = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
-			if (tooltip != null)
+			TooltipLine nametip = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
+			if (nametip != null)
 			{
 				switch (customRarity)
 				{
 					case ProvidenceRarity.Lament:
-						tooltip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(41, 122, 138), new Color(56, 196, 166), new Color(83, 242, 160), new Color(56, 196, 166) }, 0.5f);
+						nametip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(41, 122, 138), new Color(56, 196, 166), new Color(83, 242, 160), new Color(56, 196, 166) }, 0.5f);
 						break;
 					case ProvidenceRarity.Wrath:
-						tooltip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(158, 47, 63), new Color(218, 70, 70), new Color(243, 132, 95), new Color(218, 70, 70) }, 0.5f);
+						nametip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(158, 47, 63), new Color(218, 70, 70), new Color(243, 132, 95), new Color(218, 70, 70) }, 0.5f);
 						break;
 					case ProvidenceRarity.Developer:
-						tooltip.overrideColor = ColorShiftMultiple(new Color[6] { new Color(77, 40, 132), new Color(160, 16, 193), new Color(255, 25, 153), new Color(255, 181, 62), new Color(255, 25, 153), new Color(160, 16, 193) }, 0.5f);
+						nametip.overrideColor = ColorShiftMultiple(new Color[6] { new Color(77, 40, 132), new Color(160, 16, 193), new Color(255, 25, 153), new Color(255, 181, 62), new Color(255, 25, 153), new Color(160, 16, 193) }, 0.5f);
 						break;
 				}
 			}

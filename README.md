@@ -55,7 +55,9 @@ For many of us, myself included, this is our first project in CSharp. We've been
 - And much more
 
 ### Discord Server:
-<img src="https://discordapp.com/api/guilds/757480831886426282/widget.png?style=banner3" alt="Discord Banner 3"/>
+<a href="https://discord.gg/bhCuppRdVF">
+   <img src="https://discordapp.com/api/guilds/757480831886426282/widget.png?style=banner3" alt="Discord Banner 3"/>
+</a>
 
 ## FAQ
 **Why is this mod Open Source?**

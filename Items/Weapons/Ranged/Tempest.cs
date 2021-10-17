@@ -41,7 +41,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 		{
 			for (float i = -MathHelper.PiOver4 * 0.125f; i <= MathHelper.PiOver4 * 0.125f; i += MathHelper.PiOver4 * 0.125f)
 			{
-				Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY).RotatedBy(i), ProjectileType<SentinelShard>(), damage, knockBack, player.whoAmI, 0f, 1f);
+				Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY).RotatedBy(i), ProjectileType<SentinelShard>(), damage, knockBack, player.whoAmI, Main.rand.Next(0, 8), 1f);
 			}
 			if (type == ProjectileID.WoodenArrowFriendly || type == ProjectileID.WoodenArrowHostile)
 			{

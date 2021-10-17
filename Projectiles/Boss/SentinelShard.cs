@@ -54,7 +54,17 @@ namespace ProvidenceMod.Projectiles.Boss
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
+			Main.PlaySound(SoundID.Item27, projectile.Center);
 			if (projectile.friendly)
+			{
+				for (int i = 0; i < 3; i++)
+					Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, projectile.ai[1], Main.rand.Next(0, 3));
+			}
+		}
+		public override void OnHitPlayer(Player target, int damage, bool crit)
+		{
+			Main.PlaySound(SoundID.Item27, projectile.Center);
+			if (ProvidenceWorld.wrath && projectile.hostile)
 			{
 				for (int i = 0; i < 3; i++)
 					Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, projectile.ai[1], Main.rand.Next(0, 3));
@@ -62,7 +72,7 @@ namespace ProvidenceMod.Projectiles.Boss
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(SoundID.Item27);
+			Main.PlaySound(SoundID.Item27, projectile.Center);
 			for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
 			{
 				Vector2 speed = new Vector2(0f, 4f).RotatedBy(i);

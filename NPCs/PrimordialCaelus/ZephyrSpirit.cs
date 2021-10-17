@@ -32,8 +32,8 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			npc.lifeMax = 100;
 			npc.townNPC = false;
 			npc.scale = 1f;
-			npc.HitSound = SoundID.NPCHit36;
-			npc.DeathSound = SoundID.NPCDeath39;
+			npc.HitSound = SoundID.DD2_LightningBugHurt;
+			npc.DeathSound = SoundID.DD2_LightningBugDeath;
 			npc.chaseable = true;
 			npc.width = 94;
 			npc.height = 64;

@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 
-namespace ProvidenceMod.Items.Weapons.Cleric
+namespace ProvidenceMod.Items.Weapons.Melee
 {
-	public class Stormfront : ClericItem
+	public class StormfrontMelee : ModItem
 	{
 		public Projectile proj1;
 		public Projectile proj2;
@@ -21,11 +21,11 @@ namespace ProvidenceMod.Items.Weapons.Cleric
 			item.useAnimation = 15;
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.damage = 50;
+			item.melee = true;
 			item.autoReuse = true;
 			item.width = 190;
 			item.height = 124;
 			item.material = true;
-			item.Providence().cleric = true;
 			item.rare = (int)ProvidenceRarity.Orange;
 			item.shoot = ProjectileType<StormfrontTempest>();
 			item.noUseGraphic = true;

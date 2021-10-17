@@ -26,19 +26,19 @@ namespace ProvidenceMod.Projectiles.Magic
 			projectile.damage = 8;
 			projectile.tileCollide = true;
 			projectile.ignoreWater = true;
-			projectile.extraUpdates = 101;
-			projectile.Providence().element = (int)ElementID.Air; // Typeless
+			projectile.extraUpdates = 100;
+			projectile.Providence().element = (int)ElementID.Air;
 		}
 		public override void AI()
 		{
 			Lighting.AddLight(projectile.Center, new Vector3(98, 99, 129).ColorRGBIntToFloat());
-      _ = Dust.NewDust(projectile.Center, 6, 6, DustID.Ice);
+      Dust.NewDust(projectile.Center, 6, 6, DustID.Ice);
 		}
 		public override void Kill(int timeLeft)
 		{
 			for (float rot = 0f; rot < 360f; rot += 15f)
 			{
-				_ = Dust.NewDustPerfect(new Vector2(30f, 0f).RotatedBy(rot.InRadians()), DustID.Ice, new Vector2(4f, 0f).RotatedBy(rot.InRadians()), 255, Color.Red);
+				Dust.NewDustPerfect(new Vector2(30f, 0f).RotatedBy(rot.InRadians()), DustID.Ice, new Vector2(4f, 0f).RotatedBy(rot.InRadians()), 255, Color.Red);
 			}
 		}
 	}

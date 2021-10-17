@@ -252,6 +252,8 @@ namespace ProvidenceMod
 		}
 		public virtual void Main_DrawHealthBar(On.Terraria.Main.orig_DrawHealthBar orig, Main self, float X, float Y, int Health, int MaxHealth, float alpha, float scale)
 		{
+			if (!ProvidenceMod.Instance.texturePack)
+				orig(self, X, Y, Health, MaxHealth, alpha, scale);
 		}
 	}
 }

@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ProvidenceMod.Items.Materials;
-using ProvidenceMod.Projectiles.Boss;
+using ProvidenceMod.Projectiles.Magic;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 
@@ -20,8 +20,8 @@ namespace ProvidenceMod.Items.Weapons.Magic
 
     public override void SetDefaults()
     {
-      item.width = 64;
-      item.height = 34;
+      item.width = 52;
+      item.height = 52;
       item.value = Item.buyPrice(0, 10, 0, 0);
       item.rare = 12;
       item.useStyle = ItemUseStyleID.HoldingOut;
@@ -33,17 +33,15 @@ namespace ProvidenceMod.Items.Weapons.Magic
       item.autoReuse = true;
       item.rare = ItemRarityID.Orange;
       item.UseSound = SoundID.Item45;
-      item.shoot = ProjectileType<ZephyrSpirit>();
-      item.shootSpeed = 6f;
+			item.shoot = ProjectileType<CumulusCloud>();
+			item.shootSpeed = 0f;
     }
-    public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool AltFunctionUse(Player player) => true;
+		public override bool CanUseItem(Player player) => player.altFunctionUse != 2;
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
     {
-      for (float index = -10; index < 10; index += 10)
-      {
-        Vector2 velocity = new Vector2(speedX, speedY).RotatedBy(index.InRadians());
-        Projectile.NewProjectile(position, velocity, ProjectileType<ZephyrSpirit>(), 25, 0.0f, player.whoAmI);
-      }
-      return false;
+			position = Main.MouseWorld;
+      return true;
     }
 
     public override void AddRecipes()

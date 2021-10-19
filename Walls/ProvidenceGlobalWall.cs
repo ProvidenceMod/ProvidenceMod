@@ -10,11 +10,6 @@ namespace ProvidenceMod
     public bool texturePackEnabled;
     public override void PostDraw(int i, int j, int type, SpriteBatch spriteBatch)
     {
-      if (!texturePackEnabled)
-      {
-        WallManager.InitializeWallGlowMasks();
-        texturePackEnabled = true;
-      }
     }
   }
 }

@@ -6,7 +6,10 @@ using static ProvidenceMod.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using ProvidenceMod.TexturePack;
 using Terraria.Audio;
+using ReLogic.Graphics;
 using System.Collections.Generic;
+using ProvidenceMod.NPCs.PrimordialCaelus;
+using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod
 {
@@ -14,76 +17,129 @@ namespace ProvidenceMod
 	{
 		public override bool InstancePerEntity => true;
 
-		// Status effect bools
+		public int[] oldLife = new int[10];
+		public float[] extraAI = new float[4];
+		public Vector2[] oldCen = new Vector2[10];
+
 		public bool spawnReset = true;
-		public bool texturePackEnabled;
 		public bool maxSpawnsTempSet;
 		public int maxSpawnsTemp;
-		public int buffCount;
-		public override void ResetEffects(NPC npc)
+
+		// Debuffs
+		public bool pressureSpike;
+
+		// Health Bars
+		public int comboDMG;
+		public int comboBarCooldown = 75;
+		public int comboDMGCooldown = 75;
+		public int comboDMGCounter = 120;
+		public Rectangle comboRect = new Rectangle(0, 0, 36, 8);
+		public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
 		{
-		}
-		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
-		{
-			//If any subworld from our mod is loaded, disable spawns
-			if (SubworldManager.AnyActive(mod) ?? false)
+			if (ProvidenceMod.Instance.texturePack)
 			{
-				pool.Clear();
+				npc.DrawHealthBarCustom(ref comboDMG, ref comboBarCooldown, ref comboDMGCooldown, ref comboDMGCounter, ref scale, ref position, ref comboRect);
+				return true;
+			}
+			return null;
+		}
+		public override void UpdateLifeRegen(NPC npc, ref int damage)
+		{
+			if(pressureSpike)
+			{
+				if(npc.lifeRegen > 0)
+				{
+					npc.lifeRegen = 0;
+				}
+				npc.lifeRegen -= 5;
 			}
 		}
-
+		//public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+		//{
+		////	Armor system possible? Certainly!
+		//	if (armor <= 0)
+		//		return true;
+		//	else
+		// {
+		//		armor -= damage;
+		// }
+		//		return false;
+		//}
 		public override void AI(NPC npc)
 		{
+			if (oldLife[9] == 0)
+			{
+				for (int i = 0; i < oldLife.Length; i++)
+					oldLife[i] = npc.life;
+			}
 		}
 		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
 		{
-			if (!texturePackEnabled)
+			// Initializations
+			byte buffCount = 0;
+			byte buffArrCounter = 0;
+			byte debuffArrCounter = 0;
+			Texture2D[] buffs = new Texture2D[10], debuffs = new Texture2D[10];
+			// Run through NPC's buff list and mark down what they have
+			foreach (int buffID in npc.buffType)
 			{
-				NPCManager.InitializeNPCTextures();
-				texturePackEnabled = true;
+				if (buffID != 0)
+				{
+					Texture2D buffTexture = Main.buffTexture[buffID];
+					buffCount++;
+					if (Main.debuff[buffID])
+					{
+						debuffs[debuffArrCounter] = buffTexture;
+						debuffArrCounter++;
+					}
+					else
+					{
+						buffs[buffArrCounter] = buffTexture;
+						buffArrCounter++;
+					}
+				}
 			}
-			Player player = LocalPlayer();
-			Vector2 playerPos = player.position;
-			Vector2 npcPos = npc.position;
-			Vector2 npcCen = npc.Center;
-			Vector2 drawPos = npc.Center - Main.screenPosition;
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
-			Main.spriteBatch.Draw(ModContent.GetTexture("ProvidenceMod/Items/Weapons/Melee/CirrusEdge"), drawPos - Main.screenPosition, new Rectangle(22, 22, 44, 44), Color.White, 0f, npcCen - Main.screenPosition, 1f, SpriteEffects.None, 0f);
+			int offset = 0;
+			int counter = 0;
+			// Draw the buff textures, buffs first, then debuffs
+			foreach (Texture2D buffT in buffs)
+			{
+				if (buffT != null)
+				{
+					counter++;
+					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(counter < 6 ? ((npc.width - 80f) / 2f) + offset + 8f : ((npc.width - 80f) / 2f) + (offset - 80f) + 8f, counter < 6 ? npc.height + 40f : npc.height + 56f), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
+					offset += 16;
+				}
+			}
+			foreach (Texture2D buffT in debuffs)
+			{
+				if (buffT != null)
+				{
+					counter++;
+					spriteBatch.Draw(buffT, npc.position - Main.screenPosition + new Vector2(counter < 6 ? ((npc.width - 80f) / 2f) + offset + 8f : ((npc.width - 80f) / 2f) + (offset - 80f) + 8f, counter < 6 ? npc.height + 40f : npc.height + 56f), new Rectangle(0, 0, 32, 32), Color.White, 0, new Vector2(16, 16), 0.5f, SpriteEffects.None, 0f);
+					offset += 16;
+				}
+			}
 		}
-
-		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+		public string GetBossTitle(string name)
 		{
+			switch (name)
+			{
+				case "Primordial Caelus":
+					return "Air Elemental";
+			}
+			return "";
 		}
-
-		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
+			// If any subworld from our mod is loaded, disable spawns
+			if (SubworldManager.AnyActive<ProvidenceMod>())
+				pool.Clear();
 		}
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
-			ProvidencePlayer proPlayer = player.Providence();
-			if (proPlayer.intimidated)
-			{
-				if (!maxSpawnsTempSet)
-				{
-					maxSpawnsTemp = maxSpawns;
-					maxSpawnsTempSet = true;
-				}
-				spawnRate = 2147483647;
+			if (player.Providence().intimidated)
 				maxSpawns = 0;
-				spawnReset = false;
-			}
-			if (!proPlayer.intimidated && !spawnReset)
-			{
-				if (maxSpawnsTempSet)
-				{
-					maxSpawns = maxSpawnsTemp;
-					maxSpawnsTemp = 0;
-					maxSpawnsTempSet = false;
-				}
-				spawnRate = 0;
-				spawnReset = true;
-			}
 		}
 		public override void SetDefaults(NPC npc)
 		{
@@ -414,7 +470,7 @@ namespace ProvidenceMod
 			//	case NPCID.DesertGhoulHallow:
 			//		npc.Providence().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 0.25f, 1.5f };
 			//		break;
-			//	case NPCID.ChaosElemental:
+			//	case NPCID.ShadowElemental:
 			//	case NPCID.EnchantedSword:
 			//		npc.Providence().resists = new float[8] { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f };
 			//		break;

@@ -16,16 +16,16 @@ namespace ProvidenceMod.UI
     private bool set;
     private bool arraySet;
     public float oldScale = Main.inventoryScale;
-    private int orderCooldown = 30;
-    private int chaosCooldown = 30;
-    // private float oldOrder;
-    // private float oldChaos;
+    private int radiantCooldown = 30;
+    private int shadowCooldown = 30;
+    // private float oldRadiant;
+    // private float oldShadow;
     private ParityElement area;
     private UIImage ParityFrame;
-    private UIImageFramed OrderUse, ChaosUse, OrderBar, ChaosBar;
-    private Rectangle OrderUseRect, ChaosUseRect, OrderBarRect, ChaosBarRect;
-    private readonly float[] ChaosArray = new float[3] { 0, 0, 0 };
-    private readonly float[] OrderArray = new float[3] { 0, 0, 0 };
+    private UIImageFramed RadiantUse, ShadowUse, RadiantBar, ShadowBar;
+    private Rectangle RadiantUseRect, ShadowUseRect, RadiantBarRect, ShadowBarRect;
+    private readonly float[] ShadowArray = new float[3] { 0, 0, 0 };
+    private readonly float[] RadiantArray = new float[3] { 0, 0, 0 };
     public override void OnInitialize()
     {
       area = new ParityElement();
@@ -38,39 +38,39 @@ namespace ProvidenceMod.UI
       ParityFrame.Width.Set(220, 0f);
       ParityFrame.Height.Set(38, 0f);
 
-      OrderUseRect = new Rectangle(0, 0, 0, 6);
-      OrderUse = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIOrderUse"), OrderUseRect);
-      OrderUse.Top.Set(16, 0f);
-      OrderUse.Left.Set(32, 0f);
-      OrderUse.Width.Set(70, 0f);
-      OrderUse.Height.Set(6, 0f);
+      RadiantUseRect = new Rectangle(0, 0, 0, 6);
+      RadiantUse = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIRadiantUse"), RadiantUseRect);
+      RadiantUse.Top.Set(16, 0f);
+      RadiantUse.Left.Set(32, 0f);
+      RadiantUse.Width.Set(70, 0f);
+      RadiantUse.Height.Set(6, 0f);
 
-      OrderBarRect = new Rectangle(0, 0, 0, 6);
-      OrderBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIOrderBar"), OrderBarRect);
-      OrderBar.Top.Set(16, 0f);
-      OrderBar.Left.Set(32, 0f);
-      OrderBar.Width.Set(70, 0f);
-      OrderBar.Height.Set(6, 0f);
+      RadiantBarRect = new Rectangle(0, 0, 0, 6);
+      RadiantBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIRadiantBar"), RadiantBarRect);
+      RadiantBar.Top.Set(16, 0f);
+      RadiantBar.Left.Set(32, 0f);
+      RadiantBar.Width.Set(70, 0f);
+      RadiantBar.Height.Set(6, 0f);
 
-      ChaosUseRect = new Rectangle(70, 0, 70, 6);
-      ChaosUse = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIChaosUse"), ChaosUseRect);
-      ChaosUse.Top.Set(16, 0f);
-      ChaosUse.Left.Set(120, 0f);
-      ChaosUse.Width.Set(70, 0f);
-      ChaosUse.Height.Set(6, 0f);
+      ShadowUseRect = new Rectangle(70, 0, 70, 6);
+      ShadowUse = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIShadowUse"), ShadowUseRect);
+      ShadowUse.Top.Set(16, 0f);
+      ShadowUse.Left.Set(120, 0f);
+      ShadowUse.Width.Set(70, 0f);
+      ShadowUse.Height.Set(6, 0f);
 
-      ChaosBarRect = new Rectangle(70, 0, 70, 6);
-      ChaosBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIChaosBar"), ChaosBarRect);
-      ChaosBar.Top.Set(16, 0f);
-      ChaosBar.Left.Set(120, 0f);
-      ChaosBar.Width.Set(70, 0f);
-      ChaosBar.Height.Set(6, 0f);
+      ShadowBarRect = new Rectangle(70, 0, 70, 6);
+      ShadowBar = new UIImageFramed(GetTexture("ProvidenceMod/UI/ParityUIShadowBar"), ShadowBarRect);
+      ShadowBar.Top.Set(16, 0f);
+      ShadowBar.Left.Set(120, 0f);
+      ShadowBar.Width.Set(70, 0f);
+      ShadowBar.Height.Set(6, 0f);
 
       area.Append(ParityFrame);
-      area.Append(OrderUse);
-      area.Append(OrderBar);
-      area.Append(ChaosUse);
-      area.Append(ChaosBar);
+      area.Append(RadiantUse);
+      area.Append(RadiantBar);
+      area.Append(ShadowUse);
+      area.Append(ShadowBar);
       Append(area);
     }
 
@@ -83,105 +83,105 @@ namespace ProvidenceMod.UI
       visible = proPlayer.cleric;
       if (visible)
       {
-        float orderQuotient = LocalPlayer().Providence().orderStacks / LocalPlayer().Providence().maxParityStacks;
-        float chaosQuotient = LocalPlayer().Providence().chaosStacks / LocalPlayer().Providence().maxParityStacks;
-        orderQuotient = Utils.Clamp(orderQuotient, 0f, 1f);
-        chaosQuotient = Utils.Clamp(chaosQuotient, 0f, 1f);
-        OrderBarRect.Width = (int)(68 * orderQuotient);
-        ChaosBarRect.X = (int)(68 * chaosQuotient);
-        ChaosBarRect.Width = (int)(68 * chaosQuotient);
-        ChaosBar.Left.Pixels = 120 + (70 - ChaosBarRect.Width);
-        OrderBar.SetFrame(OrderBarRect);
-        ChaosBar.SetFrame(ChaosBarRect);
+        float radiantQuotient = LocalPlayer().Providence().radiantStacks / LocalPlayer().Providence().parityMaxStacks;
+        float shadowQuotient = LocalPlayer().Providence().shadowStacks / LocalPlayer().Providence().parityMaxStacks;
+        radiantQuotient = Utils.Clamp(radiantQuotient, 0f, 1f);
+        shadowQuotient = Utils.Clamp(shadowQuotient, 0f, 1f);
+        RadiantBarRect.Width = (int)(68 * radiantQuotient);
+        ShadowBarRect.X = (int)(68 * shadowQuotient);
+        ShadowBarRect.Width = (int)(68 * shadowQuotient);
+        ShadowBar.Left.Pixels = 120 + (70 - ShadowBarRect.Width);
+        RadiantBar.SetFrame(RadiantBarRect);
+        ShadowBar.SetFrame(ShadowBarRect);
 
         if (!set)
         {
-          OrderUseRect.Width = 0;
-          ChaosUseRect.Width = 0;
-          OrderUse.SetFrame(OrderBarRect);
-          ChaosUse.SetFrame(ChaosBarRect);
+          RadiantUseRect.Width = 0;
+          ShadowUseRect.Width = 0;
+          RadiantUse.SetFrame(RadiantBarRect);
+          ShadowUse.SetFrame(ShadowBarRect);
           set = true;
         }
 
         if (!arraySet)
         {
-          ChaosArray[2] = ChaosArray[1];
-          ChaosArray[1] = ChaosArray[0];
-          ChaosArray[0] = proPlayer.chaosStacks;
-          OrderArray[2] = OrderArray[1];
-          OrderArray[1] = OrderArray[0];
-          OrderArray[0] = proPlayer.orderStacks;
+          ShadowArray[2] = ShadowArray[1];
+          ShadowArray[1] = ShadowArray[0];
+          ShadowArray[0] = proPlayer.shadowStacks;
+          RadiantArray[2] = RadiantArray[1];
+          RadiantArray[1] = RadiantArray[0];
+          RadiantArray[0] = proPlayer.radiantStacks;
           arraySet = true;
         }
-        // Chaos
-        if (proPlayer.chaosStacks < ChaosArray[0])
+        // Shadow
+        if (proPlayer.shadowStacks < ShadowArray[0])
         {
-          ChaosArray[2] = ChaosArray[1];
-          ChaosArray[1] = ChaosArray[0];
-          ChaosArray[0] = proPlayer.chaosStacks;
-          // oldChaos = proPlayer.chaosStacks;
-          chaosCooldown = 30;
+          ShadowArray[2] = ShadowArray[1];
+          ShadowArray[1] = ShadowArray[0];
+          ShadowArray[0] = proPlayer.shadowStacks;
+          // oldShadow = proPlayer.shadowStacks;
+          shadowCooldown = 30;
         }
-        if (chaosCooldown > 0)
+        if (shadowCooldown > 0)
         {
-          chaosCooldown--;
+          shadowCooldown--;
         }
-        if (chaosCooldown == 0 && ChaosUseRect.Width != ChaosBarRect.Width)
+        if (shadowCooldown == 0 && ShadowUseRect.Width != ShadowBarRect.Width)
         {
-          if ((ChaosUseRect.Width - ChaosBarRect.Width) * 0.05f < 1)
+          if ((ShadowUseRect.Width - ShadowBarRect.Width) * 0.05f < 1)
           {
-            ChaosUseRect.Width--;
-            ChaosUseRect.X--;
-            ChaosUse.Left.Pixels++;
+            ShadowUseRect.Width--;
+						ShadowUseRect.X++;
+						ShadowUse.Left.Pixels++;
           }
           else
           {
-            ChaosUseRect.Width -= (int)((ChaosUseRect.Width - ChaosBarRect.Width) * 0.05f);
-            ChaosUseRect.X -= (int)((ChaosUseRect.X - ChaosBarRect.X) * 0.05f);
-            ChaosUse.Left.Pixels += (int)((ChaosUse.Left.Pixels - 120 - (ChaosUse.Left.Pixels - 120)) * 0.05f);
+						ShadowUseRect.Width -= (int)((ShadowUseRect.Width - ShadowBarRect.Width) * 0.05f);
+						ShadowUseRect.X += (int)((ShadowUseRect.X - ShadowBarRect.X) * 0.05f);
+            ShadowUse.Left.Pixels += (int)((ShadowUse.Left.Pixels - ShadowUse.Left.Pixels) * 0.05f);
           }
-          ChaosUse.SetFrame(ChaosUseRect);
+          ShadowUse.SetFrame(ShadowUseRect);
         }
-        if (ChaosBarRect.X < ChaosUseRect.X)
+        if (ShadowBarRect.X < ShadowUseRect.X)
         {
-          ChaosUseRect.X = ChaosBarRect.X;
-          ChaosUse.SetFrame(ChaosUseRect);
+          ShadowUseRect.X = ShadowBarRect.X;
+          ShadowUse.SetFrame(ShadowUseRect);
         }
-        // Order
-        if (proPlayer.orderStacks < OrderArray[0])
+        // Radiant
+        if (proPlayer.radiantStacks < RadiantArray[0])
         {
-          OrderArray[2] = OrderArray[1];
-          OrderArray[1] = OrderArray[0];
-          OrderArray[0] = proPlayer.orderStacks;
-          if (OrderArray[1] < OrderArray[0])
+          RadiantArray[2] = RadiantArray[1];
+          RadiantArray[1] = RadiantArray[0];
+          RadiantArray[0] = proPlayer.radiantStacks;
+          if (RadiantArray[1] < RadiantArray[0])
           {
-            orderCooldown = 120;
+            radiantCooldown = 120;
           }
         }
-        if (orderCooldown > 0)
+        if (radiantCooldown > 0)
         {
-          orderCooldown--;
+          radiantCooldown--;
         }
-        if (orderCooldown == 0 && OrderUseRect.Width != OrderBarRect.Width)
+        if (radiantCooldown == 0 && RadiantUseRect.Width != RadiantBarRect.Width)
         {
-          if ((OrderUseRect.Width - OrderBarRect.Width) * 0.05f < 1)
+          if ((RadiantUseRect.Width - RadiantBarRect.Width) * 0.05f < 1)
           {
-            OrderUseRect.Width--;
+            RadiantUseRect.Width--;
           }
           else
           {
-            OrderUseRect.Width -= (int)((OrderUseRect.Width - OrderBarRect.Width) * 0.05f);
+            RadiantUseRect.Width -= (int)((RadiantUseRect.Width - RadiantBarRect.Width) * 0.05f);
           }
-          OrderUse.SetFrame(OrderUseRect);
+          RadiantUse.SetFrame(RadiantUseRect);
         }
-        if (OrderBarRect.Width > OrderUseRect.Width)
+        if (RadiantBarRect.Width > RadiantUseRect.Width)
         {
-          OrderUseRect.Width = OrderBarRect.Width;
-          OrderUse.SetFrame(OrderUseRect);
+          RadiantUseRect.Width = RadiantBarRect.Width;
+          RadiantUse.SetFrame(RadiantUseRect);
         }
 
-        // if (prov.ChaosAmp) bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ChaosUIFrameAmp"));
-        // else bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ChaosUIFrame"));
+        // if (prov.ShadowAmp) bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ShadowUIFrameAmp"));
+        // else bLFrame.SetImage(GetTexture("ProvidenceMod/UI/ShadowUIFrame"));
       }
     }
   }

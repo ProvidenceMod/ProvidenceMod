@@ -20,9 +20,9 @@ namespace ProvidenceMod.TexturePack
       switch (item.type)
       {
         case ItemID.MagmaStone:
-          item.Providence().glowmask = true;
-          item.Providence().glowmaskTexture = GetTexture("ProvidenceMod/TexturePack/Items/Accessories/MagmaStoneGlow");
-          item.Providence().overrideGlowmaskPositionX = -2;
+          item.Providence().glowMask = true;
+          //item.Providence().glowMaskTexture = GetTexture("ProvidenceMod/TexturePack/Items/Accessories/MagmaStoneGlow");
+          //item.Providence().overrideGlowMaskPositionX = -2;
           break;
       }
     }

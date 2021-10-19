@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.TexturePack
@@ -10,7 +11,7 @@ namespace ProvidenceMod.TexturePack
     public static Texture2D[] originalTextures = new Texture2D[19] { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null};
     public static void InitializeUITextures()
     {
-      originalTextures = new Texture2D[19] { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null};
+      originalTextures = new Texture2D[21];
       originalTextures[0] = Main.inventoryBackTexture;
       originalTextures[1] = Main.inventoryBack2Texture;
       originalTextures[2] = Main.inventoryBack3Texture;
@@ -29,9 +30,12 @@ namespace ProvidenceMod.TexturePack
       originalTextures[15] = Main.inventoryBack16Texture;
       originalTextures[16] = Main.heartTexture;
       originalTextures[17] = Main.heart2Texture;
-      // originalTextures[17] = Main.heart2Texture;
-      originalTextures[18] = Main.manaTexture;
-      Main.inventoryBackTexture = GetTexture("ProvidenceMod/TexturePack/UI/InventoryPanel"); // Normal Panel
+			originalTextures[18] = Main.manaTexture;
+			originalTextures[19] = Main.hbTexture1;
+			originalTextures[20] = Main.hbTexture2;
+			Main.hbTexture1 = GetTexture("ProvidenceMod/TexturePack/UI/HB1");
+			Main.hbTexture2 = GetTexture("ProvidenceMod/TexturePack/UI/HB2");
+			Main.inventoryBackTexture = GetTexture("ProvidenceMod/TexturePack/UI/InventoryPanel"); // Normal Panel
       Main.inventoryBack2Texture = GetTexture("ProvidenceMod/TexturePack/UI/ChestPanel"); // Piggy Bank
       Main.inventoryBack3Texture = GetTexture("ProvidenceMod/TexturePack/UI/AccessoryPanel"); // Accessory and Armor Panels
       Main.inventoryBack4Texture = GetTexture("ProvidenceMod/TexturePack/UI/CraftingPanel"); // Crafting Panel
@@ -51,40 +55,6 @@ namespace ProvidenceMod.TexturePack
       Main.heart2Texture = GetTexture("ProvidenceMod/TexturePack/UI/HeartGold"); // Life Fruit Heart Texture
       Main.manaTexture = GetTexture("ProvidenceMod/TexturePack/UI/Mana");
     }
-
-    // public static void ChangeFrameToElement(this Item item)
-    // {
-    //   switch (item.Providence().element)
-    //   {
-    //     case -1:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/HeldItemPanel");
-    //       break;
-    //     case 0:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //     case 1:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //     case 2:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //     case 3:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //     case 4:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //     case 5:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //     case 6:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //     case 7:
-    //       Main.inventoryBack14Texture = GetTexture("ProvidenceMod/TexturePack/UI/TrashPanel");
-    //       break;
-    //   }
-    // }
 
     public static void Unload()
     {
@@ -108,9 +78,10 @@ namespace ProvidenceMod.TexturePack
         Main.inventoryBack16Texture = originalTextures[15];
         Main.heartTexture = originalTextures[16];
         Main.heart2Texture = originalTextures[17];
-        // Main.inventoryBack16Texture = originalTextures[16];
         Main.manaTexture = originalTextures[18];
-      }
+				Main.hbTexture1 = originalTextures[19];
+				Main.hbTexture2 = originalTextures[20];
+			}
       originalTextures = null;
     }
   }

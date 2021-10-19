@@ -8,6 +8,7 @@ namespace ProvidenceMod.Items.Placeables.Ores
 		public override void SetStaticDefaults()
 		{
       DisplayName.SetDefault("Zephyr Ore");
+			Tooltip.SetDefault("Roughly hewn, lightweight air crystal");
 			ItemID.Sets.SortingPriorityMaterials[item.type] = 58;
 		}
 
@@ -21,9 +22,10 @@ namespace ProvidenceMod.Items.Placeables.Ores
 			item.maxStack = 999;
 			item.consumable = true;
 			item.createTile = ModContent.TileType<Tiles.Ores.ZephyrOre>();
-			item.width = 12;
-			item.height = 12;
+			item.width = 22;
+			item.height = 22;
 			item.value = 3000;
+			item.material = true;
       item.rare = ItemRarityID.Orange;
 		}
 	}

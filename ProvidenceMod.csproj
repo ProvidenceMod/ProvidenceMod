@@ -10,6 +10,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define &quot;$(DefineConstants)&quot; -unsafe $(AllowUnsafeBlocks)" />
@@ -33,20 +34,20 @@
   <ItemGroup>
     <Folder Include="Buffs\Cooldowns\" />
     <Folder Include="Buffs\StatBuffs\" />
-    <Folder Include="Items\Accessories\" />
     <Folder Include="Items\Potions\" />
     <Folder Include="Items\Tools\" />
-    <Folder Include="Items\Weapons\Cleric\" />
-    <Folder Include="Items\Weapons\Summon\" />
-    <Folder Include="Projectiles\Ability\" />
-    <Folder Include="Projectiles\Aura\" />
     <Folder Include="Projectiles\Environment\" />
     <Folder Include="Projectiles\Healing\" />
     <Folder Include="Projectiles\Magic\" />
     <Folder Include="Projectiles\Summon\" />
     <Folder Include="Sounds\Music\" />
     <Folder Include="Sounds\NPCHit\" />
-    <Folder Include="Tiles\EndlessSea\" />
+    <Folder Include="Tiles\Brinewastes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SubworldLibrary">
+      <HintPath>Subworld\SubworldLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe&quot; -build &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot;" />

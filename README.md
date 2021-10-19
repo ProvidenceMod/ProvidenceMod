@@ -1,16 +1,32 @@
 # Providence
 
-Providence is a saddening story about an unforgiving world, in which you will be forced to fight, and emerge victorious against all odds. An immersive, original story defines the world around you, and several thematic locations are spread throughout the world and its realms. Explore the orchestrated atmosphere of our world, combining elements and magical themes with technology, new game concepts, battle mechanics, new progression, new soundtracks, and our appealing spriting. Explore our subworlds, new and completely separate realms from the typical Terraria surroundings, extending the amount of new and unique areas to discover. Experience new dungeons, entire realms awaiting your attempts at delving into their depths for their most valuable treasures, and at killing their most hidden evils. Fight off new and unique bosses and experience the torment that is our bullet hell design, made even more challenging by our new difficulty modifiers. The world of Providence awaits your attempts at survival, and no matter how close you may come, there will always be another more difficult battle to fight.
+Providence is a remorseful story about an unforgiving world. A world in which you must fight and emerge victorious against all odds. An immersive and original tale permeates the world around you, with thematic locations spread throughout Terraria, the Universe, and its realms. Explore the mystical atmosphere of our world, introducing an elemental system, new mechanics, new progression, new soundtracks, and our handcrafted visuals. Explore our subworlds; completely separate realms from the typical Terraria surroundings, extending the number of unique areas to discover. Experience entire realms with hidden treasures and evils, awaiting your discovery. Fight off new and unique bosses and experience the challenge that is our bullet hell design, optionally made even more challenging by our difficulty modifiers. 
 
-An unforgiving world with an unforgiving story. An invigorating journey yet to be taken, a saddening story yet to be told, and such a cruel fate for those who would stand in the way of change. Do you think you're truly prepared for what comes next? The faint of heart are turned away, those without courage will find no respite. You will endure an unforgiving challenge.
+**Warriors**, wielders of the **Primordial Flame**, infused with its wrath and resilience.
 
-You will die.
+**Rangers**, wielders of the **Cosmos**, who use the stars to imbue their attacks with untold power.
+
+**Mages**, wielders of the **Prismatic Flare**, masters of all six elemental forces which they use to obliterate their foes.
+
+**Summoners**, wielders of **Astrum**, who infuse their servants with the power of the cosmos and call upon the aid of Astrid.
+
+**Clerics**, wielders of **Parity Reality**, who bend the universe to their will to alternate between heal and harm.
+
+**Wraiths**, wielders of **Quantum Flux**, who bend space-time to inflict serious harm upon their foes and effortlessly evade attacks.
+
+The world of Providence anticipates your attempts at survival, and despite how close you may come, there will always be another more unrelenting battle to fight.
+
+It is a cruel world with an unforgiving story wreathed in flame and looming shadow. Your invigorating journey awaits you. The saddening story of the world has yet to reveal itself. Such a cruel fate for those who would stand in the way of change. Are you truly prepared for what lies ahead? The faint of heart should turn away, for those who lack courage will find no respite here. You will endure an unforgiving challenge.
+
+You will suffer. You will die.
 
 ## Providence Mod
 
 This is the source code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
-A large-scale project planned to be an overhaul mod for Terraria. It delves deeper into the mechanics of Terraria while adding its own unique elements. We have several mechanics implemented right now as well as a new class called a Cleric, and we have big plans for future additions, the scale of which you've most likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
+A large-scale project planned to be an overhaul mod for Terraria. We have several mechanics planned for implementation, as well two new classes; Cleric, and Rogue, and we have big plans for future additions, the scale of which you've likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
+
+For many of us, myself included, this is our first project in CSharp. We've been learning the language over time and have grown very fond of it. We plan on seeing this project through, if not out of dedication, simply out of passion. We hope to influence others to learn with us as we take this project and its community to the next level.
 
 ### Added content:
 - One boss
@@ -18,20 +34,30 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 - One new set of items
 - One subworld (Incomplete)
 - A new class: Cleric
+- A new class: Wraith
 
 ### Planned Content:
 - Elemental System
-- Parry System
 - New Subworlds
 - New Biomes
 - New Ores
 - New Weapons
 - Lots and lots of bosses
-- Post Moonlord Content
+- Much Post-Moonlord Content
+- World Fluff ( To make it feel more alive )
+- Quests for existing NPCs
+- Elaborated NPC lore
+- A new class: Rogue
+- Class Gimmicks
+- New Achievements
+- Interactive and Passive Cutscenes
+- Interactive and Passive Lore Elaboration
 - And much more
 
 ### Discord Server:
-<img src="https://discordapp.com/api/guilds/757480831886426282/widget.png?style=banner3" alt="Discord Banner 3"/>
+<a href="https://discord.gg/bhCuppRdVF">
+   <img src="https://discordapp.com/api/guilds/757480831886426282/widget.png?style=banner3" alt="Discord Banner 3"/>
+</a>
 
 ## FAQ
 **Why is this mod Open Source?**
@@ -44,7 +70,7 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 
 > _Remember, you can't just copy code from these mods unless the license they are under specifically allows it. If there is no license, the owner reserves all ownership and copyright of the code, so you need to contact the owner and ask permission to utilize certain parts. Don't worry, most will be happy to allow you to use portions of their code, but you still need to ask._
 
-   _While we might allow most utilities to be copied, it is still important to ask us which code is safe to copy and which code is not. Remember, this is a mod that you use to LEARN, not copy and paste. If you learn the code you will never need to copy and paste from outside sources and we are more than willing to help you understand the code. There are bits of code, however, that we do list as "Free To Use", which means we are permitting you to use that code in your projects. That does not, however, pass off ownership of the code to you. So if someone asks about how it works or if you wrote it yourself, do not say "Yes", instead, link them to this repository, because the chances are that they will benefit from seeing the original if they are asking those questions. You are doing yourself, them, and us a favor!_
+   _While we might allow most utilities to be copied, it is still important to ask us which code is safe to copy and which code is not. Remember, this is a mod that you use to LEARN, not copy and paste. If you learn the code you will never need to copy and paste from outside sources and we are more than willing to help you understand the code. There are bits of code, however, that we do list as "Free To Use", which means we are permitting you to use that code in your projects. That does not, however, pass off ownership of the code to you. So if someone asks about how it works or if you wrote it yourself, link them to this repository, because the chances are that they will benefit from seeing the original if they are asking those questions. You are doing yourself, them, and us a favor!_
 
 **Where are the best places to contact the Developers?**
    
@@ -52,12 +78,13 @@ A large-scale project planned to be an overhaul mod for Terraria. It delves deep
 
 **How can I contribute?**
 
-   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters to work with them to ensure that your sprite fits the theme and quality standard. If you want to suggest music, we suggest contacting our team's music artists to ensure that your music fits the theme and quality standard. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team since writing lore will affect the theme of the mod, which will affect the three aforementioned forms of contribution._
+   _Any contributions are welcome. If you have ideas, the best place to send them to us is in our [Discord server](https://discord.gg/bhCuppRdVF). Sprites are always welcome, though it should be noted that you may benefit from contacting our team's spriters to work with them. If you want to suggest music, we suggest contacting our team's music artists to work with them. The best place to suggest code is by using GitHub issues, however, you should read our [Wiki page](https://github.com/ProvidenceMod/ProvidenceMod/wiki/Code) on code formatting before contributing code. Contributing lore is a bit trickier than the other three. This is where you might need to talk with our team since writing lore needs to be concise and sound with the rest of existing lore._
 
 ## Table of Contents
 - [Contributing](#contributing)
 - [Installation](#installation)
 - [Pull Request Process](#pull_request_process)
+- [Developers](#developers)
 - [Contributors](#contributors)
 - [Credits](#credits)
 - [Credits](#special_thanks)
@@ -76,34 +103,50 @@ Please note we have a [code of conduct](https://github.com/ProvidenceMod/Provide
 
 To install our mod, simply follow these steps:
 
-1. Copy the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/).
-2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) made by the tModLoader team.
+1. CLone the repo into your Mod Sources folder using your GitHub medium of choice. We like to use [GitHub Desktop](https://desktop.github.com/).
+2. You can now build the mod from the Mod Sources menu in tModLoader. If you have not properly set up your coding environment and do now have Mod SOurces, please visit this [comprehensive guide](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide) on the tModLoadker Wiki.
 
 <a name="pull_request_process"></a>
 ## Pull Request Process
 
 - Please follow the [pull request template](https://github.com/ProvidenceMod/ProvidenceMod/blob/master/PULL_REQUEST_TEMPLATE.md).
 - You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
-- Please follow proper formatting. This includes using two-space indentation, placing files in the correct folders, using Camel Case for variables, and Pascal Case for file names, folder names, and method names.
+
+<a name="developers"></a>
+## Developers
+<p float="left">
+   <a href="https://github.com/SnowyStarfall">
+      <img src="https://cdn.discordapp.com/avatars/402246856752627713/8f312f0775becd183469ffe45738e3ad.webp?size=128" width="100" title="SnowyStarfall" />
+   </a>
+   <a href="https://github.com/FenGoScrem">
+      <img src="https://cdn.discordapp.com/avatars/409768934196117504/0eb0087c6cd688bf456dd7ab0a608b01.webp?size=128" width="100" title="Faelink Angel" />
+   </a>
+   <a href="https://github.com/ZackFox0">
+      <img src="https://cdn.discordapp.com/avatars/249328472265195521/c434c794de40c9d38fcf0b7d46e54e0c.webp?size=128" width="100" title="ZackFox" />
+   </a>
+   <a href="https://github.com/LanceYosh">
+      <img src="https://cdn.discordapp.com/avatars/117819195432894466/df70de9ccd355d6db731d3fd67e01d79.webp?size=128" width="100" title="Lance, the Traveling Wizard" />
+   </a>
+   <a href="https://github.com/Lythane">
+      <img src="https://cdn.discordapp.com/avatars/246089579982094337/47ddcffa3cc074dd86098322f88df73c.webp?size=128" width="100" title="Lythane" />
+   </a>
+   <a href="https://github.com/DemonBoyDouble">
+      <img src="https://cdn.discordapp.com/avatars/515270807702732801/738009e56c03a19efcc2c47677336574.webp?size=128" width="100" title="Demon Boy Keith" />
+   </a>
+    <a>
+       <img src="https://cdn.discordapp.com/avatars/823804807172718613/9149e8f02db45e27f458d4e2e604ba58.webp?size=128" width="100" title="Makeeto" />
+   </a>
+   <a>
+      <img src="https://cdn.discordapp.com/avatars/299499464182464512/7b7c95aef7355e6e6bdbd319a326823c.webp?size=128" width="100" title="Derper WotB Leopard 1" />
+   </a>
+</p>
 
 <a name="contributors"></a>
 ## Contributors
 
 <p float="left">
-   <a href="https://github.com/FenGoScrem">
-      <img src="https://avatars2.githubusercontent.com/u/65053314?s=400&u=4abe70a32a609c0ed7cb2ebc853c13c42b25f341&v=4" width="100" />
-   </a>
-   <a href="https://github.com/LanceYosh">
-      <img src="https://avatars1.githubusercontent.com/u/73804554?s=400&u=6502e02baf9bc5a88287780ebaa2e87c8ff85c69&v=4" width="100" />
-   </a>
-   <a href="https://github.com/SnowyStarfall">
-      <img src="https://avatars3.githubusercontent.com/u/65053311?s=460&u=3195b0a8166eb3deb6fee9b7e21567ed0b50fc40&v=4" width="100" />
-   </a>
-   <a href="https://github.com/ZackFox0">
-      <img src="https://avatars1.githubusercontent.com/u/65053215?s=400&v=4" width="100" />
-   </a>
    <a href="https://github.com/FloofLeo">
-      <img src="https://avatars.githubusercontent.com/u/65053413?s=460&v=4" width="100" />
+      <img src="https://avatars.githubusercontent.com/u/65053413?s=460&v=4" width="100" title="FloofLeo" />
    </a>
 </p>
 
@@ -115,7 +158,7 @@ To install our mod, simply follow these steps:
 
 <a name="special_thanks"></a>
 ## Special Thanks
-_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Daken000, GildedLily, AmyTheRogue, Keithixix197, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
+_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Keithixix197, Makeeto, Daken000, GildedLily, AmyTheRogue, FloofLeo, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
 
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct

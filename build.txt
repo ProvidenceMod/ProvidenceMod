@@ -1,10 +1,11 @@
 author = SnowyStarfall and the ProvidenceMod Dev Team
-version = 0.2.5.19
+version = 0.1.8.000
 displayName = ProvidenceMod
-homepage = https://github.com/Providence-Dev-Team/ProvidenceMod
+homepage = https://github.com/ProvidenceMod/ProvidenceMod
 hideCode = true
 hideResources = true
 includeSource = false
-weakReferences = SubworldLibrary@1.1.0.3
-buildIgnore = *.csproj, *.user, *.md, obj\*, bin\*, .vs\*, .vscode\*, .git\*, .github\*, SubworldLibrary\*, Developer\Sprites\*, Developer\Accessories\*, Developer\Buffs\*, Developer\Materials\*, Developer\Projectiles\*, Developer\UI\*, Developer\Weapons\*,
+weakReferences =
+modReferences = SubworldLibrary
+buildIgnore = *.csproj, *.user, *.md, obj\*, bin\*, .vs\*, .vscode\*, .git\*, .github\*, SubworldLibrary\*, Developer\*, *.ymlm *.editorconfig, Properties\*, *.gitignore, Fonts\FontCompile\*, Effects\EffectCompile\*
 includePDB = true

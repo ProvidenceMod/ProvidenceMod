@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModNet;
 
 namespace ProvidenceMod.Subworld
 {
@@ -27,34 +28,9 @@ namespace ProvidenceMod.Subworld
 		public override bool UseItem(Player player)
 		{
 			//Enter should be called on exactly one side, which here is either the singleplayer player, or the server
-			if (Main.netMode != NetmodeID.MultiplayerClient)
+			if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().Item1)
 			{
-				bool result = SubworldManager.Enter(SubworldManager.mySubworldID) ?? false;
-
-				if (!result)
-				{
-					//If some issue occured, inform why (can't know exactly obviously, might need to check logs)
-					string message;
-					if (!SubworldManager.Loaded)
-					{
-						message = "SubworldLibrary Mod is required to be enabled for this item to work!";
-					}
-					else
-					{
-						message = $"Unable to enter {SubworldManager.mySubworldID}!";
-					}
-
-					if (Main.netMode == NetmodeID.Server)
-					{
-						NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(message), Color.Orange);
-					}
-					else
-					{
-						Main.NewText(message, Color.Orange);
-					}
-				}
-
-				return result;
+				SubworldManager.Enter<BrinewastesSubworld>(!ProvidenceMod.Instance.subworldVote);
 			}
 			return true;
 		}

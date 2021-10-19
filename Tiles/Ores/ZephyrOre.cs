@@ -19,7 +19,7 @@ namespace ProvidenceMod.Tiles.Ores
 			Main.tileBlockLight[Type] = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Zephyr Ore");
-			AddMapEntry(new Color(152, 255, 241), name);
+			AddMapEntry(new Color(174, 197, 231), name);
 
 			dustType = DustID.Platinum;
 			drop = ModContent.ItemType<Items.Placeables.Ores.ZephyrOre>();

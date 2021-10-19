@@ -29,7 +29,8 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			item.shootSpeed = 16f;
 			item.knockBack = 2.5f;
 			item.damage = 69;
-			item.rare = ItemRarityID.White;
+			item.rare = ItemRarityID.Purple;
+			item.Providence().customRarity = ProvidenceRarity.Developer;
 
 			item.melee = true;
 			item.channel = true;
@@ -38,7 +39,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 
 			item.UseSound = SoundID.Item1;
 			item.value = Item.sellPrice(silver: 1);
-			item.shoot = ModContent.ProjectileType<Projectiles.Melee.FuzzyDice>();
+			item.shoot = ProjectileType<FuzzyDice>();
 		}
 
 		// Make sure that your item can even receive these prefixes (check the vanilla wiki on prefixes)

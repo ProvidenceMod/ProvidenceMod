@@ -1,60 +1,79 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
 namespace ProvidenceMod.UI
 {
-
 	internal class BossHealthElement : UIElement
 	{
-		//
-		//
-		// This is the quotient, or, the value from 0.0f to 1.0f that we use to determine how much of the health bar to render
+		public int comboDMG;
 		public float quotient;
 		public float percentage;
+		public float opacity;
+		public bool comboVisible;
+
 		public NPC boss;
+
+		public Vector2 comboPos;
+
+		public Rectangle healthRect = new Rectangle(0, 0, 924, 6);
+		public Rectangle comboRect = new Rectangle(0, 0, 924, 6);
+
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			percentage = quotient * 100f;
-			if (percentage > 0 && boss != null && boss.life > 0)
+			if (percentage > 0 && boss?.active == true)
 			{
-				Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.providenceFont ?? Main.fontItemStack, PercentageFormatter(percentage), Left.Pixels + 500, Top.Pixels - 30, new Color(104, 237, 195), new Color(55, 62, 106), Vector2.Zero, 0.5f);
-				//Utils.DrawBorderStringFourWay(spriteBatch, ProvidenceMod.providenceFont, $"11111111", Left.Pixels, Top.Pixels + 40, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
-				spriteBatch.Draw(GetTexture("ProvidenceMod/UI/BossHealthUIAccent"), new Vector2(Left.Pixels + 12, Top.Pixels + 14), new Rectangle(0, 0, 654, 2), new Color(255, 255, 255, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+				if (opacity < 1f)
+				{
+					opacity += 1f / 60f;
+					if (opacity > 1f)
+						opacity = 1f;
+				}
 			}
-		}
-		public string PercentageFormatter(float percentage)
-		{
-			string percentageString;
-			if(percentage == 100f)
+			else if (opacity > 0f)
 			{
-				return percentageString = "100.0%";
+				opacity -= 1f / 60f;
+				if (opacity < 0f)
+					opacity = 0f;
 			}
-			else if(percentage.Round(1) < 100f && percentage.Round(1) > 10f && percentage.Round(1) % 1 != 0)
+			SpriteBatch spriteBatch1 = new SpriteBatch(Main.graphics.GraphicsDevice);
+
+			spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+
+			spriteBatch1.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/BossShadowF"), new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
+
+			string text = percentage.ToString("N1") + "%";
+
+			Vector2 vPercent = boss != null ? ProvidenceMod.bossHealthFont.MeasureString(text) : default;
+			Vector2 vTitle = boss != null ? ProvidenceMod.bossHealthFont.MeasureString(boss.FullName) : default;
+			Vector2 vName = boss != null ? ProvidenceMod.bossHealthFont.MeasureString(boss.Providence().GetBossTitle(boss.FullName)) : default;
+
+			if (ProvidenceMod.Instance.bossPercentage)
 			{
-				return percentageString = $"    {percentage.Round(1)}%";
+				spriteBatch1.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/BossShadowR"), new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
+				DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, text, new Vector2(Left.Pixels + 970f - vPercent.X, Top.Pixels - 2), new Color((int)(200 * opacity), (int)(200 * opacity), (int)(200 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.8f);
 			}
-			else if(percentage.Round(1) < 100f && percentage.Round(1) > 10f && percentage.Round(1) % 1 == 0)
+
+			if (ProvidenceMod.Instance.bossHP)
 			{
-				return percentageString = $"    {percentage.Round(1)}.0%";
+				spriteBatch1.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/BossShadowL"), new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
+				DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, $"{boss?.life} / {boss?.lifeMax}", new Vector2(Left.Pixels + 50f, Top.Pixels + 3f), new Color((int)(220 * opacity), (int)(220 * opacity), (int)(220 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.5f);
 			}
-			else if(percentage.Round(1) < 10f && percentage.Round(1) % 1 != 0)
+
+			DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss != null ? boss.FullName : "", new Vector2(Left.Pixels + 500f - (vTitle.X * 0.75f * 0.5f), Top.Pixels + 50), new Color((int)(200 * opacity), (int)(200 * opacity), (int)(200 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.75f);
+			DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont ?? Main.fontItemStack, boss != null ? boss.Providence().GetBossTitle(boss?.FullName) : "", new Vector2(Left.Pixels + 500f - (vName.X * 0.40f * 0.5f), Top.Pixels + 5), new Color((int)(220 * opacity), (int)(220 * opacity), (int)(220 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.40f);
+
+			if (comboVisible)
 			{
-				return percentageString = $"        {percentage.Round(1)}%";
+				spriteBatch1.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/BossShadowC"), new Vector2(comboPos.X - 55 + 15, comboPos.Y - 10), Color.White);
+				DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont, $"{comboDMG}", comboPos, new Color(opacity, opacity, opacity, opacity), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.4f);
 			}
-			else if(percentage.Round(1) < 10f && percentage.Round(1) % 1 == 0)
-			{
-				return percentageString = $"        {percentage.Round(1)}.0%";
-			}
-			else
-			{
-				return percentageString = $"{percentage.Round(1)}%";
-			}
+
+			spriteBatch1.End();
 		}
 	}
 }

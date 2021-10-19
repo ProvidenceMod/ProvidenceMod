@@ -12,54 +12,52 @@ using Microsoft.Xna.Framework;
 using ProvidenceMod.TexturePack;
 using static Terraria.ModLoader.ModContent;
 using ProvidenceMod.Items.Materials;
+using Terraria.ModLoader.IO;
+using ProvidenceMod.Items.ToggleableModifiers;
 
 namespace ProvidenceMod
 {
 	public class ProvidenceGlobalItem : GlobalItem
 	{
+		public bool highlight;
+
 		public bool animated;
-		public bool animatedGlowmask;
+		public bool glowMask;
+		public bool animatedGlowMask;
 		public bool cleric;
-		public bool glowmask;
-		public bool texturePackEnabled;
-		public bool frameTickIncrease;
-		public int frame;
-		public int frameTick;
-		public int frameNumber;
-		public int frameTime;
-		public int frameCount;
-		public int overrideGlowmaskPositionX;
-		public int overrideGlowmaskPositionY;
-		public Texture2D glowmaskTexture;
+		public bool rogue;
+
+		public Texture2D glowMaskTexture;
 		public Texture2D animationTexture;
-		public Texture2D animatedGlowmaskTexture;
-		public Vector2 glowmaskAdjustment;
-		public Vector2 animationAdjustment;
-		public Vector2 animatedGlowmaskAdjustment;
+		public Texture2D animatedGlowMaskTexture;
+
+		public ProvidenceRarity customRarity;
+
 		public override bool InstancePerEntity => true;
+		public override bool CloneNewInstances => true;
 		public ProvidenceGlobalItem()
 		{
 			cleric = false;
 		}
-
-		public override void PostUpdate(Item item)
+		public override bool OnPickup(Item item, Player player)
 		{
-			if (!texturePackEnabled)
-			{
-				item.InitializeItemGlowMasks();
-				texturePackEnabled = true;
-			}
-			// if(!LocalPlayer().HeldItem.IsAir && LocalPlayer().HeldItem.type == item.type)
-			// {
-			//   item.ChangeFrameToElement();
-			// }
+			highlight = false;
+			return true;
 		}
-
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{
 			ProvidenceGlobalItem myClone = (ProvidenceGlobalItem)base.Clone(item, itemClone);
 			myClone.cleric = cleric;
 			return myClone;
+		}
+		public override bool NeedsSaving(Item item) => true;
+		public override TagCompound Save(Item item) => new TagCompound
+			{
+				["customRarity"] = (int)customRarity,
+			};
+		public override void Load(Item item, TagCompound tag)
+		{
+			customRarity = (ProvidenceRarity)tag.GetInt("customRarity");
 		}
 		public override void SetDefaults(Item item)
 		{
@@ -255,15 +253,15 @@ namespace ProvidenceMod
 			//   /// VANILLA ELEMENTAL DEFENSES ///
 			//   // Prehardmode
 			//   case ItemID.EbonwoodHelmet:
-			//     // Provides a boost to Chaos and a penalty to Order (defenses)
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense);
+			//     // Provides a boost to Shadow and a penalty to Radiant (defenses)
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense);
 			//     break;
 			//   case ItemID.EbonwoodBreastplate:
 			//   case ItemID.EbonwoodGreaves:
 			//   case ItemID.ShadewoodHelmet:
 			//   case ItemID.ShadewoodBreastplate:
 			//   case ItemID.ShadewoodGreaves:
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense);
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense);
 			//     break;
 			//   case ItemID.RainCoat:
 			//   case ItemID.RainHat:
@@ -315,7 +313,7 @@ namespace ProvidenceMod
 			//   case ItemID.CrimsonHelmet:
 			//   case ItemID.CrimsonScalemail:
 			//   case ItemID.CrimsonGreaves:
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense / 2);
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense / 2);
 			//     break;
 
 			//   case ItemID.MoltenHelmet:
@@ -328,7 +326,7 @@ namespace ProvidenceMod
 			//   case ItemID.PearlwoodHelmet:
 			//   case ItemID.PearlwoodBreastplate:
 			//   case ItemID.PearlwoodGreaves:
-			//     item.SetElementalTraits(ElementID.Order, item.defense, ElementID.Chaos, item.defense);
+			//     item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Shadow, item.defense);
 			//     break;
 
 			//   case ItemID.SpiderMask:
@@ -354,7 +352,7 @@ namespace ProvidenceMod
 			//   case ItemID.HallowedHeadgear:
 			//   case ItemID.HallowedHelmet:
 			//   case ItemID.HallowedMask:
-			//     item.SetElementalTraits(ElementID.Order, item.defense, ElementID.Chaos, item.defense / 2);
+			//     item.SetElementalTraits(ElementID.Radiant, item.defense, ElementID.Shadow, item.defense / 2);
 			//     break;
 
 			//   case ItemID.ChlorophytePlateMail:
@@ -387,7 +385,7 @@ namespace ProvidenceMod
 			//   case ItemID.SpookyBreastplate:
 			//   case ItemID.SpookyLeggings:
 			//   case ItemID.SpookyHelmet:
-			//     item.SetElementalTraits(ElementID.Chaos, item.defense, ElementID.Order, item.defense / 2);
+			//     item.SetElementalTraits(ElementID.Shadow, item.defense, ElementID.Radiant, item.defense / 2);
 			//     break;
 
 			//   case ItemID.SolarFlareHelmet:
@@ -510,18 +508,19 @@ namespace ProvidenceMod
 		}
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			TooltipLine tooltip2 = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
-			if (tooltip2 != null)
+			TooltipLine nametip = tooltips.Find(x => x.Name == "ItemName" && x.mod == "Terraria");
+			if (nametip != null)
 			{
-				// if(item.type == ModContent.ItemType<MoonCleaver>())
-				//   tooltip2.overrideColor = ColorShift(new Color (166, 46, 61), new Color(227, 79, 79), 2f);
-				switch (item.rare)
+				switch (customRarity)
 				{
-					case (int)ProvidenceRarity.Celestial:
-						tooltip2.overrideColor = ColorShift(new Color(119, 37, 100), new Color(246, 121, 133), 5f);
+					case ProvidenceRarity.Lament:
+						nametip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(41, 122, 138), new Color(56, 196, 166), new Color(83, 242, 160), new Color(56, 196, 166) }, 0.5f);
 						break;
-					case (int)ProvidenceRarity.Developer:
-						tooltip2.overrideColor = ColorShift(new Color(166, 46, 61), new Color(227, 79, 79), 5f);
+					case ProvidenceRarity.Wrath:
+						nametip.overrideColor = ColorShiftMultiple(new Color[4] { new Color(158, 47, 63), new Color(218, 70, 70), new Color(243, 132, 95), new Color(218, 70, 70) }, 0.5f);
+						break;
+					case ProvidenceRarity.Developer:
+						nametip.overrideColor = ColorShiftMultiple(new Color[6] { new Color(77, 40, 132), new Color(160, 16, 193), new Color(255, 25, 153), new Color(255, 181, 62), new Color(255, 25, 153), new Color(160, 16, 193) }, 0.5f);
 						break;
 				}
 			}

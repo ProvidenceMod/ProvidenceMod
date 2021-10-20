@@ -5,7 +5,7 @@ using static ProvidenceMod.ProvidenceUtils;
 
 namespace ProvidenceMod.Items
 {
-	public abstract class RogueItem : ModItem
+	public abstract class WraithItem : ModItem
 	{
 		public override void SetDefaults()
 		{

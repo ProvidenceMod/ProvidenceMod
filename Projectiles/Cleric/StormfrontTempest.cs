@@ -42,7 +42,7 @@ namespace ProvidenceMod.Projectiles.Cleric
 			projectile.UpdatePositionCache();
 			if (projectile.timeLeft > 30)
 				projectile.ai[0] += (angleMod < 24f ? angleMod += 0.01f * (1f + angleMod) : angleMod);
-			Vector2 pos = new Vector2(100f, 0f).RotatedBy(projectile.ai[1] * MathHelper.Pi).RotatedBy(projectile.ai[0].InRadians());
+			Vector2 pos = new Vector2(100f, 0f).RotatedBy(projectile.ai[1]).RotatedBy(projectile.ai[0].InRadians());
 			//if (angleMod > 18f)
 			//{
 			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos), DustType<CloudDust>(), (pos / 25f).RotatedBy(-MathHelper.PiOver2));
@@ -67,6 +67,10 @@ namespace ProvidenceMod.Projectiles.Cleric
 					projectile.Kill();
 				}
 			}
+		}
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			target.immune[projectile.owner] = 2;
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{

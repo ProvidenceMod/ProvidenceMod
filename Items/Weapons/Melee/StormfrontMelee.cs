@@ -7,43 +7,30 @@ using Terraria.ID;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
-	public class StormfrontMelee : ModItem
+	public class StormfrontMelee : BaseDualblade
 	{
-		public Projectile proj1;
-		public Projectile proj2;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Stormfront");
 		}
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
+			projs = new Projectile[2];
+			projFadeoutTime = 60;
 			item.useTime = 15;
 			item.useAnimation = 15;
-			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.damage = 50;
 			item.melee = true;
-			item.autoReuse = true;
 			item.width = 190;
 			item.height = 124;
 			item.material = true;
 			item.rare = (int)ProvidenceRarity.Orange;
 			item.shoot = ProjectileType<StormfrontTempest>();
-			item.noUseGraphic = true;
-			item.noMelee = true;
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool CanUseItem(Player player)
 		{
-			if (proj1 == null || proj2 == null || !proj1.active || !proj2.active)
-			{
-				proj1 = Main.projectile[Projectile.NewProjectile(player.Center, Vector2.Zero, ProjectileType<StormfrontTempest>(), damage, knockBack, player.whoAmI, 0f, 0f)];
-				proj2 = Main.projectile[Projectile.NewProjectile(player.Center, Vector2.Zero, ProjectileType<StormfrontTempest>(), damage, knockBack, player.whoAmI, 0f, 1f)];
-			}
-			else
-			{
-				proj1.timeLeft = 60;
-				proj2.timeLeft = 60;
-			}
-			return false;
+			return base.CanUseItem(player);
 		}
 	}
 }

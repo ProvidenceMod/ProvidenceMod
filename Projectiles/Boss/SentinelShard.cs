@@ -60,6 +60,7 @@ namespace ProvidenceMod.Projectiles.Boss
 				for (int i = 0; i < 3; i++)
 					Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, projectile.ai[1], Main.rand.Next(0, 3));
 			}
+			projectile.penetrate--;
 		}
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
@@ -69,6 +70,7 @@ namespace ProvidenceMod.Projectiles.Boss
 				for (int i = 0; i < 3; i++)
 					Projectile.NewProjectile(projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, projectile.ai[1], Main.rand.Next(0, 3));
 			}
+			projectile.penetrate--;
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{

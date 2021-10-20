@@ -11,6 +11,8 @@ namespace ProvidenceMod.Projectiles.Boss
 {
 	public class ZephyrTrident : ModProjectile
 	{
+		public Vector2 velocity;
+
 		public float opacity = 1f;
 		public float mult = 1.1f;
 		public int frame;
@@ -63,13 +65,19 @@ namespace ProvidenceMod.Projectiles.Boss
 				projectile.UpdateCenterCache();
 				projectile.UpdateRotationCache();
 				if (projectile.ai[1] == 0)
+				{
 					projectile.penetrate = 5;
+					velocity = projectile.velocity;
+				}
 				projectile.ai[1]++;
 				projectile.hostile = false;
 				projectile.friendly = true;
 				projectile.rotation = projectile.velocity.ToRotation();
-				projectile.velocity.X *= 1.05f;
-				projectile.velocity.Y *= 1.05f;
+				velocity.X *= 1.05f;
+				velocity.Y *= 1.05f;
+				float sin = (float)((Math.Sin(Main.GlobalTime * 6f) * 0.375f) + 0.625f);
+				projectile.velocity.X = velocity.X * sin;
+				projectile.velocity.Y = velocity.Y * sin;
 			}
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -78,9 +86,9 @@ namespace ProvidenceMod.Projectiles.Boss
 			for (int i = 0; i < projectile.oldRot.Length; i++)
 			{
 				float alpha = 1f - (i * 0.1f);
-				Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / (float)(projectile.oldRot.Length - 1)).ColorRGBAIntToFloat();
-				colorV.X = colorV.Y * alpha * opacity;
-				colorV.Y = colorV.X * alpha * opacity;
+				Vector4 colorV = Vector4.Lerp(new Vector4(158, 186, 226, 0), new Vector4(54, 16, 53, 0), i / (float)(projectile.oldRot.Length - 1)).ColorRGBAIntToFloat();
+				colorV.X = colorV.X * alpha * opacity;
+				colorV.Y = colorV.Y * alpha * opacity;
 				colorV.Z = colorV.Z * alpha * opacity;
 				colorV.W = colorV.W * alpha * opacity;
 				Color color = new Color(colorV.X * sine, colorV.Y * sine, colorV.Z * sine, colorV.W * sine);

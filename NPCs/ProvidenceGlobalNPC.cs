@@ -25,6 +25,8 @@ namespace ProvidenceMod
 		public bool maxSpawnsTempSet;
 		public int maxSpawnsTemp;
 
+		public float DR;
+
 		// Debuffs
 		public bool pressureSpike;
 
@@ -34,6 +36,7 @@ namespace ProvidenceMod
 		public int comboDMGCooldown = 75;
 		public int comboDMGCounter = 120;
 		public Rectangle comboRect = new Rectangle(0, 0, 36, 8);
+
 		public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			if (ProvidenceMod.Instance.texturePack)
@@ -54,17 +57,19 @@ namespace ProvidenceMod
 				npc.lifeRegen -= 5;
 			}
 		}
-		//public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-		//{
-		////	Armor system possible? Certainly!
-		//	if (armor <= 0)
-		//		return true;
-		//	else
-		// {
-		//		armor -= damage;
-		// }
-		//		return false;
-		//}
+		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+		{
+			damage *= (1f - DR);
+			return true;
+			//	Armor system possible? Certainly!
+			//if (armor <= 0)
+			//	return true;
+			//else
+			//{
+			//	armor -= damage;
+			//}
+			//return false;
+		}
 		public override void AI(NPC npc)
 		{
 			if (oldLife[9] == 0)
@@ -133,13 +138,16 @@ namespace ProvidenceMod
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			// If any subworld from our mod is loaded, disable spawns
-			if (SubworldManager.AnyActive<ProvidenceMod>())
-				pool.Clear();
+			//if (SubworldManager.AnyActive<ProvidenceMod>())
+			//	pool.Clear();
 		}
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			if (player.Providence().intimidated)
-				maxSpawns = 0;
+			{
+				spawnRate *= 3;
+				maxSpawns = (int) (maxSpawns * 0.0001);
+			}
 		}
 		public override void SetDefaults(NPC npc)
 		{

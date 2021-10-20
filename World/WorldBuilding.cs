@@ -14,8 +14,8 @@ namespace ProvidenceMod.World
 		/// <param name="type">Type of ore</param>
 		/// <param name="frequency">Frequency, where 1f is all tiles</param>
 		/// <param name="steps">Steps to take</param>
-		/// <param name="lowRich">High cap for deposit</param>
-		/// <param name="highRich">Low cap for deposit</param>
+		/// <param name="lowRich">Low cap for deposit</param>
+		/// <param name="highRich">High cap for deposit</param>
 		/// <param name="lowY">Lowest point to generate to</param>
 		/// <param name="highY">Highest point to generate from</param>
 		public static void BuildOre(int type, float frequency, int steps, int lowRich, int highRich, float lowY, float highY)

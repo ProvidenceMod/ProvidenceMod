@@ -6,11 +6,6 @@
     <TargetFramework>net45</TargetFramework>
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>false</Optimize>
-    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define &quot;$(DefineConstants)&quot; -unsafe $(AllowUnsafeBlocks)" />
@@ -19,37 +14,8 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Buffs\Cooldowns\" />
-    <Folder Include="Buffs\StatBuffs\" />
-    <Folder Include="Items\Potions\" />
-    <Folder Include="Items\Tools\" />
-    <Folder Include="Projectiles\Environment\" />
-    <Folder Include="Projectiles\Healing\" />
-    <Folder Include="Projectiles\Magic\" />
-    <Folder Include="Projectiles\Summon\" />
-    <Folder Include="Sounds\Music\" />
-    <Folder Include="Sounds\NPCHit\" />
-    <Folder Include="Tiles\Brinewastes\" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="SubworldLibrary">
-      <HintPath>Subworld\SubworldLibrary.dll</HintPath>
+      <HintPath>..\..\Beta\Mod Sources\ProvidenceMod\Subworld\SubworldLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe&quot; -build &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot;" />
-  </Target>
 </Project>

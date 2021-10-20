@@ -28,7 +28,6 @@ namespace ProvidenceMod.Items.Materials
 			item.height = 66;
 			item.rare = (int)ProvidenceRarity.Orange;
 			item.maxStack = 999;
-
 		}
 		//public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		//{

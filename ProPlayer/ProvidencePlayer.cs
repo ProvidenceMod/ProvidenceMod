@@ -30,10 +30,12 @@ namespace ProvidenceMod
 		public int dashTimeMod;
 		public int dashModDelay = 60;
 
+		public float DR;
+
 		// Debuffs
 		public bool pressureSpike;
 
-		// -- Cleric --
+		// -- Cleric -- //
 		public bool cleric;
 		public float parityMaxStacks = 100;
 		public float parityStackGen;
@@ -46,22 +48,18 @@ namespace ProvidenceMod
 		// Cleric Shadow
 		public bool shadow;
 		public float shadowStacks;
-		// ------------
+		// ------------ //
 
 		public override void ResetEffects()
 		{
+			DR = 0f;
 			dashMod = 0;
 			dashTimeMod = 0;
-			intimidated = false;
-			// -- Cleric --
-			cleric = false;
-			heartOfReality = false;
-			// Cleric Shadow
 			parityMaxStacks = 0;
 			parityStackGen = 0;
-			//shadowStacks = shadow ? shadowStacks : 0;
-			//radiantStacks = radiant ? radiantStacks : 0;
-			// ------------
+			cleric = false;
+			intimidated = false;
+			heartOfReality = false;
 		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
@@ -131,6 +129,14 @@ namespace ProvidenceMod
 				PlayerManager.InitializePlayerGlowMasks();
 				texturePackEnabled = true;
 			}
+		}
+		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+		{
+			damage = (int) (damage * DiminishingDRFormula(DR));
+		}
+		public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+		{
+			damage = (int)(damage * DiminishingDRFormula(DR));
 		}
 		public override void UpdateLifeRegen()
 		{

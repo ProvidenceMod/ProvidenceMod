@@ -5,14 +5,16 @@ using Terraria.ModLoader;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
-	public class ZepherSpear : ModItem
+	public class ZephyrSpearMelee : ModItem
 	{
-		public override void SetStaticDefaults() {
-			Tooltip.SetDefault("The wind stirs");
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Stratus Spear");
+			Tooltip.SetDefault("A mighty force");
 		}
 
 		public override void SetDefaults() {
-			item.damage = 40;
+			item.damage = 29;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.useAnimation = 18;
 			item.useTime = 24;
@@ -21,7 +23,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			item.width = 32;
 			item.height = 32;
 			item.scale = 1f;
-			item.rare = ItemRarityID.Pink;
+			item.rare = (int) ProvidenceRarity.Orange;
 			item.value = Item.sellPrice(silver: 10);
 
 			item.melee = true;
@@ -30,7 +32,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
 			item.UseSound = SoundID.Item1;
-			item.shoot = ModContent.ProjectileType<ZepherSpearProjectile>();
+			item.shoot = ModContent.ProjectileType<Projectiles.Melee.ZephyrSpearMelee>();
 		}
 
 		public override bool CanUseItem(Player player) {

@@ -177,7 +177,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					NPC.NewNPC((int)npc.Center.X + 200, (int)npc.Center.Y - 200, NPCType<ZephyrSentinel>());
 					NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 400, NPCType<ZephyrSentinel>());
 					NPC.NewNPC((int)npc.Center.X - 200, (int)npc.Center.Y - 200, NPCType<ZephyrSentinel>());
-					sentinelCooldown = 1200;
+					sentinelCooldown = 1800;
 				}
 				sentinelCooldown--;
 				dartCooldown--;
@@ -189,7 +189,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				{
 					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal);
 					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.AcceleratedHoming, 1);
-					dartCooldown = 60;
+					dartCooldown = 300;
 					for (float i = 0; i <= 10; i++)
 					{
 						float xDist = player.Center.X - npc.Center.X;

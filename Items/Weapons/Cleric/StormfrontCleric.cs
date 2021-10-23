@@ -16,7 +16,7 @@ namespace ProvidenceMod.Items.Weapons.Cleric
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projs = new Projectile[3];
+			projs = new Projectile[2];
 			projFadeoutTime = 60;
 			item.useTime = 15;
 			item.useAnimation = 15;

@@ -26,6 +26,14 @@ namespace ProvidenceMod.Projectiles.Cleric
 			projectile.ignoreWater = true;
 			projectile.penetrate = -1;
 		}
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		{
+			if (angleMod < 12f)
+			{
+				return false;
+			}
+			return null;
+		}
 		public override void AI()
 		{
 			// AI 0 will be the rotation angle
@@ -41,7 +49,7 @@ namespace ProvidenceMod.Projectiles.Cleric
 			projectile.UpdateRotationCache();
 			projectile.UpdatePositionCache();
 			if (projectile.timeLeft > 30)
-				projectile.ai[0] += (angleMod < 24f ? angleMod += 0.01f * (1f + angleMod) : angleMod);
+				projectile.ai[0] += (angleMod < 24f ? angleMod += 0.02f * (1f + angleMod) : angleMod);
 			Vector2 pos = new Vector2(100f, 0f).RotatedBy(projectile.ai[1]).RotatedBy(projectile.ai[0].InRadians());
 			//if (angleMod > 18f)
 			//{
@@ -70,7 +78,7 @@ namespace ProvidenceMod.Projectiles.Cleric
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.immune[projectile.owner] = 2;
+			target.immune[projectile.owner] = 5;
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{

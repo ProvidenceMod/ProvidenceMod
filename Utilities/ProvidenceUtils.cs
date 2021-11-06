@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 using ReLogic.Graphics;
+using ProvidenceMod.Particles;
 
 namespace ProvidenceMod
 {
@@ -29,16 +30,6 @@ namespace ProvidenceMod
 		public static NPC OwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
 		/// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
 		public static Player LocalPlayer() => Main.LocalPlayer;
-		/// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
-		public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
-		/// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
-		public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
-		/// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
-		public static int InTicks(this float seconds) => (int)(seconds * 60);
-		public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);
-		public static float Round(this float f, int points) => (float)Math.Round(f, points);
-		public static double Round(this double d, int points) => Math.Round(d, points);
-
 		public static void UpdatePositionCache(this Projectile projectile)
 		{
 			for (int i = projectile.oldPos.Length - 1; i > 0; i--)
@@ -267,6 +258,10 @@ namespace ProvidenceMod
 			Main.npc[type].Providence().extraAI[0] = ai6;
 			Main.npc[type].Providence().extraAI[0] = ai7;
 		}
+		public static void NewParticle(Vector2 Position, Vector2 Velocity, Particle Type, Color Color, float AI0 = 0, float AI1 = 0, float AI2 = 0, float AI3 = 0, float AI4 = 0, float AI5 = 0, float AI6 = 0, float AI7 = 0)
+		{
+			ProvidenceMod.particleManager.NewParticle(Position, Velocity, Type, Color, AI0, AI1, AI2, AI3, AI4, AI5, AI6, AI7);
+		}
 		/// <summary>Returns whether there is a boss, and if there is, their ID in "Main.npc".</summary>
 		public static Tuple<bool, int> IsThereABoss()
 		{
@@ -282,11 +277,9 @@ namespace ProvidenceMod
 		}
 		/// <summary>Provides a random point near the provided position.</summary>
 		/// <param name="v">The origin point.</param>
-		/// <param name="maxDist">Radius max.</param>
-		public static Vector2 RandomPointNearby(this Vector2 v, float maxDist = 16f)
-		{
-			return Vector2.Add(v, new Vector2(0, Main.rand.NextFloat(maxDist)).RotatedByRandom(180f.InRadians()));
-		}
+		/// <param name="minDist">Radius min.</param>
+		/// <param name="maxDist">Radius max + 1.</param>
+		public static Vector2 RandomPointNearby(this Vector2 v, float minDist = 0f, float maxDist = 16f) => Vector2.Add(v, new Vector2(Main.rand.NextFloat(minDist, maxDist), 0).RotatedByRandom(MathHelper.TwoPi));
 		public static Vector2 RandomPointInHitbox(this Rectangle hitbox)
 		{
 			float x = Main.rand.Next(hitbox.Left, hitbox.Right + 1);
@@ -307,14 +300,7 @@ namespace ProvidenceMod
 			}
 			if (frameTickIncrease)
 				frameTick++;
-			if (overrideHeight > 0 || overrideHeight < 0)
-			{
-				return new Rectangle(0, overrideHeight * frame, entity.width, entity.height);
-			}
-			else
-			{
-				return new Rectangle(0, entity.height * frame, entity.width, entity.height);
-			}
+			return new Rectangle(0, overrideHeight != 0 ? overrideHeight * frame : entity.height * frame, entity.width, entity.height);
 		}
 		public static void FindFrame(this Projectile projectile, int time, int number)
 		{

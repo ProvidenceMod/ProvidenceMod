@@ -29,9 +29,7 @@ namespace ProvidenceMod.Projectiles.Cleric
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			if (angleMod < 12f)
-			{
 				return false;
-			}
 			return null;
 		}
 		public override void AI()
@@ -45,23 +43,9 @@ namespace ProvidenceMod.Projectiles.Cleric
 					projectile.Opacity = 1f;
 			}
 			Player player = Main.player[projectile.owner];
-			projectile.UpdateCenterCache();
-			projectile.UpdateRotationCache();
-			projectile.UpdatePositionCache();
 			if (projectile.timeLeft > 30)
 				projectile.ai[0] += (angleMod < 24f ? angleMod += 0.02f * (1f + angleMod) : angleMod);
-			Vector2 pos = new Vector2(100f, 0f).RotatedBy(projectile.ai[1]).RotatedBy(projectile.ai[0].InRadians());
-			//if (angleMod > 18f)
-			//{
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos), DustType<CloudDust>(), (pos / 25f).RotatedBy(-MathHelper.PiOver2));
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos).RotatedBy(MathHelper.PiOver4 * 0.5f), DustType<CloudDust>(), (pos / 25f).RotatedBy(-MathHelper.PiOver2));
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos).RotatedBy(MathHelper.PiOver4), DustType<CloudDust>(), (pos / 25f).RotatedBy(-MathHelper.PiOver2));
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos).RotatedBy(MathHelper.PiOver4 * 1.5f), DustType<CloudDust>(), (pos / 25f).RotatedBy(-MathHelper.PiOver2));
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos), DustType<CloudDust>(), (pos / 25f).RotatedBy(MathHelper.PiOver2));
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos).RotatedBy(MathHelper.PiOver4 * 0.5f), DustType<CloudDust>(), (pos / 25f).RotatedBy(MathHelper.PiOver2));
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos).RotatedBy(MathHelper.PiOver4), DustType<CloudDust>(), (pos / 25f).RotatedBy(MathHelper.PiOver2));
-			//	Dust.NewDustPerfect(new Vector2(player.Center.X, player.Center.Y) + (pos).RotatedBy(MathHelper.PiOver4 * 1.5f), DustType<CloudDust>(), (pos / 25f).RotatedBy(MathHelper.PiOver2));
-			//}
+			Vector2 pos = new Vector2(100f, 0f).RotatedBy(projectile.ai[1]).RotatedBy( ((double) projectile.ai[0]).InRadians());
 			projectile.rotation = pos.ToRotation();
 			projectile.Center = new Vector2(player.Center.X, player.Center.Y) + pos;
 			if (projectile.timeLeft < 31)
@@ -75,6 +59,9 @@ namespace ProvidenceMod.Projectiles.Cleric
 					projectile.Kill();
 				}
 			}
+			projectile.UpdateCenterCache();
+			projectile.UpdateRotationCache();
+			projectile.UpdatePositionCache();
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
@@ -85,7 +72,7 @@ namespace ProvidenceMod.Projectiles.Cleric
 			for (int i = 0; i < projectile.oldRot.Length; i++)
 			{
 				float alpha = 0.5f - (i * 0.05f);
-				Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / (float)(projectile.oldRot.Length - 1)).ColorRGBAIntToFloat();
+				Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / (float)(projectile.oldRot.Length - 1)).RGBAIntToFloat();
 				colorV.X = colorV.Y * alpha * projectile.Opacity;
 				colorV.Y = colorV.X * alpha * projectile.Opacity;
 				colorV.Z = colorV.Z * alpha * projectile.Opacity;

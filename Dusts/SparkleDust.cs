@@ -21,7 +21,7 @@ namespace ProvidenceMod.Dusts
 		{
 			if (dust.scale <= 0)
 				dust.active = false;
-			AddLight(dust.position, ColorShift(new Color(144, 65, 74), new Color(232, 162, 114), 3f).ToVector3().ColorRGBIntToFloat());
+			AddLight(dust.position, ColorShift(new Color(144, 65, 74), new Color(232, 162, 114), 3f).ToVector3().RGBIntToFloat());
 			return true;
 		}
 

@@ -58,12 +58,12 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 				float newScale = (1f + ((i + 1f) * (1f / 14f))) * mult;
 				Color[] colors = new Color[6]
 				{
-					new Color(245, 197, 128, 255).ColorRGBAIntToFloat(),
-					new Color(243, 132, 95, 255).ColorRGBAIntToFloat(),
-					new Color(218, 70, 70, 255).ColorRGBAIntToFloat(),
-					new Color(158, 47, 63, 255).ColorRGBAIntToFloat(),
-					new Color(82, 32, 62, 255).ColorRGBAIntToFloat(),
-					new Color(41, 16, 41, 255).ColorRGBAIntToFloat(),
+					new Color(245, 197, 128, 255).RGBAIntToFloat(),
+					new Color(243, 132, 95, 255).RGBAIntToFloat(),
+					new Color(218, 70, 70, 255).RGBAIntToFloat(),
+					new Color(158, 47, 63, 255).RGBAIntToFloat(),
+					new Color(82, 32, 62, 255).RGBAIntToFloat(),
+					new Color(41, 16, 41, 255).RGBAIntToFloat(),
 				};
 				Color color = new Color(1f * alpha * (mult * 1.1f), 1f * alpha * (mult * 1.1f), 1f * alpha * (mult * 1.1f), alpha);
 				spriteBatch.Draw(GetTexture("ProvidenceMod/Items/ToggleableModifiers/Wrath_Glow"), item.Center - Main.screenPosition, new Rectangle(0, 0, item.width, item.height), color, rotation, new Vector2(item.width / 2, item.height / 2), newScale, SpriteEffects.None, 0f);

@@ -58,7 +58,7 @@ namespace ProvidenceMod.Items.TreasureBags
 				{
 					float alpha = 1f - (i * 0.05f);
 					float newScale = 1f + ((i + 1f) * 0.05f);
-					Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / 10f).ColorRGBAIntToFloat();
+					Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / 10f).RGBAIntToFloat();
 					colorV.X *= alpha;
 					colorV.Y *= alpha;
 					colorV.Z *= alpha;

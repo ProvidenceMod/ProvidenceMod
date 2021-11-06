@@ -19,6 +19,7 @@ using static ProvidenceMod.ModSupport.ModCalls;
 using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
 using ProvidenceMod.NPCs.PrimordialCaelus;
 using ProvidenceMod.Items.BossSpawners;
+using ProvidenceMod.Particles;
 
 namespace ProvidenceMod
 {
@@ -32,6 +33,7 @@ namespace ProvidenceMod
 		internal ParityUI ParityUI;
 
 		public ProvidenceHooks providenceEvents;
+		public static ParticleManager particleManager;
 
 		public static DynamicSpriteFont bossHealthFont;
 		public static DynamicSpriteFont mouseTextFont;
@@ -56,8 +58,13 @@ namespace ProvidenceMod
 
 			BossHealthBarManager.Initialize();
 
-			if (Main.netMode != NetmodeID.Server && texturePack)
-				ProvidenceTextureManager.Load();
+			if (Main.netMode != NetmodeID.Server)
+			{
+				if (texturePack)
+					ProvidenceTextureManager.Load();
+				//divinityEffect = Instance.GetEffect("Effects/DivinityShader");
+				//divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
+			}
 			if (!Main.dedServ)
 			{
 				BossHealth = new BossHealth();
@@ -78,12 +85,15 @@ namespace ProvidenceMod
 				//	mouseTextFont = GetFont("Fonts/MouseTextFont");
 
 				//ProvidenceTextureManager.LoadFonts();
+
+				particleManager = new ParticleManager();
+				particleManager.Load();
 			}
-			//if (Main.netMode != NetmodeID.Server)
-			//{
-			//	divinityEffect = Instance.GetEffect("Effects/DivinityShader");
-			//	divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
-			//}
+		}
+		public override void PostSetupContent()
+		{
+			SubworldManager.Load();
+			BossChecklist();
 		}
 		public override void Unload()
 		{
@@ -100,11 +110,13 @@ namespace ProvidenceMod
 				ProvidenceTextureManager.Unload();
 				//ProvidenceTextureManager.UnloadFonts();
 			}
+			particleManager.Unload();
 			providenceEvents.Unload();
 			SubworldManager.Unload();
 			Instance = null;
 			base.Unload();
 		}
+
 		private bool DrawBossHealthUI()
 		{
 			if (BossHealth.visible)
@@ -125,13 +137,32 @@ namespace ProvidenceMod
 				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity Meter", DrawParityUI, InterfaceScaleType.UI));
 			}
 		}
+		public override void UpdateUI(GameTime gameTime)
+		{
+			BossHealthBarManager.Update();
+			bossHealthUI?.Update(gameTime);
+			parityUI?.Update(gameTime);
+		}
+
+		public override void PreSaveAndQuit()
+		{
+			particleManager.Unload();
+		}
+		public override void PreUpdateEntities()
+		{
+			particleManager.PreUpdate();
+		}
+		public override void MidUpdateDustTime()
+		{
+			particleManager.Update();
+		}
+		public override void PostUpdateEverything()
+		{
+			particleManager.PostUpdate();
+		}
+
 		public override void HandlePacket(BinaryReader reader, int whoAmI) => ProvidenceNetcode.HandlePacket(this, reader, whoAmI);
 
-		public override void PostSetupContent()
-		{
-			SubworldManager.Load();
-			BossChecklist();
-		}
 		public override void UpdateMusic(ref int music, ref MusicPriority priority)
 		{
 			//if (NPC.AnyNPCs(NPCID.BrainofCthulhu))
@@ -144,12 +175,6 @@ namespace ProvidenceMod
 			//	music = "Sounds/Music/HighInTheSky".AsMusicSlot(this);
 			//	priority = MusicPriority.BossMedium;
 			//}
-		}
-		public override void UpdateUI(GameTime gameTime)
-		{
-			BossHealthBarManager.Update();
-			bossHealthUI?.Update(gameTime);
-			parityUI?.Update(gameTime);
 		}
 	}
 }

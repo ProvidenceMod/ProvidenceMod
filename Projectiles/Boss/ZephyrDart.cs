@@ -14,7 +14,7 @@ namespace ProvidenceMod.Projectiles.Boss
 		public double mult = 0.1d;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zephyr Arrowhead");
+			DisplayName.SetDefault("Zephyr Dart");
 		}
 		public override void SetDefaults()
 		{
@@ -108,15 +108,15 @@ namespace ProvidenceMod.Projectiles.Boss
 			for (int i = 0; i < projectile.oldRot.Length; i++)
 			{
 				float alpha = 1f - (i * 0.1f);
-				Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / (float)(projectile.oldRot.Length - 1)).ColorRGBAIntToFloat();
+				Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / (float)(projectile.oldRot.Length - 1)).RGBAIntToFloat();
 				colorV.X = colorV.Y * alpha * opacity;
 				colorV.Y = colorV.X * alpha * opacity;
 				colorV.Z = colorV.Z * alpha * opacity;
 				colorV.W = colorV.W * alpha * opacity;
 				Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
-				spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Boss/ZephyrDart"), projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, 40, 14), color, projectile.oldRot[i], Vector2.Zero, 1.0f - (0.15f * (i / 10f)), SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Boss/ZephyrDart"), projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, 40, 14), color, projectile.oldRot[i], new Vector2(projectile.width, projectile.height) * 0.5f, 1.0f - (0.15f * (i / 10f)), SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Boss/ZephyrDart"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 40, 14), new Color(1f * opacity, 1f * opacity, 1f * opacity, 0f), projectile.rotation, Vector2.Zero, projectile.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Boss/ZephyrDart"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 40, 14), new Color(1f * opacity, 1f * opacity, 1f * opacity, 0f), projectile.rotation, new Vector2(projectile.width, projectile.height) * 0.5f, projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 	}

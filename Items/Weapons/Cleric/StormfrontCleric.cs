@@ -7,17 +7,18 @@ using Terraria.ID;
 
 namespace ProvidenceMod.Items.Weapons.Cleric
 {
-	public class StormfrontCleric : ClericDualblade
+	public class StormfrontCleric : BaseDualblade
 	{
+		public override float Speed => 24f;
+		public override int Fadeout => 60;
+		public override bool Cleric => true;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Stormfront");
 		}
-		public override void SetDefaults()
+		public override void SetExtraDefaults()
 		{
-			base.SetDefaults();
-			projs = new Projectile[2];
-			projFadeoutTime = 60;
+			projectiles = new Projectile[2];
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.damage = 50;

@@ -35,7 +35,11 @@ namespace ProvidenceMod.NPCs.Brinewastes
 		{
 			npc.ai[0]++;
 			npc.spriteDirection = npc.direction;
-			npc.rotation = npc.velocity.X >= 0 && npc.velocity.Y <= 0 ? Utils.Clamp(npc.velocity.ToRotation(), 0f.InRadians(), 5F.InRadians()) : Utils.Clamp(npc.velocity.ToRotation(), 355f.InRadians(), 360F.InRadians());
+			// This can be done better
+			// npc.rotation = npc.velocity.X >= 0 && npc.velocity.Y <= 0 ? Utils.Clamp(npc.velocity.ToRotation(), 0d.InRadians(), 5d.InRadians()) : Utils.Clamp(npc.velocity.ToRotation(), 355d.InRadians(), 360d.InRadians());
+
+			npc.rotation = Utils.Clamp(npc.velocity.Y * 0.05f, -0.5f, 0.5f);
+
 			// Player player = (Player)ClosestEntity(npc, false);
 			// if(player.Center.IsInRadiusOf(npc.Center, 256))
 			// {

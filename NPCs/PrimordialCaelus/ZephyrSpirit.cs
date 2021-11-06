@@ -75,6 +75,11 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			npc.velocity = ((npc.velocity * (60f - (60f / Math.Abs(npc.Center.X - player.Center.X)))) + (unitY * 8f)) / ((60f - (60f / Math.Abs(npc.Center.X - player.Center.X))) + 1f);
 
 			Lighting.AddLight(npc.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
+
+			if (npc.ai[1] % 10 == 0)
+				Dust.NewDustPerfect(npc.Hitbox.RandomPointInHitbox(), DustType<CloudDust>(), -npc.velocity);
+
+			npc.ai[1]++;
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
@@ -86,9 +91,9 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 
 				Color color = new Color(alpha * npc.Opacity, alpha * npc.Opacity, alpha * npc.Opacity, alpha * npc.Opacity);
 
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpiritSheet"), npc.Center - Main.screenPosition, rect, color, npc.oldRot[i + i], npc.frame.Size() * scale / 2, scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpiritSheet"), npc.Center - Main.screenPosition, rect, color, npc.oldRot[i + i], new Vector2(npc.width, npc.height) * 0.5f, scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpiritSheet"), npc.Center - Main.screenPosition, rect, new Color(npc.Opacity, npc.Opacity, npc.Opacity, npc.Opacity), npc.rotation, npc.frame.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpiritSheet"), npc.Center - Main.screenPosition, rect, new Color(npc.Opacity, npc.Opacity, npc.Opacity, npc.Opacity), npc.rotation, new Vector2(npc.width, npc.height) * 0.5f, npc.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 

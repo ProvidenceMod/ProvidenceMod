@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ProvidenceMod.Items.Weapons.Melee
 {
-	public class ZephyrSpearMelee : ModItem
+	public class StratusSpear : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -20,8 +20,8 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			item.useTime = 24;
 			item.shootSpeed = 3.7f;
 			item.knockBack = 6.5f;
-			item.width = 32;
-			item.height = 32;
+			item.width = 76;
+			item.height = 76;
 			item.scale = 1f;
 			item.rare = (int) ProvidenceRarity.Orange;
 			item.value = Item.sellPrice(silver: 10);
@@ -32,7 +32,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
 			item.UseSound = SoundID.Item1;
-			item.shoot = ModContent.ProjectileType<Projectiles.Melee.ZephyrSpearMelee>();
+			item.shoot = ModContent.ProjectileType<Projectiles.Melee.StratusSpear>();
 		}
 
 		public override bool CanUseItem(Player player) {

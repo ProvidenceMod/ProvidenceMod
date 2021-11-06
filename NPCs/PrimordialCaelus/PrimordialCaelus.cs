@@ -20,7 +20,6 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 	public class PrimordialCaelus : ModNPC
 	{
 		public Vector4 color = new Vector4(1f, 1f, 1f, 1f);
-		public bool preSpawnText;
 		private bool spawnText;
 		public int Phase()
 		{
@@ -60,7 +59,6 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			NPCID.Sets.MustAlwaysDraw[npc.type] = true;
 			NPCID.Sets.NeedsExpertScaling[npc.type] = true;
 		}
-
 		public override void SetDefaults()
 		{
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/HighInTheSky");
@@ -91,7 +89,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			npc.UpdateRotationCache();
 			DustEffects();
 			npc.rotation = Utils.Clamp(npc.velocity.X * 0.05f, -0.5f, 0.5f);
-			stunned = npc.ai[2] >= (Phase() == 1 ? 5 : 10);
+			stunned = npc.ai[2] >= (Phase() == 1 ? 3 : 6);
 
 			if (npc.ai[3] > 0) npc.ai[3]--;
 			speedCap = player.mount.Type == MountID.MineCart || player.mount.Type == MountID.MineCartMech || player.mount.Type == MountID.MineCartWood ? (6f + Phase()) * 2 : 6f + Phase();
@@ -113,7 +111,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					npc.velocity.Y = 0;
 				else
 					npc.velocity.Y = 6f;
-				npc.velocity.X = 0;
+				npc.velocity.X /= 1.05f;
 				if (stunTimer == 0)
 				{
 					stunTimer = 180;
@@ -126,90 +124,87 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					return;
 				}
 			}
-			else
-			{
-				bulletHellTimer++;
-				npc.TargetClosest(true);
-			}
 
-			//Phase 1 gate
+			bulletHellTimer++;
+			npc.TargetClosest(true);
+
 			if (Phase() == 1)
-			{
-				npc.ai[0]++;
-				if (npc.ai[0] % 270 == 0)
-				{
-					SummonTridents();
-				}
-				Movement();
-
-				if (bulletHellTimer % 600 == 0)
-				{
-					for (float i = 0; i >= -MathHelper.Pi; i -= MathHelper.PiOver4)
-					{
-						Vector2 pos = new Vector2(640f, 0f).RotatedBy(i);
-						NewNPCExtraAI(new Vector2(npc.Center.X, npc.Center.Y) + pos, NPCType<ZephyrSpirit>(), default, npc.whoAmI);
-					}
-					npc.ai[3] = 600;
-					//NPC.NewNPC((int)npc.Center.X - 400, (int)npc.Center.Y - 400, NPCType<ZephyrSpirit>(), default, npc.whoAmI);
-					//NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 800, NPCType<ZephyrSpirit>(), default, npc.whoAmI);
-					//NPC.NewNPC((int)npc.Center.X + 400, (int)npc.Center.Y - 400, NPCType<ZephyrSpirit>(), default, npc.whoAmI);
-					//NPC.NewNPC((int)npc.Center.X + 800, (int)npc.Center.Y, NPCType<ZephyrSpirit>(), default, npc.whoAmI);
-				}
-				if (bulletHellTimer >= 1200)
-					bulletHellTimer = 0;
-			}
+				PhaseOne();
 			if (Phase() == 2)
-			{
-				if (dartCooldown <= 0)
-				{
-					for (float i = 0; i <= MathHelper.TwoPi; i += MathHelper.PiOver4)
-					{
-						NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(-i), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Spiral, i, 1);
-						NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(i), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Spiral, i, -1);
-					}
-					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal);
-					dartCooldown = 180;
-					NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Helix, npc.AngleTo(player.position), 1);
-					NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Helix, npc.AngleTo(player.position), -1);
-				}
-				if (sentinelCooldown <= 0)
-				{
-					NPC.NewNPC((int)npc.Center.X + 200, (int)npc.Center.Y - 200, NPCType<ZephyrSentinel>());
-					NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 400, NPCType<ZephyrSentinel>());
-					NPC.NewNPC((int)npc.Center.X - 200, (int)npc.Center.Y - 200, NPCType<ZephyrSentinel>());
-					sentinelCooldown = 1800;
-				}
-				sentinelCooldown--;
-				dartCooldown--;
-				Movement();
-			}
+				PhaseTwo();
 			if (Phase() == 3)
+				PhaseThree();
+		}
+		public void PhaseOne()
+		{
+			npc.ai[0]++;
+			if (npc.ai[0] % 270 == 0)
 			{
-				if (dartCooldown <= 0)
-				{
-					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal);
-					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.AcceleratedHoming, 1);
-					dartCooldown = 300;
-					for (float i = 0; i <= 10; i++)
-					{
-						float xDist = player.Center.X - npc.Center.X;
-						float spread = 3f / npc.Distance(player.Center);
-						Projectile.NewProjectile(npc.Center, new Vector2(xDist * (-5 + i) * spread, -16), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Gravity, i);
-					}
-				}
-				dartCooldown--;
-				Movement();
+				SummonTridents();
 			}
+			Movement();
+
+			if (bulletHellTimer % 600 == 0)
+			{
+				for (float i = 0; i < 3; i++)
+				{
+					Vector2 pos = new Vector2(640f, 0f).RotatedBy((-i * MathHelper.PiOver4) + MathHelper.PiOver4);
+					NewNPCExtraAI(new Vector2(npc.Center.X, npc.Center.Y) + pos, NPCType<ZephyrSpirit>(), default, npc.whoAmI);
+				}
+				npc.ai[3] = 600;
+			}
+
+			if (bulletHellTimer >= 1200)
+				bulletHellTimer = 0;
+		}
+		public void PhaseTwo()
+		{
+			if (dartCooldown <= 0)
+			{
+				for (float i = 0; i <= MathHelper.TwoPi; i += MathHelper.PiOver4)
+				{
+					NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(-i), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Spiral, i, 1);
+					NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(i), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Spiral, i, -1);
+				}
+				Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal);
+				dartCooldown = 180;
+				NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Helix, npc.AngleTo(player.position), 1);
+				NewProjectileExtraAI(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Helix, npc.AngleTo(player.position), -1);
+			}
+			if (sentinelCooldown <= 0)
+			{
+				NPC.NewNPC((int)npc.Center.X + 200, (int)npc.Center.Y - 200, NPCType<ZephyrSentinel>());
+				NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 400, NPCType<ZephyrSentinel>());
+				NPC.NewNPC((int)npc.Center.X - 200, (int)npc.Center.Y - 200, NPCType<ZephyrSentinel>());
+				sentinelCooldown = 1800;
+			}
+			sentinelCooldown--;
+			dartCooldown--;
+			Movement();
+		}
+		public void PhaseThree()
+		{
+			if (dartCooldown <= 0)
+			{
+				Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal);
+				Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(player.position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.AcceleratedHoming, 1);
+				dartCooldown = 300;
+				for (float i = 0; i <= 10; i++)
+				{
+					float xDist = player.Center.X - npc.Center.X;
+					float spread = 3f / npc.Distance(player.Center);
+					Projectile.NewProjectile(npc.Center, new Vector2(xDist * (-5 + i) * spread, -16), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Gravity, i);
+				}
+			}
+			dartCooldown--;
+			Movement();
 		}
 		public void SummonTridents()
 		{
 			Projectile.NewProjectile(npc.Center + new Vector2(300f, 0f).RotatedBy(-MathHelper.PiOver4), new Vector2(0f, 0f), ProjectileType<ZephyrTrident>(), 25, 2f, default, 0, 90);
 			Projectile.NewProjectile(npc.Center + new Vector2(300f, 0f).RotatedBy(-MathHelper.PiOver2), new Vector2(0f, 0f), ProjectileType<ZephyrTrident>(), 25, 2f, default, 0, 180);
 			Projectile.NewProjectile(npc.Center + new Vector2(300f, 0f).RotatedBy(-MathHelper.Pi + MathHelper.PiOver4), new Vector2(0f, 0f), ProjectileType<ZephyrTrident>(), 25, 2f, default, 0, 270);
-		}
-		public void SetAIVariables()
-		{
-		}
+		} // Summons the triden attack
 		public void RefreshRain()
 		{
 			Main.raining = true;
@@ -221,7 +216,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			Main.weatherCounter = 36000;
 			Main.rainTime = Main.weatherCounter;
 			Main.maxRaining = rain;
-		}
+		} // Refreshes the rain timers
 		public void Movement()
 		{
 			npc.spriteDirection = npc.direction;
@@ -240,9 +235,10 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			}
 			if (Phase() == 2)
 			{
-
 				Vector2 position = player.Center + new Vector2(300f, 0f).RotatedBy((Math.Cos(Main.GlobalTime * 0.5f) * MathHelper.PiOver2) - MathHelper.PiOver2);
 				Vector2 unitY = npc.DirectionTo(position);
+				Vector2 offset = player.Center - npc.Center;
+				float max = offset.X > offset.Y ? offset.X : offset.Y;
 				npc.velocity = ((npc.velocity * 45f) + (unitY * 4f)) / (45f + 1f);
 			}
 			if (Phase() == 3)
@@ -250,15 +246,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				Vector2 unitY = npc.DirectionTo(player.Center);
 				npc.velocity = ((npc.velocity * 15f) + (unitY * speedCap)) / (15f + 1f);
 			}
-		}
-		public override void FindFrame(int frameheight)
-		{
-			//	Texture2D tex = GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus");
-			//	if (npc.frameCounter + 0.125f >= 12f)
-			//		npc.frameCounter = 0f;
-			//	npc.frameCounter += 0.125f;
-			//	npc.frame.Y = (int)npc.frameCounter * (tex.Height / 12);
-		}
+		} // Movement method
 		public void DustEffects()
 		{
 			npc.ai[1]++; // Dust AI
@@ -268,13 +256,16 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				Dust.NewDust(new Vector2(npc.Hitbox.X + Main.rand.NextFloat(0, npc.Hitbox.Width + 1), npc.Hitbox.Y + Main.rand.NextFloat(0, npc.Hitbox.Height + 1)), 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
 			}
 			Lighting.AddLight(npc.Center, ColorShift(new Color(174, 197, 231), new Color(83, 46, 99), 3f).ToVector3());
-		}
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		} // Spawns the dust around the boss
+		public override void FindFrame(int frameheight)
 		{
-			DrawAfterImage(Main.spriteBatch);
-			return false;
-		}
-		public void DrawAfterImage(SpriteBatch spriteBatch)
+			//	Texture2D tex = GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus");
+			//	if (npc.frameCounter + 0.125f >= 12f)
+			//		npc.frameCounter = 0f;
+			//	npc.frameCounter += 0.125f;
+			//	npc.frame.Y = (int)npc.frameCounter * (tex.Height / 12);
+		} // Animates the sprite
+		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
 			SpriteBatch spriteBatch1 = new SpriteBatch(Main.graphics.GraphicsDevice);
 			spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
@@ -284,7 +275,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				//{
 				//	float alpha = 1f - (i * 0.25f);
 
-				//	Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / 3f).ColorRGBAIntToFloat();
+				//	Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / 3f).RGBAIntToFloat();
 
 				//	colorV.X *= alpha;
 				//	colorV.Y *= alpha;
@@ -316,7 +307,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					float alpha = (1f - (i * 0.1f)) * (float)((float)(0.375d * Math.Sin(Main.GlobalTime * 20d)) + 0.625d);
 					float scale = (1f - (i * 0.025f)) * (float)((float)(0.025d * Math.Sin(Main.GlobalTime * 20d)) + 1.025d);
 
-					Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 128), new Vector4(83, 46, 99, 128), i / 9f).ColorRGBAIntToFloat();
+					Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 128), new Vector4(83, 46, 99, 128), i / 9f).RGBAIntToFloat();
 
 					colorV.X *= alpha;
 					colorV.Y *= alpha;
@@ -329,14 +320,15 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				}
 			}
 			spriteBatch1.End();
-		}
+			return false;
+		} // Draws the afterimage
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			if (npc.life <= 0)
 			{
 				for (int i = 0; i < 100; i++)
 				{
-					float angle = Main.rand.NextFloat(0, 360);
+					double angle = Main.rand.NextFloat(0, 360);
 					Vector2 speed = new Vector2(Main.rand.NextFloat(2f, 12f), Main.rand.NextFloat(2f, 12f)).RotatedBy(angle.InRadians());
 					float scale = Main.rand.NextFloat(1f, 2f);
 					int dust = Dust.NewDust(npc.Hitbox.RandomPointInHitbox(), 5, 5, DustType<CloudDust>(), speed.X, speed.Y, 255, default, scale);
@@ -344,8 +336,8 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 					Main.dust[dust].noGravity = false;
 				}
 			}
-		}
-		public override void NPCLoot() //this is what makes special things happen when your boss dies, like loot or text
+		} // Spawns dust when boss dies
+		public override void NPCLoot() // Drops loot
 		{
 			if (!ProvidenceWorld.downedCaelus || !BrinewastesWorld.downedCaelus)
 			{

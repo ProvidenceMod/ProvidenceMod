@@ -26,8 +26,8 @@ namespace ProvidenceMod.Projectiles.Ranged
 		}
 		public override void AI()
 		{
-			projectile.rotation = projectile.velocity.ToRotation();//this is a method, they have to have () <-- those things
-			Lighting.AddLight(projectile.position, new Vector3(109,242,196).ColorRGBIntToFloat());
+			projectile.rotation = projectile.velocity.ToRotation();
+			Lighting.AddLight(projectile.position, new Vector3(109, 242, 196).RGBIntToFloat());
 			Player p = Main.player[projectile.owner];
 			p.noKnockback = true;
 		}
@@ -37,13 +37,15 @@ namespace ProvidenceMod.Projectiles.Ranged
 			projectile.penetrate--;
 			if (projectile.penetrate <= 0)
 			{
-					projectile.Kill();
+				projectile.Kill();
 			}
-			foreach (NPC npc in Main.npc) {
-					if (!npc.friendly && !npc.boss)
+			foreach (NPC npc in Main.npc)
+			{
+				if (!npc.friendly && !npc.boss)
 				{
-						float distance = Vector2.Distance(projectile.position, npc.position);
-					if (distance <= 256) {
+					float distance = Vector2.Distance(projectile.position, npc.position);
+					if (distance <= 256)
+					{
 						Vector2 Succ = new Vector2(30f, 0f);
 						npc.velocity = Succ.RotateTo(npc.AngleTo(projectile.position));
 					}
@@ -55,16 +57,18 @@ namespace ProvidenceMod.Projectiles.Ranged
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Main.PlaySound(SoundID.Item54);
-			projectile.penetrate-=10;
+			projectile.penetrate -= 10;
 			if (projectile.penetrate <= 0)
 			{
-					projectile.Kill();
+				projectile.Kill();
 			}
-			foreach (NPC npc in Main.npc) {
+			foreach (NPC npc in Main.npc)
+			{
 				if (!npc.friendly && !npc.boss)
 				{
-						float distance = Vector2.Distance(projectile.position, npc.position);
-					if (distance <= 256) {
+					float distance = Vector2.Distance(projectile.position, npc.position);
+					if (distance <= 256)
+					{
 						Vector2 Succ = new Vector2(30f, 0f);
 						npc.velocity = Succ.RotateTo(npc.AngleTo(projectile.position));
 					}

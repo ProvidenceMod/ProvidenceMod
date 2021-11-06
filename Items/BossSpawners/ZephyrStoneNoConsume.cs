@@ -19,8 +19,8 @@ namespace ProvidenceMod.Items.BossSpawners
 		}
 		public override void SetDefaults()
 		{
-			item.width = 34;
-			item.height = 38;
+			item.width = 46;
+			item.height = 44;
 			item.maxStack = 1;
 			item.rare = (int)ProvidenceRarity.Orange;
 			item.useAnimation = 45;
@@ -35,14 +35,9 @@ namespace ProvidenceMod.Items.BossSpawners
 		public override bool UseItem(Player player)
 		{
 			if (Main.netMode != NetmodeID.MultiplayerClient)
-			{
 				NPC.SpawnOnPlayer(player.whoAmI, NPCType<PrimordialCaelus>());
-				Talk("Primordial Caelus has awoken!", new Color(56, 196, 166), NPCType<PrimordialCaelus>());
-			}
 			else
-			{
 				NetMessage.SendData(MessageID.SpawnBoss, -1, -1, null, player.whoAmI, NPCType<PrimordialCaelus>(), 0.0f, 0.0f, 0, 0, 0);
-			}
 			return true;
 		}
 

@@ -34,7 +34,7 @@ namespace ProvidenceMod.Projectiles.Ranged
 		public override void AI()
 		{
 			projectile.rotation = projectile.velocity.ToRotation();
-			Lighting.AddLight(projectile.Center, new Vector3(98, 99, 129).ColorRGBIntToFloat());
+			Lighting.AddLight(projectile.Center, new Vector3(98, 99, 129).RGBIntToFloat());
 			if (projectile.ai[1] < 20)
 			{
 				projectile.ai[1]++;

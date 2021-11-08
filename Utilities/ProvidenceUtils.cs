@@ -86,6 +86,7 @@ namespace ProvidenceMod
 			}
 			npc.Providence().oldLife[0] = npc.life;
 		}
+		public static bool IsWalking(this Player player) => player.velocity.X < -0.5f || player.velocity.X > 0.5f || player.velocity.Y < -0.5f || player.velocity.Y > 0.5f;
 		public static void DrawHealthBarCustom(this NPC npc, ref int comboDMG, ref int comboBarCooldown, ref int comboDMGCooldown, ref int comboDMGCounter, ref float scale, ref Vector2 position, ref Rectangle comboRect)
 		{
 			float quotient = npc.life / (float)npc.lifeMax;
@@ -146,8 +147,8 @@ namespace ProvidenceMod
 				spriteBatch.End();
 			}
 			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB1"), new Vector2(xPos, yPos) - Main.screenPosition, new Rectangle(0, 0, 48, 20), Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB3"), new Vector2(xPos + 6f, yPos + 6f) - Main.screenPosition, comboRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB2"), new Vector2(xPos + 6f, yPos + 6f) - Main.screenPosition, healthRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB3"), new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, comboRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(GetTexture("ProvidenceMod/TexturePack/UI/HB2"), new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, healthRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
 		}
 		public static void DrawBorderStringEightWay(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 position, Color color, Color border, float scale = 1f)
 		{

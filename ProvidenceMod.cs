@@ -46,9 +46,6 @@ namespace ProvidenceMod
 		public bool bossPercentage;
 		public bool subworldVote;
 
-		private Vector2 lastScreenSize;
-		private Vector2 lastViewSize;
-
 		public override void Load()
 		{
 			Instance = this;
@@ -62,6 +59,8 @@ namespace ProvidenceMod
 			{
 				if (texturePack)
 					ProvidenceTextureManager.Load();
+				particleManager = new ParticleManager();
+				particleManager.Load();
 				//divinityEffect = Instance.GetEffect("Effects/DivinityShader");
 				//divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
 			}
@@ -85,9 +84,6 @@ namespace ProvidenceMod
 				//	mouseTextFont = GetFont("Fonts/MouseTextFont");
 
 				//ProvidenceTextureManager.LoadFonts();
-
-				particleManager = new ParticleManager();
-				particleManager.Load();
 			}
 		}
 		public override void PostSetupContent()
@@ -110,7 +106,14 @@ namespace ProvidenceMod
 				ProvidenceTextureManager.Unload();
 				//ProvidenceTextureManager.UnloadFonts();
 			}
-			particleManager.Unload();
+			try
+			{
+				particleManager.Unload();
+			}
+			catch (Exception ex)
+			{
+
+			}
 			providenceEvents.Unload();
 			SubworldManager.Unload();
 			Instance = null;
@@ -150,14 +153,14 @@ namespace ProvidenceMod
 		}
 		public override void PreUpdateEntities()
 		{
-			particleManager.PreUpdate();
 		}
 		public override void MidUpdateDustTime()
 		{
-			particleManager.Update();
 		}
 		public override void PostUpdateEverything()
 		{
+			particleManager.PreUpdate();
+			particleManager.Update();
 			particleManager.PostUpdate();
 		}
 

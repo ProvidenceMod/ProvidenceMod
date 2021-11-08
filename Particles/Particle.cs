@@ -183,7 +183,7 @@ namespace ProvidenceMod.Particles
 		{
 			Color color = Color == default ? new Color(lightColor.R, lightColor.G, lightColor.B, Alpha) : new Color(Color.R, Color.G, Color.B, Alpha);
 			Texture2D texture = ModContent.GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast");
-			Main.spriteBatch.Draw(texture, Position - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, Rotation, Texture.Size() * 0.5f, Scale * 10f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(texture, Position - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, Rotation, Texture.Size() * 0.5f, Scale * 10f, SpriteEffects.None, 0f);
 		}
 		/// <summary>
 		/// Drawing code to run after the particle manager draw call.

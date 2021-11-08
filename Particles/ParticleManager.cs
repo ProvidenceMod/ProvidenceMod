@@ -47,13 +47,13 @@ namespace ProvidenceMod.Particles
 				// Run AI.
 				particles[i].AI();
 				// Draw particle.
-				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-				bool draw = particles[i].PreDraw(Main.spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
+				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+				bool draw = particles[i].PreDraw(spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
 				spriteBatch.End();
 				if (draw)
 				{
-					spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-					particles[i].Draw(Main.spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
+					spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+					particles[i].Draw(spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
 					spriteBatch.End();
 				}
 				// Time left check.
@@ -73,8 +73,8 @@ namespace ProvidenceMod.Particles
 			for (int i = 0; i < particles.Count; i++)
 			{
 				particles[i].PostAI();
-				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-				particles[i].PostDraw(Main.spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
+				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+				particles[i].PostDraw(spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
 				spriteBatch.End();
 			}
 		}

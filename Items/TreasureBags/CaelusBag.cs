@@ -7,6 +7,7 @@ using ProvidenceMod.Items.Materials;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using ProvidenceMod.Dusts;
+using System;
 
 namespace ProvidenceMod.Items.TreasureBags
 {
@@ -47,7 +48,9 @@ namespace ProvidenceMod.Items.TreasureBags
 		}
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
-			if(Main.GlobalTime % 30 == 0)
+			SpriteBatch spriteBatch1 = new SpriteBatch(Main.graphics.GraphicsDevice);
+			spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+			if (Main.GlobalTime % 30 == 0)
 			{
 				Vector2 pos = new Vector2(0f, 16f).RotatedBy(Main.rand.NextFloat(0f, MathHelper.TwoPi));
 				Dust.NewDustPerfect(item.Center + pos, DustType<CloudDust>(), -pos * 0.5f);
@@ -66,11 +69,19 @@ namespace ProvidenceMod.Items.TreasureBags
 					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
 					spriteBatch.Draw(GetTexture("ProvidenceMod/Items/TreasureBags/CaelusBag"), item.Center - Main.screenPosition, new Rectangle(0, 0, item.width, item.height), color, rotation, new Vector2(item.width / 2, item.height / 2), newScale, SpriteEffects.None, 0f);
 				}
+				float sin = (float)Math.Sin(Main.GlobalTime * 12f) * 4f;
+				float cos = (float)Math.Cos(Main.GlobalTime * 12f) * 4f;
+				spriteBatch.Draw(GetTexture("ProvidenceMod/Items/TreasureBags/CaelusBag"), item.Center - Main.screenPosition + new Vector2(4f, 0f) + new Vector2(cos, sin), new Rectangle(0, 0, item.width, item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(item.width / 2, item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/Items/TreasureBags/CaelusBag"), item.Center - Main.screenPosition + new Vector2(0f, 4f) + new Vector2(cos, sin), new Rectangle(0, 0, item.width, item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(item.width / 2, item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/Items/TreasureBags/CaelusBag"), item.Center - Main.screenPosition + new Vector2(-4f, 0f) + new Vector2(cos, sin), new Rectangle(0, 0, item.width, item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(item.width / 2, item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/Items/TreasureBags/CaelusBag"), item.Center - Main.screenPosition + new Vector2(0f, -4f) + new Vector2(cos, sin), new Rectangle(0, 0, item.width, item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(item.width / 2, item.height / 2), 1f, SpriteEffects.None, 0f);
 				spriteBatch.Draw(GetTexture("ProvidenceMod/Items/TreasureBags/CaelusBag"), item.Center - Main.screenPosition, new Rectangle(0, 0, item.width, item.height), lightColor, rotation, new Vector2(item.width / 2, item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch1.End();
 				return false;
 			}
 			else
 			{
+				spriteBatch1.End();
 				return true;
 			}
 		}

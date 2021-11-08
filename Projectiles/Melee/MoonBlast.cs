@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using static ProvidenceMod.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 using ProvidenceMod.Buffs.DamageOverTime;
-using ProvidenceMod.Dusts;
 using ProvidenceMod.Particles;
 
 namespace ProvidenceMod.Projectiles.Melee
@@ -41,7 +40,7 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.UpdatePositionCache();
 			projectile.UpdateRotationCache();
 			Lighting.AddLight(projectile.Center, new Vector3(Main.DiscoR, Main.DiscoG, Main.DiscoB).RGBIntToFloat());
-			if(projectile.ai[0] % 5 == 0)
+			if (projectile.ai[0] % 5 == 0)
 				NewParticle(projectile.getRect().RandomPointInHitbox(), new Vector2(0f, 0f), new MoonBlastParticle(), Color.White);
 			projectile.ai[0]++;
 			if (projectile.ai[0] < 30)
@@ -92,9 +91,7 @@ namespace ProvidenceMod.Projectiles.Melee
 				Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
 				spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), color, projectile.oldRot[i], new Vector2(projectile.width / 2, projectile.height / 2), 1f, SpriteEffects.None, 0f);
 			}
-			//spriteBatch.Draw(GetTexture("ProvidenceMod/Particles/MoonBlastParticle"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), Color.White, projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale * 10f, SpriteEffects.None, 0f);
 			spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), new Color(colorV2.X, colorV2.Y, colorV2.Z, colorV2.W), projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale, SpriteEffects.None, 0f);
-			ProvidenceMod.particleManager.spriteBatch = spriteBatch;
 			//foreach (Particle particle in ProvidenceMod.particleManager.particles)
 			//{
 			//	spriteBatch.Draw(GetTexture("ProvidenceMod/Particles/MoonBlastParticle"), particle.Position - Main.screenPosition, new Rectangle(0, 0, particle.Width, particle.Height), Color.White, particle.Rotation, new Vector2(particle.Width / 2, particle.Height / 2), particle.Scale, SpriteEffects.None, 0f);

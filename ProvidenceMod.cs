@@ -149,7 +149,7 @@ namespace ProvidenceMod
 
 		public override void PreSaveAndQuit()
 		{
-			particleManager.Unload();
+			particleManager.Dispose();
 		}
 		public override void PreUpdateEntities()
 		{

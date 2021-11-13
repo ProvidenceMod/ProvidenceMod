@@ -31,14 +31,14 @@ namespace ProvidenceMod.Particles
 		}
 		public void PreUpdate()
 		{
-			for (int i = 0; i < particles.Count; i++)
+			for (int i = 0; i < particles?.Count; i++)
 			{
 				particles[i].PreAI();
 			}
 		}
 		public void Update()
 		{
-			for (int i = 0; i < particles.Count; i++)
+			for (int i = 0; i < particles?.Count; i++)
 			{
 				// Apply gravity.
 				particles[i].Velocity.Y += particles[i].Gravity;
@@ -69,7 +69,7 @@ namespace ProvidenceMod.Particles
 		}
 		public void PostUpdate()
 		{
-			for (int i = 0; i < particles.Count; i++)
+			for (int i = 0; i < particles?.Count; i++)
 			{
 				particles[i].PostAI();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -86,8 +86,8 @@ namespace ProvidenceMod.Particles
 			Type.Color = Color;
 			Type.Active = true;
 			Type.ai = new float[] { AI0, AI1, AI2, AI3, AI4, AI5, AI6, AI7 };
-			particles.Add(Type);
-			if (particles.Count > 500)
+			particles?.Add(Type);
+			if (particles?.Count > 500)
 			{
 				particles.RemoveAt(0);
 				particles.TrimExcess();

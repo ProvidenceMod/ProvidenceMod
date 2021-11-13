@@ -12,7 +12,6 @@ namespace ProvidenceMod.Items.Weapons
 		public virtual float Speed => 24f;
 		public virtual int Fadeout => 60;
 		public virtual int Projectiles => 2;
-		public virtual bool Cleric => false;
 		public Projectile[] projectiles;
 		public override void SetDefaults()
 		{
@@ -21,11 +20,12 @@ namespace ProvidenceMod.Items.Weapons
 			item.autoReuse = true;
 			item.noUseGraphic = true;
 			item.noMelee = true;
-			item.melee = Cleric; // Cleric is true? Then true, otherwise false
-			item.ranged = Cleric;
-			item.magic = Cleric;
-			item.summon = Cleric;
-			item.thrown = Cleric;
+			item.melee = false; // Cleric is true? Then true, otherwise false
+			item.ranged = false;
+			item.magic = false;
+			item.summon = false;
+			item.thrown = false;
+			item.Providence().cleric = true;
 			SetExtraDefaults();
 		}
 		public virtual void SetExtraDefaults() { }
@@ -43,7 +43,7 @@ namespace ProvidenceMod.Items.Weapons
 		}
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (Cleric)
+			if (item.Providence().cleric)
 			{
 				TooltipLine damagetip = tooltips.Find(x => x.Name == "Damage" && x.mod == "Terraria");
 				if (damagetip != null)
@@ -53,24 +53,22 @@ namespace ProvidenceMod.Items.Weapons
 				}
 			}
 		}
-		public virtual void ModifyWeaponDamage(Player player, ref int damage)
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
-			if (Cleric)
-			{
-				int originalDmg = damage;
-				//damage = (int)(damage * modPlayer.clericMultiplier);
-				float globalDmg = player.meleeDamage - 1;
-				if (player.magicDamage - 1 < globalDmg)
-					globalDmg = player.magicDamage - 1;
-				if (player.rangedDamage - 1 < globalDmg)
-					globalDmg = player.rangedDamage - 1;
-				if (player.minionDamage - 1 < globalDmg)
-					globalDmg = player.minionDamage - 1;
-				if (player.thrownDamage - 1 < globalDmg)
-					globalDmg = player.thrownDamage - 1;
-				if (globalDmg > 1)
-					damage += (int)(originalDmg * globalDmg);
-			}
+			mult = player.Providence().clericDamage;
+			float globalDmg = player.Providence().clericDamage - 1;
+			if (player.meleeDamage - 1 < globalDmg)
+				globalDmg = player.meleeDamage - 1;
+			if (player.magicDamage - 1 < globalDmg)
+				globalDmg = player.magicDamage - 1;
+			if (player.rangedDamage - 1 < globalDmg)
+				globalDmg = player.rangedDamage - 1;
+			if (player.minionDamage - 1 < globalDmg)
+				globalDmg = player.minionDamage - 1;
+			if (player.thrownDamage - 1 < globalDmg)
+				globalDmg = player.thrownDamage - 1;
+			if (globalDmg > 1)
+				mult += globalDmg;
 		}
 	}
 }

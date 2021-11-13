@@ -28,12 +28,6 @@ namespace ProvidenceMod.Items.Armor
     {
     }
 
-    public override bool IsArmorSet(Item head, Item body, Item legs)
-    {
-      return body.type == ItemType<ZephyrBreastplate>() &&
-        head.type == ItemType<ZephyrHelm>() &&
-        legs.type == ItemType<ZephyrLeggings>();
-    }
     public override void AddRecipes()
     {
       ModRecipe recipe = new ModRecipe(mod);

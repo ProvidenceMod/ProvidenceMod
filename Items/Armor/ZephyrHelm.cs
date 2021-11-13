@@ -11,7 +11,7 @@ namespace ProvidenceMod.Items.Armor
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Zephyr Helm");
-      Tooltip.SetDefault("");
+      Tooltip.SetDefault("+5% ranged damage\n2% ranged crit chance");
     }
 
     public override void SetDefaults()
@@ -22,9 +22,21 @@ namespace ProvidenceMod.Items.Armor
     }
     public override void UpdateEquip(Player player)
     {
+			player.rangedDamage += 0.05f;
+			player.rangedCrit += 2;
     }
-
-    public override void AddRecipes()
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return body.type == ItemType<ZephyrBreastplate>() &&
+				legs.type == ItemType<ZephyrLeggings>() &&
+				head.type == ItemType<ZephyrHelm>();
+		}
+		public override void UpdateArmorSet(Player player)
+		{
+			player.setBonus = "+3 defense";
+			player.statDefense += 3;
+		}
+		public override void AddRecipes()
     {
       ModRecipe recipe = new ModRecipe(mod);
       recipe.AddIngredient(ItemID.DirtBlock, 1);

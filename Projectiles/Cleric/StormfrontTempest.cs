@@ -25,6 +25,7 @@ namespace ProvidenceMod.Projectiles.Cleric
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
 			projectile.penetrate = -1;
+			projectile.melee = false;
 		}
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{

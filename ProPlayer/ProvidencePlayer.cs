@@ -37,6 +37,8 @@ namespace ProvidenceMod
 
 		// -- Cleric -- //
 		public bool cleric;
+		public float clericDamage;
+		public int clericCrit;
 		public float parityMaxStacks = 100;
 		public float parityStackGen;
 		public bool heartOfReality;
@@ -58,6 +60,8 @@ namespace ProvidenceMod
 			parityMaxStacks = 0;
 			parityStackGen = 0;
 			cleric = false;
+			clericDamage = 1f;
+			clericCrit = 4;
 			intimidated = false;
 			heartOfReality = false;
 		}

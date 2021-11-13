@@ -27,11 +27,12 @@ namespace ProvidenceMod.Items
 				damagetip.text = array[0] + " parity " + array.Last();
 			}
 		}
-		public virtual void ModifyWeaponDamage(Player player, ref int damage)
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
-			int originalDmg = damage;
-			//damage = (int)(damage * modPlayer.clericMultiplier);
-			float globalDmg = player.meleeDamage - 1;
+			mult = player.Providence().clericDamage;
+			float globalDmg = player.Providence().clericDamage - 1;
+			if (player.meleeDamage - 1 < globalDmg)
+				globalDmg = player.meleeDamage - 1;
 			if (player.magicDamage - 1 < globalDmg)
 				globalDmg = player.magicDamage - 1;
 			if (player.rangedDamage - 1 < globalDmg)
@@ -41,7 +42,7 @@ namespace ProvidenceMod.Items
 			if (player.thrownDamage - 1 < globalDmg)
 				globalDmg = player.thrownDamage - 1;
 			if (globalDmg > 1)
-				damage += (int)(originalDmg * globalDmg);
+				mult += globalDmg;
 		}
 	}
 }

@@ -28,9 +28,7 @@ namespace ProvidenceMod.Projectiles.Enemy
 
 		public override void AI()
 		{
-			projectile.ai[0]++;
-			if (projectile.ai[0] >= 20)
-				projectile.velocity.Y += gravConst;
+			projectile.velocity.Y += 0.4f;
 			if (projectile.velocity.Y > 16f) projectile.velocity.Y = 16f;
 			projectile.rotation = projectile.velocity.ToRotation();
 		}

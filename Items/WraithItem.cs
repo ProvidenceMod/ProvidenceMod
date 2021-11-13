@@ -21,10 +21,6 @@ namespace ProvidenceMod.Items
 		}
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
-			//add += player.Providence().throwingDamage - 1f;
-			//if (!player.Providence().StealthStrikeAvailable() || this.item.prefix <= 0)
-			//	return;
-			//mult += this.StealthStrikeDamage - 1f;
 		}
 	}
 }

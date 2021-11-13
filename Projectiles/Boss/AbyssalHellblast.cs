@@ -45,7 +45,7 @@ namespace ProvidenceMod.Projectiles.Boss
 					projectile.frame = 0;
 				}
 			}
-			Player player = (Player)ClosestEntity(projectile, false);
+			Player player = projectile.ClosestPlayer();
 			if (player != null)
 			{
 				Vector2 unitY = projectile.DirectionTo(player.Center);

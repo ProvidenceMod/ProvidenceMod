@@ -56,7 +56,7 @@ namespace ProvidenceMod.Projectiles.Melee
 			}
 			projectile.rotation += projectile.velocity.X * 0.05f;
 			//projectile.rotation = projectile.velocity.ToRotation();
-			NPC target = (NPC)ClosestEntity(projectile, true);
+			NPC target = projectile.ClosestNPC();
 			if (target?.Distance(projectile.Center) <= 750f)
 			{
 				if (projectile.timeLeft > 120)

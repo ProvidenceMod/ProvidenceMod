@@ -76,7 +76,7 @@ namespace ProvidenceMod.Particles
 		/// </summary>
 		public bool Active;
 		/// <summary>
-		/// The previous direction of this particle
+		/// The direction of this particle on the previous tick
 		/// </summary>
 		public int OldDirection;
 		/// <summary>
@@ -84,7 +84,7 @@ namespace ProvidenceMod.Particles
 		/// </summary>
 		public int Direction;
 		/// <summary>
-		/// The wdith of this particle.
+		/// The width of this particle.
 		/// </summary>
 		public int Width;
 		/// <summary>
@@ -182,8 +182,7 @@ namespace ProvidenceMod.Particles
 		public void Draw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Color color = Color == default ? new Color(lightColor.R, lightColor.G, lightColor.B, Alpha) : new Color(Color.R, Color.G, Color.B, Alpha);
-			Texture2D texture = ModContent.GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast");
-			spriteBatch.Draw(texture, Position - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, Rotation, Texture.Size() * 0.5f, Scale * 10f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Texture, Position - Main.screenPosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, Rotation, Texture.Size() * 0.5f, Scale * 10f, SpriteEffects.None, 0f);
 		}
 		/// <summary>
 		/// Drawing code to run after the particle manager draw call.

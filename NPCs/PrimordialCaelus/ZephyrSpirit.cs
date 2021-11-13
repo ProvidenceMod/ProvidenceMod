@@ -59,7 +59,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			npc.UpdateCenterCache();
 			npc.UpdateRotationCache();
 			npc.rotation = Utils.Clamp(npc.velocity.X * 0.05f, -0.5f, 0.5f);
-			Player player = (Player)ClosestEntity(npc, false);
+			Player player = npc.ClosestPlayer();
 
 			float cos = (float) Math.Cos(Main.GlobalTime * 6f);
 			float sin = (float) Math.Sin(Main.GlobalTime * 6f);

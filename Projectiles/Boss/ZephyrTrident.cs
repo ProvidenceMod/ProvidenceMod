@@ -40,7 +40,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			if (projectile.ai[0] == 0)
 			{
 				if (projectile.ai[1] > 0)
-					projectile.rotation = projectile.AngleTo(ClosestEntity(projectile, false).Center);
+					projectile.rotation = projectile.AngleTo(projectile.ClosestPlayer().Center);
 				if (projectile.ai[1] == 0)
 					projectile.velocity = new Vector2(32f, 0f).RotatedBy(projectile.rotation);
 				projectile.ai[1]--;

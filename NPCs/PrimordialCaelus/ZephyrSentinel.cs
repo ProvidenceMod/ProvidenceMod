@@ -55,7 +55,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 						Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / 2f));
 						Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / -2f));
 					}
-					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(ProvidenceUtils.ClosestEntity(npc, false).position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.WeakHoming, 1);
+					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(npc.ClosestPlayer().position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.WeakHoming, 1);
 				}
 				npc.ai[0]++;
 			}

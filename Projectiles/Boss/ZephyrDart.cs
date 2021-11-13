@@ -53,7 +53,7 @@ namespace ProvidenceMod.Projectiles.Boss
 						if (opacity <= 0)
 							projectile.Kill();
 					}
-					NaturalHoming(projectile, ClosestEntity(projectile, projectile.friendly), 100f, 10f);
+					NaturalHoming(projectile, projectile.ClosestPlayer(), 100f, 10f);
 					break;
 				// Accelerate homing
 				case 3:
@@ -74,7 +74,7 @@ namespace ProvidenceMod.Projectiles.Boss
 						if (opacity <= 0)
 							projectile.Kill();
 					}
-					NaturalHoming(projectile, ClosestEntity(projectile, false), 25f, projectile.velocity.Length());
+					NaturalHoming(projectile, projectile.ClosestPlayer(), 25f, projectile.velocity.Length());
 					break;
 				// Spiral
 				case 4:

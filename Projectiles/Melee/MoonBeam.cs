@@ -41,7 +41,7 @@ namespace ProvidenceMod.Projectiles.Melee
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Yellow);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Pink);
 			}
-			NPC target = (NPC)ClosestEntity(projectile, true);
+			NPC target = projectile.ClosestNPC();
 			if (target?.Distance(projectile.Center) <= 750f)
 			{
 				Vector2 unitY = projectile.DirectionTo(target.Center);

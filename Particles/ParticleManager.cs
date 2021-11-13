@@ -57,8 +57,7 @@ namespace ProvidenceMod.Particles
 					spriteBatch.End();
 				}
 				// Time left check.
-				particles[i].TimeLeft--;
-				if (particles[i].TimeLeft == 0 || !particles[i].Active)
+				if (particles[i].TimeLeft-- == 0 || !particles[i].Active)
 				{
 					// Do death action.
 					particles[i].DeathAction?.Invoke();

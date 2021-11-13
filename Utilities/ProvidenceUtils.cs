@@ -186,38 +186,45 @@ namespace ProvidenceMod
 				NetMessage.BroadcastChatMessage(NetworkText.FromKey(message), new Color(color.R, color.G, color.B));
 			}
 		}
-		/// <summary>Finds and returns the closesnt entity to the provided entity. Actively disregards Target Dummies.</summary>
-		public static Entity ClosestEntity(Entity entity, bool hostile)
+		/// <summary>Finds and returns the closest player to the entity. <para>Actively disregards Target Dummies.</para></summary>
+		public static Player ClosestPlayer(this Entity ent)
 		{
 			float shortest = -1f;
-			Entity chosenEntity = null;
-			if (hostile)
+			Player chosenEntity = null;
+			foreach (Player player in Main.player)
 			{
-				foreach (NPC npc in Main.npc)
+				if (player.active)
 				{
-					if (npc.active && !npc.townNPC && !npc.friendly && npc.type != NPCID.TargetDummy)
+					float dist = Vector2.Distance(ent.Center, player.Center);
+					if (dist < shortest || shortest == -1f)
 					{
-						float dist = Vector2.Distance(entity.Center, npc.Center);
-						if (dist < shortest || shortest == -1f)
-						{
-							shortest = dist;
-							chosenEntity = npc;
-						}
+						shortest = dist;
+						chosenEntity = player;
 					}
 				}
 			}
-			if (!hostile)
+			return chosenEntity;
+		}
+		/// <summary>Finds and returns the closest NPC to the entity. Optional parameter to decide to target hostile NPC or Town NPC.
+		/// <para>Actively disregards Target Dummies.</para></summary>
+		public static NPC ClosestNPC(this Entity ent, bool town = false)
+		{
+			float shortest = -1f;
+			NPC chosenEntity = null;
+			foreach (NPC npc in Main.npc)
 			{
-				foreach (Player player in Main.player)
+				if (npc.active && npc.type != NPCID.TargetDummy)
 				{
-					if (player.active)
+					// If we're looking for a town NPC and the current NPC is hostile (or vice versa if looking for a hostile mob),
+					// Skip the distance checking; it's not something we're looking for
+					if (town && (!npc.friendly || !npc.townNPC)) continue;
+					if (!town && (npc.friendly || npc.townNPC)) continue;
+
+					float dist = Vector2.Distance(ent.Center, npc.Center);
+					if (dist < shortest || shortest == -1f)
 					{
-						float dist = Vector2.Distance(entity.Center, player.Center);
-						if (dist < shortest || shortest == -1f)
-						{
-							shortest = dist;
-							chosenEntity = player;
-						}
+						shortest = dist;
+						chosenEntity = npc;
 					}
 				}
 			}

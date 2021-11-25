@@ -12,7 +12,7 @@ Summoners, wielders of Astrum, who infuse their servants with the power of the c
 
 Clerics, wielders of Parity Reality, who bend the universe to their will to alternate between heal and harm.
 
-Rogues, wielders of Quantum Flux, who bend space-time to inflict serious harm upon their foes and effortlessly evade attacks.
+Wraiths, wielders of Quantum Flux, who bend space-time to inflict serious harm upon their foes and effortlessly evade attacks.
 
 The world of Providence anticipates your attempts at survival, and despite how close you may come, there will always be another more unrelenting battle to fight.
 
@@ -22,7 +22,7 @@ You will suffer. You will die.
 
 This is the source code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
-A large-scale project planned to be an overhaul mod for Terraria. We have several mechanics planned for implementation, as well two new classes; Cleric, and Rogue, and we have big plans for future additions, the scale of which you've likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
+A large-scale project planned to be an overhaul mod for Terraria. We have several mechanics planned for implementation, as well two new classes; Cleric, and Wraith, and we have big plans for future additions, the scale of which you've likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
 
 For many of us, myself included, this is our first project in CSharp. We've been learning the language over time and have grown very fond of it. We plan on seeing this project through, if not out of dedication, simply out of passion. We hope to influence others to learn with us as we take this project and its community to the next level.
 
@@ -37,7 +37,7 @@ Added content:
 - One new set of items
 - One subworld (Incomplete)
 - A new class: Cleric
-- A new class: Rogue
+- A new class: Wraith
 
 Planned Content:
 - Elemental System
@@ -50,7 +50,7 @@ Planned Content:
 - World Fluff ( To make it feel more alive )
 - Quests for existing NPCs
 - Elaborated NPC lore
-- A new class: Rogue
+- A new class: Wraith
 - Class Gimmicks
 - New Achievements
 - Interactive and Passive Cutscenes

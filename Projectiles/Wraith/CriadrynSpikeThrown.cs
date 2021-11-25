@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 
-namespace ProvidenceMod.Projectiles.Enemy
+namespace ProvidenceMod.Projectiles.Wraith
 {
-	public class CriadrynSpike : ModProjectile
+	public class CriadrynSpikeThrown : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -18,15 +18,16 @@ namespace ProvidenceMod.Projectiles.Enemy
 		{
 			projectile.width = 20;
 			projectile.height = 10;
-			projectile.hostile = true;
+			projectile.friendly = true;
 			projectile.penetrate = 1;
 			projectile.timeLeft = 600;
+			projectile.ai[0] = 0;
 		}
 		public override void AI()
 		{
-			projectile.velocity.Y += 0.4f;
-			if (projectile.velocity.Y > 10f)
-				projectile.velocity.Y = 10f;
+			projectile.velocity.Y += 0.2f;
+			if (projectile.velocity.Y > 20f)
+				projectile.velocity.Y = 20f;
 			projectile.rotation = projectile.velocity.ToRotation();
 		}
 		public override void Kill(int timeLeft)

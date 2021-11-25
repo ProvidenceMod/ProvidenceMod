@@ -46,7 +46,7 @@ namespace ProvidenceMod.Projectiles.Cleric
 			Player player = Main.player[projectile.owner];
 			if (projectile.timeLeft > 30)
 				projectile.ai[0] += (angleMod < 24f ? angleMod += 0.02f * (1f + angleMod) : angleMod);
-			Vector2 pos = new Vector2(100f, 0f).RotatedBy(projectile.ai[1]).RotatedBy( ((double) projectile.ai[0]).InRadians());
+			Vector2 pos = new Vector2(100f, 0f).RotatedBy(projectile.ai[1]).RotatedBy( projectile.ai[0].InRadians());
 			projectile.rotation = pos.ToRotation();
 			projectile.Center = new Vector2(player.Center.X, player.Center.Y) + pos;
 			if (projectile.timeLeft < 31)

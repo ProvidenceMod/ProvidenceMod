@@ -9,55 +9,46 @@ namespace ProvidenceMod.Particles
 {
 	public class ParticleManager
 	{
-		public List<Particle> particles;
-		public SpriteBatch spriteBatch;
+		private List<Particle> particles;
 
 		public void Load()
 		{
 			particles = new List<Particle>();
-			spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
 		}
 		public void Unload()
 		{
 			particles.Clear();
 			particles = null;
-			spriteBatch.Dispose();
-			spriteBatch = null;
 		}
 		public void Dispose()
 		{
 			particles.Clear();
-			spriteBatch.Dispose();
 		}
-		public void PreUpdate()
+		public void PreUpdate(SpriteBatch spriteBatch)
 		{
 			for (int i = 0; i < particles?.Count; i++)
 			{
 				particles[i].PreAI();
 			}
 		}
-		public void Update()
+		public void Update(SpriteBatch spriteBatch)
 		{
 			for (int i = 0; i < particles?.Count; i++)
 			{
 				// Apply gravity.
-				particles[i].Velocity.Y += particles[i].Gravity;
+				particles[i].velocity.Y += particles[i].gravity;
 				// Apply velocity to position.
-				particles[i].Position += particles[i].Velocity;
+				particles[i].position += particles[i].velocity;
 				// Run AI.
 				particles[i].AI();
 				// Draw particle.
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-				bool draw = particles[i].PreDraw(spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
-				spriteBatch.End();
+				bool draw = particles[i].PreDraw(spriteBatch, Lighting.GetColor((int)(particles[i].position.X / 16), (int)(particles[i].position.Y / 16)));
 				if (draw)
 				{
-					spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-					particles[i].Draw(spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
-					spriteBatch.End();
+					particles[i].Draw(spriteBatch, Lighting.GetColor((int)(particles[i].position.X / 16), (int)(particles[i].position.Y / 16)));
 				}
 				// Time left check.
-				if (particles[i].TimeLeft-- == 0 || !particles[i].Active)
+				if (particles[i].timeLeft-- == 0 || !particles[i].active)
 				{
 					// Do death action.
 					particles[i].DeathAction?.Invoke();
@@ -67,31 +58,29 @@ namespace ProvidenceMod.Particles
 				}
 			}
 		}
-		public void PostUpdate()
+		public void PostUpdate(SpriteBatch spriteBatch)
 		{
 			for (int i = 0; i < particles?.Count; i++)
 			{
 				particles[i].PostAI();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-				particles[i].PostDraw(spriteBatch, Lighting.GetColor((int)(particles[i].Position.X / 16), (int)(particles[i].Position.Y / 16)));
-				spriteBatch.End();
+				particles[i].PostDraw(spriteBatch, Lighting.GetColor((int)(particles[i].position.X / 16), (int)(particles[i].position.Y / 16)));
 			}
 		}
-		public void NewParticle(Vector2 Position, Vector2 Velocity, Particle Type, Color Color, float AI0 = 0, float AI1 = 0, float AI2 = 0, float AI3 = 0, float AI4 = 0, float AI5 = 0, float AI6 = 0, float AI7 = 0)
+		public void NewParticle(Vector2 Position, Vector2 Velocity, Particle Type, Color Color, float scale, float AI0 = 0, float AI1 = 0, float AI2 = 0, float AI3 = 0, float AI4 = 0, float AI5 = 0, float AI6 = 0, float AI7 = 0)
 		{
-			if (Type.Texture == null)
+			if (Type.texture == null)
 				throw new NullReferenceException();
-			Type.Position = Position;
-			Type.Velocity = Velocity;
-			Type.Color = Color;
-			Type.Active = true;
+			Type.position = Position;
+			Type.velocity = Velocity;
+			Type.color = Color;
+			Type.scale = scale;
+			Type.active = true;
 			Type.ai = new float[] { AI0, AI1, AI2, AI3, AI4, AI5, AI6, AI7 };
-			particles?.Add(Type);
-			if (particles?.Count > 500)
-			{
-				particles.RemoveAt(0);
+			Type.SpawnAction.Invoke();
+			if(particles?.Count < 6000)
+				particles?.Add(Type);
+			if (particles?.Count > 6000)
 				particles.TrimExcess();
-			}
 		}
 	}
 }

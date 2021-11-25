@@ -24,7 +24,7 @@ You will suffer. You will die.
 
 This is the source code for the ProvidenceMod project; A mod for Terraria via tModLoader.
 
-A large-scale project planned to be an overhaul mod for Terraria. We have several mechanics planned for implementation, as well two new classes; Cleric, and Rogue, and we have big plans for future additions, the scale of which you've likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
+A large-scale project planned to be an overhaul mod for Terraria. We have several mechanics planned for implementation, as well two new classes; Cleric, and Wraith, and we have big plans for future additions, the scale of which you've likely seen in other big Terraria mods. This is a passion project, and so far our very small community of people has been helping us better our mod bit by bit with new content suggestions and other helpful contributions. While we might just be starting, it is said that there is a lot of promise and potential in our mod so far, and we are a dedicated and involved team of Devs working on making this dream a reality.
 
 For many of us, myself included, this is our first project in CSharp. We've been learning the language over time and have grown very fond of it. We plan on seeing this project through, if not out of dedication, simply out of passion. We hope to influence others to learn with us as we take this project and its community to the next level.
 
@@ -47,7 +47,7 @@ For many of us, myself included, this is our first project in CSharp. We've been
 - World Fluff ( To make it feel more alive )
 - Quests for existing NPCs
 - Elaborated NPC lore
-- A new class: Rogue
+- A new class: Wraith
 - Class Gimmicks
 - New Achievements
 - Interactive and Passive Cutscenes
@@ -158,7 +158,7 @@ To install our mod, simply follow these steps:
 
 <a name="special_thanks"></a>
 ## Special Thanks
-_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Keithixix197, Makeeto, Daken000, GildedLily, AmyTheRogue, FloofLeo, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
+_Special thanks to **Lance, Zackfox, Faelink Angel, Lythane, Keithixix197, Makeeto, Daken000, GildedLily, AmyTheWraith, FloofLeo, and GenesisFuz** for all of the ideas, suggestions, contributions, and support._
 
 <a name="code_of_conduct"></a>
 ## Contributor Covenant Code of Conduct

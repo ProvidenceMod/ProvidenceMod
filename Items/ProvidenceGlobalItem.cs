@@ -25,7 +25,7 @@ namespace ProvidenceMod
 		public bool glowMask;
 		public bool animatedGlowMask;
 		public bool cleric;
-		public bool rogue;
+		public bool wraith;
 
 		public Texture2D glowMaskTexture;
 		public Texture2D animationTexture;
@@ -38,6 +38,7 @@ namespace ProvidenceMod
 		public ProvidenceGlobalItem()
 		{
 			cleric = false;
+			wraith = false;
 		}
 		public override bool OnPickup(Item item, Player player)
 		{

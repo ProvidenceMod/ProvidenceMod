@@ -27,9 +27,9 @@ namespace ProvidenceMod
 			return new Vector2(resX, resY);
 		}
 		/// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
-		public static double InRadians(this double degrees) => MathHelper.ToRadians((float) degrees);
+		public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);
 		/// <summary>Shorthand for converting radians of rotation into a degrees equivalent.</summary>
-		public static double InDegrees(this double radians) => MathHelper.ToDegrees((float) radians);
+		public static float InDegrees(this float radians) => MathHelper.ToDegrees(radians);
 		/// <summary>Automatically converts seconds into game ticks. 1 second is 60 ticks.</summary>
 		public static int InTicks(this float seconds) => (int)(seconds * 60);
 		public static decimal Round(this decimal dec, int points) => decimal.Round(dec, points);

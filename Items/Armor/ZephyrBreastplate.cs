@@ -21,7 +21,7 @@ namespace ProvidenceMod.Items.Armor
     {
       item.width = 30;
       item.height = 22;
-      item.defense = 2;
+      item.defense = 4;
     }
 
     public override void UpdateEquip(Player player)

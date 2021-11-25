@@ -29,7 +29,9 @@ namespace ProvidenceMod
 
 		private UserInterface bossHealthUI;
 		private UserInterface parityUI;
+		private UserInterface quantum;
 		internal BossHealth BossHealth;
+		internal Quantum Quantum;
 		internal ParityUI ParityUI;
 
 		public ProvidenceHooks providenceEvents;
@@ -37,9 +39,14 @@ namespace ProvidenceMod
 
 		public static DynamicSpriteFont bossHealthFont;
 		public static DynamicSpriteFont mouseTextFont;
-		public static Effect divinityEffect;
+		public static Ref<Effect> divinityEffect;
+		public static ArmorShaderData divinityShaderData;
+		public static Effect quantumShader;
+
 
 		public static ModHotKey CycleParity;
+		public static ModHotKey UseQuantum;
+
 
 		public bool texturePack;
 		public bool bossHP;
@@ -61,8 +68,15 @@ namespace ProvidenceMod
 					ProvidenceTextureManager.Load();
 				particleManager = new ParticleManager();
 				particleManager.Load();
+
+			  //quantumShader = Instance.GetEffect("Effects/Quantum");
+
+				//divinityEffect = new Ref<Effect>(GetEffect("Effects/Quantum"));
+				//divinityShaderData = new ArmorShaderData(divinityEffect, "Quantum");
+
 				//divinityEffect = Instance.GetEffect("Effects/DivinityShader");
 				//divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
+
 			}
 			if (!Main.dedServ)
 			{
@@ -76,7 +90,13 @@ namespace ProvidenceMod
 				parityUI = new UserInterface();
 				parityUI.SetState(ParityUI);
 
+				Quantum = new Quantum();
+				Quantum.Initialize();
+				quantum = new UserInterface();
+				quantum.SetState(ParityUI);
+
 				CycleParity = RegisterHotKey("Cycle Parity Element", "C");
+				UseQuantum = RegisterHotKey("Activate Quantum Flux", "C");
 
 				if (FontExists("Fonts/BossHealthFont"))
 					bossHealthFont = GetFont("Fonts/BossHealthFont");
@@ -122,8 +142,7 @@ namespace ProvidenceMod
 
 		private bool DrawBossHealthUI()
 		{
-			if (BossHealth.visible)
-				bossHealthUI.Draw(Main.spriteBatch, new GameTime());
+			if (BossHealth.visible) bossHealthUI.Draw(Main.spriteBatch, new GameTime());
 			return true;
 		}
 		private bool DrawParityUI()
@@ -131,13 +150,20 @@ namespace ProvidenceMod
 			if (ParityUI.visible) parityUI.Draw(Main.spriteBatch, new GameTime());
 			return true;
 		}
+		private bool DrawQuantum()
+		{
+			Quantum.Draw(Main.spriteBatch);
+			return true;
+		}
+
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
 			if (accbarIndex != -1)
 			{
 				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
-				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity Meter", DrawParityUI, InterfaceScaleType.UI));
+				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity", DrawParityUI, InterfaceScaleType.UI));
+				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Quantum", DrawQuantum, InterfaceScaleType.UI));
 			}
 		}
 		public override void UpdateUI(GameTime gameTime)
@@ -145,23 +171,12 @@ namespace ProvidenceMod
 			BossHealthBarManager.Update();
 			bossHealthUI?.Update(gameTime);
 			parityUI?.Update(gameTime);
+			quantum?.Update(gameTime);
 		}
 
 		public override void PreSaveAndQuit()
 		{
 			particleManager.Dispose();
-		}
-		public override void PreUpdateEntities()
-		{
-		}
-		public override void MidUpdateDustTime()
-		{
-		}
-		public override void PostUpdateEverything()
-		{
-			particleManager.PreUpdate();
-			particleManager.Update();
-			particleManager.PostUpdate();
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI) => ProvidenceNetcode.HandlePacket(this, reader, whoAmI);

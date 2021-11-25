@@ -40,8 +40,8 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.UpdatePositionCache();
 			projectile.UpdateRotationCache();
 			Lighting.AddLight(projectile.Center, new Vector3(Main.DiscoR, Main.DiscoG, Main.DiscoB).RGBIntToFloat());
-			if (projectile.ai[0] % 5 == 0)
-				NewParticle(projectile.getRect().RandomPointInHitbox(), new Vector2(0f, 0f), new MoonBlastParticle(), Color.White);
+			if (projectile.ai[0] % Main.rand.Next(30, 51) == 0)
+				NewParticle(projectile.Center, projectile.velocity.RotatedBy(Main.rand.NextFloat(-10f, 11f) / 100f) / 3f, new MoonBlastParticle(), Color.White, Main.rand.NextFloat(5f, 11f) / 10f);
 			projectile.ai[0]++;
 			if (projectile.ai[0] < 30)
 			{
@@ -79,23 +79,21 @@ namespace ProvidenceMod.Projectiles.Melee
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Vector4 colorV = new Vector4(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0f).RGBAIntToFloat();
-			Vector4 colorV2 = new Vector4(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0f).RGBAIntToFloat();
-			for (int i = 0; i < projectile.oldRot.Length; i++)
+			Color[] color = new Color[9]
 			{
-				float alpha = 1f - (i * 0.1f);
-				colorV.X = colorV.X * projectile.Opacity * alpha;
-				colorV.Y = colorV.Y * projectile.Opacity * alpha;
-				colorV.Z = colorV.Z * projectile.Opacity * alpha;
-				//colorV.W = colorV.W * projectile.Opacity * alpha;
-				Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
-				spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), color, projectile.oldRot[i], new Vector2(projectile.width / 2, projectile.height / 2), 1f, SpriteEffects.None, 0f);
+					new Color(255, 230, 88, 0), new Color(104, 237, 195, 0), new Color(104, 237, 195, 0),
+					new Color(70, 101, 195, 0), new Color(64, 112, 157, 0), new Color(64, 112, 157, 0),
+					new Color(55, 62, 106, 0), new Color(42, 40, 71, 0), new Color(42, 40, 71, 0)
+			};
+			for (int i = 0; i < projectile.Providence().oldCen.Length - 1; i++)
+			{
+				for (int k = 0; k < 3; k++)
+				{
+					float alpha = 1f - (i * 0.1f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Providence().oldCen[i] + new Vector2(k == 0 ? 0f : 5f, k == 0 ? 0f : k == 1 ? -5f : 5f).RotatedBy(projectile.Providence().oldCen[i].ToRotation()) - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), k == 0 ? color[i] : Color.Multiply(color[i], 0.5f), projectile.oldRot[i], new Vector2(projectile.width / 2, projectile.height / 2), 1f * alpha, SpriteEffects.None, 0f);
+				}
 			}
-			spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), new Color(colorV2.X, colorV2.Y, colorV2.Z, colorV2.W), projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale, SpriteEffects.None, 0f);
-			//foreach (Particle particle in ProvidenceMod.particleManager.particles)
-			//{
-			//	spriteBatch.Draw(GetTexture("ProvidenceMod/Particles/MoonBlastParticle"), particle.Position - Main.screenPosition, new Rectangle(0, 0, particle.Width, particle.Height), Color.White, particle.Rotation, new Vector2(particle.Width / 2, particle.Height / 2), particle.Scale, SpriteEffects.None, 0f);
-			//}
+			spriteBatch.Draw(GetTexture("ProvidenceMod/Projectiles/Melee/MoonBlast"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), new Color(255, 230, 88, 0), projectile.rotation, new Vector2(projectile.width / 2, projectile.height / 2), projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

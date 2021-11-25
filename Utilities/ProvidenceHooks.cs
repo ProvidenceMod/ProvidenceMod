@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
 using Terraria.ID;
 namespace ProvidenceMod
 {
@@ -20,6 +22,7 @@ namespace ProvidenceMod
 			On.Terraria.NPC.UpdateNPC_BuffSetFlags += NPC_UpdateNPC_BuffSetFlags;
 			On.Terraria.NPC.UpdateNPC_BuffClearExpiredBuffs += NPC_UpdateNPC_BuffClearExpiredBuffs;
 			On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
+			On.Terraria.Main.DrawDust += Main_DrawDust;
 		}
 		// Unload hooks, aka unsubscribe methods
 		public void Unload()
@@ -31,7 +34,9 @@ namespace ProvidenceMod
 			On.Terraria.NPC.UpdateNPC_BuffSetFlags -= NPC_UpdateNPC_BuffSetFlags;
 			On.Terraria.NPC.UpdateNPC_BuffClearExpiredBuffs -= NPC_UpdateNPC_BuffClearExpiredBuffs;
 			On.Terraria.Main.DrawHealthBar -= Main_DrawHealthBar;
+			On.Terraria.Main.DrawDust -= Main_DrawDust;
 		}
+
 		public virtual void NPC_AddBuff(On.Terraria.NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
 		{
 			if (self.buffType.Length != 10 || self.buffTime.Length != 10)
@@ -254,6 +259,15 @@ namespace ProvidenceMod
 		{
 			if (!ProvidenceMod.Instance.texturePack)
 				orig(self, X, Y, Health, MaxHealth, alpha, scale);
+		}
+		public virtual void Main_DrawDust(On.Terraria.Main.orig_DrawDust orig, Main self)
+		{
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
+			ProvidenceMod.particleManager.PreUpdate(Main.spriteBatch);
+			ProvidenceMod.particleManager.Update(Main.spriteBatch);
+			ProvidenceMod.particleManager.PostUpdate(Main.spriteBatch);
+			Main.spriteBatch.End();
+			orig(self);
 		}
 	}
 }

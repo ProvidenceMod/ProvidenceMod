@@ -16,6 +16,7 @@ using ProvidenceMod.Buffs.StatDebuffs;
 using ProvidenceMod.Items.Weapons.Melee;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Items.TreasureBags;
+using Terraria.Graphics.Shaders;
 
 namespace ProvidenceMod
 {
@@ -23,8 +24,8 @@ namespace ProvidenceMod
 	{
 
 		public bool dashing;
-		public bool intimidated;
-		public bool texturePackEnabled;
+
+		public Vector2[] oldPos = new Vector2[10];
 
 		public int dashMod;
 		public int dashTimeMod;
@@ -32,8 +33,32 @@ namespace ProvidenceMod
 
 		public float DR;
 
-		// Debuffs
+		// Buffs
 		public bool pressureSpike;
+		public bool intimidated;
+
+		// -- Wraith -- //
+		public bool wraith;
+		//public float wraithDamage; => player.thrownDamage;
+		//public float wraithDamageMult; => player.thrownDamageMult;
+		//public int wraithCrit; => player.thrownCrit;
+		public float wraithCritMult;
+		public Action wraithCritEffect;
+		public float wraithDodge;
+		public float wraithDodgeCost;
+		public Action wraithDodgeEffect;
+		public float wraithHitPenalty;
+		public float quantum;
+		public bool quantumFlux;
+		public float quantumGen;
+		public float quantumMax;
+		public float quantumDrain;
+		public int wraithPierceMod;
+		public int wraithArmorPen;
+		public int wraithProjectileCountMod;
+		public float wraithAttackSpeedMult;
+		//public float wraithProjectileVelocityMult; => player.thrownVelocity;
+		// ------------ //
 
 		// -- Cleric -- //
 		public bool cleric;
@@ -42,12 +67,8 @@ namespace ProvidenceMod
 		public float parityMaxStacks = 100;
 		public float parityStackGen;
 		public bool heartOfReality;
-
-		// Cleric Radiant
 		public bool radiant;
 		public float radiantStacks;
-
-		// Cleric Shadow
 		public bool shadow;
 		public float shadowStacks;
 		// ------------ //
@@ -57,40 +78,52 @@ namespace ProvidenceMod
 			DR = 0f;
 			dashMod = 0;
 			dashTimeMod = 0;
-			parityMaxStacks = 0;
-			parityStackGen = 0;
+
+			// Debuffs.
+			intimidated = false;
+
+			// Accessories.
+			heartOfReality = false;
+
+			// Wraith.
+			wraith = false;
+			wraithCritMult = 0f;
+			wraithCritEffect = null;
+			quantumGen = 0f;
+			quantumMax = 0f;
+			quantumDrain = 0f;
+			wraithPierceMod = 0;
+			wraithArmorPen = 0;
+			wraithProjectileCountMod = 0;
+			wraithAttackSpeedMult = 0f;
+
+			// Cleric.
 			cleric = false;
 			clericDamage = 1f;
 			clericCrit = 4;
-			intimidated = false;
-			heartOfReality = false;
-		}
-		public override void ProcessTriggers(TriggersSet triggersSet)
-		{
-			if (cleric && ProvidenceMod.CycleParity.JustPressed)
-			{
-				if (!radiant && !shadow)
-				{
-					radiant = true;
-				}
-				else
-				{
-					radiant = !radiant;
-					shadow = !shadow;
-				}
-				Main.PlaySound(SoundID.Item112, player.position);
-			}
-		}
-		public override void Load(TagCompound tag)
-		{
-		}
-		public override TagCompound Save()
-		{
-			return new TagCompound
-			{
-			};
+			parityMaxStacks = 0;
+			parityStackGen = 0;
 		}
 		public override void PreUpdate()
+		{
+			player.UpdatePositionCache();
+			if(cleric) CLeric();
+			if(wraith) Wraith();
+			if (IsThereABoss().bossExists)
+			{
+				player.AddBuff(BuffType<Intimidated>(), 2);
+				intimidated = true;
+			}
+			else
+			{
+				player.ClearBuff(BuffType<Intimidated>());
+				intimidated = false;
+			}
+		}
+		public override void PostUpdate()
+		{
+		}
+		public void CLeric()
 		{
 			Utils.Clamp(radiantStacks, 0, parityMaxStacks);
 			Utils.Clamp(shadowStacks, 0, parityMaxStacks);
@@ -101,7 +134,7 @@ namespace ProvidenceMod
 				else
 					shadowStacks += parityStackGen;
 			}
-			else if (shadow)
+			if (shadow)
 			{
 				if (radiantStacks + parityStackGen > parityMaxStacks)
 					radiantStacks = parityMaxStacks;
@@ -115,32 +148,20 @@ namespace ProvidenceMod
 				shadow = false;
 				shadowStacks = 0;
 			}
-			if (IsThereABoss().Item1)
-			{
-				player.AddBuff(BuffType<Intimidated>(), 2);
-				intimidated = true;
-			}
-			else
-			{
-				player.ClearBuff(BuffType<Intimidated>());
-				intimidated = false;
-			}
 		}
-		public override void PostUpdate()
+		public void Wraith()
 		{
-			if (!texturePackEnabled)
+			if (wraith && !quantumFlux)
+				quantum = quantum + quantumGen > quantumMax ? quantumMax : quantum + quantumGen;
+			if (quantumFlux)
 			{
-				PlayerManager.InitializePlayerGlowMasks();
-				texturePackEnabled = true;
+				quantum = quantum - quantumDrain < 0f ? 0f : quantum - quantumDrain;
+				quantumFlux = quantum > 0f;
 			}
-		}
-		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
-		{
-			damage = (int) (damage * DiminishingDRFormula(DR));
-		}
-		public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
-		{
-			damage = (int)(damage * DiminishingDRFormula(DR));
+			if (!wraith)
+			{
+				quantum = 0f;
+			}
 		}
 		public override void UpdateLifeRegen()
 		{
@@ -153,16 +174,18 @@ namespace ProvidenceMod
 				player.lifeRegen -= 3;
 			}
 		}
-		public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
+		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
 		{
-			items.Add(createItem(ItemType<StarterBag>()));
+			damage = (int)(damage * DiminishingDRFormula(DR));
+		}
+		public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+		{
+			damage = (int)(damage * DiminishingDRFormula(DR));
+		}
+		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		{
 
-			Item createItem(int type)
-			{
-				Item obj = new Item();
-				obj.SetDefaults(type, false);
-				return obj;
-			}
+			return false;
 		}
 		public override void PostUpdateRunSpeeds()
 		{
@@ -270,6 +293,17 @@ namespace ProvidenceMod
 					player.velocity.X /= 2f;
 			}
 		}
+		public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
+		{
+			items.Add(createItem(ItemType<StarterBag>()));
+
+			Item createItem(int type)
+			{
+				Item obj = new Item();
+				obj.SetDefaults(type, false);
+				return obj;
+			}
+		}
 		public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
 			if (player != null && player.itemAnimation != 0 && !player.HeldItem.IsAir && player.HeldItem.Providence().glowMask)
@@ -291,46 +325,35 @@ namespace ProvidenceMod
 				layers.Insert(layers.IndexOf(layers.Find(n => n.Name == "Arms")), layer3);
 			}
 		}
-		//public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-		//{
-		//  for (int combatIndex2 = 99; combatIndex2 >= 0; --combatIndex2)
-		//  {
-		//    CombatText combatText = Main.combatText[combatIndex2];
-		//    if ((combatText.lifeTime == 60 || combatText.lifeTime == 120) && combatText.alpha == 1.0)
-		//    {
-		//      if (combatText.color == CombatText.DamagedHostile || combatText.color == CombatText.DamagedHostileCrit)
-		//      {
-		//        switch (player.HeldItem.Providence().element)
-		//        {
-		//          case 0:
-		//            Main.combatText[combatIndex2].color = new Color(238, 74, 89);
-		//            break;
-		//          case 1:
-		//            Main.combatText[combatIndex2].color = new Color(238, 74, 204);
-		//            break;
-		//          case 2:
-		//            Main.combatText[combatIndex2].color = new Color(238, 226, 74);
-		//            break;
-		//          case 3:
-		//            Main.combatText[combatIndex2].color = new Color(74, 95, 238);
-		//            break;
-		//          case 4:
-		//            Main.combatText[combatIndex2].color = new Color(74, 238, 137);
-		//            break;
-		//          case 5:
-		//            Main.combatText[combatIndex2].color = new Color(145, 74, 238);
-		//            break;
-		//          case 6:
-		//            Main.combatText[combatIndex2].color = new Color(255, 216, 117);
-		//            break;
-		//          case 7:
-		//            Main.combatText[combatIndex2].color = new Color(96, 0, 188);
-		//            break;
-		//        }
-		//      }
-		//    }
-		//  }
-		//}
+		public override void ProcessTriggers(TriggersSet triggersSet)
+		{
+			if (cleric && ProvidenceMod.CycleParity.JustPressed)
+			{
+				if (!radiant && !shadow)
+				{
+					radiant = true;
+				}
+				else
+				{
+					radiant = !radiant;
+					shadow = !shadow;
+				}
+				Main.PlaySound(SoundID.Item112, player.position);
+			}
+			if (wraith && ProvidenceMod.UseQuantum.JustPressed && quantum > 0.75f * quantumMax)
+			{
+				quantumFlux = true;
+			}
+		}
+		public override void Load(TagCompound tag)
+		{
+		}
+		public override TagCompound Save()
+		{
+			return new TagCompound
+			{
+			};
+		}
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			ModPacket packet = mod.GetPacket();

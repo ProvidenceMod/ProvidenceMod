@@ -69,7 +69,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				Vector2 pSpeed = new Vector2(speedX, speedY).RotatedByRandom(2d.InRadians());
+				Vector2 pSpeed = new Vector2(speedX, speedY).RotatedByRandom(2f.InRadians());
 				Projectile.NewProjectile(player.position, pSpeed, ProjectileType<Projectiles.Melee.FuzzyDice>(), damage, knockBack, player.whoAmI);
 			}
 			return false;

@@ -18,8 +18,8 @@ namespace ProvidenceMod.Items.Armor
     public override void SetDefaults()
     {
       item.width = 22;
-      item.height = 16;
-      item.defense = 1;
+      item.height = 18;
+      item.defense = 4;
     }
 
     public override void UpdateEquip(Player player)

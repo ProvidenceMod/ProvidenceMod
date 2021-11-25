@@ -30,6 +30,15 @@ namespace ProvidenceMod
 		public static NPC OwnerNPC(this Projectile projectile) => Main.npc[projectile.owner];
 		/// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
 		public static Player LocalPlayer() => Main.LocalPlayer;
+		public static void UpdatePositionCache(this Player player)
+		{
+			ProvidencePlayer proPlayer = player.Providence();
+			for (int i = proPlayer.oldPos.Length - 1; i > 0; i--)
+			{
+				proPlayer.oldPos[i] = proPlayer.oldPos[i - 1];
+			}
+			proPlayer.oldPos[0] = player.position;
+		}
 		public static void UpdatePositionCache(this Projectile projectile)
 		{
 			for (int i = projectile.oldPos.Length - 1; i > 0; i--)
@@ -266,12 +275,12 @@ namespace ProvidenceMod
 			Main.npc[type].Providence().extraAI[0] = ai6;
 			Main.npc[type].Providence().extraAI[0] = ai7;
 		}
-		public static void NewParticle(Vector2 Position, Vector2 Velocity, Particle Type, Color Color, float AI0 = 0, float AI1 = 0, float AI2 = 0, float AI3 = 0, float AI4 = 0, float AI5 = 0, float AI6 = 0, float AI7 = 0)
+		public static void NewParticle(Vector2 Position, Vector2 Velocity, Particle Type, Color Color, float Scale, float AI0 = 0, float AI1 = 0, float AI2 = 0, float AI3 = 0, float AI4 = 0, float AI5 = 0, float AI6 = 0, float AI7 = 0)
 		{
-			ProvidenceMod.particleManager.NewParticle(Position, Velocity, Type, Color, AI0, AI1, AI2, AI3, AI4, AI5, AI6, AI7);
+			ProvidenceMod.particleManager.NewParticle(Position, Velocity, Type, Color, Scale, AI0, AI1, AI2, AI3, AI4, AI5, AI6, AI7);
 		}
 		/// <summary>Returns whether there is a boss, and if there is, their ID in "Main.npc".</summary>
-		public static Tuple<bool, int> IsThereABoss()
+		public static (bool bossExists, int bossID) IsThereABoss()
 		{
 			bool bossExists = false;
 			int bossID = -1;
@@ -281,7 +290,7 @@ namespace ProvidenceMod
 					bossExists = true;
 				bossID = npc.type;
 			}
-			return Tuple.Create(bossExists, bossID);
+			return (bossExists, bossID);
 		}
 		/// <summary>Provides a random point near the provided position.</summary>
 		/// <param name="v">The origin point.</param>
@@ -309,6 +318,17 @@ namespace ProvidenceMod
 			if (frameTickIncrease)
 				frameTick++;
 			return new Rectangle(0, overrideHeight != 0 ? overrideHeight * frame : entity.height * frame, entity.width, entity.height);
+		}
+		public static Rectangle AnimationFrame(this Texture2D texture, ref int frame, ref int frameTick, int frameTime, int frameCount, bool frameTickIncrease, int overrideHeight = 0)
+		{
+			if (frameTick >= frameTime)
+			{
+				frameTick = -1;
+				frame = frame == frameCount - 1 ? 0 : frame + 1;
+			}
+			if (frameTickIncrease)
+				frameTick++;
+			return new Rectangle(0, overrideHeight != 0 ? overrideHeight * frame : (texture.Height / frameCount) * frame, texture.Width, texture.Height / frameCount);
 		}
 		public static void FindFrame(this Projectile projectile, int time, int number)
 		{

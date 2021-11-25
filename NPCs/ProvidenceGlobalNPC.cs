@@ -29,6 +29,7 @@ namespace ProvidenceMod
 
 		// Debuffs
 		public bool pressureSpike;
+		public bool miasma;
 
 		// Health Bars
 		public int comboDMG;
@@ -55,6 +56,14 @@ namespace ProvidenceMod
 					npc.lifeRegen = 0;
 				}
 				npc.lifeRegen -= 5;
+			}
+			if (miasma)
+			{
+				if (npc.lifeRegen > 0)
+				{
+					npc.lifeRegen = 0;
+				}
+				npc.lifeRegen -= 8;
 			}
 		}
 		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)

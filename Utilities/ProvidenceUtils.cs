@@ -557,6 +557,13 @@ namespace ProvidenceMod
 		//		del(i);
 		//	}
 		//}
+		public static void FireXProjectiles(this Item item, int x, ref float shootX, ref float shootY, float maxSpreadRadians)
+		{
+			for (int i = 0; i < x; i++)
+			{
+				_ = Projectile.NewProjectile(Main.player[item.owner].Center, new Vector2 (shootX, shootY).RotatedByRandom(maxSpreadRadians), item.shoot, item.damage, item.knockBack);
+			}
+		}
 		public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);
 		public static bool DownedAnyBoss() => NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 ||
 																					NPC.downedFishron || NPC.downedAncientCultist || NPC.downedGolemBoss ||

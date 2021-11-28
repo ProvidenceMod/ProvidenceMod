@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using static ProvidenceMod.ProvidenceUtils;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using ProvidenceMod.Particles;
+
 namespace ProvidenceMod.Projectiles.Melee
 {
 	public class MoonBeam : ModProjectile
@@ -35,11 +37,12 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.ai[0]++;
 			if (projectile.ai[0] % 2.5f == 0)
 			{
-				Dust.NewDust(projectile.Center, 6, 6, 130, default, default, default, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB));
+				//Dust.NewDust(projectile.Center, 6, 6, 130, default, default, default, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB));
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Green);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Blue);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Yellow);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Pink);
+				NewParticle(projectile.Center, new Vector2(0f, 1f), new MoonBlastParticle(), Color.White, Main.rand.NextFloat(1f, 4f) / 10f, 0f, 0f, 0f, 0f, Main.rand.NextFloat(20, 61));
 			}
 			NPC target = projectile.ClosestNPC();
 			if (target?.Distance(projectile.Center) <= 750f)

@@ -33,7 +33,7 @@ namespace ProvidenceMod.Items.Weapons.Wraith
 		{
 			int num = Main.rand.Next(1, 4);
 			for (int i = 0; i < num; i++)
-				Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedBy(Main.rand.NextFloat(-100f, 100f / 10f).InRadians()) * player.thrownVelocity, type, damage, knockBack, player.whoAmI);
+				Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedBy((Main.rand.NextFloat(-100f, 101f) / 10f).InRadians()) * player.thrownVelocity, type, damage, knockBack, player.whoAmI);
 			return false;
 		}
 	}

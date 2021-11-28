@@ -262,7 +262,7 @@ namespace ProvidenceMod
 		}
 		public virtual void Main_DrawDust(On.Terraria.Main.orig_DrawDust orig, Main self)
 		{
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 			ProvidenceMod.particleManager.PreUpdate(Main.spriteBatch);
 			ProvidenceMod.particleManager.Update(Main.spriteBatch);
 			ProvidenceMod.particleManager.PostUpdate(Main.spriteBatch);

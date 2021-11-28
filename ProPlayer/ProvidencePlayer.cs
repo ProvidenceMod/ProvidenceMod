@@ -22,20 +22,21 @@ namespace ProvidenceMod
 {
 	public class ProvidencePlayer : ModPlayer
 	{
-
-		public bool dashing;
-
 		public Vector2[] oldPos = new Vector2[10];
 
+		public bool dashing;
 		public int dashMod;
 		public int dashTimeMod;
 		public int dashModDelay = 60;
+
+		public bool abilityPing;
 
 		public float DR;
 
 		// Buffs
 		public bool pressureSpike;
 		public bool intimidated;
+		public bool miasma;
 
 		// -- Wraith -- //
 		public bool wraith;
@@ -133,6 +134,8 @@ namespace ProvidenceMod
 					shadowStacks = parityMaxStacks;
 				else
 					shadowStacks += parityStackGen;
+				//if (shadowStacks >= parityMaxStacks)
+				//	Main.PlaySound(GetSound("Sounds/Custom/AbilityPing"), player.Center);
 			}
 			if (shadow)
 			{
@@ -340,7 +343,7 @@ namespace ProvidenceMod
 				}
 				Main.PlaySound(SoundID.Item112, player.position);
 			}
-			if (wraith && ProvidenceMod.UseQuantum.JustPressed && quantum > 0.75f * quantumMax)
+			if (wraith && ProvidenceMod.UseQuantum.JustPressed && quantum > 0.75f * quantumMax && !quantumFlux)
 			{
 				quantumFlux = true;
 			}

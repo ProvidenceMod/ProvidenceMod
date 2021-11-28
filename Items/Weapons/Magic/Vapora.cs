@@ -18,9 +18,9 @@ namespace ProvidenceMod.Items.Weapons.Magic
 		public override void SetDefaults()
 		{
 			item.scale = 1f;
-			item.width = 70;
+			item.width = 52;
+			item.height = 52;
 			item.damage = 25;
-			item.height = 118;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.shootSpeed = 15f;

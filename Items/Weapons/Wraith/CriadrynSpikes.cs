@@ -20,6 +20,7 @@ namespace ProvidenceMod.Items.Weapons.Wraith
 			item.useTime = 10;
 			item.useAnimation = 10;
 			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.UseSound = SoundID.Item39;
 			item.damage = 10;
 			item.thrown = true;
 			item.Providence().wraith = true;

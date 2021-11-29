@@ -59,11 +59,11 @@ namespace ProvidenceMod
 		//
 		public override void PostUpdate()
 		{
-			//if (SubworldManager.IsActive<BrinewastesSubworld>())
-			//{
-			//	SubworldLibrary.SLWorld.noReturn = false;
-			//	SubworldLibrary.SLWorld.drawMenu = false;
-			//}
+			if (SubworldManager.IsActive<BrinewastesSubworld>())
+			{
+				SubworldLibrary.SLWorld.noReturn = true;
+				//SubworldLibrary.SLWorld.drawMenu = true;
+			}
 			//// Worldgen testing
 			//if (JustPressed(Keys.D1))
 			//	TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);

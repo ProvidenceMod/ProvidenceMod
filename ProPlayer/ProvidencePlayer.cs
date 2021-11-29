@@ -17,6 +17,8 @@ using ProvidenceMod.Items.Weapons.Melee;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Items.TreasureBags;
 using Terraria.Graphics.Shaders;
+using Microsoft.Xna.Framework.Audio;
+using ProvidenceMod.Items.Armor;
 
 namespace ProvidenceMod
 {
@@ -32,6 +34,8 @@ namespace ProvidenceMod
 		public bool abilityPing;
 
 		public float DR;
+
+		public bool starreaverArmor;
 
 		// Buffs
 		public bool pressureSpike;
@@ -83,6 +87,9 @@ namespace ProvidenceMod
 			// Debuffs.
 			intimidated = false;
 
+			// Armor
+			starreaverArmor = false;
+
 			// Accessories.
 			heartOfReality = false;
 
@@ -90,6 +97,10 @@ namespace ProvidenceMod
 			wraith = false;
 			wraithCritMult = 0f;
 			wraithCritEffect = null;
+			wraithDodge = 0f;
+			wraithDodgeCost = 0f;
+			wraithDodgeEffect = null;
+			wraithHitPenalty = 0f;
 			quantumGen = 0f;
 			quantumMax = 0f;
 			quantumDrain = 0f;
@@ -108,8 +119,16 @@ namespace ProvidenceMod
 		public override void PreUpdate()
 		{
 			player.UpdatePositionCache();
-			if(cleric) CLeric();
-			if(wraith) Wraith();
+			if (cleric) CLeric();
+			else quantum = 0f;
+			if (wraith) Wraith();
+			else
+			{
+				radiant = false;
+				radiantStacks = 0;
+				shadow = false;
+				shadowStacks = 0;
+			}
 			if (IsThereABoss().bossExists)
 			{
 				player.AddBuff(BuffType<Intimidated>(), 2);
@@ -134,8 +153,6 @@ namespace ProvidenceMod
 					shadowStacks = parityMaxStacks;
 				else
 					shadowStacks += parityStackGen;
-				//if (shadowStacks >= parityMaxStacks)
-				//	Main.PlaySound(GetSound("Sounds/Custom/AbilityPing"), player.Center);
 			}
 			if (shadow)
 			{
@@ -144,26 +161,23 @@ namespace ProvidenceMod
 				else
 					radiantStacks += parityStackGen;
 			}
-			if (!cleric)
-			{
-				radiant = false;
-				radiantStacks = 0;
-				shadow = false;
-				shadowStacks = 0;
-			}
 		}
 		public void Wraith()
 		{
-			if (wraith && !quantumFlux)
+			if (!quantumFlux)
+			{
 				quantum = quantum + quantumGen > quantumMax ? quantumMax : quantum + quantumGen;
+				if (quantum >= (quantumMax * 0.75f) && !abilityPing)
+				{
+					abilityPing = true;
+					Main.PlaySound(ProvidenceSound.GetSoundSlot(SoundType.Custom, "Sounds/Custom/AbilityPing"), player.Center);
+				}
+			}
 			if (quantumFlux)
 			{
+				abilityPing = false;
 				quantum = quantum - quantumDrain < 0f ? 0f : quantum - quantumDrain;
 				quantumFlux = quantum > 0f;
-			}
-			if (!wraith)
-			{
-				quantum = 0f;
 			}
 		}
 		public override void UpdateLifeRegen()
@@ -341,10 +355,11 @@ namespace ProvidenceMod
 					radiant = !radiant;
 					shadow = !shadow;
 				}
-				Main.PlaySound(SoundID.Item112, player.position);
+				Main.PlaySound(SoundID.Item112, player.Center);
 			}
 			if (wraith && ProvidenceMod.UseQuantum.JustPressed && quantum > 0.75f * quantumMax && !quantumFlux)
 			{
+				Main.PlaySound(SoundID.Item119, player.Center);
 				quantumFlux = true;
 			}
 		}

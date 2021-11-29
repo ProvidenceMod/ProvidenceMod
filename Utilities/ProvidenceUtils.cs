@@ -561,7 +561,7 @@ namespace ProvidenceMod
 		{
 			for (int i = 0; i < x; i++)
 			{
-				_ = Projectile.NewProjectile(Main.player[item.owner].Center, new Vector2 (shootX, shootY).RotatedByRandom(maxSpreadRadians), item.shoot, item.damage, item.knockBack);
+				Projectile.NewProjectile(Main.player[item.owner].Center, new Vector2 (shootX, shootY).RotatedByRandom(maxSpreadRadians), item.shoot, item.damage, item.knockBack);
 			}
 		}
 		public static bool PercentChance(this int num) => Main.rand.Next(0, 100) >= (100 - num);

@@ -6,33 +6,30 @@ using ProvidenceMod.Items;
 namespace ProvidenceMod.Items.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class ZephyrHelm : ModItem
+	public class StarreaverHelm : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zephyr Helm");
-			Tooltip.SetDefault("+5% melee damage\n2% melee crit chance");
+			DisplayName.SetDefault("Starreaver Helm");
+			Tooltip.SetDefault("The visage of the Gods");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 20;
-			item.defense = 1;
+			item.width = 20;
+			item.height = 22;
+			item.defense = 100;
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.meleeDamage += 0.05f;
-			player.meleeCrit += 2;
+			player.Providence().starreaverArmor = true;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs) => 
-			body.type == ItemType<ZephyrBreastplate>() &&
-			legs.type == ItemType<ZephyrLeggings>() &&
-			head.type == ItemType<ZephyrHelm>();
+			body.type == ItemType<StarreaverHelm>() &&
+			legs.type == ItemType<StarreaverBreastplate>() &&
+			head.type == ItemType<StarreaverLeggings>();
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "+3 defense";
-			player.statDefense += 3;
 		}
 		public override void AddRecipes()
 		{

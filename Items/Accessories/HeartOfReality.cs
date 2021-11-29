@@ -28,6 +28,17 @@ namespace ProvidenceMod.Items.Accessories
 			player.Providence().parityStackGen += 0.5f;
 			player.Providence().parityMaxStacks += 100f;
 			player.statLifeMax2 += 500;
+
+			player.thrownDamage += 0.05f;
+			player.thrownCrit += 5;
+			//player.thrownDamageMult;
+			player.thrownVelocity += 0.05f;
+			player.Providence().wraith = true;
+			player.Providence().wraithDodgeCost = 1000f;
+			player.Providence().quantumGen = 10f;
+			player.Providence().quantumDrain = 20f;
+			player.Providence().quantumMax = 2000f;
+			player.Providence().wraithDodge = 0.10f;
 		}
 	}
 }

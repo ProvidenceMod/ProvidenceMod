@@ -11,7 +11,8 @@ namespace ProvidenceMod.Items.Armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Zephyr Veil");
-			Tooltip.SetDefault("+5% wraith damage\n+5% wraith crit chance\n+5% thrown velocity\n-25% Max Health\nAllows generation of quantum stacks:\n+1 Quantum Flux generation\n20 Quantum Drain\n2000 Quantim Max");
+			Tooltip.SetDefault("+5% wraith damage\n+5% wraith crit chance\n+5% thrown velocity\n-25% Max Health\nAllows generation of quantum stacks:\n+1 Quantum Flux generation\n+20 Quantum Drain\n+2000 Quantum Max");
+
 		}
 
 		public override void SetDefaults()
@@ -29,10 +30,11 @@ namespace ProvidenceMod.Items.Armor
 			player.thrownVelocity += 0.05f;
 			player.Providence().wraith = true;
 			player.Providence().wraithDodgeCost = 1000f;
-			player.Providence().quantumGen = 1f;
+			player.Providence().quantumGen = 10f;
 			player.Providence().quantumDrain = 20f;
 			player.Providence().quantumMax = 2000f;
 			player.Providence().wraithDodge = 0.10f;
+			player.statLifeMax2 = (int)(player.statLifeMax2 * 0.75f);
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs) =>
 			body.type == ItemType<ZephyrBreastplate>() &&
@@ -43,14 +45,9 @@ namespace ProvidenceMod.Items.Armor
 			player.runAcceleration *= 1.1f;
 			player.maxRunSpeed *= 1.1f;
 			player.setBonus = "+10% Movement Speed";
-			player.statLifeMax2 = (int)(player.statLifeMax2 * 0.75f);
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.DirtBlock, 1);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
 		}
 	}
 }

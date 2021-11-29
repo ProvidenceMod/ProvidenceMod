@@ -20,6 +20,7 @@ using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
 using ProvidenceMod.NPCs.PrimordialCaelus;
 using ProvidenceMod.Items.BossSpawners;
 using ProvidenceMod.Particles;
+using ProvidenceMod.Items.Armor;
 
 namespace ProvidenceMod
 {
@@ -34,19 +35,17 @@ namespace ProvidenceMod
 		internal Quantum Quantum;
 		internal ParityUI ParityUI;
 
-		public ProvidenceHooks providenceEvents;
+		public ProvidenceHooks providenceHooks;
 		public static ParticleManager particleManager;
 
 		public static DynamicSpriteFont bossHealthFont;
 		public static DynamicSpriteFont mouseTextFont;
+		public static Ref<Effect> quantumShader;
+		public static ArmorShaderData quantumShaderData;
 		public static Ref<Effect> divinityEffect;
-		public static ArmorShaderData divinityShaderData;
-		public static Effect quantumShader;
-
 
 		public static ModHotKey CycleParity;
 		public static ModHotKey UseQuantum;
-
 
 		public bool texturePack;
 		public bool bossHP;
@@ -57,27 +56,15 @@ namespace ProvidenceMod
 		{
 			Instance = this;
 
-			providenceEvents = new ProvidenceHooks();
-			providenceEvents.Initialize();
+			providenceHooks = new ProvidenceHooks();
+			providenceHooks.Initialize();
+
+			LoadCLient();
 
 			BossHealthBarManager.Initialize();
-
-			if (Main.netMode != NetmodeID.Server)
-			{
-				if (texturePack)
-					ProvidenceTextureManager.Load();
-				particleManager = new ParticleManager();
-				particleManager.Load();
-
-			  //quantumShader = Instance.GetEffect("Effects/Quantum");
-
-				//divinityEffect = new Ref<Effect>(GetEffect("Effects/Quantum"));
-				//divinityShaderData = new ArmorShaderData(divinityEffect, "Quantum");
-
-				//divinityEffect = Instance.GetEffect("Effects/DivinityShader");
-				//divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
-
-			}
+		}
+		public void LoadCLient()
+		{
 			if (!Main.dedServ)
 			{
 				BossHealth = new BossHealth();
@@ -104,6 +91,22 @@ namespace ProvidenceMod
 				//	mouseTextFont = GetFont("Fonts/MouseTextFont");
 
 				//ProvidenceTextureManager.LoadFonts();
+
+				if (texturePack)
+					ProvidenceTextureManager.Load();
+				particleManager = new ParticleManager();
+				particleManager.Load();
+
+				quantumShader = new Ref<Effect>(GetEffect("Effects/Quantum"));
+				quantumShaderData = new ArmorShaderData(divinityEffect, "Quantum");
+				GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverHelm>(), quantumShaderData);
+				GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverBreastplate>(), quantumShaderData);
+				GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverLeggings>(), quantumShaderData);
+				GameShaders.Armor.BindShader(ModContent.ItemType<DivinityDye>(), quantumShaderData);
+
+				//quantumShader = Instance.GetEffect("Effects/Quantum");
+				//divinityEffect = Instance.GetEffect("Effects/DivinityShader");
+				//divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
 			}
 		}
 		public override void PostSetupContent()
@@ -134,7 +137,7 @@ namespace ProvidenceMod
 			{
 
 			}
-			providenceEvents.Unload();
+			providenceHooks.Unload();
 			SubworldManager.Unload();
 			Instance = null;
 			base.Unload();

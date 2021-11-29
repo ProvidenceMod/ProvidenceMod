@@ -8,7 +8,7 @@ namespace ProvidenceMod.Items.Dyes
 {
 	public class DivinityDye : ModItem
 	{
-		public ArmorShaderData ShaderDataToBind => new ArmorShaderData(new Ref<Effect>(mod.GetEffect("Effects/DivinityShader")), "DivinityShader");
+		public ArmorShaderData ShaderDataToBind => new ArmorShaderData(new Ref<Effect>(mod.GetEffect("Effects/Quantum")), "Quantum");
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Divinity Dye");

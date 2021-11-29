@@ -7,9 +7,9 @@ using static Terraria.ModLoader.ModNet;
 
 namespace ProvidenceMod.Subworld
 {
-  public class TestingSubworldEnter : ModItem
-  {
-    public override string Texture => "Terraria/Item_" + ItemID.Extractinator;
+	public class TestingSubworldEnter : ModItem
+	{
+		public override string Texture => "Terraria/Item_" + ItemID.Extractinator;
 
 		public override void SetStaticDefaults() => Tooltip.SetDefault("Use to enter a subworld. Only works with 'SubworldLibrary' Mod enabled");
 
@@ -27,20 +27,16 @@ namespace ProvidenceMod.Subworld
 
 		public override bool UseItem(Player player)
 		{
-			//Enter should be called on exactly one side, which here is either the singleplayer player, or the server
-			if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().Item1)
-			{
+			// Enter should be called on exactly one side, which here is either the singleplayer player, or the server
+			if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().bossExists && !SubworldManager.IsActive<BrinewastesSubworld>())
 				SubworldManager.Enter<BrinewastesSubworld>(!ProvidenceMod.Instance.subworldVote);
-			}
+			if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().bossExists && SubworldManager.IsActive<BrinewastesSubworld>())
+				SubworldManager.Exit();
 			return true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.DirtBlock, 1);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
 		}
-  }
+	}
 }

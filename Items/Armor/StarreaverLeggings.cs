@@ -1,27 +1,25 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Dusts;
+using ProvidenceMod.Items.Armor;
 
 namespace ProvidenceMod.Items.Armor
 {
-  [AutoloadEquip(EquipType.Body)]
-  public class ZephyrBreastplate : ModItem
+  [AutoloadEquip(EquipType.Legs)]
+  public class StarreaverLeggings : ModItem
   {
     public override void SetStaticDefaults()
     {
-      base.SetStaticDefaults();
-      DisplayName.SetDefault("Zephyr Breastplate");
-      Tooltip.SetDefault("");
+      DisplayName.SetDefault("Starreaver Leggings");
+      Tooltip.SetDefault("The talons of the gods");
     }
 
     public override void SetDefaults()
     {
-      item.width = 30;
-      item.height = 22;
-      item.defense = 4;
+      item.width = 22;
+      item.height = 18;
+      item.defense = 100;
     }
 
     public override void UpdateEquip(Player player)

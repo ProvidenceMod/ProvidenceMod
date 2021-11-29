@@ -35,9 +35,6 @@ namespace ProvidenceMod
 	// **
 	public static class SubworldManager
 	{
-		//How we identify our world
-		public static string BrinewastesID = string.Empty; //An empty string will not cause any problems in Enter, IsActive etc. calls
-
 		public static void Enter<T>(bool noVote = false) where T : SubworldLibrary.Subworld
 		{
 			SubworldLibrary.Subworld.Enter<T>(noVote);
@@ -58,6 +55,11 @@ namespace ProvidenceMod
 			return SubworldLibrary.Subworld.AnyActive(ProvidenceMod.Instance);
 		}
 
+		public static SubworldLibrary.Subworld CurrentSubworld()
+		{
+			return SLWorld.currentSubworld;
+		}
+
 		//Call this in ProvidenceMod.PostSetupContent()
 		public static void Load()
 		{
@@ -66,7 +68,6 @@ namespace ProvidenceMod
 		//Call this in ProvidenceMod.Unload()
 		public static void Unload()
 		{
-			BrinewastesID = string.Empty;
 		}
 
 		//Passed into subworldLibrary.Call()

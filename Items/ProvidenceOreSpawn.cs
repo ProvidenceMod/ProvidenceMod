@@ -13,7 +13,7 @@ namespace ProvidenceMod.Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Providence");
-			Tooltip.SetDefault("Removes and then respawns all mod ores.\nDon't use on a world you wanna play normally");
+			Tooltip.SetDefault("Left-click removes and then respawns all mod ores.\nRight-click sets all downed boss variables to false.\nDon't use on a world you want to play normally");
 		}
 		public override void SetDefaults()
 		{
@@ -33,9 +33,26 @@ namespace ProvidenceMod.Items
 			Talk("Removing all ores...", new Color(218, 70, 70));
 			WorldBuilding.RemoveAllOres();
 			Talk("Building all ores...", new Color(218, 70, 70));
+			Talk("Powerful air suffuses into the ground...", new Color(158, 186, 226));
 			WorldBuilding.BuildOre(TileType<Tiles.Ores.ZephyrOre>(), 0.00005f, 1, 10, 13, 0.35f, 0.6f);
 			Talk("Complete.", new Color(218, 70, 70));
 			return true;
+		}
+		public override bool AltFunctionUse(Player player) => true;
+		public override void RightClick(Player player)
+		{
+			Talk("Resetting all variables...", new Color(218, 70, 70));
+			ProvidenceWorld.downedCaelus = false;
+			ProvidenceWorld.downedVerglasLeviathan = false;
+			ProvidenceWorld.downedAstrid = false;
+			ProvidenceWorld.downedFireAncient = false;
+			ProvidenceWorld.downedLysandria = false;
+			BrinewastesWorld.downedCaelus = false;
+			BrinewastesWorld.downedVerglasLeviathan = false;
+			BrinewastesWorld.downedAstrid = false;
+			BrinewastesWorld.downedFireAncient = false;
+			BrinewastesWorld.downedLysandria = false;
+			Talk("Complete.", new Color(218, 70, 70));
 		}
 	}
 }

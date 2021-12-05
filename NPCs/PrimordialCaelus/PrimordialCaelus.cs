@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +12,7 @@ using ProvidenceMod.Items.TreasureBags;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 using static ProvidenceMod.Projectiles.ProvidenceGlobalProjectileAI;
+using ProvidenceMod.Buffs.DamageOverTime;
 
 namespace ProvidenceMod.NPCs.PrimordialCaelus
 {
@@ -53,23 +54,21 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		public int dashCounter = 300;
 		public bool preDashing;
 		public bool dashing;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Primordial Caelus");
 			NPCID.Sets.MustAlwaysDraw[npc.type] = true;
-			NPCID.Sets.NeedsExpertScaling[npc.type] = true;
+			NPCID.Sets.NeedsExpertScaling[npc.type] = false;
 		}
 		public override void SetDefaults()
 		{
-			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/HighInTheSky");
-			musicPriority = MusicPriority.BossMedium; // By default, musicPriority is BossLow
+			//music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/HighInTheSky");
+			musicPriority = MusicPriority.BossMedium;
 			npc.scale = 1f;
 			npc.damage = 25;
 			npc.width = 146;
 			npc.height = 230;
-			npc.aiStyle = -1;
-			npc.lifeMax = 3400;
+			npc.lifeMax = Main.expertMode ? 9600 : 6200;
 			npc.knockBackResist = 0f;
 			npc.boss = true;
 			npc.townNPC = false;
@@ -79,11 +78,15 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			npc.noTileCollide = true;
 			npc.HitSound = SoundID.NPCHit30;
 			npc.buffImmune[BuffID.OnFire] = true;
-			npc.buffImmune[mod.BuffType("Freezing")] = true;
-			npc.buffImmune[mod.BuffType("Frozen")] = true;
+			npc.buffImmune[BuffID.Confused] = true;
+			npc.buffImmune[BuffType<PressureSpike>()] = true;
 		}
 		public override void AI()
 		{
+			// npc.ai[0] = None?
+			// npc.ai[1] = Dust Counter
+			// npc.ai[2] = Stun Counter
+			// npc.ai[3] = ?
 			npc.TargetClosest(true);
 
 			if (--preBulletHellTimer > 0 && npc.life == npc.lifeMax)
@@ -102,7 +105,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 
 			npc.rotation = Utils.Clamp(npc.velocity.X * 0.05f, -0.5f, 0.5f);
 
-			//stunTimer = npc.ai[2] >= (Phase() == 1 ? 3 : 6) ? 180 : 0;
+			stunTimer = npc.ai[2] >= (Phase() == 1 ? 3 : 6) ? 180 : 0;
 			stunned = npc.ai[2] >= (Phase() == 1 ? 3 : 6);
 
 			if (stunned && Stunned())
@@ -152,7 +155,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		public void PhaseTwo()
 		{
 			if (preDashing)
-				speedCap = 1f;
+				speedCap = 4f;
 			else
 				speedCap = 8f;
 			Movement();
@@ -255,7 +258,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			if (npc.Distance(player.Center) > 500f)
 			{
 				Vector2 unitY = npc.DirectionTo(player.Center);
-				npc.velocity = ((npc.velocity * 15f) + (unitY * speedCap)) / (15f + 1f);
+				npc.velocity = ((npc.velocity * 15f) + (unitY * 10f)) / (15f + 1f);
 				return;
 			}
 			npc.velocity = npc.DirectionTo(player.Center) * 15f;
@@ -297,8 +300,6 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				Vector2 position = player.Center + new Vector2(300f, 0f).RotatedBy((Math.Cos(Main.GlobalTime * 0.5f) * MathHelper.PiOver2) - MathHelper.PiOver2);
 				Vector2 unitY = npc.DirectionTo(position);
 				npc.velocity = ((npc.velocity * 45f) + (unitY * 4f)) / (45f + 1f);
-
-
 			}
 			if (Phase() == 2)
 			{
@@ -322,26 +323,26 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			}
 			Lighting.AddLight(npc.Center, ColorShift(new Color(174, 197, 231), new Color(83, 46, 99), 3f).ToVector3());
 		}
-		public override void FindFrame(int frameheight)
+		public override void FindFrame(int frameheight) // Animates the sprite.
 		{
 			//	Texture2D tex = GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus");
 			//	if (npc.frameCounter + 0.125f >= 12f)
 			//		npc.frameCounter = 0f;
 			//	npc.frameCounter += 0.125f;
 			//	npc.frame.Y = (int)npc.frameCounter * (tex.Height / 12);
-		} // Animates the sprite.
+		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
 			SpriteBatch sb = new SpriteBatch(Main.graphics.GraphicsDevice);
 			sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 			float sin = (float)Math.Sin(Main.GlobalTime * 1f) * 12f;
 			float cos = (float)Math.Cos(Main.GlobalTime * 12f) * 12f;
-			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition + new Vector2(8f, -8f) + new Vector2(cos, -sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition + new Vector2(8f, 8f) + new Vector2(cos, sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition + new Vector2(-8f, 8f) + new Vector2(-cos, sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition + new Vector2(-8f, -8f) + new Vector2(-cos, -sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Center - Main.screenPosition + new Vector2(8f, -8f) + new Vector2(cos, -sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Center - Main.screenPosition + new Vector2(8f, 8f) + new Vector2(cos, sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Center - Main.screenPosition + new Vector2(-8f, 8f) + new Vector2(-cos, sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+			sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Center - Main.screenPosition + new Vector2(-8f, -8f) + new Vector2(-cos, -sin), npc.frame, new Color(color.X, color.Y, color.Z, 0.25f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 			if (!dashing && !stunned)
-				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, 1f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+				spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, 1f), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 			if (dashing)
 			{
 				for (int i = 0; i < 10; i++)
@@ -350,9 +351,9 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 
 					Color color = new Color(1f, 1f, 1f, alpha);
 
-					sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+					sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 				}
-				sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+				sb.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Center - Main.screenPosition, npc.frame, new Color(color.X, color.Y, color.Z, color.W), npc.rotation, npc.frame.Size() / 2, npc.scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 			}
 			if (stunned)
 			{
@@ -370,7 +371,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 
 					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
 
-					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+					spriteBatch.Draw(GetTexture("ProvidenceMod/NPCs/PrimordialCaelus/Caelus"), npc.Providence().oldCen[i] - Main.screenPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, scale, npc.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 				}
 			}
 			sb.End();
@@ -398,6 +399,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				ProvidenceWorld.downedCaelus = true;
 				BrinewastesWorld.downedCaelus = true;
 				ProvidenceWorld.zephyrGenned = true;
+				Talk("Powerful air suffuses into the ground...", new Color(158, 186, 226));
 				WorldBuilding.BuildOre(TileType<Tiles.Ores.ZephyrOre>(), 0.00005f, 1, 10, 13, 0.35f, 0.6f);
 			}
 			Main.raining = false;
@@ -412,19 +414,23 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			if (Main.expertMode)
 			{
 				Main.item[Item.NewItem(npc.Center, ItemType<CaelusBag>(), 1)].Providence().highlight = true;
+				// No Lament, No Wrath.
+				if (!ProvidenceWorld.lament && !ProvidenceWorld.wrath)
+				{
+					Item.NewItem(npc.Center, ItemID.GoldCoin, 7);
+					Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
+				}
+				// Only Lament.
 				if (ProvidenceWorld.lament && !ProvidenceWorld.wrath)
 				{
 					Item.NewItem(npc.Center, ItemID.GoldCoin, 10);
-					return;
 				}
+				// Lament and Wrath.
 				if (ProvidenceWorld.wrath)
 				{
 					Item.NewItem(npc.Center, ItemID.GoldCoin, 12);
 					Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
-					return;
 				}
-				Item.NewItem(npc.Center, ItemID.GoldCoin, 7);
-				Item.NewItem(npc.Center, ItemID.SilverCoin, 50);
 			}
 			else
 			{

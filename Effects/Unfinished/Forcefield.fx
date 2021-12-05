@@ -45,25 +45,24 @@ sampler2D DisplacementSampler = sampler_state
 	Texture = <DisplacementTexture>;
 };
 
-float4 Forcefield( float4 position : SV_Position, float4 color : COLOR0, float2 texCoord : TEXCOORD0) : COLOR0
+float4 Forcefield(float4 position : SV_Position, float4 color : COLOR0, float2 texCoord : TEXCOORD0) : COLOR0
 {
     // Determine distance to the anti Refract position.
-float dist = saturate(distance(position.xy, RefractionVector) / RefractionVectorRange);
-float warpedCoords = (tex2D(DisplacementSampler, texCoord * SampleWavelength + DisplacementMotionVector).xy - float2(0.5f, 0.5f)) * Frequency;
-float2 lerpedCoords = (warpedCoords) * (1.0f - dist) * (1.0f - dist) + texCoord;
-float4 col = tex2D(TextureSampler, saturate(lerpedCoords)) * color;
+	float dist = saturate(distance(position.xy, RefractionVector) / RefractionVectorRange);
+	float warpedCoords = (tex2D(DisplacementSampler, texCoord * SampleWavelength + DisplacementMotionVector).xy - float2(0.5f, 0.5f)) * Frequency;
+	float2 lerpedCoords = (warpedCoords) * (1.0f - dist) * (1.0f - dist) + texCoord;
+	float4 col = tex2D(TextureSampler, saturate(lerpedCoords)) * color;
     // Visually highlight effect range.
     //col.r += (1.0f - dist) * (1.0f - dist);
     //col.b += (dist) * (dist);
-    return
-col;
+	return col;
 }
 
 
 technique Refraction
 {
-  pass Pass1
-  {
+	pass Pass1
+	{
 		PixelShader = compile ps_2_0 Forcefield();
 	}
 }

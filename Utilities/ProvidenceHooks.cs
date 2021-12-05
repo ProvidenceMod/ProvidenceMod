@@ -23,6 +23,7 @@ namespace ProvidenceMod
 			On.Terraria.NPC.UpdateNPC_BuffClearExpiredBuffs += NPC_UpdateNPC_BuffClearExpiredBuffs;
 			On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
 			On.Terraria.Main.DrawDust += Main_DrawDust;
+			On.Terraria.WorldGen.Hooks.WorldLoaded += WorldGen_Hooks_WorldLoaded;
 		}
 		// Unload hooks, aka unsubscribe methods
 		public void Unload()
@@ -35,6 +36,7 @@ namespace ProvidenceMod
 			On.Terraria.NPC.UpdateNPC_BuffClearExpiredBuffs -= NPC_UpdateNPC_BuffClearExpiredBuffs;
 			On.Terraria.Main.DrawHealthBar -= Main_DrawHealthBar;
 			On.Terraria.Main.DrawDust -= Main_DrawDust;
+			On.Terraria.WorldGen.Hooks.WorldLoaded -= WorldGen_Hooks_WorldLoaded;
 		}
 
 		public virtual void NPC_AddBuff(On.Terraria.NPC.orig_AddBuff orig, NPC self, int type, int time, bool quiet)
@@ -268,6 +270,17 @@ namespace ProvidenceMod
 			ProvidenceMod.particleManager.PostUpdate(Main.spriteBatch);
 			Main.spriteBatch.End();
 			orig(self);
+		}
+		public virtual void WorldGen_Hooks_WorldLoaded(On.Terraria.WorldGen.Hooks.orig_WorldLoaded orig)
+		{
+			// Want things to happen when you load your subworld?
+			// Put them here with conditional logic to trigger when the active subworld is loaded.
+			// Example:
+			// if (SubworldManager.IsActive<BrinewastesSubworld>())
+			// {
+			//		Run this code!
+			// }
+				orig();
 		}
 	}
 }

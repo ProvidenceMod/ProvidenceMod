@@ -129,16 +129,10 @@ namespace ProvidenceMod
 				shadow = false;
 				shadowStacks = 0;
 			}
-			if (IsThereABoss().bossExists)
-			{
+			if(intimidated = IsThereABoss().bossExists)
 				player.AddBuff(BuffType<Intimidated>(), 2);
-				intimidated = true;
-			}
 			else
-			{
 				player.ClearBuff(BuffType<Intimidated>());
-				intimidated = false;
-			}
 		}
 		public override void PostUpdate()
 		{
@@ -201,8 +195,9 @@ namespace ProvidenceMod
 		}
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
-
-			return false;
+			if (wraith)
+				return (Main.rand.NextFloat(1f, 101f) / 10f) <= wraithDodge;
+			return true;
 		}
 		public override void PostUpdateRunSpeeds()
 		{

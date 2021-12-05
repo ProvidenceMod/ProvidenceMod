@@ -7,6 +7,7 @@ namespace ProvidenceMod
 		/// <summary>Full - ( ( Cap * DR ) / ( DR * Harshness ) )</summary>
 		/// <param name="x">Input DR.</param>
 		public static float DiminishingDRFormula(float x) => 1f - (float)((0.75d * x) / (x * 45d));
+		public static float DiminishingReturnFormula(float input, double cap, double harshness) => 1f - (float)((cap * input) / (input * harshness));
 		public static Vector2 BezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
 		{
 			float cx = 3 * (p1.X - p0.X);

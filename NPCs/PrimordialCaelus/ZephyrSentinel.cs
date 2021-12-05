@@ -14,6 +14,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 	{
 		public int frame;
 		public int frameTick;
+		public float rotation;
 		public Rectangle rect = new Rectangle(0, 0, 118, 118);
 		public override void SetStaticDefaults()
 		{
@@ -38,6 +39,8 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		}
 		public override void AI()
 		{
+			npc.position = Main.npc[(int)npc.ai[1]].Center + new Vector2(128f, 0f).RotatedBy(npc.ai[2]).RotatedBy(rotation.InRadians());
+			rotation += 4;
 			if (npc.ai[0] < 60)
 			{
 				npc.ai[0]++;
@@ -55,37 +58,14 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 						Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / 2f));
 						Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / -2f));
 					}
-					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(npc.ClosestPlayer().position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.WeakHoming, 1);
+					Projectile.NewProjectile(npc.Center, new Vector2(10f, 0f).RotatedBy(npc.AngleTo(npc.ClosestPlayer().position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal, 1);
 				}
 				npc.ai[0]++;
 			}
 			if (npc.ai[0] == 600)
 			{
-				for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
-				{
-					Vector2 speed = new Vector2(0f, 4f).RotatedBy(i);
-					Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed, default, default, 5f);
-					Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / 2f), default, default, 5f);
-					Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / -2f), default, default, 5f);
-				}
-				int k = 0;
-				if (!ProvidenceWorld.lament)
-				{
-					for (int i = 0; i < 8; i += 2)
-					{
-						k += 2;
-						Projectile.NewProjectile(npc.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, k);
-					}
-				}
-				else
-				{
-					for (int i = 0; i < 8; i++)
-					{
-						k++;
-						Projectile.NewProjectile(npc.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, k);
-					}
-				}
 				npc.life = 0;
+				HitEffect(0, 0);
 			}
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -104,23 +84,12 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 				Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / 2f), default, default, 5f);
 				Dust.NewDustPerfect(npc.Center, DustType<CloudDust>(), speed.RotatedBy(i / -2f), default, default, 5f);
 			}
-			int k = 0;
-			if (!ProvidenceWorld.lament)
-			{
+			if (ProvidenceWorld.lament && !ProvidenceWorld.wrath)
 				for (int i = 0; i < 8; i += 2)
-				{
-					k += 2;
-					Projectile.NewProjectile(npc.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, k);
-				}
-			}
-			else
-			{
+					Projectile.NewProjectile(npc.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, i);
+			if(ProvidenceWorld.wrath)
 				for (int i = 0; i < 8; i++)
-				{
-					k++;
-					Projectile.NewProjectile(npc.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, k);
-				}
-			}
+					Projectile.NewProjectile(npc.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, i);
 		}
 	}
 }

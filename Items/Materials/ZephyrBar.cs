@@ -29,16 +29,6 @@ namespace ProvidenceMod.Items.Materials
 			item.rare = (int)ProvidenceRarity.Orange;
 			item.maxStack = 999;
 		}
-		//public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-		//{
-		//	spriteBatch.Draw(GetTexture("ProvidenceMod/Items/Materials/ZephyrBarSheet"), position - new Vector2(item.width * scale * 0.5f, item.height * scale * 0.5f), item.AnimationFrame(ref frameNumber, ref frameTick, 6, 15, true), Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-		//	return false;
-		//}
-		//public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-		//{
-		//	spriteBatch.Draw(GetTexture("ProvidenceMod/Items/Materials/ZephyrBarSheet"), item.Center - Main.screenPosition, item.AnimationFrame(ref frameNumber, ref frameTick, 6, 15, true), Color.White, 0f, new Vector2(item.width * 0.5f, item.height * 0.5f), 1f, SpriteEffects.None, 0f);
-		//	return false;
-		//}
 		public override void AddRecipes()
 		{
 			ModRecipe r = new ModRecipe(mod);

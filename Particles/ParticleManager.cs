@@ -35,10 +35,13 @@ namespace ProvidenceMod.Particles
 		{
 			for (int i = 0; i < particles?.Count; i++)
 			{
-				// Apply gravity.
-				particles[i].velocity.Y += particles[i].gravity;
-				// Apply velocity to position.
-				particles[i].position += particles[i].velocity;
+				if (!Collision.SolidCollision(particles[i].position + new Vector2(particles[i].width / 2f, particles[i].height / 2f), 1, 1))
+				{
+					// Apply gravity.
+					particles[i].velocity.Y += particles[i].gravity;
+					// Apply velocity to position.
+					particles[i].position += particles[i].velocity;
+				}
 				// Run AI.
 				particles[i].AI();
 				// Draw particle.
@@ -76,9 +79,11 @@ namespace ProvidenceMod.Particles
 			Type.scale = scale;
 			Type.active = true;
 			Type.ai = new float[] { AI0, AI1, AI2, AI3, AI4, AI5, AI6, AI7 };
-			Type.SpawnAction.Invoke();
-			if(particles?.Count < 6000)
+			if (particles?.Count < 6000)
+			{
+				Type.SpawnAction?.Invoke();
 				particles?.Add(Type);
+			}
 			if (particles?.Count > 6000)
 				particles.TrimExcess();
 		}

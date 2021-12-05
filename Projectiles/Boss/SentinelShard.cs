@@ -39,14 +39,7 @@ namespace ProvidenceMod.Projectiles.Boss
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Texture2D tex = GetTexture(projectile.ai[0] == 0 ? "ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreA" :
-																	projectile.ai[0] == 1 ? "ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreB" :
-																	projectile.ai[0] == 2 ? "ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreC" :
-																	projectile.ai[0] == 3 ? "ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreD" :
-																	projectile.ai[0] == 4 ? "ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreE" :
-																	projectile.ai[0] == 5 ? "ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreF" :
-																	projectile.ai[0] == 6 ? "ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreG" :
-																	"ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGoreH");
+			Texture2D tex = GetTexture("ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGore" + projectile.ai[0]);
 			projectile.width = tex.Width;
 			projectile.height = tex.Height;
 			spriteBatch.Draw(tex, projectile.Center - Main.screenPosition, new Rectangle(0, 0, tex.Width, tex.Height), lightColor, projectile.ai[0] % 2 != 0 ? projectile.velocity.ToRotation() + MathHelper.PiOver4 : projectile.velocity.ToRotation(), tex.Size() * 0.5f, 1f, SpriteEffects.None, 0f);

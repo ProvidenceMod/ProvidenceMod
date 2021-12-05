@@ -108,7 +108,7 @@ namespace ProvidenceMod.Projectiles.Boss
 			for (int i = 0; i < projectile.oldRot.Length; i++)
 			{
 				float alpha = 1f - (i * 0.1f);
-				Vector4 colorV = Vector4.Lerp(new Vector4(174, 197, 231, 0), new Vector4(83, 46, 99, 0), i / (float)(projectile.oldRot.Length - 1)).RGBAIntToFloat();
+				Vector4 colorV = Vector4.Lerp(new Vector4(158, 186, 226, 0), new Vector4(54, 16, 53, 0), i / (float)(projectile.oldRot.Length - 1)).RGBAIntToFloat();
 				colorV.X = colorV.Y * alpha * opacity;
 				colorV.Y = colorV.X * alpha * opacity;
 				colorV.Z = colorV.Z * alpha * opacity;

@@ -11,10 +11,8 @@ namespace ProvidenceMod.Items.Armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Zephyr Veil");
-			Tooltip.SetDefault("+5% wraith damage\n+5% wraith crit chance\n+5% thrown velocity\n-25% Max Health\nAllows generation of quantum stacks:\n+1 Quantum Flux generation\n+20 Quantum Drain\n+2000 Quantum Max");
-
+			Tooltip.SetDefault("+5% wraith damage\n+5% Crit Chance\n+5% Thrown Velocity\n-50% Max Health\n+10% Dodge Chance\nAllows generation of Quantum Stacks:\n+1 Quantum Flux generation\n+20 Quantum Drain\n+2000 Quantum Max");
 		}
-
 		public override void SetDefaults()
 		{
 			item.width = 24;
@@ -34,7 +32,7 @@ namespace ProvidenceMod.Items.Armor
 			player.Providence().quantumDrain = 20f;
 			player.Providence().quantumMax = 2000f;
 			player.Providence().wraithDodge = 0.10f;
-			player.statLifeMax2 = (int)(player.statLifeMax2 * 0.75f);
+			player.statLifeMax2 = (int)(player.statLifeMax2 * 0.5f);
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs) =>
 			body.type == ItemType<ZephyrBreastplate>() &&

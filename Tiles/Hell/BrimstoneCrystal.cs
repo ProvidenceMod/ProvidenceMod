@@ -36,38 +36,12 @@ namespace ProvidenceMod.Tiles.Hell
 			Main.tileFrameImportant[Type] = true;
 			Main.tileObsidianKill[Type] = true;
 			Main.tileNoFail[Type] = true;
-			animationFrameHeight = 18;
+			animationFrameHeight = 72;
 		}
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-			if (i % 2 == 0)
-			{
-				time = 3f;
-			}
-			if (i % 3 == 0)
-			{
-				time = 4f;
-			}
-			if (i % 4 == 0)
-			{
-				time = 5f;
-			}
-			if (i % 5 == 0)
-			{
-				time = 6f;
-			}
-			if (i % 6 == 0)
-			{
-				time = 7f;
-			}
-			if (i % 7 == 0)
-			{
-				time = 8f;
-			}
-			if (i % 8 == 0)
-			{
-				time = 9f;
-			}
+			time = (i % 2 == 0 ? 3 : i % 3 == 0 ? 4 : i % 4 == 0 ? 5 : i % 5 == 0 ? 6 : i % 6 == 0 ? 7 : i % 7 == 0 ? 8 : i % 8 == 0 ? 9 : 2) +
+						 (j % 2 == 0 ? 3 : j % 3 == 0 ? 4 : j % 4 == 0 ? 5 : j % 5 == 0 ? 6 : j % 6 == 0 ? 7 : j % 7 == 0 ? 8 : j % 8 == 0 ? 9 : 2);
 			color = ColorShift(new Color(54, 30, 53), new Color(166, 46, 61), time).ToVector3();
 			color.RGBIntToFloat();
 			r = color.X;
@@ -90,27 +64,23 @@ namespace ProvidenceMod.Tiles.Hell
 				Main.tile[i, j].frameY = 54;
 			type = Main.tile[i, j].frameX = (short)(WorldGen.genRand.Next(9) * 18);
 		}
-		// public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
-		// {
-
-		// }
-
-		// public override void AnimateTile(ref int frame, ref int frameCounter)
-		// {
-		//   Main.tileFrameCounter[type]++;
-		// 	if (Main.tileFrameCounter[type] > time * 60)
-		// 	{
-		// 		Main.tileFrameCounter[type] = 0;
-		// 		Main.tileFrame[type]++;
-		// 		if (Main.tileFrame[type] > 3 )
-		// 		{
-		// 			Main.tileFrame[type] = 0;
-		// 		}
-		// 	}
-		// }
+		public override void AnimateTile(ref int frame, ref int frameCounter)
+		{
+			// Animate tile.
+			//Main.tileFrameCounter[Type]++;
+			//if (Main.tileFrameCounter[Type] > time * 12)
+			//{
+			//	Main.tileFrameCounter[Type] = 0;
+			//	Main.tileFrame[Type]++;
+			//	if (Main.tileFrame[Type] > 3)
+			//	{
+			//		Main.tileFrame[Type] = 0;
+			//	}
+			//}
+		}
 		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
 		{
-			drawColor = Color.White;
+			drawColor = new Color(255, 255, 255, 200);
 		}
 	}
 }

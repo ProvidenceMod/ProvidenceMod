@@ -132,6 +132,10 @@ namespace ProvidenceMod.Particles
 		/// AI array, useful for passing data into the particle on spawn.
 		/// </summary>
 		public float[] ai;
+		/// <summary>
+		/// Whether or not this particle should interact with tiles.
+		/// </summary>
+		public bool tileCollide;
 
 		public virtual void SetDefaults()
 		{

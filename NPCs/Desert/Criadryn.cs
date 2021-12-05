@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
 using static ProvidenceMod.ProvidenceUtils;
 using ProvidenceMod.Projectiles.Enemy;
+using ProvidenceMod.Items.Weapons.Wraith;
 
 namespace ProvidenceMod.NPCs.Desert
 {
@@ -14,7 +15,6 @@ namespace ProvidenceMod.NPCs.Desert
 		private int volleyTimer;
 		private int volleyCooldown;
 		private Entity target;
-		private bool HasTarget { get => target?.active == true; }
 		private bool firingVolley;
 		public override void SetStaticDefaults()
 		{
@@ -26,7 +26,7 @@ namespace ProvidenceMod.NPCs.Desert
 			npc.height = 64;
 			npc.friendly = false;
 			npc.defense = 30;
-			npc.lifeMax = 350;
+			npc.lifeMax = 150;
 			npc.noTileCollide = false;
 			npc.knockBackResist = 0.2f;
 			npc.HitSound = SoundID.NPCHit1;
@@ -37,13 +37,13 @@ namespace ProvidenceMod.NPCs.Desert
 			if (firingVolley)
 			{
 				if (volleyCooldown < 120) volleyCooldown++;
-				if (HasTarget && volleyCooldown >= 120 && volleyTimer < 15) volleyTimer++;
+				if (volleyCooldown >= 120 && volleyTimer < 15) volleyTimer++;
 				else volleyTimer = 0;
 			}
 		}
 		public override void AI()
 		{
-			firingVolley = HasTarget;
+			firingVolley = target?.active ?? false;
 			CountTimers();
 			target = npc.ClosestPlayer();
 			npc.TargetClosestUpgraded();
@@ -86,6 +86,11 @@ namespace ProvidenceMod.NPCs.Desert
 				Projectile.NewProjectile(npc.Center, new Vector2(x, y), ProjectileType<CriadrynSpike>(), npc.damage, 1f);
 				volleyCooldown = volleyTimer >= 15 ? 0 : volleyCooldown;
 			}
+		}
+		public override void NPCLoot()
+		{
+			if(Main.rand.Next(1, 5) > 1)
+				Item.NewItem(npc.Center, ItemType<CriadrynSpikes>(), Main.rand.Next(5, 16));
 		}
 	}
 }

@@ -22,6 +22,7 @@ namespace ProvidenceMod.NPCs.Desert
 		}
 		public override void SetDefaults()
 		{
+			npc.aiStyle = -1;
 			npc.width = 104;
 			npc.height = 64;
 			npc.friendly = false;
@@ -49,6 +50,7 @@ namespace ProvidenceMod.NPCs.Desert
 			npc.TargetClosestUpgraded();
 			float direction = target.Center.X - npc.Center.X > 0 ? 1 : -1;
 			npc.velocity.X += 0.15f * direction;
+			npc.velocity.X = Utils.Clamp(npc.velocity.X, -1f, 1f);
 			// Prevents air maneuvering.
 			if (Collision.SolidCollision(npc.BottomLeft, npc.width, 1))
 			{

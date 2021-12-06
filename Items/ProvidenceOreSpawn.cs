@@ -26,8 +26,25 @@ namespace ProvidenceMod.Items
 			item.Providence().customRarity = ProvidenceRarity.Developer;
 			item.useStyle = ItemUseStyleID.HoldingUp;
 		}
+		public override bool AltFunctionUse(Player player) => true;
 		public override bool UseItem(Player player)
 		{
+			if(player.altFunctionUse == 2)
+			{
+				Talk("Resetting all variables...", new Color(218, 70, 70));
+				ProvidenceWorld.downedCaelus = false;
+				ProvidenceWorld.downedVerglasLeviathan = false;
+				ProvidenceWorld.downedAstrid = false;
+				ProvidenceWorld.downedFireAncient = false;
+				ProvidenceWorld.downedLysandria = false;
+				BrinewastesWorld.downedCaelus = false;
+				BrinewastesWorld.downedVerglasLeviathan = false;
+				BrinewastesWorld.downedAstrid = false;
+				BrinewastesWorld.downedFireAncient = false;
+				BrinewastesWorld.downedLysandria = false;
+				Talk("Complete.", new Color(218, 70, 70));
+				return true;
+			}
 			if (Main.netMode == NetmodeID.MultiplayerClient)
 				return false;
 			Talk("Removing all ores...", new Color(218, 70, 70));
@@ -37,22 +54,6 @@ namespace ProvidenceMod.Items
 			WorldBuilding.BuildOre(TileType<Tiles.Ores.ZephyrOre>(), 0.00005f, 1, 10, 13, 0.35f, 0.6f);
 			Talk("Complete.", new Color(218, 70, 70));
 			return true;
-		}
-		public override bool AltFunctionUse(Player player) => true;
-		public override void RightClick(Player player)
-		{
-			Talk("Resetting all variables...", new Color(218, 70, 70));
-			ProvidenceWorld.downedCaelus = false;
-			ProvidenceWorld.downedVerglasLeviathan = false;
-			ProvidenceWorld.downedAstrid = false;
-			ProvidenceWorld.downedFireAncient = false;
-			ProvidenceWorld.downedLysandria = false;
-			BrinewastesWorld.downedCaelus = false;
-			BrinewastesWorld.downedVerglasLeviathan = false;
-			BrinewastesWorld.downedAstrid = false;
-			BrinewastesWorld.downedFireAncient = false;
-			BrinewastesWorld.downedLysandria = false;
-			Talk("Complete.", new Color(218, 70, 70));
 		}
 	}
 }

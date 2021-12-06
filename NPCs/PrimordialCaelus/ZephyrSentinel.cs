@@ -22,6 +22,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		}
 		public override void SetDefaults()
 		{
+			npc.aiStyle = -1;
 			npc.width = 118;
 			npc.height = 118;
 			npc.Opacity = 0f;

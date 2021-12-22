@@ -6,18 +6,18 @@ using ProvidenceMod;
 
 namespace ProvidenceMod
 {
-  [BackgroundColor(16, 23, 40)]
-  [Label("Client Settings")]
-  public class ProvidenceClientConfig : ModConfig
-  {
-    public override ConfigScope Mode => ConfigScope.ClientSide;
+	[BackgroundColor(16, 23, 40)]
+	[Label("Client Settings")]
+	public class ProvidenceClientConfig : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ClientSide;
 
 		[BackgroundColor(41, 122, 138)]
 		[Label("Texture Pack")]
-    [Tooltip("Enables the texture pack. Requires a Reload.")]
-    [DefaultValue(false)]
-    [ReloadRequired]
-    public bool texturePack;
+		[Tooltip("Enables the texture pack. Requires a Reload.")]
+		[DefaultValue(false)]
+		[ReloadRequired]
+		public bool texturePack;
 
 		[BackgroundColor(41, 122, 138)]
 		[Label("Boss Health Bar HP")]
@@ -33,7 +33,7 @@ namespace ProvidenceMod
 
 		public override void OnChanged()
 		{
-			ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>(); 
+			ProvidenceMod mod = ModContent.GetInstance<ProvidenceMod>();
 			mod.texturePack = texturePack;
 			mod.bossHP = bossHP;
 			mod.bossPercentage = bossPercentage;

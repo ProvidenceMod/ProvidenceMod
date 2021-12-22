@@ -247,7 +247,6 @@ namespace ProvidenceMod
 			float oldVRotation = v.ToRotation();
 			return v.RotatedBy(rotation - oldVRotation);
 		}
-
 		public static void NewProjectileExtraAI(Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner = 255, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0)
 		{
 			int type = Projectile.NewProjectile(position, velocity, Type, Damage, KnockBack, Owner, ai0, ai1);
@@ -542,21 +541,6 @@ namespace ProvidenceMod
 		public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
 		=> mod.GetLegacySoundSlot(soundType, filename);
 		public static int AsMusicSlot(this string filename, Mod mod) => mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, filename);
-
-		//public static void RepeatXTimes(int x, Action del)
-		//{
-		//	for (int i = 0; i < x; i++)
-		//	{
-		//		del();
-		//	}
-		//}
-		//public static void RepeatXTimes(int x, Action<int> del)
-		//{
-		//	for (int i = 0; i < x; i++)
-		//	{
-		//		del(i);
-		//	}
-		//}
 		public static void FireXProjectiles(this Item item, int x, ref float shootX, ref float shootY, float maxSpreadRadians)
 		{
 			for (int i = 0; i < x; i++)
@@ -569,5 +553,27 @@ namespace ProvidenceMod
 																					NPC.downedFishron || NPC.downedAncientCultist || NPC.downedGolemBoss ||
 																					NPC.downedPlantBoss || NPC.downedMechBossAny || NPC.downedMoonlord ||
 																					NPC.downedSlimeKing || NPC.downedQueenBee;
+		public static void DrawPanel(SpriteBatch spriteBatch, Vector2 position, int width, int height, Color color = default)
+		{
+			bool useColor = color != default;
+			// Top side
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelSide"), position + new Vector2(16f, 0f), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Bottom side
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelSide"), position + new Vector2(width - 16f, height), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Left Side
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelSide"), position + new Vector2(0f, height - 16), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Right side
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelSide"), position + new Vector2(width, 16f), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Top left corner
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelCorner"), position, new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Top right corner
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelCorner"), position + new Vector2(width, 0f), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Bottom left corner
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelCorner"), position + new Vector2(0f, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Bottom right corner
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelCorner"), position + new Vector2(width, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Center
+			spriteBatch.Draw(GetTexture("ProvidenceMod/ExtraTextures/UI/PanelCenter"), position + new Vector2(16f, 16f), new Rectangle(0, 0, width - 32, height - 32), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+		}
 	}
 }

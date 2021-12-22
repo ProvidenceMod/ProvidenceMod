@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
@@ -9,25 +10,25 @@ namespace ProvidenceMod.UI
   {
     private Vector2 offset;
     public bool dragging;
-
-    public override void MouseDown(UIMouseEvent evt)
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			base.DrawSelf(spriteBatch);
+		}
+		public override void MouseDown(UIMouseEvent evt)
     {
       base.MouseDown(evt);
       DragStart(evt);
     }
-
     public override void MouseUp(UIMouseEvent evt)
     {
       base.MouseUp(evt);
       DragEnd(evt);
     }
-
     private void DragStart(UIMouseEvent evt)
     {
       offset = new Vector2(evt.MousePosition.X - Left.Pixels, evt.MousePosition.Y - Top.Pixels);
       dragging = true;
     }
-
     private void DragEnd(UIMouseEvent evt)
     {
       Vector2 end = evt.MousePosition;
@@ -38,7 +39,6 @@ namespace ProvidenceMod.UI
 
       Recalculate();
     }
-
     public override void Update(GameTime gameTime)
     {
       base.Update(gameTime);

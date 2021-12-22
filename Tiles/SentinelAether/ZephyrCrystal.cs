@@ -1,10 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
+using ProvidenceMod.Items.Placeables.SentinelAether;
 
 namespace ProvidenceMod.Tiles.SentinelAether
 {
-	public class ZephyrCrystal
+	// TODO
+	public abstract class ZephyrCrystal
 	{
-
 	}
 }

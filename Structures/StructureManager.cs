@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using Terraria;
+using Terraria.ModLoader;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ProvidenceMod
 {
-	public class StructureManager
+	public static class StructureManager
 	{
 		/// <summary>
 		/// Writes the given object instance to a binary file.

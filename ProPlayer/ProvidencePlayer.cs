@@ -19,6 +19,7 @@ using ProvidenceMod.Items.TreasureBags;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Audio;
 using ProvidenceMod.Items.Armor;
+using ProvidenceMod.Items;
 
 namespace ProvidenceMod
 {

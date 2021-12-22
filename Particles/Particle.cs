@@ -55,7 +55,7 @@ namespace ProvidenceMod.Particles
 		/// <summary>
 		/// Color to apply or colors to shift between.
 		/// </summary>
-		public Color? color;
+		public Color color;
 		/// <summary>
 		/// The hitbox for this particle.
 		/// </summary>
@@ -187,7 +187,7 @@ namespace ProvidenceMod.Particles
 		/// </summary>
 		public void Draw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			spriteBatch.Draw(texture, position - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), color ?? lightColor, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(texture, position - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), color != default ? color : lightColor, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
 		}
 		/// <summary>
 		/// Drawing code to run after the particle manager draw call.

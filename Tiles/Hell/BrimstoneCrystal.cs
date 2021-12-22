@@ -20,6 +20,7 @@ namespace ProvidenceMod.Tiles.Hell
 		public int type;
 		public override void SetDefaults()
 		{
+
 			// Main.tileSolid[Type] = false;
 			// Main.tileNoAttach[Type] = true;
 			// Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting

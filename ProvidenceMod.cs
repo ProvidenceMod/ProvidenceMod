@@ -21,6 +21,7 @@ using ProvidenceMod.NPCs.PrimordialCaelus;
 using ProvidenceMod.Items.BossSpawners;
 using ProvidenceMod.Particles;
 using ProvidenceMod.Items.Armor;
+using ProvidenceMod.UI.Developer;
 
 namespace ProvidenceMod
 {
@@ -31,9 +32,12 @@ namespace ProvidenceMod
 		private UserInterface bossHealthUI;
 		private UserInterface parityUI;
 		private UserInterface quantum;
+		private UserInterface structureDev;
+
 		internal BossHealth BossHealth;
 		internal Quantum Quantum;
 		internal ParityUI ParityUI;
+		internal StructureDev StructureDev;
 
 		public ProvidenceHooks providenceHooks;
 		public static ParticleManager particleManager;
@@ -79,8 +83,11 @@ namespace ProvidenceMod
 
 				Quantum = new Quantum();
 				Quantum.Initialize();
-				quantum = new UserInterface();
-				quantum.SetState(ParityUI);
+
+				StructureDev = new StructureDev();
+				StructureDev.Initialize();
+				structureDev = new UserInterface();
+				structureDev.SetState(StructureDev);
 
 				CycleParity = RegisterHotKey("Cycle Parity Element", "C");
 				UseQuantum = RegisterHotKey("Activate Quantum Flux", "C");
@@ -158,6 +165,11 @@ namespace ProvidenceMod
 			Quantum.Draw(Main.spriteBatch);
 			return true;
 		}
+		private bool DrawStructureDev()
+		{
+			if (StructureDev.visible) structureDev.Draw(Main.spriteBatch, new GameTime());
+			return true;
+		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
@@ -167,6 +179,7 @@ namespace ProvidenceMod
 				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
 				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity", DrawParityUI, InterfaceScaleType.UI));
 				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Quantum", DrawQuantum, InterfaceScaleType.UI));
+				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Structure Dev", DrawStructureDev, InterfaceScaleType.UI));
 			}
 		}
 		public override void UpdateUI(GameTime gameTime)
@@ -175,6 +188,7 @@ namespace ProvidenceMod
 			bossHealthUI?.Update(gameTime);
 			parityUI?.Update(gameTime);
 			quantum?.Update(gameTime);
+			structureDev?.Update(gameTime);
 		}
 
 		public override void PreSaveAndQuit()

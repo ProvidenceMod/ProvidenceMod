@@ -40,7 +40,7 @@ namespace ProvidenceMod.Projectiles.Melee
 			projectile.UpdatePositionCache();
 			projectile.UpdateRotationCache();
 			//Lighting.AddLight(projectile.Center, new Vector3(Main.DiscoR, Main.DiscoG, Main.DiscoB).RGBIntToFloat());
-			if (projectile.ai[0] % Main.rand.Next(100, 201) == 0 && projectile.ai[0] != 0)
+			if (projectile.ai[0] % 60 == 0)
 				NewParticle(projectile.Center, projectile.velocity.RotatedBy(Main.rand.NextFloat(-10f, 11f) / 100f) / 3f, new MoonBlastParticle(), Color.White, Main.rand.NextFloat(5f, 11f) / 10f);
 			projectile.ai[0]++;
 			if (projectile.ai[0] < 30)

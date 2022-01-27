@@ -537,6 +537,18 @@ namespace ProvidenceMod
 		//   }
 		//   return damage;
 		// }
+		public static void CheckTiles(int x, int y, out bool up, out bool down, out bool left, out bool right, out bool leftUp, out bool leftDown, out bool rightUp, out bool rightDown)
+		{
+			Tile tile = Main.tile[x, y];
+			up = Main.tile[x, y - 1].type == tile.type;
+			down = Main.tile[x, y + 1].type == tile.type;
+			left = Main.tile[x - 1, y].type == tile.type;
+			right = Main.tile[x + 1, y].type == tile.type;
+			leftUp = Main.tile[x - 1, y - 1].type == tile.type;
+			leftDown = Main.tile[x - 1, y + 1].type == tile.type;
+			rightUp = Main.tile[x + 1, y - 1].type == tile.type;
+			rightDown = Main.tile[x + 1, y + 1].type == tile.type;
+		}
 		public static LegacySoundStyle AsLegacy(this int id, int style = 1) => new LegacySoundStyle(id, style);
 		public static LegacySoundStyle AsLegacy(this string filename, Mod mod, Terraria.ModLoader.SoundType soundType = Terraria.ModLoader.SoundType.Item)
 		=> mod.GetLegacySoundSlot(soundType, filename);

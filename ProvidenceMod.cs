@@ -39,7 +39,7 @@ namespace ProvidenceMod
 		internal ParityUI ParityUI;
 		internal StructureDev StructureDev;
 
-		public ProvidenceHooks providenceHooks;
+		public ProvidenceDetours providenceHooks;
 		public static ParticleManager particleManager;
 
 		public static DynamicSpriteFont bossHealthFont;
@@ -60,7 +60,7 @@ namespace ProvidenceMod
 		{
 			Instance = this;
 
-			providenceHooks = new ProvidenceHooks();
+			providenceHooks = new ProvidenceDetours();
 			providenceHooks.Initialize();
 
 			LoadCLient();

@@ -60,8 +60,13 @@ indent_size = 2
 # csharp_style_var_when_type_is_apparent = true:none
 
 
+# CA2211: Non-constant fields should not be visible
+dotnet_diagnostic.CA2211.severity = silent
+
 # [*.json]
 # indent_style = tab
 # unfortuantely anything other than tab_width and indent_size 1 causes VS to become whimsical about indenting
 # indent_size = 1
 # tab_width = 1
+[*.{cs,vb}]
+indent_size=4

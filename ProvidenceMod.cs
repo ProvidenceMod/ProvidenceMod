@@ -16,7 +16,6 @@ using ProvidenceMod.TexturePack;
 using ProvidenceMod.NPCs.FireAncient;
 using ProvidenceMod.Items.Weapons.Melee;
 using static ProvidenceMod.ModSupport.ModCalls;
-using static ProvidenceMod.TexturePack.ProvidenceTextureManager;
 using ProvidenceMod.NPCs.PrimordialCaelus;
 using ProvidenceMod.Items.BossSpawners;
 using ProvidenceMod.Particles;
@@ -39,8 +38,7 @@ namespace ProvidenceMod
 		internal ParityUI ParityUI;
 		internal StructureDev StructureDev;
 
-		public ProvidenceDetours providenceHooks;
-		public static ParticleManager particleManager;
+		public Detours providenceHooks;
 
 		public static DynamicSpriteFont bossHealthFont;
 		public static DynamicSpriteFont mouseTextFont;
@@ -48,10 +46,10 @@ namespace ProvidenceMod
 		public static ArmorShaderData quantumShaderData;
 		public static Ref<Effect> divinityEffect;
 
-		public static ModHotKey CycleParity;
-		public static ModHotKey UseQuantum;
+		public static ModKeybind CycleParity;
+		public static ModKeybind UseQuantum;
 
-		public bool texturePack;
+		public static bool TexturePack;
 		public bool bossHP;
 		public bool bossPercentage;
 		public bool subworldVote;
@@ -60,65 +58,50 @@ namespace ProvidenceMod
 		{
 			Instance = this;
 
-			providenceHooks = new ProvidenceDetours();
-			providenceHooks.Initialize();
-
-			LoadCLient();
+			if (!Main.dedServ)
+				LoadCLient();
 
 			BossHealthBarManager.Initialize();
 		}
 		public void LoadCLient()
 		{
-			if (!Main.dedServ)
-			{
-				BossHealth = new BossHealth();
-				BossHealth.Initialize();
-				bossHealthUI = new UserInterface();
-				bossHealthUI.SetState(BossHealth);
+			BossHealth = new BossHealth();
+			BossHealth.Initialize();
+			bossHealthUI = new UserInterface();
+			bossHealthUI.SetState(BossHealth);
 
-				ParityUI = new ParityUI();
-				ParityUI.Initialize();
-				parityUI = new UserInterface();
-				parityUI.SetState(ParityUI);
+			ParityUI = new ParityUI();
+			ParityUI.Initialize();
+			parityUI = new UserInterface();
+			parityUI.SetState(ParityUI);
 
-				Quantum = new Quantum();
-				Quantum.Initialize();
+			Quantum = new Quantum();
+			Quantum.Initialize();
 
-				StructureDev = new StructureDev();
-				StructureDev.Initialize();
-				structureDev = new UserInterface();
-				structureDev.SetState(StructureDev);
+			StructureDev = new StructureDev();
+			StructureDev.Initialize();
+			structureDev = new UserInterface();
+			structureDev.SetState(StructureDev);
 
-				CycleParity = RegisterHotKey("Cycle Parity Element", "C");
-				UseQuantum = RegisterHotKey("Activate Quantum Flux", "C");
+			CycleParity = KeybindLoader.RegisterKeybind(this, "Cycle Parity Element", "C");
+			UseQuantum = KeybindLoader.RegisterKeybind(this, "Activate Quantum Flux", "C");
 
-				if (FontExists("Fonts/BossHealthFont"))
-					bossHealthFont = GetFont("Fonts/BossHealthFont");
-				//if (FontExists("Fonts/MouseTextFont"))
-				//	mouseTextFont = GetFont("Fonts/MouseTextFont");
+			bossHealthFont = ModContent.Request<DynamicSpriteFont>("Fonts/BossHealthFont").Value;
+			//if (FontExists("Fonts/MouseTextFont"))
+			//	mouseTextFont = GetFont("Fonts/MouseTextFont");
 
-				//ProvidenceTextureManager.LoadFonts();
+			//ProvidenceTextureManager.LoadFonts();
 
-				if (texturePack)
-					ProvidenceTextureManager.Load();
-				particleManager = new ParticleManager();
-				particleManager.Load();
-
-				quantumShader = new Ref<Effect>(GetEffect("Effects/Quantum"));
-				quantumShaderData = new ArmorShaderData(divinityEffect, "Quantum");
-				GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverHelm>(), quantumShaderData);
-				GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverBreastplate>(), quantumShaderData);
-				GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverLeggings>(), quantumShaderData);
-				GameShaders.Armor.BindShader(ModContent.ItemType<DivinityDye>(), quantumShaderData);
-
-				//quantumShader = Instance.GetEffect("Effects/Quantum");
-				//divinityEffect = Instance.GetEffect("Effects/DivinityShader");
-				//divinityEffect.Parameters["SwirlTexture"].SetValue(GetTexture("Effects/SwirlTexture"));
-			}
+			quantumShader = new Ref<Effect>(ModContent.Request<Effect>("Effects/Quantum").Value);
+			quantumShaderData = new ArmorShaderData(divinityEffect, "Quantum");
+			GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverHelm>(), quantumShaderData);
+			GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverBreastplate>(), quantumShaderData);
+			GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverLeggings>(), quantumShaderData);
+			GameShaders.Armor.BindShader(ModContent.ItemType<DivinityDye>(), quantumShaderData);
 		}
 		public override void PostSetupContent()
 		{
-			SubworldManager.Load();
+			//SubworldManager.Load();
 			BossChecklist();
 		}
 		public override void Unload()
@@ -131,21 +114,7 @@ namespace ProvidenceMod
 			bossHealthFont = null;
 			mouseTextFont = null;
 			divinityEffect = null;
-			if (!Main.dedServ)
-			{
-				ProvidenceTextureManager.Unload();
-				//ProvidenceTextureManager.UnloadFonts();
-			}
-			try
-			{
-				particleManager.Unload();
-			}
-			catch (Exception ex)
-			{
-
-			}
-			providenceHooks.Unload();
-			SubworldManager.Unload();
+			//SubworldManager.Unload();
 			Instance = null;
 			base.Unload();
 		}
@@ -171,35 +140,32 @@ namespace ProvidenceMod
 			return true;
 		}
 
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-		{
-			int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
-			if (accbarIndex != -1)
-			{
-				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
-				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity", DrawParityUI, InterfaceScaleType.UI));
-				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Quantum", DrawQuantum, InterfaceScaleType.UI));
-				layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Structure Dev", DrawStructureDev, InterfaceScaleType.UI));
-			}
-		}
-		public override void UpdateUI(GameTime gameTime)
-		{
-			BossHealthBarManager.Update();
-			bossHealthUI?.Update(gameTime);
-			parityUI?.Update(gameTime);
-			quantum?.Update(gameTime);
-			structureDev?.Update(gameTime);
-		}
-
-		public override void PreSaveAndQuit()
-		{
-			particleManager.Dispose();
-		}
+		// Move this to a Mod System
+		//public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		//{
+		//	int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
+		//	if (accbarIndex != -1)
+		//	{
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity", DrawParityUI, InterfaceScaleType.UI));
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Quantum", DrawQuantum, InterfaceScaleType.UI));
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Structure Dev", DrawStructureDev, InterfaceScaleType.UI));
+		//	}
+		//}
+		// Move this to a Mod System
+		//public override void UpdateUI(GameTime gameTime)
+		//{
+		//	BossHealthBarManager.Update();
+		//	bossHealthUI?.Update(gameTime);
+		//	parityUI?.Update(gameTime);
+		//	quantum?.Update(gameTime);
+		//	structureDev?.Update(gameTime);
+		//}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI) => ProvidenceNetcode.HandlePacket(this, reader, whoAmI);
 
-		public override void UpdateMusic(ref int music, ref MusicPriority priority)
-		{
+		//public override void UpdateMusic(ref int music, ref MusicPriority priority)
+		//{
 			//if (NPC.AnyNPCs(NPCID.BrainofCthulhu))
 			//{
 			//	music = "Sounds/Music/Brainiac".AsMusicSlot(this);
@@ -210,6 +176,6 @@ namespace ProvidenceMod
 			//	music = "Sounds/Music/HighInTheSky".AsMusicSlot(this);
 			//	priority = MusicPriority.BossMedium;
 			//}
-		}
+		//}
 	}
 }

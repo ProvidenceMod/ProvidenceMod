@@ -7,5 +7,5 @@ hideResources = true
 includeSource = false
 weakReferences =
 modReferences = SubworldLibrary
-buildIgnore = *.csproj, *.user, *.md, obj\*, bin\*, .vs\*, .vscode\*, .git\*, .github\*, SubworldLibrary\*, Developer\*, *.ymlm *.editorconfig, Properties\*, *.gitignore, Fonts\FontCompile\*, Effects\EffectCompile\*
+buildIgnore = *.csproj, *.user, *.md, obj\*, bin\*, .vs\*, .vscode\*, .git\*, .github\*, SubworldLibrary\*, Developer\*, *.ymlm *.editorconfig, Properties\*, *.gitignore, Fonts\FontCompile\*, Effects\EffectCompile\*, fxcompiler_reach.exe, Microsoft.Xna.Framework.Content.Pipeline.dll, Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll
 includePDB = true

@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.ID;
 namespace ProvidenceMod
 {
-	public class ProvidenceHooks
+	public class ProvidenceDetours
 	{
-		public ProvidenceHooks Instance;
+		public ProvidenceDetours Instance;
 		//public interface IProvidenceGlobalNPC
 		//{
 		//	int NPC_NewNPC(On.Terraria.NPC.orig_NewNPC orig, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target);

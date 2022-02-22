@@ -5,11 +5,11 @@ using Terraria.ModLoader;
 
 namespace ProvidenceMod.Items.Subworld
 {
-	public class AetherResonator : ModItem
+	public class PortableAetherResonator : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aether Resonator");
+			DisplayName.SetDefault("Portable Aether Resonator");
 			Tooltip.SetDefault("Creates a rift to the Sentinel Aether");
 		}
 		public override void SetDefaults()

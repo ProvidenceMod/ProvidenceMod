@@ -1,22 +1,28 @@
-﻿sampler2D SpriteSampler;
+﻿float4 mask;
 float threshold;
-float4 color;
+
+sampler2D samplerTex;
+
+struct VertexShaderInput
+{
+	float4 Position : POSITION;
+	float2 TexCoords : TEXCOORD0;
+	float4 Color : COLOR0;
+};
 
 struct VertexShaderOutput
 {
-	float4 Position : SV_POSITION;
+	float4 Position : POSITION;
+	float2 TexCoords : TEXCOORD0;
 	float4 Color : COLOR0;
-	float2 TextureCoordinates : TEXCOORD0;
 };
 
-float4 Threshold(VertexShaderOutput input) : COLOR0
+float4 Threshold(VertexShaderOutput input) : COLOR
 {
-	float4 color2 = tex2D(SpriteSampler, input.TextureCoordinates);
-	if(color2.r < threshold)
-	{
-		return float4(0.0f, 0.0f, 0.0f, 0.0f);
-	}
-	return color;
+	float4 color = tex2D(samplerTex, input.TexCoords);
+	if (any(color > threshold))
+		return mask;
+	return float4(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 technique Technique1
@@ -25,4 +31,4 @@ technique Technique1
 	{
 		PixelShader = compile ps_2_0 Threshold();
 	}
-}
+};

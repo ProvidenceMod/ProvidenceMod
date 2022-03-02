@@ -1,13 +1,14 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ProvidenceMod.Projectiles.Melee;
 using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria.DataStructures;
+using Providence.Content.Projectiles.Melee;
+using Providence.Rarities;
 
-namespace ProvidenceMod.Items.Weapons.Melee
+namespace Providence.Content.Items.Weapons.Melee
 {
 	public class Mooncleaver : ModItem
 	{
@@ -30,9 +31,9 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			Item.shootSpeed = 24f;
 			Item.autoReuse = true;
 			Item.rare = (int)ProvidenceRarity.Purple;
-			Item.Providence().customRarity = ProvidenceRarity.Developer;
+			Item.rare = RarityType<Developer>();
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (float i = 0; i < MathHelper.TwoPi; i += MathHelper.PiOver4)
 			{

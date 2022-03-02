@@ -1,4 +1,3 @@
-using ProvidenceMod.Projectiles.Melee;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -6,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Items.Weapons.Melee
+namespace Providence.Content.Items.Weapons.Melee
 {
 	public class Stormthread : ModItem
 	{

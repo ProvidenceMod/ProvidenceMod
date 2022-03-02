@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Tiles.Moon
+namespace Providence.Content.Tiles.Moon
 {
 	public class Regolith : ModTile
 	{
@@ -16,7 +16,7 @@ namespace ProvidenceMod.Tiles.Moon
 			name.SetDefault("Regolith"); // Sets the map hover name
 			AddMapEntry(new Color(152, 255, 241), name); // Adds the map entry for this tile with a hover name
 			DustType = DustID.Platinum; // TODO: Make a dedicated dust for this tile // The type of dust to create when hit
-			ItemDrop = ModContent.ItemType<Items.Placeables.Moon.Regolith>(); // The item to drop when this tile is mined or broken
+			ItemDrop = ModContent.ItemType<Providence.Content.Items.Placeables.Moon.Regolith>(); // The item to drop when this tile is mined or broken
 			SoundType = SoundID.Tink; // The sound to play when this tile is mined
 			SoundStyle = 1; // The same as sound type, basically
 							//mineResist = 4f;

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Providence.Content.Dusts;
 
-namespace ProvidenceMod.Projectiles.Boss
+namespace Providence.Content.Projectiles.Boss
 {
 	public class SentinelShrapnel : ModProjectile
 	{
@@ -34,7 +34,7 @@ namespace ProvidenceMod.Projectiles.Boss
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D tex = Request<Texture2D>("ProvidenceMod/Projectiles/Boss/SentinelShrapnel").Value;
+			Texture2D tex = Request<Texture2D>("Providence/Projectiles/Boss/SentinelShrapnel").Value;
 			Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, (int)Projectile.ai[1] * 10, 10, 10), lightColor, Projectile.velocity.ToRotation(), new Vector2(5f, 5f), 1f, SpriteEffects.None, 0f);
 			return false;
 		}

@@ -8,33 +8,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Utilities\**" />
-    <EmbeddedResource Remove="Utilities\**" />
-    <None Remove="Utilities\**" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Textures\Backgrounds\" />
-    <Folder Include="Content\Walls\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="ParticleLibrary">
-      <HintPath>Globals\Systems\Particles\ParticleLibrary.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>

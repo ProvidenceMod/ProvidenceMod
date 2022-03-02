@@ -1,16 +1,16 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Particles;
+using Providence.Particles;
 using ParticleLibrary;
 
-namespace ProvidenceMod.Projectiles.Melee
+namespace Providence.Content.Projectiles.Melee
 {
 	public class MoonBeam : ModProjectile
 	{
-		public override string Texture => "ProvidenceMod/ExtraTextures/EmptyPixel";
+		public override string Texture => "Providence/Assets/Textures/EmptyPixel";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Moon Beam");
@@ -43,7 +43,7 @@ namespace ProvidenceMod.Projectiles.Melee
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Blue);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Yellow);
 				//Dust.NewDust(projectile.Center, 6, 6, DustID.Firework_Pink);
-				ParticleManager.NewParticle(Projectile.Center, new Vector2(0f, 1f), new MoonBlastParticle(), Color.White, Main.rand.NextFloat(1f, 4f) / 10f, 0f, 0f, 0f, 0f, Main.rand.NextFloat(20, 61));
+				ParticleManager.NewParticle(Projectile.Center, new Vector2(0f, 1f), new RainbowParticle(), Color.White, Main.rand.NextFloat(1f, 4f) / 10f, 0f, 0f, 0f, 0f, Main.rand.NextFloat(20, 61));
 			}
 			NPC target = Projectile.ClosestNPC();
 			if (target?.Distance(Projectile.Center) <= 750f)

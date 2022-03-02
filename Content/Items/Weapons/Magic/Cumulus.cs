@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Items.Materials;
-using ProvidenceMod.Projectiles.Magic;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Terraria.DataStructures;
+using Providence.Content.Items.Materials;
+using Providence.Content.Projectiles.Magic;
 
-namespace ProvidenceMod.Items.Weapons.Magic
+namespace Providence.Content.Items.Weapons.Magic
 {
 	public class Cumulus : ModItem
 	{
@@ -39,7 +39,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
 		}
 		public override bool AltFunctionUse(Player player) => true;
 		public override bool CanUseItem(Player player) => player.altFunctionUse != 2;
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			position = Main.MouseWorld;
 			return true;

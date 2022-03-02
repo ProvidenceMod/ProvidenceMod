@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using System;
 
-namespace ProvidenceMod.Projectiles.Boss
+namespace Providence.Content.Projectiles.Boss
 {
 	public class ZephyrDart : ModProjectile
 	{
@@ -114,9 +114,9 @@ namespace ProvidenceMod.Projectiles.Boss
 				colorV.Z = colorV.Z * alpha * opacity;
 				colorV.W = colorV.W * alpha * opacity;
 				Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
-				Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Boss/ZephyrDart").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, 40, 14), color, Projectile.oldRot[i], new Vector2(Projectile.width, Projectile.height) * 0.5f, 1.0f - (0.15f * (i / 10f)), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Boss/ZephyrDart").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, 40, 14), color, Projectile.oldRot[i], new Vector2(Projectile.width, Projectile.height) * 0.5f, 1.0f - (0.15f * (i / 10f)), SpriteEffects.None, 0f);
 			}
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Boss/ZephyrDart").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 40, 14), new Color(1f * opacity, 1f * opacity, 1f * opacity, 0f), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Boss/ZephyrDart").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 40, 14), new Color(1f * opacity, 1f * opacity, 1f * opacity, 0f), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 	}

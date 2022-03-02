@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables.Brinewastes
+namespace Providence.Content.Items.Placeables.Brinewastes
 {
 	public class BlueCoralBlock : ModItem
 	{
@@ -21,7 +21,7 @@ namespace ProvidenceMod.Items.Placeables.Brinewastes
 			Item.autoReuse = true;
 			Item.maxStack = 999;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.Brinewastes.BlueCoralBlock>();
+			Item.createTile = ModContent.TileType<Providence.Content.Tiles.Brinewastes.BlueCoralBlock>();
 			Item.width = 16;
 			Item.height = 16;
 			Item.value = 30;

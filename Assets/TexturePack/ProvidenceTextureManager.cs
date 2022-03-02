@@ -1,11 +1,11 @@
 using Terraria;
 using Terraria.ModLoader;
-using ProvidenceMod;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.TexturePack;
+using Providence;
+using static Providence.ProvidenceUtils;
+using Providence.TexturePack;
 using ReLogic.Graphics;
 
-namespace ProvidenceMod.TexturePack
+namespace Providence.TexturePack
 {
 	public class ProvidenceTextureManager : ModSystem
 	{

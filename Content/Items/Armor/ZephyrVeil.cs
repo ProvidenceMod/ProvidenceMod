@@ -2,8 +2,8 @@
 //using Terraria.ModLoader;
 //using Terraria.ID;
 //using static Terraria.ModLoader.ModContent;
-//using ProvidenceMod.Items;
-//namespace ProvidenceMod.Items.Armor
+//using Providence.Items;
+//namespace Providence.Items.Armor
 //{
 //	[AutoloadEquip(EquipType.Head)]
 //	public class ZephyrVeil : WraithItem

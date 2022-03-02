@@ -2,12 +2,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Items.Materials;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using System.Linq;
 
-namespace ProvidenceMod.Projectiles.Magic
+namespace Providence.Content.Projectiles.Magic
 {
 	public class CumulusCloud : ModProjectile
 	{

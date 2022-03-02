@@ -1,11 +1,11 @@
 ﻿//using Terraria;
 //using Terraria.ModLoader;
-//using ProvidenceMod.Projectiles.Cleric;
+//using Providence.Projectiles.Cleric;
 //using Microsoft.Xna.Framework;
 //using static Terraria.ModLoader.ModContent;
 //using Terraria.ID;
 
-//namespace ProvidenceMod.Items.Weapons.Cleric
+//namespace Providence.Items.Weapons.Cleric
 //{
 //	public class StormfrontCleric : BaseDualblade
 //	{

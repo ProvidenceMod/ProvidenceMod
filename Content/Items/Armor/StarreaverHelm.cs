@@ -2,8 +2,8 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Items;
-namespace ProvidenceMod.Items.Armor
+using Providence.Content.Items.Armor;
+namespace Providence.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class StarreaverHelm : ModItem

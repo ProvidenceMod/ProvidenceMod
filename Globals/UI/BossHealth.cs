@@ -6,9 +6,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.UI
+namespace Providence.UI
 {
 	internal class BossHealth : UIState
 	{
@@ -17,7 +17,7 @@ namespace ProvidenceMod.UI
 		public float oldScale = Main.inventoryScale;
 		//
 		//
-		// This allows us to turn our UI on and off as needed, as it is the variable that is checked before drawing is performed in ProvidenceMod.cs
+		// This allows us to turn our UI on and off as needed, as it is the variable that is checked before drawing is performed in Providence.cs
 		public static bool visible = true;
 		//
 		//
@@ -80,13 +80,13 @@ namespace ProvidenceMod.UI
 			area.Width.Set(1000f, 0f);
 			area.Height.Set(46f, 0f);
 
-			frame = new UIImage(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossFrame"));
+			frame = new UIImage(Request<Texture2D>("Providence/Assets/Textures/UI/BossFrame"));
 			frame.Top.Set(0, 0f);
 			frame.Left.Set(0, 0f);
 			frame.Width.Set(1000f, 0f);
 			frame.Height.Set(46f, 0f);
 
-			bloom = new UIImage(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossBloom"));
+			bloom = new UIImage(Request<Texture2D>("Providence/Assets/Textures/UI/BossBloom"));
 			bloom.Top.Set(19f, 0f);
 			bloom.Left.Set(31f, 0f);
 			bloom.Width.Set(7f, 0f);
@@ -94,14 +94,14 @@ namespace ProvidenceMod.UI
 
 			// We give the rectangle the same dimensions as our health bar so that it always draws all of it unless told otherwise
 			healthRect = new Rectangle(0, 0, 924, 6);
-			health = new UIImageFramed(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossHP"), healthRect);
+			health = new UIImageFramed(Request<Texture2D>("Providence/Assets/Textures/UI/BossHP"), healthRect);
 			health.Top.Set(22f, 0f);
 			health.Left.Set(34f, 0f);
 			health.Width.Set(924f, 0f);
 			health.Height.Set(6f, 0f);
 
 			comboRect = new Rectangle(0, 0, 924, 6);
-			combo = new UIImageFramed(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossCombo"), comboRect);
+			combo = new UIImageFramed(Request<Texture2D>("Providence/Assets/Textures/UI/BossCombo"), comboRect);
 			combo.Top.Set(22f, 0f);
 			combo.Left.Set(34f, 0f);
 			combo.Width.Set(924f, 0f);

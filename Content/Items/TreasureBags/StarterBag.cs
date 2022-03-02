@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.TreasureBags
+namespace Providence.Content.Items.TreasureBags
 {
 	public class StarterBag : ModItem
 	{

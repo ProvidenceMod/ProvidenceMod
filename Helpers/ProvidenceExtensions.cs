@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public static class ProvidenceExtensions
 	{

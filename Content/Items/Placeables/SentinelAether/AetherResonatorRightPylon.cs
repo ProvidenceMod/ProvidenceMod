@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Items.Placeables.SentinelAether
+namespace Providence.Content.Items.Placeables.SentinelAether
 {
 	public class AetherResonatorRightPylon : ModItem
 	{

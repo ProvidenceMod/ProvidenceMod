@@ -1,14 +1,14 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using ProvidenceMod.Items.Placeables.Ores;
 using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Providence.Content.Items.Placeables.Ores;
 
-namespace ProvidenceMod.Items.Materials
+namespace Providence.Content.Items.Materials
 {
 	public class ZephyrBar : ModItem
 	{

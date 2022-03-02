@@ -4,10 +4,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Terraria.Audio;
 
-namespace ProvidenceMod.Projectiles.Wraith
+namespace Providence.Content.Projectiles.Wraith
 {
 	public class CriadrynSpikeThrown : ModProjectile
 	{

@@ -1,11 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Terraria.ID;
 using Terraria.Audio;
 
-namespace ProvidenceMod.Projectiles.Ranged
+namespace Providence.Content.Projectiles.Ranged
 {
 	public class AntimatterBullet : ModProjectile
 	{

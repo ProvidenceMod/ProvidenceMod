@@ -10,23 +10,24 @@ using Terraria.UI;
 using Terraria.ModLoader;
 using Terraria.Graphics.Shaders;
 using Terraria.Graphics.Effects;
-using ProvidenceMod.UI;
-using ProvidenceMod.Items.Dyes;
-using ProvidenceMod.TexturePack;
-using ProvidenceMod.NPCs.FireAncient;
-using ProvidenceMod.Items.Weapons.Melee;
-using static ProvidenceMod.ModSupport.ModCalls;
-using ProvidenceMod.NPCs.PrimordialCaelus;
-using ProvidenceMod.Items.BossSpawners;
-using ProvidenceMod.Particles;
-using ProvidenceMod.Items.Armor;
-using ProvidenceMod.UI.Developer;
+using Providence.UI;
+using Providence.TexturePack;
+using static Providence.Content.ModSupport.ModCalls;
+using Providence.Particles;
+using Providence.UI.Developer;
+using Providence.PrimitiveTrails;
+using Providence.RenderTargets;
+using Providence.Content.Items.Armor;
+using Providence.Content.Items.Dyes;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public class ProvidenceMod : Mod
 	{
 		internal static ProvidenceMod Instance;
+
+		public static RenderTargetManager Targets;
+		//public static TrailHelper Trails;
 
 		private UserInterface bossHealthUI;
 		private UserInterface parityUI;
@@ -86,13 +87,13 @@ namespace ProvidenceMod
 			CycleParity = KeybindLoader.RegisterKeybind(this, "Cycle Parity Element", "C");
 			UseQuantum = KeybindLoader.RegisterKeybind(this, "Activate Quantum Flux", "C");
 
-			bossHealthFont = ModContent.Request<DynamicSpriteFont>("Fonts/BossHealthFont").Value;
+			bossHealthFont = ModContent.Request<DynamicSpriteFont>("Providence/Content/Fonts/BossHealthFont").Value;
 			//if (FontExists("Fonts/MouseTextFont"))
 			//	mouseTextFont = GetFont("Fonts/MouseTextFont");
 
 			//ProvidenceTextureManager.LoadFonts();
 
-			quantumShader = new Ref<Effect>(ModContent.Request<Effect>("Effects/Quantum").Value);
+			quantumShader = new Ref<Effect>(ModContent.Request<Effect>("Providence/Assets/Effects/Quantum").Value);
 			quantumShaderData = new ArmorShaderData(divinityEffect, "Quantum");
 			GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverHelm>(), quantumShaderData);
 			GameShaders.Armor.BindShader(ModContent.ItemType<StarreaverBreastplate>(), quantumShaderData);
@@ -146,10 +147,10 @@ namespace ProvidenceMod
 		//	int accbarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Builder Accessories Bar"));
 		//	if (accbarIndex != -1)
 		//	{
-		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
-		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Parity", DrawParityUI, InterfaceScaleType.UI));
-		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Quantum", DrawQuantum, InterfaceScaleType.UI));
-		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("ProvidenceMod: Structure Dev", DrawStructureDev, InterfaceScaleType.UI));
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("Providence: Boss Health Bar", DrawBossHealthUI, InterfaceScaleType.UI));
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("Providence: Parity", DrawParityUI, InterfaceScaleType.UI));
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("Providence: Quantum", DrawQuantum, InterfaceScaleType.UI));
+		//		layers.Insert(accbarIndex, new LegacyGameInterfaceLayer("Providence: Structure Dev", DrawStructureDev, InterfaceScaleType.UI));
 		//	}
 		//}
 		// Move this to a Mod System

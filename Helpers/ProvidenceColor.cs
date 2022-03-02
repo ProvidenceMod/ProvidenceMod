@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 using System.Globalization;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public static partial class ProvidenceUtils
 	{

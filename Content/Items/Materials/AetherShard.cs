@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Materials
+namespace Providence.Content.Items.Materials
 {
 	public class AetherShard : ModItem
 	{

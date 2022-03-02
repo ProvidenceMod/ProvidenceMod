@@ -2,10 +2,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Terraria.Audio;
 
-namespace ProvidenceMod.Projectiles.Ranged
+namespace Providence.Content.Projectiles.Ranged
 {
 	public class AirBullet : ModProjectile
 	{

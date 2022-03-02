@@ -2,15 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Items.Materials;
-using ProvidenceMod.Projectiles.Magic;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Projectiles.Boss;
+using static Providence.ProvidenceUtils;
 using System;
 using Terraria.DataStructures;
+using Providence.Content.Items.Materials;
+using Providence.Content.Projectiles.Boss;
 
-namespace ProvidenceMod.Items.Weapons.Magic
+namespace Providence.Content.Items.Weapons.Magic
 {
 	public class Galeburst : ModItem
 	{
@@ -40,7 +39,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
 			Item.shoot = ProjectileType<ZephyrTrident>();
 			Item.value = Item.buyPrice(0, 0, 50, 0);
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 1f);
 			return false;

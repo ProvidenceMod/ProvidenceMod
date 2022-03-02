@@ -4,10 +4,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
-using ProvidenceMod.NPCs.FireAncient;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.Projectiles.Boss
+namespace Providence.Content.Projectiles.Boss
 {
 	public class AbyssalHellblast : ModProjectile
 	{

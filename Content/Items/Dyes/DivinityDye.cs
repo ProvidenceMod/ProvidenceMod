@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ProvidenceMod.Items.Dyes
+namespace Providence.Content.Items.Dyes
 {
 	public class DivinityDye : ModItem
 	{

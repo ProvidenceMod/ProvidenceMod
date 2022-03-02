@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables.SentinelAether
+namespace Providence.Content.Items.Placeables.SentinelAether
 {
 	public class ZephyrBricks : ModItem
 	{

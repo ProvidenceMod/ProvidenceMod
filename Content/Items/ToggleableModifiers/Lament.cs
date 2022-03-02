@@ -3,11 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Globals.Systems;
+using static Providence.ProvidenceUtils;
+using Providence.Rarities.Systems;
 using Terraria.Audio;
 
-namespace ProvidenceMod.Items.ToggleableModifiers
+namespace Providence.Content.Items.ToggleableModifiers
 {
 	public class Lament : ModItem
 	{

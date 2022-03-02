@@ -1,9 +1,9 @@
-﻿using ProvidenceMod.Subworld;
+﻿using Providence.Subworld;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Subworld
+namespace Providence.Content.Items.Subworld
 {
 	public class PortableAetherResonator : ModItem
 	{
@@ -26,7 +26,7 @@ namespace ProvidenceMod.Items.Subworld
 		{
 			// Enter should be called on exactly one side, which here is either the singleplayer player, or the server
 			//if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().bossExists && !SubworldManager.IsActive<SentinelAetherSubworld>())
-			//	SubworldManager.Enter<SentinelAetherSubworld>(!ProvidenceMod.Instance.subworldVote);
+			//	SubworldManager.Enter<SentinelAetherSubworld>(!Providence.Instance.subworldVote);
 			//if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().bossExists && SubworldManager.IsActive<SentinelAetherSubworld>())
 			//	SubworldManager.Exit();
 			return true;

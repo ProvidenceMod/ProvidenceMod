@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Items.Weapons.Summon
+namespace Providence.Content.Items.Weapons.Summon
 {
 	public class TwistingRelic : ModItem
 	{

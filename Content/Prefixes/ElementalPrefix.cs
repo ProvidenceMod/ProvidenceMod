@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.Prefixes
+namespace Providence.Content.Prefixes
 {
 	public class ElementalPrefix : ModPrefix
 	{

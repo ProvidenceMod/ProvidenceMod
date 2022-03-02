@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.UI
+namespace Providence.UI
 {
 	internal class ParityElement : UIElement
 	{

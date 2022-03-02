@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace ProvidenceMod.Tiles.SentinelAether
+namespace Providence.Content.Tiles.SentinelAether
 {
 	public class AetherResonatorRightPylon : ModTile
 	{
@@ -37,7 +37,7 @@ namespace ProvidenceMod.Tiles.SentinelAether
 
 			AddMapEntry(new Color(179, 146, 107));
 			DustType = DustID.Platinum;
-			ItemDrop = ModContent.ItemType<Items.Placeables.SentinelAether.AetherResonatorRightPylon>();
+			ItemDrop = ModContent.ItemType<Providence.Content.Items.Placeables.SentinelAether.AetherResonatorRightPylon>();
 		}
 	}
 }

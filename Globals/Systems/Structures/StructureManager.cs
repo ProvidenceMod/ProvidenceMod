@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public static class StructureManager
 	{

@@ -1,11 +1,11 @@
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Dusts;
 using Terraria;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
+using Providence.Content.Dusts;
 
-namespace ProvidenceMod.Projectiles.Ranged
+namespace Providence.Content.Projectiles.Ranged
 {
 	public class TempestWave : ModProjectile
 	{

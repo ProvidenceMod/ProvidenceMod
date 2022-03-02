@@ -2,16 +2,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.TexturePack;
+using Providence.TexturePack;
 using Terraria.Audio;
 using ReLogic.Graphics;
 using System.Collections.Generic;
-using ProvidenceMod.NPCs.PrimordialCaelus;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public class ProvidenceGlobalNPC : GlobalNPC
 	{
@@ -29,14 +28,13 @@ namespace ProvidenceMod
 
 		// Debuffs
 		public bool pressureSpike;
-		public bool miasma;
 
 		// Health Bars
 		public int comboDMG;
 		public int comboBarCooldown = 75;
 		public int comboDMGCooldown = 75;
 		public int comboDMGCounter = 120;
-		public Rectangle comboRect = new Rectangle(0, 0, 36, 8);
+		public Rectangle comboRect = new(0, 0, 36, 8);
 
 		public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
 		{
@@ -46,25 +44,6 @@ namespace ProvidenceMod
 				return true;
 			}
 			return null;
-		}
-		public override void UpdateLifeRegen(NPC npc, ref int damage)
-		{
-			if (pressureSpike)
-			{
-				if (npc.lifeRegen > 0)
-				{
-					npc.lifeRegen = 0;
-				}
-				npc.lifeRegen -= 5;
-			}
-			if (miasma)
-			{
-				if (npc.lifeRegen > 0)
-				{
-					npc.lifeRegen = 0;
-				}
-				npc.lifeRegen -= 8;
-			}
 		}
 		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
 		{
@@ -148,7 +127,7 @@ namespace ProvidenceMod
 		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			// If any subworld from our mod is loaded, disable spawns
-			//if (SubworldManager.AnyActive<ProvidenceMod>())
+			//if (SubworldManager.AnyActive<Providence>())
 			//	pool.Clear();
 		}
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)

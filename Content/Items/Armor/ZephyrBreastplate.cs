@@ -2,10 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Dusts;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.Items.Armor
+namespace Providence.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class ZephyrBreastplate : ModItem

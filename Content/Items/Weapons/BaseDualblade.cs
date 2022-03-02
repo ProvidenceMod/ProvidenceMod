@@ -6,7 +6,7 @@
 //using Terraria.ModLoader;
 //using Terraria.DataStructures;
 
-//namespace ProvidenceMod.Items.Weapons
+//namespace Providence.Items.Weapons
 //{
 //	public abstract class BaseDualblade : ModItem
 //	{
@@ -30,7 +30,7 @@
 //			SetExtraDefaults();
 //		}
 //		public virtual void SetExtraDefaults() { }
-//		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+//		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 //		{
 //			float ai1Step = MathHelper.TwoPi / projectiles.Length;
 //			for (int i = 0; i < projectiles.Length; i++)

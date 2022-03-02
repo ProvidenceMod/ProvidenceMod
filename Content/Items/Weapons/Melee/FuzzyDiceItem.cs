@@ -1,4 +1,3 @@
-using ProvidenceMod.Projectiles.Melee;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -6,8 +5,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
+using Providence.Content.Projectiles.Melee;
+using Providence.Rarities;
 
-namespace ProvidenceMod.Items.Weapons.Melee
+namespace Providence.Content.Items.Weapons.Melee
 {
 	public class FuzzyDiceItem : ModItem
 	{
@@ -32,8 +33,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			Item.shootSpeed = 16f;
 			Item.knockBack = 2.5f;
 			Item.damage = 69;
-			Item.rare = ItemRarityID.Purple;
-			Item.Providence().customRarity = ProvidenceRarity.Developer;
+			Item.rare = RarityType<Developer>();
 
 			Item.DamageType = DamageClass.Melee;
 			Item.channel = true;
@@ -66,7 +66,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			// Don't reroll
 			return true;
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (int i = 0; i < 2; i++)
 			{

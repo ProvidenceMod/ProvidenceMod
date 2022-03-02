@@ -2,9 +2,9 @@ using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
-using ProvidenceMod;
+using Providence;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	[BackgroundColor(16, 23, 40)]
 	[Label("Client Settings")]

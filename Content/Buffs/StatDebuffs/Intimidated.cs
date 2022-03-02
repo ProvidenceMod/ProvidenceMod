@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Buffs.StatDebuffs
+namespace Providence.Content.Buffs.StatDebuffs
 {
 	public class Intimidated : ModBuff
 	{

@@ -1,4 +1,3 @@
-// <image url="https://i.vgy.me/fiiTlx.png" scale="0.25" />
 using System;
 using Terraria;
 using Terraria.ID;
@@ -10,11 +9,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 using ReLogic.Graphics;
-using ProvidenceMod.Particles;
+using Providence.Particles;
 using Terraria.Chat;
 using ParticleLibrary;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public static partial class ProvidenceUtils
 	{
@@ -152,14 +151,14 @@ namespace ProvidenceMod
 			if (comboDMGCounter > 0)
 			{
 				float opacity = comboDMGCounter > 61 ? 1f : comboDMGCounter / 120f;
-				SpriteBatch spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
+				SpriteBatch spriteBatch = new(Main.graphics.GraphicsDevice);
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 				DrawBorderStringEightWay(spriteBatch, ProvidenceMod.bossHealthFont, $"{comboDMG}", new Vector2(xPos + (48f * scale) + 2f, yPos + 9f) - Main.screenPosition, new Color((int)(255 * opacity), (int)(255 * opacity), (int)(255 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.4f);
 				spriteBatch.End();
 			}
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/TexturePack/UI/HB1").Value, new Vector2(xPos, yPos) - Main.screenPosition, new Rectangle(0, 0, 48, 20), Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/TexturePack/UI/HB3").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, comboRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/TexturePack/UI/HB2").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, healthRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/TexturePack/UI/HB1").Value, new Vector2(xPos, yPos) - Main.screenPosition, new Rectangle(0, 0, 48, 20), Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/TexturePack/UI/HB3").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, comboRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/TexturePack/UI/HB2").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, healthRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
 		}
 		public static void DrawBorderStringEightWay(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 position, Color color, Color border, float scale = 1f)
 		{
@@ -249,7 +248,9 @@ namespace ProvidenceMod
 			float oldVRotation = v.ToRotation();
 			return v.RotatedBy(rotation - oldVRotation);
 		}
-		public static void NewProjectileExtraAI(IProjectileSource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, int owner = 255, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0)
+		public static Vector2 TurnRight(this Vector2 vec) => new(-vec.Y, vec.X);
+		public static Vector2 TurnLeft(this Vector2 vec) => new(vec.Y, -vec.X);
+		public static void NewProjectileExtraAI(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, int owner = 255, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0)
 		{
 			int index = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, owner, ai0, ai1);
 			Main.projectile[index].Providence().extraAI[0] = ai2;
@@ -259,18 +260,18 @@ namespace ProvidenceMod
 			Main.projectile[index].Providence().extraAI[4] = ai6;
 			Main.projectile[index].Providence().extraAI[5] = ai7;
 		}
-		public static void NewNPCExtraAI(int X, int Y, int Type, int Start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0, int Target = 255)
+		public static void NewNPCExtraAI(IEntitySource source, int X, int Y, int Type, int Start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0, int Target = 255)
 		{
-			int type = NPC.NewNPC(X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+			int type = NPC.NewNPC(source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
 			Main.npc[type].Providence().extraAI[0] = ai4;
 			Main.npc[type].Providence().extraAI[0] = ai5;
 			Main.npc[type].Providence().extraAI[0] = ai6;
 			Main.npc[type].Providence().extraAI[0] = ai7;
 		}
-		public static void NewNPCExtraAI(Vector2 Position, int Type, int Start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0, int Target = 255)
+		public static void NewNPCExtraAI(IEntitySource source, Vector2 Position, int Type, int Start = 0, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, float ai4 = 0, float ai5 = 0, float ai6 = 0, float ai7 = 0, int Target = 255)
 		{
 			Vector2 pos = new(Position.X, Position.Y);
-			int type = NPC.NewNPC((int)pos.X, (int)pos.Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+			int type = NPC.NewNPC(source, (int)pos.X, (int)pos.Y, Type, Start, ai0, ai1, ai2, ai3, Target);
 			Main.npc[type].Providence().extraAI[0] = ai4;
 			Main.npc[type].Providence().extraAI[0] = ai5;
 			Main.npc[type].Providence().extraAI[0] = ai6;
@@ -556,23 +557,23 @@ namespace ProvidenceMod
 		{
 			bool useColor = color != default;
 			// Top side
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelSide").Value, position + new Vector2(16f, 0f), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(16f, 0f), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Bottom side
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelSide").Value, position + new Vector2(width - 16f, height), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(width - 16f, height), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Left Side
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelSide").Value, position + new Vector2(0f, height - 16), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(0f, height - 16), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Right side
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelSide").Value, position + new Vector2(width, 16f), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(width, 16f), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Top left corner
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelCorner").Value, position, new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position, new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Top right corner
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelCorner").Value, position + new Vector2(width, 0f), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(width, 0f), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Bottom left corner
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelCorner").Value, position + new Vector2(0f, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(0f, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Bottom right corner
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelCorner").Value, position + new Vector2(width, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(width, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			// Center
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/PanelCenter").Value, position + new Vector2(16f, 16f), new Rectangle(0, 0, width - 32, height - 32), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCenter").Value, position + new Vector2(16f, 16f), new Rectangle(0, 0, width - 32, height - 32), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
 	}
 }

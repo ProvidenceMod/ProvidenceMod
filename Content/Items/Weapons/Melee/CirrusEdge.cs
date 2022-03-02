@@ -2,15 +2,15 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ProvidenceMod.Items.Materials;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Projectiles.Boss;
-using static ProvidenceMod.Projectiles.ProvidenceGlobalProjectileAI;
+using static Providence.ProvidenceUtils;
+using static Providence.Projectiles.ProvidenceGlobalProjectileAI;
 using Terraria.DataStructures;
 using Terraria.Audio;
+using Providence.Content.Items.Materials;
+using Providence.Content.Projectiles.Boss;
 
-namespace ProvidenceMod.Items.Weapons.Melee
+namespace Providence.Content.Items.Weapons.Melee
 {
 	public class CirrusEdge : ModItem
 	{
@@ -37,7 +37,7 @@ namespace ProvidenceMod.Items.Weapons.Melee
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			SoundEngine.PlaySound(SoundID.Item45, player.position);
 			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, (int)ZephyrDartAI.Friendly);

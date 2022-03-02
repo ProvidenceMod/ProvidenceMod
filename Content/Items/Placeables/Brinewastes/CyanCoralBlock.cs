@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables.Brinewastes
+namespace Providence.Content.Items.Placeables.Brinewastes
 {
 	public class CyanCoralBlock : ModItem
 	{

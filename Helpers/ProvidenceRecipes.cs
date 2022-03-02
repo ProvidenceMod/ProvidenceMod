@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public class ProvidenceRecipes : GlobalRecipe
 	{

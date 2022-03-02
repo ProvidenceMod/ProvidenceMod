@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Tiles.Ores
+namespace Providence.Content.Tiles.Ores
 {
 	public class ZephyrOre : ModTile
 	{
@@ -21,7 +21,7 @@ namespace ProvidenceMod.Tiles.Ores
 			AddMapEntry(new Color(174, 197, 231), name);
 
 			DustType = DustID.Platinum;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Ores.ZephyrOre>();
+			ItemDrop = ModContent.ItemType<Providence.Content.Items.Placeables.Ores.ZephyrOre>();
 			SoundType = SoundID.Tink;
 			SoundStyle = 1;
 			//mineResist = 4f;

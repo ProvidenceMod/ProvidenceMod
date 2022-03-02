@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
-using ProvidenceMod.Globals.Systems;
-using ProvidenceMod.Projectiles.Boss;
+using Providence.Rarities.Systems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ProvidenceMod.Projectiles.ProvidenceGlobalProjectileAI;
+using static Providence.Projectiles.ProvidenceGlobalProjectileAI;
 using static Terraria.ModLoader.ModContent;
+using Providence.Content.Dusts;
+using Providence.Content.Projectiles.Boss;
 
-namespace ProvidenceMod.NPCs.PrimordialCaelus
+namespace Providence.Content.NPCs.PrimordialCaelus
 {
 	public class ZephyrSentinel : ModNPC
 	{
@@ -73,7 +73,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSentinelSheet").Value, NPC.position - Main.screenPosition, NPC.AnimationFrame(ref frame, ref frameTick, 5, 20, true), new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/PrimordialCaelus/ZephyrSentinelSheet").Value, NPC.position - Main.screenPosition, NPC.AnimationFrame(ref frame, ref frameTick, 5, 20, true), new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override void HitEffect(int hitDirection, double damage)

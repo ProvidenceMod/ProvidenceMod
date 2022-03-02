@@ -1,11 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using ProvidenceMod.Dusts;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace ProvidenceMod.Tiles.SentinelAether
+namespace Providence.Content.Tiles.SentinelAether
 {
 	internal class ZephyrPlatform : ModTile
 	{
@@ -31,7 +30,7 @@ namespace ProvidenceMod.Tiles.SentinelAether
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AddMapEntry(new Color(179, 146, 107));
 			DustType = DustID.Dirt;
-			ItemDrop = ModContent.ItemType<Items.Placeables.SentinelAether.ZephyrPlatform>();
+			ItemDrop = ModContent.ItemType<Providence.Content.Items.Placeables.SentinelAether.ZephyrPlatform>();
 			AdjTiles = new int[] { TileID.Platforms };
 			//// Properties
 			//Main.tileLighted[Type] = true;

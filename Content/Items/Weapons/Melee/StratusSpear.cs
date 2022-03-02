@@ -1,9 +1,8 @@
-using ProvidenceMod.Projectiles.Melee;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Weapons.Melee
+namespace Providence.Content.Items.Weapons.Melee
 {
 	public class StratusSpear : ModItem
 	{

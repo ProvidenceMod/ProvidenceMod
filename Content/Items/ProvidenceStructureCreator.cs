@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ParticleLibrary;
-using ProvidenceMod.Particles;
-using ProvidenceMod.Structures;
-using ProvidenceMod.UI.Developer;
+using Providence.Particles;
+using Providence.Rarities;
+using Providence.Structures;
+using Providence.UI.Developer;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.Items
+namespace Providence.Content.Items
 {
 	public class ProvidenceStructureCreator : ModItem
 	{
@@ -45,7 +46,7 @@ namespace ProvidenceMod.Items
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.rare = (int)ProvidenceRarity.Purple;
-			Item.Providence().customRarity = ProvidenceRarity.Developer;
+			Item.rare = ModContent.RarityType<Developer>();
 			StructureDev.clearAction = ClearValues;
 			StructureDev.genAction = GenerateStructure;
 		}
@@ -60,7 +61,7 @@ namespace ProvidenceMod.Items
 			flag2 = false;
 			divisions = 0;
 			for (int i = 0; i < 20; i++)
-				ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GenericGlowParticle(), new Color(218, 70, 70, 0), 0.25f);
+				ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GlowParticle(), new Color(218, 70, 70, 0), 0.25f);
 			Talk("Values discarded.", new Color(218, 70, 70));
 		}
 		public void GenerateStructure()
@@ -125,7 +126,7 @@ namespace ProvidenceMod.Items
 			if (player.altFunctionUse == 2 && x == 0 && y == 0 && x2 == 0 && y2 == 0)
 			{
 				for (int i = 0; i < 20; i++)
-					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GenericGlowParticle(), new Color(218, 70, 70, 0), 0.25f);
+					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GlowParticle(), new Color(218, 70, 70, 0), 0.25f);
 				Talk("No values to discard.", new Color(218, 70, 70));
 				return true;
 			}
@@ -139,7 +140,7 @@ namespace ProvidenceMod.Items
 				flag2 = false;
 				divisions = 0;
 				for (int i = 0; i < 20; i++)
-					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GenericGlowParticle(), new Color(218, 70, 70, 0), 0.25f);
+					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GlowParticle(), new Color(218, 70, 70, 0), 0.25f);
 				Talk("Values discarded.", new Color(218, 70, 70));
 				return true;
 			}
@@ -160,7 +161,7 @@ namespace ProvidenceMod.Items
 				flag2 = false;
 				divisions = 0;
 				for (int i = 0; i < 20; i++)
-					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GenericGlowParticle(), new Color(218, 70, 70, 0), 0.25f);
+					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GlowParticle(), new Color(218, 70, 70, 0), 0.25f);
 				Talk("Old values discarded.", new Color(218, 70, 70));
 			}
 			if (x == 0 && y == 0)

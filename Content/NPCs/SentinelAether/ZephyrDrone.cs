@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary;
-using ProvidenceMod.Items.Materials;
-using ProvidenceMod.Particles;
+using Providence.Particles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +10,12 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
+using Providence.Content.Items.Materials;
+using Providence.Content.NPCs.SentinelAether;
 
-namespace ProvidenceMod.NPCs.SentinelAether
+namespace Providence.Content.NPCs.SentinelAether
 {
 	public class ZephyrDrone : ModNPC
 	{
@@ -70,7 +71,7 @@ namespace ProvidenceMod.NPCs.SentinelAether
 			{
 				Vector2 v = NPC.velocity;
 				v.Normalize();
-				ParticleManager.NewParticle(NPC.getRect().RandomPointInHitbox(), v.RotatedBy(MathHelper.Pi), new GenericGlowParticle(), new Color(158, 186, 226, 0), Main.rand.NextFloat(10f, 21f) / 10f);
+				ParticleManager.NewParticle(NPC.getRect().RandomPointInHitbox(), v.RotatedBy(MathHelper.Pi), new GlowParticle(), new Color(158, 186, 226, 0), Main.rand.NextFloat(10f, 21f) / 10f);
 			}
 
 			float cos = (float)Math.Cos(Main.GlobalTimeWrappedHourly * 6f);
@@ -135,7 +136,7 @@ namespace ProvidenceMod.NPCs.SentinelAether
 			Rectangle rect = NPC.AnimationFrame(ref frame, ref frameTick, 4, 5, true);
 			if (state == AIState.Strafing)
 			{
-				Texture2D tex = Request<Texture2D>("ProvidenceMod/ExtraTextures/Flare").Value;
+				Texture2D tex = Request<Texture2D>("Providence/Assets/Textures/Flare").Value;
 				spriteBatch.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(71f * 3.25f, 0f).RotatedBy(NPC.velocity.ToRotation()), new Rectangle(71, 0, 71, 42), new Color(100, 83, 156, 0), NPC.velocity.ToRotation(), new Vector2(NPC.width, NPC.height) * 0.5f, new Vector2(7f, 1f), SpriteEffects.None, 0f);
 			}
 			for (int i = 0; i < 5; i++)
@@ -146,9 +147,9 @@ namespace ProvidenceMod.NPCs.SentinelAether
 
 				Color color = new Color(alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity);
 
-				spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Providence().oldCen[i + i] - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, effect, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Providence().oldCen[i + i] - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, effect, 0f);
 			}
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, NPC.velocity.X < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, NPC.velocity.X < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
 			return false;
 		}
 	}

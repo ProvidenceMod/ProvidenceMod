@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ID.SoundID;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public static class ProvidenceSound
 	{

@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.NPCs.FireAncient;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using Providence.Content.NPCs.FireAncient;
 
-namespace ProvidenceMod.Items.BossSpawners
+namespace Providence.Content.Items.BossSpawners
 {
 	public class ScintillatingObsidian : ModItem
 	{
@@ -42,7 +42,7 @@ namespace ProvidenceMod.Items.BossSpawners
 
 		public override bool? UseItem(Player player)
 		{
-			NPC.NewNPC((int)player.position.X, (int)(player.position.Y - (37 * 16)), NPCType<FireAncient>());
+			NPC.NewNPC(new EntitySource_BossSpawn(Item), (int)player.position.X, (int)(player.position.Y - (37 * 16)), NPCType<FireAncient>());
 			return true;
 		}
 		public override bool ConsumeItem(Player player)
@@ -51,12 +51,12 @@ namespace ProvidenceMod.Items.BossSpawners
 		}
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			Texture2D texture = Request<Texture2D>("ProvidenceMod/Items/BossSpawners/ScintillatingObsidianAnimated").Value;
+			Texture2D texture = Request<Texture2D>("Providence/Items/BossSpawners/ScintillatingObsidianAnimated").Value;
 			spriteBatch.Draw(texture, position, Item.AnimationFrame(ref frameNumber, ref frameTick, 8, 13, true), Color.White, 0.0f, origin, scale, SpriteEffects.None, 0.0f);
 		}
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			Texture2D texture = Request<Texture2D>("ProvidenceMod/Items/BossSpawners/ScintillatingObsidianGlow").Value;
+			Texture2D texture = Request<Texture2D>("Providence/Items/BossSpawners/ScintillatingObsidianGlow").Value;
 			spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X, Item.position.Y - Main.screenPosition.Y + 2), Item.AnimationFrame(ref frame, ref frameTick, 8, 13, true), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
 		}
 		public override void AddRecipes()

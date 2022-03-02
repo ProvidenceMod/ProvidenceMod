@@ -2,12 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.NPCs.PrimordialCaelus;
+using static Providence.ProvidenceUtils;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
+using Providence.Content.NPCs.PrimordialCaelus;
 
-namespace ProvidenceMod.Items.BossSpawners
+namespace Providence.Content.Items.BossSpawners
 {
 	public class ZephyrStone : ModItem
 	{

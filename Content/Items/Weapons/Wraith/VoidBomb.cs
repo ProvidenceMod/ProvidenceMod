@@ -4,10 +4,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
+using Providence.Rarities;
 
-namespace ProvidenceMod.Items.Weapons.Wraith
+namespace Providence.Content.Items.Weapons.Wraith
 {
 	public class VoidBomb : ModItem
 	{
@@ -32,7 +33,7 @@ namespace ProvidenceMod.Items.Weapons.Wraith
 			Item.maxStack = 999;
 			Item.noMelee = true;
 			Item.consumable = true;
-			Item.Providence().customRarity = ProvidenceRarity.Developer;
+			Item.rare = RarityType<Developer>();
 		}
 		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

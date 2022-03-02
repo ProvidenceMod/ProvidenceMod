@@ -4,12 +4,11 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using ProvidenceMod.Projectiles.Enemy;
-using ProvidenceMod.Items.Weapons.Wraith;
+using static Providence.ProvidenceUtils;
 using Terraria.DataStructures;
+using Providence.Content.Projectiles.Enemy;
 
-namespace ProvidenceMod.NPCs.Desert
+namespace Providence.Content.NPCs.Desert
 {
 	public class Criadryn : ModNPC
 	{

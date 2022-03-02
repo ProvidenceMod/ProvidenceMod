@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.TexturePack;
+using Providence.TexturePack;
 using Terraria;
 using Terraria.ModLoader;
+using Providence;
 
-namespace ProvidenceMod
+namespace Providence.Content.Tiles
 {
 	public class ProvidenceTile : GlobalTile
 	{

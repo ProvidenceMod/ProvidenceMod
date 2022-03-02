@@ -1,8 +1,9 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Providence.Content.Items.Placeables.SentinelAether;
 
-namespace ProvidenceMod.Items.Placeables.SentinelAether
+namespace Providence.Content.Items.Placeables.SentinelAether
 {
 	public class ZephyrPlatform : ModItem
 	{

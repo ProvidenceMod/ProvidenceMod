@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Items.Ammo
+namespace Providence.Content.Items.Ammo
 {
 	public class AntimatterBullet : ModItem
 	{

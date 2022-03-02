@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ProvidenceMod.Globals.Systems
+namespace Providence.Systems
 {
 	// Set a flag like this in your bosses OnKill hook:
 	//    NPC.SetEventFlagCleared(ref DownedBossSystem.downedMinionBoss, -1);

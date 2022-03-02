@@ -1,16 +1,16 @@
-﻿using ProvidenceMod.Buffs.DamageOverTime;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Particles;
+using Providence.Particles;
 using Terraria.Audio;
 using ParticleLibrary;
+using Providence.Content.Buffs.DamageOverTime;
 
-namespace ProvidenceMod.Projectiles.Ranged
+namespace Providence.Content.Projectiles.Ranged
 {
 	public class StarJavelin : ModProjectile
 	{
@@ -40,7 +40,7 @@ namespace ProvidenceMod.Projectiles.Ranged
 			Projectile.UpdatePositionCache();
 			Projectile.UpdateRotationCache();
 			if (Projectile.ai[0] % Main.rand.Next(100, 201) == 0 && Projectile.ai[0] != 0)
-				ParticleManager.NewParticle(Projectile.Center, Projectile.velocity.RotatedBy(Main.rand.NextFloat(-10f, 11f) / 100f) / 3f, new MoonBlastParticle(), Color.White, Main.rand.NextFloat(5f, 11f) / 10f);
+				ParticleManager.NewParticle(Projectile.Center, Projectile.velocity.RotatedBy(Main.rand.NextFloat(-10f, 11f) / 100f) / 3f, new RainbowParticle(), Color.White, Main.rand.NextFloat(5f, 11f) / 10f);
 			if (Projectile.Providence().extraAI[0] == 0)
 			{
 				pos = new Vector2(Projectile.ai[0], Projectile.ai[1]);
@@ -91,16 +91,16 @@ namespace ProvidenceMod.Projectiles.Ranged
 				//{
 				//	Color color2 = new Color((int)(hsl.R * alpha * projectile.Opacity), (int)(hsl.G * alpha * projectile.Opacity), (int)(hsl.B * alpha * projectile.Opacity), 0);
 
-				//	spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Ranged/StarJavelin"), projectile.Providence().oldCen[i] + new Vector2(k == 0 ? 0f : 2.5f, k == 0 ? 0f : k == 1 ? -2.5f : 2.5f).RotatedBy(projectile.Providence().oldCen[i].ToRotation()) - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), Color.Multiply(color2, alpha + (i * 0.05f)), projectile.oldRot[i], new Vector2(projectile.width / 2, projectile.height / 2), 1f * alpha, SpriteEffects.None, 0f);
+				//	spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Ranged/StarJavelin"), projectile.Providence().oldCen[i] + new Vector2(k == 0 ? 0f : 2.5f, k == 0 ? 0f : k == 1 ? -2.5f : 2.5f).RotatedBy(projectile.Providence().oldCen[i].ToRotation()) - Main.screenPosition, new Rectangle(0, 0, projectile.width, projectile.height), Color.Multiply(color2, alpha + (i * 0.05f)), projectile.oldRot[i], new Vector2(projectile.width / 2, projectile.height / 2), 1f * alpha, SpriteEffects.None, 0f);
 				//}
 				Color color2 = new Color((int)(hsl.R * alpha * Projectile.Opacity), (int)(hsl.G * alpha * Projectile.Opacity), (int)(hsl.B * alpha * Projectile.Opacity), 0);
-				Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Ranged/StarJavelin").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), Color.Multiply(color2, alpha + (i * 0.05f)), Projectile.oldRot[i], new Vector2(Projectile.width / 2, Projectile.height / 2), 1f * alpha, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Ranged/StarJavelin").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), Color.Multiply(color2, alpha + (i * 0.05f)), Projectile.oldRot[i], new Vector2(Projectile.width / 2, Projectile.height / 2), 1f * alpha, SpriteEffects.None, 0f);
 
 			}
-			//spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/Flare"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 142, 42), Color.Multiply(color, 0.5f), MathHelper.PiOver4, new Vector2(71, 21), 1f, SpriteEffects.None, 0f);
-			//spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/Flare"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 142, 42), Color.Multiply(color, 0.5f), -MathHelper.PiOver4, new Vector2(71, 21), 1f, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/Glow").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 512, 512), Color.Multiply(color, 0.25f), Projectile.rotation, new Vector2(256, 256), 0.25f, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Ranged/StarJavelin").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), color, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), Projectile.scale, SpriteEffects.None, 0f);
+			//spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/Flare"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 142, 42), Color.Multiply(color, 0.5f), MathHelper.PiOver4, new Vector2(71, 21), 1f, SpriteEffects.None, 0f);
+			//spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/Flare"), projectile.Center - Main.screenPosition, new Rectangle(0, 0, 142, 42), Color.Multiply(color, 0.5f), -MathHelper.PiOver4, new Vector2(71, 21), 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/Glow").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 512, 512), Color.Multiply(color, 0.25f), Projectile.rotation, new Vector2(256, 256), 0.25f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Ranged/StarJavelin").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), color, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

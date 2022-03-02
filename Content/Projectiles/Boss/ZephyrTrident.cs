@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
 using System;
 using Terraria;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Projectiles.Boss
+namespace Providence.Content.Projectiles.Boss
 {
 	public class ZephyrTrident : ModProjectile
 	{
@@ -93,9 +92,9 @@ namespace ProvidenceMod.Projectiles.Boss
 				colorV.Z = colorV.Z * alpha * opacity;
 				colorV.W = colorV.W * alpha * opacity;
 				Color color = new(colorV.X * sine, colorV.Y * sine, colorV.Z * sine, colorV.W * sine);
-				Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Boss/ZephyrTrident").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, Projectile.AnimationFrame(ref frame, ref frameCounter, 30, 11, true), color, Projectile.oldRot[i], new Vector2(Projectile.width, Projectile.height) * 0.5f, 1f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Boss/ZephyrTrident").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, Projectile.AnimationFrame(ref frame, ref frameCounter, 30, 11, true), color, Projectile.oldRot[i], new Vector2(Projectile.width, Projectile.height) * 0.5f, 1f, SpriteEffects.None, 0f);
 			}
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Boss/ZephyrTrident").Value, Projectile.Center - Main.screenPosition, Projectile.AnimationFrame(ref frame, ref frameCounter, 30, 11, true), new Color(1f * sine, 1f * sine, 1f * sine, 1f * sine), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Boss/ZephyrTrident").Value, Projectile.Center - Main.screenPosition, Projectile.AnimationFrame(ref frame, ref frameCounter, 30, 11, true), new Color(1f * sine, 1f * sine, 1f * sine, 1f * sine), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using static Terraria.Lighting;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.Dusts
+namespace Providence.Content.Dusts
 {
 	public class CloudDust : ModDust
 	{

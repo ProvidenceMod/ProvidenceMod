@@ -1,13 +1,12 @@
-﻿using ProvidenceMod.Globals.Systems;
-using ProvidenceMod.Items.BossSpawners;
-using ProvidenceMod.NPCs.FireAncient;
-using ProvidenceMod.NPCs.PrimordialCaelus;
+﻿using Providence.Rarities.Systems;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using Providence.Content.Items.BossSpawners;
+using Providence.Content.NPCs.PrimordialCaelus;
 
-namespace ProvidenceMod.ModSupport
+namespace Providence.Content.ModSupport
 {
 	public static class ModCalls
 	{
@@ -36,28 +35,28 @@ namespace ProvidenceMod.ModSupport
 		}
 		public static void BossChecklist()
 		{
-			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-			List<int> caelusID = new List<int> { ModContent.NPCType<PrimordialCaelus>() };
-			List<int> caelusSummons = new List<int> { ModContent.ItemType<ZephyrStone>() };
-			List<int> caelusCollection = new List<int> { };
-			List<int> caelusLoot = new List<int> { ModContent.ItemType<ZephyrStone>() };
-			bossChecklist?.Call(
-					"AddBoss", // Method to call
-					5.5f, // See BossChecklistProgressionValues
-					caelusID, // NPC ID
-					ProvidenceMod.Instance, // Mod
-					"Primordial Caelus", // Name
-					() => WorldFlags.downedCaelus, // Downed?
-					caelusSummons, // Spawn items
-					caelusCollection, // Trophies, collectables
-					caelusLoot, // Loot table
-					"Sky Islands will usually contain every material needed to craft the spawner. " +
-					"A Skymill can be crafted. Must be spawned on the surface. Cannot spawn when another boss is active.",
-					"The winds calm.", // Death message
-					"ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus", // Texture
-					"ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus_Head", // Icon
-					() => true // Available
-				);
+			//Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+			//List<int> caelusID = new List<int> { ModContent.NPCType<PrimordialCaelus>() };
+			//List<int> caelusSummons = new List<int> { ModContent.ItemType<ZephyrStone>() };
+			//List<int> caelusCollection = new List<int> { };
+			//List<int> caelusLoot = new List<int> { ModContent.ItemType<ZephyrStone>() };
+			//bossChecklist?.Call(
+			//		"AddBoss", // Method to call
+			//		5.5f, // See BossChecklistProgressionValues
+			//		caelusID, // NPC ID
+			//		ProvidenceMod.Instance, // Mod
+			//		"Primordial Caelus", // Name
+			//		() => WorldFlags.downedCaelus, // Downed?
+			//		caelusSummons, // Spawn items
+			//		caelusCollection, // Trophies, collectables
+			//		caelusLoot, // Loot table
+			//		"Sky Islands will usually contain every material needed to craft the spawner. " +
+			//		"A Skymill can be crafted. Must be spawned on the surface. Cannot spawn when another boss is active.",
+			//		"The winds calm.", // Death message
+			//		"Providence/NPCs/PrimordialCaelus/PrimordialCaelus", // Texture
+			//		"Providence/NPCs/PrimordialCaelus/PrimordialCaelus_Head", // Icon
+			//		() => true // Available
+			//	);
 		}
 	}
 }

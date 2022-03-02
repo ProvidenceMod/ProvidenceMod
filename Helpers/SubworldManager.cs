@@ -1,19 +1,19 @@
 ﻿//using System;
 //using System.Collections.Generic;
-//using ProvidenceMod.Subworld;
+//using Providence.Subworld;
 //using Terraria;
 //using Terraria.GameContent.Generation;
 //using Terraria.ID;
 //using Terraria.ModLoader;
 //using Terraria.World.Generation;
 //using SubworldLibrary;
-//using static ProvidenceMod.ProvidenceServerConfig;
+//using static Providence.ProvidenceServerConfig;
 
-//namespace ProvidenceMod
+//namespace Providence
 //{
 //	// This class showcases how to organize your SubworldLibrary reference
 //	// **
-//	// For ProvidenceMod, we've implemented a strong mod reference. That
+//	// For Providence, we've implemented a strong mod reference. That
 //	// means we've downloaded the DLL from the SubworldLibrary GitHub and
 //	// added it to our mod solution, and included a modReference to
 //	// SubworldLibrary in our build.txt. https://github.com/jjohnsnaill/SubworldLibrary
@@ -42,7 +42,7 @@
 
 //		public static void Exit()
 //		{
-//			SubworldLibrary.Subworld.Exit(ProvidenceMod.Instance.subworldVote);
+//			SubworldLibrary.Subworld.Exit(Providence.Instance.subworldVote);
 //		}
 
 //		public static bool IsActive<T>() where T : SubworldLibrary.Subworld
@@ -52,7 +52,7 @@
 
 //		public static bool AnyActive<T>() where T : Mod
 //		{
-//			return SubworldLibrary.Subworld.AnyActive(ProvidenceMod.Instance);
+//			return SubworldLibrary.Subworld.AnyActive(Providence.Instance);
 //		}
 
 //		public static SubworldLibrary.Subworld CurrentSubworld()
@@ -60,12 +60,12 @@
 //			return SLWorld.currentSubworld;
 //		}
 
-//		//Call this in ProvidenceMod.PostSetupContent()
+//		//Call this in Providence.PostSetupContent()
 //		public static void Load()
 //		{
 //		}
 
-//		//Call this in ProvidenceMod.Unload()
+//		//Call this in Providence.Unload()
 //		public static void Unload()
 //		{
 //		}

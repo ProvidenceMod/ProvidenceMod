@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.TexturePack
+namespace Providence.TexturePack
 {
 	public static class BigStyleManager
 	{

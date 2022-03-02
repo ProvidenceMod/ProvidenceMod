@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Globals.Systems;
+using Providence.Rarities.Systems;
+using Providence.Content.Dusts;
+using Providence.Content.Projectiles.Boss;
 
-namespace ProvidenceMod.Projectiles.Boss
+namespace Providence.Content.Projectiles.Boss
 {
 	public class SentinelShard : ModProjectile
 	{
@@ -42,7 +43,7 @@ namespace ProvidenceMod.Projectiles.Boss
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D tex = Request<Texture2D>("ProvidenceMod/Gores/PrimordialCaelus/ZephyrSentinelGore" + Projectile.ai[0]).Value;
+			Texture2D tex = Request<Texture2D>("Providence/Gores/PrimordialCaelus/ZephyrSentinelGore" + Projectile.ai[0]).Value;
 			Projectile.width = tex.Width;
 			Projectile.height = tex.Height;
 			Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, tex.Width, tex.Height), lightColor, Projectile.ai[0] % 2 != 0 ? Projectile.velocity.ToRotation() + MathHelper.PiOver4 : Projectile.velocity.ToRotation(), tex.Size() * 0.5f, 1f, SpriteEffects.None, 0f);

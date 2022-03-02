@@ -3,10 +3,11 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using ProvidenceMod.Projectiles.Ranged;
 using Terraria.DataStructures;
+using Providence.Content.Projectiles.Ranged;
+using Providence.Rarities;
 
-namespace ProvidenceMod.Items.Weapons.Ranged
+namespace Providence.Content.Items.Weapons.Ranged
 {
 	public class Starpiercer : ModItem
 	{
@@ -27,14 +28,14 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.useTurn = false;
 			Item.rare = (int)ProvidenceRarity.Purple;
-			Item.Providence().customRarity = ProvidenceRarity.Developer;
+			Item.rare = RarityType<Developer>();
 			Item.UseSound = ProvidenceSound.TerraBeam;
 			Item.value = Item.buyPrice(10, 0, 0, 0);
 			Item.autoReuse = true;
 			Item.shootSpeed = 40f;
 			Item.shoot = ProjectileType<StarJavelin>();
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (int i = 0; i < 10; i++)
 			{

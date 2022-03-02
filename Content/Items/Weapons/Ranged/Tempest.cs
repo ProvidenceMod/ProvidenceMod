@@ -1,14 +1,13 @@
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Projectiles.Boss;
-using ProvidenceMod.Projectiles.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
+using Providence.Content.Projectiles.Boss;
 
-namespace ProvidenceMod.Items.Weapons.Ranged
+namespace Providence.Content.Items.Weapons.Ranged
 {
 	public class Tempest : ModItem
 	{
@@ -38,7 +37,7 @@ namespace ProvidenceMod.Items.Weapons.Ranged
 			Item.shoot = ProjectileType<ZephyrDart>();
 		}
 
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (float i = -MathHelper.PiOver4 * 0.125f; i <= MathHelper.PiOver4 * 0.125f; i += MathHelper.PiOver4 * 0.125f)
 			{

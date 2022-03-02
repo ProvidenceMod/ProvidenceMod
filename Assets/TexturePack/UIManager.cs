@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using static Terraria.ModLoader.ModContent;
 using ReLogic.Content;
 
-namespace ProvidenceMod.TexturePack
+namespace Providence.TexturePack
 {
 	public static class UIManager
 	{
@@ -35,27 +35,27 @@ namespace ProvidenceMod.TexturePack
 			originalTextures[18] = TextureAssets.Mana;
 			originalTextures[19] = TextureAssets.Hb1;
 			originalTextures[20] = TextureAssets.Hb2;
-			TextureAssets.Hb1 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/HB1");
-			TextureAssets.Hb2 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/HB2");
-			TextureAssets.InventoryBack = Request<Texture2D>("ProvidenceMod/TexturePack/UI/InventoryPanel"); // Normal Panel
-			TextureAssets.InventoryBack2 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/ChestPanel"); // Piggy Bank
-			TextureAssets.InventoryBack3 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/AccessoryPanel"); // Accessory and Armor Panels
-			TextureAssets.InventoryBack4 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/CraftingPanel"); // Crafting Panel
-			TextureAssets.InventoryBack5 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/ChestPanel"); // Chest Panel
-			TextureAssets.InventoryBack6 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/ShopPanel"); // Shop Panel
-			TextureAssets.InventoryBack7 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/TrashPanel"); // Trash Panel
-			TextureAssets.InventoryBack8 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/CosmeticPanel"); // Cosmetic Panel
-			TextureAssets.InventoryBack9 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/InventoryPanel"); // Held Item Panels
-			TextureAssets.InventoryBack10 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/InventoryPanelFavorited"); // Favorited Panel
-																														// Main.inventoryBack11Texture = Request<Texture2D>("ProvidenceMod/TexturePack/UI/InventoryPanel"); // Unknown
-			TextureAssets.InventoryBack12 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/DyePanel"); // Dye Panels
-			TextureAssets.InventoryBack13 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/MenuPanel"); // Settings Menu Panel
-			TextureAssets.InventoryBack14 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/HeldItemPanel"); // Held Item Panel
-			TextureAssets.InventoryBack15 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/NewItemPanel"); // New Item Panel
-																											 // Main.inventoryBack16Texture = Request<Texture2D>("ProvidenceMod/TexturePack/UI/ChestPanel"); // Unknown
-			TextureAssets.Heart = Request<Texture2D>("ProvidenceMod/TexturePack/UI/HeartRed"); // Normal Heart Texture
-			TextureAssets.Heart2 = Request<Texture2D>("ProvidenceMod/TexturePack/UI/HeartGold"); // Life Fruit Heart Texture
-			TextureAssets.Mana  = Request<Texture2D>("ProvidenceMod/TexturePack/UI/Mana");
+			TextureAssets.Hb1 = Request<Texture2D>("Providence/TexturePack/UI/HB1");
+			TextureAssets.Hb2 = Request<Texture2D>("Providence/TexturePack/UI/HB2");
+			TextureAssets.InventoryBack = Request<Texture2D>("Providence/TexturePack/UI/InventoryPanel"); // Normal Panel
+			TextureAssets.InventoryBack2 = Request<Texture2D>("Providence/TexturePack/UI/ChestPanel"); // Piggy Bank
+			TextureAssets.InventoryBack3 = Request<Texture2D>("Providence/TexturePack/UI/AccessoryPanel"); // Accessory and Armor Panels
+			TextureAssets.InventoryBack4 = Request<Texture2D>("Providence/TexturePack/UI/CraftingPanel"); // Crafting Panel
+			TextureAssets.InventoryBack5 = Request<Texture2D>("Providence/TexturePack/UI/ChestPanel"); // Chest Panel
+			TextureAssets.InventoryBack6 = Request<Texture2D>("Providence/TexturePack/UI/ShopPanel"); // Shop Panel
+			TextureAssets.InventoryBack7 = Request<Texture2D>("Providence/TexturePack/UI/TrashPanel"); // Trash Panel
+			TextureAssets.InventoryBack8 = Request<Texture2D>("Providence/TexturePack/UI/CosmeticPanel"); // Cosmetic Panel
+			TextureAssets.InventoryBack9 = Request<Texture2D>("Providence/TexturePack/UI/InventoryPanel"); // Held Item Panels
+			TextureAssets.InventoryBack10 = Request<Texture2D>("Providence/TexturePack/UI/InventoryPanelFavorited"); // Favorited Panel
+																														// Main.inventoryBack11Texture = Request<Texture2D>("Providence/TexturePack/UI/InventoryPanel"); // Unknown
+			TextureAssets.InventoryBack12 = Request<Texture2D>("Providence/TexturePack/UI/DyePanel"); // Dye Panels
+			TextureAssets.InventoryBack13 = Request<Texture2D>("Providence/TexturePack/UI/MenuPanel"); // Settings Menu Panel
+			TextureAssets.InventoryBack14 = Request<Texture2D>("Providence/TexturePack/UI/HeldItemPanel"); // Held Item Panel
+			TextureAssets.InventoryBack15 = Request<Texture2D>("Providence/TexturePack/UI/NewItemPanel"); // New Item Panel
+																											 // Main.inventoryBack16Texture = Request<Texture2D>("Providence/TexturePack/UI/ChestPanel"); // Unknown
+			TextureAssets.Heart = Request<Texture2D>("Providence/TexturePack/UI/HeartRed"); // Normal Heart Texture
+			TextureAssets.Heart2 = Request<Texture2D>("Providence/TexturePack/UI/HeartGold"); // Life Fruit Heart Texture
+			TextureAssets.Mana  = Request<Texture2D>("Providence/TexturePack/UI/Mana");
 		}
 
 		public static void Unload()

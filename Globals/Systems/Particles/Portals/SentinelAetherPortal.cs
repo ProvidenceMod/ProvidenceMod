@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using ParticleLibrary;
 using Terraria;
 using System;
 
-namespace ProvidenceMod.Particles.Portals
+namespace Providence.Particles.Portals
 {
 	public class SentinelAetherPortal : Particle
 	{
@@ -22,7 +22,7 @@ namespace ProvidenceMod.Particles.Portals
 		public override void SetDefaults()
 		{
 			timeLeft = 1920;
-			texture = Request<Texture2D>("ProvidenceMod/ExtraTextures/EmptyPixel").Value;
+			texture = Request<Texture2D>("Providence/Assets/Textures/EmptyPixel").Value;
 		}
 		public override void AI()
 		{
@@ -44,7 +44,7 @@ namespace ProvidenceMod.Particles.Portals
 				Vector2 s = new Vector2(0f, 24f * sin);
 				if (radial % 17.5f == 0)
 					ParticleManager.NewParticle(position + c + s, new Vector2(Main.rand.NextFloat(-2f, 3f), Main.rand.NextFloat(-2f, 3f)), new AetherFlare(), new Color(1f, 1f, 1f, 0f), (Main.rand.NextFloat(4f, 6f) / 10f) * (cos * 1.5f));
-				ParticleManager.NewParticle(position + c + s, Vector2.Zero, new GenericGlowParticle(), new Color(1f, 1f, 1f, 0f), (Main.rand.NextFloat(4f, 6f) / 10f) * (cos * 1.5f));
+				ParticleManager.NewParticle(position + c + s, Vector2.Zero, new GlowParticle(), new Color(1f, 1f, 1f, 0f), (Main.rand.NextFloat(4f, 6f) / 10f) * (cos * 1.5f));
 			}
 			else if (state == AIState.Stable)
 			{

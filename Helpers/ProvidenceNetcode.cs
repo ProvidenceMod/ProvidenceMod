@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public class ProvidenceNetcode
 	{
@@ -18,7 +18,7 @@ namespace ProvidenceMod
 				return;
 			NetMessage.SendData(MessageID.WorldData, -1, -1, null, 0, 0.0f, 0.0f, 0.0f, 0, 0, 0);
 		}
-		public enum ProvidenceModMessageType : byte
+		public enum ProvidenceMessageType : byte
 		{
 
 		}

@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
 using Terraria;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Projectiles.Cleric
+namespace Providence.Content.Projectiles.Cleric
 {
 	public class StormfrontTempest : ModProjectile
 	{
@@ -80,9 +79,9 @@ namespace ProvidenceMod.Projectiles.Cleric
 				colorV.W = colorV.W * alpha * Projectile.Opacity;
 				Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
 				//Color color = new Color(1f * projectile.Opacity * alpha, 1f * projectile.Opacity * alpha, 1f * projectile.Opacity * alpha, 0f);
-				Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Cleric/StormfrontTempest").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), color, Projectile.oldRot[i], new Vector2(Projectile.width / 2, Projectile.height / 2), 1f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Cleric/StormfrontTempest").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), color, Projectile.oldRot[i], new Vector2(Projectile.width / 2, Projectile.height / 2), 1f, SpriteEffects.None, 0f);
 			}
-			Main.spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Projectiles/Cleric/StormfrontTempest").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), new Color(1f * Projectile.Opacity, 1f * Projectile.Opacity, 1f * Projectile.Opacity, 0f), Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Cleric/StormfrontTempest").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), new Color(1f * Projectile.Opacity, 1f * Projectile.Opacity, 1f * Projectile.Opacity, 0f), Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 	}

@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.Tiles.SentinelAether
+namespace Providence.Content.Tiles.SentinelAether
 {
 	public class ZephyrBricks : ModTile
 	{
@@ -17,7 +17,7 @@ namespace ProvidenceMod.Tiles.SentinelAether
 			Main.tileBlockLight[Type] = true;
 
 			DustType = DustID.Platinum;
-			ItemDrop = ItemType<Items.Placeables.SentinelAether.ZephyrBricks>();
+			ItemDrop = ItemType<Providence.Content.Items.Placeables.SentinelAether.ZephyrBricks>();
 			SoundType = SoundID.Tink;
 			SoundStyle = 1;
 			//mineResist = 4f;
@@ -27,7 +27,7 @@ namespace ProvidenceMod.Tiles.SentinelAether
 		{
 			CheckTiles(i, j, out bool up, out bool down, out bool left, out bool right, out bool leftUp, out bool leftDown, out bool rightUp, out bool rightDown);
 
-			Texture2D tex = Request<Texture2D>("ProvidenceMod/Tiles/SentinelAether/ZephyrBricks").Value;
+			Texture2D tex = Request<Texture2D>("Providence/Tiles/SentinelAether/ZephyrBricks").Value;
 
 			if (up && down && left && right && leftUp && leftDown && rightDown && !rightUp)
 			{

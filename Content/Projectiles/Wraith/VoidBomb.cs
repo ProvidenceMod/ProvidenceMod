@@ -4,10 +4,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.Projectiles.Wraith
+namespace Providence.Content.Projectiles.Wraith
 {
 	public class VoidBomb : ModProjectile
 	{

@@ -1,11 +1,11 @@
-author = SnowyStarfall and the ProvidenceMod Dev Team
+author = SnowyStarfall and the Providence Dev Team
 version = 0.1.8.003
-displayName = ProvidenceMod
+displayName = [c/da6e55:Pro][c/ac4554:vi][c/7d3a4f:de][c/4755a3:n][c/5797da:ce][c/68d5ed:Mod]
 homepage = https://github.com/ProvidenceMod/ProvidenceMod
 hideCode = true
 hideResources = true
 includeSource = false
 weakReferences =
-modReferences = SubworldLibrary
+modReferences = ParticleLibrary
 buildIgnore = *.csproj, *.user, *.md, obj\*, bin\*, .vs\*, .vscode\*, .git\*, .github\*, SubworldLibrary\*, Developer\*, *.ymlm *.editorconfig, Properties\*, *.gitignore, Fonts\FontCompile\*, Effects\EffectCompile\*, fxcompiler_reach.exe, Microsoft.Xna.Framework.Content.Pipeline.dll, Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll
 includePDB = true

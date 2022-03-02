@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace ProvidenceMod.UI
+namespace Providence.UI
 {
 	internal class DragableUIPanel : UIPanel
 	{

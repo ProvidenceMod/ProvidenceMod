@@ -3,13 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using ProvidenceMod.Globals.Systems;
+using Providence.Rarities.Systems;
 using Terraria.Audio;
 
-namespace ProvidenceMod.Items.ToggleableModifiers
+namespace Providence.Content.Items.ToggleableModifiers
 {
 	public class Wrath : ModItem
 	{
@@ -67,10 +67,10 @@ namespace ProvidenceMod.Items.ToggleableModifiers
 					new Color(41, 16, 41, 255).RGBAIntToFloat(),
 				};
 				Color color = new(1f * alpha * (mult * 1.1f), 1f * alpha * (mult * 1.1f), 1f * alpha * (mult * 1.1f), alpha);
-				spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Items/ToggleableModifiers/Wrath_Glow").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), color, rotation, new Vector2(Item.width / 2, Item.height / 2), newScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Items/ToggleableModifiers/Wrath_Glow").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), color, rotation, new Vector2(Item.width / 2, Item.height / 2), newScale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Items/ToggleableModifiers/Wrath").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), lightColor, rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/Items/ToggleableModifiers/Wrath_Glow").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), Color.White, rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Items/ToggleableModifiers/Wrath").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), lightColor, rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Items/ToggleableModifiers/Wrath_Glow").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), Color.White, rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
 			return false;
 		}
 	}

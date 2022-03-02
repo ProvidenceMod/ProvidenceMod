@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using ParticleLibrary;
-using ProvidenceMod.Particles;
-using ProvidenceMod.Particles.Portals;
+using Providence.Particles;
+using Providence.Particles.Portals;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.Tiles.SentinelAether
+namespace Providence.Content.Tiles.SentinelAether
 {
 	public class AetherResonatorCore : ModTile
 	{
@@ -41,7 +41,7 @@ namespace ProvidenceMod.Tiles.SentinelAether
 
 			AddMapEntry(new Color(179, 146, 107));
 			DustType = DustID.Platinum;
-			ItemDrop = ModContent.ItemType<Items.Placeables.SentinelAether.AetherResonatorCore>();
+			ItemDrop = ModContent.ItemType<Providence.Content.Items.Placeables.SentinelAether.AetherResonatorCore>();
 		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
@@ -53,7 +53,7 @@ namespace ProvidenceMod.Tiles.SentinelAether
 			ParticleManager.NewParticle(new Vector2(i * 16, j * 16) + new Vector2(24f, -32f), Vector2.Zero, new SentinelAetherPortal(), Color.White, Main.rand.NextFloat(10f, 16f) / 10f);
 			//// Enter should be called on exactly one side, which here is either the singleplayer player, or the server
 			//if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().bossExists && !SubworldManager.IsActive<Subworld.SentinelAetherSubworld>())
-			//	SubworldManager.Enter<Subworld.SentinelAetherSubworld>(!ProvidenceMod.Instance.subworldVote);
+			//	SubworldManager.Enter<Subworld.SentinelAetherSubworld>(!Providence.Instance.subworldVote);
 			//if (Main.netMode != NetmodeID.MultiplayerClient && !ProvidenceUtils.IsThereABoss().bossExists && SubworldManager.IsActive<Subworld.SentinelAetherSubworld>())
 			//	SubworldManager.Exit();
 			return true;

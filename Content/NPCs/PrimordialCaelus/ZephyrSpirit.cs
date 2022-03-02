@@ -3,13 +3,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Dusts;
-using ProvidenceMod.Projectiles.Boss;
 using System;
+using Providence.Content.Dusts;
 
-namespace ProvidenceMod.NPCs.PrimordialCaelus
+namespace Providence.Content.NPCs.PrimordialCaelus
 {
 	public class ZephyrSpirit : ModNPC
 	{
@@ -91,9 +90,9 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 
 				Color color = new Color(alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity);
 
-				spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/PrimordialCaelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(Request<Texture2D>("ProvidenceMod/NPCs/PrimordialCaelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/PrimordialCaelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 

@@ -3,13 +3,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Dusts;
-using ProvidenceMod.Projectiles.Boss;
 
 
-namespace ProvidenceMod.NPCs.Brinewastes
+namespace Providence.Content.NPCs.Brinewastes
 {
 	public class RubyRibbontail : ModNPC
 	{

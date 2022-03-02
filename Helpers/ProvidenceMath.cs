@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-namespace ProvidenceMod
+namespace Providence
 {
 	public static partial class ProvidenceUtils
 	{

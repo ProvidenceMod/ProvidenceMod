@@ -4,19 +4,20 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
-using ProvidenceMod.World;
-using ProvidenceMod.Projectiles.Boss;
-using ProvidenceMod.Items.Placeables.Ores;
-using ProvidenceMod.Items.TreasureBags;
+using Providence.World;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
-using static ProvidenceMod.Projectiles.ProvidenceGlobalProjectileAI;
-using ProvidenceMod.Buffs.DamageOverTime;
+using static Providence.ProvidenceUtils;
+using static Providence.Projectiles.ProvidenceGlobalProjectileAI;
 using Terraria.DataStructures;
-using ProvidenceMod.Globals.Systems;
+using Providence.Rarities.Systems;
+using Providence.Content.Buffs.DamageOverTime;
+using Providence.Content.Dusts;
+using Providence.Content.Items.Placeables.Ores;
+using Providence.Content.Items.TreasureBags;
+using Providence.Content.NPCs.PrimordialCaelus;
+using Providence.Content.Projectiles.Boss;
 
-namespace ProvidenceMod.NPCs.PrimordialCaelus
+namespace Providence.Content.NPCs.PrimordialCaelus
 {
 	public class PrimordialCaelus : ModNPC
 	{
@@ -327,7 +328,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 		}
 		public override void FindFrame(int frameheight) // Animates the sprite.
 		{
-			//	Texture2D tex = Request<Texture2D>("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus");
+			//	Texture2D tex = Request<Texture2D>("Providence/NPCs/PrimordialCaelus/PrimordialCaelus");
 			//	if (npc.frameCounter + 0.125f >= 12f)
 			//		npc.frameCounter = 0f;
 			//	npc.frameCounter += 0.125f;
@@ -339,7 +340,7 @@ namespace ProvidenceMod.NPCs.PrimordialCaelus
 			sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 			float sin = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 1f) * 12f;
 			float cos = (float)Math.Cos(Main.GlobalTimeWrappedHourly * 12f) * 12f;
-			Texture2D tex = Request<Texture2D>("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus").Value;
+			Texture2D tex = Request<Texture2D>("Providence/NPCs/PrimordialCaelus/PrimordialCaelus").Value;
 			sb.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(8f, -8f) + new Vector2(cos, -sin), NPC.frame, new Color(color.X, color.Y, color.Z, 0.25f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 			sb.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(8f, 8f) + new Vector2(cos, sin), NPC.frame, new Color(color.X, color.Y, color.Z, 0.25f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 			sb.Draw(tex, NPC.Center - Main.screenPosition + new Vector2(-8f, 8f) + new Vector2(-cos, sin), NPC.frame, new Color(color.X, color.Y, color.Z, 0.25f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);

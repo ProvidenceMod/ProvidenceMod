@@ -1,19 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ProvidenceMod.Particles;
-using ProvidenceMod.Structures;
-using ProvidenceMod.UI.Developer;
+using Providence.Particles;
+using Providence.Structures;
+using Providence.UI.Developer;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using ParticleLibrary;
+using Providence.Rarities;
 
-namespace ProvidenceMod.Items
+namespace Providence.Content.Items
 {
 	public class ProvidenceSpriteSpawn : ModItem
 	{
@@ -21,6 +22,7 @@ namespace ProvidenceMod.Items
 		public int y;
 		public int divisions;
 		public Vector2 offset = new Vector2(0f, 0f);
+		public float progress;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Providence Sprite Spawn");
@@ -35,7 +37,7 @@ namespace ProvidenceMod.Items
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.rare = (int)ProvidenceRarity.Purple;
-			Item.Providence().customRarity = ProvidenceRarity.Developer;
+			Item.rare = RarityType<Developer>();
 		}
 		public override bool AltFunctionUse(Player player) => true;
 		public override bool? UseItem(Player player)
@@ -45,7 +47,7 @@ namespace ProvidenceMod.Items
 				x = 0;
 				y = 0;
 				for (int i = 0; i < 20; i++)
-					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GenericGlowParticle(), new Color(218, 70, 70, 0), 0.25f);
+					ParticleManager.NewParticle(Main.MouseWorld, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-360, 361).InRadians()), new GlowParticle(), new Color(218, 70, 70, 0), 0.25f);
 				Talk("Coordinates cleared.", new Color(218, 70, 70));
 				return true;
 			}
@@ -59,33 +61,39 @@ namespace ProvidenceMod.Items
 		{
 			if (x != 0 && y != 0)
 			{
-				spriteBatch.End();
+				progress++;
+				Vector2 pos = new(x * 16f, y * 16f);
+				if (progress % 2.5f == 0f)
+				{
+					ParticleManager.NewParticle(pos, new Vector2(Main.rand.NextFloat(-3f, 4f), Main.rand.NextFloat(-3f, 4f)), new Metaball(), new Color(1f, 1f, 1f, 0f), 1f);
+				}
+				//spriteBatch.End();
 
-				Effect quantum = Request<Effect>("Effects/DivinityShader").Value;
-				Effect outline = Request<Effect>("Effects/Outline").Value;
-				Effect chroma = Request<Effect>("Effects/ChromaAberration").Value;
+				//Effect quantum = Request<Effect>("Effects/DivinityShader").Value;
+				//Effect outline = Request<Effect>("Effects/Outline").Value;
+				//Effect chroma = Request<Effect>("Effects/ChromaAberration").Value;
 
-				Texture2D mbTex = Request<Texture2D>("ProvidenceMod/NPCs/PrimordialCaelus/PrimordialCaelus").Value;
-				Texture2D swirlTex = Request<Texture2D>("ProvidenceMod/ExtraTextures/Masks/SwirlTexture").Value;
+				//Texture2D mbTex = Request<Texture2D>("Providence/NPCs/PrimordialCaelus/PrimordialCaelus").Value;
+				//Texture2D swirlTex = Request<Texture2D>("Providence/Assets/Textures/Masks/SwirlTexture").Value;
 
-				offset.X += 0.0075f;
-				offset.Y += 0.0025f;
+				//offset.X += 0.0075f;
+				//offset.Y += 0.0025f;
 
-				quantum.Parameters["offset"].SetValue(offset);
-				quantum.Parameters["SwirlTexture"].SetValue(swirlTex);
-				outline.Parameters["conversion"].SetValue(new Vector2(1f / mbTex.Width, 1f / mbTex.Height) * 2f);
-				chroma.Parameters["conversion"].SetValue((new Vector2(1f / mbTex.Width, 1f / mbTex.Height) * 2f) / 3f);
+				//quantum.Parameters["offset"].SetValue(offset);
+				//quantum.Parameters["SwirlTexture"].SetValue(swirlTex);
+				//outline.Parameters["conversion"].SetValue(new Vector2(1f / mbTex.Width, 1f / mbTex.Height) * 2f);
+				//chroma.Parameters["conversion"].SetValue((new Vector2(1f / mbTex.Width, 1f / mbTex.Height) * 2f) / 3f);
 
-				SpriteBatch sb = new SpriteBatch(Main.graphics.GraphicsDevice);
+				//SpriteBatch sb = new SpriteBatch(Main.graphics.GraphicsDevice);
 
-				sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+				//sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-				//quantum.CurrentTechnique.Passes[0].Apply();
-				//outline.CurrentTechnique.Passes[0].Apply();
-				//chroma.CurrentTechnique.Passes[0].Apply();
+				////quantum.CurrentTechnique.Passes[0].Apply();
+				////outline.CurrentTechnique.Passes[0].Apply();
+				////chroma.CurrentTechnique.Passes[0].Apply();
 
-				sb.Draw(mbTex, new Vector2(x * 16, y * 16) - Main.screenPosition, mbTex.Bounds, Color.White, MathHelper.PiOver2, Vector2.Zero, 0f, SpriteEffects.None, 0f);
-				sb.End();
+				//sb.Draw(mbTex, new Vector2(x * 16, y * 16) - Main.screenPosition, mbTex.Bounds, Color.White, MathHelper.PiOver2, Vector2.Zero, 0f, SpriteEffects.None, 0f);
+				//sb.End();
 
 				//var prevTarget = Main.graphics.GraphicsDevice.GetRenderTargets();
 
@@ -107,7 +115,7 @@ namespace ProvidenceMod.Items
 				//sb.Draw(renderTarget, new Vector2(x * 16, y * 16) - Main.screenPosition, mbTex.Bounds, Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 				//sb.End();
 
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+				//spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 			}
 		}
 	}

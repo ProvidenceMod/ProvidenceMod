@@ -6,13 +6,13 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using System;
 using Microsoft.Xna.Framework.Audio;
 using Terraria.Chat;
-using ProvidenceMod.Globals.Systems;
+using Providence.Rarities.Systems;
 
-namespace ProvidenceMod.NPCs.FireAncient
+namespace Providence.Content.NPCs.FireAncient
 {
 	public class FireAncient : ModNPC
 	{

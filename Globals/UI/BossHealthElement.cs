@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
-namespace ProvidenceMod.UI
+namespace Providence.UI
 {
 	internal class BossHealthElement : UIElement
 	{
@@ -44,7 +44,7 @@ namespace ProvidenceMod.UI
 
 			spriteBatch1.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
-			spriteBatch1.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowF").Value, new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
+			spriteBatch1.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowF").Value, new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
 
 			string text = percentage.ToString("N1") + "%";
 
@@ -54,13 +54,13 @@ namespace ProvidenceMod.UI
 
 			if (ProvidenceMod.Instance.bossPercentage)
 			{
-				spriteBatch1.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowR").Value, new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
+				spriteBatch1.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowR").Value, new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
 				DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont ?? Terraria.GameContent.FontAssets.ItemStack.Value, text, new Vector2(Left.Pixels + 970f - vPercent.X, Top.Pixels - 2), new Color((int)(200 * opacity), (int)(200 * opacity), (int)(200 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.8f);
 			}
 
 			if (ProvidenceMod.Instance.bossHP)
 			{
-				spriteBatch1.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowL").Value, new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
+				spriteBatch1.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowL").Value, new Vector2(Left.Pixels, Top.Pixels - 13), new Color(1f * opacity, 1f * opacity, 1f * opacity, 1f * opacity));
 				DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont ?? Terraria.GameContent.FontAssets.ItemStack.Value, $"{boss?.life} / {boss?.lifeMax}", new Vector2(Left.Pixels + 50f, Top.Pixels + 3f), new Color((int)(220 * opacity), (int)(220 * opacity), (int)(220 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.5f);
 			}
 
@@ -69,7 +69,7 @@ namespace ProvidenceMod.UI
 
 			if (comboVisible)
 			{
-				spriteBatch1.Draw(Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowC").Value, new Vector2(comboPos.X - 55 + 15, comboPos.Y - 10), Color.White);
+				spriteBatch1.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowC").Value, new Vector2(comboPos.X - 55 + 15, comboPos.Y - 10), Color.White);
 				DrawBorderStringEightWay(spriteBatch1, ProvidenceMod.bossHealthFont, $"{comboDMG}", comboPos, new Color(opacity, opacity, opacity, opacity), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.4f);
 			}
 

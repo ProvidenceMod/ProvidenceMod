@@ -6,9 +6,9 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.UI
+namespace Providence.UI
 {
 	internal class ParityUI : UIState
 	{
@@ -34,33 +34,33 @@ namespace ProvidenceMod.UI
 			area.Width.Set(220, 0f);
 			area.Height.Set(38, 0f);
 
-			ParityFrame = new UIImage(Request<Texture2D>("ProvidenceMod/UI/ParityUIFrame"));
+			ParityFrame = new UIImage(Request<Texture2D>("Providence/Globals/UI/ParityUIFrame"));
 			ParityFrame.Width.Set(220, 0f);
 			ParityFrame.Height.Set(38, 0f);
 
 			RadiantUseRect = new Rectangle(0, 0, 0, 6);
-			RadiantUse = new UIImageFramed(Request<Texture2D>("ProvidenceMod/UI/ParityUIRadiantUse"), RadiantUseRect);
+			RadiantUse = new UIImageFramed(Request<Texture2D>("Providence/Globals/UI/ParityUIRadiantUse"), RadiantUseRect);
 			RadiantUse.Top.Set(16, 0f);
 			RadiantUse.Left.Set(32, 0f);
 			RadiantUse.Width.Set(70, 0f);
 			RadiantUse.Height.Set(6, 0f);
 
 			RadiantBarRect = new Rectangle(0, 0, 0, 6);
-			RadiantBar = new UIImageFramed(Request<Texture2D>("ProvidenceMod/UI/ParityUIRadiantBar"), RadiantBarRect);
+			RadiantBar = new UIImageFramed(Request<Texture2D>("Providence/Globals/UI/ParityUIRadiantBar"), RadiantBarRect);
 			RadiantBar.Top.Set(16, 0f);
 			RadiantBar.Left.Set(32, 0f);
 			RadiantBar.Width.Set(70, 0f);
 			RadiantBar.Height.Set(6, 0f);
 
 			ShadowUseRect = new Rectangle(70, 0, 70, 6);
-			ShadowUse = new UIImageFramed(Request<Texture2D>("ProvidenceMod/UI/ParityUIShadowUse"), ShadowUseRect);
+			ShadowUse = new UIImageFramed(Request<Texture2D>("Providence/Globals/UI/ParityUIShadowUse"), ShadowUseRect);
 			ShadowUse.Top.Set(16, 0f);
 			ShadowUse.Left.Set(120, 0f);
 			ShadowUse.Width.Set(70, 0f);
 			ShadowUse.Height.Set(6, 0f);
 
 			ShadowBarRect = new Rectangle(70, 0, 70, 6);
-			ShadowBar = new UIImageFramed(Request<Texture2D>("ProvidenceMod/UI/ParityUIShadowBar"), ShadowBarRect);
+			ShadowBar = new UIImageFramed(Request<Texture2D>("Providence/Globals/UI/ParityUIShadowBar"), ShadowBarRect);
 			ShadowBar.Top.Set(16, 0f);
 			ShadowBar.Left.Set(120, 0f);
 			ShadowBar.Width.Set(70, 0f);
@@ -180,8 +180,8 @@ namespace ProvidenceMod.UI
 					RadiantUse.SetFrame(RadiantUseRect);
 				}
 
-				// if (prov.ShadowAmp) bLFrame.SetImage(Request<Texture2D>("ProvidenceMod/UI/ShadowUIFrameAmp"));
-				// else bLFrame.SetImage(Request<Texture2D>("ProvidenceMod/UI/ShadowUIFrame"));
+				// if (prov.ShadowAmp) bLFrame.SetImage(Request<Texture2D>("Providence/UI/ShadowUIFrameAmp"));
+				// else bLFrame.SetImage(Request<Texture2D>("Providence/UI/ShadowUIFrame"));
 			}
 		}
 	}

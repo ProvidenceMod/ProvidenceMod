@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Structures
+namespace Providence.Structures
 {
 	[Serializable]
 	public class SerializableTile
@@ -44,8 +44,8 @@ namespace ProvidenceMod.Structures
 		//{
 		//	return new Tile
 		//	{
-		//		type = tile.isModTile && ProvidenceMod.Instance.GetTile(tile.tileName) != null ? ProvidenceMod.Instance.GetTile(tile.tileName).Type : tile.type,
-		//		wall = tile.isModWall && ProvidenceMod.Instance.GetWall(tile.wallName) != null ? ProvidenceMod.Instance.GetTile(tile.wallName).Type : tile.wall,
+		//		type = tile.isModTile && Providence.Instance.GetTile(tile.tileName) != null ? Providence.Instance.GetTile(tile.tileName).Type : tile.type,
+		//		wall = tile.isModWall && Providence.Instance.GetWall(tile.wallName) != null ? Providence.Instance.GetTile(tile.wallName).Type : tile.wall,
 		//		liquid = tile.liquid,
 		//		sTileHeader = tile.sTileHeader,
 		//		bTileHeader = tile.bTileHeader,

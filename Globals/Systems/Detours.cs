@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod
+namespace Providence
 {
 	public class Detours : ModSystem
 	{

@@ -6,9 +6,9 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.UI
+namespace Providence.UI
 {
 	internal class Quantum : UIElement
 	{
@@ -32,18 +32,21 @@ namespace ProvidenceMod.UI
 		{
 			OldQuantum = new float[3];
 
-			QuantumFrame = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/QuantumFrame").Value;
+			QuantumFrame = Request<Texture2D>("Providence/Assets/Textures/UI/QuantumFrame").Value;
 
 			QuantumUseRect = new Rectangle(0, 0, 0, 24);
-			QuantumUse = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/QuantumUse").Value;
+			QuantumUse = Request<Texture2D>("Providence/Assets/Textures/UI/QuantumUse").Value;
 
 			QuantumBarRect = new Rectangle(0, 0, 0, 24);
-			QuantumBar = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/QuantumBar").Value;
+			QuantumBar = Request<Texture2D>("Providence/Assets/Textures/UI/QuantumBar").Value;
 
 			QuantumLightningRect = new Rectangle(0, 0, 0, 22);
-			QuantumLightning = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/QuantumLightning").Value;
+			QuantumLightning = Request<Texture2D>("Providence/Assets/Textures/UI/QuantumLightning").Value;
 
-			sb = new SpriteBatch(Main.graphics.GraphicsDevice);
+			Main.QueueMainThreadAction(() =>
+			{
+				sb = new SpriteBatch(Main.graphics.GraphicsDevice);
+			});
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{

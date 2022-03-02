@@ -1,19 +1,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProvidenceMod.Dusts;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Terraria.DataStructures;
 
-namespace ProvidenceMod.Tiles.Hell
+namespace Providence.Content.Tiles.Hell
 {
 	public class BrimstoneCrystal : ModTile
 	{
-		public Texture2D texture = Request<Texture2D>("ProvidenceMod/Tiles/Hell/BrimstoneCrystal").Value;
+		public Texture2D texture = Request<Texture2D>("Providence/Content/Tiles/Hell/BrimstoneCrystal").Value;
 		public Vector3 color;
 		public float time;
 		public int frame;
@@ -21,7 +20,6 @@ namespace ProvidenceMod.Tiles.Hell
 		public int type;
 		public override void SetStaticDefaults()
 		{
-
 			// Main.tileSolid[Type] = false;
 			// Main.tileNoAttach[Type] = true;
 			// Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
@@ -32,13 +30,14 @@ namespace ProvidenceMod.Tiles.Hell
 			// TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			SoundType = SoundID.Shatter;
 			SoundStyle = SoundID.Shatter;
-			DustType = DustType<BurnDust>();
-			ItemDrop = ItemType<Items.Placeables.Hell.BrimstoneCrystal>();
+			//DustType = DustType<BurnDust>();
+			ItemDrop = ItemType<Providence.Content.Items.Placeables.Hell.BrimstoneCrystal>();
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileObsidianKill[Type] = true;
 			Main.tileNoFail[Type] = true;
 			AnimationFrameHeight = 72;
+
 		}
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Projectiles.Melee
+namespace Providence.Content.Projectiles.Melee
 {
 	public class FuzzyDice : ModProjectile
 	{

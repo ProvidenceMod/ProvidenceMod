@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 
-namespace ProvidenceMod.UI
+namespace Providence.UI
 {
 	public static class BossHealthBarManager
 	{
@@ -46,16 +46,19 @@ namespace ProvidenceMod.UI
 		public static void Initialize()
 		{
 			npcs = new List<NPC>();
-			spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
-			frameTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossFrame").Value;
-			healthTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossHP").Value;
-			comboTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossCombo").Value;
-			shadowLeftTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowL").Value;
-			shadowRightTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowR").Value;
-			shadowMiddleTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowF").Value;
-			shadowComboTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossShadowC").Value;
-			underlineTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossUnderline").Value;
-			bloomTexture = Request<Texture2D>("ProvidenceMod/ExtraTextures/UI/BossBloom").Value;
+			Main.QueueMainThreadAction(() =>
+			{
+				spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
+			});
+			frameTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossFrame").Value;
+			healthTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossHP").Value;
+			comboTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossCombo").Value;
+			shadowLeftTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowL").Value;
+			shadowRightTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowR").Value;
+			shadowMiddleTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowF").Value;
+			shadowComboTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossShadowC").Value;
+			underlineTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossUnderline").Value;
+			bloomTexture = Request<Texture2D>("Providence/Assets/Textures/UI/BossBloom").Value;
 		}
 		public static void Update()
 		{

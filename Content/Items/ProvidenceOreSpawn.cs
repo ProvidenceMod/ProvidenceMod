@@ -1,13 +1,14 @@
-﻿using ProvidenceMod.World;
+﻿using Providence.World;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework;
-using ProvidenceMod.Globals.Systems;
+using Providence.Rarities.Systems;
+using Providence.Rarities;
 
-namespace ProvidenceMod.Items
+namespace Providence.Content.Items
 {
 	public class ProvidenceOreSpawn : ModItem
 	{
@@ -23,8 +24,7 @@ namespace ProvidenceMod.Items
 			Item.height = 32;
 			Item.useTime = 20;
 			Item.useAnimation = 20;
-			Item.rare = (int)ProvidenceRarity.Purple;
-			Item.Providence().customRarity = ProvidenceRarity.Developer;
+			Item.rare = RarityType<Developer>();
 			Item.useStyle = ItemUseStyleID.HoldUp;
 		}
 		public override bool AltFunctionUse(Player player) => true;

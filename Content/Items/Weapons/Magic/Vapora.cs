@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using ProvidenceMod.Projectiles.Magic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ProvidenceMod.ProvidenceUtils;
+using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
+using Providence.Content.Projectiles.Magic;
 
-namespace ProvidenceMod.Items.Weapons.Magic
+namespace Providence.Content.Items.Weapons.Magic
 {
 	public class Vapora : ModItem
 	{
@@ -35,7 +35,7 @@ namespace ProvidenceMod.Items.Weapons.Magic
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.shoot = ProjectileType<VaporaMiasma>();
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			return false;
 		}

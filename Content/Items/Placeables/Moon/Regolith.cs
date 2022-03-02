@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables.Moon
+namespace Providence.Content.Items.Placeables.Moon
 {
 	public class Regolith : ModItem
 	{

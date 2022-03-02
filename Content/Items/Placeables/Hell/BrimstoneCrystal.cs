@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ProvidenceMod.Items.Placeables.Hell
+namespace Providence.Content.Items.Placeables.Hell
 {
 	public class BrimstoneCrystal : ModItem
 	{

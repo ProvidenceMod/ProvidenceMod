@@ -6,8 +6,8 @@ using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Providence.Rarities.Systems;
 using Terraria.Audio;
+using Providence.Systems;
 
 namespace Providence.Content.Items.ToggleableModifiers
 {
@@ -27,7 +27,7 @@ namespace Providence.Content.Items.ToggleableModifiers
 			Item.height = 110;
 			Item.consumable = false;
 			Item.maxStack = 1;
-			Item.Providence().customRarity = ProvidenceRarity.Wrath;
+			Item.rare = ModContent.RarityType<Rarities.Lament>();
 		}
 		public override bool ConsumeItem(Player player) => false;
 		public override bool CanUseItem(Player player) => Main.expertMode && WorldFlags.lament;

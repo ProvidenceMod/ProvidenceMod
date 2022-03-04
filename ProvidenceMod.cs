@@ -28,6 +28,7 @@ namespace Providence
 
 		public static RenderTargetManager Targets;
 		//public static TrailHelper Trails;
+		public Detours Detours;
 
 		private UserInterface bossHealthUI;
 		private UserInterface parityUI;
@@ -38,8 +39,6 @@ namespace Providence
 		internal Quantum Quantum;
 		internal ParityUI ParityUI;
 		internal StructureDev StructureDev;
-
-		public Detours providenceHooks;
 
 		public static DynamicSpriteFont bossHealthFont;
 		public static DynamicSpriteFont mouseTextFont;
@@ -87,7 +86,7 @@ namespace Providence
 			CycleParity = KeybindLoader.RegisterKeybind(this, "Cycle Parity Element", "C");
 			UseQuantum = KeybindLoader.RegisterKeybind(this, "Activate Quantum Flux", "C");
 
-			bossHealthFont = ModContent.Request<DynamicSpriteFont>("Providence/Content/Fonts/BossHealthFont").Value;
+			bossHealthFont = ModContent.Request<DynamicSpriteFont>("Providence/Assets/Fonts/BossHealthFont").Value;
 			//if (FontExists("Fonts/MouseTextFont"))
 			//	mouseTextFont = GetFont("Fonts/MouseTextFont");
 
@@ -163,20 +162,20 @@ namespace Providence
 		//	structureDev?.Update(gameTime);
 		//}
 
-		public override void HandlePacket(BinaryReader reader, int whoAmI) => ProvidenceNetcode.HandlePacket(this, reader, whoAmI);
+		public override void HandlePacket(BinaryReader reader, int whoAmI) => Netcode.HandlePacket(this, reader, whoAmI);
 
 		//public override void UpdateMusic(ref int music, ref MusicPriority priority)
 		//{
-			//if (NPC.AnyNPCs(NPCID.BrainofCthulhu))
-			//{
-			//	music = "Sounds/Music/Brainiac".AsMusicSlot(this);
-			//	priority = MusicPriority.BossMedium;
-			//}
-			//else if (NPC.AnyNPCs(ModContent.NPCType<Caelus>()))
-			//{
-			//	music = "Sounds/Music/HighInTheSky".AsMusicSlot(this);
-			//	priority = MusicPriority.BossMedium;
-			//}
+		//if (NPC.AnyNPCs(NPCID.BrainofCthulhu))
+		//{
+		//	music = "Sounds/Music/Brainiac".AsMusicSlot(this);
+		//	priority = MusicPriority.BossMedium;
+		//}
+		//else if (NPC.AnyNPCs(ModContent.NPCType<Caelus>()))
+		//{
+		//	music = "Sounds/Music/HighInTheSky".AsMusicSlot(this);
+		//	priority = MusicPriority.BossMedium;
+		//}
 		//}
 	}
 }

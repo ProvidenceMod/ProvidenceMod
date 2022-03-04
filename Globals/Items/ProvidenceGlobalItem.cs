@@ -23,6 +23,14 @@ namespace Providence
 		public bool wraith;
 
 		public override bool InstancePerEntity => true;
+		public override GlobalItem Clone(Item item, Item itemClone)
+		{
+			ProvidenceGlobalItem myClone = (ProvidenceGlobalItem)base.Clone(item, itemClone);
+			myClone.cleric = cleric;
+			myClone.wraith = wraith;
+			myClone.highlight = highlight;
+			return myClone;
+		}
 		public override bool OnPickup(Item item, Player player)
 		{
 			highlight = false;

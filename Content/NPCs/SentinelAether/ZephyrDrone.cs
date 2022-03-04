@@ -14,6 +14,7 @@ using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 using Providence.Content.Items.Materials;
 using Providence.Content.NPCs.SentinelAether;
+using Terraria.DataStructures;
 
 namespace Providence.Content.NPCs.SentinelAether
 {
@@ -129,7 +130,7 @@ namespace Providence.Content.NPCs.SentinelAether
 		}
 		public override void OnKill()
 		{
-			Item.NewItem(NPC.Center, ItemType<AetherShard>(), Main.rand.Next(1, 3));
+			Item.NewItem(new EntitySource_Loot(NPC), NPC.Center, ItemType<AetherShard>(), Main.rand.Next(1, 3));
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{

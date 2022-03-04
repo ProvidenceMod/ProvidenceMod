@@ -10,7 +10,7 @@ using static Providence.ProvidenceUtils;
 using System;
 using Microsoft.Xna.Framework.Audio;
 using Terraria.Chat;
-using Providence.Rarities.Systems;
+using Providence.Systems;
 
 namespace Providence.Content.NPCs.FireAncient
 {

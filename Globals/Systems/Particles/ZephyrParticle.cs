@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
-using static Providence.RenderTargets.FlameLayer;
 using ParticleLibrary;
+using static Providence.RenderTargets.ZephyrLayer;
 
 namespace Providence.Particles
 {
-	public class EmberParticle : Particle, IFlameSprite
+	public class ZephyrParticle : Particle, IZephyrSprite
 	{
 		public int timer = Main.rand.Next(50, 100);
 		public float speedX = Main.rand.NextFloat(4f, 9f);
@@ -16,7 +16,7 @@ namespace Providence.Particles
 		public int timeLeftMax;
 		public float size = 0f;
 
-		public override string Texture => "Providence/Globals/Systems/Particles/EmberParticle";
+		public override string Texture => "Providence/Globals/Systems/Particles/ZephyrParticle";
 		public bool Active { get => active; set => active = value; }
 
 		public override void SetDefaults()
@@ -59,6 +59,7 @@ namespace Providence.Particles
 				// Halfway through, start fading.
 				if (timeLeft <= timeLeftMax / 2f)
 					opacity = MathHelper.Lerp(1f, 0f, (float)((timeLeftMax / 2f) - timeLeft) / (timeLeftMax / 2f));
+				return;
 			}
 			ai[0]--;
 		}
@@ -69,7 +70,6 @@ namespace Providence.Particles
 		public void Draw(object sender, SpriteBatch spriteBatch)
 		{
 			Texture2D circle = ModContent.Request<Texture2D>("Providence/Assets/Textures/Circle").Value;
-			Texture2D ember = ModContent.Request<Texture2D>("Providence/Assets/Particles/EmberParticle").Value;
 			Texture2D glow = ModContent.Request<Texture2D>("Providence/Assets/Textures/SoftGlow").Value;
 
 			Color bright = Color.Multiply(new(240, 149, 46, 0), opacity);
@@ -82,17 +82,16 @@ namespace Providence.Particles
 			float pixelRatio = 1f / 64f;
 			spriteBatch.Draw(glow, VisualPosition, new Rectangle(0, 0, 64, 64), glowColor, rotation, new Vector2(32f, 32f), 1f * size, SpriteEffects.None, 0f);
 			spriteBatch.Draw(circle, VisualPosition - new Vector2(1.5f, 1.5f), new Rectangle(0, 0, 64, 64), emberColor, rotation, Vector2.Zero, 1f * pixelRatio * 3f * size, SpriteEffects.None, 0f);
-			//spriteBatch.Draw(ember, VisualPosition, new Rectangle(0, 0, 3, 3), color, rotation, new Vector2(1.5f, 1.5f), 1f, SpriteEffects.None, 0f);
 		}
 		private void Spawn()
 		{
-			ProvidenceMod.Targets.FlameLayer.Sprites.Add(this);
+			ProvidenceMod.Targets.ZephyrLayer.Sprites.Add(this);
 			timeLeftMax = timeLeft;
 			size = Main.rand.NextFloat(5f, 11f) / 10f;
 		}
 		private void Death()
 		{
-			ProvidenceMod.Targets.FlameLayer.Sprites.Remove(this);
+			ProvidenceMod.Targets.ZephyrLayer.Sprites.Remove(this);
 			active = false;
 		}
 		private void NewMovementCycle()

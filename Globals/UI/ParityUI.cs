@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
+using Providence.Globals.Players;
 
 namespace Providence.UI
 {
@@ -79,14 +80,14 @@ namespace Providence.UI
 			base.Update(gameTime);
 			area.visible = visible;
 			if (oldScale != Main.inventoryScale) { oldScale = Main.inventoryScale; Recalculate(); }
-			ProvidencePlayer proPlayer = LocalPlayer().Providence();
-			visible = proPlayer.cleric;
+			ClericPlayer pro = LocalPlayer().Cleric();
+			visible = pro.cleric;
 			if (visible)
 			{
-				float radiantQuotient = LocalPlayer().Providence().radiantStacks / LocalPlayer().Providence().parityMaxStacks;
-				float shadowQuotient = LocalPlayer().Providence().shadowStacks / LocalPlayer().Providence().parityMaxStacks;
-				radiantQuotient = Utils.Clamp(radiantQuotient, 0f, 1f);
-				shadowQuotient = Utils.Clamp(shadowQuotient, 0f, 1f);
+				float radiantQuotient = pro.radiantStacks / pro.parityMaxStacks;
+				float shadowQuotient = pro.shadowStacks / pro.parityMaxStacks;
+				radiantQuotient = Terraria.Utils.Clamp(radiantQuotient, 0f, 1f);
+				shadowQuotient = Terraria.Utils.Clamp(shadowQuotient, 0f, 1f);
 				RadiantBarRect.Width = (int)(68 * radiantQuotient);
 				ShadowBarRect.X = (int)(68 * shadowQuotient);
 				ShadowBarRect.Width = (int)(68 * shadowQuotient);
@@ -107,18 +108,18 @@ namespace Providence.UI
 				{
 					ShadowArray[2] = ShadowArray[1];
 					ShadowArray[1] = ShadowArray[0];
-					ShadowArray[0] = proPlayer.shadowStacks;
+					ShadowArray[0] = pro.shadowStacks;
 					RadiantArray[2] = RadiantArray[1];
 					RadiantArray[1] = RadiantArray[0];
-					RadiantArray[0] = proPlayer.radiantStacks;
+					RadiantArray[0] = pro.radiantStacks;
 					arraySet = true;
 				}
 				// Shadow
-				if (proPlayer.shadowStacks < ShadowArray[0])
+				if (pro.shadowStacks < ShadowArray[0])
 				{
 					ShadowArray[2] = ShadowArray[1];
 					ShadowArray[1] = ShadowArray[0];
-					ShadowArray[0] = proPlayer.shadowStacks;
+					ShadowArray[0] = pro.shadowStacks;
 					// oldShadow = proPlayer.shadowStacks;
 					shadowCooldown = 30;
 				}
@@ -148,11 +149,11 @@ namespace Providence.UI
 					ShadowUse.SetFrame(ShadowUseRect);
 				}
 				// Radiant
-				if (proPlayer.radiantStacks < RadiantArray[0])
+				if (pro.radiantStacks < RadiantArray[0])
 				{
 					RadiantArray[2] = RadiantArray[1];
 					RadiantArray[1] = RadiantArray[0];
-					RadiantArray[0] = proPlayer.radiantStacks;
+					RadiantArray[0] = pro.radiantStacks;
 					if (RadiantArray[1] < RadiantArray[0])
 					{
 						radiantCooldown = 120;

@@ -5,7 +5,8 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework;
-using Providence.Rarities.Systems;
+using Providence.Systems;
+
 using Providence.Rarities;
 
 namespace Providence.Content.Items

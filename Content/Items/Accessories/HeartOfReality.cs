@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Providence.DamageClasses.Accessories
+namespace Providence.Content.Items.Accessories
 {
 	public class HeartOfReality : ModItem
 	{
@@ -23,10 +23,10 @@ namespace Providence.DamageClasses.Accessories
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.Providence().cleric = true;
-			player.Providence().heartOfReality = true;
-			player.Providence().parityStackGen += 0.5f;
-			player.Providence().parityMaxStacks += 100f;
+			player.Cleric().cleric = true;
+			player.Cleric().heartOfReality = true;
+			player.Cleric().parityStackGen += 0.5f;
+			player.Cleric().parityMaxStacks += 100f;
 			player.statLifeMax2 += 500;
 
 			player.GetDamage(DamageClass.Throwing) += 0.05f;
@@ -34,12 +34,12 @@ namespace Providence.DamageClasses.Accessories
 			//player.thrownDamageMult;
 			//player.thrownVelocity += 0.05f;
 
-			player.Providence().wraith = true;
-			player.Providence().wraithDodgeCost = 1000f;
-			player.Providence().quantumGen = 10f;
-			player.Providence().quantumDrain = 20f;
-			player.Providence().quantumMax = 2000f;
-			player.Providence().wraithDodge = 0.10f;
+			player.Wraith().wraith = true;
+			player.Wraith().wraithDodgeCost = 1000f;
+			player.Wraith().quantumGen = 10f;
+			player.Wraith().quantumDrain = 20f;
+			player.Wraith().quantumMax = 2000f;
+			player.Wraith().wraithDodge = 0.10f;
 		}
 	}
 }

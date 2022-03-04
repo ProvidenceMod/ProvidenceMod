@@ -29,7 +29,7 @@ namespace Providence.Content.Items.Weapons.Ranged
 			Item.useTurn = false;
 			Item.rare = (int)ProvidenceRarity.Purple;
 			Item.rare = RarityType<Developer>();
-			Item.UseSound = ProvidenceSound.TerraBeam;
+			Item.UseSound = BetterSoundID.TerraBeam;
 			Item.value = Item.buyPrice(10, 0, 0, 0);
 			Item.autoReuse = true;
 			Item.shootSpeed = 40f;

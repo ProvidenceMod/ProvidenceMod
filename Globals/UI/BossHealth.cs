@@ -143,8 +143,8 @@ namespace Providence.UI
 			var parentSpace = area.Parent.GetDimensions().ToRectangle();
 			if (!GetDimensions().ToRectangle().Intersects(parentSpace))
 			{
-				Left.Pixels = Utils.Clamp(Left.Pixels, 0, parentSpace.Right - Width.Pixels);
-				Top.Pixels = Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
+				Left.Pixels = Terraria.Utils.Clamp(Left.Pixels, 0, parentSpace.Right - Width.Pixels);
+				Top.Pixels = Terraria.Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
 				// Recalculate forces the UI system to do the positioning math again.
 				Recalculate();
 			}
@@ -278,7 +278,7 @@ namespace Providence.UI
 				}
 			}
 			// Main Bar
-			area.quotient = Utils.Clamp(area.quotient, 0f, 1f);
+			area.quotient = Terraria.Utils.Clamp(area.quotient, 0f, 1f);
 			healthRect.Width = (int)(924 * area.quotient);
 			health.SetFrame(healthRect);
 		}

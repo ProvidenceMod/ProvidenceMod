@@ -1,13 +1,11 @@
-using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 namespace Providence
 {
-	public class ProvidenceNetcode
+	public class Netcode : ModSystem
 	{
 		public static void HandlePacket(Mod mod, BinaryReader reader, int whoAmI)
 		{

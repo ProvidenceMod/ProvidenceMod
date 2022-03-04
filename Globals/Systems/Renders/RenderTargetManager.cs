@@ -11,16 +11,16 @@ namespace Providence.RenderTargets
 		public static Vector2 lastViewSize;
 		public BasicLayer BasicLayer;
 		public EmberLayer EmberLayer;
-		public ShieldLayer ShieldLayer;
 		public FlameLayer FlameLayer;
+		public ZephyrLayer ZephyrLayer;
 		public override void OnModLoad()
 		{
 			Instance = this;
 			ProvidenceMod.Targets = this;
 			BasicLayer = new BasicLayer();
 			EmberLayer = new EmberLayer();
-			ShieldLayer = new ShieldLayer();
 			FlameLayer = new FlameLayer();
+			ZephyrLayer = new ZephyrLayer();
 			On.Terraria.Main.DrawNPCs += (orig, self, behindTiles) =>
 			{
 				DrawLayers(Main.spriteBatch);
@@ -36,8 +36,8 @@ namespace Providence.RenderTargets
 			ProvidenceMod.Targets = null;
 			BasicLayer = null;
 			EmberLayer = null;
-			ShieldLayer = null;
 			FlameLayer = null;
+			ZephyrLayer = null;
 			On.Terraria.Main.DrawNPCs -= (orig, self, behindTiles) =>
 			{
 				DrawLayers(Main.spriteBatch);
@@ -48,11 +48,17 @@ namespace Providence.RenderTargets
 		}
 		public override void OnWorldLoad()
 		{
-			ResetLayerTargets();
+			Main.QueueMainThreadAction(() =>
+			{
+				ResetLayerTargets();
+			});
 		}
 		public override void OnWorldUnload()
 		{
-			ResetLayerTargets();
+			Main.QueueMainThreadAction(() =>
+			{
+				ResetLayerTargets();
+			});
 		}
 		public void UpdateRenderTargets()
 		{
@@ -69,8 +75,8 @@ namespace Providence.RenderTargets
 			FlameLayer.EffectTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 			EmberLayer.Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 			EmberLayer.EffectTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-			ShieldLayer.Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-			ShieldLayer.EffectTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+			ZephyrLayer.Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+			ZephyrLayer.EffectTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 		}
 		public void CheckScreenSize(Vector2 obj)
 		{
@@ -87,8 +93,8 @@ namespace Providence.RenderTargets
 				FlameLayer?.PreDrawLayer(spriteBatch, graphicsDevice);
 			if (EmberLayer?.Sprites.Count > 0)
 				EmberLayer.PreDrawLayer(spriteBatch, graphicsDevice);
-			if (ShieldLayer?.Sprites.Count > 0)
-				ShieldLayer.PreDrawLayer(spriteBatch, graphicsDevice);
+			if (ZephyrLayer?.Sprites.Count > 0)
+				ZephyrLayer.PreDrawLayer(spriteBatch, graphicsDevice);
 
 			graphicsDevice.SetRenderTargets(previousTargets);
 		}
@@ -102,8 +108,8 @@ namespace Providence.RenderTargets
 				FlameLayer.DrawLayer(spriteBatch);
 			if (EmberLayer?.Sprites.Count > 0)
 				EmberLayer.DrawLayer(spriteBatch);
-			if (ShieldLayer?.Sprites.Count > 0)
-				ShieldLayer.DrawLayer(spriteBatch);
+			if (ZephyrLayer?.Sprites.Count > 0)
+				ZephyrLayer.DrawLayer(spriteBatch);
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 		}

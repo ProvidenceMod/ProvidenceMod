@@ -5,7 +5,7 @@ using static Terraria.ID.SoundID;
 
 namespace Providence
 {
-	public static class ProvidenceSound
+	public static class BetterSoundID
 	{
 		// This class serves to represent each sound with a meaningful name.
 		// Big thanks to the Dust and Sound Catalogue mod for providing these names.

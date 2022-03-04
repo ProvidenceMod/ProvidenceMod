@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+
 namespace Providence
 {
 	public static partial class ProvidenceUtils
@@ -26,6 +29,49 @@ namespace Providence
 			float resY = (ay * Cube) + (by * Square) + (cy * t) + p0.Y;
 
 			return new Vector2(resX, resY);
+		}
+		public static Vector2 Bezier(float t, List<Vector2> points)
+		{
+			int N = points.Count - 1;
+			if (t <= 0) 
+				 return points[0];
+			if (t >= 1) 
+				return points[^1];
+
+			Vector2 p = new();
+
+			for (int i = 0; i < points.Count; i++)
+			{
+				Vector2 bn = Bernstein(N, i, t) * points[i];
+				p += bn;
+			}
+
+			return p;
+		}
+		public static float Bernstein(int n, int i, float t)
+		{
+			float num1 = MathF.Pow(t, i);
+			float num2 = MathF.Pow((1 - t), (n - i));
+
+			float basis = Binomial(n, i) * num1 * num2;
+			return basis;
+		}
+		public static float Binomial(int n, int i)
+		{
+			float ni;
+			float a1 = Factorial(n);
+			float a2 = Factorial(i);
+			float a3 = Factorial(n - i);
+			ni = a1 / (a2 * a3);
+			return ni;
+		}
+		public static float Factorial(int i)
+		{
+			if (i == 0)
+				i = 1;
+			for (int k = 1; k < i; k++)
+				i *= k;
+			return i;
 		}
 		/// <summary>Shorthand for converting degrees of rotation into a radians equivalent.</summary>
 		public static float InRadians(this float degrees) => MathHelper.ToRadians(degrees);

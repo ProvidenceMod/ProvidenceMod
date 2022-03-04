@@ -22,7 +22,7 @@ namespace Providence.Content.Items.Armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.Providence().clericDamage += 0.06f;
+			player.Cleric().clericDamage += 0.06f;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{

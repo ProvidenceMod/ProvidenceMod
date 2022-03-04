@@ -42,7 +42,7 @@ namespace Providence.Particles
 				timeLeft = (int)ai[4] > 0 ? (int)ai[4] : timeLeft;
 			}
 			ai[0]++;
-			rotation += Utils.Clamp(velocity.X * 0.025f, -ai[1], ai[1]);
+			rotation += Terraria.Utils.Clamp(velocity.X * 0.025f, -ai[1], ai[1]);
 			velocity *= 0.98f;
 			color = Color.Lerp(new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0f), Color.Multiply(new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, 0f), 0.5f), (360f - timeLeft) / 360f);
 

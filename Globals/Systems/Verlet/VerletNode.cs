@@ -62,7 +62,7 @@ namespace Providence.Verlet
 					Vector2 offset = position - lead.position;
 					Vector2 target = lead.position - offset.RotateTo(rot.Value) + targetMod;
 					float distance = Distance(target);
-					if (distance > 2f)
+					if (distance > 32f)
 					{
 						Vector2 dir = lead.position.DirectionTo(target);
 						velocity = ((velocity * 1f) + (dir * snapStrength)) / (1f + 1f);
@@ -77,28 +77,6 @@ namespace Providence.Verlet
 				position += velocity;
 				rotation = position.AngleTo(lead.position);
 			}
-		}
-		public void NaNCheck()
-		{
-			if (float.IsNaN(position.X) || float.IsNaN(position.Y))
-				position = lead.position - modifier;
-		}
-		public void DebugDraw(SpriteBatch spriteBatch)
-		{
-			//Texture2D glow = ModContent.Request<Texture2D>("Embers/Textures/SoftGlow").Value;
-			//if (!branch)
-			//{
-			//	spriteBatch.Draw(glow, position - Main.screenPosition, new Rectangle(0, 0, 64, 64), new Color(0f, 0f, 1f, 0f), 0f, new Vector2(32f, 32f), 0.25f, SpriteEffects.None, 0f);
-			//}
-			//if (branch)
-			//{
-			//	spriteBatch.Draw(glow, position - Main.screenPosition, new Rectangle(0, 0, 64, 64), new Color(0f, 0f, 1f, 0f), 0f, new Vector2(32f, 32f), 0.25f, SpriteEffects.None, 0f);
-			//	spriteBatch.Draw(glow, position - Main.screenPosition, new Rectangle(0, 0, 64, 64), new Color(0f, 0f, 1f, 0f), rotation, new Vector2(32f, 32f), new Vector2(10f, (1f / 64f) * 4f), SpriteEffects.None, 0f);
-			//}
-		}
-		public void CorrectAngularPosition()
-		{
-
 		}
 	}
 }

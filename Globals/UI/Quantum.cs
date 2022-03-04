@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
+using Providence.Globals.Players;
 
 namespace Providence.UI
 {
@@ -17,7 +18,7 @@ namespace Providence.UI
 		private int frame;
 		private int frameTick;
 		private Player Player;
-		private ProvidencePlayer ProPlayer;
+		private WraithPlayer ProPlayer;
 		private Vector2 Position;
 		private Texture2D QuantumFrame;
 		private Texture2D QuantumUse;
@@ -54,7 +55,7 @@ namespace Providence.UI
 				Player = LocalPlayer();
 
 			if (Player != null)
-				ProPlayer = LocalPlayer().Providence();
+				ProPlayer = LocalPlayer().Wraith();
 
 			if (Player != null)
 				Position = Player.position + new Vector2(-24f * Main.GameZoomTarget, (Player.height + 4f) * Main.GameZoomTarget) - Main.screenPosition;

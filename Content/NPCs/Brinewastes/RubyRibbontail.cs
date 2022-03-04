@@ -36,7 +36,7 @@ namespace Providence.Content.NPCs.Brinewastes
 			// This can be done better
 			// npc.rotation = npc.velocity.X >= 0 && npc.velocity.Y <= 0 ? Utils.Clamp(npc.velocity.ToRotation(), 0d.InRadians(), 5d.InRadians()) : Utils.Clamp(npc.velocity.ToRotation(), 355d.InRadians(), 360d.InRadians());
 
-			NPC.rotation = Utils.Clamp(NPC.velocity.Y * 0.05f, -0.5f, 0.5f);
+			NPC.rotation = Terraria.Utils.Clamp(NPC.velocity.Y * 0.05f, -0.5f, 0.5f);
 
 			// Player player = (Player)ClosestEntity(npc, false);
 			// if(player.Center.IsInRadiusOf(npc.Center, 256))

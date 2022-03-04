@@ -56,8 +56,8 @@
 //		}
 //		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 //		{
-//			mult = player.Providence().clericDamage;
-//			float globalDmg = player.Providence().clericDamage - 1;
+//			mult = player.Cleric().clericDamage;
+//			float globalDmg = player.Cleric().clericDamage - 1;
 //			if (player.GetDamage(DamageClass.Melee) - 1 < globalDmg)
 //				globalDmg = player.GetDamage(DamageClass.Melee) - 1;
 //			if (player.magicDamage - 1 < globalDmg)

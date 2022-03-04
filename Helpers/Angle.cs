@@ -4,6 +4,8 @@ namespace Providence
 {
 	public struct Angle
 	{
+		// Code from Example Mod
+
 		public float Value;
 
 		public Angle(float angle) {
@@ -17,13 +19,13 @@ namespace Providence
 		}
 
 		public static Angle operator +(Angle a1, Angle a2)
-			=> new Angle(a1.Value + a2.Value);
+			=> new(a1.Value + a2.Value);
 
 		public static Angle operator -(Angle a1, Angle a2)
-			=> new Angle(a1.Value - a2.Value);
+			=> new(a1.Value - a2.Value);
 
 		public Angle Opposite()
-			=> new Angle(Value + (float)Math.PI);
+			=> new(Value + (float)Math.PI);
 
 		public bool ClockwiseFrom(Angle other) {
 			if (other.Value >= (float)Math.PI) {

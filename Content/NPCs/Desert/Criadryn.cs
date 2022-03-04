@@ -50,7 +50,7 @@ namespace Providence.Content.NPCs.Desert
 			NPC.TargetClosestUpgraded();
 			float direction = target.Center.X - NPC.Center.X > 0 ? 1 : -1;
 			NPC.velocity.X += 0.15f * direction;
-			NPC.velocity.X = Utils.Clamp(NPC.velocity.X, -1f, 1f);
+			NPC.velocity.X = Terraria.Utils.Clamp(NPC.velocity.X, -1f, 1f);
 			// Prevents air maneuvering.
 			if (Collision.SolidCollision(NPC.BottomLeft, NPC.width, 1))
 			{
@@ -82,10 +82,10 @@ namespace Providence.Content.NPCs.Desert
 			{
 				Vector2 distance = target.Center - NPC.Center;
 				distance.X += target.velocity.X * 60f;
-				float x = Utils.Clamp((distance.X + target.velocity.X) / 60f, -8f, 8f);
+				float x = Terraria.Utils.Clamp((distance.X + target.velocity.X) / 60f, -8f, 8f);
 				float y = Main.rand.NextFloat(-140f, -120f) / 10f;
 
-				Projectile.NewProjectile(new ProjectileSource_NPC(NPC), NPC.Center, new Vector2(x, y), ProjectileType<CriadrynSpike>(), NPC.damage, 1f);
+				Projectile.NewProjectile(new EntitySource_Parent(NPC), NPC.Center, new Vector2(x, y), ProjectileType<CriadrynSpike>(), NPC.damage, 1f);
 				volleyCooldown = volleyTimer >= 15 ? 0 : volleyCooldown;
 			}
 		}

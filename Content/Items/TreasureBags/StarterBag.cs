@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,22 +29,22 @@ namespace Providence.Content.Items.TreasureBags
 
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(ItemID.IronBroadsword);
-			player.QuickSpawnItem(ItemID.IronBow);
-			player.QuickSpawnItem(ItemID.IronPickaxe);
-			player.QuickSpawnItem(ItemID.IronAxe);
-			player.QuickSpawnItem(ItemID.IronHammer);
-			player.QuickSpawnItem(ItemID.SwiftnessPotion, 5);
-			player.QuickSpawnItem(ItemID.IronskinPotion, 5);
-			player.QuickSpawnItem(ItemID.BuilderPotion, 5);
-			player.QuickSpawnItem(ItemID.MiningPotion, 5);
-			player.QuickSpawnItem(ItemID.RecallPotion, 5);
-			player.QuickSpawnItem(ItemID.SpelunkerPotion, 5);
-			player.QuickSpawnItem(ItemID.GillsPotion, 5);
-			player.QuickSpawnItem(ItemID.LesserHealingPotion, 5);
-			player.QuickSpawnItem(ItemID.Torch, 100);
-			player.QuickSpawnItem(ItemID.WoodenArrow, 100);
-			player.QuickSpawnItem(ItemID.Bomb, 10);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.IronBroadsword);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.IronBow);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.IronPickaxe);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.IronAxe);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.IronHammer);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.SwiftnessPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.IronskinPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.BuilderPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.MiningPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.RecallPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.SpelunkerPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.GillsPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.LesserHealingPotion, 5);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.Torch, 100);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.WoodenArrow, 100);
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemID.Bomb, 10);
 		}
 	}
 }

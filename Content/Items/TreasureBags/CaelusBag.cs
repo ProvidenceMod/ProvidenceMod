@@ -5,9 +5,10 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
-using Providence.Rarities.Systems;
 using Providence.Content.Dusts;
 using Providence.Content.Items.Placeables.Ores;
+using Providence.Systems;
+using Terraria.DataStructures;
 
 namespace Providence.Content.Items.TreasureBags
 {
@@ -36,15 +37,15 @@ namespace Providence.Content.Items.TreasureBags
 		{
 			if (WorldFlags.lament && !WorldFlags.wrath)
 			{
-				player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(36, 76));
+				player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemType<ZephyrOre>(), Main.rand.Next(36, 76));
 				return;
 			}
 			if (WorldFlags.wrath)
 			{
-				player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(46, 91));
+				player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemType<ZephyrOre>(), Main.rand.Next(46, 91));
 				return;
 			}
-			player.QuickSpawnItem(ItemType<ZephyrOre>(), Main.rand.Next(26, 61));
+			player.QuickSpawnItem(new EntitySource_ItemOpen(Item, Item.type), ItemType<ZephyrOre>(), Main.rand.Next(26, 61));
 		}
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{

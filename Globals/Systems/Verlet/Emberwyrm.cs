@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.ModLoader;
 using static Providence.RenderTargets.FlameLayer;
 
-namespace Embers.NPCs
+namespace Providence.Globals.Systems.Verlet
 {
 	public class Emberwyrm : ModNPC, IFlameSprite
 	{
@@ -123,19 +123,11 @@ namespace Embers.NPCs
 			}
 		}
 		public Vector2 RandomVector() => new Vector2(128f * Main.rand.NextFloat(3, 6), 0f).RotateTo(NPC.velocity.ToRotation()).RotatedBy(Main.rand.NextFloat(-30f, 31f).InRadians());
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-		{
-			foreach (VerletNode point in chain.points)
-			{
-				point.DebugDraw(spriteBatch);
-			}
-			return true;
-		}
 		public void Draw(object sender, SpriteBatch spriteBatch)
 		{
 			chain.Update();
-			Texture2D circle = ModContent.Request<Texture2D>("Embers/Textures/Circle").Value;
-			Texture2D glow = ModContent.Request<Texture2D>("Embers/Textures/SoftGlow").Value;
+			Texture2D circle = ModContent.Request<Texture2D>("Providence/Assets/Textures/Circle").Value;
+			Texture2D glow = ModContent.Request<Texture2D>("Providence/Assets/Textures/SoftGlow").Value;
 
 			Color bright = new(0.5f, 0.5f, 0.5f, 0f);
 			Color mid = new(0.3f, 0.3f, 0.3f, 0f);

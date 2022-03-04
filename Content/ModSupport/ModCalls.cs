@@ -1,10 +1,10 @@
-﻿using Providence.Rarities.Systems;
+﻿using Providence.Rarities;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Providence.Content.Items.BossSpawners;
-using Providence.Content.NPCs.PrimordialCaelus;
+using Providence.Content.NPCs.Caelus;
 
 namespace Providence.Content.ModSupport
 {
@@ -18,7 +18,7 @@ namespace Providence.Content.ModSupport
 			public const float QueenBee = 4f;
 			public const float Skeletron = 5f;
 
-			public const float PrimordialCaelus = 5.5f;
+			public const float Caelus = 5.5f;
 
 			public const float WallOfFlesh = 6f;
 			public const float TheTwins = 7f;
@@ -36,7 +36,7 @@ namespace Providence.Content.ModSupport
 		public static void BossChecklist()
 		{
 			//Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-			//List<int> caelusID = new List<int> { ModContent.NPCType<PrimordialCaelus>() };
+			//List<int> caelusID = new List<int> { ModContent.NPCType<Caelus>() };
 			//List<int> caelusSummons = new List<int> { ModContent.ItemType<ZephyrStone>() };
 			//List<int> caelusCollection = new List<int> { };
 			//List<int> caelusLoot = new List<int> { ModContent.ItemType<ZephyrStone>() };
@@ -53,8 +53,8 @@ namespace Providence.Content.ModSupport
 			//		"Sky Islands will usually contain every material needed to craft the spawner. " +
 			//		"A Skymill can be crafted. Must be spawned on the surface. Cannot spawn when another boss is active.",
 			//		"The winds calm.", // Death message
-			//		"Providence/NPCs/PrimordialCaelus/PrimordialCaelus", // Texture
-			//		"Providence/NPCs/PrimordialCaelus/PrimordialCaelus_Head", // Icon
+			//		"Providence/NPCs/Caelus/Caelus", // Texture
+			//		"Providence/NPCs/Caelus/Caelus_Head", // Icon
 			//		() => true // Available
 			//	);
 		}

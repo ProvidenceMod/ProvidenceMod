@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
-using Providence.Content.NPCs.PrimordialCaelus;
+using Providence.Content.NPCs.Caelus;
 
 namespace Providence.Content.Items.BossSpawners
 {
@@ -34,9 +34,9 @@ namespace Providence.Content.Items.BossSpawners
 		public override bool? UseItem(Player player)
 		{
 			if (Main.netMode != NetmodeID.MultiplayerClient)
-				NPC.SpawnOnPlayer(player.whoAmI, NPCType<PrimordialCaelus>());
+				NPC.SpawnOnPlayer(player.whoAmI, NPCType<Caelus>());
 			else
-				NetMessage.SendData(MessageID.SpawnBoss, -1, -1, null, player.whoAmI, NPCType<PrimordialCaelus>(), 0.0f, 0.0f, 0, 0, 0);
+				NetMessage.SendData(MessageID.SpawnBoss, -1, -1, null, player.whoAmI, NPCType<Caelus>(), 0.0f, 0.0f, 0, 0, 0);
 			return true;
 		}
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Providence.Rarities.Systems;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,8 +9,9 @@ using static Providence.Projectiles.ProvidenceGlobalProjectileAI;
 using static Terraria.ModLoader.ModContent;
 using Providence.Content.Dusts;
 using Providence.Content.Projectiles.Boss;
+using Providence.Systems;
 
-namespace Providence.Content.NPCs.PrimordialCaelus
+namespace Providence.Content.NPCs.Caelus
 {
 	public class ZephyrSentinel : ModNPC
 	{
@@ -61,7 +62,7 @@ namespace Providence.Content.NPCs.PrimordialCaelus
 						Dust.NewDustPerfect(NPC.Center, DustType<CloudDust>(), speed.RotatedBy(i / 2f));
 						Dust.NewDustPerfect(NPC.Center, DustType<CloudDust>(), speed.RotatedBy(i / -2f));
 					}
-					Projectile.NewProjectile(new ProjectileSource_NPC(NPC), NPC.Center, new Vector2(10f, 0f).RotatedBy(NPC.AngleTo(NPC.ClosestPlayer().position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal, 1);
+					Projectile.NewProjectile(new EntitySource_Parent(NPC), NPC.Center, new Vector2(10f, 0f).RotatedBy(NPC.AngleTo(NPC.ClosestPlayer().position)), ProjectileType<ZephyrDart>(), 25, 2f, default, (int)ZephyrDartAI.Normal, 1);
 				}
 				NPC.ai[0]++;
 			}
@@ -73,7 +74,7 @@ namespace Providence.Content.NPCs.PrimordialCaelus
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/PrimordialCaelus/ZephyrSentinelSheet").Value, NPC.position - Main.screenPosition, NPC.AnimationFrame(ref frame, ref frameTick, 5, 20, true), new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Content/NPCs/Caelus/ZephyrSentinelSheet").Value, NPC.position - Main.screenPosition, NPC.AnimationFrame(ref frame, ref frameTick, 5, 20, true), new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override void HitEffect(int hitDirection, double damage)
@@ -89,10 +90,10 @@ namespace Providence.Content.NPCs.PrimordialCaelus
 			}
 			if (WorldFlags.lament && !WorldFlags.wrath)
 				for (int i = 0; i < 8; i += 2)
-					Projectile.NewProjectile(new ProjectileSource_NPC(NPC), NPC.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, i);
+					Projectile.NewProjectile(new EntitySource_Parent(NPC), NPC.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, i);
 			if (WorldFlags.wrath)
 				for (int i = 0; i < 8; i++)
-					Projectile.NewProjectile(new ProjectileSource_NPC(NPC), NPC.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, i);
+					Projectile.NewProjectile(new EntitySource_Parent(NPC), NPC.Center, new Vector2(0f, 10f).RotatedBy(i * MathHelper.PiOver4), ProjectileType<SentinelShard>(), 25, 0f, default, i);
 		}
 	}
 }

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Providence.Content.Dusts;
 
-namespace Providence.Content.NPCs.PrimordialCaelus
+namespace Providence.Content.NPCs.Caelus
 {
 	public class ZephyrSpirit : ModNPC
 	{
@@ -90,9 +90,9 @@ namespace Providence.Content.NPCs.PrimordialCaelus
 
 				Color color = new Color(alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity);
 
-				spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/PrimordialCaelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Content/NPCs/Caelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/PrimordialCaelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Content/NPCs/Caelus/ZephyrSpiritSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 

@@ -25,7 +25,7 @@ namespace Providence
 		public static Color RGBFloatToInt(this Color color) => new Color((float)(color.R / conversion), (float)(color.G / conversion), (float)(color.B / conversion));
 		public static Vector4 RGBAFloatToInt(this Vector4 v) => new Vector4((float)(v.X / conversion), (float)(v.Y / conversion), (float)(v.Z / conversion), (float)(v.W / conversion));
 		public static Color RGBAFloatToInt(this Color color) => new Color((float)(color.R / conversion), (float)(color.G / conversion), (float)(color.B / conversion), (float)(color.A / conversion));
-		/// <summary>Gradually shifts between two colors over time.</summary>
+		/// <summary>Gradually shifts between tw	o colors over time.</summary>
 		public static Color ColorShift(Color firstColor, Color secondColor, float seconds)
 		{
 			float amount = (float)((Math.Sin(Math.PI * Math.PI / seconds * Main.GlobalTimeWrappedHourly) + 1.0) * 0.5);

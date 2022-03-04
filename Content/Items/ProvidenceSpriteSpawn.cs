@@ -73,7 +73,7 @@ namespace Providence.Content.Items
 				//Effect outline = Request<Effect>("Effects/Outline").Value;
 				//Effect chroma = Request<Effect>("Effects/ChromaAberration").Value;
 
-				//Texture2D mbTex = Request<Texture2D>("Providence/NPCs/PrimordialCaelus/PrimordialCaelus").Value;
+				//Texture2D mbTex = Request<Texture2D>("Providence/NPCs/Caelus/Caelus").Value;
 				//Texture2D swirlTex = Request<Texture2D>("Providence/Assets/Textures/Masks/SwirlTexture").Value;
 
 				//offset.X += 0.0075f;

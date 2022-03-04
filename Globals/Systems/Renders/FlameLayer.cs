@@ -11,7 +11,7 @@ namespace Providence.RenderTargets
 		public RenderTarget2D EffectTarget;
 		public RenderTarget2D Target;
 		public List<IFlameSprite> Sprites;
-		public Effect FireEffect;
+		public Effect GradientEffect;
 		public Texture2D FireGradient;
 		public Texture2D FireGradient2;
 		public Texture2D FireGradient3;
@@ -26,7 +26,7 @@ namespace Providence.RenderTargets
 		public FlameLayer()
 		{
 			Sprites = new List<IFlameSprite>();
-			FireEffect = ModContent.Request<Effect>("Providence/Assets/Effects/Fire", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			GradientEffect = ModContent.Request<Effect>("Providence/Assets/Effects/Gradient", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			FireGradient = ModContent.Request<Texture2D>("Providence/Assets/Textures/RenderTargets/Flame/FireGradient", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			FireGradient2 = ModContent.Request<Texture2D>("Providence/Assets/Textures/RenderTargets/Flame/FireGradient2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			FireGradient3 = ModContent.Request<Texture2D>("Providence/Assets/Textures/RenderTargets/Flame/FireGradient3", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -66,11 +66,11 @@ namespace Providence.RenderTargets
 		public void DrawLayer(SpriteBatch spriteBatch)
 		{
 			// Setup shader params.
-			FireEffect.Parameters["sampleTexture2"].SetValue(FireGradient);
+			GradientEffect.Parameters["sampleTexture2"].SetValue(FireGradient);
 
 			// Draw the main RenderTarget.
 			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-			FireEffect.CurrentTechnique.Passes[0].Apply();
+			GradientEffect.CurrentTechnique.Passes[0].Apply();
 			spriteBatch.Draw(Target, Vector2.Zero, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0);
 			spriteBatch.End();
 		}

@@ -1,17 +1,13 @@
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.Audio;
-using Terraria.ModLoader;
-using Terraria.Localization;
-using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static Terraria.ModLoader.ModContent;
 using ReLogic.Graphics;
-using Providence.Particles;
+using System;
+using Terraria;
 using Terraria.Chat;
-using ParticleLibrary;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.Localization;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence
 {

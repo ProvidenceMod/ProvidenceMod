@@ -1,8 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Items.Armor;
 namespace Providence.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Head)]

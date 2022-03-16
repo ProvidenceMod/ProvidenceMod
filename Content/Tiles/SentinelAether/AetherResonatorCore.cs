@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using ParticleLibrary;
-using Providence.Particles;
-using Providence.Particles.Portals;
+using Providence.Globals.Portals;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using static Providence.ProvidenceUtils;
 
 namespace Providence.Content.Tiles.SentinelAether
 {

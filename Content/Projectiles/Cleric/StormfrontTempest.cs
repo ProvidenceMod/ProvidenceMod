@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Projectiles.Cleric

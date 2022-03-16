@@ -1,14 +1,13 @@
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using static Providence.Projectiles.ProvidenceGlobalProjectileAI;
-using Terraria.DataStructures;
-using Terraria.Audio;
 using Providence.Content.Items.Materials;
 using Providence.Content.Projectiles.Boss;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Providence.Projectiles.ProvidenceGlobalProjectileAI;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Items.Weapons.Melee
 {

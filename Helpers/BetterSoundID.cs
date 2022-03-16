@@ -1,5 +1,4 @@
 ﻿using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ID.SoundID;
 

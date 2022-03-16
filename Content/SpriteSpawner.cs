@@ -1,23 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Providence.Particles;
-using Providence.Structures;
-using Providence.UI.Developer;
+using ParticleLibrary;
+using Providence.Globals.Systems.Particles;
+using Providence.RenderTargets;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
-using ParticleLibrary;
-using Providence.Rarities;
-using Providence.RenderTargets;
-using System.Collections.Generic;
 using static Providence.RenderTargets.BasicLayer;
 using static Providence.RenderTargets.EmberLayer;
 using static Providence.RenderTargets.FlameLayer;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content
 {

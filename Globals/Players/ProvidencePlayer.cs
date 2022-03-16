@@ -1,21 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.GameInput;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
-using Terraria.DataStructures;
-using Providence.TexturePack;
-using Terraria.Graphics.Effects;
-using static Providence.ProvidenceUtils;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Audio;
-using Terraria.Audio;
 using Providence.Content.Buffs.StatDebuffs;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ModLoader;
+using static Providence.ProvidenceUtils;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence
 {

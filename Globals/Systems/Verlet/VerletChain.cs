@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
 
 namespace Providence.Verlet
 {
@@ -62,15 +61,15 @@ namespace Providence.Verlet
 		}
 		public float AngleEvaluate(float progress)
 		{
-			if(progress >= 1f)
+			if (progress >= 1f)
 				return points[^1].rotation;
 
 			float divisor = 1f / points.Count;
 			float remainder = progress % divisor;
 			float quotient = remainder / divisor;
-			int index = (int) Math.Floor(progress / divisor);
+			int index = (int)Math.Floor(progress / divisor);
 
-			if(index == points.Count - 1)
+			if (index == points.Count - 1)
 				return points[index].angle;
 
 			return MathHelper.Lerp(points[index].rotation, points[index + 1].rotation, quotient);

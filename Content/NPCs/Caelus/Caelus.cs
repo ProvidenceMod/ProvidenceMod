@@ -1,25 +1,22 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Providence.World;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using Terraria.DataStructures;
+using ParticleLibrary;
 using Providence.Content.Buffs.DamageOverTime;
 using Providence.Content.Items.Placeables.Ores;
 using Providence.Content.Items.TreasureBags;
-using Providence.Systems;
-using ParticleLibrary;
-using Providence.Particles;
-using Providence.Verlet;
-using static Providence.RenderTargets.ZephyrLayer;
-using System.Security.Cryptography;
-using System;
-using Terraria.Graphics.Renderers;
-using System.Reflection.Metadata;
+using Providence.Globals.Systems.Particles;
 using Providence.RenderTargets;
+using Providence.Systems;
+using Providence.Verlet;
+using Providence.World;
+using System;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Providence.ProvidenceUtils;
+using static Providence.RenderTargets.ZephyrLayer;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.NPCs.Caelus
 {
@@ -214,7 +211,7 @@ namespace Providence.Content.NPCs.Caelus
 				if (point.lead != null)
 				{
 					spriteBatch.Draw(glow, point.position - Main.screenPosition, new Rectangle(0, 0, 64, 64), dark, 0f, new Vector2(32f, 32f), 1f, SpriteEffects.None, 0f);
-					
+
 					for (int j = 0; j < 100; j++)
 					{
 						Vector2 particlePos = Vector2.Lerp(point.position, point.lead.position, j / 100f);

@@ -1,9 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static Providence.ProvidenceUtils;
-using Terraria.Audio;
 
 namespace Providence.Content.Projectiles.Ranged
 {

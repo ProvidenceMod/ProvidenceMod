@@ -1,8 +1,8 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Providence.Content.Tiles.Ores;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Tiles.Ores;
 
 namespace Providence.World
 {

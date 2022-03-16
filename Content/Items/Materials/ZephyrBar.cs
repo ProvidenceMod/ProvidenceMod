@@ -1,12 +1,10 @@
+using Microsoft.Xna.Framework;
+using Providence.Content.Items.Placeables.Ores;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Microsoft.Xna.Framework;
-using static Providence.ProvidenceUtils;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.DataStructures;
-using Providence.Content.Items.Placeables.Ores;
 
 namespace Providence.Content.Items.Materials
 {

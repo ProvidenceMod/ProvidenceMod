@@ -1,10 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using System.Linq;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using System.Linq;
 
 namespace Providence.Content.Projectiles.Magic
 {

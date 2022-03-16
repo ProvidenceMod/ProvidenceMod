@@ -1,9 +1,4 @@
-using Terraria;
 using Terraria.ModLoader;
-using Providence;
-using static Providence.ProvidenceUtils;
-using Providence.TexturePack;
-using ReLogic.Graphics;
 
 namespace Providence.TexturePack
 {

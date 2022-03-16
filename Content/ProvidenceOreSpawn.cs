@@ -1,13 +1,12 @@
-﻿using Providence.World;
+﻿using Microsoft.Xna.Framework;
+using Providence.Rarities;
+using Providence.Systems;
+using Providence.World;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
-using Microsoft.Xna.Framework;
-using Providence.Systems;
-
-using Providence.Rarities;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content
 {

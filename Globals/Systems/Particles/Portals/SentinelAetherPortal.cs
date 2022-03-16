@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
 using ParticleLibrary;
-using Terraria;
+using Providence.Globals.Systems.Particles;
 using System;
+using Terraria;
+using static Terraria.ModLoader.ModContent;
 
-namespace Providence.Particles.Portals
+namespace Providence.Globals.Portals
 {
 	public class SentinelAetherPortal : Particle
 	{

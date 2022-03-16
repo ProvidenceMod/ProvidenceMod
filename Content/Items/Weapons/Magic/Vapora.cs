@@ -1,11 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Providence.Content.Projectiles.Magic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Projectiles.Magic;
 
 namespace Providence.Content.Items.Weapons.Magic
 {

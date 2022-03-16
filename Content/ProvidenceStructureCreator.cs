@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ParticleLibrary;
-using Providence.Particles;
+using Providence.Globals.Systems.Particles;
 using Providence.Rarities;
 using Providence.Structures;
 using Providence.UI.Developer;
@@ -9,7 +9,6 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
 using static Providence.ProvidenceUtils;
 
 namespace Providence.Content

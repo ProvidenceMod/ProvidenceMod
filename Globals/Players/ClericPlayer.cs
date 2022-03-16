@@ -31,7 +31,7 @@ namespace Providence.Globals.Players
 		}
 		public override void PreUpdate()
 		{
-			if (cleric) 
+			if (cleric)
 				CLeric();
 			if (!Player.Wraith().wraith)
 			{

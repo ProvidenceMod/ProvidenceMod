@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Providence.Subworld;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
+﻿using Terraria.ModLoader;
 
 namespace Providence
 {
@@ -36,15 +30,15 @@ namespace Providence
 		//
 		//public override void PostUpdate()
 		//{
-			//if (SubworldManager.IsActive<BrinewastesSubworld>())
-			//{
-			//	SubworldLibrary.SLWorld.noReturn = true;
-			//	//SubworldLibrary.SLWorld.drawMenu = true;
-			//}
-			////// Worldgen testing
-			////if (JustPressed(Keys.D1))
-			////	TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);
-			////
+		//if (SubworldManager.IsActive<BrinewastesSubworld>())
+		//{
+		//	SubworldLibrary.SLWorld.noReturn = true;
+		//	//SubworldLibrary.SLWorld.drawMenu = true;
+		//}
+		////// Worldgen testing
+		////if (JustPressed(Keys.D1))
+		////	TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);
+		////
 		//}
 	}
 }

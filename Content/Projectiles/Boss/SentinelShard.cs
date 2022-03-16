@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Providence.Content.Dusts;
+using Providence.Systems;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Dusts;
-using Providence.Content.Projectiles.Boss;
-using Providence.Systems;
 
 namespace Providence.Content.Projectiles.Boss
 {

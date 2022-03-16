@@ -3,12 +3,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary;
 using Providence.RenderTargets;
-using System;
 using Terraria.ModLoader;
 using static Providence.RenderTargets.EmberLayer;
 using static Providence.RenderTargets.FlameLayer;
 
-namespace Providence.Particles
+namespace Providence.Globals.Systems.Particles
 {
 	public class Metaball : Particle, IEmberSprite, IFlameSprite
 	{

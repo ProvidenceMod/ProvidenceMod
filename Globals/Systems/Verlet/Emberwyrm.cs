@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary;
-using Providence;
-using Providence.Particles;
+using Providence.Globals.Systems.Particles;
 using Providence.RenderTargets;
 using Providence.Verlet;
 using System;

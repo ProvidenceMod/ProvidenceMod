@@ -1,10 +1,7 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System;
-using static Providence.ProvidenceUtils;
 
 namespace Providence.Content.Projectiles.Boss
 {

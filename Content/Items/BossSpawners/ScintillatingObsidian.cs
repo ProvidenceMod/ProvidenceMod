@@ -1,12 +1,12 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Providence.Content.NPCs.FireAncient;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using Providence.Content.NPCs.FireAncient;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Items.BossSpawners
 {

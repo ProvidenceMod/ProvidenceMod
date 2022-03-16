@@ -1,11 +1,9 @@
+using Providence.Content.NPCs.Caelus;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
-using Terraria.Localization;
-using Microsoft.Xna.Framework;
-using Providence.Content.NPCs.Caelus;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Items.BossSpawners
 {

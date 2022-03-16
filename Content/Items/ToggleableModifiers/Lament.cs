@@ -1,11 +1,11 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Providence.Systems;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
-using Terraria.Audio;
-using Providence.Systems;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Items.ToggleableModifiers
 {

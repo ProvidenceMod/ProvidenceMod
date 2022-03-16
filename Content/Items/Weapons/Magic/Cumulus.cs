@@ -1,12 +1,11 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using Terraria.DataStructures;
 using Providence.Content.Items.Materials;
 using Providence.Content.Projectiles.Magic;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Items.Weapons.Magic
 {

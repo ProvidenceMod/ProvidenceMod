@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Providence.Rarities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using Providence.Rarities;
 
 namespace Providence.Content.Items.Weapons.Wraith
 {

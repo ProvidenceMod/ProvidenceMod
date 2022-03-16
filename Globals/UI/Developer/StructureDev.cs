@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Providence.Content;
 using System;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.ModLoader;
 using Terraria.UI;
 using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content;
 
 namespace Providence.UI.Developer
 {

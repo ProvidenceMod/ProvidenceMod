@@ -1,12 +1,10 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using Terraria.DataStructures;
+﻿using Microsoft.Xna.Framework;
 using Providence.Content.Projectiles.Enemy;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.NPCs.Desert
 {

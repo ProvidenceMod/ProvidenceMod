@@ -1,20 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary;
-using Providence.Particles;
+using Providence.Content.Items.Materials;
+using Providence.Globals.Systems.Particles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Items.Materials;
-using Providence.Content.NPCs.SentinelAether;
-using Terraria.DataStructures;
 
 namespace Providence.Content.NPCs.SentinelAether
 {

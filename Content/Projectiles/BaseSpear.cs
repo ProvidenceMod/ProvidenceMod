@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
-using Providence.Projectiles;
+﻿using Terraria.ModLoader;
 
 namespace Providence.Content.Projectiles
 {

@@ -1,14 +1,13 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ParticleLibrary;
+using Providence.Content.Buffs.DamageOverTime;
+using Providence.Globals.Systems.Particles;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Providence.Particles;
-using Terraria.Audio;
-using ParticleLibrary;
-using Providence.Content.Buffs.DamageOverTime;
 
 namespace Providence.Content.Projectiles.Ranged
 {

@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
+using Providence.Content.Projectiles.Melee;
+using Providence.Rarities;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Terraria.DataStructures;
-using Providence.Content.Projectiles.Melee;
-using Providence.Rarities;
 
 namespace Providence.Content.Items.Weapons.Melee
 {

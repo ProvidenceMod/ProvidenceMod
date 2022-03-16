@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Providence.Content.Dusts;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using Microsoft.Xna.Framework;
-using System;
-using Providence.Content.Dusts;
 
 namespace Providence.Content.NPCs.Caelus
 {

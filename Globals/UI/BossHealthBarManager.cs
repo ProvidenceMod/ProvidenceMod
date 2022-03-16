@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.UI
 {

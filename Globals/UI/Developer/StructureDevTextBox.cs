@@ -1,18 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using ReLogic.Graphics;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
-using Terraria.Localization;
-using Terraria.ModLoader;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.UI;
 using static Providence.ProvidenceUtils;
-using static Terraria.ModLoader.ModContent;
-using Terraria.ID;
-using Microsoft.Xna.Framework.Input;
-using Terraria.GameInput;
-using ReLogic.Graphics;
-using ReLogic.OS;
-using Terraria.Audio;
 
 namespace Providence.UI.Developer
 {

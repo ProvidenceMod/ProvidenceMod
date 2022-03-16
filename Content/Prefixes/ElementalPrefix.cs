@@ -1,7 +1,4 @@
-using Terraria;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
 
 namespace Providence.Content.Prefixes
 {

@@ -1,8 +1,4 @@
 ﻿using Terraria.ModLoader;
-using Terraria;
-using static Providence.ProvidenceUtils;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace Providence.DamageClasses
 {

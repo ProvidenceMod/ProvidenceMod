@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Providence;
-using System;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace Providence.Verlet
 {

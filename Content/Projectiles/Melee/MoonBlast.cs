@@ -1,16 +1,14 @@
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static Providence.ProvidenceUtils;
-using static Terraria.ModLoader.ModContent;
-using Providence.Particles;
 using ParticleLibrary;
-using Terraria.Audio;
 using Providence.Content.Buffs.DamageOverTime;
-using Providence.Content.Projectiles.Melee;
+using Providence.Globals.Systems.Particles;
+using System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Projectiles.Melee
 {

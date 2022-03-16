@@ -1,12 +1,4 @@
-﻿using Providence.Rarities;
-using System;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
-using Providence.Content.Items.BossSpawners;
-using Providence.Content.NPCs.Caelus;
-
-namespace Providence.Content.ModSupport
+﻿namespace Providence.Content.ModSupport
 {
 	public static class ModCalls
 	{

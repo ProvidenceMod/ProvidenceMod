@@ -1,13 +1,13 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary;
-using Providence.Particles;
-using System;
-using static Providence.RenderTargets.ZephyrLayer;
+using Providence.Globals.Systems.Particles;
 using Providence.RenderTargets;
+using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Providence.RenderTargets.ZephyrLayer;
 
 namespace Providence.Content.NPCs.Caelus
 {

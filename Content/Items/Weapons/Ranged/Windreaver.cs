@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
+using Providence.Content.Projectiles.Ranged;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Terraria.DataStructures;
-using Providence.Content.Projectiles.Ranged;
 
 namespace Providence.Content.Items.Weapons.Ranged
 {

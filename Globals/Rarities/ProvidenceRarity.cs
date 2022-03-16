@@ -1,7 +1,3 @@
-using Providence.Rarities;
-using Terraria;
-using Terraria.ModLoader;
-
 namespace Providence
 {
 	public enum ProvidenceRarity

@@ -1,8 +1,5 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
 
 namespace Providence.Content.Items.Armor
 {

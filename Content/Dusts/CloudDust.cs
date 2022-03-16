@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using static Terraria.Lighting;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
+using static Terraria.Lighting;
 
 namespace Providence.Content.Dusts
 {

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Projectiles.Boss

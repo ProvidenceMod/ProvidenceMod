@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
+using Providence.Content.Dusts;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Dusts;
 
 namespace Providence.Content.Projectiles.Melee
 {

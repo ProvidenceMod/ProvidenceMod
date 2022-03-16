@@ -1,6 +1,5 @@
 ﻿using Providence.Rarities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Providence.Content.Items.Accessories

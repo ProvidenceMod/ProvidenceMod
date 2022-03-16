@@ -1,16 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Providence.Systems;
+using System;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
-using System;
-using Microsoft.Xna.Framework.Audio;
-using Terraria.Chat;
-using Providence.Systems;
 
 namespace Providence.Content.NPCs.FireAncient
 {

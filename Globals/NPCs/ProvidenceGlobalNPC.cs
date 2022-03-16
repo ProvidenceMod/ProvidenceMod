@@ -1,14 +1,8 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
-using Providence.TexturePack;
-using Terraria.Audio;
-using ReLogic.Graphics;
 using System.Collections.Generic;
-using static Terraria.ModLoader.ModContent;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Providence
 {

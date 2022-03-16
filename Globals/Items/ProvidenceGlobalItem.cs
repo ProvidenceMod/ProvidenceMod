@@ -1,17 +1,9 @@
-using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Providence.Rarities;
 using Terraria;
 using Terraria.ID;
-using System;
-using static Providence.ProvidenceUtils;
-using System.Collections.Generic;
-using System.Linq;
-using Providence;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Providence.TexturePack;
-using static Terraria.ModLoader.ModContent;
-using Terraria.ModLoader.IO;
-using Providence.Rarities;
+using Terraria.ModLoader;
 
 namespace Providence
 {

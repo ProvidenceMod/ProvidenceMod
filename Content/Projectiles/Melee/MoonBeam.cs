@@ -1,10 +1,8 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Providence.Particles;
+﻿using Microsoft.Xna.Framework;
 using ParticleLibrary;
+using Providence.Globals.Systems.Particles;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Providence.Content.Projectiles.Melee
 {

@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Providence.Content.Dusts;
+using Providence.Content.Projectiles.Boss;
+using Providence.Systems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Providence.Projectiles.ProvidenceGlobalProjectileAI;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Dusts;
-using Providence.Content.Projectiles.Boss;
-using Providence.Systems;
 
 namespace Providence.Content.NPCs.Caelus
 {

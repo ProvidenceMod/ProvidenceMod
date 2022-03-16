@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using ParticleLibrary;
-using static Providence.RenderTargets.ZephyrLayer;
 using Providence.RenderTargets;
+using Terraria;
+using static Providence.RenderTargets.ZephyrLayer;
+using static Terraria.ModLoader.ModContent;
 
-namespace Providence.Particles
+namespace Providence.Globals.Systems.Particles
 {
 	public class AetherFlare : Particle, IZephyrSprite
 	{

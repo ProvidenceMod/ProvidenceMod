@@ -1,16 +1,10 @@
-﻿using Providence.Content.Buffs.DamageOverTime;
-using Providence.Content.Buffs.StatDebuffs;
-using Providence.Content.Items.Accessories;
-using Providence.DamageClasses;
-using Providence.UI;
-using System.Collections.Generic;
-using Terraria.ModLoader;
-using System;
-using Terraria.Audio;
+﻿using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
-using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace Providence.Globals.Players
 {
@@ -55,7 +49,7 @@ namespace Providence.Globals.Players
 		}
 		public override void PreUpdate()
 		{
-			if (wraith) 
+			if (wraith)
 				Wraith();
 			if (!Player.Cleric().cleric)
 				quantum = 0;

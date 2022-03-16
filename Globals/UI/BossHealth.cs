@@ -3,10 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.UI
 {

@@ -1,11 +1,6 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
-using Providence.Content.Buffs.DamageOverTime;
-using static Providence.ProvidenceUtils;
-using System.Linq;
 
 namespace Providence.Content.Projectiles.Magic
 {

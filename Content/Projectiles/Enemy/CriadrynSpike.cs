@@ -1,11 +1,7 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
-using static Providence.ProvidenceUtils;
+﻿using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Providence.Content.Projectiles.Enemy
 {

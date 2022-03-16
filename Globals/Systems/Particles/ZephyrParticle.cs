@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ParticleLibrary;
+using Providence.RenderTargets;
 using System;
 using Terraria;
 using Terraria.ModLoader;
-using ParticleLibrary;
 using static Providence.RenderTargets.ZephyrLayer;
-using Providence.RenderTargets;
 
-namespace Providence.Particles
+namespace Providence.Globals.Systems.Particles
 {
 	public class ZephyrParticle : Particle, IZephyrSprite
 	{
@@ -51,15 +51,15 @@ namespace Providence.Particles
 				velocity += new Vector2(sineX * mult, -Main.rand.NextFloat(1f, 2f) / 100f);
 
 				// Clamp the velocity so the particle doesnt go too fast.
-				Terraria.Utils.Clamp(velocity.X, -6f, 6f);
-				Terraria.Utils.Clamp(velocity.Y, -6f, 6f);
+				Utils.Clamp(velocity.X, -6f, 6f);
+				Utils.Clamp(velocity.Y, -6f, 6f);
 
 				// Decrement the timer
 				timer--;
 
 				// Halfway through, start fading.
 				if (timeLeft <= timeLeftMax / 2f)
-					opacity = MathHelper.Lerp(1f, 0f, (float)((timeLeftMax / 2f) - timeLeft) / (timeLeftMax / 2f));
+					opacity = MathHelper.Lerp(1f, 0f, (float)(timeLeftMax / 2f - timeLeft) / (timeLeftMax / 2f));
 				return;
 			}
 			ai[0]--;

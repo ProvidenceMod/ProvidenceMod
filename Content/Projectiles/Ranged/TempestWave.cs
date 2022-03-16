@@ -1,9 +1,8 @@
 using Microsoft.Xna.Framework;
+using Providence.Content.Dusts;
 using Terraria;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
 using static Terraria.ModLoader.ModContent;
-using Providence.Content.Dusts;
 
 namespace Providence.Content.Projectiles.Ranged
 {

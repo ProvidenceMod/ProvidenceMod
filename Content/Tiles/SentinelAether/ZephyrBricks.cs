@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using static Providence.ProvidenceUtils;
+using static Terraria.ModLoader.ModContent;
 
 namespace Providence.Content.Tiles.SentinelAether
 {
@@ -27,7 +27,7 @@ namespace Providence.Content.Tiles.SentinelAether
 		{
 			CheckTiles(i, j, out bool up, out bool down, out bool left, out bool right, out bool leftUp, out bool leftDown, out bool rightUp, out bool rightDown);
 
-			Texture2D tex = Request<Texture2D>("Providence/Tiles/SentinelAether/ZephyrBricks").Value;
+			Texture2D tex = Request<Texture2D>("Providence/Content/Tiles/SentinelAether/ZephyrBricks").Value;
 
 			if (up && down && left && right && leftUp && leftDown && rightDown && !rightUp)
 			{

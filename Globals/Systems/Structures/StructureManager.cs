@@ -1,6 +1,4 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Providence

@@ -1,10 +1,6 @@
-﻿
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ParticleLibrary;
-using Terraria.ModLoader;
+﻿using ParticleLibrary;
 
-namespace Providence.Particles
+namespace Providence.Globals.Systems.Particles
 {
 	public class GlowParticle : Particle
 	{

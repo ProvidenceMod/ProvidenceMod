@@ -1,11 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Providence.Projectiles;
-using static Providence.ProvidenceUtils;
-using Providence.TexturePack;
 
 namespace Providence
 {

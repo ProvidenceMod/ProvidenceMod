@@ -1,24 +1,18 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.UI;
-using Terraria.ModLoader;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
-using Providence.UI;
-using Providence.TexturePack;
-using static Providence.Content.ModSupport.ModCalls;
-using Providence.Particles;
-using Providence.UI.Developer;
-using Providence.PrimitiveTrails;
-using Providence.RenderTargets;
 using Providence.Content.Items.Armor;
 using Providence.Content.Items.Dyes;
+using Providence.PrimitiveTrails;
+using Providence.RenderTargets;
+using Providence.UI;
+using Providence.UI.Developer;
+using ReLogic.Graphics;
+using System.IO;
+using Terraria;
+using Terraria.Graphics.Shaders;
+using Terraria.ModLoader;
+using Terraria.UI;
+using static Providence.Content.ModSupport.ModCalls;
 
 namespace Providence
 {

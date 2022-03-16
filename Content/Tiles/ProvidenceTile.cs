@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework.Graphics;
-using Providence.TexturePack;
-using Terraria;
 using Terraria.ModLoader;
-using Providence;
 
 namespace Providence.Content.Tiles
 {

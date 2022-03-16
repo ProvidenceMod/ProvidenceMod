@@ -1,8 +1,8 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Providence.Content.Items.Dyes
 {

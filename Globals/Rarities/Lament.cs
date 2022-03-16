@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using static Providence.ProvidenceUtils;
 
 namespace Providence.Rarities
 {

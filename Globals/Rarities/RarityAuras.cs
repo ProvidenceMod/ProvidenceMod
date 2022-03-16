@@ -1,11 +1,8 @@
-﻿using Providence.Rarities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
-using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Providence.Rarities
 {

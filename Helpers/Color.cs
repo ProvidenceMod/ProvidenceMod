@@ -1,14 +1,7 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.Audio;
-using Terraria.ModLoader;
-using Terraria.Localization;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using static Terraria.ModLoader.ModContent;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Globalization;
+using Terraria;
 
 namespace Providence
 {

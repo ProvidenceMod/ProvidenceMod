@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using static Providence.RenderTargets.FlameLayer;
 using ParticleLibrary;
+using Providence.RenderTargets;
 
 namespace Providence.Particles
 {
@@ -69,7 +70,7 @@ namespace Providence.Particles
 		public void Draw(object sender, SpriteBatch spriteBatch)
 		{
 			Texture2D circle = ModContent.Request<Texture2D>("Providence/Assets/Textures/Circle").Value;
-			Texture2D ember = ModContent.Request<Texture2D>("Providence/Assets/Particles/EmberParticle").Value;
+			//Texture2D ember = ModContent.Request<Texture2D>("Providence/Assets/Particles/EmberParticle").Value;
 			Texture2D glow = ModContent.Request<Texture2D>("Providence/Assets/Textures/SoftGlow").Value;
 
 			Color bright = Color.Multiply(new(240, 149, 46, 0), opacity);
@@ -86,13 +87,13 @@ namespace Providence.Particles
 		}
 		private void Spawn()
 		{
-			ProvidenceMod.Targets.FlameLayer.Sprites.Add(this);
+			RenderTargetManager.FlameLayer.Sprites.Add(this);
 			timeLeftMax = timeLeft;
 			size = Main.rand.NextFloat(5f, 11f) / 10f;
 		}
 		private void Death()
 		{
-			ProvidenceMod.Targets.FlameLayer.Sprites.Remove(this);
+			RenderTargetManager.FlameLayer.Sprites.Remove(this);
 			active = false;
 		}
 		private void NewMovementCycle()

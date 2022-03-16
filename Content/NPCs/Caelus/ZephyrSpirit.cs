@@ -73,7 +73,7 @@ namespace Providence.Content.NPCs.Caelus
 
 			NPC.velocity = ((NPC.velocity * (60f - (60f / Math.Abs(NPC.Center.X - player.Center.X)))) + (unitY * 8f)) / ((60f - (60f / Math.Abs(NPC.Center.X - player.Center.X))) + 1f);
 
-			Lighting.AddLight(NPC.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
+			Lighting.AddLight(NPC.Center, ProvidenceColor.ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
 
 			if (NPC.ai[1] % 10 == 0)
 				Dust.NewDustPerfect(NPC.Hitbox.RandomPointInHitbox(), DustType<CloudDust>(), -NPC.velocity);

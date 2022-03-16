@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary;
 using Providence;
 using Providence.Particles;
+using Providence.RenderTargets;
 using Providence.Verlet;
 using System;
 using Terraria;
@@ -78,7 +79,7 @@ namespace Providence.Globals.Systems.Verlet
 		public void Spawn()
 		{
 			Cycle();
-			ProvidenceMod.Targets.FlameLayer.Sprites.Add(this);
+			RenderTargetManager.FlameLayer.Sprites.Add(this);
 			VerletNode origin = new(null, new Vector2(16f, 0f), 1f, 0.5f, 3f, 2f, 10f, 0f, 0f);
 			chain = new(NPC.Center, origin);
 			for (int i = 0; i < 10; i++)

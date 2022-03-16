@@ -60,13 +60,6 @@ namespace Providence.Verlet
 			float distance = target - old;
 			return points[index1].position + (points[index1].position.DirectionTo(points[index2].position) * distance);
 		}
-		public Vector2 BezierEvaulate(float progress)
-		{
-			List<Vector2> p = new();
-			for (int i = 0; i < points.Count; i++)
-				p.Add(points[i].position);
-			return Bezier(progress, p);
-		}
 		public float AngleEvaluate(float progress)
 		{
 			if(progress >= 1f)

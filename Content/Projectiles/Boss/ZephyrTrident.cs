@@ -32,7 +32,7 @@ namespace Providence.Content.Projectiles.Boss
 			Projectile.hostile = true;
 			Projectile.friendly = false;
 			Projectile.Opacity = 0f;
-			Projectile.Providence().element = (int)ElementID.Air; // Typeless
+			Projectile.Providence().element = (int)ProvidenceEnums.ElementID.Air; // Typeless
 		}
 		public override void AI()
 		{
@@ -45,7 +45,7 @@ namespace Providence.Content.Projectiles.Boss
 				Projectile.ai[1]--;
 				Projectile.UpdateCenterCache();
 				Projectile.UpdateRotationCache();
-				Lighting.AddLight(Projectile.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
+				Lighting.AddLight(Projectile.Center, ProvidenceColor.ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
 				if (Projectile.timeLeft >= (180 + (Projectile.ai[1] * 90)) - 30)
 				{
 					opacity += 1f / 30f;

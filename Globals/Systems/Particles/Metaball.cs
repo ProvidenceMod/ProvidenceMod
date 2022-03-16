@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleLibrary;
+using Providence.RenderTargets;
 using System;
 using Terraria.ModLoader;
 using static Providence.RenderTargets.EmberLayer;
@@ -37,20 +38,20 @@ namespace Providence.Particles
 		}
 		public void Draw(object sender, SpriteBatch spriteBatch)
 		{
-			if (sender == ProvidenceMod.Targets.FlameLayer)
+			if (sender == RenderTargetManager.FlameLayer)
 				spriteBatch.Draw(ModContent.Request<Texture2D>("Providence/Globals/Systems/Particles/GlowParticle").Value, VisualPosition, new Rectangle(0, 0, 128, 128), Color.Multiply(new Color(1f, 1f, 1f, 0f), 0.5f), rotation, new Vector2(64, 64), scale, SpriteEffects.None, 0f);
-			if (sender == ProvidenceMod.Targets.EmberLayer)
+			if (sender == RenderTargetManager.EmberLayer)
 				spriteBatch.Draw(ModContent.Request<Texture2D>("Providence/Assets/Textures/Masks/CircleMask").Value, VisualPosition, new Rectangle(0, 0, 512, 512), Color.White, rotation, new Vector2(256, 256), scale * 0.1f, SpriteEffects.None, 0f);
 		}
 		public void Spawn()
 		{
-			ProvidenceMod.Targets.FlameLayer.Sprites.Add(this);
-			ProvidenceMod.Targets.EmberLayer.Sprites.Add(this);
+			RenderTargetManager.FlameLayer.Sprites.Add(this);
+			RenderTargetManager.EmberLayer.Sprites.Add(this);
 		}
 		public void Death()
 		{
-			ProvidenceMod.Targets.FlameLayer.Sprites.Remove(this);
-			ProvidenceMod.Targets.EmberLayer.Sprites.Remove(this);
+			RenderTargetManager.FlameLayer.Sprites.Remove(this);
+			RenderTargetManager.EmberLayer.Sprites.Remove(this);
 		}
 	}
 }

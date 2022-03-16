@@ -33,6 +33,6 @@
 //			AddLight(dust.position, ProvidenceUtils.RGBIntToFloat(new Vector3(227, 79, 79)));
 //			return true;
 //		}
-//		public override Color? GetAlpha(Dust dust, Color lightColor) => ColorShift(new Color(255, 255, 0), new Color(255, 0, 0), 5f);
+//		public override Color? GetAlpha(Dust dust, Color lightColor) => ProvidenceColor.ColorShift(new Color(255, 255, 0), new Color(255, 0, 0), 5f);
 //	}
 //}

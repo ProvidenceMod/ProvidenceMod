@@ -30,7 +30,7 @@ namespace Providence.Content.Projectiles.Ranged
 			Projectile.hostile = false;
 			Projectile.friendly = true;
 			Projectile.Opacity = 0f;
-			Projectile.Providence().element = (int)ElementID.Air; // Typeless
+			Projectile.Providence().element = (int)ProvidenceEnums.ElementID.Air; // Typeless
 		}
 		public override void AI()
 		{
@@ -41,7 +41,7 @@ namespace Providence.Content.Projectiles.Ranged
 				Dust.NewDust(new Vector2(Projectile.Hitbox.X + Main.rand.NextFloat(0, Projectile.Hitbox.Width + 1), Projectile.Hitbox.Y + Main.rand.NextFloat(0, Projectile.Hitbox.Height + 1)), 5, 5, DustType<CloudDust>(), Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-3f, 4f), default, Color.White, 3f);
 			}
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			Lighting.AddLight(Projectile.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
+			Lighting.AddLight(Projectile.Center, ProvidenceColor.ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
 			if (Projectile.ai[1] < 20)
 			{
 				Projectile.ai[1]++;

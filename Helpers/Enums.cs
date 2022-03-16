@@ -11,7 +11,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace Providence
 {
-	public static partial class ProvidenceUtils
+	public static class ProvidenceEnums
 	{
 		public enum ElementID
 		{

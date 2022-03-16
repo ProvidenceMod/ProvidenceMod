@@ -12,7 +12,7 @@ using System.Globalization;
 
 namespace Providence
 {
-	public static partial class ProvidenceUtils
+	public static class ProvidenceColor
 	{
 		public const double conversion = 1d / 255d;
 		public static float FloatScale(this int rgbaValue) => (float)(rgbaValue * conversion);

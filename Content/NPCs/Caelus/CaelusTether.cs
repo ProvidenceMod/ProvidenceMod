@@ -7,6 +7,7 @@ using ParticleLibrary;
 using Providence.Particles;
 using System;
 using static Providence.RenderTargets.ZephyrLayer;
+using Providence.RenderTargets;
 
 namespace Providence.Content.NPCs.Caelus
 {
@@ -49,7 +50,7 @@ namespace Providence.Content.NPCs.Caelus
 			//NPC.velocity = ((NPC.velocity * 55f) + (dir * NPC.ai[2])) / (55f + 1f);
 
 			if (particleCounter == 0)
-				ProvidenceMod.Targets.ZephyrLayer.Sprites.Add(this);
+				RenderTargetManager.ZephyrLayer.Sprites.Add(this);
 
 			particleCounter++;
 			if (particleCounter % 15 == 0)

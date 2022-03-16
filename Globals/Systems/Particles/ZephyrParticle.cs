@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using ParticleLibrary;
 using static Providence.RenderTargets.ZephyrLayer;
+using Providence.RenderTargets;
 
 namespace Providence.Particles
 {
@@ -85,13 +86,13 @@ namespace Providence.Particles
 		}
 		private void Spawn()
 		{
-			ProvidenceMod.Targets.ZephyrLayer.Sprites.Add(this);
+			RenderTargetManager.ZephyrLayer.Sprites.Add(this);
 			timeLeftMax = timeLeft;
 			size = Main.rand.NextFloat(5f, 11f) / 10f;
 		}
 		private void Death()
 		{
-			ProvidenceMod.Targets.ZephyrLayer.Sprites.Remove(this);
+			RenderTargetManager.ZephyrLayer.Sprites.Remove(this);
 			active = false;
 		}
 		private void NewMovementCycle()

@@ -35,7 +35,7 @@ namespace Providence.Content.Projectiles.Boss
 			Projectile.UpdateCenterCache();
 			Projectile.UpdateRotationCache();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			Lighting.AddLight(Projectile.Center, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
+			Lighting.AddLight(Projectile.Center, ProvidenceColor.ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3());
 			switch (Projectile.ai[0])
 			{
 				// Alternate between AI states periodically for a cool effect?

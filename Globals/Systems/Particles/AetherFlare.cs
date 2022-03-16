@@ -4,28 +4,29 @@ using static Providence.ProvidenceUtils;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using ParticleLibrary;
+using static Providence.RenderTargets.ZephyrLayer;
+using Providence.RenderTargets;
 
 namespace Providence.Particles
 {
-	public class AetherFlare : Particle
+	public class AetherFlare : Particle, IZephyrSprite
 	{
-		public Color[] colors = new Color[] { HexToColor("36103500"), HexToColor("47285500"), HexToColor("64539c00"), HexToColor("757ec700"), HexToColor("9ebae200"), HexToColor("dafaf400") };
 		public float maxScale;
-		public override string Texture => "Providence/Assets/Textures/Flare";
+		public bool Active => active;
+
 		public override void SetDefaults()
 		{
 			width = 128;
 			height = 128;
 			timeLeft = 120;
 			tileCollide = false;
+			SpawnAction = Spawn;
+			DeathAction = Death;
 		}
 		public override void AI()
 		{
 			if (ai[0] == 0)
 			{
-				maxScale = scale;
-				ai[1] = 6;
-				ai[3] = Main.rand.NextFloat(-1f, 2f) / 100f;
 			}
 			maxScale = MathHelper.Lerp(maxScale, 0, ai[0] / 120);
 			ai[0]++;
@@ -39,11 +40,23 @@ namespace Providence.Particles
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 drawPos, Color lightColor)
 		{
-			int index = (int)ai[1];
-			Color color = Color.Lerp(colors[index < 0 ? 5 : index], colors[index - 1 < 0 ? 5 : index - 1], ai[2] / 20);
-			ai[2]++;
-			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/Flare").Value, position - Main.screenPosition, new Rectangle(0, 0, 128, 128), color, rotation, new Vector2(64, 64), 0.5f * maxScale, SpriteEffects.None, 0f);
 			return false;
+		}
+		public void Spawn()
+		{
+			maxScale = scale;
+			ai[1] = 6;
+			ai[3] = Main.rand.NextFloat(-1f, 2f) / 100f;
+			RenderTargetManager.ZephyrLayer.Sprites.Add(this);
+		}
+		public void Death()
+		{
+			RenderTargetManager.ZephyrLayer.Sprites.Remove(this);
+		}
+		public void Draw(object sender, SpriteBatch spriteBatch)
+		{
+			float num = timeLeft / 120f;
+			spriteBatch.Draw(Request<Texture2D>("Providence/Globals/Systems/Particles/AetherFlare").Value, position - Main.screenPosition, new Rectangle(0, 0, 114, 62), new Color(num, num, num, 0f), rotation, texture.Size() * 0.5f, maxScale, SpriteEffects.None, 0f);
 		}
 	}
 }

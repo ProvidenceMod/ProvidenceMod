@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using static Providence.ProvidenceUtils;
 
-namespace Providence.Content.Items
+namespace Providence.Content
 {
 	public class ProvidenceStructureCreator : ModItem
 	{
@@ -108,7 +108,7 @@ namespace Providence.Content.Items
 				{
 					for (int j = 0; j <= cacheSize.Y; j++)
 					{
-						WorldGen.PlaceTile(x3 + i, y3 + j, cachedTiles[i, j].TileType, false, false, default, (int) cachedTiles[i, j].BlockType);
+						WorldGen.PlaceTile(x3 + i, y3 + j, cachedTiles[i, j].TileType, false, false, default, (int)cachedTiles[i, j].BlockType);
 						NetMessage.SendTileSquare(-1, x3 + i, y3 + j, 1);
 					}
 				}
@@ -183,7 +183,7 @@ namespace Providence.Content.Items
 				flag1 = v2.X <= v1.X;
 				flag2 = v2.Y <= v1.Y;
 				Vector2 v3 = !(flag1 || flag2) ? v2 - v1 : v1 - v2;
-				divisions = Math.Abs(v3.X) > Math.Abs(v3.Y) ? (int)((Math.Abs(v3.X) / 2) + 1) : (int)((Math.Abs(v3.Y) / 2) + 1);
+				divisions = Math.Abs(v3.X) > Math.Abs(v3.Y) ? (int)(Math.Abs(v3.X) / 2 + 1) : (int)(Math.Abs(v3.Y) / 2 + 1);
 				Dust.QuickBox(new Vector2(x + (flag1 ? 1 : 0), y + (flag2 ? 1 : 0)) * 16, new Vector2(x2 + (!flag1 ? 1 : 0), y2 + (!flag2 ? 1 : 0)) * 16, divisions, new Color(218, 70, 70), null);
 			}
 			return true;

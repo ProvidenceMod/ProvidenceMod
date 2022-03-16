@@ -68,11 +68,11 @@ namespace Providence
 		}
 		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
 		{
-			damage = (int)(damage * DiminishingDRFormula(DR));
+			damage = (int)(damage * ProvidenceMath.DiminishingDRFormula(DR));
 		}
 		public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
 		{
-			damage = (int)(damage * DiminishingDRFormula(DR));
+			damage = (int)(damage * ProvidenceMath.DiminishingDRFormula(DR));
 		}
 		public override void PostUpdateRunSpeeds()
 		{

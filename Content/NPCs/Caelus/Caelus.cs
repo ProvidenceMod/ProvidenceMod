@@ -19,6 +19,7 @@ using System.Security.Cryptography;
 using System;
 using Terraria.Graphics.Renderers;
 using System.Reflection.Metadata;
+using Providence.RenderTargets;
 
 namespace Providence.Content.NPCs.Caelus
 {
@@ -41,7 +42,7 @@ namespace Providence.Content.NPCs.Caelus
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sentinel Caelus");
+			DisplayName.AddTranslation(0, "Sentinel Caelus");
 			NPCID.Sets.MustAlwaysDraw[NPC.type] = true;
 			NPCID.Sets.NeedsExpertScaling[NPC.type] = false;
 		}
@@ -107,7 +108,7 @@ namespace Providence.Content.NPCs.Caelus
 
 		public void Spawn()
 		{
-			ProvidenceMod.Targets.ZephyrLayer.Sprites.Add(this);
+			RenderTargetManager.ZephyrLayer.Sprites.Add(this);
 
 			Vector2 p1 = new((int)((NPC.Center.X - 200)), (int)((NPC.Center.Y - 100)));
 			Vector2 p2 = new((int)((NPC.Center.X - 100)), (int)((NPC.Center.Y - 75)));
@@ -192,6 +193,7 @@ namespace Providence.Content.NPCs.Caelus
 
 			Texture2D glow = ModContent.Request<Texture2D>("Providence/Assets/Textures/SoftGlow").Value;
 			Texture2D circle = ModContent.Request<Texture2D>("Providence/Assets/Textures/Masks/CircleMaskBlack").Value;
+			Texture2D flare = ModContent.Request<Texture2D>("Providence/Globals/Systems/Particles/AetherFlare").Value;
 
 			Color bright = new(0.5f, 0.5f, 0.5f, 0f);
 			Color mid = new(0.3f, 0.3f, 0.3f, 0f);
@@ -284,6 +286,7 @@ namespace Providence.Content.NPCs.Caelus
 				wingPulse = 0f;
 
 			spriteBatch.Draw(circle, NPC.Center - Main.screenPosition, new Rectangle(0, 0, 512, 512), Color.Multiply(bright, auraOpacity), 0f, new Vector2(256f, 256f), new Vector2(0.6f, 0.6f), SpriteEffects.None, 0f);
+			spriteBatch.Draw(flare, NPC.position + new Vector2(139f, 71f) - Main.screenPosition, flare.Bounds, Color.Multiply(bright, auraOpacity), 0f, flare.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 		}
 		public int Phase()
 		{

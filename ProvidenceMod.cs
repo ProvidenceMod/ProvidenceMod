@@ -27,7 +27,7 @@ namespace Providence
 		internal static ProvidenceMod Instance;
 
 		public static RenderTargetManager Targets;
-		//public static TrailHelper Trails;
+		public static TrailHelper Trails;
 		public Detours Detours;
 
 		private UserInterface bossHealthUI;

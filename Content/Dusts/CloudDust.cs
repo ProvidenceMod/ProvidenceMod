@@ -18,7 +18,7 @@ namespace Providence.Content.Dusts
 		{
 			if (dust.scale <= 0)
 				dust.active = false;
-			AddLight(dust.position, ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3().RGBIntToFloat());
+			AddLight(dust.position, ProvidenceColor.ColorShift(new Color(71, 74, 145), new Color(114, 164, 223), 3f).ToVector3().RGBIntToFloat());
 			if (!Collision.EmptyTile((int)(dust.position.X / 16), (int)(dust.position.Y / 16)))
 			{
 				Main.dust[dust.type].velocity.X = 0;

@@ -43,7 +43,7 @@ namespace Providence.Content.Tiles.Hell
 		{
 			time = (i % 2 == 0 ? 3 : i % 3 == 0 ? 4 : i % 4 == 0 ? 5 : i % 5 == 0 ? 6 : i % 6 == 0 ? 7 : i % 7 == 0 ? 8 : i % 8 == 0 ? 9 : 2) +
 						 (j % 2 == 0 ? 3 : j % 3 == 0 ? 4 : j % 4 == 0 ? 5 : j % 5 == 0 ? 6 : j % 6 == 0 ? 7 : j % 7 == 0 ? 8 : j % 8 == 0 ? 9 : 2);
-			color = ColorShift(new Color(54, 30, 53), new Color(166, 46, 61), time).ToVector3();
+			color = ProvidenceColor.ColorShift(new Color(54, 30, 53), new Color(166, 46, 61), time).ToVector3();
 			color.RGBIntToFloat();
 			r = color.X;
 			g = color.Y;

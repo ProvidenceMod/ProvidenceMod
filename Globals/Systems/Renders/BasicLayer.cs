@@ -18,7 +18,7 @@ namespace Providence.RenderTargets
 		}
 		public interface IBasicSprite
 		{
-			bool Active { get; set; }
+			bool Active { get; }
 			void Draw(object sender, SpriteBatch spriteBatch);
 		}
 		// Prepare the layer to be drawn.

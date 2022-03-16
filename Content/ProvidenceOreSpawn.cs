@@ -9,7 +9,7 @@ using Providence.Systems;
 
 using Providence.Rarities;
 
-namespace Providence.Content.Items
+namespace Providence.Content
 {
 	public class ProvidenceOreSpawn : ModItem
 	{

@@ -15,7 +15,7 @@ using ParticleLibrary;
 
 namespace Providence
 {
-	public static partial class ProvidenceUtils
+	public static class ProvidenceUtils
 	{
 		/// <summary>References the Main.localPlayer. Shorthand for ease of use.</summary>
 		public static Player LocalPlayer() => Main.LocalPlayer;
@@ -335,6 +335,13 @@ namespace Providence
 		{
 			Vector2 origin = new Vector2(glowMaskTexture.Width / 2f, (float)((glowMaskTexture.Height / 2.0) - 2.0));
 			spriteBatch.Draw(glowMaskTexture, item.Center - Main.screenPosition, null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0.0f);
+		}
+		public static void DrawLine(SpriteBatch spriteBatch, Vector2 from, Vector2 to, Color color, float thickness, float length = 0f)
+		{
+			Texture2D tex = Request<Texture2D>("Providence/Assets/Textures/WhitePixel").Value;
+			float rotation = (to - from).ToRotation();
+			length = length == 0f ? Vector2.Distance(from, to) : length;
+			spriteBatch.Draw(tex, from, tex.Bounds, color, rotation, Vector2.Zero, new Vector2(length, thickness), SpriteEffects.None, 0f);
 		}
 		/// <summary>Draws a glowMask for the given item while the item is in use.</summary>
 		/// <param name="info">The PlayerDrawInfo instance for this method. Use "PlayerDrawInfo info = new PlayerDrawInfo();" and pass it.</param>

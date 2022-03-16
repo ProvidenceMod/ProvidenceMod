@@ -30,7 +30,7 @@ namespace Providence.Content.Projectiles.Ranged
 			Projectile.Opacity = 1f;
 			Projectile.tileCollide = true;
 			Projectile.ignoreWater = true;
-			Projectile.Providence().element = (int)ElementID.Air; // Typeless
+			Projectile.Providence().element = (int)ProvidenceEnums.ElementID.Air; // Typeless
 		}
 		public override void AI()
 		{

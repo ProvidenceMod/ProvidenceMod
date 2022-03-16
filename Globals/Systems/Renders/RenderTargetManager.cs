@@ -9,10 +9,10 @@ namespace Providence.RenderTargets
 	{
 		public static RenderTargetManager Instance;
 		public static Vector2 lastViewSize;
-		public BasicLayer BasicLayer;
-		public EmberLayer EmberLayer;
-		public FlameLayer FlameLayer;
-		public ZephyrLayer ZephyrLayer;
+		public static BasicLayer BasicLayer;
+		public static EmberLayer EmberLayer;
+		public static FlameLayer FlameLayer;
+		public static ZephyrLayer ZephyrLayer;
 		public override void OnModLoad()
 		{
 			Instance = this;
@@ -52,6 +52,7 @@ namespace Providence.RenderTargets
 			{
 				ResetLayerTargets();
 			});
+			DisposeLayers();
 		}
 		public override void OnWorldUnload()
 		{
@@ -59,6 +60,7 @@ namespace Providence.RenderTargets
 			{
 				ResetLayerTargets();
 			});
+			DisposeLayers();
 		}
 		public void UpdateRenderTargets()
 		{
@@ -66,6 +68,13 @@ namespace Providence.RenderTargets
 			{
 				ResetLayerTargets();
 			});
+		}
+		public void DisposeLayers()
+		{
+			BasicLayer.Sprites.Clear();
+			EmberLayer.Sprites.Clear();
+			FlameLayer.Sprites.Clear();
+			ZephyrLayer.Sprites.Clear();
 		}
 		public void ResetLayerTargets()
 		{

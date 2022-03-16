@@ -89,13 +89,13 @@ namespace Providence.Content.Projectiles.Melee
 				{
 					Color color2 = new Color((int)(hsl.R * alpha), (int)(hsl.G * alpha), (int)(hsl.B * alpha), 0);
 
-					Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Melee/MoonBlast").Value, Projectile.Providence().oldCen[i] + new Vector2(k == 0 ? 0f : 5f, k == 0 ? 0f : k == 1 ? -5f : 5f).RotatedBy(Projectile.Providence().oldCen[i].ToRotation()) - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), Color.Multiply(color2, alpha + (i * 0.05f)), Projectile.oldRot[i], new Vector2(Projectile.width / 2, Projectile.height / 2), 1f * alpha, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(Request<Texture2D>("Providence/Content/Projectiles/Melee/MoonBlast").Value, Projectile.Providence().oldCen[i] + new Vector2(k == 0 ? 0f : 5f, k == 0 ? 0f : k == 1 ? -5f : 5f).RotatedBy(Projectile.Providence().oldCen[i].ToRotation()) - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), Color.Multiply(color2, alpha + (i * 0.05f)), Projectile.oldRot[i], new Vector2(Projectile.width / 2, Projectile.height / 2), 1f * alpha, SpriteEffects.None, 0f);
 				}
 			}
 			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/Flare").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 142, 42), Color.Multiply(color, 0.5f), MathHelper.PiOver4, new Vector2(71, 21), 1f, SpriteEffects.None, 0f);
 			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/Flare").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 142, 42), Color.Multiply(color, 0.5f), -MathHelper.PiOver4, new Vector2(71, 21), 1f, SpriteEffects.None, 0f);
 			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/Glow").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 512, 512), Color.Multiply(color, 0.25f), Projectile.rotation, new Vector2(256, 256), 0.25f, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Melee/MoonBlast").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), color, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Content/Projectiles/Melee/MoonBlast").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), color, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

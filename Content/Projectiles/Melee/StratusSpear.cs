@@ -75,7 +75,7 @@ namespace Providence.Content.Projectiles.Melee
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Melee/StratusSpear").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 146, 42), Color.White, Projectile.rotation, new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Content/Projectiles/Melee/StratusSpear").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 146, 42), Color.White, Projectile.rotation, new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			for (int i = 0; i < Projectile.oldRot.Length; i++)
 			{
 				float alpha = 1f - (i * 0.1f);
@@ -85,7 +85,7 @@ namespace Providence.Content.Projectiles.Melee
 				colorV.Z *= alpha;
 				colorV.W *= alpha;
 				Color color = new(colorV.X, colorV.Y, colorV.Z, colorV.W);
-				Main.spriteBatch.Draw(Request<Texture2D>("Providence/Projectiles/Melee/StratusSpearGlow").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, 146, 42), color, Projectile.oldRot[i], new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Request<Texture2D>("Providence/Content/Projectiles/Melee/StratusSpearGlow").Value, Projectile.Providence().oldCen[i] - Main.screenPosition, new Rectangle(0, 0, 146, 42), color, Projectile.oldRot[i], new Vector2(Projectile.width, Projectile.height) * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			}
 			return false;
 		}

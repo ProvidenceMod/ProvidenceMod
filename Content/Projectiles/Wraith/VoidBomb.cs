@@ -35,7 +35,8 @@ namespace Providence.Content.Projectiles.Wraith
 				Projectile.velocity.Y = 16f;
 			Projectile.ai[0] += 1f;
 		}
-		public override bool PreDraw(ref Color color) {
+		public override bool PreDraw(ref Color color)
+		{
 			ParticleManager.NewParticle(Projectile.Center, new Vector2(Main.rand.NextFloat(-1f, 2f), Main.rand.NextFloat(-1f, 2f)), new Metaball(), Color.White, 0.2f);
 			return false;
 		}
@@ -59,7 +60,7 @@ namespace Providence.Content.Projectiles.Wraith
 			Player owner = Projectile.OwnerPlayer();
 			foreach (NPC npc in Main.npc)
 			{
-				if (npc.active && !npc.townNPC && 
+				if (npc.active && !npc.townNPC &&
 					npc.type != NPCID.DD2EterniaCrystal && npc.type != NPCID.DD2LanePortal &&
 					npc.Center.IsInRadiusOf(Projectile.position, 100f) && npc != contactTarget)
 				{

@@ -142,9 +142,9 @@ namespace Providence.Content.NPCs.SentinelAether
 
 				Color color = new Color(alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity, alpha * NPC.Opacity);
 
-				spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Providence().oldCen[i + i] - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, effect, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Content/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Providence().oldCen[i + i] - Main.screenPosition, rect, color, NPC.oldRot[i + i], new Vector2(NPC.width, NPC.height) * 0.5f, scale, effect, 0f);
 			}
-			spriteBatch.Draw(Request<Texture2D>("Providence/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, NPC.velocity.X < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
+			spriteBatch.Draw(Request<Texture2D>("Providence/Content/NPCs/SentinelAether/ZephyrDroneSheet").Value, NPC.Center - Main.screenPosition, rect, new Color(NPC.Opacity, NPC.Opacity, NPC.Opacity, NPC.Opacity), NPC.rotation, new Vector2(NPC.width, NPC.height) * 0.5f, NPC.scale, NPC.velocity.X < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
 			return false;
 		}
 	}

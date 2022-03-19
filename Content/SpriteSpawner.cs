@@ -48,6 +48,7 @@ namespace Providence.Content
 				{
 					RenderTargetManager.BasicLayer.Sprites.Remove(this);
 					RenderTargetManager.EmberLayer.Sprites.Remove(this);
+					RenderTargetManager.EmberLayer.MaskedSprites.Remove(this);
 					RenderTargetManager.FlameLayer.Sprites.Remove(this);
 				}
 				x = 0;
@@ -59,6 +60,7 @@ namespace Providence.Content
 			{
 				RenderTargetManager.BasicLayer.Sprites.Add(this);
 				RenderTargetManager.EmberLayer.Sprites.Add(this);
+				RenderTargetManager.EmberLayer.MaskedSprites.Add(this);
 				RenderTargetManager.FlameLayer.Sprites.Add(this);
 			}
 			x = (int)(Main.MouseWorld.X / 16);
@@ -89,12 +91,11 @@ namespace Providence.Content
 
 				Vector2 bezier = ProvidenceMath.BezierPoint(sin, pos1, pos2, pos3, pos4);
 
-				Console.WriteLine(bezier);
 				progress += 1f;
 
 				if (progress % 10 == 0)
 				{
-					ParticleManager.NewParticle(bezier, Vector2.Zero, new EmberParticle(), Color.White, 1f);
+					ParticleManager.NewParticle(pos, new Vector2(Main.rand.NextFloat(-3f, 4f), Main.rand.NextFloat(-3f, 4f)), new Metaball(), Color.White, 1f);
 				}
 
 				DrawLine(spriteBatch, pos1 - Main.screenPosition, pos4 - Main.screenPosition, new Color(1f, 0.8f, 0.3f, 0f), 5f);
@@ -105,10 +106,24 @@ namespace Providence.Content
 				//effect.Parameters["uProgress"].SetValue(progress / 100f);
 				//effect.CurrentTechnique.Passes[0].Apply();
 
-				//Texture2D circle = ModContent.Request<Texture2D>("Redemption/Textures/EmptyPixel").Value;
+				//Texture2D circle = ModContent.Request<Texture2D>("Providence/Assets/Textures/EmptyPixel").Value;
 
 				//spriteBatch.Draw(circle, new Vector2(x * 16, y * 16) - Main.screenPosition, Color.White);
 				//spriteBatch.Draw(circle, new Vector2(x * 16, y * 16) - Main.screenPosition - new Vector2(progress * 0.5f * sin, progress * 0.5f * sin), new Rectangle(0, 0, 1, 1), Color.White, 0f, Vector2.Zero, progress * sin, SpriteEffects.None, 0f);
+			}
+			if (sender == RenderTargetManager.EmberLayer)
+			{
+				Texture2D glow = Request<Texture2D>("Providence/Assets/Textures/WhitePixel").Value;
+				spriteBatch.Draw(glow, pos + new Vector2(0f, -128f) - Main.screenPosition, glow.Bounds, new Color(0f, 1f, 0f, 1f), 0f, Vector2.Zero, 100f, SpriteEffects.None, 0f);
+			}
+		}
+		public void PostDraw(object sender, SpriteBatch spriteBatch)
+		{
+			Vector2 pos = new(x * 16, y * 16);
+			if (sender == RenderTargetManager.EmberLayer)
+			{
+				Texture2D glow = Request<Texture2D>("Providence/Assets/Textures/WhitePixel").Value;
+				spriteBatch.Draw(glow, pos - Main.screenPosition, glow.Bounds, new Color(0f, 1f, 0f, 1f), 0f, Vector2.Zero, 100f, SpriteEffects.None, 0f);
 			}
 		}
 	}

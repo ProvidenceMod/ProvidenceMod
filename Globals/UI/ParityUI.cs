@@ -179,8 +179,8 @@ namespace Providence.UI
 					RadiantUse.SetFrame(RadiantUseRect);
 				}
 
-				// if (prov.ShadowAmp) bLFrame.SetImage(Request<Texture2D>("Providence/UI/ShadowUIFrameAmp"));
-				// else bLFrame.SetImage(Request<Texture2D>("Providence/UI/ShadowUIFrame"));
+				// if (prov.ShadowAmp) bLFrame.SetImage(Request<Texture2D>("Providence/Assets/Textures/UI/ShadowUIFrameAmp"));
+				// else bLFrame.SetImage(Request<Texture2D>("Providence/Assets/Textures/UI/ShadowUIFrame"));
 			}
 		}
 	}

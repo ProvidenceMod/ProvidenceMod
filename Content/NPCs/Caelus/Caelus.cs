@@ -12,6 +12,7 @@ using Providence.World;
 using System;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Providence.ProvidenceUtils;
@@ -250,6 +251,7 @@ namespace Providence.Content.NPCs.Caelus
 						}
 						spriteBatch.Draw(glow, particlePos - Main.screenPosition, new Rectangle(0, 0, 64, 64), mid, 0f, new Vector2(32f, 32f), 1f * 0.125f, SpriteEffects.None, 0f);
 					}
+					//DrawLine(spriteBatch, point.position - Main.screenPosition, point.lead.position - Main.screenPosition, mid, 3f);
 				}
 			}
 

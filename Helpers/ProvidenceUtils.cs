@@ -140,9 +140,9 @@ namespace Providence
 				DrawBorderStringEightWay(spriteBatch, ProvidenceMod.bossHealthFont, $"{comboDMG}", new Vector2(xPos + (48f * scale) + 2f, yPos + 9f) - Main.screenPosition, new Color((int)(255 * opacity), (int)(255 * opacity), (int)(255 * opacity), (int)(255 * opacity)), new Color((int)(23 * opacity), (int)(23 * opacity), (int)(23 * opacity), (int)(255 * opacity)), 0.4f);
 				spriteBatch.End();
 			}
-			Main.spriteBatch.Draw(Request<Texture2D>("Providence/TexturePack/UI/HB1").Value, new Vector2(xPos, yPos) - Main.screenPosition, new Rectangle(0, 0, 48, 20), Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(Request<Texture2D>("Providence/TexturePack/UI/HB3").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, comboRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(Request<Texture2D>("Providence/TexturePack/UI/HB2").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, healthRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Assets/TexturePack/UI/HB1").Value, new Vector2(xPos, yPos) - Main.screenPosition, new Rectangle(0, 0, 48, 20), Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Assets/TexturePack/UI/HB3").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, comboRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(Request<Texture2D>("Providence/Assets/TexturePack/UI/HB2").Value, new Vector2(xPos + 6f * scale, yPos + 6f * scale) - Main.screenPosition, healthRect, Color.White, 0f, new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
 		}
 		public static void DrawBorderStringEightWay(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 position, Color color, Color border, float scale = 1f)
 		{

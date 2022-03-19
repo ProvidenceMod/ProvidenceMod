@@ -68,15 +68,15 @@ namespace Providence.Content.Items.TreasureBags
 					colorV.Z *= alpha;
 					colorV.W *= alpha;
 					Color color = new Color(colorV.X, colorV.Y, colorV.Z, colorV.W);
-					spriteBatch.Draw(Request<Texture2D>("Providence/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), color, rotation, new Vector2(Item.width / 2, Item.height / 2), newScale, SpriteEffects.None, 0f);
+					spriteBatch.Draw(Request<Texture2D>("Providence/Content/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), color, rotation, new Vector2(Item.width / 2, Item.height / 2), newScale, SpriteEffects.None, 0f);
 				}
 				float sin = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 12f) * 4f;
 				float cos = (float)Math.Cos(Main.GlobalTimeWrappedHourly * 12f) * 4f;
-				spriteBatch.Draw(Request<Texture2D>("Providence/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(4f, 0f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
-				spriteBatch.Draw(Request<Texture2D>("Providence/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(0f, 4f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
-				spriteBatch.Draw(Request<Texture2D>("Providence/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(-4f, 0f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
-				spriteBatch.Draw(Request<Texture2D>("Providence/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(0f, -4f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
-				spriteBatch.Draw(Request<Texture2D>("Providence/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), lightColor, rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Content/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(4f, 0f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Content/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(0f, 4f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Content/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(-4f, 0f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Content/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition + new Vector2(0f, -4f) + new Vector2(cos, sin), new Rectangle(0, 0, Item.width, Item.height), new Color(1f, 1f, 1f, 0.25f), rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Request<Texture2D>("Providence/Content/Items/TreasureBags/CaelusBag").Value, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), lightColor, rotation, new Vector2(Item.width / 2, Item.height / 2), 1f, SpriteEffects.None, 0f);
 				spriteBatch1.End();
 				return false;
 			}

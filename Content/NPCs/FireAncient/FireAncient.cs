@@ -83,7 +83,7 @@ namespace Providence.Content.NPCs.FireAncient
 		}
 		public override void FindFrame(int frameHeight)
 		{
-			Texture2D tex = Request<Texture2D>("NPCs/FireAncient/FireAncient").Value;
+			Texture2D tex = Request<Texture2D>("Providence/Content/NPCs/FireAncient/FireAncient").Value;
 			NPC npc = NPC;
 			if (NPC.frameCounter + 0.5f > 5f)
 			{

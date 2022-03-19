@@ -42,6 +42,10 @@ namespace Providence.Globals.Systems.Particles
 			if (sender == RenderTargetManager.EmberLayer)
 				spriteBatch.Draw(ModContent.Request<Texture2D>("Providence/Assets/Textures/Masks/CircleMask").Value, VisualPosition, new Rectangle(0, 0, 512, 512), Color.White, rotation, new Vector2(256, 256), scale * 0.1f, SpriteEffects.None, 0f);
 		}
+		public void PostDraw(object sender, SpriteBatch spriteBatch)
+		{
+
+		}
 		public void Spawn()
 		{
 			RenderTargetManager.FlameLayer.Sprites.Add(this);

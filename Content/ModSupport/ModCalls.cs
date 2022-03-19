@@ -45,8 +45,8 @@
 			//		"Sky Islands will usually contain every material needed to craft the spawner. " +
 			//		"A Skymill can be crafted. Must be spawned on the surface. Cannot spawn when another boss is active.",
 			//		"The winds calm.", // Death message
-			//		"Providence/NPCs/Caelus/Caelus", // Texture
-			//		"Providence/NPCs/Caelus/Caelus_Head", // Icon
+			//		"Providence/Content/NPCs/Caelus/Caelus", // Texture
+			//		"Providence/Content/NPCs/Caelus/Caelus_Head", // Icon
 			//		() => true // Available
 			//	);
 		}

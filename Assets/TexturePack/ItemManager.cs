@@ -10,7 +10,7 @@ namespace Providence.TexturePack
 		public static Texture2D[] originalTextures = (Texture2D[])Terraria.GameContent.TextureAssets.Item.Clone();
 		public static void Load()
 		{
-			Terraria.GameContent.TextureAssets.Item[ItemID.MagmaStone] = Request<Texture2D>("Providence/TexturePack/Items/Accessories/MagmaStone");
+			Terraria.GameContent.TextureAssets.Item[ItemID.MagmaStone] = Request<Texture2D>("Providence/Assets/TexturePack/Items/Accessories/MagmaStone");
 		}
 
 		public static void InitializeItemGlowMasks(this Item item)
@@ -18,7 +18,7 @@ namespace Providence.TexturePack
 			switch (item.type)
 			{
 				case ItemID.MagmaStone:
-					//item.Providence().glowMaskTexture = Request<Texture2D>("Providence/TexturePack/Items/Accessories/MagmaStoneGlow");
+					//item.Providence().glowMaskTexture = Request<Texture2D>("Providence/Assets/TexturePack/Items/Accessories/MagmaStoneGlow");
 					//item.Providence().overrideGlowMaskPositionX = -2;
 					break;
 			}

@@ -28,6 +28,7 @@ namespace Providence.RenderTargets
 			};
 			Main.OnResolutionChanged += CheckScreenSize;
 			Main.OnPreDraw += (gameTime) => { PreDrawLayers(Main.spriteBatch, Main.graphics.GraphicsDevice); };
+			Main.OnPostDraw += (gameTime) => { PostDrawLayers(Main.spriteBatch); };
 			UpdateRenderTargets();
 		}
 		public override void Unload()
@@ -45,6 +46,7 @@ namespace Providence.RenderTargets
 			};
 			Main.OnResolutionChanged -= CheckScreenSize;
 			Main.OnPreDraw -= (gameTime) => { PreDrawLayers(Main.spriteBatch, Main.graphics.GraphicsDevice); };
+			Main.OnPostDraw -= (gameTime) => { PostDrawLayers(Main.spriteBatch); };
 		}
 		public override void OnWorldLoad()
 		{
@@ -72,8 +74,9 @@ namespace Providence.RenderTargets
 		public void DisposeLayers()
 		{
 			BasicLayer.Sprites.Clear();
-			EmberLayer.Sprites.Clear();
 			FlameLayer.Sprites.Clear();
+			EmberLayer.Sprites.Clear();
+			EmberLayer.MaskedSprites.Clear();
 			ZephyrLayer.Sprites.Clear();
 		}
 		public void ResetLayerTargets()
@@ -83,6 +86,7 @@ namespace Providence.RenderTargets
 			FlameLayer.Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 			FlameLayer.EffectTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 			EmberLayer.Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
+			EmberLayer.PostTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 			EmberLayer.EffectTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 			ZephyrLayer.Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
 			ZephyrLayer.EffectTarget = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
@@ -121,6 +125,11 @@ namespace Providence.RenderTargets
 				ZephyrLayer.DrawLayer(spriteBatch);
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+		}
+		private void PostDrawLayers(SpriteBatch spriteBatch)
+		{
+			if (EmberLayer?.MaskedSprites.Count > 0)
+				EmberLayer.PostDrawLayer(spriteBatch);
 		}
 	}
 }

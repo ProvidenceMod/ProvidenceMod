@@ -64,7 +64,7 @@ namespace Providence.Content.Projectiles.Wraith
 					npc.type != NPCID.DD2EterniaCrystal && npc.type != NPCID.DD2LanePortal &&
 					npc.Center.IsInRadiusOf(Projectile.position, 100f) && npc != contactTarget)
 				{
-					_ = npc.StrikeNPC(50, 1f, -npc.direction, owner.GetCritChance(DamageClass.Throwing).PercentChance());
+					_ = npc.StrikeNPC(50, 1f, -npc.direction, Main.rand.NextFloat() <= owner.GetCritChance(DamageClass.Throwing));
 				}
 			}
 		}

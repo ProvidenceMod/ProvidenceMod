@@ -13,7 +13,7 @@ namespace Providence.Content.Items.Weapons.Magic
 {
 	public class VoidGrasper : ModItem
 	{
-		private bool MineMode = false;
+		private bool MineMode = false, oldMineMode = false;
 		private List<int> mines = new List<int>();
 		private const byte mineLimit = 5;
 		public override void SetDefaults()
@@ -33,6 +33,7 @@ namespace Providence.Content.Items.Weapons.Magic
 					mines.RemoveAt(i);
 				}
 			}
+			oldMineMode = MineMode;
 		}
 		public override bool AltFunctionUse(Player player) => true;
 		public override bool CanUseItem(Player player)
@@ -47,7 +48,7 @@ namespace Providence.Content.Items.Weapons.Magic
 		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (MineMode)
+			if (oldMineMode)
 			{
 				mines.Add(Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, type, 0, knockback, default, 1));
 				if (mines.Count > 5) { Main.projectile[mines[0]].active = false; mines.RemoveAt(0); } // Remove the oldest

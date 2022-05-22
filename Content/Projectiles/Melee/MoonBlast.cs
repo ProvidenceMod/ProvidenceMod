@@ -63,7 +63,7 @@ namespace Providence.Content.Projectiles.Melee
 				if (Projectile.timeLeft > 120)
 				{
 					if (Projectile.position.IsInRadiusOf(target.position, 500f) && Projectile.ai[0] % 25 == 0)
-						Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Projectile.AngleTo(target.Center)).RotatedBy(Main.rand.NextFloat(0f, MathHelper.TwoPi)), ProjectileType<MoonBeam>(), 100, 0f, Projectile.owner);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Projectile.AngleTo(target.Center)).RotatedBy(Main.rand.NextFloat(0f, MathHelper.TwoPi)), ProjectileType<MoonBeam>(), 100, 0f, Projectile.owner);
 					Vector2 position = new Vector2(target.Center.X + ((float)Math.Sin(Main.GlobalTimeWrappedHourly) * 300f),
 																				 target.Center.Y + ((float)Math.Sin(Main.GlobalTimeWrappedHourly) * 300f));
 					Vector2 unitY = Projectile.DirectionTo(position);

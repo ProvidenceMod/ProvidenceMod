@@ -44,7 +44,7 @@ namespace Providence.Content.Projectiles.Magic
 					npc.type != NPCID.DD2EterniaCrystal && npc.type != NPCID.DD2LanePortal &&
 					npc.Center.IsInRadiusOf(Projectile.position, 300f))	
 				{
-					_ = npc.StrikeNPC(750, 1f, -npc.direction, Projectile.OwnerPlayer().GetCritChance(DamageClass.Magic).PercentChance());
+					_ = npc.StrikeNPC(750, 1f, -npc.direction, Main.rand.NextFloat() <= Projectile.OwnerPlayer().GetCritChance(DamageClass.Magic));
 				}
 			}
 		}

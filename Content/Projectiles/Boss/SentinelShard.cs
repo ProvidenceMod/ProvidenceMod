@@ -53,7 +53,7 @@ namespace Providence.Content.Projectiles.Boss
 			if (Projectile.friendly)
 			{
 				for (int i = 0; i < 3; i++)
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, Projectile.ai[1], Main.rand.Next(0, 3));
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, Projectile.ai[1], Main.rand.Next(0, 3));
 			}
 			Projectile.penetrate--;
 		}
@@ -63,7 +63,7 @@ namespace Providence.Content.Projectiles.Boss
 			if (WorldFlags.wrath && Projectile.hostile)
 			{
 				for (int i = 0; i < 3; i++)
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, Projectile.ai[1], Main.rand.Next(0, 3));
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, Projectile.ai[1], Main.rand.Next(0, 3));
 			}
 			Projectile.penetrate--;
 		}
@@ -80,7 +80,7 @@ namespace Providence.Content.Projectiles.Boss
 			if (WorldFlags.wrath || Projectile.friendly)
 			{
 				for (int i = 0; i < 3; i++)
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, Projectile.ai[1], Main.rand.Next(0, 3));
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(4f, 0f).RotatedBy(Main.rand.NextFloat(-MathHelper.Pi, 0f)), ProjectileType<SentinelShrapnel>(), 5, 0f, default, Projectile.ai[1], Main.rand.Next(0, 3));
 			}
 			return true;
 		}

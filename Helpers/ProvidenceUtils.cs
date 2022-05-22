@@ -547,24 +547,26 @@ namespace Providence
 		public static void DrawPanel(SpriteBatch spriteBatch, Vector2 position, int width, int height, Color color = default)
 		{
 			bool useColor = color != default;
-			// Top side
-			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(16f, 0f), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Bottom side
-			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(width - 16f, height), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Left Side
-			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(0f, height - 16), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Right side
-			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(width, 16f), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Top left corner
+			// Top Left
 			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position, new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Top right corner
+			// Top Middle
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(16f, 0f), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Top Right
 			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(width, 0f), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Bottom left corner
-			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(0f, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Bottom right corner
-			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(width, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-			// Center
+			
+			// Middle Left
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(0f, height - 16), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Middle
 			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCenter").Value, position + new Vector2(16f, 16f), new Rectangle(0, 0, width - 32, height - 32), useColor ? color : Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Middle Right
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(width, 16f), new Rectangle(0, 0, height - 32, 16), useColor ? color : Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			
+			// Bottom Left
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(0f, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, -MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Bottom Middle
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelSide").Value, position + new Vector2(width - 16f, height), new Rectangle(0, 0, width - 32, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			// Bottom Right
+			spriteBatch.Draw(Request<Texture2D>("Providence/Assets/Textures/UI/PanelCorner").Value, position + new Vector2(width, height), new Rectangle(0, 0, 16, 16), useColor ? color : Color.White, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
 	}
 }

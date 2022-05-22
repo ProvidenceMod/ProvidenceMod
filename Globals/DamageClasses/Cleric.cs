@@ -8,11 +8,11 @@ namespace Providence.DamageClasses
 		{
 			ClassName.AddTranslation(0, "cleric");
 		}
-		protected override float GetBenefitFrom(DamageClass damageClass)
-		{
-			if (damageClass == Generic)
-				return 1f;
-			return 0f;
-		}
+		//protected override float GetBenefitFrom(DamageClass damageClass)
+		//{
+		//	if (damageClass == Generic)
+		//		return 1f;
+		//	return 0f;
+		//}
 	}
 }

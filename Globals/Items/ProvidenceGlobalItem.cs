@@ -23,6 +23,10 @@ namespace Providence
 			myClone.highlight = highlight;
 			return myClone;
 		}
+		public override void SetDefaults(Item item)
+		{
+			item.autoReuse = true;
+		}
 		public override bool OnPickup(Item item, Player player)
 		{
 			highlight = false;
@@ -32,11 +36,6 @@ namespace Providence
 		{
 			RarityAuras.DrawAuras(item, spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
 			return true;
-		}
-		public override void SetDefaults(Item item)
-		{
-			if (item.maxStack == 99 || item.maxStack == 30)
-				item.maxStack = 999;
 		}
 		public override void AddRecipes()
 		{

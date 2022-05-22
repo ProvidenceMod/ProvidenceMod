@@ -110,6 +110,11 @@ namespace Providence.Content
 
 				//spriteBatch.Draw(circle, new Vector2(x * 16, y * 16) - Main.screenPosition, Color.White);
 				//spriteBatch.Draw(circle, new Vector2(x * 16, y * 16) - Main.screenPosition - new Vector2(progress * 0.5f * sin, progress * 0.5f * sin), new Rectangle(0, 0, 1, 1), Color.White, 0f, Vector2.Zero, progress * sin, SpriteEffects.None, 0f);
+				Texture2D pix = Request<Texture2D>("Providence/Content/NPCs/FireAncient/FireAncient").Value;
+				Effect chroma = Request<Effect>("Providence/Assets/Effects/ChromaAberration", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				chroma.Parameters["conversion"].SetValue(new Vector2(1f / pix.Width, 1f / pix.Height));
+				chroma.CurrentTechnique.Passes[0].Apply();
+				spriteBatch.Draw(pix, pos + new Vector2(0f, -256f) - Main.screenPosition, pix.Bounds, new Color(1f, 1f, 1f, 1f), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			}
 			if (sender == RenderTargetManager.EmberLayer)
 			{

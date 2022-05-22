@@ -62,7 +62,6 @@ namespace Providence.Content.Tiles.SentinelAether
 		}
 
 		public override void PostSetDefaults() => Main.tileNoSunLight[Type] = false;
-		public override bool HasSmartInteract() => false;
 		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
 	}
 }

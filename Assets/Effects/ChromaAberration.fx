@@ -10,7 +10,7 @@ struct VertexShaderOutput
 
 float4 Chroma(VertexShaderOutput input) : COLOR0
 {
-	if(input.Color.a == 0.0f)
+	if (input.Color.a == 0.0f)
 		return input.Color;
 
 	float2 coord2 = float2(input.TextureCoordinates.x + conversion.x, input.TextureCoordinates.y + conversion.y);
@@ -28,40 +28,10 @@ float4 Chroma(VertexShaderOutput input) : COLOR0
 	return finalTex;
 }
 
-//float4 Red(VertexShaderOutput input) : COLOR0
-//{
-//	float4 color = tex2D(SpriteSampler, input.TextureCoordinates);
-//	input.TextureCoordinates = input.TextureCoordinates - conversion.x;
-//	return float4(color.r, 0.0f, 0.0f, color.a / 3.0f);
-//}
-//float4 Green(VertexShaderOutput input) : COLOR0
-//{
-//	float4 color = tex2D(SpriteSampler, input.TextureCoordinates);
-//	return float4(0.0f, color.g, 0.0f, color.a / 3.0f);
-//}
-//float4 Blue(VertexShaderOutput input) : COLOR0
-//{
-//	float4 color = tex2D(SpriteSampler, input.TextureCoordinates);
-//	input.TextureCoordinates = input.TextureCoordinates + conversion.x;
-//	return float4(0.0f, 0.0f, color.b, color.a / 3.0f);
-//}
-
 technique Technique1
 {
 	pass Chroma
 	{
 		PixelShader = compile ps_2_0 Chroma();
 	}
-	//pass Red
-	//{
-	//	PixelShader = compile ps_2_0 Red();
-	//}
-	//pass Green
-	//{
-	//	PixelShader = compile ps_2_0 Green();
-	//}
-	//pass Blue
-	//{
-	//	PixelShader = compile ps_2_0 Blue();
-	//}
 }
